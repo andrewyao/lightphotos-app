@@ -1,73 +1,38 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="description" content="Run LightPhotos in your browser — a fast, private photo editor with nothing to install." />
-<title>LightPhotos for Web</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,560&family=Inter:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="./lp.css">
+  <meta charset="utf-8" />
+  <title>LightPhotos for Web</title>
+  <meta name="description" content="LightPhotos in the browser — open a local folder, cull and develop your photos, nothing leaves your machine." />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    html, body { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background: #1e1e1e; }
+  </style>
+  <!-- Built by `trunk build --release` in the lightphotos repo (branch
+       wasm-port-phase1) and copied here as static output — this repo has
+       no build tooling of its own, matching how the earlier
+       wasm-decode-probe spike's files are already committed the same way.
+       To redeploy after a lightphotos change: `trunk build --release`,
+       copy the four asset files below (old hashed ones can be deleted),
+       update the two hashed URLs below to match, commit, push. -->
+  <script type="module">
+import init, * as bindings from '/lightphotos-edc6a8a5f99bc5d1.js';
+const wasm = await init({ module_or_path: '/lightphotos-edc6a8a5f99bc5d1_bg.wasm' });
+
+window.wasmBindings = bindings;
+
+dispatchEvent(new CustomEvent("TrunkApplicationStarted", {detail: {wasm}}));
+  </script>
+  <!-- The Web Worker decode pool's entry point (wasm_worker.js/_bg.wasm) —
+       stable, non-hashed filenames by design (see web_worker_pool.rs's
+       spawn_worker doc comment), so these two don't need updating on
+       redeploy the way the two hashed URLs above do. -->
+  <link rel="modulepreload" href="/lightphotos-edc6a8a5f99bc5d1.js" crossorigin="anonymous">
+  <link rel="preload" href="/lightphotos-edc6a8a5f99bc5d1_bg.wasm" crossorigin="anonymous" as="fetch" type="application/wasm">
 </head>
 <body>
-  <header class="lp-site-header">
-    <a class="lp-brand" href="/">Light<span class="lp-light">Photos</span></a>
-    <nav aria-label="Main">
-      <a href="./app.html" class="lp-active">Web</a>
-      <a href="./downloads.html">Downloads</a>
-      <a href="./blogs.html">Blogs</a>
-      <a href="./docs.html">Help</a>
-    </nav>
-  </header>
-
-  <main class="lp-page">
-    <section class="lp-hero lp-hero-compact">
-      <div class="lp-glow"></div>
-      <h1 class="lp-wordmark">LightPhotos <span class="lp-light">Web</span></h1>
-      <p class="lp-lede">
-        The full editor, running in your browser tab. Nothing to install,
-        no account needed &mdash; your photos never leave your machine.
-      </p>
-    </section>
-
-    <section class="lp-panel" aria-label="Application preview">
-      <svg class="lp-shot" viewBox="0 0 320 200" role="img" aria-label="LightPhotos running in a browser">
-        <rect x="1" y="1" width="318" height="198" rx="14" fill="#fffdfa" stroke="#eadfcb"/>
-        <circle cx="22" cy="16" r="4.5" fill="#e8927c"/>
-        <circle cx="37" cy="16" r="4.5" fill="#ecc94b"/>
-        <circle cx="52" cy="16" r="4.5" fill="#9ac586"/>
-        <defs>
-          <linearGradient id="lp-sky" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stop-color="#ffe9c7"/>
-            <stop offset="1" stop-color="#ffb454"/>
-          </linearGradient>
-        </defs>
-        <rect x="14" y="34" width="292" height="112" rx="8" fill="url(#lp-sky)"/>
-        <circle cx="252" cy="68" r="16" fill="#fff3dd" opacity="0.9"/>
-        <polygon points="14,146 108,78 196,146" fill="#c98a45"/>
-        <polygon points="118,146 214,88 306,146" fill="#a06a30"/>
-        <rect x="14" y="158" width="292" height="5" rx="2.5" fill="#efe7d8"/>
-        <circle cx="96" cy="160.5" r="6" fill="#ffb454" stroke="#fffdfa" stroke-width="2"/>
-        <rect x="14" y="176" width="292" height="5" rx="2.5" fill="#efe7d8"/>
-        <circle cx="204" cy="178.5" r="6" fill="#b8722a" stroke="#fffdfa" stroke-width="2"/>
-      </svg>
-    </section>
-
-    <section class="lp-actions" aria-label="Highlights">
-      <div class="lp-card">
-        <h3>Private by design</h3>
-        <p>All processing happens locally via WebAssembly. No uploads, ever.</p>
-      </div>
-      <div class="lp-card">
-        <h3>Fast</h3>
-        <p>A compiled core keeps edits instant, even on large RAW files.</p>
-      </div>
-      <div class="lp-card">
-        <h3>Works offline</h3>
-        <p>Once loaded, the editor keeps working without a connection.</p>
-      </div>
-    </section>
-  </main>
+  <!-- winit inserts its own <canvas> here at startup (web_canvas.rs) — the
+       app draws its own header/nav in-canvas (ui::site_nav), so this page
+       intentionally carries none of the site's HTML chrome/theme toggle. -->
 </body>
 </html>
