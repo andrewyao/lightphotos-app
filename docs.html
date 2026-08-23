@@ -2,8 +2,18 @@
 <html lang="en">
 <head>
 <meta charset="utf-8" />
+<script>
+(function () {
+  try {
+    var t = localStorage.getItem('lp-theme');
+    if (t === 'light' || t === 'neutral' || t === 'dark') {
+      document.documentElement.setAttribute('data-theme', t);
+    }
+  } catch (e) {}
+})();
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="description" content="LightPhotos documentation — guides, supported formats, shortcuts, and answers." />
+<meta name="description" content="LightPhotos Documentation — under construction. Details to be determined." />
 <title>LightPhotos Documentation</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,50 +23,36 @@
 <body>
   <header class="lp-site-header">
     <a class="lp-brand" href="/">Light<span class="lp-light">Photos</span></a>
+    <div class="lp-header-right">
     <nav aria-label="Main">
       <a href="./app.html">Web</a>
       <a href="./downloads.html">Downloads</a>
       <a href="./blogs.html">Blogs</a>
       <a href="./docs.html" class="lp-active">Help</a>
     </nav>
+    <div class="lp-theme-toggle" role="group" aria-label="Theme">
+      <button type="button" data-theme-choice="light" aria-label="Light theme" aria-pressed="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      </button>
+      <button type="button" data-theme-choice="neutral" aria-label="Neutral gray theme" aria-pressed="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor" stroke="none"/></svg>
+      </button>
+      <button type="button" data-theme-choice="dark" aria-label="Dark theme" aria-pressed="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+    </div>
+    </div>
   </header>
 
   <main class="lp-page">
     <section class="lp-hero lp-hero-compact">
       <div class="lp-glow"></div>
-      <h1 class="lp-wordmark">Documentation</h1>
+      <h1 class="lp-wordmark"><span class="lp-light">TBD</span></h1>
       <p class="lp-lede">
-        Everything you need to get the most out of LightPhotos &mdash;
-        from your first edit to advanced workflows.
+        Documentation isn't written yet &mdash; this page is to be determined.
       </p>
-    </section>
-
-    <section class="lp-actions" aria-label="Documentation sections">
-      <a class="lp-card" href="/docs/getting-started.html">
-        <h3>Getting started <span class="lp-go" aria-hidden="true">&rarr;</span></h3>
-        <p>Open your first photo, make an edit, and export it. A five-minute tour.</p>
-      </a>
-      <a class="lp-card" href="/docs/formats.html">
-        <h3>Supported formats <span class="lp-go" aria-hidden="true">&rarr;</span></h3>
-        <p>JPEG, PNG, WebP, AVIF, TIFF, and the RAW formats we can decode.</p>
-      </a>
-      <a class="lp-card" href="/docs/shortcuts.html">
-        <h3>Keyboard shortcuts <span class="lp-go" aria-hidden="true">&rarr;</span></h3>
-        <p>The complete shortcut reference for fast, hands-on-keyboard editing.</p>
-      </a>
-      <a class="lp-card" href="/docs/faq.html">
-        <h3>FAQ <span class="lp-go" aria-hidden="true">&rarr;</span></h3>
-        <p>Privacy, browser support, troubleshooting, and other common questions.</p>
-      </a>
-    </section>
-
-    <section class="lp-panel lp-panel-center">
-      <h2>Stuck on something?</h2>
-      <p>
-        If the docs don't cover it, we want to hear about it.
-      </p>
-      <a class="lp-btn" href="mailto:support@lightphotos.app">Contact support</a>
     </section>
   </main>
+<script src="./lp-theme.js"></script>
 </body>
 </html>

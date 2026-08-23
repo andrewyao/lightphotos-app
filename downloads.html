@@ -2,8 +2,18 @@
 <html lang="en">
 <head>
 <meta charset="utf-8" />
+<script>
+(function () {
+  try {
+    var t = localStorage.getItem('lp-theme');
+    if (t === 'light' || t === 'neutral' || t === 'dark') {
+      document.documentElement.setAttribute('data-theme', t);
+    }
+  } catch (e) {}
+})();
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="description" content="Download LightPhotos for macOS, Windows and Linux." />
+<meta name="description" content="Download LightPhotos — under construction. Details to be determined." />
 <title>Download LightPhotos</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,59 +23,36 @@
 <body>
   <header class="lp-site-header">
     <a class="lp-brand" href="/">Light<span class="lp-light">Photos</span></a>
+    <div class="lp-header-right">
     <nav aria-label="Main">
       <a href="./app.html">Web</a>
       <a href="./downloads.html" class="lp-active">Downloads</a>
       <a href="./blogs.html">Blogs</a>
       <a href="./docs.html">Help</a>
     </nav>
+    <div class="lp-theme-toggle" role="group" aria-label="Theme">
+      <button type="button" data-theme-choice="light" aria-label="Light theme" aria-pressed="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      </button>
+      <button type="button" data-theme-choice="neutral" aria-label="Neutral gray theme" aria-pressed="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor" stroke="none"/></svg>
+      </button>
+      <button type="button" data-theme-choice="dark" aria-label="Dark theme" aria-pressed="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+    </div>
+    </div>
   </header>
 
   <main class="lp-page">
     <section class="lp-hero lp-hero-compact">
       <div class="lp-glow"></div>
-      <h1 class="lp-wordmark">Downloads</h1>
+      <h1 class="lp-wordmark"><span class="lp-light">TBD</span></h1>
       <p class="lp-lede">
-        The same editor as the web app, packaged as a native desktop build.
-        Faster startup, offline by default, full file-system access.
+        No builds are available yet &mdash; this page is to be determined.
       </p>
     </section>
-
-    <section class="lp-actions" aria-label="Desktop builds">
-      <div class="lp-card">
-        <span class="lp-meta">v0.1.0 alpha &middot; 24 MB</span>
-        <h3>macOS</h3>
-        <p>Universal binary for Apple silicon and Intel. macOS 13 or later.</p>
-        <a class="lp-btn" href="/downloads/LightPhotos-macOS.dmg">Download .dmg</a>
-      </div>
-      <div class="lp-card">
-        <span class="lp-meta">v0.1.0 alpha &middot; 28 MB</span>
-        <h3>Windows</h3>
-        <p>64-bit installer. Windows 10 (1903+) or Windows 11.</p>
-        <a class="lp-btn" href="/downloads/LightPhotos-Setup.exe">Download .exe</a>
-      </div>
-      <div class="lp-card">
-        <span class="lp-meta">v0.1.0 alpha &middot; 31 MB</span>
-        <h3>Linux</h3>
-        <p>AppImage with bundled WebAssembly runtime. glibc 2.31+.</p>
-        <a class="lp-btn" href="/downloads/LightPhotos.AppImage">Download .AppImage</a>
-      </div>
-    </section>
-
-    <section class="lp-actions lp-actions-tight" aria-label="More options">
-      <div class="lp-card">
-        <h3>Checksums <span class="lp-go" aria-hidden="true">&rarr;</span></h3>
-        <p>SHA-256 hashes for every build, signed with our release key.</p>
-      </div>
-      <div class="lp-card">
-        <h3>Changelog <span class="lp-go" aria-hidden="true">&rarr;</span></h3>
-        <p>What's new, what's fixed, and what's still rough around the edges.</p>
-      </div>
-      <div class="lp-card">
-        <h3>Older versions <span class="lp-go" aria-hidden="true">&rarr;</span></h3>
-        <p>Previous releases, kept for compatibility and rollback.</p>
-      </div>
-    </section>
   </main>
+<script src="./lp-theme.js"></script>
 </body>
 </html>
