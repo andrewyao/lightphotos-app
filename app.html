@@ -16,8 +16,8 @@
        copy the four asset files below (old hashed ones can be deleted),
        update the two hashed URLs below to match, commit, push. -->
   <script type="module">
-import init, * as bindings from '/lightphotos-edc6a8a5f99bc5d1.js';
-const wasm = await init({ module_or_path: '/lightphotos-edc6a8a5f99bc5d1_bg.wasm' });
+import init, * as bindings from '/lightphotos-6ce84957d3c51cc0.js';
+const wasm = await init({ module_or_path: '/lightphotos-6ce84957d3c51cc0_bg.wasm' });
 
 window.wasmBindings = bindings;
 
@@ -27,8 +27,8 @@ dispatchEvent(new CustomEvent("TrunkApplicationStarted", {detail: {wasm}}));
        stable, non-hashed filenames by design (see web_worker_pool.rs's
        spawn_worker doc comment), so these two don't need updating on
        redeploy the way the two hashed URLs above do. -->
-  <link rel="modulepreload" href="/lightphotos-edc6a8a5f99bc5d1.js" crossorigin="anonymous">
-  <link rel="preload" href="/lightphotos-edc6a8a5f99bc5d1_bg.wasm" crossorigin="anonymous" as="fetch" type="application/wasm">
+  <link rel="modulepreload" href="/lightphotos-6ce84957d3c51cc0.js" crossorigin="anonymous">
+  <link rel="preload" href="/lightphotos-6ce84957d3c51cc0_bg.wasm" crossorigin="anonymous" as="fetch" type="application/wasm">
 </head>
 <body>
   <!-- winit inserts its own <canvas> here at startup (web_canvas.rs) — the
