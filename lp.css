@@ -167,6 +167,13 @@ body {
   color: color-mix(in srgb, var(--lp-ink) 18%, transparent);
 }
 
+.lp-site-header nav a .lp-ext-icon {
+  width: 1em;
+  height: 1em;
+  margin-left: 0.3em;
+  vertical-align: -0.15em;
+}
+
 .lp-page {
   max-width: 1060px;
   margin: 0 auto;
