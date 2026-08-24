@@ -136,6 +136,7 @@ body {
 .lp-version {
   font-family: 'Inter', sans-serif;
   font-size: 0.7rem;
+  font-weight: 700;
   font-variant-numeric: tabular-nums;
   color: var(--lp-muted);
   white-space: nowrap;
