@@ -133,6 +133,14 @@ body {
   color: var(--lp-ink);
 }
 
+.lp-version {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.7rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--lp-muted);
+  white-space: nowrap;
+}
+
 .lp-theme-toggle button[aria-pressed="true"] {
   background: var(--lp-accent);
   color: var(--lp-btn-ink);
