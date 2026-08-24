@@ -1,8 +1,20 @@
+---
+// Shared <head> boilerplate, site nav and footer — replaces the old
+// partials/ + scripts/build-site.sh sed-assembly. `active` picks which
+// nav link (if any) gets lp-active; app.html has no nav of its own to
+// link back from, so "app" is never a valid value here.
+interface Props {
+  title: string;
+  desc: string;
+  active?: "downloads" | "blogs" | "docs";
+}
+const { title, desc, active } = Astro.props;
+---
 <!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8" />
-<script>
+<script is:inline>
 (function () {
   try {
     var t = localStorage.getItem('lp-theme');
@@ -13,22 +25,22 @@
 })();
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="description" content="LightPhotos Documentation — under construction. Details to be determined." />
-<title>LightPhotos Documentation</title>
+<meta name="description" content={desc} />
+<title>{title}</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,560&family=Inter:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="./lp.css">
+<link rel="stylesheet" href="/lp.css">
 </head>
 <body>
   <header class="lp-site-header">
     <a class="lp-brand" href="/">Light<span class="lp-light">Photos</span></a>
     <div class="lp-header-right">
     <nav aria-label="Main">
-      <a href="./app.html" target="_blank" rel="noopener">Open LightPhotos in Browser<svg class="lp-ext-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
-      <a href="./downloads.html">Downloads</a>
-      <a href="./blogs.html">Blogs</a>
-      <a href="./docs.html" class="lp-active">Help</a>
+      <a href="/app.html" target="_blank" rel="noopener">Open LightPhotos in Browser<svg class="lp-ext-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+      <a href="/downloads.html" class={active === "downloads" ? "lp-active" : undefined}>Downloads</a>
+      <a href="/blogs.html" class={active === "blogs" ? "lp-active" : undefined}>Blogs</a>
+      <a href="/docs.html" class={active === "docs" ? "lp-active" : undefined}>Help</a>
     </nav>
     <div class="lp-theme-toggle" role="group" aria-label="Theme">
       <button type="button" data-theme-choice="light" aria-label="Light theme" aria-pressed="false">
@@ -44,15 +56,8 @@
     </div>
   </header>
 
-  <main class="lp-page">
-    <section class="lp-hero lp-hero-compact">
-      <div class="lp-glow"></div>
-      <h1 class="lp-wordmark"><span class="lp-light">TBD</span></h1>
-      <p class="lp-lede">
-        Documentation isn't written yet &mdash; this page is to be determined.
-      </p>
-    </section>
-  </main>
-<script src="./lp-theme.js"></script>
+  <slot />
+
+<script src="/lp-theme.js" is:inline></script>
 </body>
 </html>

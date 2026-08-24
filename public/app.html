@@ -9,15 +9,15 @@
     html, body { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background: #1e1e1e; }
   </style>
   <!-- Built by `trunk build --release` in the lightphotos repo (branch
-       wasm-port-phase1) and copied here as static output — this repo has
-       no build tooling of its own, matching how the earlier
-       wasm-decode-probe spike's files are already committed the same way.
-       To redeploy after a lightphotos change: `trunk build --release`,
-       copy the four asset files below (old hashed ones can be deleted),
-       update the two hashed URLs below to match, commit, push. -->
+       wasm-port-phase1) and synced into public/app/ here by that repo's
+       scripts/deploy-web.sh — Astro copies public/ straight into dist/ on
+       build, so these are inputs, not the build output itself.
+       To redeploy after a lightphotos change: run deploy-web.sh, review
+       the diff here (it updates the two hashed URLs below to match),
+       commit, push. -->
   <script type="module">
-import init, * as bindings from '/lightphotos-6ce84957d3c51cc0.js';
-const wasm = await init({ module_or_path: '/lightphotos-6ce84957d3c51cc0_bg.wasm' });
+import init, * as bindings from '/app/lightphotos-6ce84957d3c51cc0.js';
+const wasm = await init({ module_or_path: '/app/lightphotos-6ce84957d3c51cc0_bg.wasm' });
 
 window.wasmBindings = bindings;
 
@@ -27,8 +27,8 @@ dispatchEvent(new CustomEvent("TrunkApplicationStarted", {detail: {wasm}}));
        stable, non-hashed filenames by design (see web_worker_pool.rs's
        spawn_worker doc comment), so these two don't need updating on
        redeploy the way the two hashed URLs above do. -->
-  <link rel="modulepreload" href="/lightphotos-6ce84957d3c51cc0.js" crossorigin="anonymous">
-  <link rel="preload" href="/lightphotos-6ce84957d3c51cc0_bg.wasm" crossorigin="anonymous" as="fetch" type="application/wasm">
+  <link rel="modulepreload" href="/app/lightphotos-6ce84957d3c51cc0.js" crossorigin="anonymous">
+  <link rel="preload" href="/app/lightphotos-6ce84957d3c51cc0_bg.wasm" crossorigin="anonymous" as="fetch" type="application/wasm">
 </head>
 <body>
   <!-- winit inserts its own <canvas> here at startup (web_canvas.rs) — the
