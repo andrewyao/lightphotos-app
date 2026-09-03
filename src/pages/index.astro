@@ -2,72 +2,149 @@
 import Base from "../layouts/Base.astro";
 ---
 <Base
-  title="LightPhotos — Every photo, seen in its best light"
-  desc="LightPhotos — a fast, private photo editor that runs in your browser or as a desktop app."
+  title="LightPhotos — a local-first, Lightroom-style photo manager"
+  desc="LightPhotos is a fast, private photo manager for large libraries. Cull, rate, organize and develop your RAW files — in your browser or as a native desktop app. Nothing leaves your machine."
 >
   <main class="lp-page">
     <section class="lp-hero">
       <div class="lp-glow"></div>
       <h1 class="lp-wordmark">Light<span class="lp-light">Photos</span></h1>
       <p class="lp-lede">
-        A fast, private photo editor. It runs entirely in your browser &mdash;
-        or install the desktop app &mdash; and every edit happens locally,
-        right on your own machine.
+        A Lightroom-style photo manager that keeps everything on your own
+        computer. Cull a shoot, rate and organize a big library, and develop
+        your RAW files non-destructively &mdash; with no import step, no cloud
+        and no account.
       </p>
+
+      <div class="lp-cta-row">
+        <a class="lp-btn" href="/app.html">Open the web app</a>
+        <a class="lp-btn-ghost" href="/downloads.html">Download for desktop</a>
+      </div>
+      <p class="lp-cta-note">Free and open. Your photos are read straight from disk and never uploaded.</p>
     </section>
 
-    <section class="lp-actions" aria-label="Explore LightPhotos">
-      <a class="lp-card" href="/app.html">
-        <svg class="lp-shot" viewBox="0 0 320 200" role="img" aria-label="LightPhotos running in a browser">
-          <rect x="1" y="1" width="318" height="198" rx="14" fill="#fffdfa" stroke="#eadfcb"/>
-          <circle cx="22" cy="16" r="4.5" fill="#e8927c"/>
-          <circle cx="37" cy="16" r="4.5" fill="#ecc94b"/>
-          <circle cx="52" cy="16" r="4.5" fill="#9ac586"/>
-          <defs>
-            <linearGradient id="lp-sky" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0" stop-color="#ffe9c7"/>
-              <stop offset="1" stop-color="#ffb454"/>
-            </linearGradient>
-          </defs>
-          <rect x="14" y="34" width="292" height="112" rx="8" fill="url(#lp-sky)"/>
-          <circle cx="252" cy="68" r="16" fill="#fff3dd" opacity="0.9"/>
-          <polygon points="14,146 108,78 196,146" fill="#c98a45"/>
-          <polygon points="118,146 214,88 306,146" fill="#a06a30"/>
-          <rect x="14" y="158" width="292" height="5" rx="2.5" fill="#efe7d8"/>
-          <circle cx="96" cy="160.5" r="6" fill="#ffb454" stroke="#fffdfa" stroke-width="2"/>
-          <rect x="14" y="176" width="292" height="5" rx="2.5" fill="#efe7d8"/>
-          <circle cx="204" cy="178.5" r="6" fill="#b8722a" stroke="#fffdfa" stroke-width="2"/>
+    <section class="lp-features" aria-label="What LightPhotos does">
+      <div class="lp-feature">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="6" y="6" width="12" height="12" rx="2"/>
+          <path d="M9 3v3M15 3v3M9 18v3M15 18v3M3 9h3M3 15h3M18 9h3M18 15h3"/>
         </svg>
-        <h2>Web <span class="lp-go" aria-hidden="true">&rarr;</span></h2>
-        <p>The app running live in your browser. Nothing to install &mdash; jump straight in and try it on your own photos.</p>
-      </a>
-
-      <a class="lp-card" href="/downloads.html">
-        <svg class="lp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="">
-          <path d="M12 3v11"/>
-          <path d="m8 10 4 4 4-4"/>
-          <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/>
+        <h3>GPU-accelerated engine</h3>
+        <p>Previews and adjustments render on the GPU, so panning, zooming and slider changes stay smooth even on large files.</p>
+      </div>
+      <div class="lp-feature">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="4" y1="8" x2="20" y2="8"/>
+          <line x1="4" y1="16" x2="20" y2="16"/>
+          <circle cx="9" cy="8" r="2.6" fill="currentColor" stroke="none"/>
+          <circle cx="15" cy="16" r="2.6" fill="currentColor" stroke="none"/>
         </svg>
-        <h2>Downloads <span class="lp-go" aria-hidden="true">&rarr;</span></h2>
-        <p>Native desktop builds for macOS, Windows and Linux. Same editor, faster startup.</p>
-      </a>
+        <h3>Professional adjustments</h3>
+        <p>Exposure, contrast, white balance, HSL, tone curves, sharpening and crop &mdash; the controls you expect from a serious editor.</p>
+      </div>
+      <div class="lp-feature">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M3 12a9 9 0 1 0 3-6.7"/>
+          <path d="M3 4v4h4"/>
+        </svg>
+        <h3>Non-destructive workflow</h3>
+        <p>Every edit is an instruction, not a pixel change. Your originals are never touched, and any adjustment resets cleanly.</p>
+      </div>
+      <div class="lp-feature">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="3" y="7" width="14" height="13" rx="2"/>
+          <path d="M8 7V5a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/>
+        </svg>
+        <h3>Complete image library</h3>
+        <p>Browse straight from folders on your disk. Ratings, flags, filters and metadata &mdash; with no import step to sit through.</p>
+      </div>
+      <div class="lp-feature">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 3.5l8.5 4.7-8.5 4.7L3.5 8.2z"/>
+          <path d="M3.5 12.6l8.5 4.7 8.5-4.7"/>
+        </svg>
+        <h3>Batch operations</h3>
+        <p>Copy settings, sync edits and apply presets across an entire selection in one move.</p>
+      </div>
+      <div class="lp-feature">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="3" y="4.5" width="18" height="15" rx="2"/>
+          <circle cx="8.5" cy="10" r="1.8"/>
+          <path d="M4 17l4.5-4.5 3.5 3.5 3-3 5 5"/>
+        </svg>
+        <h3>Opens your RAW files</h3>
+        <p>Sony ARW, Canon CR2 / CR3 and Adobe DNG, plus JPEG, HEIC and TIFF.</p>
+      </div>
+    </section>
 
+    <section aria-labelledby="run-modes">
+      <div class="lp-section-head">
+        <h2 id="run-modes">Two ways to run it</h2>
+        <p>
+          Same editor, same files on disk. Pick the browser for zero setup, or
+          the desktop app for full native speed.
+        </p>
+      </div>
+
+      <div class="lp-split">
+        <article class="lp-split-card">
+          <div class="lp-split-head">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="9"/>
+              <path d="M3 12h18M12 3c3 3.6 3 14.4 0 18M12 3c-3 3.6-3 14.4 0 18"/>
+            </svg>
+            <h3>Web</h3>
+            <span class="lp-split-tag">No install</span>
+          </div>
+          <p class="lp-split-lede">
+            Runs entirely in your browser through WebAssembly. Point it at a
+            folder on your disk and start working &mdash; nothing to download,
+            nothing to sign into.
+          </p>
+          <ul class="lp-check">
+            <li>Always the current version &mdash; no installs or updates</li>
+            <li>Photos are read locally and never leave your machine</li>
+            <li>Works in any modern desktop browser</li>
+            <li class="lp-con">Decoding and preview rendering run a little slower than native</li>
+          </ul>
+          <a class="lp-split-cta" href="/app.html">Open the web app <span aria-hidden="true">&rarr;</span></a>
+        </article>
+
+        <article class="lp-split-card lp-split-card--accent">
+          <div class="lp-split-head">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="3" y="4.5" width="18" height="12" rx="2"/>
+              <path d="M8.5 20h7M12 16.5v3.5"/>
+            </svg>
+            <h3>Desktop</h3>
+            <span class="lp-split-tag">Fastest</span>
+          </div>
+          <p class="lp-split-lede">
+            A native application for your machine. Same interface, same files on
+            disk &mdash; with a decode pipeline tuned to each platform.
+          </p>
+          <ul class="lp-check">
+            <li>macOS uses the system ImageIO framework &mdash; significantly faster RAW decode and previews</li>
+            <li>Snappier scrolling and zooming across large libraries</li>
+            <li>Runs fully offline, no browser needed</li>
+            <li class="lp-con">Requires a local install &mdash; macOS now, Windows and Linux coming soon</li>
+          </ul>
+          <a class="lp-split-cta" href="/downloads.html">See downloads <span aria-hidden="true">&rarr;</span></a>
+        </article>
+      </div>
+    </section>
+
+    <section class="lp-actions" aria-label="Keep exploring">
       <a class="lp-card" href="/blogs.html">
-        <svg class="lp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="">
-          <path d="M4 20l4.5-1L20 7.5a2.12 2.12 0 0 0-3-3L5.5 16 4 20z"/>
-          <path d="M14 6l3 3"/>
-        </svg>
+        <i class="ph-bold ph-pencil-simple" aria-hidden="true"></i>
         <h2>Blogs <span class="lp-go" aria-hidden="true">&rarr;</span></h2>
-        <p>Write-ups on the architectural challenges: WebAssembly, threading, color pipelines and more.</p>
+        <p>Write-ups on the hard parts: WebAssembly, threading, RAW decoding and color pipelines.</p>
       </a>
 
       <a class="lp-card" href="/docs.html">
-        <svg class="lp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="">
-          <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
-          <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
-        </svg>
+        <i class="ph-bold ph-book-open" aria-hidden="true"></i>
         <h2>Help <span class="lp-go" aria-hidden="true">&rarr;</span></h2>
-        <p>Documentation: user guides, supported formats, keyboard shortcuts and common questions.</p>
+        <p>User guides, supported formats, keyboard shortcuts and common questions.</p>
       </a>
     </section>
   </main>

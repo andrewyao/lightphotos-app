@@ -71,6 +71,14 @@ let wasm_bindgen = (function(exports) {
                 const ret = new Uint8Array(getArrayU8FromWasm0(arg0, arg1));
                 return ret;
             },
+            __wbg_now_e7c6795a7f81e10f: function(arg0) {
+                const ret = arg0.now();
+                return ret;
+            },
+            __wbg_performance_3fcf6e32a7e1ed0a: function(arg0) {
+                const ret = arg0.performance;
+                return ret;
+            },
             __wbg_postMessage_a2e2417cd072b785: function() { return handleError(function (arg0, arg1) {
                 arg0.postMessage(arg1);
             }, arguments); },
@@ -115,7 +123,7 @@ let wasm_bindgen = (function(exports) {
                 return isLikeNone(ret) ? 0 : addToExternrefTable0(ret);
             },
             __wbindgen_cast_0000000000000001: function(arg0, arg1) {
-                // Cast intrinsic for `Closure(Closure { owned: true, function: Function { arguments: [NamedExternref("MessageEvent")], shim_idx: 1402, ret: Unit, inner_ret: Some(Unit) }, mutable: false }) -> Externref`.
+                // Cast intrinsic for `Closure(Closure { owned: true, function: Function { arguments: [NamedExternref("MessageEvent")], shim_idx: 1436, ret: Unit, inner_ret: Some(Unit) }, mutable: false }) -> Externref`.
                 const ret = makeClosure(arg0, arg1, wasm_bindgen_60ecfca8289759fa___convert__closures_____invoke___web_sys_d7429e4caba75fb7___features__gen_MessageEvent__MessageEvent______true_);
                 return ret;
             },

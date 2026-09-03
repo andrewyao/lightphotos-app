@@ -16,8 +16,8 @@
        the diff here (it updates the two hashed URLs below to match),
        commit, push. -->
   <script type="module">
-import init, * as bindings from '/app/lightphotos-d8087b7313cc9a2b.js';
-const wasm = await init({ module_or_path: '/app/lightphotos-d8087b7313cc9a2b_bg.wasm' });
+import init, * as bindings from '/app/lightphotos-a7db67a639abd237.js';
+const wasm = await init({ module_or_path: '/app/lightphotos-a7db67a639abd237_bg.wasm' });
 
 window.wasmBindings = bindings;
 
@@ -27,8 +27,8 @@ dispatchEvent(new CustomEvent("TrunkApplicationStarted", {detail: {wasm}}));
        stable, non-hashed filenames by design (see web_worker_pool.rs's
        spawn_worker doc comment), so these two don't need updating on
        redeploy the way the two hashed URLs above do. -->
-  <link rel="modulepreload" href="/app/lightphotos-d8087b7313cc9a2b.js" crossorigin="anonymous">
-  <link rel="preload" href="/app/lightphotos-d8087b7313cc9a2b_bg.wasm" crossorigin="anonymous" as="fetch" type="application/wasm">
+  <link rel="modulepreload" href="/app/lightphotos-a7db67a639abd237.js" crossorigin="anonymous">
+  <link rel="preload" href="/app/lightphotos-a7db67a639abd237_bg.wasm" crossorigin="anonymous" as="fetch" type="application/wasm">
 </head>
 <body>
   <!-- winit inserts its own <canvas> here at startup (web_canvas.rs) — the

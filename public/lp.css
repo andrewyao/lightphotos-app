@@ -1,3 +1,56 @@
+/* Icon webfont only — Phosphor, trimmed to the glyphs this site uses. See
+ * public/phosphor/. Body, display and mono text use the platform's own fonts. */
+@font-face {
+  font-family: 'Phosphor';
+  font-style: normal;
+  font-weight: normal;
+  font-display: block;
+  src: url('/phosphor/Phosphor.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Phosphor-Bold';
+  font-style: normal;
+  font-weight: normal;
+  font-display: block;
+  src: url('/phosphor/Phosphor-Bold.woff2') format('woff2');
+}
+
+.ph,
+.ph-bold {
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  display: inline-block;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.ph { font-family: 'Phosphor' !important; }
+.ph-bold { font-family: 'Phosphor-Bold' !important; }
+
+.ph.ph-arrow-square-out:before { content: "\e5de"; }
+.ph.ph-sun:before { content: "\e472"; }
+.ph.ph-circle-half:before { content: "\e18c"; }
+.ph.ph-moon:before { content: "\e330"; }
+.ph-bold.ph-download-simple:before { content: "\e20c"; }
+.ph-bold.ph-pencil-simple:before { content: "\e3b4"; }
+.ph-bold.ph-book-open:before { content: "\e0e6"; }
+
+/* lightphotos.app stylesheet.
+ *
+ * Updated from the LightPhotos design system. The base ramp and every existing
+ * class are unchanged — this adds:
+ *   - semantic aliases (--text-*, --surface-*, --border-*) so new markup does
+ *     not have to reach for --lp-ink / --lp-card directly
+ *   - --lp-canvas-surround: the 18% gray field that must sit around a photo in
+ *     EVERY theme, not just neutral
+ *   - --font-mono for code, shortcuts and numeric readouts
+ *   - status colors, lifted from the hero illustration's browser dots
+ * Nothing here changes how the shipping pages render.
+ */
+
 :root,
 html[data-theme="dark"] {
   color-scheme: dark;
@@ -41,12 +94,51 @@ html[data-theme="neutral"] {
   --lp-btn-ink: #f8fbff;
 }
 
+/* --- design-system additions: semantic aliases (theme-independent names) --- */
+:root,
+html[data-theme="dark"],
+html[data-theme="light"],
+html[data-theme="neutral"] {
+  --font-display: Georgia, 'Times New Roman', serif;
+  --font-ui: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  --text-primary: var(--lp-ink);
+  --text-secondary: var(--lp-muted);
+  --text-on-accent: var(--lp-btn-ink);
+  --text-link: var(--lp-accent);
+
+  --surface-page: var(--lp-bg);
+  --surface-card: var(--lp-card);
+  --surface-input: color-mix(in srgb, var(--lp-ink) 6%, transparent);
+  --surface-hover: color-mix(in srgb, var(--lp-ink) 8%, transparent);
+  --surface-sunken: color-mix(in srgb, #000 22%, var(--lp-bg));
+  --surface-scrim: color-mix(in srgb, #000 62%, transparent);
+
+  --border-subtle: var(--lp-line);
+  --border-strong: color-mix(in srgb, var(--lp-ink) 24%, transparent);
+  --border-accent: color-mix(in srgb, var(--lp-accent) 45%, transparent);
+
+  --status-danger: #e8927c;
+  --status-warning: #ecc94b;
+  --status-success: #9ac586;
+
+  /* The field immediately around a photograph is 18% gray in every theme.
+     Chrome may be warm; the surround may not. */
+  --lp-canvas-surround: #2e2e2e;
+  --lp-canvas-mat: #232323;
+}
+
+html[data-theme="neutral"] {
+  --lp-canvas-mat: #2e2e2e;
+}
+
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
   background: var(--lp-bg);
   color: var(--lp-ink);
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: var(--font-ui);
   overflow-x: hidden;
   transition: background-color 0.25s ease, color 0.25s ease;
 }
@@ -69,7 +161,7 @@ body {
 }
 
 .lp-brand {
-  font-family: 'Fraunces', Georgia, serif;
+  font-family: var(--font-display);
   font-size: 1.25rem;
   font-weight: 560;
   letter-spacing: -0.01em;
@@ -134,7 +226,7 @@ body {
 }
 
 .lp-version {
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-ui);
   font-size: 0.7rem;
   font-weight: 700;
   font-variant-numeric: tabular-nums;
@@ -221,7 +313,7 @@ body {
 }
 
 .lp-wordmark {
-  font-family: 'Fraunces', Georgia, serif;
+  font-family: var(--font-display);
   font-optical-sizing: auto;
   font-size: clamp(2.75rem, 8vw, 5.25rem);
   font-weight: 560;
@@ -301,14 +393,14 @@ a.lp-card:focus-visible .lp-go {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
-  font-family: 'Fraunces', Georgia, serif;
+  font-family: var(--font-display);
   font-size: 1.25rem;
   font-weight: 560;
 }
 
 .lp-card h2 .lp-go,
 .lp-card h3 .lp-go {
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-ui);
   font-weight: 400;
   color: var(--lp-accent);
   transition: transform 0.25s ease;
@@ -387,7 +479,7 @@ a.lp-card:focus-visible .lp-go {
 }
 
 .lp-panel h2 {
-  font-family: 'Fraunces', Georgia, serif;
+  font-family: var(--font-display);
   font-weight: 560;
   font-size: 1.35rem;
 }
@@ -410,6 +502,266 @@ a.lp-card:focus-visible .lp-go {
     transform: none !important;
   }
   .lp-card, .lp-card .lp-go, .lp-btn {
+    transition: none !important;
+  }
+}
+
+/* --- Phosphor glyph sizing where <svg> selectors used to sit --- */
+.lp-theme-toggle button i {
+  font-size: 14px;
+  line-height: 1;
+}
+
+.lp-site-header nav a .lp-ext-icon {
+  font-size: 1em;
+  margin-left: 0.3em;
+  vertical-align: -0.12em;
+}
+
+/* Card icons were 30px SVGs in --lp-accent. */
+.lp-card > i.ph,
+.lp-card > i[class*="ph-"] {
+  font-size: 30px;
+  line-height: 1;
+  color: var(--lp-accent);
+}
+
+/* --- landing page: dual CTA, feature grid, run-modes split --- */
+.lp-cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  justify-content: center;
+  margin-top: 2.1rem;
+  opacity: 0;
+  animation: lp-rise 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.45s forwards;
+}
+
+.lp-btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.7em 1.5em;
+  border-radius: 999px;
+  border: 1px solid var(--border-strong);
+  background: var(--surface-card);
+  color: var(--lp-ink);
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  text-decoration: none;
+  transition: transform 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.lp-btn-ghost:hover,
+.lp-btn-ghost:focus-visible {
+  transform: translateY(-2px);
+  border-color: var(--border-accent);
+  background: var(--surface-hover);
+}
+
+.lp-cta-note {
+  margin-top: 1rem;
+  font-size: 0.82rem;
+  color: var(--lp-muted);
+  opacity: 0;
+  animation: lp-rise 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.55s forwards;
+}
+
+.lp-features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 1.1rem;
+  margin-top: 4.5rem;
+}
+
+@media (min-width: 860px) {
+  .lp-features {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.lp-feature {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: 1.35rem;
+  background: var(--surface-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px;
+  opacity: 0;
+  animation: lp-rise 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.lp-feature:nth-child(1) { animation-delay: 0.6s; }
+.lp-feature:nth-child(2) { animation-delay: 0.67s; }
+.lp-feature:nth-child(3) { animation-delay: 0.74s; }
+.lp-feature:nth-child(4) { animation-delay: 0.81s; }
+.lp-feature:nth-child(5) { animation-delay: 0.88s; }
+.lp-feature:nth-child(6) { animation-delay: 0.95s; }
+
+.lp-feature svg {
+  width: 26px;
+  height: 26px;
+  color: var(--lp-accent);
+}
+
+.lp-feature h3 {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 560;
+}
+
+.lp-feature p {
+  font-size: 0.85rem;
+  line-height: 1.55;
+  color: var(--lp-muted);
+}
+
+.lp-section-head {
+  margin-top: 5.5rem;
+  text-align: center;
+}
+
+.lp-section-head h2 {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 4vw, 2.1rem);
+  font-weight: 560;
+  letter-spacing: -0.01em;
+}
+
+.lp-section-head p {
+  max-width: 34rem;
+  margin: 0.8rem auto 0;
+  color: var(--lp-muted);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.lp-split {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.2rem;
+  margin-top: 2.5rem;
+}
+
+.lp-split-card {
+  display: flex;
+  flex-direction: column;
+  padding: 1.6rem;
+  background: var(--surface-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 18px;
+}
+
+.lp-split-card--accent {
+  border-color: var(--border-accent);
+  box-shadow: 0 12px 32px color-mix(in srgb, var(--lp-glow) 10%, transparent);
+}
+
+.lp-split-head {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.lp-split-head svg {
+  width: 24px;
+  height: 24px;
+  color: var(--lp-accent);
+}
+
+.lp-split-head h3 {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 560;
+}
+
+.lp-split-tag {
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.3em 0.7em;
+  border-radius: 999px;
+  background: var(--surface-input);
+  color: var(--lp-muted);
+}
+
+.lp-split-card--accent .lp-split-tag {
+  background: color-mix(in srgb, var(--lp-accent) 18%, transparent);
+  color: var(--lp-accent);
+}
+
+.lp-split-lede {
+  margin-top: 0.95rem;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--lp-muted);
+}
+
+.lp-check {
+  list-style: none;
+  margin: 1.15rem 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.lp-check li {
+  position: relative;
+  padding-left: 1.6rem;
+  font-size: 0.87rem;
+  line-height: 1.5;
+  color: var(--lp-ink);
+}
+
+.lp-check li::before {
+  content: "";
+  position: absolute;
+  left: 0.1rem;
+  top: 0.4em;
+  width: 0.65rem;
+  height: 0.65rem;
+  border-radius: 50%;
+  background: var(--status-success);
+}
+
+.lp-check li.lp-con {
+  color: var(--lp-muted);
+}
+
+.lp-check li.lp-con::before {
+  background: var(--status-warning);
+}
+
+.lp-split-cta {
+  margin-top: 1.5rem;
+  align-self: flex-start;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--lp-accent);
+  text-decoration: none;
+}
+
+.lp-split-cta:hover,
+.lp-split-cta:focus-visible {
+  text-decoration: underline;
+}
+
+.lp-actions[aria-label="Keep exploring"] {
+  margin-top: 5.5rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lp-cta-row, .lp-cta-note, .lp-feature {
+    animation: none !important;
+    opacity: 1 !important;
+    filter: none !important;
+    transform: none !important;
+  }
+  .lp-btn-ghost {
     transition: none !important;
   }
 }
