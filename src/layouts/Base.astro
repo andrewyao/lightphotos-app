@@ -38,7 +38,7 @@ try {
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="description" content={desc} />
 <title>{title}</title>
-<link rel="stylesheet" href="/lp.css">
+<link rel="stylesheet" href={`/lp.css?v=${buildVersion}`}>
 </head>
 <body>
   <header class="lp-site-header">
@@ -67,6 +67,6 @@ try {
 
   <slot />
 
-<script src="/lp-theme.js" is:inline></script>
+<script src={`/lp-theme.js?v=${buildVersion}`} is:inline></script>
 </body>
 </html>
