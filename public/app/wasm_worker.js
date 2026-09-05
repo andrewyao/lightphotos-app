@@ -21,6 +21,14 @@ let wasm_bindgen = (function(exports) {
                 getDataViewMemory0().setFloat64(arg0 + 8 * 1, isLikeNone(ret) ? 0 : ret, true);
                 getDataViewMemory0().setInt32(arg0 + 4 * 0, !isLikeNone(ret), true);
             },
+            __wbg___wbindgen_string_get_71bb4348194e31f0: function(arg0, arg1) {
+                const obj = arg1;
+                const ret = typeof(obj) === 'string' ? obj : undefined;
+                var ptr1 = isLikeNone(ret) ? 0 : passStringToWasm0(ret, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+                var len1 = WASM_VECTOR_LEN;
+                getDataViewMemory0().setInt32(arg0 + 4 * 1, len1, true);
+                getDataViewMemory0().setInt32(arg0 + 4 * 0, ptr1, true);
+            },
             __wbg___wbindgen_throw_ea4887a5f8f9a9db: function(arg0, arg1) {
                 throw new Error(getStringFromWasm0(arg0, arg1));
             },
@@ -123,8 +131,8 @@ let wasm_bindgen = (function(exports) {
                 return isLikeNone(ret) ? 0 : addToExternrefTable0(ret);
             },
             __wbindgen_cast_0000000000000001: function(arg0, arg1) {
-                // Cast intrinsic for `Closure(Closure { owned: true, function: Function { arguments: [NamedExternref("MessageEvent")], shim_idx: 1436, ret: Unit, inner_ret: Some(Unit) }, mutable: false }) -> Externref`.
-                const ret = makeClosure(arg0, arg1, wasm_bindgen_60ecfca8289759fa___convert__closures_____invoke___web_sys_d7429e4caba75fb7___features__gen_MessageEvent__MessageEvent______true_);
+                // Cast intrinsic for `Closure(Closure { owned: true, function: Function { arguments: [NamedExternref("MessageEvent")], shim_idx: 1475, ret: Unit, inner_ret: Some(Unit) }, mutable: false }) -> Externref`.
+                const ret = makeClosure(arg0, arg1, wasm_bindgen_60ecfca8289759fa___convert__closures_____invoke___web_sys_e18f1f0e583f509c___features__gen_MessageEvent__MessageEvent______true_);
                 return ret;
             },
             __wbindgen_cast_0000000000000002: function(arg0) {
@@ -153,8 +161,8 @@ let wasm_bindgen = (function(exports) {
         };
     }
 
-    function wasm_bindgen_60ecfca8289759fa___convert__closures_____invoke___web_sys_d7429e4caba75fb7___features__gen_MessageEvent__MessageEvent______true_(arg0, arg1, arg2) {
-        wasm.wasm_bindgen_60ecfca8289759fa___convert__closures_____invoke___web_sys_d7429e4caba75fb7___features__gen_MessageEvent__MessageEvent______true_(arg0, arg1, arg2);
+    function wasm_bindgen_60ecfca8289759fa___convert__closures_____invoke___web_sys_e18f1f0e583f509c___features__gen_MessageEvent__MessageEvent______true_(arg0, arg1, arg2) {
+        wasm.wasm_bindgen_60ecfca8289759fa___convert__closures_____invoke___web_sys_e18f1f0e583f509c___features__gen_MessageEvent__MessageEvent______true_(arg0, arg1, arg2);
     }
 
     function addToExternrefTable0(obj) {
