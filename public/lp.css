@@ -750,6 +750,38 @@ a.lp-card:focus-visible .lp-go {
   text-decoration: underline;
 }
 
+.lp-shared {
+  margin-top: 2.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem 1.4rem;
+  padding: 1.2rem 1.6rem;
+  background: var(--surface-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 18px;
+}
+
+.lp-shared-tag {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.3em 0.7em;
+  border-radius: 999px;
+  background: var(--surface-input);
+  color: var(--lp-muted);
+}
+
+.lp-shared-list {
+  flex: 1 1 20rem;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+  gap: 0.65rem 1.6rem;
+}
+
 .lp-actions[aria-label="Keep exploring"] {
   margin-top: 5.5rem;
 }
@@ -764,4 +796,68 @@ a.lp-card:focus-visible .lp-go {
   .lp-btn-ghost {
     transition: none !important;
   }
+}
+
+/* --- downloads page: build grid, install steps --- */
+.lp-dl-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.2rem;
+  margin-top: 3.5rem;
+}
+
+/* Four builds, so hold a 2x2 block rather than letting auto-fit strand one
+   card on a row of its own. */
+@media (min-width: 620px) {
+  .lp-dl-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.lp-dl-file {
+  margin-top: 0.9rem;
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  color: var(--lp-muted);
+  overflow-wrap: anywhere;
+}
+
+.lp-dl-foot {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  margin-top: auto;
+  padding-top: 1.4rem;
+}
+
+.lp-steps {
+  margin: 1.15rem 0 0 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  font-size: 0.87rem;
+  line-height: 1.5;
+  color: var(--lp-ink);
+}
+
+.lp-steps li::marker {
+  color: var(--lp-accent);
+  font-weight: 600;
+}
+
+.lp-code {
+  margin-top: 1.15rem;
+  padding: 0.7rem 0.85rem;
+  border-radius: 10px;
+  background: var(--surface-input);
+  border: 1px solid var(--border-subtle);
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  line-height: 1.5;
+  color: var(--lp-ink);
+  overflow-wrap: anywhere;
+}
+
+.lp-shared-list a {
+  color: var(--lp-accent);
 }
