@@ -20,7 +20,7 @@ import Base from "../layouts/Base.astro";
         <a class="lp-btn" href="/app.html">Open the web app</a>
         <a class="lp-btn-ghost" href="/downloads.html">Download for desktop</a>
       </div>
-      <p class="lp-cta-note">Free and open. Your photos are read straight from disk and never uploaded.</p>
+      <p class="lp-cta-note">Free and source code coming soon. Your photos are read straight from disk and never uploaded.</p>
     </section>
 
     <section class="lp-features" aria-label="What LightPhotos does">
@@ -48,7 +48,7 @@ import Base from "../layouts/Base.astro";
           <path d="M3 4v4h4"/>
         </svg>
         <h3>Non-destructive workflow</h3>
-        <p>Every edit is an instruction, not a pixel change. Your originals are never touched, and any adjustment resets cleanly.</p>
+        <p>Every edit is an instruction and resets cleanly. Your originals are never modified. All edits are written to sidecar files under .lightphotos in each folder.</p>
       </div>
       <div class="lp-feature">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -97,15 +97,16 @@ import Base from "../layouts/Base.astro";
             <span class="lp-split-tag">No install</span>
           </div>
           <p class="lp-split-lede">
-            Runs entirely in your browser through WebAssembly. Point it at a
-            folder on your disk and start working &mdash; nothing to download,
-            nothing to sign into.
+            Runs entirely in your browser through WebAssembly and Rust. No HTML DOM, CSS
+            and JavaScript. Point it at a folder on your disk and start working
+            &mdash; nothing to download, nothing to install, nothing to sign
+            into.
           </p>
           <ul class="lp-check">
             <li>Always the current version &mdash; no installs or updates</li>
             <li>Photos are read locally and never leave your machine</li>
-            <li>Works in any modern desktop browser</li>
-            <li class="lp-con">Decoding and preview rendering run a little slower than native</li>
+            <li>Works in Google Chrome or any browser with WebGPU enabled</li>
+            <li class="lp-con">Decoding and preview rendering run a little slower than native apps</li>
           </ul>
           <a class="lp-split-cta" href="/app.html">Open the web app <span aria-hidden="true">&rarr;</span></a>
         </article>
@@ -125,9 +126,9 @@ import Base from "../layouts/Base.astro";
           </p>
           <ul class="lp-check">
             <li>macOS uses the system ImageIO framework &mdash; significantly faster RAW decode and previews</li>
-            <li>Snappier scrolling and zooming across large libraries</li>
             <li>Runs fully offline, no browser needed</li>
-            <li class="lp-con">Requires a local install &mdash; macOS now, Windows and Linux coming soon</li>
+            <li>Small file size. The entire binary ranges from 10MB (macOS) to 27MB (Linux)</li>
+            <li class="lp-con">Requires a local install. Supports macOS, Windows and Linux on ARM and x86 &mdash; Ubuntu 24.04 and later, Debian 13, and Fedora 40 and later.</li>
           </ul>
           <a class="lp-split-cta" href="/downloads.html">See downloads <span aria-hidden="true">&rarr;</span></a>
         </article>

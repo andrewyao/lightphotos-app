@@ -1,18 +1,165 @@
 ---
 import Base from "../layouts/Base.astro";
+
+// Build artifacts live in public/downloads/ and are served straight from
+// /downloads/<file>. Sizes are the on-disk archive sizes, refreshed whenever a
+// new build is dropped in.
+
+const builds = [
+  {
+    os: "macOS",
+    arch: "Apple Silicon",
+    note: "macOS 11 and later, M1 or newer",
+    icon: "apple",
+    file: "lightphotos-macos-arm64.dmg",
+    size: "4.4 MB",
+    featured: true,
+  },
+  {
+    os: "Windows",
+    arch: "x86-64",
+    note: "Windows 10 and later, 64-bit Intel or AMD",
+    icon: "windows",
+    file: "lightphotos-windows-x86_64.zip",
+    size: "7.6 MB",
+  },
+  {
+    os: "Linux",
+    arch: "x86-64",
+    note: "Ubuntu 24.04+, Debian 13, Fedora 40+",
+    icon: "linux",
+    file: "lightphotos-linux-x86_64.tar.gz",
+    size: "9.8 MB",
+  },
+  {
+    os: "Linux",
+    arch: "ARM64",
+    note: "Ubuntu 24.04+, Debian 13, Fedora 40+",
+    icon: "linux",
+    file: "lightphotos-linux-arm64.tar.gz",
+    size: "9.3 MB",
+  },
+];
 ---
 <Base
   title="Download LightPhotos"
-  desc="Download LightPhotos — under construction. Details to be determined."
+  desc="Download the LightPhotos desktop app for macOS, Windows and Linux. Native builds for Apple Silicon, x86-64 and ARM64 — free, offline and under 10 MB."
   active="downloads"
 >
   <main class="lp-page">
     <section class="lp-hero lp-hero-compact">
       <div class="lp-glow"></div>
-      <h1 class="lp-wordmark"><span class="lp-light">TBD</span></h1>
+      <h1 class="lp-wordmark">Down<span class="lp-light">loads</span></h1>
       <p class="lp-lede">
-        Nothing to download yet &mdash; the desktop builds aren't ready to share.
+        The native desktop app &mdash; same editor as the web version, with a
+        decode pipeline tuned to each platform. It runs entirely offline and
+        never uploads a thing.
       </p>
+      <p class="lp-cta-note">Free and source code coming soon &middot; no account needed</p>
+    </section>
+
+    <section class="lp-dl-grid" aria-label="Desktop builds">
+      {builds.map((b) => (
+        <article class={b.featured ? "lp-split-card lp-split-card--accent" : "lp-split-card"}>
+          <div class="lp-split-head">
+            {b.icon === "apple" && (
+              <svg viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true">
+                <path d="M16.1 12.6c0-2 1.6-3 1.7-3.1-.9-1.4-2.4-1.6-3.2-1.6-1.3-.1-2.6.8-3.3.8-.7 0-1.7-.8-2.8-.7-1.4 0-2.7.8-3.5 2.1-1.5 2.6-.4 6.4 1.1 8.5.7 1 1.5 2.2 2.6 2.1 1-.04 1.4-.7 2.7-.7 1.2 0 1.6.7 2.7.66 1.1-.02 1.9-1 2.6-2.1.8-1.2 1.1-2.3 1.2-2.4-.03-.01-2.2-.9-2.2-3.4z"/>
+                <path d="M14.1 6.3c.6-.7 1-1.7.9-2.7-.9.04-2 .6-2.6 1.4-.6.6-1.1 1.7-.9 2.6 1 .08 2-.5 2.6-1.3z"/>
+              </svg>
+            )}
+            {b.icon === "windows" && (
+              <svg viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true">
+                <path d="M3.5 6.3l7.2-1v7.1H3.5z"/>
+                <path d="M11.9 5.1L20.5 4v8.4h-8.6z"/>
+                <path d="M3.5 13.6h7.2v7.1l-7.2-1z"/>
+                <path d="M11.9 13.6h8.6V22l-8.6-1.2z"/>
+              </svg>
+            )}
+            {b.icon === "linux" && (
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="3" y="4.5" width="18" height="15" rx="2.5"/>
+                <path d="M7.5 10l2.5 2.3-2.5 2.3M13 14.6h3.5"/>
+              </svg>
+            )}
+            <h3>{b.os}</h3>
+            <span class="lp-split-tag">{b.arch}</span>
+          </div>
+          <p class="lp-split-lede">{b.note}</p>
+          <p class="lp-dl-file">{b.file}</p>
+          <div class="lp-dl-foot">
+            <a class="lp-btn" href={`/downloads/${b.file}`} download>Download</a>
+            <span class="lp-meta">{b.size}</span>
+          </div>
+        </article>
+      ))}
+    </section>
+
+    <div class="lp-shared">
+      <span class="lp-shared-tag">No build for you?</span>
+      <ul class="lp-check lp-shared-list">
+        <li>Intel Macs and everything else: the <a href="/app.html">web app</a> runs the same editor in any browser with WebGPU</li>
+        <li>Your photos stay on disk in both versions &mdash; edits land in .lightphotos sidecars either way</li>
+      </ul>
+    </div>
+
+    <section aria-labelledby="first-run">
+      <div class="lp-section-head">
+        <h2 id="first-run">First run</h2>
+        <p>
+          These builds aren't code-signed yet, so each platform will ask once
+          whether you meant to open them. Here's what to expect.
+        </p>
+      </div>
+
+      <div class="lp-split">
+        <article class="lp-split-card">
+          <div class="lp-split-head">
+            <h3>macOS</h3>
+          </div>
+          <ol class="lp-steps">
+            <li>Open the .dmg and drag LightPhotos into Applications.</li>
+            <li>Gatekeeper will refuse the first launch because the app is ad-hoc signed, not notarized.</li>
+            <li>Open it once from Finder with right-click &rarr; Open, then confirm. Or clear the quarantine flag yourself:</li>
+          </ol>
+          <p class="lp-code">xattr -dr com.apple.quarantine /Applications/LightPhotos.app</p>
+        </article>
+
+        <article class="lp-split-card">
+          <div class="lp-split-head">
+            <h3>Windows</h3>
+          </div>
+          <ol class="lp-steps">
+            <li>Unzip the archive anywhere &mdash; it holds a single lightphotos.exe with no installer.</li>
+            <li>SmartScreen will warn about an unrecognized publisher.</li>
+            <li>Choose More info, then Run anyway.</li>
+          </ol>
+        </article>
+
+        <article class="lp-split-card">
+          <div class="lp-split-head">
+            <h3>Linux</h3>
+          </div>
+          <ol class="lp-steps">
+            <li>Extract the tarball and run the binary inside &mdash; no install step.</li>
+          </ol>
+          <p class="lp-code">tar xzf lightphotos-linux-x86_64.tar.gz &amp;&amp; ./lightphotos</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="lp-actions" aria-label="Keep exploring">
+      <a class="lp-card" href="/docs.html">
+        <i class="ph-bold ph-book-open" aria-hidden="true"></i>
+        <h2>Help <span class="lp-go" aria-hidden="true">&rarr;</span></h2>
+        <p>Supported formats, keyboard shortcuts and answers to the usual questions.</p>
+      </a>
+
+      <a class="lp-card" href="/blogs.html">
+        <i class="ph-bold ph-pencil-simple" aria-hidden="true"></i>
+        <h2>Blogs <span class="lp-go" aria-hidden="true">&rarr;</span></h2>
+        <p>Write-ups on the hard parts: WebAssembly, threading, RAW decoding and color pipelines.</p>
+      </a>
     </section>
   </main>
 </Base>
