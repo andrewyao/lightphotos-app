@@ -14,7 +14,7 @@ interface Props {
 }
 const { title, desc, active } = Astro.props;
 
-// Build-time git short hash, shown top-right so deployed pages can be traced
+// Build-time git short hash, shown bottom-right so deployed pages can be traced
 // back to a commit. Falls back to "dev" outside a git checkout.
 let buildVersion = "dev";
 try {
@@ -61,11 +61,14 @@ try {
         <i class="ph ph-moon" aria-hidden="true"></i>
       </button>
     </div>
-    <span class="lp-version" title={`Build ${buildVersion}`}>{buildVersion}</span>
     </div>
   </header>
 
   <slot />
+
+  <footer class="lp-site-footer">
+    <span class="lp-version" title={`Build ${buildVersion}`}>Version: {buildVersion}</span>
+  </footer>
 
 <script src={`/lp-theme.js?v=${buildVersion}`} is:inline></script>
 </body>

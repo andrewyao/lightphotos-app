@@ -225,15 +225,6 @@ body {
   color: var(--lp-ink);
 }
 
-.lp-version {
-  font-family: var(--font-ui);
-  font-size: 0.7rem;
-  font-weight: 700;
-  font-variant-numeric: tabular-nums;
-  color: var(--lp-muted);
-  white-space: nowrap;
-}
-
 .lp-theme-toggle button[aria-pressed="true"] {
   background: var(--lp-accent);
   color: var(--lp-btn-ink);
@@ -279,6 +270,21 @@ body {
   max-width: 1060px;
   margin: 0 auto;
   padding: 7.5rem clamp(1.25rem, 4vw, 2.5rem) 5rem;
+}
+
+.lp-site-footer {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0 clamp(1.25rem, 4vw, 2.5rem) 1.75rem;
+}
+
+.lp-version {
+  font-family: var(--font-ui);
+  font-size: 0.7rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--lp-muted);
+  white-space: nowrap;
 }
 
 .lp-hero {
