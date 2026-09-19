@@ -891,7 +891,6 @@ a.lp-card:focus-visible .lp-go {
 
 .lp-post-list time,
 .lp-article-meta {
-  font-family: var(--font-mono);
   font-size: 0.72rem;
   letter-spacing: 0.04em;
   color: var(--lp-muted);
@@ -899,7 +898,6 @@ a.lp-card:focus-visible .lp-go {
 
 .lp-post-list h2 {
   margin-top: 0.4rem;
-  font-family: var(--font-display);
   font-size: 1.4rem;
   font-weight: 560;
 }
@@ -931,7 +929,6 @@ a.lp-card:focus-visible .lp-go {
 
 .lp-article-head h1 {
   margin-top: 0.8rem;
-  font-family: var(--font-display);
   font-size: clamp(2rem, 5vw, 2.9rem);
   font-weight: 560;
   letter-spacing: -0.02em;
@@ -947,7 +944,6 @@ a.lp-card:focus-visible .lp-go {
 
 .lp-article h2 {
   margin-top: 2.6rem;
-  font-family: var(--font-display);
   font-size: 1.45rem;
   font-weight: 560;
   letter-spacing: -0.01em;
@@ -968,4 +964,148 @@ a.lp-card:focus-visible .lp-go {
 .lp-article-list li::marker {
   color: var(--lp-accent);
   font-weight: 600;
+}
+
+/* Architecture diagram: two panels of stacked boxes, side by side when there
+   is room. */
+.lp-arch {
+  margin-top: 1.6rem;
+  display: grid;
+  gap: 1rem;
+}
+
+.lp-arch-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  padding: 1.1rem;
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  background: var(--surface-card);
+}
+
+.lp-article .lp-arch-label {
+  margin: 0 0 0.9rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--lp-muted);
+}
+
+.lp-arch-process {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 1.4rem 0.8rem 0.8rem;
+  border: 1px dashed var(--border-strong);
+  border-radius: 10px;
+}
+
+.lp-arch-process:only-of-type {
+  flex: 1;
+  justify-content: center;
+}
+
+.lp-arch-process-name {
+  position: absolute;
+  top: 0.35rem;
+  left: 0.8rem;
+  font-size: 0.68rem;
+  color: var(--lp-muted);
+}
+
+.lp-arch-box {
+  padding: 0.55rem 0.8rem;
+  border: 1px solid var(--border-strong);
+  border-radius: 8px;
+  background: var(--surface-input);
+  font-size: 0.92rem;
+  text-align: center;
+}
+
+.lp-arch-box-core {
+  border-color: var(--border-accent);
+  background: var(--lp-glow-soft);
+}
+
+.lp-arch-link {
+  position: relative;
+  padding: 0.5rem 0;
+  font-size: 0.7rem;
+  line-height: 1.3;
+  text-align: center;
+  color: var(--lp-muted);
+}
+
+.lp-arch-link-cross {
+  color: var(--lp-ink);
+  font-weight: 600;
+}
+
+.lp-arch figcaption {
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: var(--lp-muted);
+}
+
+@media (min-width: 620px) {
+  .lp-arch {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .lp-arch figcaption {
+    grid-column: 1 / -1;
+  }
+}
+
+/* Comparison table; scrolls sideways inside its wrapper on narrow screens. */
+.lp-compare-wrap {
+  margin-top: 1.2rem;
+  overflow-x: auto;
+}
+
+.lp-compare {
+  width: 100%;
+  min-width: 32rem;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+.lp-compare th,
+.lp-compare td {
+  padding: 0.6rem 0.7rem;
+  border-bottom: 1px solid var(--border-subtle);
+  text-align: left;
+  vertical-align: top;
+}
+
+.lp-compare thead th {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--lp-muted);
+}
+
+.lp-compare tbody th {
+  font-weight: 500;
+  color: var(--lp-muted);
+}
+
+.lp-compare .lp-compare-pick {
+  background: var(--lp-glow-soft);
+}
+
+.lp-compare thead .lp-compare-pick {
+  color: var(--lp-accent);
+  border-radius: 8px 8px 0 0;
+}
+
+.lp-pullquote {
+  margin: 1.8rem 0 0.6rem;
+  padding-left: 1.2rem;
+  border-left: 3px solid var(--lp-accent);
+  font-size: 1.35rem;
+  line-height: 1.45;
 }

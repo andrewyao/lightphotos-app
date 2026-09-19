@@ -1,0 +1,282 @@
+---
+import Base from "../../layouts/Base.astro";
+---
+<Base
+  title="Why Rust — LightPhotos Blog"
+  desc="Rust for everything, or Rust for the engine and something else for the UI? The trade-offs I weighed and why I built LightPhotos entirely in Rust."
+  active="blogs"
+>
+  <main class="lp-page">
+    <article class="lp-article">
+      <header class="lp-article-head">
+        <p class="lp-article-meta"><a href="/blogs.html">Blog</a> &middot; <time datetime="2026-06-28">June 28, 2026</time></p>
+        <h1>Why Rust</h1>
+        <p class="lp-article-dek">
+          Rust for everything, or Rust for the engine and something else for
+          the UI? The trade-offs I weighed and why I built LightPhotos
+          entirely in Rust.
+        </p>
+      </header>
+
+      <h2>A language with a built-in reviewer</h2>
+      <p>
+        Rust is a fascinating language. It has the power of C++, but it comes
+        with a strict code reviewer that stops at anything that looks off.
+      </p>
+      <p>
+        That doesn't automatically make it the right choice for a photo
+        editor. Before I wrote much code, I had a lot of questions:
+      </p>
+      <ul class="lp-article-list">
+        <li>Is Rust a good choice for LightPhotos at all?</li>
+        <li>
+          Should I write only the most critical piece, the image engine, in
+          Rust, and build the UI with a web frontend like React?
+        </li>
+        <li>Or should I build everything in Rust?</li>
+        <li>Does Rust even have a decent UI library?</li>
+        <li>
+          Or should I build the UI in Swift so the app feels more like a Mac
+          app?
+        </li>
+      </ul>
+      <p>
+        There were two more things to consider. Eventually I want a WASM
+        version, so I can edit my photos the same way in a browser without
+        sitting in front of my Mac. And what if I later want a Windows or
+        Linux version?
+      </p>
+
+      <p>It came down to two shapes for the app:</p>
+      <figure class="lp-arch">
+        <div class="lp-arch-panel">
+          <p class="lp-arch-label">Option 1 · All Rust</p>
+          <div class="lp-arch-process">
+            <span class="lp-arch-process-name">One Rust app</span>
+            <div class="lp-arch-box">UI module</div>
+            <div class="lp-arch-link">function calls</div>
+            <div class="lp-arch-box lp-arch-box-core">Core engine</div>
+          </div>
+        </div>
+        <div class="lp-arch-panel">
+          <p class="lp-arch-label">Option 2 · Split</p>
+          <div class="lp-arch-process">
+            <span class="lp-arch-process-name">Electron</span>
+            <div class="lp-arch-box">React UI</div>
+          </div>
+          <div class="lp-arch-link lp-arch-link-cross">
+            events &darr;&ensp;pixels &uarr;
+          </div>
+          <div class="lp-arch-process">
+            <span class="lp-arch-process-name">Rust</span>
+            <div class="lp-arch-box lp-arch-box-core">Core engine</div>
+          </div>
+        </div>
+        <figcaption>
+          In option 1, the UI calls the engine directly. In option 2, every
+          slider drag and every preview crosses between two runtimes.
+        </figcaption>
+      </figure>
+
+      <h2>Option 1: everything in Rust</h2>
+      <p>What I'd gain:</p>
+      <ul class="lp-article-list">
+        <li><strong>One language</strong> for the whole app.</li>
+        <li>
+          <strong>No image data crossing runtimes.</strong> Pixels never have
+          to be copied from one runtime to another.
+        </li>
+        <li>
+          <strong>No user events crossing runtimes.</strong> A slider drag
+          goes straight to the code that handles it.
+        </li>
+        <li><strong>Faster performance.</strong></li>
+        <li>
+          <strong>Probably fewer dependencies and a smaller binary,</strong>
+          and probably a simpler app to ship.
+        </li>
+      </ul>
+      <p>What I'd lose:</p>
+      <ul class="lp-article-list">
+        <li>
+          <strong>Looks.</strong> Rust doesn't come with a UI toolkit of its
+          own. The community libraries work, but the result doesn't look as
+          slick as a well-styled web page or a native Mac app.
+        </li>
+        <li>
+          <strong>Accessibility.</strong> Browsers give you good accessibility
+          support for free. Rust UI libraries don't match it yet.
+        </li>
+      </ul>
+
+      <h2>Option 2: Rust for the engine, another language for the UI</h2>
+      <p>What I'd gain:</p>
+      <ul class="lp-article-list">
+        <li>
+          <strong>The best of each ecosystem,</strong> which should make the
+          app faster to develop.
+        </li>
+        <li>
+          <strong>Full control over the look.</strong> With CSS I could tweak
+          every detail of the app.
+        </li>
+      </ul>
+      <p>What I'd lose:</p>
+      <ul class="lp-article-list">
+        <li>
+          <strong>Keeping two systems in sync.</strong> Every user action in
+          the UI has to turn into work the engine performs, and the results
+          have to come back.
+        </li>
+        <li>
+          <strong>External dependencies.</strong> A web UI on the Mac means
+          shipping an Electron app.
+        </li>
+      </ul>
+
+      <h2>What about Swift?</h2>
+      <p>
+        A Swift UI would feel the most at home on a Mac. But it has the same
+        split as option 2, with Swift talking to a Rust engine, and Swift
+        doesn't come with me to the browser. A WASM version would need a
+        second UI.
+      </p>
+      <p>
+        Swift also ties the UI to Apple's platforms. A Windows or Linux
+        version would need yet another UI. The Rust UI libraries and
+        Electron both already run on all three desktop systems.
+      </p>
+
+      <h2>Side by side</h2>
+      <div class="lp-compare-wrap">
+        <table class="lp-compare">
+          <thead>
+            <tr>
+              <th scope="col"></th>
+              <th scope="col" class="lp-compare-pick">All Rust</th>
+              <th scope="col">Rust + React</th>
+              <th scope="col">Rust + Swift</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Languages</th>
+              <td class="lp-compare-pick">1</td>
+              <td>2</td>
+              <td>2</td>
+            </tr>
+            <tr>
+              <th scope="row">Engine and UI to keep in sync</th>
+              <td class="lp-compare-pick">No</td>
+              <td>Yes</td>
+              <td>Yes</td>
+            </tr>
+            <tr>
+              <th scope="row">Extra runtime to ship</th>
+              <td class="lp-compare-pick">None</td>
+              <td>Electron</td>
+              <td>None</td>
+            </tr>
+            <tr>
+              <th scope="row">Look</th>
+              <td class="lp-compare-pick">Plain</td>
+              <td>Anything CSS can do</td>
+              <td>Native Mac</td>
+            </tr>
+            <tr>
+              <th scope="row">Accessibility</th>
+              <td class="lp-compare-pick">Limited</td>
+              <td>Browser-grade</td>
+              <td>Native Mac</td>
+            </tr>
+            <tr>
+              <th scope="row">Browser (WASM) version</th>
+              <td class="lp-compare-pick">Same code</td>
+              <td>Engine to WASM, UI as is</td>
+              <td>Needs a second UI</td>
+            </tr>
+            <tr>
+              <th scope="row">Windows and Linux</th>
+              <td class="lp-compare-pick">Same code</td>
+              <td>Same code</td>
+              <td>Needs another UI</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>Why I chose all Rust</h2>
+      <p>
+        Two things decided it. The first was the sync problem. Splitting the
+        app into an engine and a UI sounds good on paper, but I kept wondering
+        whether it would really work in practice.
+      </p>
+      <blockquote class="lp-pullquote">
+        When the two sides disagree, the bug doesn't live in either one. It
+        lives in the gap between them.
+      </blockquote>
+      <p>
+        I also do a lot of this work with coding agents. I wasn't confident an
+        agent could debug a subtle mismatch between two systems written in
+        different languages.
+      </p>
+      <p>
+        And this isn't a typical web app, with a backend server and a
+        frontend UI. There, a little latency is expected: you click a button
+        and wait a moment for the server to answer. In a photo editor, drag,
+        zoom and pan are continuous. Every movement of a slider or the mouse
+        has to reach the engine and come back as a new image right away, with
+        no lag. Keeping two systems in sync at that speed is much harder than
+        answering the occasional request.
+      </p>
+      <p>
+        With one language and one runtime, there is no gap for that kind of
+        bug to hide in, and nothing in the way of a real-time update.
+      </p>
+      <p>
+        The second was performance. I want LightPhotos to be
+        extremely fast and to use no more memory than it needs. With
+        everything in Rust, there is no second runtime to load and no copies
+        of the image passed between them.
+      </p>
+      <p>
+        So I built everything in Rust. The UI may not be the slickest, but the
+        whole app lives in one language, and that's a trade I'm happy with.
+      </p>
+
+      <h2>Leaving the door open</h2>
+      <p>
+        Even with everything in one language, I keep the UI logic and the core
+        photo editing in separate modules. If I change my mind later and want
+        a different UI, I can reuse most of the core as it is.
+      </p>
+
+      <h2>My learnings</h2>
+      <ul class="lp-article-list">
+        <li>
+          <strong>Write the trade-offs down.</strong> Listing what each option
+          gains and loses forced me to see what I didn't know. I dealt with
+          those unknowns first, before they could surprise me later.
+        </li>
+        <li>
+          <strong>Trust the agents, but make it easy to step in.</strong>
+          Agents do most of the work, but sometimes they get stuck playing
+          whack-a-mole: fixing one symptom only for another to pop up. When
+          that happens, I need a design simple enough that I can find the real
+          problem myself.
+        </li>
+        <li>
+          <strong>Think a few steps ahead.</strong> Swift would have been a
+          fine choice for a Mac-only app. Thinking about the browser, Windows
+          and Linux ruled it out.
+        </li>
+        <li>
+          <strong>Keep the logic separate and the code clean as I go.</strong>
+          The core logic lives in its own module, apart from the UI. I also
+          clean up sloppy, AI-generated code as it comes in, instead of
+          letting it pile up.
+        </li>
+      </ul>
+    </article>
+  </main>
+</Base>
