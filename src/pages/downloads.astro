@@ -4,48 +4,138 @@ import Base from "../layouts/Base.astro";
 // Build artifacts live in public/downloads/ and are served straight from
 // /downloads/<file>. Sizes are the on-disk archive sizes, refreshed whenever a
 // new build is dropped in.
+//
+// `id` is the join key between this table, the per-build CSS below and the
+// platform sniffer in the inline script. An id the sniffer picks that isn't
+// here simply matches no rule, and the page falls back to showing every build.
 
 const builds = [
   {
+    id: "macos-arm64",
     os: "macOS",
     arch: "Apple Silicon",
     note: "macOS 11 and later, M1 or newer",
     icon: "apple",
     file: "lightphotos-macos-arm64.dmg",
     size: "4.4 MB",
-    featured: true,
+    steps: [
+      "Open the .dmg and drag LightPhotos into Applications.",
+      "Gatekeeper will refuse the first launch because the app is ad-hoc signed, not notarized.",
+      "Open it once from Finder with right-click → Open, then confirm. Or clear the quarantine flag yourself:",
+    ],
+    code: "xattr -dr com.apple.quarantine /Applications/LightPhotos.app",
   },
   {
+    id: "windows-x86_64",
     os: "Windows",
     arch: "x86-64",
     note: "Windows 10 and later, 64-bit Intel or AMD",
     icon: "windows",
     file: "lightphotos-windows-x86_64.zip",
     size: "7.6 MB",
+    steps: [
+      "Unzip the archive anywhere — it holds a single lightphotos.exe with no installer.",
+      "SmartScreen will warn about an unrecognized publisher.",
+      "Choose More info, then Run anyway.",
+    ],
   },
   {
+    id: "linux-x86_64",
     os: "Linux",
     arch: "x86-64",
     note: "Ubuntu 24.04+, Debian 13, Fedora 40+",
     icon: "linux",
     file: "lightphotos-linux-x86_64.tar.gz",
     size: "9.8 MB",
+    steps: [
+      "Extract the tarball and run the binary inside — no install step.",
+    ],
+    code: "tar xzf lightphotos-linux-x86_64.tar.gz && ./lightphotos",
   },
   {
+    id: "linux-arm64",
     os: "Linux",
     arch: "ARM64",
     note: "Ubuntu 24.04+, Debian 13, Fedora 40+",
     icon: "linux",
     file: "lightphotos-linux-arm64.tar.gz",
     size: "9.3 MB",
+    steps: [
+      "Extract the tarball and run the binary inside — no install step.",
+    ],
+    code: "tar xzf lightphotos-linux-arm64.tar.gz && ./lightphotos",
   },
 ];
+
+// One pair of rules per build, so the sniffer only has to write an id onto
+// <html> and the right tile survives. Everything that doesn't depend on which
+// id won lives in lp.css.
+const osCss = builds
+  .map(
+    (b) => `:root[data-lp-os="${b.id}"] .lp-dl-grid:not(.lp-dl-grid--all) > :not([data-os-id="${b.id}"]) { display: none; }`
+  )
+  .join("\n");
 ---
 <Base
   title="Download LightPhotos"
   desc="Download the LightPhotos desktop app for macOS, Windows and Linux. Native builds for Apple Silicon, x86-64 and ARM64 — free, offline and under 10 MB."
   active="downloads"
 >
+  <style is:inline set:html={osCss}></style>
+  <script is:inline>
+  // Runs before the build grid is parsed so the page never paints four tiles
+  // and then blinks down to one. It only writes an id onto <html>; the CSS
+  // above does the hiding, and without JS every build stays visible.
+  (function () {
+    var ua = navigator.userAgent || "";
+
+    // First match wins, so the mobile bail-out and the Linux arch split have
+    // to come before their broader neighbours.
+    var RULES = [
+      // Phones, tablets and ChromeOS get no desktop build, so they fall
+      // through to the full grid and the web app note under it.
+      { id: null, test: /Android|iPhone|iPad|iPod|CrOS/ },
+      { id: "windows-x86_64", test: /Windows NT/ },
+      { id: "macos-arm64", test: /Mac OS X|Macintosh/ },
+      { id: "linux-arm64", test: /aarch64|arm64/i },
+      { id: "linux-x86_64", test: /Linux|X11/ },
+    ];
+
+    function pick(ua) {
+      for (var i = 0; i < RULES.length; i++) {
+        if (RULES[i].test.test(ua)) return RULES[i].id;
+      }
+      return null;
+    }
+
+    function apply(id) {
+      if (id) document.documentElement.setAttribute("data-lp-os", id);
+      else document.documentElement.removeAttribute("data-lp-os");
+    }
+
+    apply(pick(ua));
+
+    // Chromium freezes the architecture in its UA string, so a Linux ARM
+    // machine claims x86_64 there. Client hints carry the truth, one async
+    // hop later.
+    var uad = navigator.userAgentData;
+    if (uad && uad.platform === "Linux" && uad.getHighEntropyValues) {
+      uad.getHighEntropyValues(["architecture"]).then(function (hints) {
+        apply(hints.architecture === "arm" ? "linux-arm64" : "linux-x86_64");
+      }).catch(function () {});
+    }
+
+    document.addEventListener("click", function (event) {
+      var btn = event.target.closest(".lp-dl-toggle");
+      if (!btn) return;
+      var grid = document.querySelector(".lp-dl-grid");
+      var all = grid.classList.toggle("lp-dl-grid--all");
+      btn.setAttribute("aria-expanded", all ? "true" : "false");
+      btn.textContent = all ? "Show only my platform" : "Show builds for other platforms";
+    });
+  })();
+  </script>
+
   <main class="lp-page">
     <section class="lp-hero lp-hero-compact">
       <div class="lp-glow"></div>
@@ -58,9 +148,14 @@ const builds = [
       <p class="lp-cta-note">Free and source code coming soon &middot; no account needed</p>
     </section>
 
+    <p class="lp-dl-note">
+      None of these builds are code-signed yet, so the first launch asks once
+      whether you meant to open them. Each build says what to expect.
+    </p>
+
     <section class="lp-dl-grid" aria-label="Desktop builds">
       {builds.map((b) => (
-        <article class={b.featured ? "lp-split-card lp-split-card--accent" : "lp-split-card"}>
+        <article class="lp-split-card" data-os-id={b.id}>
           <div class="lp-split-head">
             {b.icon === "apple" && (
               <svg viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true">
@@ -91,9 +186,20 @@ const builds = [
             <a class="lp-btn" href={`/downloads/${b.file}`} download>Download</a>
             <span class="lp-meta">{b.size}</span>
           </div>
+          <div class="lp-dl-firstrun">
+            <h4>First run</h4>
+            <ol class="lp-steps">
+              {b.steps.map((step) => <li>{step}</li>)}
+            </ol>
+            {b.code && <p class="lp-code">{b.code}</p>}
+          </div>
         </article>
       ))}
     </section>
+
+    <p class="lp-dl-more">
+      <button type="button" class="lp-dl-toggle" aria-expanded="false">Show builds for other platforms</button>
+    </p>
 
     <div class="lp-shared">
       <span class="lp-shared-tag">No build for you?</span>
@@ -102,51 +208,6 @@ const builds = [
         <li>Your photos stay on disk in both versions &mdash; edits land in .lightphotos sidecars either way</li>
       </ul>
     </div>
-
-    <section aria-labelledby="first-run">
-      <div class="lp-section-head">
-        <h2 id="first-run">First run</h2>
-        <p>
-          These builds aren't code-signed yet, so each platform will ask once
-          whether you meant to open them. Here's what to expect.
-        </p>
-      </div>
-
-      <div class="lp-split">
-        <article class="lp-split-card">
-          <div class="lp-split-head">
-            <h3>macOS</h3>
-          </div>
-          <ol class="lp-steps">
-            <li>Open the .dmg and drag LightPhotos into Applications.</li>
-            <li>Gatekeeper will refuse the first launch because the app is ad-hoc signed, not notarized.</li>
-            <li>Open it once from Finder with right-click &rarr; Open, then confirm. Or clear the quarantine flag yourself:</li>
-          </ol>
-          <p class="lp-code">xattr -dr com.apple.quarantine /Applications/LightPhotos.app</p>
-        </article>
-
-        <article class="lp-split-card">
-          <div class="lp-split-head">
-            <h3>Windows</h3>
-          </div>
-          <ol class="lp-steps">
-            <li>Unzip the archive anywhere &mdash; it holds a single lightphotos.exe with no installer.</li>
-            <li>SmartScreen will warn about an unrecognized publisher.</li>
-            <li>Choose More info, then Run anyway.</li>
-          </ol>
-        </article>
-
-        <article class="lp-split-card">
-          <div class="lp-split-head">
-            <h3>Linux</h3>
-          </div>
-          <ol class="lp-steps">
-            <li>Extract the tarball and run the binary inside &mdash; no install step.</li>
-          </ol>
-          <p class="lp-code">tar xzf lightphotos-linux-x86_64.tar.gz &amp;&amp; ./lightphotos</p>
-        </article>
-      </div>
-    </section>
 
     <section class="lp-actions" aria-label="Keep exploring">
       <a class="lp-card" href="/docs.html">
