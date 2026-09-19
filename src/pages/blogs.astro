@@ -3,16 +3,26 @@ import Base from "../layouts/Base.astro";
 ---
 <Base
   title="LightPhotos Blog"
-  desc="LightPhotos Blog — under construction. Details to be determined."
+  desc="Write-ups on why LightPhotos exists and how it's built."
   active="blogs"
 >
   <main class="lp-page">
     <section class="lp-hero lp-hero-compact">
       <div class="lp-glow"></div>
-      <h1 class="lp-wordmark"><span class="lp-light">TBD</span></h1>
+      <h1 class="lp-wordmark">Blog</h1>
       <p class="lp-lede">
-        Nothing here yet &mdash; the interesting write-ups are still being written.
+        Notes on why LightPhotos exists and how it's built.
       </p>
     </section>
+
+    <ul class="lp-post-list">
+      <li>
+        <a href="/blogs/why-i-started-lightphotos.html">
+          <time datetime="2026-09-19">September 19, 2026</time>
+          <h2>Why I started LightPhotos</h2>
+          <p>A Lightroom license that stopped working, a few apps that didn't fit, and an afternoon spent building the small photo editor I actually needed.</p>
+        </a>
+      </li>
+    </ul>
   </main>
 </Base>

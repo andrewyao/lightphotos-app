@@ -1,0 +1,147 @@
+---
+import Base from "../../layouts/Base.astro";
+---
+<Base
+  title="Why I started LightPhotos — LightPhotos Blog"
+  desc="A photo shoot with friends, a Lightroom license that stopped working, and an afternoon spent building the small photo editor I actually needed."
+  active="blogs"
+>
+  <main class="lp-page">
+    <article class="lp-article">
+      <header class="lp-article-head">
+        <p class="lp-article-meta"><a href="/blogs.html">Blog</a> &middot; <time datetime="2026-09-19">September 19, 2026</time></p>
+        <h1>Why I started LightPhotos</h1>
+        <p class="lp-article-dek">
+          A Lightroom license that stopped working, a few apps that didn't fit,
+          and an afternoon spent building the small photo editor I actually needed.
+        </p>
+      </header>
+
+      <h2>A folder full of RAW files</h2>
+      <p>
+        I recently went on a photo shoot with some friends. I brought my Sony
+        full-frame camera and shot RAW, as I usually do. It was a good
+        afternoon, and I came home with a memory card full of photos they were
+        waiting to see.
+      </p>
+      <p>
+        Then I copied the files to my Mac. Straight out of the camera, RAW
+        files aren't finished pictures. They look flat, some are a stop too
+        dark, and the highlights and shadows hold detail you only see after you
+        pull them back. Every photo needed some adjustment before I would share
+        it. I didn't want to send my friends a zip of unedited ARW files and
+        call it done.
+      </p>
+      <p>
+        So I needed a photo editor, and I found that I didn't have one that
+        worked.
+      </p>
+
+      <h2>The tools I already had</h2>
+      <p>
+        <strong>Lightroom Classic.</strong> Years ago I paid close to $200 for a
+        perpetual Lightroom Classic license. That was the point of paying up
+        front: buy it once and keep it. It stopped being true when I upgraded
+        macOS. Starting around Monterey, the installer won't run on current
+        versions of the OS. The license is still mine, and I have no way to use
+        it.
+      </p>
+      <p>
+        <strong>Luminar AI.</strong> I had also bought a copy of Luminar AI. It
+        was OK. The version I had was slow and crashed often, so I spent more
+        time waiting on it and restarting it than editing. When I want to fix
+        the exposure on forty photos, that gets old quickly.
+      </p>
+
+      <h2>The free alternatives</h2>
+      <p>
+        Next I looked at the free options, starting with Darktable. It is
+        capable software and clearly the work of people who care a lot about
+        photography. But opening it felt like sitting in the cockpit of a plane
+        I wasn't qualified to fly. There are modules on top of modules, many
+        ways to do the same thing, and a large vocabulary to learn before you
+        can make a picture a little brighter.
+      </p>
+      <p>
+        The other free tools I tried had the same problem in different amounts.
+        They had a lot of features I didn't want and an interface I would have
+        to study. I wasn't trying to learn a new craft. I wanted to finish a
+        job I already knew how to do.
+      </p>
+
+      <h2>$10 a month</h2>
+      <p>
+        That left the obvious answer: pay Adobe for Lightroom again. The
+        photography plan costs about $10 a month. That isn't a lot of money,
+        and I know plenty of photographers get far more than $10 of value from
+        it every month.
+      </p>
+      <p>
+        I'm not one of them. I edit photos in bursts: a trip, an event, an
+        afternoon with friends. Then weeks or months can pass before I open an
+        editor again. A subscription charges me the same amount in the months I
+        don't use it, and it would have been the second time I paid for the
+        same software. I had already paid for a license I can no longer run, so
+        renting the same thing felt wrong.
+      </p>
+
+      <h2>So I built one</h2>
+      <p>
+        That afternoon, I sat down to build a basic version myself. I didn't
+        want to clone Lightroom. I wanted the smallest tool that would get these
+        photos edited and into my friends' hands. I wrote down what it had to
+        do:
+      </p>
+      <ol class="lp-article-list">
+        <li>
+          <strong>Open any folder and show the photos in it.</strong> No
+          catalog, no import step. My photos are already organized in folders
+          on disk, and I want to point the app at one and start working.
+        </li>
+        <li>
+          <strong>Rate photos from 1 to 5.</strong> After a shoot, most of the
+          work is culling. I need to go through a few hundred frames fast and
+          mark the ones worth keeping.
+        </li>
+        <li>
+          <strong>Filter by rating.</strong> After I rate them, I want to see
+          only the 4s and 5s and ignore everything else.
+        </li>
+        <li>
+          <strong>Adjust exposure, highlights, shadows and the other basics.</strong>
+          Those few sliders handle most of what a RAW file needs.
+        </li>
+        <li>
+          <strong>Keep every adjustment non-destructive.</strong> The original
+          file is never modified. Edits are saved separately, so I can change
+          my mind, reset a photo, or come back to it months later.
+        </li>
+        <li>
+          <strong>Export selected photos to JPEG.</strong> The whole point was
+          to get shareable files out the other end.
+        </li>
+        <li>
+          <strong>Run on a Mac.</strong> That was the only machine I needed it
+          on.
+        </li>
+      </ol>
+      <p>
+        Anything that wasn't on the list didn't make it into the first version,
+        on purpose. The list is short because the problem was small: a folder
+        of RAW files, a few friends waiting, and no editor I could use.
+      </p>
+
+      <h2>What comes next</h2>
+      <p>
+        Even a small tool like this involves a lot of decisions: how to decode
+        RAW files, where the adjustment math runs, how edits are stored next to
+        the originals, and what to build it with. Some of those decisions paid
+        off, and others came with real costs.
+      </p>
+      <p>
+        In a future post, I'll go through the architectural choices behind
+        LightPhotos and the pros and cons of each.
+      </p>
+    </article>
+  </main>
+</Base>
