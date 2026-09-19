@@ -799,11 +799,20 @@ a.lp-card:focus-visible .lp-go {
 }
 
 /* --- downloads page: build grid, install steps --- */
+.lp-dl-note {
+  max-width: 34rem;
+  margin: 3.5rem auto 0;
+  text-align: center;
+  color: var(--lp-muted);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
 .lp-dl-grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: 1.2rem;
-  margin-top: 3.5rem;
+  margin-top: 1.6rem;
 }
 
 /* Four builds, so hold a 2x2 block rather than letting auto-fit strand one
@@ -812,6 +821,62 @@ a.lp-card:focus-visible .lp-go {
   .lp-dl-grid {
     grid-template-columns: repeat(2, 1fr);
   }
+}
+
+/* Narrowed to the visitor's own platform: the survivor takes the full row and
+   wears the accent the featured build used to carry. The per-build rules that
+   decide which one survives are emitted by downloads.astro. */
+:root[data-lp-os] .lp-dl-grid:not(.lp-dl-grid--all) > .lp-split-card {
+  grid-column: 1 / -1;
+  border-color: var(--border-accent);
+  box-shadow: 0 12px 32px color-mix(in srgb, var(--lp-glow) 10%, transparent);
+}
+
+:root[data-lp-os] .lp-dl-grid:not(.lp-dl-grid--all) .lp-split-tag {
+  background: color-mix(in srgb, var(--lp-accent) 18%, transparent);
+  color: var(--lp-accent);
+}
+
+/* Only worth offering once a platform has actually been picked for you. */
+.lp-dl-more {
+  display: none;
+  margin-top: 1.4rem;
+  text-align: center;
+}
+
+:root[data-lp-os] .lp-dl-more {
+  display: block;
+}
+
+.lp-dl-toggle {
+  padding: 0;
+  background: none;
+  border: 0;
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--lp-accent);
+  cursor: pointer;
+}
+
+.lp-dl-toggle:hover,
+.lp-dl-toggle:focus-visible {
+  text-decoration: underline;
+}
+
+.lp-dl-firstrun {
+  margin-top: 1.6rem;
+  padding-top: 1.4rem;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.lp-dl-firstrun h4 {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--lp-muted);
 }
 
 .lp-dl-file {
