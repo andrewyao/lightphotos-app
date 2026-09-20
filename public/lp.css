@@ -891,11 +891,6 @@ a.lp-card:focus-visible .lp-go {
   box-shadow: 0 12px 32px color-mix(in srgb, var(--lp-glow) 10%, transparent);
 }
 
-:root[data-lp-os] .lp-dl-grid:not(.lp-dl-grid--all) .lp-split-tag {
-  background: color-mix(in srgb, var(--lp-accent) 18%, transparent);
-  color: var(--lp-accent);
-}
-
 /* Only worth offering once a platform has actually been picked for you. */
 .lp-dl-more {
   display: none;
@@ -923,35 +918,21 @@ a.lp-card:focus-visible .lp-go {
   text-decoration: underline;
 }
 
-.lp-dl-firstrun {
-  margin-top: 1.6rem;
-  padding-top: 1.4rem;
-  border-top: 1px solid var(--border-subtle);
-}
-
-.lp-dl-firstrun h4 {
-  font-family: var(--font-mono);
-  font-size: 0.66rem;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--lp-muted);
-}
-
-.lp-dl-file {
-  margin-top: 0.9rem;
-  font-family: var(--font-mono);
-  font-size: 0.76rem;
-  color: var(--lp-muted);
-  overflow-wrap: anywhere;
-}
-
+/* The button leads the card now, so this row sits at the top and names its
+   own platform; the steps below it need no "First run" heading to follow. */
 .lp-dl-foot {
   display: flex;
   align-items: center;
   gap: 0.9rem;
-  margin-top: auto;
-  padding-top: 1.4rem;
+  flex-wrap: wrap;
+}
+
+/* Only for builds whose requirements the button label can't imply. */
+.lp-dl-req {
+  margin-top: 0.9rem;
+  font-size: 0.87rem;
+  line-height: 1.5;
+  color: var(--lp-muted);
 }
 
 .lp-steps {

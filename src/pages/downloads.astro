@@ -8,14 +8,15 @@ import Base from "../layouts/Base.astro";
 // `id` is the join key between this table, the per-build CSS below and the
 // platform sniffer in the inline script. An id the sniffer picks that isn't
 // here simply matches no rule, and the page falls back to showing every build.
+//
+// `label` carries the platform, so each card leads with its button instead of
+// a heading that would say the same thing again. `note` is only for builds
+// whose system requirements the label can't imply.
 
 const builds = [
   {
     id: "macos-arm64",
-    os: "macOS",
-    arch: "Apple Silicon",
-    note: "macOS 11 and later, M1 or newer",
-    icon: "apple",
+    label: "Download for Apple Silicon",
     file: "lightphotos-macos-arm64.dmg",
     size: "4.4 MB",
     steps: [
@@ -27,10 +28,7 @@ const builds = [
   },
   {
     id: "windows-x86_64",
-    os: "Windows",
-    arch: "x86-64",
-    note: "Windows 10 and later, 64-bit Intel or AMD",
-    icon: "windows",
+    label: "Download for Windows",
     file: "lightphotos-windows-x86_64.zip",
     size: "7.6 MB",
     steps: [
@@ -41,10 +39,8 @@ const builds = [
   },
   {
     id: "linux-x86_64",
-    os: "Linux",
-    arch: "x86-64",
+    label: "Download for Linux x86",
     note: "Ubuntu 24.04+, Debian 13, Fedora 40+",
-    icon: "linux",
     file: "lightphotos-linux-x86_64.tar.gz",
     size: "9.8 MB",
     steps: [
@@ -54,10 +50,8 @@ const builds = [
   },
   {
     id: "linux-arm64",
-    os: "Linux",
-    arch: "ARM64",
+    label: "Download for Linux ARM",
     note: "Ubuntu 24.04+, Debian 13, Fedora 40+",
-    icon: "linux",
     file: "lightphotos-linux-arm64.tar.gz",
     size: "9.3 MB",
     steps: [
@@ -156,43 +150,15 @@ const osCss = builds
     <section class="lp-dl-grid" aria-label="Desktop builds">
       {builds.map((b) => (
         <article class="lp-split-card" data-os-id={b.id}>
-          <div class="lp-split-head">
-            {b.icon === "apple" && (
-              <svg viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true">
-                <path d="M16.1 12.6c0-2 1.6-3 1.7-3.1-.9-1.4-2.4-1.6-3.2-1.6-1.3-.1-2.6.8-3.3.8-.7 0-1.7-.8-2.8-.7-1.4 0-2.7.8-3.5 2.1-1.5 2.6-.4 6.4 1.1 8.5.7 1 1.5 2.2 2.6 2.1 1-.04 1.4-.7 2.7-.7 1.2 0 1.6.7 2.7.66 1.1-.02 1.9-1 2.6-2.1.8-1.2 1.1-2.3 1.2-2.4-.03-.01-2.2-.9-2.2-3.4z"/>
-                <path d="M14.1 6.3c.6-.7 1-1.7.9-2.7-.9.04-2 .6-2.6 1.4-.6.6-1.1 1.7-.9 2.6 1 .08 2-.5 2.6-1.3z"/>
-              </svg>
-            )}
-            {b.icon === "windows" && (
-              <svg viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true">
-                <path d="M3.5 6.3l7.2-1v7.1H3.5z"/>
-                <path d="M11.9 5.1L20.5 4v8.4h-8.6z"/>
-                <path d="M3.5 13.6h7.2v7.1l-7.2-1z"/>
-                <path d="M11.9 13.6h8.6V22l-8.6-1.2z"/>
-              </svg>
-            )}
-            {b.icon === "linux" && (
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <rect x="3" y="4.5" width="18" height="15" rx="2.5"/>
-                <path d="M7.5 10l2.5 2.3-2.5 2.3M13 14.6h3.5"/>
-              </svg>
-            )}
-            <h3>{b.os}</h3>
-            <span class="lp-split-tag">{b.arch}</span>
-          </div>
-          <p class="lp-split-lede">{b.note}</p>
-          <p class="lp-dl-file">{b.file}</p>
           <div class="lp-dl-foot">
-            <a class="lp-btn" href={`/downloads/${b.file}`} download>Download</a>
+            <a class="lp-btn" href={`/downloads/${b.file}`} download>{b.label}</a>
             <span class="lp-meta">{b.size}</span>
           </div>
-          <div class="lp-dl-firstrun">
-            <h4>First run</h4>
-            <ol class="lp-steps">
-              {b.steps.map((step) => <li>{step}</li>)}
-            </ol>
-            {b.code && <p class="lp-code">{b.code}</p>}
-          </div>
+          {b.note && <p class="lp-dl-req">{b.note}</p>}
+          <ol class="lp-steps">
+            {b.steps.map((step) => <li>{step}</li>)}
+          </ol>
+          {b.code && <p class="lp-code">{b.code}</p>}
         </article>
       ))}
     </section>
