@@ -401,9 +401,11 @@ body {
 }
 
 .lp-card {
-  display: flex;
-  flex-direction: column;
-  gap: 0.9rem;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  column-gap: 0.75rem;
+  row-gap: 0.9rem;
   padding: 1.4rem;
   background: var(--lp-card);
   border: 1px solid var(--lp-line);
@@ -449,6 +451,8 @@ a.lp-card:focus-visible .lp-go {
 }
 
 .lp-card :is(h2, h3) {
+  grid-column: 2;
+  grid-row: 1;
   display: flex;
   align-items: baseline;
   justify-content: space-between;
@@ -466,6 +470,7 @@ a.lp-card:focus-visible .lp-go {
 }
 
 .lp-card p {
+  grid-column: 1 / -1;
   font-size: 0.9rem;
   line-height: 1.55;
   color: var(--lp-muted);
@@ -583,6 +588,8 @@ a.lp-card:focus-visible .lp-go {
   font-size: 30px;
   line-height: 1;
   color: var(--lp-accent);
+  grid-column: 1;
+  grid-row: 1;
 }
 
 /* --- landing page: dual CTA, feature grid, run-modes split --- */
@@ -640,9 +647,11 @@ a.lp-card:focus-visible .lp-go {
 }
 
 .lp-feature {
-  display: flex;
-  flex-direction: column;
-  gap: 0.6rem;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  column-gap: 0.65rem;
+  row-gap: 0.6rem;
   padding: 1.35rem;
   background: var(--surface-card);
   border: 1px solid var(--border-subtle);
@@ -658,19 +667,24 @@ a.lp-card:focus-visible .lp-go {
 .lp-feature:nth-child(5) { animation-delay: 0.88s; }
 .lp-feature:nth-child(6) { animation-delay: 0.95s; }
 
-.lp-feature svg {
+.lp-feature > svg {
+  grid-column: 1;
+  grid-row: 1;
   width: 26px;
   height: 26px;
   color: var(--lp-accent);
 }
 
 .lp-feature h3 {
+  grid-column: 2;
+  grid-row: 1;
   font-family: var(--font-display);
   font-size: 1.05rem;
   font-weight: 560;
 }
 
 .lp-feature p {
+  grid-column: 1 / -1;
   font-size: 0.85rem;
   line-height: 1.55;
   color: var(--lp-muted);
