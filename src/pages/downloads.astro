@@ -20,9 +20,9 @@ const builds = [
     file: "lightphotos-macos-arm64.dmg",
     size: "4.4 MB",
     steps: [
-      "Open the .dmg and drag LightPhotos into Applications.",
-      "Gatekeeper will refuse the first launch because the app is ad-hoc signed, not notarized.",
-      "Open it once from Finder with right-click → Open, then confirm. Or clear the quarantine flag yourself:",
+      "Open the .dmg and drag LightPhotos into your Applications folder.",
+      "The first launch gets blocked, because the app is not notarized yet.",
+      "Right-click it in Finder, choose Open, and confirm. You only do this once. Or clear the quarantine flag yourself:",
     ],
     code: "xattr -dr com.apple.quarantine /Applications/LightPhotos.app",
   },
@@ -32,9 +32,9 @@ const builds = [
     file: "lightphotos-windows-x86_64.zip",
     size: "7.6 MB",
     steps: [
-      "Unzip the archive anywhere — it holds a single lightphotos.exe with no installer.",
-      "SmartScreen will warn about an unrecognized publisher.",
-      "Choose More info, then Run anyway.",
+      "Unzip the archive anywhere. Inside is one lightphotos.exe, with no installer to sit through.",
+      "SmartScreen warns about an unrecognized publisher the first time you run it.",
+      "Choose More info, then Run anyway. You will not see it again.",
     ],
   },
   {
@@ -44,7 +44,7 @@ const builds = [
     file: "lightphotos-linux-x86_64.tar.gz",
     size: "9.8 MB",
     steps: [
-      "Extract the tarball and run the binary inside — no install step.",
+      "Extract the tarball and run the binary inside. Nothing to install, nothing to configure.",
     ],
     code: "tar xzf lightphotos-linux-x86_64.tar.gz && ./lightphotos",
   },
@@ -55,7 +55,7 @@ const builds = [
     file: "lightphotos-linux-arm64.tar.gz",
     size: "9.3 MB",
     steps: [
-      "Extract the tarball and run the binary inside — no install step.",
+      "Extract the tarball and run the binary inside. Nothing to install, nothing to configure.",
     ],
     code: "tar xzf lightphotos-linux-arm64.tar.gz && ./lightphotos",
   },
@@ -125,7 +125,7 @@ const osCss = builds
       var grid = document.querySelector(".lp-dl-grid");
       var all = grid.classList.toggle("lp-dl-grid--all");
       btn.setAttribute("aria-expanded", all ? "true" : "false");
-      btn.textContent = all ? "Show only my platform" : "Show builds for other platforms";
+      btn.textContent = all ? "Show only my platform" : "Looking for another platform?";
     });
   })();
   </script>
@@ -135,16 +135,18 @@ const osCss = builds
       <div class="lp-glow"></div>
       <h1 class="lp-wordmark">Down<span class="lp-light">loads</span></h1>
       <p class="lp-lede">
-        The native desktop app &mdash; same editor as the web version, with a
-        decode pipeline tuned to each platform. It runs entirely offline and
-        never uploads a thing.
+        The full editor, running on your own machine. Same interface as the
+        web version, with a decode pipeline tuned to your platform, so RAW
+        files open faster. It works with no internet at all and never uploads
+        a single photo.
       </p>
-      <p class="lp-cta-note">Free and source code coming soon &middot; no account needed</p>
+      <p class="lp-cta-note">Free, and the source is coming soon. No account, no sign-in, nothing to cancel.</p>
     </section>
 
     <p class="lp-dl-note">
-      None of these builds are code-signed yet, so the first launch asks once
-      whether you meant to open them. Each build says what to expect.
+      These builds are not code-signed yet, so your system asks once whether
+      you really meant to open them. It takes about ten seconds, and the steps
+      under each build walk you through it.
     </p>
 
     <section class="lp-dl-grid" aria-label="Desktop builds">
@@ -164,14 +166,14 @@ const osCss = builds
     </section>
 
     <p class="lp-dl-more">
-      <button type="button" class="lp-dl-toggle" aria-expanded="false">Show builds for other platforms</button>
+      <button type="button" class="lp-dl-toggle" aria-expanded="false">Looking for another platform?</button>
     </p>
 
     <div class="lp-shared">
-      <span class="lp-shared-tag">No build for you?</span>
+      <span class="lp-shared-tag">Nothing here fits?</span>
       <ul class="lp-check lp-shared-list">
-        <li>Intel Macs and everything else: the <a href="/app.html">web app</a> runs the same editor in any browser with WebGPU</li>
-        <li>Your photos stay on disk in both versions &mdash; edits land in .lightphotos sidecars either way</li>
+        <li>On an Intel Mac, or something else entirely? The <a href="/app.html">web app</a> is the same editor, in any browser with WebGPU</li>
+        <li>Either way your photos stay on disk. Your edits are saved in a small file inside a .lightphotos subfolder, so if you move a folder somewhere else, all of its edits travel with it</li>
       </ul>
     </div>
 
