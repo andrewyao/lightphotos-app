@@ -1373,3 +1373,69 @@ a.lp-card:focus-visible .lp-go {
   font-size: 0.85rem;
   color: var(--lp-muted);
 }
+
+/* --- Article prev/next -----------------------------------------------------
+ * Chronological, so Back is the older post and Next is the newer one. The
+ * cards are written by tools/postnav.py from each article's own date and
+ * title; a lone card keeps its half of the row rather than stretching.
+ */
+.lp-article-nav {
+  display: flex;
+  gap: 1rem;
+  margin-top: 3rem;
+  padding-top: 1.7rem;
+  border-top: 1px solid var(--lp-line);
+}
+
+.lp-article-nav a {
+  flex: 0 1 calc(50% - 0.5rem);
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 0.9rem 1.1rem;
+  border: 1px solid var(--border-subtle);
+  border-radius: 10px;
+  color: var(--lp-ink);
+  text-decoration: none;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.lp-article-nav a:hover,
+.lp-article-nav a:focus-visible {
+  border-color: var(--border-accent);
+  background: var(--surface-hover);
+}
+
+.lp-article-nav-next {
+  margin-left: auto;
+  text-align: right;
+}
+
+.lp-article-nav-dir {
+  font-family: var(--font-ui);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--lp-muted);
+}
+
+.lp-article-nav-title {
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+@media (max-width: 34rem) {
+  .lp-article-nav {
+    flex-direction: column;
+  }
+
+  .lp-article-nav a {
+    flex: 1 1 auto;
+  }
+
+  .lp-article-nav-next {
+    margin-left: 0;
+    text-align: left;
+  }
+}
