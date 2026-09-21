@@ -1,0 +1,230 @@
+---
+import Base from "../../layouts/Base.astro";
+---
+<Base
+  title="How a photo gets on screen — LightPhotos Blog"
+  desc="What actually happens between clicking a photo and seeing it, and all the work LightPhotos skips to make that feel instant."
+  active="blogs"
+>
+  <main class="lp-page">
+    <article class="lp-article">
+      <header class="lp-article-head">
+        <p class="lp-article-meta"><a href="/blogs.html">Blogs</a> &middot; <time datetime="2026-07-08">July 8, 2026</time></p>
+        <h1>How a photo gets on screen</h1>
+        <p class="lp-article-dek">
+          What actually happens between clicking a photo and seeing it, and all
+          the work the app skips to make that feel instant.
+        </p>
+      </header>
+
+      <p>
+        I want LightPhotos to feel instant. You open a folder of holiday photos,
+        the thumbnails fill in, you double-click one and it opens full size, you
+        scroll the wheel and it zooms. None of that should surprise anyone.
+      </p>
+      <p>
+        What surprised me is how much work the app has to skip to make it feel
+        that ordinary. Here is everything that happens to one photo on its way
+        to your screen.
+      </p>
+
+      <h2>Three different jobs</h2>
+      <p>
+        A photo takes one of three paths through the app, and I treat them as
+        three separate problems.
+      </p>
+      <ul class="lp-article-list">
+        <li>
+          <strong>Opening.</strong> You clicked, and you want the photo large on
+          screen right now.
+        </li>
+        <li>
+          <strong>Browsing.</strong> The grid needs a small version of every
+          photo you can currently see.
+        </li>
+        <li>
+          <strong>Exporting.</strong> You want a JPEG on disk with your edits
+          applied.
+        </li>
+      </ul>
+      <p>
+        Opening is about the gap between your click and something appearing.
+        Browsing is about doing one small job a hundred times without falling
+        over. Exporting is about getting the pixels exactly right, and it can
+        take as long as it likes, because you already pressed the button and
+        walked away.
+      </p>
+
+      <h2>Opening a photo</h2>
+      <p>
+        A camera RAW file is not an image. It is the raw readout from the
+        sensor, and turning it into something you can look at takes real
+        computation. On my machine a Sony ARW takes about 250 ms.
+      </p>
+      <p>
+        Almost every RAW file comes with a shortcut, though. Your camera already
+        wrote a small JPEG preview so it could show you the shot on its own
+        screen. Pulling that out takes about 35 ms, so that is what I show you
+        first. The full decode keeps running in the background and swaps in when
+        it is ready.
+      </p>
+
+      <figure class="lp-figure">
+        <svg viewBox="0 0 640 196" role="img" aria-label="Timeline: pass one puts an embedded preview on screen at 35 milliseconds, while pass two finishes the full sensor decode at 250 milliseconds and swaps in.">
+          <text class="lp-fig-label" x="0" y="12">OPENING A CAMERA RAW FILE</text>
+
+          <text class="lp-fig-t" x="0" y="50">Pass 1</text>
+          <text class="lp-fig-s" x="0" y="68">embedded preview</text>
+          <rect class="lp-fig-box-accent" x="176" y="36" width="60" height="30" rx="5"></rect>
+          <text class="lp-fig-s" x="248" y="56">35 ms &middot; on screen</text>
+
+          <text class="lp-fig-t" x="0" y="116">Pass 2</text>
+          <text class="lp-fig-s" x="0" y="134">full sensor decode</text>
+          <rect class="lp-fig-box" x="176" y="102" width="431" height="30" rx="5"></rect>
+          <text class="lp-fig-s" x="192" y="122">250 ms &middot; sharp version swaps in</text>
+
+          <line class="lp-fig-line-soft" x1="236" y1="28" x2="236" y2="158" stroke-dasharray="3 4"></line>
+
+          <line class="lp-fig-line" x1="176" y1="158" x2="624" y2="158"></line>
+          <line class="lp-fig-line" x1="176" y1="158" x2="176" y2="164"></line>
+          <line class="lp-fig-line" x1="236" y1="158" x2="236" y2="164"></line>
+          <text class="lp-fig-s" x="176" y="180">click</text>
+          <text class="lp-fig-s" x="248" y="180">the only wait you actually notice ends here</text>
+        </svg>
+        <figcaption>
+          Nothing here got faster. The app just found something worth showing
+          while the expensive work was still running.
+        </figcaption>
+      </figure>
+
+      <p>
+        A plain JPEG has no embedded preview and does not need one. Decoding a
+        JPEG at a small size is already quick, so the first pass does the whole
+        job and the second pass never runs. Same code path, no special case.
+      </p>
+      <p>
+        There is a third pass for when you zoom in past the point where the
+        screen-sized version still holds detail. Full-resolution decodes cost
+        seconds and hundreds of megabytes, so I only run them when you actually
+        zoom in that far.
+      </p>
+
+      <h2>After that, it lives on the GPU</h2>
+      <p>
+        Once a photo is decoded, it gets uploaded to the graphics card once.
+        Zooming and panning never touch the image data again. They change a
+        handful of numbers that get sent to the card each frame.
+      </p>
+      <blockquote class="lp-pullquote">
+        Zooming does not touch the photo at all. It changes four numbers.
+      </blockquote>
+      <p>
+        The editing sliders work the same way. Drag Exposure and the new value
+        goes to the GPU, where the shader recomputes the picture on the fly. No
+        re-decode, no pixel loop on the CPU. You are looking at the original
+        decode with some arithmetic applied on the way to the screen.
+      </p>
+
+      <h2>Two renderers</h2>
+      <p>
+        The buttons, grid, filmstrip and sliders are drawn by egui, an
+        immediate-mode UI library. The photo itself is drawn by a few hundred
+        lines of hand-written GPU code, sitting underneath a transparent panel.
+      </p>
+      <p>
+        Splitting it this way lets me write the interface in the loose,
+        convenient style egui encourages, while the part that has to be fast
+        about pixels stays small enough to hand-tune. A general-purpose toolkit
+        would have made the photo a widget, and widgets do not accept a
+        24-megapixel texture with a custom shader without a fight.
+      </p>
+
+      <h2>Where the four builds meet</h2>
+      <p>
+        macOS, Linux, Windows and the browser build differ in exactly one place,
+        which is how they turn a file into pixels. After that they all converge.
+      </p>
+
+      <figure class="lp-figure">
+        <svg viewBox="0 0 640 280" role="img" aria-label="Diagram: four platform builds fork only at the decode layer, then converge into one shared edit pipeline feeding both the GPU tone shader and the exporter.">
+          <rect class="lp-fig-box" x="0" y="0" width="140" height="30" rx="6"></rect>
+          <text class="lp-fig-t" x="70" y="20" text-anchor="middle">macOS</text>
+          <rect class="lp-fig-box" x="160" y="0" width="140" height="30" rx="6"></rect>
+          <text class="lp-fig-t" x="230" y="20" text-anchor="middle">Linux</text>
+          <rect class="lp-fig-box" x="320" y="0" width="140" height="30" rx="6"></rect>
+          <text class="lp-fig-t" x="390" y="20" text-anchor="middle">Windows</text>
+          <rect class="lp-fig-box" x="480" y="0" width="140" height="30" rx="6"></rect>
+          <text class="lp-fig-t" x="550" y="20" text-anchor="middle">Browser</text>
+
+          <path class="lp-fig-line" d="M70 30 V52 M230 30 V52 M390 30 V52 M550 30 V52"></path>
+
+          <rect class="lp-fig-box" x="0" y="52" width="140" height="34" rx="6"></rect>
+          <text class="lp-fig-s" x="70" y="73" text-anchor="middle">ImageIO</text>
+          <rect class="lp-fig-box" x="160" y="52" width="300" height="34" rx="6"></rect>
+          <text class="lp-fig-s" x="310" y="73" text-anchor="middle">Rust decoders</text>
+          <rect class="lp-fig-box" x="480" y="52" width="140" height="34" rx="6"></rect>
+          <text class="lp-fig-s" x="550" y="73" text-anchor="middle">same, in Web Workers</text>
+
+          <path class="lp-fig-line" d="M70 86 V100 H550 M550 86 V100 M310 86 V152"></path>
+          <line class="lp-fig-line-soft" x1="0" y1="116" x2="640" y2="116" stroke-dasharray="3 4"></line>
+          <text class="lp-fig-label" x="0" y="136">THE ONLY FORK &mdash; EVERYTHING BELOW IS SHARED</text>
+          <path class="lp-fig-arrow" d="M304 152 L316 152 L310 162 Z"></path>
+
+          <rect class="lp-fig-box-accent" x="90" y="166" width="460" height="34" rx="6"></rect>
+          <text class="lp-fig-t" x="320" y="187" text-anchor="middle">One edit function, in linear light</text>
+
+          <path class="lp-fig-line" d="M200 200 V216 H440 M440 200 V216 M200 216 V230 M440 216 V230"></path>
+          <path class="lp-fig-arrow" d="M194 230 L206 230 L200 240 Z M434 230 L446 230 L440 240 Z"></path>
+
+          <rect class="lp-fig-box" x="90" y="244" width="220" height="34" rx="6"></rect>
+          <text class="lp-fig-s" x="200" y="265" text-anchor="middle">Tone shader on the GPU</text>
+          <rect class="lp-fig-box" x="330" y="244" width="220" height="34" rx="6"></rect>
+          <text class="lp-fig-s" x="440" y="265" text-anchor="middle">Exported JPEG</text>
+        </svg>
+        <figcaption>
+          Fork low, converge high. Every layer above the fork is a layer that
+          cannot drift between platforms.
+        </figcaption>
+      </figure>
+
+      <p>
+        The GPU tone shader is a direct translation of that one edit function.
+        The function that bakes edits into finished pixels has exactly two
+        callers, the exporter and the thumbnail you are looking at.
+      </p>
+      <p>
+        That second fact is the whole reason an exported JPEG matches what you
+        saw on screen. I never built that as a feature. It falls out of there
+        being one code path.
+      </p>
+
+      <h2>What I learned</h2>
+      <ul class="lp-article-list">
+        <li>
+          <strong>Ask what you can show before the real work finishes.</strong>
+          Cheap then correct is what turns a 250 ms wait into a 35 ms one
+          without making anything faster.
+        </li>
+        <li>
+          <strong>Upload once, then transform cheaply.</strong> If an action
+          repeats 60 times a second, it should change a few numbers, never
+          re-run the expensive step.
+        </li>
+        <li>
+          <strong>Treat different waits as different problems.</strong> Opening,
+          browsing and exporting look like one job called "decode a photo". One
+          shared path would have served none of them well.
+        </li>
+        <li>
+          <strong>Fork low, converge high.</strong> Platform differences belong
+          as close to the operating system as you can push them.
+        </li>
+      </ul>
+
+      <p>
+        If you want to see how this feels, there are builds for all four
+        platforms on the <a href="/downloads.html">downloads page</a>.
+      </p>
+    </article>
+  </main>
+</Base>

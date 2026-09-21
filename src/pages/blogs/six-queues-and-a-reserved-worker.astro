@@ -1,0 +1,243 @@
+---
+import Base from "../../layouts/Base.astro";
+---
+<Base
+  title="Six queues and a reserved worker — LightPhotos Blog"
+  desc="The background decode system in LightPhotos, told as the sequence of problems that produced it. None of the problems are photo-specific."
+  active="blogs"
+>
+  <main class="lp-page">
+    <article class="lp-article">
+      <header class="lp-article-head">
+        <p class="lp-article-meta"><a href="/blogs.html">Blogs</a> &middot; <time datetime="2026-08-20">August 20, 2026</time></p>
+        <h1>Six queues and a reserved worker</h1>
+        <p class="lp-article-dek">
+          The background decode system in LightPhotos, told as the sequence of
+          problems that produced it. Six queues and a worker that refuses the
+          most common job sounds like over-engineering. Every piece is there
+          because something visibly broke without it.
+        </p>
+      </header>
+
+      <h2>One queue, N workers</h2>
+      <p>
+        LightPhotos decodes images on a pool of background threads so the
+        interface stays responsive. My first version was the obvious thing. One
+        queue, a handful of workers, first in first out.
+      </p>
+      <p>
+        It works right up until you scroll. Scrolling the grid queues a hundred
+        thumbnail decodes. Then you double-click a photo, and your photo goes on
+        the end of the queue behind a hundred thumbnails you are no longer
+        looking at. The app looks frozen while it diligently finishes work for a
+        part of the screen you already scrolled past.
+      </p>
+
+      <h2>Not all jobs are equal</h2>
+      <p>
+        So I split the one queue into six, ordered by how much you care about
+        the result right now. The photo you just opened jumps ahead of the
+        thumbnails behind it.
+      </p>
+
+      <figure class="lp-figure">
+        <svg viewBox="0 0 640 240" role="img" aria-label="Diagram: six priority queues drain in order into a pool of eight decode workers, one of which is reserved and never accepts thumbnail jobs.">
+          <text class="lp-fig-label" x="0" y="24">SIX QUEUES, DRAINED IN THIS ORDER</text>
+
+          <rect class="lp-fig-box-accent" x="0" y="36" width="300" height="26" rx="5"></rect>
+          <text class="lp-fig-s" x="12" y="53">1</text>
+          <text class="lp-fig-s" x="30" y="53">First pass of the photo you opened</text>
+          <rect class="lp-fig-box-accent" x="0" y="68" width="300" height="26" rx="5"></rect>
+          <text class="lp-fig-s" x="12" y="85">2</text>
+          <text class="lp-fig-s" x="30" y="85">Sharp second pass of that photo</text>
+          <rect class="lp-fig-box" x="0" y="100" width="300" height="26" rx="5"></rect>
+          <text class="lp-fig-s" x="12" y="117">3</text>
+          <text class="lp-fig-s" x="30" y="117">Full-resolution decode, on demand</text>
+          <rect class="lp-fig-box" x="0" y="132" width="300" height="26" rx="5"></rect>
+          <text class="lp-fig-s" x="12" y="149">4</text>
+          <text class="lp-fig-s" x="30" y="149">Camera and lens metadata</text>
+          <rect class="lp-fig-box" x="0" y="164" width="300" height="26" rx="5"></rect>
+          <text class="lp-fig-s" x="12" y="181">5</text>
+          <text class="lp-fig-s" x="30" y="181">Thumbnails for the grid</text>
+          <rect class="lp-fig-box" x="0" y="196" width="300" height="26" rx="5"></rect>
+          <text class="lp-fig-s" x="12" y="213">6</text>
+          <text class="lp-fig-s" x="30" y="213">Capture times for burst grouping</text>
+
+          <line class="lp-fig-line" x1="310" y1="96" x2="368" y2="96"></line>
+          <path class="lp-fig-arrow" d="M368 90 L368 102 L380 96 Z"></path>
+
+          <path class="lp-fig-line-soft" d="M300 177 H340 V221 H374" stroke-dasharray="3 4"></path>
+          <path class="lp-fig-bad-stroke" d="M332 191 L348 207 M348 191 L332 207"></path>
+
+          <text class="lp-fig-label" x="380" y="24">8 DECODE WORKERS</text>
+          <rect class="lp-fig-box" x="380" y="36" width="240" height="20" rx="4"></rect>
+          <rect class="lp-fig-box" x="380" y="61" width="240" height="20" rx="4"></rect>
+          <rect class="lp-fig-box" x="380" y="86" width="240" height="20" rx="4"></rect>
+          <rect class="lp-fig-box" x="380" y="111" width="240" height="20" rx="4"></rect>
+          <rect class="lp-fig-box" x="380" y="136" width="240" height="20" rx="4"></rect>
+          <rect class="lp-fig-box" x="380" y="161" width="240" height="20" rx="4"></rect>
+          <rect class="lp-fig-box" x="380" y="186" width="240" height="20" rx="4"></rect>
+          <rect class="lp-fig-box-accent" x="380" y="211" width="240" height="20" rx="4"></rect>
+          <text class="lp-fig-s" x="392" y="226">reserved &middot; never takes thumbnails</text>
+        </svg>
+        <figcaption>
+          The ordering that surprises people is metadata beating thumbnails. The
+          metadata panel sits next to a photo you are already looking at, so a
+          delay there is obvious, while a thumbnail two rows down is not yet on
+          screen.
+        </figcaption>
+      </figure>
+
+      <blockquote class="lp-pullquote">
+        Priority is about what you are currently staring at, not about what is
+        cheap.
+      </blockquote>
+
+      <h2>Priority only controls who gets in</h2>
+      <p>
+        With six queues in place, the freeze got shorter and did not go away.
+        Priority governs the order in which queued work is <em>started</em>. It
+        says nothing about work already running. If all eight workers picked up
+        thumbnails one millisecond before you double-clicked, your photo is at
+        the front of the queue and nobody is free to take it.
+      </p>
+      <p>
+        The textbook answer is preemption. Cancel a running decode and hand the
+        worker over. That was not available to me, because the decode happens
+        inside somebody else's library that has no idea I want it to stop.
+      </p>
+      <p>
+        What was available is reservation. One worker never accepts thumbnails
+        at all. It sits idle through a flood of thumbnail work and is there the
+        moment you open a photo. On a single-core machine I disable the
+        reservation, because reserving the only worker starves the grid.
+      </p>
+
+      <h2>A worker that can say no breaks the wake-up</h2>
+      <p>
+        Workers sleep when the queue is empty, and adding a job wakes one up.
+        That is the standard pattern, and it is correct as long as every
+        sleeping worker is interchangeable. My reserved worker is not. It can
+        decline.
+      </p>
+
+      <figure class="lp-figure">
+        <svg viewBox="0 0 640 190" role="img" aria-label="Sequence: a queued thumbnail wakes one worker, which happens to be the reserved worker; it declines the job and goes back to sleep while the other seven workers are never woken.">
+          <text class="lp-fig-label" x="0" y="12">WAKING ONE SLEEPER, WHEN ONE SLEEPER CAN SAY NO</text>
+
+          <rect class="lp-fig-box" x="0" y="32" width="140" height="48" rx="6"></rect>
+          <text class="lp-fig-s" x="70" y="52" text-anchor="middle">Thumbnail</text>
+          <text class="lp-fig-s" x="70" y="68" text-anchor="middle">queued</text>
+          <path class="lp-fig-arrow" d="M146 50 L146 62 L158 56 Z"></path>
+          <rect class="lp-fig-box" x="170" y="32" width="140" height="48" rx="6"></rect>
+          <text class="lp-fig-s" x="240" y="52" text-anchor="middle">Wake one</text>
+          <text class="lp-fig-s" x="240" y="68" text-anchor="middle">worker</text>
+          <path class="lp-fig-arrow" d="M316 50 L316 62 L328 56 Z"></path>
+          <rect class="lp-fig-box-accent" x="340" y="32" width="220" height="48" rx="6"></rect>
+          <text class="lp-fig-s" x="450" y="52" text-anchor="middle">The reserved worker looks,</text>
+          <text class="lp-fig-s" x="450" y="68" text-anchor="middle">declines, goes back to sleep</text>
+
+          <rect class="lp-fig-box" x="340" y="104" width="22" height="22" rx="3"></rect>
+          <rect class="lp-fig-box" x="371" y="104" width="22" height="22" rx="3"></rect>
+          <rect class="lp-fig-box" x="402" y="104" width="22" height="22" rx="3"></rect>
+          <rect class="lp-fig-box" x="433" y="104" width="22" height="22" rx="3"></rect>
+          <rect class="lp-fig-box" x="464" y="104" width="22" height="22" rx="3"></rect>
+          <rect class="lp-fig-box" x="495" y="104" width="22" height="22" rx="3"></rect>
+          <rect class="lp-fig-box" x="526" y="104" width="22" height="22" rx="3"></rect>
+          <text class="lp-fig-s" x="340" y="148">the other seven were never woken</text>
+
+          <text class="lp-fig-s lp-fig-bad" x="0" y="112">No error. No crash.</text>
+          <text class="lp-fig-s" x="0" y="132">Just work that sits still, until</text>
+          <text class="lp-fig-s" x="0" y="152">something unrelated wakes somebody.</text>
+        </svg>
+        <figcaption>
+          The fix is to wake all of them instead of just one.
+        </figcaption>
+      </figure>
+
+      <p>
+        The lesson is bigger than the fix. Waking one consumer assumes every
+        consumer can handle every item. The moment you let a worker refuse a
+        job, that assumption is gone, and what you get is not a crash. It is
+        work that mysteriously sits still.
+      </p>
+
+      <h2>Marking work as started when nobody started it</h2>
+      <p>
+        The loader keeps a set of "already asked for this" markers so it does
+        not queue the same photo five times, and clears each one when the job
+        finishes. In the browser build the pool starts no threads at all, so
+        nothing was ever going to finish them.
+      </p>
+      <p>
+        The symptom was not an error. It was the app waking sixty times a second
+        for the rest of the session, on a laptop battery, to check on work that
+        did not exist.
+      </p>
+      <p>
+        My fix was to treat the marker as a lease. Queueing now returns one of
+        three answers, which are accepted, no workers exist, or the pool is
+        broken. The caller records the job as in flight only on the first. Any
+        loading flag, any in-flight set, any deduplication key is a lease
+        somebody has to release. Set it only after the party responsible for
+        releasing it has agreed to take the work.
+      </p>
+
+      <h2>In a browser, workers die</h2>
+      <p>
+        Porting the pool to a browser tab turned it into something closer to a
+        process supervisor, because a fresh Web Worker drops any message sent
+        before its script first yields. Each worker now announces itself when it
+        is ready, and one that stays silent for ten seconds is treated as
+        failed.
+      </p>
+      <p>
+        A failed slot gets replaced up to three times, then marked permanently
+        unavailable. That is deliberately different from "not ready yet", and
+        the distinction fixes a real deadlock. Export work waits while running
+        jobs are at or above capacity, and capacity counts ready workers.
+        Without a terminal state, a slot stuck mid-replacement reads as not
+        ready, capacity reads zero, and the progress bar waits forever.
+      </p>
+
+      <h2>The part that made all of this testable</h2>
+      <p>
+        None of the above needs threads to test, because the scheduling rules
+        live in a plain data structure. A test builds one, pushes a job of each
+        kind in reverse priority order, drains it and checks the order. Another
+        drains it as the reserved worker and checks that thumbnails get skipped.
+      </p>
+      <p>
+        Concurrent systems usually have a deterministic core, which is the
+        policy about who runs what and in what order, wrapped in a
+        non-deterministic shell. Pull the core out and you get to test the part
+        that encodes your decisions, in microseconds, without a single flaky
+        run.
+      </p>
+
+      <h2>What I learned</h2>
+      <ul class="lp-article-list">
+        <li>
+          <strong>Priority decides who gets in, reservation decides who gets
+          through.</strong> If urgent work can be blocked by background work
+          that already started, no amount of queue reordering helps.
+        </li>
+        <li>
+          <strong>Reserve capacity before you build cancellation.</strong>
+          Keeping one worker free is a few lines. Interrupting a decode inside
+          somebody else's library is usually impossible.
+        </li>
+        <li>
+          <strong>A worker that can refuse a job breaks the textbook
+          pool.</strong> Once one consumer can decline, the failure is silence,
+          not an error.
+        </li>
+        <li>
+          <strong>Every "this is being handled" flag needs one owner who clears
+          it.</strong> List every way that owner can fail to exist, and have the
+          enqueue call return a value that tells them apart.
+        </li>
+      </ul>
+    </article>
+  </main>
+</Base>

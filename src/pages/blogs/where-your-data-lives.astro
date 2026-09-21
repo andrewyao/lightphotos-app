@@ -1,0 +1,210 @@
+---
+import Base from "../../layouts/Base.astro";
+---
+<Base
+  title="Your data lives where you can write — LightPhotos Blog"
+  desc="Why LightPhotos keeps ratings, edits and thumbnails in a folder next to your photos instead of in a database, and how a browser's permission rules decided it for me."
+  active="blogs"
+>
+  <main class="lp-page">
+    <article class="lp-article">
+      <header class="lp-article-head">
+        <p class="lp-article-meta"><a href="/blogs.html">Blogs</a> &middot; <time datetime="2026-08-10">August 10, 2026</time></p>
+        <h1>Your data lives where you are allowed to write</h1>
+        <p class="lp-article-dek">
+          Why ratings, edits and thumbnails sit in a folder next to your photos
+          instead of in a database, and how a browser's permission rules made
+          that decision for me.
+        </p>
+      </header>
+
+      <p>
+        LightPhotos has no database. Rate a photo four stars and it writes a
+        small JSON file called <code>IMG_4471.jpg.xmp</code> into a hidden
+        <code>.lightphotos</code> folder, sitting right next to
+        <code>IMG_4471.jpg</code>. That is the whole persistence layer.
+      </p>
+      <p>
+        This is not how the first version worked, and it is not a design I would
+        have defended in a review. I got here by being forced into it twice.
+      </p>
+
+      <h2>My first attempt</h2>
+      <p>
+        One catalog for the whole app, keyed by each photo's full path, sitting
+        in the usual application support directory. It is the standard answer
+        and it works fine for a while.
+      </p>
+      <p>
+        It also breaks in exactly the way people use a photo tool. People move
+        folders. They import a card into <code>~/Desktop/import</code>, cull it,
+        then drag the folder onto an external drive. The moment that happens,
+        every path in the catalog points at nothing.
+      </p>
+
+      <figure class="lp-figure">
+        <svg viewBox="0 0 640 246" role="img" aria-label="Comparison: a central catalog keyed by full path breaks when a folder moves, while sidecar files inside the folder travel with the photos.">
+          <text class="lp-fig-label" x="0" y="12">V1 &middot; CENTRAL CATALOG</text>
+          <rect class="lp-fig-panel" x="0" y="22" width="300" height="208" rx="10"></rect>
+          <rect class="lp-fig-box" x="50" y="44" width="200" height="30" rx="6"></rect>
+          <text class="lp-fig-s" x="150" y="63" text-anchor="middle">catalog.db in ~/Library</text>
+          <line class="lp-fig-line" x1="150" y1="74" x2="150" y2="112"></line>
+          <path class="lp-fig-bad-stroke" d="M142 85 L158 101 M158 85 L142 101"></path>
+          <text class="lp-fig-s lp-fig-bad" x="168" y="97">path points at nothing</text>
+          <rect class="lp-fig-box" x="50" y="118" width="200" height="54" rx="8"></rect>
+          <text class="lp-fig-mono lp-fig-t" x="64" y="139">Iceland/</text>
+          <text class="lp-fig-mono lp-fig-s" x="80" y="159">IMG_4471.jpg</text>
+          <text class="lp-fig-s lp-fig-bad" x="150" y="194" text-anchor="middle">folder moved to an external drive</text>
+          <text class="lp-fig-s" x="150" y="212" text-anchor="middle">an hour of culling, gone</text>
+
+          <text class="lp-fig-label" x="340" y="12">V2 &middot; BESIDE THE PHOTOS</text>
+          <rect class="lp-fig-panel" x="340" y="22" width="300" height="208" rx="10"></rect>
+          <rect class="lp-fig-box" x="370" y="44" width="240" height="118" rx="8"></rect>
+          <text class="lp-fig-mono lp-fig-t" x="384" y="66">Iceland/</text>
+          <text class="lp-fig-mono lp-fig-s" x="400" y="88">IMG_4471.jpg</text>
+          <text class="lp-fig-mono lp-fig-s" x="400" y="110">.lightphotos/</text>
+          <rect class="lp-fig-box-accent" x="408" y="118" width="190" height="26" rx="5"></rect>
+          <text class="lp-fig-mono lp-fig-t" x="418" y="136">IMG_4471.jpg.xmp</text>
+          <line class="lp-fig-line" x1="490" y1="162" x2="490" y2="176"></line>
+          <path class="lp-fig-arrow" d="M484 176 L496 176 L490 186 Z"></path>
+          <text class="lp-fig-s" x="490" y="204" text-anchor="middle">move it, copy it, back it up</text>
+          <text class="lp-fig-s" x="490" y="222" text-anchor="middle">the ratings come with it</text>
+        </svg>
+        <figcaption>
+          The fix was not a repair tool. It was putting the data where the photo
+          already is.
+        </figcaption>
+      </figure>
+
+      <h2>Putting it next to the photos</h2>
+      <p>
+        Now moving the folder moves your work. Copying it to a colleague copies
+        your work. Backing it up backs up your work. I did not write any code
+        for any of that. The data and the thing it describes are in the same
+        place, so it comes for free.
+      </p>
+      <p>Three details make it liveable.</p>
+      <ul class="lp-article-list">
+        <li>
+          <strong>Created on write, never on read.</strong> Browsing someone
+          else's photos leaves nothing behind.
+        </li>
+        <li>
+          <strong>Written through a temporary file, then renamed.</strong> A
+          rename is atomic on every filesystem worth using, so a crash halfway
+          through leaves the previous version intact instead of a truncated
+          file.
+        </li>
+        <li>
+          <strong>The original photo is never touched.</strong> A tool whose job
+          is deciding what to keep should not modify the thing you might keep.
+        </li>
+      </ul>
+
+      <h2>Then the browser made the decision for me</h2>
+      <p>
+        Thumbnails are expensive, so they get cached on disk. In the Mac-only
+        days that cache lived in <code>~/Library/Caches</code>, exactly where
+        Apple tells you to put it. Then I ported the app to run in a browser
+        tab.
+      </p>
+
+      <figure class="lp-figure">
+        <svg viewBox="0 0 640 160" role="img" aria-label="Diagram: a browser tab may read and write only inside the folder the user picked; the system cache directory and the rest of the disk are unreachable.">
+          <rect class="lp-fig-box-accent" x="0" y="62" width="150" height="50" rx="8"></rect>
+          <text class="lp-fig-t" x="75" y="92" text-anchor="middle">Browser tab</text>
+
+          <path class="lp-fig-line" d="M150 87 C 220 87, 230 37, 296 37 M150 87 H296 M150 87 C 220 87, 230 137, 296 137"></path>
+          <path class="lp-fig-bad-stroke" d="M215 46 L231 62 M231 46 L215 62 M215 124 L231 140 M231 124 L215 140"></path>
+          <path class="lp-fig-arrow" d="M296 31 L296 43 L308 37 Z M296 81 L296 93 L308 87 Z M296 131 L296 143 L308 137 Z"></path>
+
+          <rect class="lp-fig-box" x="312" y="20" width="328" height="34" rx="6"></rect>
+          <text class="lp-fig-s" x="476" y="41" text-anchor="middle">~/Library/Caches &mdash; does not exist here</text>
+          <rect class="lp-fig-box-accent" x="312" y="70" width="328" height="34" rx="6"></rect>
+          <text class="lp-fig-t" x="476" y="91" text-anchor="middle">The one folder you picked</text>
+          <rect class="lp-fig-box" x="312" y="120" width="328" height="34" rx="6"></rect>
+          <text class="lp-fig-s" x="476" y="141" text-anchor="middle">Anywhere else on disk &mdash; no permission</text>
+
+        </svg>
+        <figcaption>
+          Read and write inside the folder you picked. That is the whole
+          permission, so the browser build would have re-decoded every
+          thumbnail on every page load, forever.
+        </figcaption>
+      </figure>
+
+      <blockquote class="lp-pullquote">
+        In a browser tab, a cache in the system cache directory does not perform
+        badly. It cannot exist.
+      </blockquote>
+      <p>
+        So the thumbnail cache moved into <code>.lightphotos</code>, next to the
+        ratings that were already there. I did it because the browser left me no
+        choice. It turned out to be better everywhere.
+      </p>
+
+      <h2>What I got out of it</h2>
+      <p>
+        Moving a folder now carries its thumbnails as well as its ratings. Plug
+        the drive into another machine and the grid fills instantly instead of
+        spending a minute re-decoding everything.
+      </p>
+      <p>
+        The Mac build and the browser build also share one cache, which took one
+        deliberate compromise. The cache key is built from the file's size and
+        modification time, rounded to milliseconds, because milliseconds is all
+        a browser will tell you. The Mac's nanosecond precision would have made
+        the two builds compute different keys for the same untouched file, each
+        blind to the other's work.
+      </p>
+      <p>
+        There is one entry per photo, so a folder's cache is bounded by the
+        number of photos in it and needs no eviction policy. I just sweep for
+        dead entries when a folder opens. If the app cannot write to a folder,
+        it decodes fresh every session and never tells you the write failed. A
+        cache you cannot write to is an inconvenience, not an error.
+      </p>
+
+      <h2>What it cost me</h2>
+      <p>
+        Records are keyed by filename alone, because the folder is implied by
+        where the file sits. That makes cross-folder work dangerous. If you
+        switch folders mid-job, a result arriving late would get written against
+        a photo with the same name in the new folder. So I abandon any batch job
+        the moment the folder changes.
+      </p>
+      <p>
+        There is also no cheap way to ask a question across every folder you
+        have ever opened. "Show me everything I rated five stars this year"
+        would mean walking all of them. A central database answers that in a
+        millisecond. If that question were core to the product, this would be
+        the wrong design.
+      </p>
+
+      <h2>What I learned</h2>
+      <ul class="lp-article-list">
+        <li>
+          <strong>Where data lives decides which operations stay cheap.</strong>
+          Next to the thing it describes makes moving, copying and sharing free,
+          and makes cross-cutting queries expensive. A central store does the
+          reverse.
+        </li>
+        <li>
+          <strong>The most restricted platform is the best design input you will
+          get.</strong> I did not choose to co-locate the cache. A browser's
+          permission model refused to let me do anything else.
+        </li>
+        <li>
+          <strong>Design for the sandbox first, not last.</strong> The version
+          in the system cache directory worked fine and nobody was complaining,
+          so I would never have argued my way to the better design on my own.
+        </li>
+        <li>
+          <strong>Write the cost down where someone will trip over it.</strong>
+          Filename-only keys make late background results dangerous. That
+          warning belongs on the function that has to handle it.
+        </li>
+      </ul>
+    </article>
+  </main>
+</Base>
