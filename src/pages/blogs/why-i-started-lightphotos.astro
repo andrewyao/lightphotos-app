@@ -3,7 +3,7 @@ import Base from "../../layouts/Base.astro";
 ---
 <Base
   title="Why I started LightPhotos — LightPhotos Blog"
-  desc="A photo shoot with friends, a Lightroom license that stopped working, and an afternoon spent building the small photo editor I actually needed."
+  desc="A Lightroom license that stopped working, years of photos I couldn't open, and the afternoon I gave up and built the small editor I actually needed."
   active="blogs"
 >
   <main class="lp-page">
@@ -12,84 +12,182 @@ import Base from "../../layouts/Base.astro";
         <p class="lp-article-meta"><a href="/blogs.html">Blogs</a> &middot; <time datetime="2026-06-23">June 23, 2026</time></p>
         <h1>Why I started LightPhotos</h1>
         <p class="lp-article-dek">
-          A Lightroom license that stopped working, a few apps that didn't fit,
-          and an afternoon spent building the small photo editor I actually needed.
+          A Lightroom license that stopped working, years of photos I couldn't
+          open, and the afternoon I gave up and built the small editor I
+          actually needed.
         </p>
+        <p class="lp-article-byline">Andrew Yao &middot; 4 min read</p>
       </header>
 
-      <h2>A card full of RAW files</h2>
+      <aside class="lp-tldr">
+        <p class="lp-tldr-label">TL;DR</p>
+        <p>
+          I paid for Lightroom, then an OS upgrade quietly killed it. I lost
+          years of photos to a library format only one app could read. The free
+          editors wanted me to learn a whole craft when I just wanted to send
+          some pictures to my friends.
+        </p>
+        <p>
+          So one afternoon I wrote down seven things and built the smallest
+          editor that would do them. It has also turned into how I'm embracing
+          coding agents to build software, and doing it with care rather than
+          speed.
+        </p>
+      </aside>
+
+      <h2>What I learned</h2>
       <p>
-        I recently took some pictures with my Sony full-frame camera. I always
-        shoot RAW, so most of the photos needed some adjustment before I could
-        share them.
+        If you only read this far, these are the four things I'd want you to
+        take away.
+      </p>
+      <ul class="lp-article-list">
+        <li>
+          <strong>Keep your photos as plain files.</strong> A backup only helps
+          you if something can still open it. Ordinary files on a drive can be
+          opened by any app, today or in ten years. I learned this the
+          expensive way.
+        </li>
+        <li>
+          <strong>Buying software once doesn't mean you own it.</strong> An OS
+          upgrade can end a license just as surely as cancelling a
+          subscription, and nobody will warn you.
+        </li>
+        <li>
+          <strong>More features can make a tool worse.</strong> The free
+          editors could do everything, and that is exactly what made them
+          impossible for me to pick up.
+        </li>
+        <li>
+          <strong>Write the list first.</strong> Deciding on seven things up
+          front is what let me say no to everything else, and it's the single
+          habit that has mattered most since.
+        </li>
+      </ul>
+
+      <h2>Nothing I tried fit</h2>
+      <p>
+        I took some pictures with my Sony full-frame camera. I shoot RAW, so
+        most of them needed a little work before I could share them. That
+        should be a five-minute problem. It took me a week, and none of it was
+        editing.
       </p>
 
-      <h2>Software I paid for and can't use</h2>
+      <figure class="lp-figure">
+        <svg viewBox="0 0 640 224" role="img" aria-label="Five options and why each one failed. Lightroom Classic: the installer stopped running after a macOS upgrade. Luminar AI: not the keyboard-first way I edit. Apple Photos: one library file, and I lost years of photos to that format. Darktable and friends: everything I needed behind everything I didn't. A Lightroom subscription: ten dollars a month for something I open a few times a year. All five lead to building a small one myself.">
+          <text class="lp-fig-label" x="0" y="12">WHAT I TRIED FIRST</text>
+
+          <rect class="lp-fig-box" x="0" y="24" width="190" height="24" rx="5"></rect>
+          <text class="lp-fig-s" x="12" y="40">Lightroom Classic</text>
+          <circle class="lp-fig-bad" cx="204" cy="36" r="3"></circle>
+          <text class="lp-fig-s" x="216" y="40">I own it. The installer stopped running after an upgrade.</text>
+
+          <rect class="lp-fig-box" x="0" y="54" width="190" height="24" rx="5"></rect>
+          <text class="lp-fig-s" x="12" y="70">Luminar AI</text>
+          <circle class="lp-fig-bad" cx="204" cy="66" r="3"></circle>
+          <text class="lp-fig-s" x="216" y="70">Fine, but not the keyboard-first way I actually edit.</text>
+
+          <rect class="lp-fig-box" x="0" y="84" width="190" height="24" rx="5"></rect>
+          <text class="lp-fig-s" x="12" y="100">Apple Photos</text>
+          <circle class="lp-fig-bad" cx="204" cy="96" r="3"></circle>
+          <text class="lp-fig-s" x="216" y="100">One library file. I lost years of photos to that format.</text>
+
+          <rect class="lp-fig-box" x="0" y="114" width="190" height="24" rx="5"></rect>
+          <text class="lp-fig-s" x="12" y="130">Darktable and friends</text>
+          <circle class="lp-fig-bad" cx="204" cy="126" r="3"></circle>
+          <text class="lp-fig-s" x="216" y="130">Everything I needed, behind everything I didn't.</text>
+
+          <rect class="lp-fig-box" x="0" y="144" width="190" height="24" rx="5"></rect>
+          <text class="lp-fig-s" x="12" y="160">Lightroom subscription</text>
+          <circle class="lp-fig-bad" cx="204" cy="156" r="3"></circle>
+          <text class="lp-fig-s" x="216" y="160">$10 a month for something I open a few times a year.</text>
+
+          <line class="lp-fig-line" x1="95" y1="168" x2="95" y2="184"></line>
+          <path class="lp-fig-arrow" d="M90 184 L100 184 L95 194 Z"></path>
+          <rect class="lp-fig-box-accent" x="0" y="196" width="190" height="28" rx="5"></rect>
+          <text class="lp-fig-t" x="95" y="215" text-anchor="middle">Build a small one myself</text>
+        </svg>
+        <figcaption>
+          A week of evaluating software to avoid an afternoon of writing it.
+          I've made worse trades.
+        </figcaption>
+      </figure>
+
+      <h2>The one that still stings</h2>
       <p>
-        Years ago I paid close to $200 for a Lightroom Classic license. I
-        thought I'd bought it for good. Then I upgraded macOS, and starting
-        around Monterey the installer stopped running. I still own the license.
-        I just can't use it.
+        I want to slow down on Apple Photos, because this is the part that
+        actually changed how I think.
       </p>
       <p>
-        I had also bought Luminar AI. It was OK, but it didn't quite match how
-        I work. I wanted something with a lot of keyboard shortcuts.
+        Your whole library lives in a single file, in a format only Apple
+        Photos can read. I found out what that means the hard way. A newer
+        version of macOS refused to open Photos libraries from my older
+        backups, and several years of pictures went with it.
+      </p>
+      <p>
+        The backups were fine. They were sitting right there on the drive. The
+        only app that could read them just wouldn't.
       </p>
 
-      <h2>The years of photos I lost</h2>
-      <p>
-        I like what Apple Photos can do, but I won't trust it with my photos
-        again.
-      </p>
-      <p>
-        Your whole library is stored as a single file, in a format only Apple
-        Photos can read. I found out what that means the hard way. I lost
-        several years of photos because a newer version of macOS refused to
-        open Photos libraries from my older backups. I had backed them up and
-        the backups were still there, but the only app that could read them
-        wouldn't open them.
-      </p>
-      <p>
-        It also doesn't fit how I store photos. I keep my main drive for recent
-        work and put older shoots on other drives. I don't want hundreds of
-        gigabytes of old photos on my main drive, locked in a library I might
-        not be able to open in a few years.
-      </p>
+      <figure class="lp-figure">
+        <svg viewBox="0 0 640 208" role="img" aria-label="Two paths for the same photos. Locked in a library: your photos become one library file and are gone after an upgrade. Kept as ordinary files: your photos stay ordinary files and you can open them in anything.">
+          <text class="lp-fig-label" x="0" y="12">A BACKUP YOU CAN'T OPEN IS NOT A BACKUP</text>
 
-      <h2>Too much to learn</h2>
-      <p>
-        Next I tried Darktable and a few other free editors. Every time, I
-        opened the app and faced a wall of panels, modules and settings I
-        didn't recognize. I didn't want to learn a new craft. I wanted to make
-        some photos a little brighter and send them to my friends.
-      </p>
+          <rect class="lp-fig-panel" x="0" y="24" width="640" height="84" rx="8"></rect>
+          <text class="lp-fig-t" x="16" y="46">Locked in a library</text>
+          <rect class="lp-fig-box" x="16" y="58" width="176" height="30" rx="5"></rect>
+          <text class="lp-fig-s" x="104" y="78" text-anchor="middle">Your photos</text>
+          <line class="lp-fig-line" x1="192" y1="73" x2="214" y2="73"></line>
+          <path class="lp-fig-arrow" d="M214 68 L224 73 L214 78 Z"></path>
+          <rect class="lp-fig-box" x="224" y="58" width="176" height="30" rx="5"></rect>
+          <text class="lp-fig-s" x="312" y="78" text-anchor="middle">One library file</text>
+          <line class="lp-fig-line" x1="400" y1="73" x2="422" y2="73"></line>
+          <path class="lp-fig-arrow" d="M422 68 L432 73 L422 78 Z"></path>
+          <rect class="lp-fig-bad-stroke" x="432" y="58" width="176" height="30" rx="5"></rect>
+          <text class="lp-fig-s" x="520" y="78" text-anchor="middle">Gone after an upgrade</text>
 
-      <h2>Another subscription</h2>
+          <rect class="lp-fig-panel" x="0" y="116" width="640" height="84" rx="8"></rect>
+          <text class="lp-fig-t" x="16" y="138">Kept as ordinary files</text>
+          <rect class="lp-fig-box" x="16" y="150" width="176" height="30" rx="5"></rect>
+          <text class="lp-fig-s" x="104" y="170" text-anchor="middle">Your photos</text>
+          <line class="lp-fig-line" x1="192" y1="165" x2="214" y2="165"></line>
+          <path class="lp-fig-arrow" d="M214 160 L224 165 L214 170 Z"></path>
+          <rect class="lp-fig-box" x="224" y="150" width="176" height="30" rx="5"></rect>
+          <text class="lp-fig-s" x="312" y="170" text-anchor="middle">Ordinary files</text>
+          <line class="lp-fig-line" x1="400" y1="165" x2="422" y2="165"></line>
+          <path class="lp-fig-arrow" d="M422 160 L432 165 L422 170 Z"></path>
+          <rect class="lp-fig-box-accent" x="432" y="150" width="176" height="30" rx="5"></rect>
+          <text class="lp-fig-s" x="520" y="170" text-anchor="middle">Open them in anything</text>
+        </svg>
+        <figcaption>
+          Same photos, same backup drive. The only difference is whether one
+          company's file format sits between you and them.
+        </figcaption>
+      </figure>
+
       <p>
-        That left the obvious option, which was to pay Adobe about $10 a month
-        for Lightroom again. It isn't the money. I edit photos in bursts, a
-        trip, an event, an afternoon with friends, and then months go by before
-        I open an editor again. I didn't want to pay every month for something
-        I use a few times a year, especially after already paying for Lightroom
-        once.
+        It doesn't fit how I keep things either. My main drive is for recent
+        work, and older shoots move off to other drives. I don't want hundreds
+        of gigabytes sitting on my laptop, locked inside a library I might not
+        be able to open in a few years.
       </p>
 
       <h2>So I built one</h2>
       <p>
-        That afternoon, I sat down to build a basic version myself. I didn't
-        want to clone Lightroom. I wanted the smallest tool that would get
-        these photos to my friends. It had to do seven things.
+        That afternoon I sat down to write a basic version myself. I wasn't
+        trying to clone Lightroom. I wanted the smallest thing that would get
+        these photos to my friends, and I wrote the list down before I wrote
+        any code.
       </p>
       <ol class="lp-article-list">
         <li>
-          <strong>Open any folder and show the photos in it.</strong> No
-          import step and no library file. My photos stay as ordinary files on
+          <strong>Open any folder and show the photos in it.</strong> No import
+          step and no library file. My photos stay as ordinary files on
           whatever drive holds them, so I can always open them with something
           else.
         </li>
         <li>
-          <strong>Rate photos from 1 to 5,</strong> so I can go through a
-          shoot quickly and mark the keepers.
+          <strong>Rate photos from 1 to 5,</strong> so I can go through a shoot
+          quickly and mark the keepers.
         </li>
         <li>
           <strong>Filter by rating,</strong> so I only see the photos I like.
@@ -109,36 +207,36 @@ import Base from "../../layouts/Base.astro";
         </li>
       </ol>
       <p>
-        That's all it had to do. Anything that wasn't on the list didn't make
-        it into the first version.
+        That's all it had to do. Anything not on that list didn't make it into
+        the first version, and writing it down is the only reason I was able to
+        keep saying no.
       </p>
 
-      <h2>What I learned</h2>
-      <ul class="lp-article-list">
-        <li>
-          <strong>Keep photos as plain files.</strong> A backup only helps if
-          something can still open it. Ordinary files on a drive can be opened
-          by any app, today or years from now.
-        </li>
-        <li>
-          <strong>Buying software once doesn't mean owning it forever.</strong>
-          An OS upgrade can end a license just as surely as a cancelled
-          subscription.
-        </li>
-        <li>
-          <strong>More features isn't better.</strong> The free editors could
-          do everything, and that's what made them hard to use.
-        </li>
-        <li>
-          <strong>Write the list first.</strong> Deciding on seven things up
-          front made it easy to say no to everything else.
-        </li>
-      </ul>
+      <h2>What I'm really after</h2>
+      <p>
+        Here's the part I didn't expect when I started, and it's the reason
+        I've kept going long after those photos were sent.
+      </p>
+      <p>
+        I don't write much of the code. Coding agents do. That's easy to say
+        and much harder to do well, because an agent will happily hand you
+        something that compiles, runs, and is quietly wrong or quietly slow. A
+        photo editor is an unusually honest place to find that out. If a slider
+        lags or a folder of RAW files eats your memory, you feel it
+        immediately. There's nowhere to hide.
+      </p>
+      <p>
+        So LightPhotos is two projects for me at once. It's the photo editor I
+        wanted, and it's how I'm working out what it takes to build software
+        with agents and still care about quality and speed. That's what these
+        posts are mostly about.
+      </p>
 
       <h2>What comes next</h2>
       <p>
-        In a future post, I'll go through the architectural choices behind
-        LightPhotos and the pros and cons of each.
+        In the next post I'll walk through the architectural choices behind
+        LightPhotos and what I gave up for each one. If any of this sounds
+        familiar, I'd genuinely like to hear how you solved it.
       </p>
     </article>
   </main>

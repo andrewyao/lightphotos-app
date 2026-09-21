@@ -1332,3 +1332,44 @@ a.lp-card:focus-visible .lp-go {
   fill: var(--text-on-accent);
   font-size: 11.5px;
 }
+
+/* --- Article TL;DR ---------------------------------------------------------
+ * Sits between the dek and the first heading. Tinted rather than outlined so
+ * it reads as a summary of the article, not as a warning or an aside.
+ */
+.lp-tldr {
+  margin-top: 2rem;
+  padding: 1.15rem 1.35rem;
+  border: 1px solid var(--border-accent);
+  border-radius: 10px;
+  background: var(--lp-glow-soft);
+}
+
+.lp-tldr-label {
+  font-family: var(--font-ui);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--lp-muted);
+}
+
+.lp-article .lp-tldr p {
+  margin-top: 0.55rem;
+}
+
+.lp-article .lp-tldr .lp-tldr-label {
+  margin-top: 0;
+}
+
+/* --- Article byline --------------------------------------------------------
+ * Author and reading time, under the dek. The reading time is generated from
+ * the article's own word count by tools/readtime.py, so it is regenerated
+ * rather than edited by hand.
+ */
+.lp-article-byline {
+  margin-top: 0.9rem;
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+  color: var(--lp-muted);
+}
