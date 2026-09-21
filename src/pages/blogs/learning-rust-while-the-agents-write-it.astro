@@ -3,7 +3,7 @@ import Base from "../../layouts/Base.astro";
 ---
 <Base
   title="Learning Rust while the agents write it — LightPhotos Blog"
-  desc="I picked Rust for LightPhotos without knowing Rust, and I still write very little of it. The planning, testing, review and release loop I run instead, and the four ways it goes wrong."
+  desc="I picked Rust knowing only the basics, and I still write very little of it by hand. Here's the loop I run around the agents instead, and the four ways it goes wrong."
   active="blogs"
 >
   <main class="lp-page">
@@ -12,69 +12,119 @@ import Base from "../../layouts/Base.astro";
         <p class="lp-article-meta"><a href="/blogs.html">Blogs</a> &middot; <time datetime="2026-07-02">July 2, 2026</time></p>
         <h1>Learning Rust while the agents write it</h1>
         <p class="lp-article-dek">
-          I picked Rust for LightPhotos without knowing Rust, and I still write
-          very little of it. The planning, testing, review and release loop I
-          run instead, and the four ways it goes wrong.
+          I picked Rust knowing only the basics, and I still write very little
+          of it by hand. Here's the loop I run around the agents instead, and
+          the four ways it goes wrong.
         </p>
         <p class="lp-article-byline">Andrew Yao &middot; 8 min read</p>
       </header>
 
-      <h2>Two problems I took on at once</h2>
+      <aside class="lp-tldr">
+        <p class="lp-tldr-label">TL;DR</p>
+        <p>
+          I chose Rust for LightPhotos knowing only the basics of it, and
+          coding agents write nearly all of the code. My actual job is the loop
+          around them. Plan the change, get it built, prove it works, review
+          it, ship it.
+        </p>
+        <p>
+          Most of that loop is about not taking anyone's word for anything,
+          mine included. "Should now be faster" isn't a result. A number I
+          watched get produced is.
+        </p>
+      </aside>
+
+      <h2>What I learned</h2>
       <p>
-        A few days ago I wrote about <a href="/blogs/why-rust.html">choosing
-        Rust for the whole app</a>. What I skipped in that post is that I didn't
-        know Rust when I chose it. I had read about it. I had never shipped a
-        line of it.
+        If you're working this way too, or thinking about it, here's what I'd
+        want you to know before you start.
+      </p>
+      <ul class="lp-article-list">
+        <li>
+          <strong>Write the plan, including the proof.</strong> If I can't say
+          what would show the change worked, the agent will happily pick its
+          own definition of done, and it will be generous with itself.
+        </li>
+        <li>
+          <strong>Be the witness.</strong> "Should now be faster" is not a
+          result. A number I watched get produced is. This one sentence has
+          saved me more time than anything else on the list.
+        </li>
+        <li>
+          <strong>Review with a reader that has no history.</strong> Whatever
+          wrote the code is the worst judge of it, and also the most agreeable.
+        </li>
+        <li>
+          <strong>One change at a time.</strong> It costs almost nothing, and
+          it preserves the only clue worth having when something breaks, which
+          is knowing which change did it.
+        </li>
+        <li>
+          <strong>Learn the language anyway.</strong> Not so I can type faster.
+          So I can tell good from merely plausible.
+        </li>
+      </ul>
+
+      <h2>I took on two problems at once</h2>
+      <p>
+        A few days ago I wrote about
+        <a href="/blogs/why-rust.html">choosing Rust for the whole app</a>.
+        What I skipped in that post is how much Rust I actually knew when I
+        chose it, which was the basics. I'd shipped Rust before, so I wasn't
+        starting from zero. But the basics are a long way from a real-time
+        image pipeline that has to keep up with a slider, and I knew that gap
+        was going to hurt.
       </p>
       <p>
         The second problem is the goal itself. I don't want a photo editor that
-        merely works. I want one where a slider moves and the image has already
-        changed, on a folder with thousands of RAW files in it. That's a
-        performance target, and performance is the one thing you can't add at
-        the end.
+        merely works. I want one where you move a slider and the image has
+        already changed, on a folder with thousands of RAW files in it. That's
+        a performance target, and performance is the one thing you can't bolt
+        on at the end.
       </p>
       <p>
-        Taking on both at once is normally how a side project dies. What made
-        it possible is that I'm not the one typing. Coding agents write
-        essentially all of the Rust in LightPhotos. My job is the loop around
-        them. Plan the change, get it built, prove it works, review it, ship it.
+        Taking on both at once is normally how a side project quietly dies.
+        What makes it survivable is that I'm not the one typing.
       </p>
 
-      <h2>Where I actually spend my time</h2>
+      <h2>Where my time actually goes</h2>
 
       <figure class="lp-figure">
-        <svg viewBox="0 0 640 250" role="img" aria-label="Stacked bars for five stages. Planning and testing and review are mostly my own work; building and releasing are almost entirely the agents'.">
-          <rect class="lp-fig-bar" x="140" y="8" width="10" height="10" rx="2"></rect>
-          <text class="lp-fig-label" x="158" y="17">MY CALL</text>
-          <rect class="lp-fig-bar-dim" x="260" y="8" width="10" height="10" rx="2"></rect>
-          <text class="lp-fig-label" x="278" y="17">AGENT WORK</text>
+        <svg viewBox="0 0 640 230" role="img" aria-label="Stacked bars for five stages of the loop. Planning is almost entirely my own work. Building and releasing are almost entirely the agents. Testing and review sit in between, with the agents doing much of the work and me checking it.">
+          <text class="lp-fig-label" x="0" y="12">WHO DOES THE WORK, BY STAGE</text>
 
-          <text class="lp-fig-t" x="0" y="59">Plan</text>
-          <rect class="lp-fig-bar" x="140" y="40" width="288" height="28" rx="3"></rect>
-          <text class="lp-fig-on-bar" x="152" y="59">the goal, and what would prove it</text>
-          <rect class="lp-fig-bar-dim" x="428" y="40" width="192" height="28" rx="3"></rect>
+          <text class="lp-fig-s" x="0" y="44">Plan</text>
+          <rect class="lp-fig-bar" x="96" y="30" width="470" height="20" rx="3"></rect>
+          <rect class="lp-fig-bar-dim" x="566" y="30" width="42" height="20" rx="3"></rect>
+          <text class="lp-fig-on-bar" x="104" y="44">me, and I don't hand this one over</text>
 
-          <text class="lp-fig-t" x="0" y="101">Build</text>
-          <rect class="lp-fig-bar" x="140" y="82" width="24" height="28" rx="3"></rect>
-          <rect class="lp-fig-bar-dim" x="164" y="82" width="456" height="28" rx="3"></rect>
+          <text class="lp-fig-s" x="0" y="80">Build</text>
+          <rect class="lp-fig-bar" x="96" y="66" width="40" height="20" rx="3"></rect>
+          <rect class="lp-fig-bar-dim" x="136" y="66" width="472" height="20" rx="3"></rect>
+          <text class="lp-fig-s" x="144" y="80">the agents write essentially all of it</text>
 
-          <text class="lp-fig-t" x="0" y="143">Test</text>
-          <rect class="lp-fig-bar" x="140" y="124" width="192" height="28" rx="3"></rect>
-          <text class="lp-fig-on-bar" x="152" y="143">I run it myself</text>
-          <rect class="lp-fig-bar-dim" x="332" y="124" width="288" height="28" rx="3"></rect>
+          <text class="lp-fig-s" x="0" y="116">Test</text>
+          <rect class="lp-fig-bar" x="96" y="102" width="240" height="20" rx="3"></rect>
+          <rect class="lp-fig-bar-dim" x="336" y="102" width="272" height="20" rx="3"></rect>
+          <text class="lp-fig-on-bar" x="104" y="116">me, running the real app</text>
 
-          <text class="lp-fig-t" x="0" y="185">Review</text>
-          <rect class="lp-fig-bar" x="140" y="166" width="168" height="28" rx="3"></rect>
-          <text class="lp-fig-on-bar" x="152" y="185">I read the diff</text>
-          <rect class="lp-fig-bar-dim" x="308" y="166" width="312" height="28" rx="3"></rect>
+          <text class="lp-fig-s" x="0" y="152">Review</text>
+          <rect class="lp-fig-bar" x="96" y="138" width="180" height="20" rx="3"></rect>
+          <rect class="lp-fig-bar-dim" x="276" y="138" width="332" height="20" rx="3"></rect>
+          <text class="lp-fig-on-bar" x="104" y="152">me, reading the diff</text>
 
-          <text class="lp-fig-t" x="0" y="227">Release</text>
-          <rect class="lp-fig-bar" x="140" y="208" width="48" height="28" rx="3"></rect>
-          <rect class="lp-fig-bar-dim" x="188" y="208" width="432" height="28" rx="3"></rect>
+          <text class="lp-fig-s" x="0" y="188">Release</text>
+          <rect class="lp-fig-bar" x="96" y="174" width="24" height="20" rx="3"></rect>
+          <rect class="lp-fig-bar-dim" x="120" y="174" width="488" height="20" rx="3"></rect>
+          <text class="lp-fig-s" x="128" y="188">scripted, and safe to run twice</text>
+
+          <line class="lp-fig-line-soft" x1="96" y1="204" x2="608" y2="204" stroke-dasharray="3 4"></line>
+          <text class="lp-fig-label" x="96" y="222">BLUE IS MY OWN HANDS ON THE KEYBOARD</text>
         </svg>
         <figcaption>
-          The agents do most of the work in every stage. They decide almost
-          nothing in the first one.
+          The agents do nearly all of the typing. The first stage is the one
+          I keep for myself, and it's the one that decides everything after
+          it.
         </figcaption>
       </figure>
 
@@ -82,22 +132,22 @@ import Base from "../../layouts/Base.astro";
       <p>
         Every change starts as a short written plan, and I write it. Not a
         document, not a spec with headings. Usually a paragraph and a list. It
-        says what the change is, which parts of the app it touches, what is
+        says what the change is, which parts of the app it touches, what's
         deliberately out of scope, and how I'll know it worked.
       </p>
       <p>
         That last item does most of the work. If I can't say what would prove
-        the change is done, I don't have a plan yet, I have a wish. "Make
+        the change is done, I don't have a plan, I have a wish. "Make
         thumbnails faster" is a wish. "A folder of 3,000 photos fills the first
-        two screens of thumbnails without the scroll stuttering, and memory does
-        not climb while I scroll" is a plan.
+        two screens without the scroll stuttering, and memory doesn't climb
+        while I scroll" is a plan.
       </p>
       <p>
-        Planning first is also the cheapest place to be wrong. An agent will
-        happily build something confidently and completely in the wrong shape.
+        Planning first is also the cheapest possible place to be wrong. An
+        agent will confidently build something completely the wrong shape.
         Catching that in a paragraph costs me a minute. Catching it in a branch
-        costs an afternoon, and I probably won't throw the branch away, because
-        by then it compiles and I'm attached to it.
+        costs an afternoon, and honestly I probably won't throw the branch
+        away, because by then it compiles and I'm attached to it.
       </p>
       <blockquote class="lp-pullquote">
         The agent's wrong assumption is free while it's still a sentence. Once
@@ -106,8 +156,8 @@ import Base from "../../layouts/Base.astro";
       <p>
         This is the same discipline as the seven-item list in
         <a href="/blogs/why-i-started-lightphotos.html">the first post</a>. It
-        turns out that writing the list up front matters more, not less, when
-        something can implement the list in twenty minutes.
+        turns out writing the list up front matters more, not less, when
+        something can implement the whole list in twenty minutes.
       </p>
 
       <h2>Building one thing at a time</h2>
@@ -117,73 +167,89 @@ import Base from "../../layouts/Base.astro";
         Not five tasks and a hopeful build at the end.
       </p>
       <p>
-        The reason isn't tidiness. When two changes land together and the app
+        This isn't about tidiness. When two changes land together and the app
         misbehaves, I've lost the one piece of information I care about, which
         is which change did it. Agents are very good at producing a lot of
-        plausible code quickly, which means they're very good at destroying
-        that information if I let them.
+        plausible code quickly, which makes them very good at destroying that
+        information if I let them.
       </p>
 
-      <h2>The agent cannot be the only witness</h2>
+      <h2>The agent can't be the only witness</h2>
       <p>
         Agents are excellent at announcing success. "The thumbnail loading
-        should now be much faster." Should. That sentence has cost me more time
-        than any bug in the codebase.
+        should now be much faster." Should. That one word has cost me more time
+        than any bug in this codebase.
       </p>
       <p>
         So the pixel maths has real tests, because it's the easy case. Exposure,
         the tone curve, white balance and the rest are pure functions, and a
-        pure function is a thing you can pin down with numbers that don't move.
+        pure function is something you can pin down with numbers that don't
+        move.
       </p>
       <p>
-        Everything else I check by running the app myself, which is where I'm
-        currently weakest. Scrolling, decoding, panning, memory. Clicking around
-        in a window tells me whether something is broken. It doesn't reliably
-        tell me whether a change made the app faster or slower, because I never
-        click the same way twice.
+        Everything else I check by running the app myself, and this is where
+        I'm weakest right now. Scrolling, decoding, panning, memory. Clicking
+        around a window tells me whether something is broken. It doesn't
+        reliably tell me whether a change made things faster or slower, because
+        I never click the same way twice.
       </p>
       <p>
         I don't have a good answer for that yet. It's the next thing I want to
-        fix, and I expect it to be its own post. In the meantime my working rule
-        is that it works when I ran it, not when the agent says so.
+        fix, and I expect it'll be its own post. In the meantime my working
+        rule is that it works when I ran it, not when the agent says so.
       </p>
 
       <h2>A reader that didn't write the code</h2>
       <p>
         When a change is done, a fresh agent reviews it. One with no memory of
-        the conversation that produced it, told to go find what's wrong with the
-        diff. That framing matters. The agent that just wrote four hundred lines
-        is the worst possible judge of them, and it will agree with you
-        enthusiastically either way.
+        the conversation that produced it, told to go and find what's wrong
+        with the diff.
       </p>
       <p>
-        The recurring findings are boringly consistent, and they're almost all
-        about waste rather than correctness.
+        That framing matters more than I expected. The agent that just wrote
+        four hundred lines is the worst possible judge of them, and it'll agree
+        with you enthusiastically whichever way you lean.
       </p>
-      <ul class="lp-article-list">
-        <li>
-          <strong>Cloning to get past the borrow checker.</strong> The easiest
-          way to make Rust stop complaining is to copy the data. On a 60 MB
-          image buffer, in a function that runs per frame, that's a disaster
-          that compiles cleanly.
-        </li>
-        <li>
-          <strong>Allocating inside a per-pixel loop.</strong> Perfectly
-          reasonable-looking code, run twenty million times.
-        </li>
-        <li>
-          <strong>An <code>unwrap</code> on something a user controls,</strong>
-          like a file that turned out not to be an image.
-        </li>
-        <li>
-          <strong>A lock held while slow work happens.</strong> This is the one
-          that turns a background thread into a stalled UI.
-        </li>
-        <li>
-          <strong>Unasked-for refactors.</strong> Three files renamed, for
-          reasons nobody requested.
-        </li>
-      </ul>
+
+      <figure class="lp-figure">
+        <svg viewBox="0 0 640 200" role="img" aria-label="Two reviewers compared. The agent that wrote the code agrees with you warmly and cannot judge its own four hundred lines. A fresh agent with no memory keeps finding the same five things: a clone to dodge the borrow checker, an allocation in a per-pixel loop, an unwrap on user input, a lock held during slow work, and an unasked-for refactor.">
+          <text class="lp-fig-label" x="0" y="12">WHO SHOULD REVIEW THE DIFF</text>
+
+          <rect class="lp-fig-panel" x="0" y="24" width="300" height="168" rx="8"></rect>
+          <text class="lp-fig-t" x="16" y="46">The agent that wrote it</text>
+          <rect class="lp-fig-bad-stroke" x="16" y="58" width="268" height="30" rx="5"></rect>
+          <text class="lp-fig-s" x="150" y="78" text-anchor="middle">Agrees with you, warmly</text>
+          <text class="lp-fig-s" x="16" y="112">It just wrote four hundred lines.</text>
+          <text class="lp-fig-s" x="16" y="132">It is the worst possible judge</text>
+          <text class="lp-fig-s" x="16" y="152">of whether they are any good.</text>
+
+          <rect class="lp-fig-panel" x="320" y="24" width="320" height="168" rx="8"></rect>
+          <text class="lp-fig-t" x="336" y="46">A fresh agent, no memory</text>
+          <rect class="lp-fig-box-accent" x="336" y="62" width="7" height="7" rx="1"></rect>
+          <text class="lp-fig-s" x="352" y="70">Clone to dodge the borrow checker</text>
+          <rect class="lp-fig-box-accent" x="336" y="84" width="7" height="7" rx="1"></rect>
+          <text class="lp-fig-s" x="352" y="92">Allocation in a per-pixel loop</text>
+          <rect class="lp-fig-box-accent" x="336" y="106" width="7" height="7" rx="1"></rect>
+          <text class="lp-fig-s" x="352" y="114">An unwrap on user input</text>
+          <rect class="lp-fig-box-accent" x="336" y="128" width="7" height="7" rx="1"></rect>
+          <text class="lp-fig-s" x="352" y="136">A lock held during slow work</text>
+          <rect class="lp-fig-box-accent" x="336" y="150" width="7" height="7" rx="1"></rect>
+          <text class="lp-fig-s" x="352" y="158">An unasked-for refactor</text>
+        </svg>
+        <figcaption>
+          The findings on the right are boringly consistent, and almost all of
+          them are about waste rather than correctness.
+        </figcaption>
+      </figure>
+
+      <p>
+        Those five come up again and again. Cloning is the easiest way to make
+        Rust stop complaining, and on a 60 MB image buffer in a per-frame
+        function that's a disaster that compiles cleanly. Allocating inside a
+        per-pixel loop looks perfectly reasonable right up until it runs twenty
+        million times. A lock held during slow work is what turns a background
+        thread into a stalled interface.
+      </p>
       <p>
         Then I read the diff myself. Not to catch what the reviewer missed,
         because mostly I can't. I do it because this turned out to be how I
@@ -194,8 +260,8 @@ import Base from "../../layouts/Base.astro";
       <p>
         A release is a version bump, a build for each target, and the site
         updated with the new build. It's scripted, and it's safe to run twice.
-        That second property is the one I keep deliberately. A release I have to
-        concentrate on is a release I'll put off, and then I'm sitting on a
+        That second property is the one I keep deliberately. A release I have
+        to concentrate on is a release I'll put off, and then I'm sitting on a
         month of unshipped work.
       </p>
 
@@ -238,14 +304,56 @@ import Base from "../../layouts/Base.astro";
         </table>
       </div>
 
-      <h2>Four ways this loop goes wrong</h2>
+      <h2>Four ways this goes wrong</h2>
+      <p>
+        I don't want to make this sound smoother than it is. Here's where it
+        falls over.
+      </p>
       <p>
         <strong>Whack-a-mole.</strong> A symptom gets fixed, another appears,
-        and the agent cheerfully fixes that one too. Four rounds in, the code is
-        a pile of guards and nobody has said out loud what is actually wrong.
-        The only thing that works is to stop, reproduce the problem, and make
-        the agent state the cause before it's allowed to touch a line.
+        and the agent cheerfully fixes that one too. Four rounds in, the code
+        is a pile of guards and nobody has said out loud what's actually wrong.
       </p>
+
+      <figure class="lp-figure">
+        <svg viewBox="0 0 640 212" role="img" aria-label="Symptom chasing runs symptom, guard, symptom, guard, symptom, guard, and four rounds in nobody has said what is actually wrong. What works instead is to reproduce it, make the agent name the cause, then apply one fix.">
+          <text class="lp-fig-label" x="0" y="12">WHEN AN AGENT FIXES SYMPTOMS</text>
+
+          <rect class="lp-fig-panel" x="0" y="24" width="640" height="92" rx="8"></rect>
+          <text class="lp-fig-t" x="16" y="44">Symptom chasing</text>
+          <rect class="lp-fig-bad-stroke" x="16" y="56" width="92" height="26" rx="5"></rect>
+          <text class="lp-fig-s" x="62" y="73" text-anchor="middle">Symptom</text>
+          <rect class="lp-fig-box" x="116" y="56" width="92" height="26" rx="5"></rect>
+          <text class="lp-fig-s" x="162" y="73" text-anchor="middle">Guard</text>
+          <rect class="lp-fig-bad-stroke" x="216" y="56" width="92" height="26" rx="5"></rect>
+          <text class="lp-fig-s" x="262" y="73" text-anchor="middle">Symptom</text>
+          <rect class="lp-fig-box" x="316" y="56" width="92" height="26" rx="5"></rect>
+          <text class="lp-fig-s" x="362" y="73" text-anchor="middle">Guard</text>
+          <rect class="lp-fig-bad-stroke" x="416" y="56" width="92" height="26" rx="5"></rect>
+          <text class="lp-fig-s" x="462" y="73" text-anchor="middle">Symptom</text>
+          <rect class="lp-fig-box" x="516" y="56" width="92" height="26" rx="5"></rect>
+          <text class="lp-fig-s" x="562" y="73" text-anchor="middle">Guard</text>
+          <text class="lp-fig-s lp-fig-bad" x="16" y="104">Four rounds in, nobody has said what is actually wrong.</text>
+
+          <rect class="lp-fig-panel" x="0" y="128" width="640" height="76" rx="8"></rect>
+          <text class="lp-fig-t" x="16" y="148">What works instead</text>
+          <rect class="lp-fig-box" x="16" y="160" width="176" height="30" rx="5"></rect>
+          <text class="lp-fig-s" x="104" y="180" text-anchor="middle">Reproduce it</text>
+          <line class="lp-fig-line" x1="192" y1="175" x2="214" y2="175"></line>
+          <path class="lp-fig-arrow" d="M214 170 L224 175 L214 180 Z"></path>
+          <rect class="lp-fig-box" x="224" y="160" width="176" height="30" rx="5"></rect>
+          <text class="lp-fig-s" x="312" y="180" text-anchor="middle">Name the cause</text>
+          <line class="lp-fig-line" x1="400" y1="175" x2="422" y2="175"></line>
+          <path class="lp-fig-arrow" d="M422 170 L432 175 L422 180 Z"></path>
+          <rect class="lp-fig-box-accent" x="432" y="160" width="176" height="30" rx="5"></rect>
+          <text class="lp-fig-s" x="520" y="180" text-anchor="middle">One fix</text>
+        </svg>
+        <figcaption>
+          The only thing that works is to stop, reproduce the problem, and make
+          the agent state the cause before it's allowed to touch a line.
+        </figcaption>
+      </figure>
+
       <p>
         <strong>Confident numbers that were never measured.</strong> I've been
         told a change made something "roughly three times faster" by an agent
@@ -253,81 +361,58 @@ import Base from "../../layouts/Base.astro";
         guess wearing a number's clothes.
       </p>
       <p>
-        <strong>Code that is correct and wasteful.</strong> Rust's compiler is a
-        strict reviewer, and it made me braver than I should have been. It
-        checks that you aren't doing anything unsafe. It has no opinion about
-        whether you just copied fifty megabytes for no reason. For an app whose
-        whole premise is speed, that's the gap I have to cover myself, and it's
-        why performance has to be a gate in the loop rather than something I
-        hope for.
+        <strong>Code that is correct and wasteful.</strong> Rust's compiler is
+        a strict reviewer, and it made me braver than I should have been. It
+        checks that you aren't doing anything unsafe. It has no opinion
+        whatsoever about whether you just copied fifty megabytes for no reason.
+        For an app whose whole premise is speed, that's a gap I have to cover
+        myself, and it's why performance is a gate in the loop rather than
+        something I hope for.
       </p>
       <p>
         <strong>Scope drift.</strong> Left unattended, a change grows. Naming
-        what's out of scope in the plan handles most of it, and reading the diff
-        handles the rest.
+        what's out of scope in the plan handles most of it, and reading the
+        diff handles the rest.
       </p>
 
-      <h2>So how did I learn Rust?</h2>
+      <h2>So how did I actually learn Rust?</h2>
       <p>
-        Not from a book, and not by writing an app from scratch. Four things did
-        it, in rough order of how much they taught me.
+        Not from a book, and not by writing an app from scratch. Four things
+        did it, roughly in order of how much they taught me.
       </p>
       <ul class="lp-article-list">
         <li>
           <strong>Reading diffs with one question.</strong> Why is this line
-          here? Repeated a few hundred times across real code that does
-          something I care about.
+          here? Asked a few hundred times, across real code doing something I
+          care about.
         </li>
         <li>
           <strong>Asking for justifications.</strong> Why a clone here, why a
-          reference there, why <code>Arc</code> and not a plain value. The
+          reference there, why <code>Arc</code> and not a plain value. Those
           answers are where ownership stopped being a rule I'd read about and
           became something I could predict.
         </li>
         <li>
           <strong>Borrow checker errors.</strong> A tutor with no patience and
-          no small talk, which turns out to be an effective combination.
+          no small talk, which turns out to be a surprisingly effective
+          combination.
         </li>
         <li>
           <strong>Writing some of it by hand anyway.</strong> A function per
           session, no agent. Slow, and the only way I found out what I actually
-          understood.
+          understood versus what I only recognised.
         </li>
       </ul>
       <p>
-        A few weeks in, I can read all of the Rust in LightPhotos and write most
-        of it. Reading is the half that matters for this loop. An agent can
-        always produce more code than I can write, but it can't give me the
-        judgment to tell whether the code it produced is any good, and that's
-        the only thing standing between "it works" and the app I'm trying to
-        build.
+        A few weeks in, I can read all of the Rust in LightPhotos and write
+        most of it. Reading is the half that matters for this loop.
       </p>
-
-      <h2>What I learned</h2>
-      <ul class="lp-article-list">
-        <li>
-          <strong>Write the plan, including the proof.</strong> If I can't say
-          what would show the change worked, the agent will pick its own
-          definition of done, and it will be generous.
-        </li>
-        <li>
-          <strong>Be the witness.</strong> "Should now be faster" is not a
-          result. A number I watched get produced is.
-        </li>
-        <li>
-          <strong>Review with a reader that has no history.</strong> Whatever
-          wrote the code is the worst judge of it, and the most agreeable.
-        </li>
-        <li>
-          <strong>One change at a time.</strong> Cheap to do, and it preserves
-          the only clue worth having when something breaks.
-        </li>
-        <li>
-          <strong>Learn the language anyway.</strong> Not to write it faster,
-          but to be able to tell good from plausible.
-        </li>
-      </ul>
-
+      <p>
+        An agent can always produce more code than I can write. What it can't
+        give me is the judgment to tell whether the code it produced is any
+        good, and that judgment is the only thing standing between "it works"
+        and the app I'm actually trying to build.
+      </p>
 
       <nav class="lp-article-nav" aria-label="More posts">
         <a class="lp-article-nav-prev" href="/blogs/why-rust.html">
