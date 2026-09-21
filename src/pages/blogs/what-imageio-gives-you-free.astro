@@ -1,0 +1,243 @@
+---
+import Base from "../../layouts/Base.astro";
+---
+<Base
+  title="What ImageIO gives you free — LightPhotos Blog"
+  desc="One call to Apple's ImageIO was doing far more for LightPhotos than I realised. Porting away from it put a number on exactly how much."
+  active="blogs"
+>
+  <main class="lp-page">
+    <article class="lp-article">
+      <header class="lp-article-head">
+        <p class="lp-article-meta"><a href="/blogs.html">Blogs</a> &middot; <time datetime="2026-07-20">July 20, 2026</time></p>
+        <h1>What ImageIO gives you free, and what it costs to leave</h1>
+        <p class="lp-article-dek">
+          One call to Apple's ImageIO was doing far more for LightPhotos than I
+          realised. Porting to Linux, Windows and the browser put a number on
+          exactly how much.
+        </p>
+      </header>
+
+      <p>
+        LightPhotos started out Mac-only. When I ported it, I expected the
+        painful parts to be the window, the graphics and the file dialogs. They
+        were not. The painful part was the thing I had stopped thinking about
+        years ago, which is reading an image file.
+      </p>
+
+      <h2>The one call</h2>
+      <p>
+        ImageIO has a function that means "give me this image, already scaled
+        down to about this size". Not "decode this, and then I will resize it".
+        The scaling is part of the request.
+      </p>
+      <p>
+        For a JPEG that is a convenience. For a camera RAW file it is everything.
+        A RAW file is not a picture. It is unprocessed sensor readout, and
+        reconstructing full colour from it is expensive.
+      </p>
+      <p>
+        Almost every RAW file also carries a small JPEG, written by the camera
+        so its own screen had something to display. Ask ImageIO for a small
+        version and it goes and finds that preview, skipping the sensor maths
+        entirely. On Sony ARW files I measured 11 ms instead of 170 to 210.
+      </p>
+      <p>None of that was code I wrote. It was one function argument.</p>
+
+      <h2>Nothing else has that function</h2>
+
+      <figure class="lp-figure">
+        <svg viewBox="0 0 640 234" role="img" aria-label="Comparison: on macOS a single ImageIO call handles scaled decoding; everywhere else the program walks EXIF tags to find an embedded preview and falls back to a full sensor decode.">
+          <text class="lp-fig-label" x="0" y="12">MACOS</text>
+          <rect class="lp-fig-panel" x="0" y="22" width="290" height="192" rx="10"></rect>
+          <rect class="lp-fig-box-accent" x="26" y="90" width="238" height="56" rx="8"></rect>
+          <text class="lp-fig-t" x="145" y="113" text-anchor="middle">One call</text>
+          <text class="lp-fig-s" x="145" y="133" text-anchor="middle">scaling is part of the request</text>
+          <text class="lp-fig-s" x="145" y="180" text-anchor="middle">11 ms to a RAW preview</text>
+
+          <text class="lp-fig-label" x="350" y="12">LINUX, WINDOWS, BROWSER</text>
+          <rect class="lp-fig-panel" x="350" y="22" width="290" height="192" rx="10"></rect>
+          <rect class="lp-fig-box" x="430" y="40" width="130" height="28" rx="6"></rect>
+          <text class="lp-fig-s" x="495" y="59" text-anchor="middle">RAW file</text>
+          <line class="lp-fig-line" x1="495" y1="68" x2="495" y2="76"></line>
+          <path class="lp-fig-arrow" d="M489 76 L501 76 L495 84 Z"></path>
+          <rect class="lp-fig-box" x="375" y="88" width="240" height="28" rx="6"></rect>
+          <text class="lp-fig-s" x="495" y="107" text-anchor="middle">Walk the TIFF and EXIF tags</text>
+          <path class="lp-fig-line" d="M495 116 V128 H424 V136 M495 128 H566 V136"></path>
+          <path class="lp-fig-arrow" d="M418 136 L430 136 L424 144 Z M560 136 L572 136 L566 144 Z"></path>
+          <rect class="lp-fig-box" x="360" y="144" width="128" height="46" rx="6"></rect>
+          <text class="lp-fig-s" x="424" y="164" text-anchor="middle">Decode the</text>
+          <text class="lp-fig-s" x="424" y="179" text-anchor="middle">embedded JPEG</text>
+          <rect class="lp-fig-box" x="502" y="144" width="128" height="46" rx="6"></rect>
+          <text class="lp-fig-s" x="566" y="164" text-anchor="middle">rawler:</text>
+          <text class="lp-fig-s" x="566" y="179" text-anchor="middle">demosaic the sensor</text>
+          <text class="lp-fig-s" x="424" y="206" text-anchor="middle">fast path</text>
+          <text class="lp-fig-s" x="566" y="206" text-anchor="middle">fallback</text>
+        </svg>
+        <figcaption>
+          There is no drop-in equivalent on any other platform. I checked before
+          committing to the port, and everywhere I looked the answer was that
+          you build it yourself.
+        </figcaption>
+      </figure>
+
+      <p>
+        Building it yourself means knowing that RAW files are mostly TIFF
+        containers, that TIFF containers have a tag structure, and that the
+        embedded preview sits at a known place inside it. I now know all of
+        that, and I would rather not.
+      </p>
+
+      <div class="lp-compare-wrap">
+        <table class="lp-compare">
+          <thead>
+            <tr>
+              <th scope="col"></th>
+              <th scope="col">macOS, ImageIO</th>
+              <th scope="col">Linux, Windows, browser</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Embedded RAW preview</th>
+              <td>11 ms, built in</td>
+              <td>Hand-rolled from EXIF tags</td>
+            </tr>
+            <tr>
+              <th scope="row">Sensor decode to screen size</th>
+              <td>170 to 210 ms</td>
+              <td>680 ms, after optimising</td>
+            </tr>
+            <tr>
+              <th scope="row">HEIC</th>
+              <td>Yes</td>
+              <td>No pure-Rust decoder exists</td>
+            </tr>
+            <tr>
+              <th scope="row">Linear DNG</th>
+              <td>Cannot decode it</td>
+              <td>Byte-exact against ground truth</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>Two steps in the wrong order</h2>
+      <p>
+        That 680 ms started life as 1.80 seconds. My code was running noise
+        reduction at full sensor resolution and only shrinking the image
+        afterwards.
+      </p>
+
+      <figure class="lp-figure">
+        <svg viewBox="0 0 640 176" role="img" aria-label="Pipeline comparison: denoising at 24 megapixels then shrinking takes 1.80 seconds; shrinking first then denoising takes 0.68 seconds.">
+          <text class="lp-fig-label" x="0" y="12">A 2560 PX PREVIEW FROM A 24 MP SONY ARW</text>
+
+          <rect class="lp-fig-box" x="0" y="26" width="142" height="32" rx="6"></rect>
+          <text class="lp-fig-s" x="71" y="46" text-anchor="middle">Decode sensor</text>
+          <path class="lp-fig-arrow" d="M146 36 L146 48 L156 42 Z"></path>
+          <rect class="lp-fig-box lp-fig-bad-stroke" x="160" y="26" width="142" height="32" rx="6"></rect>
+          <text class="lp-fig-s" x="231" y="46" text-anchor="middle">Denoise at 24 MP</text>
+          <path class="lp-fig-arrow" d="M306 36 L306 48 L316 42 Z"></path>
+          <rect class="lp-fig-box" x="320" y="26" width="142" height="32" rx="6"></rect>
+          <text class="lp-fig-s" x="391" y="46" text-anchor="middle">Shrink to 2560</text>
+          <rect class="lp-fig-bar-dim" x="0" y="66" width="462" height="7" rx="3.5"></rect>
+          <text class="lp-fig-s" x="476" y="52">1.80 s &middot; peak 1.39 GB</text>
+
+          <rect class="lp-fig-box" x="0" y="106" width="142" height="32" rx="6"></rect>
+          <text class="lp-fig-s" x="71" y="126" text-anchor="middle">Decode sensor</text>
+          <path class="lp-fig-arrow" d="M146 116 L146 128 L156 122 Z"></path>
+          <rect class="lp-fig-box" x="160" y="106" width="142" height="32" rx="6"></rect>
+          <text class="lp-fig-s" x="231" y="126" text-anchor="middle">Shrink to 2560</text>
+          <path class="lp-fig-arrow" d="M306 116 L306 128 L316 122 Z"></path>
+          <rect class="lp-fig-box-accent" x="320" y="106" width="142" height="32" rx="6"></rect>
+          <text class="lp-fig-s" x="391" y="126" text-anchor="middle">Denoise at 2560</text>
+          <rect class="lp-fig-bar" x="0" y="146" width="175" height="7" rx="3.5"></rect>
+          <text class="lp-fig-s" x="476" y="132">0.68 s &middot; peak 1.21 GB</text>
+        </svg>
+        <figcaption>
+          Two lines swapped. The output is byte-identical at full size.
+        </figcaption>
+      </figure>
+
+      <p>
+        Swapping the two steps around was a two-line change and it saved 1.1
+        seconds per photo.
+      </p>
+
+      <h2>The other costs</h2>
+      <p>
+        Formats were the second one. ImageIO reads HEIC, the format iPhones use,
+        and no pure-Rust HEIC decoder exists. My only option is binding to a C
+        library, which drags a build toolchain onto every platform I was trying
+        to keep easy to build. So HEIC is still Mac-only, and that is a
+        difference users can see.
+      </p>
+      <p>
+        The third was a dependency that would not run in a browser. The RAW
+        library calls the standard clock to log how long a decode took, and
+        under WebAssembly there is nothing behind that function, so calling it
+        aborts. My build now fetches the library, applies a four-line patch and
+        compiles from that copy. Cargo cannot patch one target only, so every
+        build depends on it.
+      </p>
+
+      <h2>Apple's decoder is not always right</h2>
+      <p>
+        Part of my porting plan was a fidelity check. Decode a test file both
+        ways, confirm they agree, treat Apple's output as the reference.
+      </p>
+      <p>
+        Apple's decoder could not open the file. Not a wrong answer, not a
+        close-enough answer. It cannot decode Linear DNG at all.
+      </p>
+      <p>
+        So I rebuilt the test around ground truth I worked out myself. I
+        generated a synthetic DNG holding a known mathematical gradient and
+        computed every pixel on paper. The Rust decoder matched exactly, with
+        zero mismatches across 147,456 samples.
+      </p>
+      <blockquote class="lp-pullquote">
+        Two decoders agreeing only tells you they agree. Matching arithmetic you
+        did yourself tells you one of them is right.
+      </blockquote>
+
+      <h2>Would I use it again?</h2>
+      <p>
+        Yes, and I still do on the Mac. What you get is real. Decades of format
+        support, a fast path you would never have thought to build, and
+        correctness on file formats that are largely reverse-engineered and full
+        of vendor quirks.
+      </p>
+      <p>
+        What you pay is portability, plus one category of bug you cannot fix.
+        When Apple's decoder cannot open a Linear DNG there is no patch and no
+        workaround short of shipping a second decoder. You are not a user of
+        that code, you are downstream of it.
+      </p>
+
+      <h2>What I learned</h2>
+      <ul class="lp-article-list">
+        <li>
+          <strong>Find out what the framework does for you before you need to
+          leave.</strong> Not by reading the docs, but by writing the
+          replacement and measuring both.
+        </li>
+        <li>
+          <strong>A platform dependency is a purchase, so name the
+          price.</strong> Speed, formats, portability, and one class of bug you
+          cannot fix. I priced three of those four wrong.
+        </li>
+        <li>
+          <strong>Have a fallback for the reference being wrong.</strong> The
+          gradient I could compute on paper turned out to be the stronger test.
+        </li>
+        <li>
+          <strong>Check the order of your pipeline steps.</strong> Shrinking
+          before denoising rather than after was worth 1.1 seconds per photo,
+          and it was two lines.
+        </li>
+      </ul>
+    </article>
+  </main>
+</Base>

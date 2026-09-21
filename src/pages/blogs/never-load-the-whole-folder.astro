@@ -1,0 +1,422 @@
+---
+import Base from "../../layouts/Base.astro";
+---
+<Base
+  title="Never load the whole folder — LightPhotos Blog"
+  desc="A folder of 8,889 photos used 1.9 GB and crashed. The fix is the most reused idea in the codebase, and I have now made the same mistake four times."
+  active="blogs"
+>
+  <main class="lp-page">
+    <article class="lp-article">
+      <header class="lp-article-head">
+        <p class="lp-article-meta"><a href="/blogs.html">Blogs</a> &middot; <time datetime="2026-09-01">September 1, 2026</time></p>
+        <h1>Never load the whole folder</h1>
+        <p class="lp-article-dek">
+          A folder of 8,889 photos used 1.9 GB of memory and then crashed. The
+          fix is the most reused idea in the codebase, and I have now made the
+          same mistake four times in four disguises.
+        </p>
+      </header>
+
+      <p>
+        A wedding photographer hands you a card with 8,889 photos on it. You
+        point LightPhotos at it. The app dies.
+      </p>
+      <p>
+        That was a real bug. What I did not expect is that I would go on to fix
+        the same bug three more times, in places that looked nothing like each
+        other.
+      </p>
+
+      <h2>The crash</h2>
+      <p>
+        The grid draws a thumbnail for every photo in the folder. My code for
+        filling it came down to this:
+      </p>
+      <pre class="lp-code">for each photo in folder:
+    request a thumbnail
+    upload it to the GPU as a texture</pre>
+      <p>
+        That is a perfectly reasonable loop if you have twenty photos. With
+        8,889 it asks the graphics card for 8,889 textures, about 1.3 GB of
+        video memory, which drags resident memory to around 1.9 GB. Then the
+        operating system kills the process.
+      </p>
+      <p>
+        Nothing in that loop is wrong. It is correct code. It just assumes the
+        number of photos in a folder is small, and I never noticed I was
+        assuming it.
+      </p>
+
+      <h2>The fix, the first time</h2>
+      <p>
+        You can only see about forty thumbnails at once on a large monitor. The
+        other 8,849 are off screen and nobody needs them yet.
+      </p>
+
+      <figure class="lp-figure">
+        <svg viewBox="0 0 640 260" role="img" aria-label="Comparison: the first version uploaded a texture for all 8,889 photos, using 1.9 GB; the virtualised grid holds only the visible rows plus a cushion, using 110 to 150 MB.">
+          <text class="lp-fig-label" x="0" y="12">BEFORE &middot; ONE TEXTURE PER PHOTO</text>
+          <rect class="lp-fig-panel" x="0" y="26" width="297" height="218" rx="10"></rect>
+          <rect class="lp-fig-box-accent" x="14" y="44" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="35" y="44" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="56" y="44" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="77" y="44" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="98" y="44" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="119" y="44" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="140" y="44" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="161" y="44" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="182" y="44" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="203" y="44" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="224" y="44" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="245" y="44" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="266" y="44" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="14" y="61" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="35" y="61" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="56" y="61" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="77" y="61" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="98" y="61" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="119" y="61" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="140" y="61" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="161" y="61" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="182" y="61" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="203" y="61" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="224" y="61" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="245" y="61" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="266" y="61" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="14" y="78" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="35" y="78" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="56" y="78" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="77" y="78" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="98" y="78" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="119" y="78" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="140" y="78" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="161" y="78" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="182" y="78" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="203" y="78" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="224" y="78" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="245" y="78" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="266" y="78" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="14" y="95" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="35" y="95" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="56" y="95" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="77" y="95" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="98" y="95" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="119" y="95" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="140" y="95" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="161" y="95" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="182" y="95" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="203" y="95" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="224" y="95" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="245" y="95" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="266" y="95" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="14" y="112" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="35" y="112" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="56" y="112" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="77" y="112" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="98" y="112" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="119" y="112" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="140" y="112" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="161" y="112" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="182" y="112" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="203" y="112" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="224" y="112" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="245" y="112" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="266" y="112" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="14" y="129" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="35" y="129" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="56" y="129" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="77" y="129" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="98" y="129" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="119" y="129" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="140" y="129" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="161" y="129" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="182" y="129" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="203" y="129" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="224" y="129" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="245" y="129" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="266" y="129" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="14" y="146" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="35" y="146" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="56" y="146" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="77" y="146" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="98" y="146" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="119" y="146" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="140" y="146" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="161" y="146" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="182" y="146" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="203" y="146" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="224" y="146" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="245" y="146" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="266" y="146" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="14" y="163" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="35" y="163" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="56" y="163" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="77" y="163" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="98" y="163" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="119" y="163" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="140" y="163" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="161" y="163" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="182" y="163" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="203" y="163" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="224" y="163" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="245" y="163" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="266" y="163" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="14" y="180" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="35" y="180" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="56" y="180" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="77" y="180" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="98" y="180" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="119" y="180" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="140" y="180" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="161" y="180" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="182" y="180" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="203" y="180" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="224" y="180" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="245" y="180" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="266" y="180" width="17" height="13" rx="2"></rect>
+          <text class="lp-fig-t" x="148" y="216" text-anchor="middle">8,889 textures</text>
+          <text class="lp-fig-s lp-fig-bad" x="148" y="234" text-anchor="middle">1.9 GB resident, then killed</text>
+
+          <text class="lp-fig-label" x="350" y="12">AFTER &middot; ONLY WHAT IS ON SCREEN</text>
+          <rect class="lp-fig-panel" x="350" y="26" width="290" height="218" rx="10"></rect>
+          <rect class="lp-fig-box" x="364" y="44" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box" x="385" y="44" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box" x="406" y="44" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box" x="427" y="44" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box" x="448" y="44" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box" x="469" y="44" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box" x="490" y="44" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box" x="511" y="44" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box" x="532" y="44" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box" x="553" y="44" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box" x="574" y="44" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box" x="595" y="44" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box" x="616" y="44" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box" x="364" y="61" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box" x="385" y="61" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box" x="406" y="61" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box" x="427" y="61" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box" x="448" y="61" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box" x="469" y="61" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box" x="490" y="61" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box" x="511" y="61" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box" x="532" y="61" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box" x="553" y="61" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box" x="574" y="61" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box" x="595" y="61" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box" x="616" y="61" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box" x="364" y="78" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box" x="385" y="78" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box" x="406" y="78" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box" x="427" y="78" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box" x="448" y="78" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box" x="469" y="78" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box" x="490" y="78" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box" x="511" y="78" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box" x="532" y="78" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box" x="553" y="78" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box" x="574" y="78" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box" x="595" y="78" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box" x="616" y="78" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="364" y="95" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="385" y="95" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="406" y="95" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="427" y="95" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="448" y="95" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="469" y="95" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="490" y="95" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="511" y="95" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="532" y="95" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="553" y="95" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="574" y="95" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="595" y="95" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="616" y="95" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="364" y="112" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="385" y="112" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="406" y="112" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="427" y="112" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="448" y="112" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="469" y="112" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="490" y="112" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="511" y="112" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="532" y="112" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="553" y="112" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="574" y="112" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="595" y="112" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="616" y="112" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="364" y="129" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="385" y="129" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="406" y="129" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="427" y="129" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="448" y="129" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="469" y="129" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="490" y="129" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="511" y="129" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="532" y="129" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="553" y="129" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="574" y="129" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="595" y="129" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box-accent" x="616" y="129" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box" x="364" y="146" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box" x="385" y="146" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box" x="406" y="146" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box" x="427" y="146" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box" x="448" y="146" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box" x="469" y="146" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box" x="490" y="146" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box" x="511" y="146" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box" x="532" y="146" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box" x="553" y="146" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box" x="574" y="146" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box" x="595" y="146" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box" x="616" y="146" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box" x="364" y="163" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box" x="385" y="163" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box" x="406" y="163" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box" x="427" y="163" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box" x="448" y="163" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box" x="469" y="163" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box" x="490" y="163" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box" x="511" y="163" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box" x="532" y="163" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box" x="553" y="163" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box" x="574" y="163" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box" x="595" y="163" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box" x="616" y="163" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box" x="364" y="180" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box" x="385" y="180" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box" x="406" y="180" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box" x="427" y="180" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box" x="448" y="180" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box" x="469" y="180" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box" x="490" y="180" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box" x="511" y="180" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box" x="532" y="180" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box" x="553" y="180" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box" x="574" y="180" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box" x="595" y="180" width="17" height="13" rx="2"></rect>
+          <rect class="lp-fig-box" x="616" y="180" width="17" height="13" rx="2"></rect>
+          <text class="lp-fig-t" x="498" y="216" text-anchor="middle">visible rows, plus a cushion</text>
+          <text class="lp-fig-s" x="498" y="234" text-anchor="middle">110 to 150 MB, whatever the folder holds</text>
+        </svg>
+        <figcaption>
+          The number on the right is set by how big the window is, not by how
+          many photos the folder has. A much larger folder costs the same.
+        </figcaption>
+      </figure>
+
+      <p>
+        So the grid now draws only the rows scrolled into view, and requests
+        thumbnails for that range plus a bit of scroll cushion. Everything else
+        is never decoded, never uploaded and never held. This is not a clever
+        fix. It is list virtualisation, and any web developer who has rendered a
+        long table already knows it. The interesting part is what happened next.
+      </p>
+
+      <h2>The fix, the second time</h2>
+      <p>
+        Decoded thumbnails live in a memory cache with a maximum number of
+        entries. I picked that number long ago, when thumbnails were small. Then
+        thumbnails got bigger, a fixed 512 pixels on the long side and about
+        700 KB each, roughly seven times what an entry used to cost.
+      </p>
+      <p>
+        Nothing failed loudly. The number was still a valid number. It just
+        meant something completely different from what it meant when I wrote it.
+      </p>
+      <p>
+        So I recalculated the limit from what it should have been based on all
+        along, which is how many entries need to be in memory at once. That is
+        the visible grid plus three cushion rows on each side, around 180 cells,
+        so the limit is now 256. Set it lower and the cache evicts entries the
+        frame after it decodes them, which is worse than having no cache.
+      </p>
+
+      <h2>The fix, the third time</h2>
+      <p>
+        Select a few thousand photos, hit Auto Tone, and the app analyses each
+        one. My first version requested a thumbnail for every selected photo up
+        front, on the grounds that it was going to need all of them eventually.
+        Select 20,000 and, at roughly 0.4 MB each, I was asking the cache to
+        hold about 8 GB inside a browser tab whose limit is 4 GB and which never
+        hands memory back.
+      </p>
+      <blockquote class="lp-pullquote">
+        I had asked "how many photos are in this job" when the question was "how
+        long does one thumbnail need to stay in memory".
+      </blockquote>
+
+      <figure class="lp-figure">
+        <svg viewBox="0 0 640 152" role="img" aria-label="Diagram: a 32-photo window slides across a selection of 20,000, so only 32 thumbnails are ever requested at once.">
+          <text class="lp-fig-label" x="0" y="12">AUTO TONE ACROSS 20,000 SELECTED PHOTOS</text>
+          <rect class="lp-fig-box" x="0" y="34" width="640" height="42" rx="6"></rect>
+          <rect class="lp-fig-bar-dim" x="1" y="35" width="199" height="40"></rect>
+          <rect class="lp-fig-box-accent" x="200" y="26" width="76" height="58" rx="6"></rect>
+          <text class="lp-fig-t" x="238" y="60" text-anchor="middle">32</text>
+          <line class="lp-fig-line" x1="288" y1="55" x2="332" y2="55"></line>
+          <path class="lp-fig-arrow" d="M332 49 L332 61 L344 55 Z"></path>
+          <text class="lp-fig-s" x="100" y="102" text-anchor="middle">already analysed</text>
+          <text class="lp-fig-s" x="238" y="102" text-anchor="middle">in memory</text>
+          <text class="lp-fig-s" x="460" y="102" text-anchor="middle">never requested</text>
+          <text class="lp-fig-s" x="0" y="140">Slowest cold RAW decode 137 ms &divide; one analysis 8 ms = 17, rounded up to 32.</text>
+        </svg>
+        <figcaption>
+          About 13 MB resident, whether you selected 30 photos or 30,000. A
+          compile-time assertion keeps the window under 64, so nobody quietly
+          turns it into a tuning knob.
+        </figcaption>
+      </figure>
+
+      <p>
+        The 32 is not a taste call. Analysing one photo costs about 8 ms on the
+        main thread, so it cannot be spread across cores, and decoding a
+        thumbnail costs 137 ms at the ninety-fifth percentile for a cold RAW
+        file. To keep the decoders ahead of the analyser in the worst case, the
+        window is the slowest decode divided by one analysis.
+      </p>
+      <p>
+        Before I measured, I assumed the batch was limited by decoding. It is
+        not. Analysis costs about fifty-five times more wall-clock time, because
+        it cannot be parallelised. Optimising the decoding would have made no
+        difference at all.
+      </p>
+
+      <h2>The fix, the fourth time</h2>
+      <p>
+        The large version of a photo is decoded to fit the window, so resizing
+        by one pixel would in principle need a fresh decode. The requested size
+        now rounds up to a multiple of 512 pixels, so dragging a window edge
+        asks for a handful of decodes instead of one per frame.
+      </p>
+      <p>
+        It is the same idea as the other three, applied to a continuous input
+        instead of a list. If an expensive cache is keyed on something the user
+        can vary smoothly, round the key off.
+      </p>
+
+      <h2>What I learned</h2>
+      <ul class="lp-article-list">
+        <li>
+          <strong>Find every loop over everything a user gave you.</strong> Not
+          the ones bounded by a request. The ones bounded by how much stuff
+          somebody has.
+        </li>
+        <li>
+          <strong>Size the buffer from what has to be resident, not from the
+          input.</strong> "How many are there" is almost never the right
+          question. "How long must one of these survive" almost always is.
+        </li>
+        <li>
+          <strong>Write the calculation next to the constant.</strong> The
+          person who inherits a 32 needs to know what would make it wrong.
+        </li>
+        <li>
+          <strong>Re-check the inputs to old calculations.</strong> Three of
+          these four were not written wrong. They were written right, and then
+          something changed underneath them.
+        </li>
+      </ul>
+    </article>
+  </main>
+</Base>
