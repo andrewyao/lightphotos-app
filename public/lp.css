@@ -1228,3 +1228,107 @@ a.lp-card:focus-visible .lp-go {
   font-size: 1.35rem;
   line-height: 1.45;
 }
+
+/* --- Article figures -------------------------------------------------------
+ * Inline SVG diagrams. Everything is drawn with the theme tokens rather than
+ * literal colours, so one figure works in dark, light and neutral. Diagrams
+ * are authored against a 640-wide viewBox; below ~33rem the figure scrolls
+ * sideways instead of shrinking the labels into illegibility, which is the
+ * same compromise .lp-compare-wrap makes.
+ */
+.lp-figure {
+  margin: 1.9rem 0 0;
+  overflow-x: auto;
+}
+
+.lp-figure svg {
+  display: block;
+  width: 100%;
+  min-width: 33rem;
+  height: auto;
+  font-family: var(--font-ui);
+}
+
+.lp-article .lp-figure figcaption {
+  margin-top: 0.75rem;
+  font-size: 0.85rem;
+  line-height: 1.55;
+  color: var(--lp-muted);
+}
+
+.lp-fig-box {
+  fill: var(--surface-input);
+  stroke: var(--border-strong);
+}
+
+.lp-fig-box-accent {
+  fill: var(--lp-glow-soft);
+  stroke: var(--border-accent);
+}
+
+.lp-fig-panel {
+  fill: none;
+  stroke: var(--border-subtle);
+}
+
+.lp-fig-t {
+  fill: var(--lp-ink);
+  font-size: 14px;
+}
+
+.lp-fig-s {
+  fill: var(--lp-muted);
+  font-size: 11.5px;
+}
+
+.lp-fig-label {
+  fill: var(--lp-muted);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+}
+
+.lp-fig-line {
+  fill: none;
+  stroke: var(--border-strong);
+}
+
+.lp-fig-line-soft {
+  fill: none;
+  stroke: var(--border-subtle);
+}
+
+.lp-fig-arrow {
+  fill: var(--border-strong);
+  stroke: none;
+}
+
+.lp-fig-bar {
+  fill: var(--lp-accent);
+}
+
+.lp-fig-bar-dim {
+  fill: var(--border-strong);
+}
+
+.lp-fig-bad {
+  fill: var(--status-danger);
+}
+
+.lp-fig-bad-stroke {
+  fill: none;
+  stroke: var(--status-danger);
+}
+
+.lp-fig-good {
+  fill: var(--status-success);
+}
+
+.lp-fig-mono {
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+
+.lp-fig-on-bar {
+  fill: var(--text-on-accent);
+  font-size: 11.5px;
+}
