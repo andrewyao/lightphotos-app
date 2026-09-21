@@ -3,7 +3,7 @@ import Base from "../../layouts/Base.astro";
 ---
 <Base
   title="How a photo gets on screen — LightPhotos Blog"
-  desc="What actually happens between clicking a photo and seeing it, and all the work LightPhotos skips to make that feel instant."
+  desc="Opening one photo costs one, two or three decodes, and what decides it isn't the file format. The whole trip from a file on disk to pixels on your monitor."
   active="blogs"
 >
   <main class="lp-page">
@@ -12,32 +12,73 @@ import Base from "../../layouts/Base.astro";
         <p class="lp-article-meta"><a href="/blogs.html">Blogs</a> &middot; <time datetime="2026-07-08">July 8, 2026</time></p>
         <h1>How a photo gets on screen</h1>
         <p class="lp-article-dek">
-          What actually happens between clicking a photo and seeing it, and all
-          the work the app skips to make that feel instant.
+          Opening one photo costs one, two or three decodes, and what decides
+          it isn't the file format. The whole trip from a file on disk to
+          pixels on your monitor.
         </p>
-        <p class="lp-article-byline">Andrew Yao &middot; 4 min read</p>
+        <p class="lp-article-byline">Andrew Yao &middot; 6 min read</p>
       </header>
 
-      <p>
-        I want LightPhotos to feel instant. You open a folder of holiday photos,
-        the thumbnails fill in, you double-click one and it opens full size, you
-        scroll the wheel and it zooms. None of that should surprise anyone.
-      </p>
-      <p>
-        What surprised me is how much work the app has to skip to make it feel
-        that ordinary. Here is everything that happens to one photo on its way
-        to your screen.
-      </p>
+      <aside class="lp-tldr">
+        <p class="lp-tldr-label">TL;DR</p>
+        <p>
+          When you open a photo, the app runs the cheapest decode it can and
+          then asks one question. Did that come back as big as the window
+          needs? If yes, it stops there. If no, it queues a proper decode
+          behind it. A third pass only happens if you zoom in past what's
+          already on screen.
+        </p>
+        <p>
+          After the decode, nothing touches the image data again. Zooming,
+          panning and every slider are arithmetic on the graphics card.
+        </p>
+      </aside>
+
+      <h2>What I learned</h2>
+      <ul class="lp-article-list">
+        <li>
+          <strong>Ask what you can show before the real work finishes.</strong>
+          Cheap first, correct second, is what turns a 250 ms wait into a 35 ms
+          one without making anything faster.
+        </li>
+        <li>
+          <strong>Let the result decide the next step, not the file
+          type.</strong> I first branched on "is this a RAW", which sounds
+          sensible and is the start of a long list of format special cases.
+          Branching on "is what I got back big enough" is one rule that covers
+          everything.
+        </li>
+        <li>
+          <strong>Upload once, then transform cheaply.</strong> If something
+          repeats 60 times a second, it should change a few numbers, never
+          re-run the expensive step.
+        </li>
+        <li>
+          <strong>Treat different waits as different problems.</strong>
+          Opening, browsing and exporting look like one job called "decode a
+          photo". One shared path would have served none of them well.
+        </li>
+        <li>
+          <strong>Fork low, converge high.</strong> Platform differences belong
+          as close to the operating system as you can push them.
+        </li>
+      </ul>
 
       <h2>Three different jobs</h2>
+      <p>
+        I want LightPhotos to feel instant. You open a folder of holiday
+        photos, the thumbnails fill in, you double-click one and it opens full
+        size, you scroll the wheel and it zooms. None of that should surprise
+        anyone, and that's exactly the point.
+      </p>
       <p>
         A photo takes one of three paths through the app, and I treat them as
         three separate problems.
       </p>
       <ul class="lp-article-list">
         <li>
-          <strong>Opening.</strong> You clicked, and you want the photo large on
-          screen right now.
+          <strong>Opening.</strong> You clicked, and you want the photo large
+          on screen right now.
         </li>
         <li>
           <strong>Browsing.</strong> The grid needs a small version of every
@@ -58,56 +99,89 @@ import Base from "../../layouts/Base.astro";
 
       <h2>Opening a photo</h2>
       <p>
-        A camera RAW file is not an image. It is the raw readout from the
-        sensor, and turning it into something you can look at takes real
-        computation. On my machine a Sony ARW takes about 250 ms.
+        A camera RAW file isn't an image. It's the raw readout from the sensor,
+        and turning it into something you can look at takes real work. On my
+        machine, demosaicing a Sony ARW down to screen size costs about 250 ms.
       </p>
       <p>
-        Almost every RAW file comes with a shortcut, though. Your camera already
-        wrote a small JPEG preview so it could show you the shot on its own
-        screen. Pulling that out takes about 35 ms, so that is what I show you
-        first. The full decode keeps running in the background and swaps in when
-        it is ready.
+        Almost every RAW file comes with a shortcut, though. Your camera
+        already wrote a small JPEG preview so it could show you the shot on its
+        own screen. On that Sony the preview is 1616 pixels on the long side,
+        and pulling it out takes about 35 ms.
+      </p>
+      <p>
+        So the first pass is always the same thing. Get me the cheapest decode
+        you can near the size I asked for, using the embedded preview if
+        there's one worth having. Then comes the only question that matters.
+      </p>
+      <blockquote class="lp-pullquote">
+        Did that come back as big as the window actually needs?
+      </blockquote>
+      <p>
+        If it did, the app stops. One decode, and you're already looking at the
+        final answer. That's every JPEG, because a JPEG has no embedded preview
+        and the first pass simply decodes it at the size requested. It's also a
+        RAW on a smaller window. If the loupe only needs 1400 pixels, that 1616
+        pixel camera preview is already bigger than what fits, and the
+        expensive decode never runs at all.
+      </p>
+      <p>
+        If it came back short, the app queues a second decode at the real
+        target and swaps it in when it lands. That's the case I hit most days,
+        because my window asks for around 2560 pixels and the camera's preview
+        is 1616.
       </p>
 
       <figure class="lp-figure">
-        <svg viewBox="0 0 640 196" role="img" aria-label="Timeline: pass one puts an embedded preview on screen at 35 milliseconds, while pass two finishes the full sensor decode at 250 milliseconds and swaps in.">
-          <text class="lp-fig-label" x="0" y="12">OPENING A CAMERA RAW FILE</text>
+        <svg viewBox="0 0 640 220" role="img" aria-label="Three cases. A JPEG, or a RAW whose preview is as big as the window, costs one decode and is done. A RAW whose preview is smaller than the window costs two, a 35 millisecond first pass on screen and a 250 millisecond second pass that swaps in. Zooming past the screen-sized version adds a third, full-resolution decode on demand. The rule is the size that came back, not the file format.">
+          <text class="lp-fig-label" x="0" y="12">HOW MANY DECODES ONE PHOTO COSTS</text>
 
-          <text class="lp-fig-t" x="0" y="50">Pass 1</text>
-          <text class="lp-fig-s" x="0" y="68">embedded preview</text>
-          <rect class="lp-fig-box-accent" x="176" y="36" width="60" height="30" rx="5"></rect>
-          <text class="lp-fig-s" x="248" y="56">35 ms &middot; on screen</text>
+          <text class="lp-fig-s" x="0" y="34">JPEG, or a RAW whose preview is as big as the window</text>
+          <rect class="lp-fig-box-accent" x="0" y="42" width="180" height="26" rx="5"></rect>
+          <text class="lp-fig-s" x="90" y="59" text-anchor="middle">Pass 1</text>
+          <text class="lp-fig-s" x="192" y="59">one decode, done</text>
 
-          <text class="lp-fig-t" x="0" y="116">Pass 2</text>
-          <text class="lp-fig-s" x="0" y="134">full sensor decode</text>
-          <rect class="lp-fig-box" x="176" y="102" width="431" height="30" rx="5"></rect>
-          <text class="lp-fig-s" x="192" y="122">250 ms &middot; sharp version swaps in</text>
+          <text class="lp-fig-s" x="0" y="96">RAW whose preview is smaller than the window</text>
+          <rect class="lp-fig-box" x="0" y="104" width="180" height="26" rx="5"></rect>
+          <text class="lp-fig-s" x="90" y="121" text-anchor="middle">Pass 1 &middot; 35 ms</text>
+          <rect class="lp-fig-box-accent" x="188" y="104" width="240" height="26" rx="5"></rect>
+          <text class="lp-fig-s" x="308" y="121" text-anchor="middle">Pass 2 &middot; 250 ms</text>
+          <text class="lp-fig-s" x="440" y="121">two decodes</text>
 
-          <line class="lp-fig-line-soft" x1="236" y1="28" x2="236" y2="158" stroke-dasharray="3 4"></line>
+          <text class="lp-fig-s" x="0" y="158">You zoom past the screen-sized version</text>
+          <rect class="lp-fig-box" x="0" y="166" width="180" height="26" rx="5"></rect>
+          <text class="lp-fig-s" x="90" y="183" text-anchor="middle">Pass 1</text>
+          <rect class="lp-fig-box" x="188" y="166" width="240" height="26" rx="5"></rect>
+          <text class="lp-fig-s" x="308" y="183" text-anchor="middle">Pass 2</text>
+          <rect class="lp-fig-box-accent" x="436" y="166" width="172" height="26" rx="5"></rect>
+          <text class="lp-fig-s" x="522" y="183" text-anchor="middle">Pass 3 &middot; on demand</text>
 
-          <line class="lp-fig-line" x1="176" y1="158" x2="624" y2="158"></line>
-          <line class="lp-fig-line" x1="176" y1="158" x2="176" y2="164"></line>
-          <line class="lp-fig-line" x1="236" y1="158" x2="236" y2="164"></line>
-          <text class="lp-fig-s" x="176" y="180">click</text>
-          <text class="lp-fig-s" x="248" y="180">the only wait you actually notice ends here</text>
+          <text class="lp-fig-s lp-fig-bad" x="0" y="212">The rule is the size that came back, not the file format.</text>
         </svg>
         <figcaption>
           Nothing here got faster. The app just found something worth showing
-          while the expensive work was still running.
+          while the expensive work was still running, and skipped that work
+          entirely when it turned out not to be needed.
         </figcaption>
       </figure>
 
       <p>
-        A plain JPEG has no embedded preview and does not need one. Decoding a
-        JPEG at a small size is already quick, so the first pass does the whole
-        job and the second pass never runs. Same code path, no special case.
+        I like this rule a lot more than the one I started with. Branching on
+        the size that came back is a single rule that covers every format,
+        including the ones I haven't added yet.
       </p>
       <p>
-        There is a third pass for when you zoom in past the point where the
-        screen-sized version still holds detail. Full-resolution decodes cost
-        seconds and hundreds of megabytes, so I only run them when you actually
-        zoom in that far.
+        The third pass is for zooming. Full-resolution decodes cost seconds and
+        hundreds of megabytes, so that one only runs when you actually zoom in
+        past the point where the screen-sized version still holds detail.
+      </p>
+      <p>
+        There's one more detail I'm quietly pleased with. When you're arrowing
+        through a shoot, the app pre-fetches the photos either side of you, but
+        those only ever get the cheap first pass. Escalating a neighbour you
+        haven't looked at yet would put it in a queue competing with the photo
+        you're actually staring at. The moment you navigate onto it, it
+        escalates like anything else.
       </p>
 
       <h2>After that, it lives on the GPU</h2>
@@ -116,13 +190,10 @@ import Base from "../../layouts/Base.astro";
         Zooming and panning never touch the image data again. They change a
         handful of numbers that get sent to the card each frame.
       </p>
-      <blockquote class="lp-pullquote">
-        Zooming does not touch the photo at all. It changes four numbers.
-      </blockquote>
       <p>
         The editing sliders work the same way. Drag Exposure and the new value
         goes to the GPU, where the shader recomputes the picture on the fly. No
-        re-decode, no pixel loop on the CPU. You are looking at the original
+        re-decode, no pixel loop on the CPU. You're looking at the original
         decode with some arithmetic applied on the way to the screen.
       </p>
 
@@ -136,14 +207,15 @@ import Base from "../../layouts/Base.astro";
         Splitting it this way lets me write the interface in the loose,
         convenient style egui encourages, while the part that has to be fast
         about pixels stays small enough to hand-tune. A general-purpose toolkit
-        would have made the photo a widget, and widgets do not accept a
+        would have made the photo a widget, and widgets don't accept a
         24-megapixel texture with a custom shader without a fight.
       </p>
 
       <h2>Where the four builds meet</h2>
       <p>
-        macOS, Linux, Windows and the browser build differ in exactly one place,
-        which is how they turn a file into pixels. After that they all converge.
+        macOS, Linux, Windows and the browser build differ in exactly one
+        place, which is how they turn a file into pixels. After that they all
+        converge.
       </p>
 
       <figure class="lp-figure">
@@ -168,7 +240,7 @@ import Base from "../../layouts/Base.astro";
 
           <path class="lp-fig-line" d="M70 86 V100 H550 M550 86 V100 M310 86 V152"></path>
           <line class="lp-fig-line-soft" x1="0" y1="116" x2="640" y2="116" stroke-dasharray="3 4"></line>
-          <text class="lp-fig-label" x="0" y="136">THE ONLY FORK &mdash; EVERYTHING BELOW IS SHARED</text>
+          <text class="lp-fig-label" x="0" y="136">THE ONLY FORK. EVERYTHING BELOW IS SHARED</text>
           <path class="lp-fig-arrow" d="M304 152 L316 152 L310 162 Z"></path>
 
           <rect class="lp-fig-box-accent" x="90" y="166" width="460" height="34" rx="6"></rect>
@@ -184,50 +256,26 @@ import Base from "../../layouts/Base.astro";
         </svg>
         <figcaption>
           Fork low, converge high. Every layer above the fork is a layer that
-          cannot drift between platforms.
+          can't drift between platforms.
         </figcaption>
       </figure>
 
       <p>
         The GPU tone shader is a direct translation of that one edit function.
         The function that bakes edits into finished pixels has exactly two
-        callers, the exporter and the thumbnail you are looking at.
+        callers, the exporter and the thumbnail you're looking at.
       </p>
       <p>
         That second fact is the whole reason an exported JPEG matches what you
         saw on screen. I never built that as a feature. It falls out of there
-        being one code path.
+        being one code path, which is the kind of guarantee I'd much rather get
+        for free than have to keep true by hand.
       </p>
-
-      <h2>What I learned</h2>
-      <ul class="lp-article-list">
-        <li>
-          <strong>Ask what you can show before the real work finishes.</strong>
-          Cheap then correct is what turns a 250 ms wait into a 35 ms one
-          without making anything faster.
-        </li>
-        <li>
-          <strong>Upload once, then transform cheaply.</strong> If an action
-          repeats 60 times a second, it should change a few numbers, never
-          re-run the expensive step.
-        </li>
-        <li>
-          <strong>Treat different waits as different problems.</strong> Opening,
-          browsing and exporting look like one job called "decode a photo". One
-          shared path would have served none of them well.
-        </li>
-        <li>
-          <strong>Fork low, converge high.</strong> Platform differences belong
-          as close to the operating system as you can push them.
-        </li>
-      </ul>
 
       <p>
         If you want to see how this feels, there are builds for all four
         platforms on the <a href="/downloads.html">downloads page</a>.
       </p>
-
-
 
       <nav class="lp-article-nav" aria-label="More posts">
         <a class="lp-article-nav-prev" href="/blogs/learning-rust-while-the-agents-write-it.html">
