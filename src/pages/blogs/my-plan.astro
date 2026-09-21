@@ -1,0 +1,273 @@
+---
+import Base from "../../layouts/Base.astro";
+---
+<Base
+  title="My plan, and what's not in it — LightPhotos Blog"
+  desc="Where LightPhotos is going. Your photos stay on your drive, AI runs on your machine, and only the table-stakes features get ported to every platform."
+  active="blogs"
+>
+  <main class="lp-page">
+    <article class="lp-article">
+      <header class="lp-article-head">
+        <p class="lp-article-meta"><a href="/blogs.html">Blogs</a> &middot; <time datetime="2026-09-20">September 20, 2026</time></p>
+        <h1>My plan, and what's not in it</h1>
+        <p class="lp-article-dek">
+          Where LightPhotos is going. Your photos stay on your drive, AI runs
+          on your machine, and only the table-stakes features get ported to
+          every platform.
+        </p>
+      </header>
+
+      <p>
+        I've written a fair amount about how LightPhotos works. I have not
+        written down where it's going, and I keep making that call one feature
+        at a time, which is how a small tool quietly turns into a large one.
+      </p>
+      <p>
+        So here is the plan. The useful half is what's not in it. This is the
+        same trick as the seven-item list in
+        <a href="/blogs/why-i-started-lightphotos.html">the first post</a>,
+        except now the list is about the next year rather than the first
+        afternoon.
+      </p>
+
+      <h2>Your photos stay yours</h2>
+      <p>
+        I'm not building a platform to store your photos. No account, no
+        upload, no library I hold on your behalf. Your photos are files on your
+        drive, and LightPhotos opens the folder they're already in.
+      </p>
+      <p>
+        That is not a philosophical position so much as one I arrived at the
+        hard way, after losing years of photos to a library format only one app
+        could read. I wrote about that in the first post and it still decides
+        most of these calls.
+      </p>
+      <p>
+        I do want to reach drives that aren't physically attached, Google Drive
+        first. The blocker there is speed, not principle. A photo tool that
+        stalls every time you arrow to the next frame isn't worth shipping, so
+        this happens only if the performance turns out to be acceptable. I
+        don't know yet whether it will be.
+      </p>
+
+      <h2>I'm not cloning Lightroom</h2>
+      <p>
+        Lightroom has a lot of genuinely good features and I'm not going to
+        match them. The AI ones in particular are the strongest part of the
+        product, and nearly all of them work by sending your photo to somebody
+        else's cloud platform. That is the one thing I've said I won't do.
+      </p>
+      <p>
+        What I want to look at instead is ComfyUI, running locally on your own
+        machine. I haven't built any of this yet, so treat it as something I
+        want to investigate rather than something I've promised. The appeal is
+        that the model runs where the photos already are, and nothing leaves
+        your drive.
+      </p>
+      <blockquote class="lp-pullquote">
+        The interesting question isn't whether AI belongs in a photo editor. It
+        is whether it can run without your photos leaving the machine.
+      </blockquote>
+
+      <h2>Not every feature on every platform</h2>
+      <p>
+        I've been treating "works everywhere" as the goal, and I don't think
+        that's right any more. Holding every feature to the lowest common
+        denominator across four platforms means shipping less, and shipping the
+        blandest version of it.
+      </p>
+      <p>
+        So I'm splitting the promise in two. The table-stakes features get
+        ported to WASM and run everywhere, in the browser and on Windows and
+        Linux as well as the Mac. Browsing a folder, rating, filtering, the
+        basic adjustments and export all belong in that group.
+      </p>
+
+      <figure class="lp-figure">
+        <svg viewBox="0 0 640 216" role="img" aria-label="Two panels. The left panel, table stakes, lists macOS, Windows, Linux and browser, with browsing, rating, filtering, adjustments and export from one Rust codebase compiled to WASM. The right panel, Mac only, lists Core Image, Vision and VisionKit, Image I/O, AVFoundation and Object Capture as Apple frameworks that are hard to port.">
+          <text class="lp-fig-label" x="0" y="12">WHAT RUNS WHERE</text>
+
+          <rect class="lp-fig-panel" x="0" y="24" width="380" height="180" rx="8"></rect>
+          <text class="lp-fig-t" x="16" y="48">Table stakes</text>
+          <text class="lp-fig-s" x="16" y="66">One Rust codebase, compiled to WASM for the browser</text>
+
+          <rect class="lp-fig-box" x="16" y="80" width="78" height="26" rx="5"></rect>
+          <text class="lp-fig-s" x="55" y="97" text-anchor="middle">macOS</text>
+          <rect class="lp-fig-box" x="106" y="80" width="78" height="26" rx="5"></rect>
+          <text class="lp-fig-s" x="145" y="97" text-anchor="middle">Windows</text>
+          <rect class="lp-fig-box" x="196" y="80" width="78" height="26" rx="5"></rect>
+          <text class="lp-fig-s" x="235" y="97" text-anchor="middle">Linux</text>
+          <rect class="lp-fig-box" x="286" y="80" width="78" height="26" rx="5"></rect>
+          <text class="lp-fig-s" x="325" y="97" text-anchor="middle">Browser</text>
+
+          <text class="lp-fig-s" x="16" y="130">Open any folder, no import step</text>
+          <text class="lp-fig-s" x="16" y="148">Rate and filter</text>
+          <text class="lp-fig-s" x="16" y="166">Exposure, highlights, shadows, white balance</text>
+          <text class="lp-fig-s" x="16" y="184">Export to JPEG</text>
+
+          <rect class="lp-fig-panel" x="400" y="24" width="240" height="180" rx="8"></rect>
+          <text class="lp-fig-t" x="416" y="48">Mac only</text>
+          <text class="lp-fig-s" x="416" y="66">Apple frameworks, hard to port</text>
+
+          <rect class="lp-fig-box-accent" x="416" y="88" width="7" height="7" rx="1"></rect>
+          <text class="lp-fig-s" x="432" y="96">Core Image</text>
+          <rect class="lp-fig-box-accent" x="416" y="110" width="7" height="7" rx="1"></rect>
+          <text class="lp-fig-s" x="432" y="118">Vision and VisionKit</text>
+          <rect class="lp-fig-box-accent" x="416" y="132" width="7" height="7" rx="1"></rect>
+          <text class="lp-fig-s" x="432" y="140">Image I/O</text>
+          <rect class="lp-fig-box-accent" x="416" y="154" width="7" height="7" rx="1"></rect>
+          <text class="lp-fig-s" x="432" y="162">AVFoundation</text>
+          <rect class="lp-fig-box-accent" x="416" y="176" width="7" height="7" rx="1"></rect>
+          <text class="lp-fig-s" x="432" y="184">Object Capture</text>
+        </svg>
+        <figcaption>
+          The left panel is a promise. The right panel is an experiment, and
+          anything that lands there may stay Mac-only for a long time.
+        </figcaption>
+      </figure>
+
+      <p>
+        Above that line, I want to find out what Apple's native frameworks are
+        worth. Core Image, Vision and VisionKit, Image I/O, AVFoundation, and
+        Object Capture for photogrammetry. I already know from
+        <a href="/blogs/what-imageio-gives-you-free.html">porting away from
+        Image I/O</a> exactly how this goes. You get a great deal of work for
+        free, and then you cannot take any of it with you.
+      </p>
+      <p>
+        I'm going in with that priced in this time. Anything built on those
+        frameworks will likely be Mac-only, possibly permanently, and I would
+        rather have a feature on one platform than not have it at all.
+      </p>
+
+      <h2>Getting your photos out</h2>
+      <p>
+        Refusing to be your library only works if it's easy to hand your photos
+        to something that is. So I plan to support Immich, and exporting to a
+        cloud target more generally.
+      </p>
+      <p>
+        The part I care about is that export works the same way against a
+        server running on your own network and against a real remote one. Those
+        should not be two features with one of them half-finished.
+      </p>
+
+      <h2>Everything from the keyboard</h2>
+      <p>
+        Every feature should be reachable from the keyboard, and you should be
+        able to run the entire app without touching the mouse. Not the common
+        ones, not most of them. All of them.
+      </p>
+      <p>
+        Part of this is that keyboard shortcuts are what I wanted from a photo
+        tool in the first place, and they're why Luminar didn't fit how I work.
+        The other part is that when I
+        <a href="/blogs/why-rust.html">chose to build everything in Rust</a> I
+        gave up browser-grade accessibility, and I said so at the time.
+        Keyboard coverage is the piece of that gap I can close myself, so I'm
+        treating it as a requirement rather than a nice-to-have.
+      </p>
+
+      <h2>Open source, all of it</h2>
+      <p>
+        I plan to open source the entire codebase. Not a core library with the
+        interesting parts held back, and not a delayed drop of an old version.
+        The whole app.
+      </p>
+      <p>
+        This is the same argument as the storage one, one level down. I'm
+        asking you to trust that your photos stay on your drive and that
+        nothing gets uploaded. You should be able to check that yourself
+        instead of taking my word for it.
+      </p>
+
+      <h2>The next app works the same way</h2>
+      <p>
+        This plan is bigger than one photo editor. I want to build other Rust
+        applications the same way, and by now the shape is deliberate rather
+        than accidental.
+      </p>
+      <p>
+        Build a native Mac app first, because a Mac is what I use and I would
+        rather aim the first version at a user I understand completely. Then
+        take the basic functionality to WASM so it runs in a browser, and from
+        there to the other platforms people actually have.
+      </p>
+      <p>
+        LightPhotos is the app where I worked that sequence out. Forking low
+        and converging high, keeping the core in its own module away from the
+        UI, pricing a platform framework before depending on it. Those were all
+        lessons from this codebase, and they're the parts I expect to carry
+        over unchanged.
+      </p>
+
+      <h2>The plan on one page</h2>
+      <div class="lp-compare-wrap">
+        <table class="lp-compare">
+          <thead>
+            <tr>
+              <th scope="col"></th>
+              <th scope="col">Not doing</th>
+              <th scope="col" class="lp-compare-pick">Doing</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Storage</th>
+              <td>A photo platform of my own</td>
+              <td class="lp-compare-pick">Local drives, and Google Drive if it's fast enough</td>
+            </tr>
+            <tr>
+              <th scope="row">AI</th>
+              <td>Anything that uploads your photos</td>
+              <td class="lp-compare-pick">Investigating ComfyUI on your own machine</td>
+            </tr>
+            <tr>
+              <th scope="row">Platforms</th>
+              <td>Every feature on all four</td>
+              <td class="lp-compare-pick">Table stakes everywhere, Apple frameworks on the Mac</td>
+            </tr>
+            <tr>
+              <th scope="row">Sharing</th>
+              <td>Becoming your library</td>
+              <td class="lp-compare-pick">Immich, and export that works local or remote</td>
+            </tr>
+            <tr>
+              <th scope="row">Input</th>
+              <td>Mouse-first design</td>
+              <td class="lp-compare-pick">Every feature reachable from the keyboard</td>
+            </tr>
+            <tr>
+              <th scope="row">Code</th>
+              <td>A binary you have to trust</td>
+              <td class="lp-compare-pick">Open source, the whole app</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>What the list is actually for</h2>
+      <p>
+        None of this has dates on it. I build LightPhotos in bursts, and a
+        roadmap with quarters on it would be a work of fiction.
+      </p>
+      <p>
+        What the list does is give me something to say no against. The first
+        version shipped because seven items were written down and everything
+        else was out of scope. This is the same list, one size up.
+      </p>
+      <p>
+        It's also a list I'd like to be argued with. If something here is
+        wrong, or something obvious is missing, log it at
+        <a href="https://github.com/andrewyao/lightphotos-app/issues">the issue
+        tracker</a> and I'll read it.
+      </p>
+      <p>
+        The current builds are on the <a href="/downloads.html">downloads
+        page</a>, and the browser version is at <a href="/app.html">the web
+        app</a> if you want to try it without installing anything.
+      </p>
+    </article>
+  </main>
+</Base>
