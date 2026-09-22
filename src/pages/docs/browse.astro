@@ -1,0 +1,51 @@
+---
+import Docs from "../../layouts/Docs.astro";
+---
+<Docs slug="browse">
+  <p>
+    The library is a grid of thumbnails, decoded as they scroll into view, so
+    a folder of several thousand photos is browsable in seconds instead of
+    loading everything up front. Everything below happens with the grid in
+    front of you &mdash; you never have to open a photo to rate it.
+  </p>
+
+  <h2>Rate as you go</h2>
+  <p>
+    With a photo highlighted, press <kbd>0</kbd> to <kbd>5</kbd> to set the
+    star rating, <kbd>Shift</kbd>+<kbd>1</kbd> through
+    <kbd>Shift</kbd>+<kbd>5</kbd> for a color label (red, yellow, green, blue,
+    purple), and <kbd>Shift</kbd>+<kbd>0</kbd> to clear it. The Rating and
+    Label tabs on the right do the same with the mouse.
+  </p>
+
+  <h2>Narrow the grid</h2>
+  <p>
+    The filter row above the grid offers a rating filter (all, at least /
+    exactly / at most N stars, or unrated only), plus three detectors:
+  </p>
+  <ul class="lp-article-list">
+    <li>
+      <strong>Bursts</strong> (<kbd>B</kbd>) &mdash; groups a burst together
+      and badges the sharpest frame in it.
+    </li>
+    <li>
+      <strong>Duplicates</strong> (<kbd>D</kbd>) &mdash; groups
+      visually-similar frames so you only look at each moment once.
+    </li>
+    <li>
+      <strong>Eyes closed</strong> &mdash; shows only the photos where someone
+      blinked. It needs Bursts or Duplicates switched on first, since that is
+      what does the detecting.
+    </li>
+  </ul>
+
+  <h2>Build a selection</h2>
+  <p>
+    Click to select, <kbd>Shift</kbd>+click to take a range,
+    <kbd>Cmd</kbd>+click to toggle a single photo, and <kbd>Cmd</kbd>+<kbd>A</kbd>
+    to take the whole folder. The arrow keys move the highlight;
+    <kbd>Shift</kbd>+arrows extend the selection. A selection is what
+    <a href="/docs/adjust.html">batch settings</a> and
+    <a href="/docs/export.html">export</a> act on.
+  </p>
+</Docs>

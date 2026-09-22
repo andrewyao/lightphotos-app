@@ -1,0 +1,46 @@
+---
+import Docs from "../../layouts/Docs.astro";
+---
+<Docs slug="pick-a-folder">
+  <p>
+    An empty window has one button: <strong>Choose Folder</strong>. Pick the
+    folder holding the shoot you want to work on. LightPhotos scans it and
+    fills the grid right away &mdash; and there is no import step, nothing to
+    copy into a library, no catalog to wait for. The files stay exactly where
+    they are.
+  </p>
+
+  <ul class="lp-article-list">
+    <li>
+      <strong>The web build asks for permission.</strong> Your browser wants
+      confirmation before any page may read a folder. Grant it for the folder
+      you picked; that is the only access LightPhotos gets, and it covers one
+      folder, not your whole drive.
+    </li>
+    <li>
+      <strong>Switch folders whenever you like.</strong> Click
+      <strong>Open</strong> in the header, or press <kbd>Cmd</kbd>+<kbd>O</kbd>.
+      Work on one shoot, then point it at the next.
+    </li>
+    <li>
+      <strong>Your settings live next to your photos.</strong> Ratings, labels
+      and edits are written into a <code>.lightphotos</code> folder inside the
+      folder you opened. Move the folder and the edits travel with it; delete
+      that folder and you lose the edits, never the photos. There is no
+      database somewhere else holding your work hostage.
+    </li>
+    <li>
+      <strong>Only some files show up.</strong> The grid lists the formats
+      LightPhotos can open &mdash; see
+      <a href="/docs/formats.html">supported formats</a> for the full set and
+      for what else gets written to disk.
+    </li>
+  </ul>
+
+  <p>
+    The scan happens in the background. Thumbnails decode as they scroll into
+    view, so you can start rating the first frames while the rest of the folder
+    is still being worked out &mdash;
+    <a href="/docs/browse.html">how browsing works</a>.
+  </p>
+</Docs>

@@ -1,0 +1,104 @@
+---
+import Docs from "../../layouts/Docs.astro";
+
+// Every row here is a string the app's own help dialog (?) shows, so this
+// page can be checked against the build rather than against memory. Rows are
+// grouped by what you are doing, not by which panel owns the key.
+const groups = [
+  {
+    title: "Getting around",
+    rows: [
+      { key: "Cmd+O", does: "Open a different folder" },
+      { key: "Enter / Space", does: "Open the selected photo (in the library)" },
+      { key: "Esc", does: "Back to the library from the editor" },
+      { key: "\u2190 / \u2192", does: "Previous / next photo in the editor; move the highlight in the grid" },
+      { key: "E / G", does: "Jump to the editor / the library" },
+      { key: "?", does: "Show or hide the in-app shortcut list" },
+      { key: "F6 / Shift+F6", does: "Cycle keyboard focus between regions" },
+      { key: "Tab / Shift+Tab", does: "Next / previous item inside the focused region" },
+    ],
+  },
+  {
+    title: "Rating and labelling",
+    rows: [
+      { key: "0 – 5", does: "Set the star rating (0 clears it)" },
+      { key: "Shift+1 … Shift+5", does: "Set a color label: red, yellow, green, blue, purple" },
+      { key: "Shift+0", does: "Clear the color label" },
+    ],
+  },
+  {
+    title: "Selecting",
+    rows: [
+      { key: "Cmd+A", does: "Select all in the current folder" },
+      { key: "Shift+Click", does: "Range-select in the grid" },
+      { key: "Cmd+Click", does: "Toggle one photo in or out of the selection" },
+      { key: "Shift+\u2190 / \u2192", does: "Extend the selection with the arrow keys" },
+    ],
+  },
+  {
+    title: "Culling",
+    rows: [
+      { key: "B", does: "Best-of-burst badges in the library" },
+      { key: "D", does: "Duplicate-group badges in the library" },
+      { key: "Enter / Esc", does: "Inside a badge survey: keep the frame you picked, or close it" },
+    ],
+  },
+  {
+    title: "Zoom and pan",
+    rows: [
+      { key: "Space", does: "Cycle zoom between fit and 100%" },
+      { key: "Cmd+0", does: "Fit to window" },
+      { key: "Cmd+1", does: "100% (1:1 pixels)" },
+      { key: "Cmd++ / Cmd+-", does: "Zoom in / out in 20% steps" },
+      { key: "Space+Drag", does: "Pan" },
+      { key: "Shift+Scroll", does: "Pan horizontally" },
+      { key: "Alt+Scroll", does: "Pan vertically" },
+      { key: "Shift+Alt+Scroll", does: "Trackpad zoom" },
+    ],
+  },
+  {
+    title: "Developing and exporting",
+    rows: [
+      { key: "C / Y", does: "Before / after compare" },
+      { key: "Cmd+U", does: "Auto Tone this photo from its own histogram" },
+      { key: "Cmd+Shift+U", does: "Auto Tone the whole selection" },
+      { key: "Cmd+Shift+C", does: "Copy the develop settings off one photo" },
+      { key: "Cmd+Shift+Y", does: "Apply the copied settings to the selection" },
+      { key: "X", does: "Export the selection as JPG" },
+      { key: "Delete", does: "Permanently delete; cannot be undone" },
+    ],
+  },
+];
+---
+<Docs slug="shortcuts">
+  <p>
+    LightPhotos is built to be driven from the keyboard: rate a folder without
+    touching the mouse, move through a shoot at full size, and apply one
+    photo's look to the rest. The list below is everything the app listens
+    for, and <kbd>?</kbd> shows the same list in-app on your own machine.
+  </p>
+
+  {groups.map((g) => (
+    <section>
+      <h2>{g.title}</h2>
+      <div class="lp-compare-wrap">
+        <table class="lp-compare">
+          <thead>
+            <tr>
+              <th scope="col">Key</th>
+              <th scope="col">Does</th>
+            </tr>
+          </thead>
+          <tbody>
+            {g.rows.map((r) => (
+              <tr>
+                <td><kbd>{r.key}</kbd></td>
+                <td>{r.does}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+  ))}
+</Docs>

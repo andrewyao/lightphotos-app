@@ -1453,33 +1453,135 @@ a.lp-split-card:focus-visible {
   }
 }
 
-/* --- docs page: step chips, keys and inline prose links -------------------
- * The walkthrough names a key for almost every action, so a key needs to read
- * as a key rather than as inline monospace text. Step chips are the page's
- * table of contents: jump links, so they only need to look clickable.
+/* --- docs: topic list on the left, prose on the right ----------------------
+ * Two columns from 900px up, the topic list pinned while the article scrolls.
+ * Below that the list wraps into chips above the text, so a phone never has
+ * to scroll a full sidebar away to reach the page. Prose itself is
+ * .lp-article, which the blog pages already style.
  */
-.lp-doc-toc {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-top: 1.6rem;
+.lp-docs-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 2rem;
 }
 
-.lp-doc-toc a {
+.lp-docs-nav-title {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--lp-muted);
+}
+
+/* Narrow screens: one wrapping row of pills per group. */
+.lp-docs-group-wrap {
+  margin-top: 0.9rem;
+}
+
+.lp-docs-group {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--lp-muted);
+}
+
+.lp-docs-nav ul {
+  list-style: none;
+  margin-top: 0.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.lp-docs-nav a {
+  display: block;
   padding: 0.35em 0.85em;
   border: 1px solid var(--border-subtle);
   border-radius: 999px;
   background: var(--surface-card);
-  font-size: 0.8rem;
+  font-size: 0.82rem;
   color: var(--lp-muted);
   text-decoration: none;
   transition: border-color 0.2s ease, color 0.2s ease;
 }
 
-.lp-doc-toc a:hover,
-.lp-doc-toc a:focus-visible {
+.lp-docs-nav a:hover,
+.lp-docs-nav a:focus-visible {
+  border-color: var(--border-accent);
+  color: var(--lp-ink);
+}
+
+.lp-docs-nav a[aria-current="page"] {
   border-color: var(--border-accent);
   color: var(--lp-accent);
+}
+
+/* The article reads better hugging the sidebar than centred in the leftover
+   column, so .lp-article's own centreing is undone here. */
+.lp-docs-layout .lp-article {
+  margin-left: 0;
+}
+
+/* Note under the dek: how the shortcuts on this page are written. */
+.lp-docs-note {
+  margin-top: 1rem;
+  font-size: 0.82rem;
+  line-height: 1.6;
+  color: var(--lp-muted);
+}
+
+@media (min-width: 900px) {
+  .lp-docs-layout {
+    grid-template-columns: 14.5rem minmax(0, 1fr);
+    gap: clamp(2rem, 5vw, 4.5rem);
+  }
+
+  .lp-docs-nav {
+    position: sticky;
+    top: 5.25rem;
+    align-self: start;
+    max-height: calc(100vh - 6.5rem);
+    overflow-y: auto;
+  }
+
+  .lp-docs-group-wrap {
+    margin-top: 1.3rem;
+  }
+
+  /* A rule down the left edge turns the chips into a list and gives the
+     current page somewhere to hang its accent. */
+  .lp-docs-nav ul {
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 0.1rem;
+    margin-top: 0.45rem;
+    border-left: 1px solid var(--border-subtle);
+  }
+
+  .lp-docs-nav a {
+    padding: 0.4rem 0.85rem;
+    border: 0;
+    border-left: 2px solid transparent;
+    border-radius: 0;
+    background: none;
+    font-size: 0.9rem;
+    line-height: 1.35;
+    margin-left: -1px;
+  }
+
+  .lp-docs-nav a:hover,
+  .lp-docs-nav a:focus-visible {
+    background: var(--surface-hover);
+    color: var(--lp-ink);
+  }
+
+  .lp-docs-nav a[aria-current="page"] {
+    border-left-color: var(--lp-accent);
+    background: var(--surface-hover);
+    color: var(--lp-accent);
+    font-weight: 500;
+  }
 }
 
 kbd {

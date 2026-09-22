@@ -1,0 +1,77 @@
+---
+// The Help section's two-column shell: topic list on the left, prose on the
+// right, Back/Next under it — the shape every /docs/<topic>.html page shares.
+// Pages pass only their slug; title, description, breadcrumb and the
+// prev/next cards all come from src/docs.ts.
+import Base from "./Base.astro";
+import { docGroups, docHref, docNeighbors, docTopic } from "../docs";
+
+interface Props {
+  slug: string;
+}
+const { slug } = Astro.props;
+const { topic, group } = docTopic(slug);
+const { prev, next } = docNeighbors(slug);
+---
+<Base
+  title={`${topic.title} — LightPhotos Help`}
+  desc={topic.dek}
+  active="docs"
+>
+  <main class="lp-page">
+    <div class="lp-docs-layout">
+      <nav class="lp-docs-nav" aria-label="Documentation">
+        <p class="lp-docs-nav-title">Documentation</p>
+        {docGroups.map((g) => (
+          <div class="lp-docs-group-wrap">
+            <p class="lp-docs-group">{g.name}</p>
+            <ul>
+              {g.topics.map((t) => (
+                <li>
+                  <a
+                    href={docHref(t.slug)}
+                    aria-current={t.slug === slug ? "page" : undefined}
+                  >
+                    {t.title}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </nav>
+
+      <article class="lp-article">
+        <header class="lp-article-head">
+          <p class="lp-article-meta">
+            <a href="/docs.html">Help</a> &rsaquo; {group.name} &rsaquo; {topic.title}
+          </p>
+          <h1>{topic.title}</h1>
+          <p class="lp-article-dek">{topic.dek}</p>
+          <p class="lp-docs-note">
+            Shortcuts are written the macOS way &mdash; on Windows and Linux,
+            read <kbd>Cmd</kbd> as <kbd>Ctrl</kbd>. Press <kbd>?</kbd> inside
+            the app for the list as your own machine shows it.
+          </p>
+        </header>
+
+        <slot />
+
+        <nav class="lp-article-nav" aria-label="More topics">
+          {prev && (
+            <a class="lp-article-nav-prev" href={docHref(prev.slug)}>
+              <span class="lp-article-nav-dir">Back</span>
+              <span class="lp-article-nav-title">{prev.title}</span>
+            </a>
+          )}
+          {next && (
+            <a class="lp-article-nav-next" href={docHref(next.slug)}>
+              <span class="lp-article-nav-dir">Next</span>
+              <span class="lp-article-nav-title">{next.title}</span>
+            </a>
+          )}
+        </nav>
+      </article>
+    </div>
+  </main>
+</Base>
