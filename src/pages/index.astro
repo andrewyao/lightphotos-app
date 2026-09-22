@@ -5,6 +5,66 @@ import Base from "../layouts/Base.astro";
   title="LightPhotos — a local-first, Lightroom-style photo manager"
   desc="LightPhotos is a fast, private photo manager for large libraries. Cull, rate, organize and develop your RAW files — in your browser or as a native desktop app. Nothing leaves your machine."
 >
+  <style is:inline>
+    /* One message per platform, all hidden until the sniffer below picks one.
+       Without JS the visitor keeps the line that names every size. */
+    .lp-os-size-item { display: none; }
+    :root[data-lp-os="macos"] .lp-os-size-item[data-os="macos"],
+    :root[data-lp-os="windows"] .lp-os-size-item[data-os="windows"],
+    :root[data-lp-os="linux"] .lp-os-size-item[data-os="linux"] { display: inline; }
+    :root[data-lp-os] .lp-os-size-all { display: none; }
+
+    /* No WebGPU means the web build cannot run: the heading promises two
+       ways, so it goes with the Web card and only the native one is left, and
+       the native card drops the sentence that compares it to a web version the
+       visitor has just stopped being shown. Decided by the script below, never
+       by default, so a visitor with JS off still sees both. Held to one card's
+       width rather than stretching across the hero on its own. */
+    :root[data-lp-webgpu="0"] .lp-hero-split .lp-section-head,
+    :root[data-lp-webgpu="0"] [data-needs-webgpu] {
+      display: none;
+    }
+    :root[data-lp-webgpu="0"] .lp-hero-split .lp-split {
+      max-width: 34rem;
+      margin-inline: auto;
+    }
+  </style>
+  <script is:inline>
+  // Runs before the hero is parsed, so the size line never paints the generic
+  // wording and then blinks over to the visitor's own platform.
+  (function () {
+    var ua = navigator.userAgent || "";
+
+    // First match wins: the mobile bail-out has to come before its broader
+    // neighbours, because Android's user agent string also says "Linux".
+    var RULES = [
+      { id: null, test: /Android|iPhone|iPad|iPod|CrOS/ },
+      { id: "windows", test: /Windows NT/ },
+      { id: "macos", test: /Mac OS X|Macintosh/ },
+      { id: "linux", test: /Linux|X11/ },
+    ];
+
+    var id = null;
+    for (var i = 0; i < RULES.length; i++) {
+      if (RULES[i].test.test(ua)) { id = RULES[i].id; break; }
+    }
+
+    if (id) document.documentElement.setAttribute("data-lp-os", id);
+    else document.documentElement.removeAttribute("data-lp-os");
+
+    // The web build needs WebGPU, so the Web card only stays when the browser
+    // can actually run it. navigator.gpu is the API test; Firefox, Safari and
+    // phones/tablets are also excluded by name, because the web app is only
+    // offered on desktop Chromium browsers today -- see the copy on the Web
+    // card itself. Written before the card is parsed, so nothing flashes first.
+    var isSafari = /Safari/.test(ua) && !/Chrome|Chromium|Edg|OPR/.test(ua);
+    var noWebgpu = !navigator.gpu ||
+                   /Firefox|FxiOS|Android|iPhone|iPad|iPod/.test(ua) ||
+                   isSafari;
+    document.documentElement.setAttribute("data-lp-webgpu", noWebgpu ? "0" : "1");
+  })();
+  </script>
+
   <main class="lp-page">
     <section class="lp-hero">
       <div class="lp-glow"></div>
@@ -12,15 +72,62 @@ import Base from "../layouts/Base.astro";
       <p class="lp-lede">
         A Lightroom-style photo manager that keeps everything on your own
         computer. Cull a shoot, rate and organize a big library, and develop
-        your RAW files non-destructively &mdash; with no import step, no cloud
-        and no account.
+        your RAW files non-destructively &mdash; No account, no cost.
       </p>
 
-      <div class="lp-cta-row">
-        <a class="lp-btn" href="/app.html">Open the web app</a>
-        <a class="lp-btn-ghost" href="/downloads.html">Download for desktop</a>
-      </div>
-      <p class="lp-cta-note">Free and source code coming soon. Your photos are read straight from disk and never uploaded.</p>
+      <section class="lp-hero-split" aria-labelledby="run-modes">
+        <div class="lp-section-head">
+          <h2 id="run-modes">Two ways to run it</h2>
+        </div>
+
+        <div class="lp-split">
+          <a class="lp-split-card" href="/app.html" data-needs-webgpu>
+            <div class="lp-split-head">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="9"/>
+                <path d="M3 12h18M12 3c3 3.6 3 14.4 0 18M12 3c-3 3.6-3 14.4 0 18"/>
+              </svg>
+              <h3>Web</h3>
+              <span class="lp-split-tag">No install</span>
+            </div>
+            <p class="lp-split-lede">
+              Runs the latest version entirely in your browser through WebAssembly
+              and Rust. Point it at a folder and start working.
+            </p>
+            <ul class="lp-check">
+              <li>The entire application is under <strong>9MB (WebAssembly)</strong>.</li>
+              <li>Works in Chrome or any WebGPU enabled browser.</li>
+            </ul>
+            <span class="lp-split-cta">Open the web app <span aria-hidden="true">&rarr;</span></span>
+          </a>
+
+          <a class="lp-split-card lp-split-card--accent" href="/downloads.html">
+            <div class="lp-split-head">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="3" y="4.5" width="18" height="12" rx="2"/>
+                <path d="M8.5 20h7M12 16.5v3.5"/>
+              </svg>
+              <h3>Native</h3>
+              <span class="lp-split-tag">Fastest</span>
+            </div>
+            <p class="lp-split-lede" data-needs-webgpu>
+              Same interface as the Web Assembly version &mdash; with a faster
+              decode pipeline tuned to each platform.
+            </p>
+            <ul class="lp-check">
+              <li class="lp-os-size">
+                <span class="lp-os-size-item" data-os="macos">The entire application is under <strong>12MB (macOS)</strong>.</span>
+                <span class="lp-os-size-item" data-os="windows">The entire application is under <strong>20MB (Windows)</strong>.</span>
+                <span class="lp-os-size-item" data-os="linux">The entire application is under <strong>28MB (Linux)</strong>.</span>
+                <span class="lp-os-size-all">Extremely small &mdash; the entire application is under <strong>12MB on macOS, 20MB on Windows and 28MB on Linux</strong>.</span>
+              </li>
+              <li>Supports macOS, Windows, Linux on ARM and x86 &mdash; Ubuntu 24.04+, Debian 13+, Fedora 40+.</li>
+            </ul>
+            <span class="lp-split-cta">See downloads <span aria-hidden="true">&rarr;</span></span>
+          </a>
+        </div>
+      </section>
+
     </section>
 
     <section class="lp-features" aria-label="What LightPhotos does">
@@ -73,65 +180,30 @@ import Base from "../layouts/Base.astro";
           <path d="M4 17l4.5-4.5 3.5 3.5 3-3 5 5"/>
         </svg>
         <h3>Opens your RAW files</h3>
-        <p>Sony ARW, Canon CR2 / CR3 and Adobe DNG, plus JPEG, HEIC and TIFF.</p>
+        <p>Sony ARW, Canon CR2 / CR3 and Adobe DNG, plus JPEG, HEIC (macOS only) and TIFF.</p>
       </div>
-    </section>
-
-    <section aria-labelledby="run-modes">
-      <div class="lp-section-head">
-        <h2 id="run-modes">Two ways to run it</h2>
-        <p>
-          Same editor, same files on disk. Pick the browser for zero setup, or
-          the desktop app for full native speed.
-        </p>
+      <div class="lp-feature">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 3l7 3v5.5c0 4.2-2.9 7.6-7 9.5-4.1-1.9-7-5.3-7-9.5V6z"/>
+          <path d="M9 12.2l2.2 2.2 4-4.4"/>
+        </svg>
+        <h3>Private by default</h3>
+        <p>Photos are read locally and never leave your machine.</p>
       </div>
-
-      <div class="lp-split">
-        <article class="lp-split-card">
-          <div class="lp-split-head">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <circle cx="12" cy="12" r="9"/>
-              <path d="M3 12h18M12 3c3 3.6 3 14.4 0 18M12 3c-3 3.6-3 14.4 0 18"/>
-            </svg>
-            <h3>Web</h3>
-            <span class="lp-split-tag">No install</span>
-          </div>
-          <p class="lp-split-lede">
-            Runs entirely in your browser through WebAssembly and Rust. No HTML DOM, CSS
-            and JavaScript. Point it at a folder on your disk and start working
-            &mdash; nothing to download, nothing to install, nothing to sign
-            into.
-          </p>
-          <ul class="lp-check">
-            <li>Always the current version &mdash; no installs or updates</li>
-            <li>Photos are read locally and never leave your machine</li>
-            <li>Works in Google Chrome or any browser with WebGPU enabled</li>
-            <li class="lp-con">Decoding and preview rendering run a little slower than native apps</li>
-          </ul>
-          <a class="lp-split-cta" href="/app.html">Open the web app <span aria-hidden="true">&rarr;</span></a>
-        </article>
-
-        <article class="lp-split-card lp-split-card--accent">
-          <div class="lp-split-head">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <rect x="3" y="4.5" width="18" height="12" rx="2"/>
-              <path d="M8.5 20h7M12 16.5v3.5"/>
-            </svg>
-            <h3>Desktop</h3>
-            <span class="lp-split-tag">Fastest</span>
-          </div>
-          <p class="lp-split-lede">
-            A native application for your machine. Same interface, same files on
-            disk &mdash; with a decode pipeline tuned to each platform.
-          </p>
-          <ul class="lp-check">
-            <li>macOS uses the system ImageIO framework &mdash; significantly faster RAW decode and previews</li>
-            <li>Runs fully offline, no browser needed</li>
-            <li>Extremely small. The entire macOS app is under 12MB, and no build is larger than 27MB</li>
-            <li class="lp-con">Requires a local install. Supports macOS, Windows and Linux on ARM and x86 &mdash; Ubuntu 24.04 and later, Debian 13, and Fedora 40 and later.</li>
-          </ul>
-          <a class="lp-split-cta" href="/downloads.html">See downloads <span aria-hidden="true">&rarr;</span></a>
-        </article>
+      <div class="lp-feature">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M13 2.5L5.5 13.5H11l-1 8 7.5-10.5H12z"/>
+        </svg>
+        <h3>Native decode on macOS</h3>
+        <p>macOS uses the system ImageIO framework &mdash; significantly faster RAW decode and previews.</p>
+      </div>
+      <div class="lp-feature">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M9 8l-4 4 4 4"/>
+          <path d="M15 8l4 4-4 4"/>
+        </svg>
+        <h3>Open source</h3>
+        <p>Source code coming soon.</p>
       </div>
     </section>
 
