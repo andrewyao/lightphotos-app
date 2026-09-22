@@ -15,9 +15,20 @@ import Docs from "../../layouts/Docs.astro";
       rendered non-destructively like everything else.
     </li>
     <li>
-      <strong>Ordinary images</strong> &mdash; JPEG, HEIC and TIFF.
+      <strong>Ordinary images</strong> &mdash; JPEG and TIFF on every
+      platform, and <strong>HEIC in the macOS build only</strong>.
     </li>
   </ul>
+
+  <p>
+    <strong>HEIC is the platform-specific one.</strong> It is the format
+    iPhones shoot, and on macOS it decodes through Apple's own ImageIO
+    framework. The Windows, Linux and browser builds have no decoder for it
+    &mdash; no pure-Rust HEIC decoder exists to build them on &mdash; so
+    there, HEIC files are left out of the grid rather than opened
+    half-working. Shooting or converting to JPEG keeps a folder readable on
+    every platform.
+  </p>
   <p>
     Anything else in the folder is simply left out of the grid rather than
     raising an error. If your camera's RAW format is not on the list, it will
