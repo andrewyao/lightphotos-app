@@ -1,18 +1,242 @@
 ---
 import Base from "../layouts/Base.astro";
+
+// The one page that walks the whole loop, from an empty window to a finished
+// JPEG. Labels and shortcuts here are the ones the app itself shows: verify
+// against the in-app help (?) before changing them.
+const steps = [
+  { id: "open", label: "Open the app" },
+  { id: "folder", label: "Pick a folder" },
+  { id: "browse", label: "Browse the folder" },
+  { id: "select", label: "Select a photo" },
+  { id: "adjust", label: "Adjust the settings" },
+  { id: "export", label: "Export" },
+];
 ---
 <Base
-  title="LightPhotos Documentation"
-  desc="LightPhotos Documentation — under construction. Details to be determined."
+  title="Getting started — LightPhotos Help"
+  desc="Open the app, pick a folder, browse through it, select a photo, adjust the settings and export a finished JPEG — the LightPhotos walkthrough."
   active="docs"
 >
   <main class="lp-page">
     <section class="lp-hero lp-hero-compact">
       <div class="lp-glow"></div>
-      <h1 class="lp-wordmark"><span class="lp-light">TBD</span></h1>
+      <h1 class="lp-wordmark">Get<span class="lp-light">ting started</span></h1>
       <p class="lp-lede">
-        No docs yet &mdash; they'll land here as the editor settles.
+        Six steps from an empty window to a finished JPEG. There is no import
+        step, no account, and nothing ever leaves your machine.
       </p>
+    </section>
+
+    <article class="lp-article">
+      <p>
+        LightPhotos works on a folder that is already sitting on your disk, so
+        the whole loop happens in one window: open the app, pick a folder,
+        browse it, choose a photo, adjust it, export it. Your ratings and edits
+        are written as you go, and you can stop at any point.
+      </p>
+      <p>
+        Shortcuts are written the macOS way &mdash; on Windows and Linux, read
+        <kbd>Cmd</kbd> as <kbd>Ctrl</kbd>. Press <kbd>?</kbd> inside the app
+        for the full list.
+      </p>
+
+      <nav class="lp-doc-toc" aria-label="On this page">
+        {steps.map((s, i) => (
+          <a href={`#${s.id}`}>{i + 1}. {s.label}</a>
+        ))}
+      </nav>
+
+      <h2 id="open">1. Open the app</h2>
+      <ul class="lp-article-list">
+        <li>
+          <strong>In a browser.</strong>
+          <a href="/app.html">Open the web app</a> &mdash; nothing to install
+          and nothing to update. It renders on the GPU, so Chrome or any
+          browser with WebGPU enabled will run it.
+        </li>
+        <li>
+          <strong>As a desktop app.</strong>
+          <a href="/downloads.html">Download it</a> for macOS, Windows or
+          Linux. It runs with no internet at all once it is on your machine.
+        </li>
+      </ul>
+      <p>
+        Either way it is the same editor over the same files. Photos are read
+        straight from disk and never uploaded.
+      </p>
+
+      <h2 id="folder">2. Pick a folder</h2>
+      <p>
+        An empty window has one button: <strong>Choose Folder</strong>. Pick
+        the folder holding the shoot you want to work on. LightPhotos scans it
+        and fills the grid right away &mdash; Sony ARW, Canon CR2 / CR3, Adobe
+        DNG, JPEG, HEIC and TIFF all sit side by side, and there is no import
+        step to sit through.
+      </p>
+      <ul class="lp-article-list">
+        <li>
+          <strong>The web build asks for permission.</strong> Your browser
+          wants confirmation before any page may read a folder. Grant it for
+          the folder you picked; that is the only access LightPhotos gets.
+        </li>
+        <li>
+          <strong>Switch folders whenever you like.</strong> Click
+          <strong>Open</strong> in the header, or press <kbd>Cmd</kbd>+<kbd>O</kbd>.
+        </li>
+        <li>
+          <strong>Your settings live next to your photos.</strong> Ratings,
+          labels and edits are written into a <code>.lightphotos</code> folder
+          inside the folder you opened. Move the folder and the edits travel
+          with it; delete that folder and you lose the edits, never the photos.
+        </li>
+      </ul>
+
+      <h2 id="browse">3. Browse the folder</h2>
+      <p>
+        The library is a grid of thumbnails, decoded as they scroll into view,
+        so a folder of several thousand photos is browsable in seconds instead
+        of loading everything up front.
+      </p>
+      <p>
+        <strong>Rate as you go.</strong> With a photo highlighted, press
+        <kbd>0</kbd> to <kbd>5</kbd> to set the star rating,
+        <kbd>Shift</kbd>+<kbd>1</kbd> through <kbd>Shift</kbd>+<kbd>5</kbd>
+        for a color label (red, yellow, green, blue, purple), and
+        <kbd>Shift</kbd>+<kbd>0</kbd> to clear it. The Rating and Label tabs
+        on the right do the same with the mouse.
+      </p>
+      <p>
+        <strong>Narrow the grid.</strong> The filter row above the grid offers
+        a rating filter (all, at least / exactly / at most N stars, unrated),
+        <strong>Bursts</strong> (<kbd>B</kbd>), which groups a burst and badges
+        the sharpest frame, <strong>Duplicates</strong> (<kbd>D</kbd>), which
+        groups visually-similar frames, and <strong>Eyes closed</strong>, which
+        needs Bursts or Duplicates switched on first.
+      </p>
+      <p>
+        <strong>Build a selection.</strong> Click to select,
+        <kbd>Shift</kbd>+click to take a range,
+        <kbd>Cmd</kbd>+click to toggle a single photo, and
+        <kbd>Cmd</kbd>+<kbd>A</kbd> to take the whole folder. The arrow keys
+        move the highlight; <kbd>Shift</kbd>+arrows extend the selection.
+      </p>
+
+      <h2 id="select">4. Select a photo</h2>
+      <p>
+        Highlight a photo and press <kbd>Enter</kbd> or <kbd>Space</kbd> to
+        open it full size in the editor. From there:
+      </p>
+      <ul class="lp-article-list">
+        <li>
+          <kbd>Left</kbd> / <kbd>Right</kbd> step to the previous or next
+          photo without leaving the editor.
+        </li>
+        <li>
+          <kbd>Esc</kbd> goes back to the grid; <kbd>E</kbd> and <kbd>G</kbd>
+          jump between the editor and the library.
+        </li>
+        <li>
+          <kbd>Cmd</kbd>+<kbd>0</kbd> fits the photo to the window,
+          <kbd>Cmd</kbd>+<kbd>1</kbd> shows it at 1:1, and
+          <kbd>Cmd</kbd>+<kbd>=</kbd> / <kbd>Cmd</kbd>+<kbd>-</kbd> zoom in
+          and out. Hold <kbd>Space</kbd> and drag to pan.
+        </li>
+        <li>
+          <kbd>C</kbd> and <kbd>Y</kbd> flip between the original and your
+          edit.
+        </li>
+      </ul>
+
+      <h2 id="adjust">5. Adjust the settings</h2>
+      <p>
+        The panel on the right carries the Rating, Label, Adjustments, Touch Up
+        and Rotation tabs, and almost everything happens under
+        <strong>Adjustments</strong>:
+      </p>
+      <ul class="lp-article-list">
+        <li>
+          <strong>White Balance</strong> &mdash; Temp and Tint, or click
+          <strong>Pick Gray</strong> and then click a neutral-gray pixel in the
+          photo to balance from it.
+        </li>
+        <li>
+          <strong>Tone</strong> &mdash; Exposure, Contrast, Highlights,
+          Shadows, Whites and Blacks.
+        </li>
+        <li>
+          <strong>Presence</strong> &mdash; Vibrance and Saturation.
+        </li>
+        <li>
+          <strong>Detail</strong> &mdash; Denoise. Crop sits alongside these
+          sliders, and the Rotation tab turns the photo in 90&deg; steps.
+        </li>
+      </ul>
+      <p>Three habits make this much faster:</p>
+      <ul class="lp-article-list">
+        <li>
+          <strong>Let the histogram start.</strong> <strong>Auto</strong> sets
+          the tone sliders from the photo's own histogram &mdash;
+          <kbd>Cmd</kbd>+<kbd>U</kbd> for the photo in front of you,
+          <kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>U</kbd> for everything
+          selected. <strong>Reset</strong> puts the sliders back to zero.
+        </li>
+        <li>
+          <strong>Do one, then copy it.</strong>
+          <kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>C</kbd> copies the develop
+          settings off a finished photo; select the rest of the shoot and press
+          <kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>Y</kbd> to apply them to the
+          whole selection.
+        </li>
+        <li>
+          <strong>Heal the small stuff.</strong> The Touch Up tab removes
+          spots &mdash; click a blemish and adjust with the Size slider, up to
+          64 spots per photo. It needs the full-resolution image loaded first.
+        </li>
+      </ul>
+      <p>
+        None of this touches the original file. Every slider is an instruction
+        stored in the <code>.lightphotos</code> folder beside your photo, so
+        you can close the app mid-edit, come back next week, or reset the whole
+        photo without any harm done.
+      </p>
+
+      <h2 id="export">6. Export</h2>
+      <p>
+        Select one photo or a hundred, click <strong>Export JPG</strong> (or
+        press <kbd>X</kbd>) and confirm. LightPhotos bakes your adjustments
+        into brand-new JPEGs and writes them into an <code>Exports</code>
+        folder inside the folder you opened &mdash; created the first time you
+        export.
+      </p>
+      <ul class="lp-article-list">
+        <li>
+          The originals are left exactly as they were and the edits stay in
+          place, so you can change a slider tomorrow and export again.
+        </li>
+        <li>
+          Exports are ordinary files: open them in anything, attach them to an
+          email, hand them to a print shop.
+        </li>
+        <li>
+          Nothing is uploaded. The whole loop above happens on your own
+          machine.
+        </li>
+      </ul>
+    </article>
+
+    <section class="lp-actions" aria-label="Keep exploring">
+      <a class="lp-card" href="/downloads.html">
+        <i class="ph-bold ph-download-simple" aria-hidden="true"></i>
+        <h2>Downloads <span class="lp-go" aria-hidden="true">&rarr;</span></h2>
+        <p>The desktop app for macOS, Windows and Linux, offline and under 10 MB.</p>
+      </a>
+
+      <a class="lp-card" href="/blogs.html">
+        <i class="ph-bold ph-pencil-simple" aria-hidden="true"></i>
+        <h2>Blogs <span class="lp-go" aria-hidden="true">&rarr;</span></h2>
+        <p>Write-ups on the hard parts: WebAssembly, threading, RAW decoding and color pipelines.</p>
+      </a>
     </section>
   </main>
 </Base>

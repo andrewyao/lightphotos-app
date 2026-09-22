@@ -1452,3 +1452,74 @@ a.lp-split-card:focus-visible {
     text-align: left;
   }
 }
+
+/* --- docs page: step chips, keys and inline prose links -------------------
+ * The walkthrough names a key for almost every action, so a key needs to read
+ * as a key rather than as inline monospace text. Step chips are the page's
+ * table of contents: jump links, so they only need to look clickable.
+ */
+.lp-doc-toc {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1.6rem;
+}
+
+.lp-doc-toc a {
+  padding: 0.35em 0.85em;
+  border: 1px solid var(--border-subtle);
+  border-radius: 999px;
+  background: var(--surface-card);
+  font-size: 0.8rem;
+  color: var(--lp-muted);
+  text-decoration: none;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.lp-doc-toc a:hover,
+.lp-doc-toc a:focus-visible {
+  border-color: var(--border-accent);
+  color: var(--lp-accent);
+}
+
+kbd {
+  display: inline-block;
+  padding: 0.05em 0.4em;
+  border: 1px solid var(--border-strong);
+  border-bottom-width: 2px;
+  border-radius: 6px;
+  background: var(--surface-input);
+  font-family: var(--font-mono);
+  font-size: 0.78em;
+  line-height: 1.5;
+  color: var(--lp-ink);
+  white-space: nowrap;
+}
+
+code {
+  font-family: var(--font-mono);
+  font-size: 0.88em;
+  padding: 0.1em 0.35em;
+  border-radius: 6px;
+  background: var(--surface-input);
+  border: 1px solid var(--border-subtle);
+}
+
+/* Prose links: the site has always styled links per component, so an <a> in
+   a paragraph otherwise falls back to the browser's default blue, which
+   disappears against the dark canvas. Scoped to prose so the article
+   breadcrumb and nav cards keep the rules they already have. */
+.lp-article :is(p, li) a,
+.lp-lede a {
+  color: var(--lp-accent);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--lp-accent) 45%, transparent);
+  text-underline-offset: 0.18em;
+}
+
+.lp-article :is(p, li) a:hover,
+.lp-article :is(p, li) a:focus-visible,
+.lp-lede a:hover,
+.lp-lede a:focus-visible {
+  text-decoration-color: currentColor;
+}
