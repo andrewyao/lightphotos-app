@@ -1,0 +1,35 @@
+---
+import Docs from "../../layouts/Docs.astro";
+---
+<Docs slug="open-the-app">
+  <p>
+    LightPhotos works on a folder that is already sitting on your disk, so the
+    whole loop happens in one window: open the app,
+    <a href="/docs/pick-a-folder.html">pick a folder</a>,
+    <a href="/docs/browse.html">browse it</a>,
+    <a href="/docs/select-a-photo.html">choose a photo</a>,
+    <a href="/docs/adjust.html">adjust it</a>,
+    <a href="/docs/export.html">export it</a>. Your ratings and edits are
+    written as you go, and you can stop at any point.
+  </p>
+
+  <ul class="lp-article-list">
+    <li>
+      <strong>In a browser.</strong>
+      <a href="/app.html">Open the web app</a> &mdash; nothing to install and
+      nothing to update. It renders on the GPU, so Chrome or any browser with
+      WebGPU enabled will run it.
+    </li>
+    <li>
+      <strong>As a desktop app.</strong>
+      <a href="/downloads.html">Download it</a> for macOS, Windows or Linux.
+      It runs with no internet at all once it is on your machine.
+    </li>
+  </ul>
+
+  <p>
+    Either way it is the same editor over the same files. Photos are read
+    straight from disk and never uploaded, and the desktop builds are small
+    &mdash; under 10 MB each, with no installer to sit through.
+  </p>
+</Docs>

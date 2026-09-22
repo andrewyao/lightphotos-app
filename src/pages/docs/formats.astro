@@ -1,0 +1,67 @@
+---
+import Docs from "../../layouts/Docs.astro";
+---
+<Docs slug="formats">
+  <p>
+    LightPhotos opens the files straight from disk, in place. There is no
+    conversion on the way in and no copy inside a library &mdash; what is in
+    the folder is what you see.
+  </p>
+
+  <h2>What it opens</h2>
+  <ul class="lp-article-list">
+    <li>
+      <strong>RAW</strong> &mdash; Sony ARW, Canon CR2 / CR3 and Adobe DNG,
+      rendered non-destructively like everything else.
+    </li>
+    <li>
+      <strong>Ordinary images</strong> &mdash; JPEG, HEIC and TIFF.
+    </li>
+  </ul>
+  <p>
+    Anything else in the folder is simply left out of the grid rather than
+    raising an error. If your camera's RAW format is not on the list, it will
+    not open yet &mdash; the set is small on purpose for now, and
+    <a href="https://github.com/andrewyao/lightphotos-app/issues">the issue
+    tracker</a> is where requests land.
+  </p>
+
+  <h2>What it writes</h2>
+  <p>
+    Three kinds of file, all of them next to your photos rather than off in an
+    application support directory somewhere:
+  </p>
+
+  <div class="lp-compare-wrap">
+    <table class="lp-compare">
+      <thead>
+        <tr>
+          <th scope="col">Purpose</th>
+          <th scope="col">Where it goes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Ratings, labels and edits</strong></td>
+          <td>Sidecar files in <code>.lightphotos/</code>, inside the folder you opened</td>
+        </tr>
+        <tr>
+          <td><strong>Thumbnail cache</strong></td>
+          <td><code>.lightphotos/</code> too, so a folder carries its own thumbnails wherever it moves</td>
+        </tr>
+        <tr>
+          <td><strong>Exports</strong></td>
+          <td>An <code>Exports/</code> folder inside the folder you opened, created on first export</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>
+    Your photos themselves are never moved, renamed or modified &mdash; the
+    originals are read-only to LightPhotos. That is why
+    <a href="/docs/export.html">exporting</a> produces new files instead of
+    overwriting the old ones, and why moving a folder somewhere else keeps
+    every edit with it.
+  </p>
+</Docs>

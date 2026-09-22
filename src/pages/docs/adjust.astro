@@ -1,0 +1,62 @@
+---
+import Docs from "../../layouts/Docs.astro";
+---
+<Docs slug="adjust">
+  <p>
+    The panel on the right carries the Rating, Label, Adjustments, Touch Up
+    and Rotation tabs, and almost everything happens under
+    <strong>Adjustments</strong>:
+  </p>
+
+  <ul class="lp-article-list">
+    <li>
+      <strong>White Balance</strong> &mdash; Temp and Tint, or click
+      <strong>Pick Gray</strong> and then click a neutral-gray pixel in the
+      photo to balance from it. Fastest way out of a yellow room.
+    </li>
+    <li>
+      <strong>Tone</strong> &mdash; Exposure, Contrast, Highlights, Shadows,
+      Whites and Blacks. This is where most photos are won or lost.
+    </li>
+    <li>
+      <strong>Presence</strong> &mdash; Vibrance and Saturation. Vibrance
+      leaves skin alone where it can, so try it before Saturation.
+    </li>
+    <li>
+      <strong>Detail</strong> &mdash; Denoise. Crop sits alongside these
+      sliders, and the Rotation tab turns the photo in 90&deg; steps.
+    </li>
+  </ul>
+
+  <h2>Three habits that make it faster</h2>
+  <ul class="lp-article-list">
+    <li>
+      <strong>Let the histogram start.</strong> <strong>Auto</strong> sets the
+      tone sliders from the photo's own histogram &mdash;
+      <kbd>Cmd</kbd>+<kbd>U</kbd> for the photo in front of you,
+      <kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>U</kbd> for everything selected.
+      <strong>Reset</strong> puts the sliders back to zero.
+    </li>
+    <li>
+      <strong>Do one, then copy it.</strong>
+      <kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>C</kbd> copies the develop settings
+      off a finished photo; select the rest of the shoot and press
+      <kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>Y</kbd> to apply them to the whole
+      selection. One good frame becomes the look for the shoot.
+    </li>
+    <li>
+      <strong>Heal the small stuff.</strong> The Touch Up tab removes spots
+      &mdash; click a blemish and adjust with the Size slider, up to 64 spots
+      per photo. It needs the full-resolution image loaded first, so give it a
+      moment if you have just arrived from the grid.
+    </li>
+  </ul>
+
+  <p>
+    None of this touches the original file. Every slider is an instruction
+    stored in the <code>.lightphotos</code> folder beside your photo, so you
+    can close the app mid-edit, come back next week, or reset the whole photo
+    without any harm done. When it looks right, the last step is
+    <a href="/docs/export.html">export</a>.
+  </p>
+</Docs>
