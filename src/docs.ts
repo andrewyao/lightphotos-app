@@ -61,7 +61,7 @@ export const docGroups: DocGroup[] = [
       {
         slug: "formats",
         title: "Supported formats",
-        dek: "The files LightPhotos opens, and the three kinds of file it writes next to them.",
+        dek: "The files LightPhotos opens on each platform — including the one macOS gets on its own — and the three kinds of file it writes next to them.",
       },
     ],
   },
