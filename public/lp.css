@@ -85,16 +85,22 @@ html[data-theme="light"] {
 }
 
 html[data-theme="neutral"] {
-  color-scheme: dark;
-  --lp-bg: #2e2e2e;
-  --lp-ink: #f0eee9;
+  color-scheme: light;
+  /* A real gray: achromatic and mid-toned, dark enough to read as gray rather
+     than the whitish #e9e9e9 it replaces, but stopped short of the 50%
+     midpoint. Past that point captions and links fall under 4.5:1 and the
+     accent would have to go black -- #767676 puts muted text at 3.83:1 and a
+     mid-tone blue at 1.03:1, i.e. invisible. Every value here clears WCAG AA
+     on the surface it sits on; the lowest ratio is 4.94 (link on page). */
+  --lp-bg: #b4b4b4;
+  --lp-ink: #141414;
   --lp-glow: #4f8cff;
-  --lp-glow-soft: rgba(79, 140, 255, 0.18);
-  --lp-muted: #b0aca4;
-  --lp-line: rgba(240, 238, 233, 0.12);
-  --lp-card: #383838;
-  --lp-accent: #5b93ff;
-  --lp-accent-strong: #4f8cff;
+  --lp-glow-soft: rgba(79, 140, 255, 0.16);
+  --lp-muted: #3a3a3a;
+  --lp-line: rgba(0, 0, 0, 0.18);
+  --lp-card: #c8c8c8;
+  --lp-accent: #123c8c;
+  --lp-accent-strong: #0f3576;
   --lp-btn-ink: #f8fbff;
 }
 
@@ -603,45 +609,22 @@ a.lp-card:focus-visible .lp-go {
   grid-row: 1;
 }
 
-/* --- landing page: dual CTA, feature grid, run-modes split --- */
-.lp-cta-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.7rem;
-  justify-content: center;
+/* --- landing page: run-modes split in the hero, feature grid --- */
+/* The split lives where the dual CTA buttons used to sit, inside the hero's
+   centered column, so it claims the page's full width and takes the cards back
+   to left-aligned text. Its heading takes the old button row's top gap instead
+   of the 5.5rem a standalone section head would want. */
+.lp-hero-split {
+  width: 100%;
   margin-top: 2.1rem;
-  opacity: 0;
-  animation: lp-rise 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.45s forwards;
 }
 
-.lp-btn-ghost {
-  display: inline-flex;
-  align-items: center;
-  padding: 0.7em 1.5em;
-  border-radius: 999px;
-  border: 1px solid var(--border-strong);
-  background: var(--surface-card);
-  color: var(--lp-ink);
-  font-size: 0.9rem;
-  font-weight: 500;
-  letter-spacing: 0.03em;
-  text-decoration: none;
-  transition: transform 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+.lp-hero .lp-section-head {
+  margin-top: 0;
 }
 
-.lp-btn-ghost:hover,
-.lp-btn-ghost:focus-visible {
-  transform: translateY(-2px);
-  border-color: var(--border-accent);
-  background: var(--surface-hover);
-}
-
-.lp-cta-note {
-  margin-top: 1rem;
-  font-size: 0.82rem;
-  color: var(--lp-muted);
-  opacity: 0;
-  animation: lp-rise 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.55s forwards;
+.lp-hero .lp-split {
+  text-align: left;
 }
 
 .lp-features {
@@ -677,6 +660,9 @@ a.lp-card:focus-visible .lp-go {
 .lp-feature:nth-child(4) { animation-delay: 0.81s; }
 .lp-feature:nth-child(5) { animation-delay: 0.88s; }
 .lp-feature:nth-child(6) { animation-delay: 0.95s; }
+.lp-feature:nth-child(7) { animation-delay: 1.02s; }
+.lp-feature:nth-child(8) { animation-delay: 1.09s; }
+.lp-feature:nth-child(9) { animation-delay: 1.16s; }
 
 .lp-feature > svg {
   grid-column: 1;
@@ -713,14 +699,6 @@ a.lp-card:focus-visible .lp-go {
   letter-spacing: -0.01em;
 }
 
-.lp-section-head p {
-  max-width: 34rem;
-  margin: 0.8rem auto 0;
-  color: var(--lp-muted);
-  font-size: 0.95rem;
-  line-height: 1.6;
-}
-
 .lp-split {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -740,6 +718,28 @@ a.lp-card:focus-visible .lp-go {
 .lp-split-card--accent {
   border-color: var(--border-accent);
   box-shadow: 0 12px 32px color-mix(in srgb, var(--lp-glow) 10%, transparent);
+}
+
+/* On the landing page the whole card is the link, so it has to shed the
+   default link colour and underline, and needs a hover/focus state of its own
+   now that the arrow link inside is only a label. Downloads still renders
+   these as <article>s, which the a- prefix leaves alone. */
+a.lp-split-card {
+  color: inherit;
+  text-decoration: none;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+a.lp-split-card:hover,
+a.lp-split-card:focus-visible {
+  transform: translateY(-4px);
+  border-color: var(--border-accent);
+  box-shadow: 0 12px 32px color-mix(in srgb, var(--lp-glow) 12%, transparent);
+}
+
+a.lp-split-card:focus-visible {
+  outline: 2px solid var(--lp-accent);
+  outline-offset: 3px;
 }
 
 .lp-split-head {
@@ -829,11 +829,6 @@ a.lp-card:focus-visible .lp-go {
   text-decoration: none;
 }
 
-.lp-split-cta:hover,
-.lp-split-cta:focus-visible {
-  text-decoration: underline;
-}
-
 .lp-shared {
   margin-top: 2.5rem;
   display: flex;
@@ -844,6 +839,16 @@ a.lp-card:focus-visible .lp-go {
   background: var(--surface-card);
   border: 1px solid var(--border-subtle);
   border-radius: 18px;
+}
+
+/* Worth showing only while every build is on screen. Once the grid is
+   narrowed to the visitor's own platform nothing has been left out, so the
+   card is noise -- it comes back the moment "Looking for another platform?"
+   puts the grid into the all-platforms state. A visitor the sniffer could not
+   place (phones, JS off) never gets narrowed in the first place, and sees the
+   full grid, so for them it stays. */
+:root[data-lp-os] .lp-dl-grid:not(.lp-dl-grid--all) ~ .lp-shared {
+  display: none;
 }
 
 .lp-shared-tag {
@@ -871,14 +876,11 @@ a.lp-card:focus-visible .lp-go {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .lp-cta-row, .lp-cta-note, .lp-feature {
+  .lp-feature {
     animation: none !important;
     opacity: 1 !important;
     filter: none !important;
     transform: none !important;
-  }
-  .lp-btn-ghost {
-    transition: none !important;
   }
 }
 
