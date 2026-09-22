@@ -4,3 +4,5 @@ wasm-decode-probe.html
 node_modules/
 dist/
 .astro/
+.wrangler/
+.dev.vars

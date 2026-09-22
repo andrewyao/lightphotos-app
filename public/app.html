@@ -3,11 +3,36 @@
 <head>
   <meta charset="utf-8" />
   <title>LightPhotos for Web</title>
-  <meta name="description" content="LightPhotos in the browser — open a local folder, cull and develop your photos, nothing leaves your machine." />
+  <meta name="description" content="LightPhotos in the browser — open a local folder, cull and develop your photos, your photos stay on your machine. Anonymous usage and reliability events help improve the app." />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     html, body { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background: #1e1e1e; }
   </style>
+
+  <!-- Same first-party analytics client the site pages load, which is what
+       gives the Rust side a window.lpTrack to call. Not cache-busted here the
+       way Base.astro does it, because this file is not an Astro page and has
+       no buildVersion to interpolate. -->
+  <script src="/lp-analytics.js"></script>
+
+  <!-- How long a session lasted, as a coarse band. This has to live here
+       rather than in Rust: a browser gives the app no reliable shutdown hook,
+       and pagehide plus sendBeacon is the only pairing that survives a tab
+       being closed. -->
+  <script>
+  (function () {
+    var start = Date.now();
+    addEventListener("pagehide", function () {
+      var s = (Date.now() - start) / 1000;
+      if (window.lpTrack) {
+        window.lpTrack("session_ended", {
+          duration_bucket: s < 30 ? "<30s" : s < 120 ? "30-120s"
+            : s < 600 ? "2-10m" : s < 1800 ? "10-30m" : "30m+",
+        });
+      }
+    }, { once: true });
+  })();
+  </script>
   <!-- Built by `trunk build --release` in the lightphotos repo (branch
        wasm-port-phase1) and synced into public/app/ here by that repo's
        scripts/deploy-web.sh — Astro copies public/ straight into dist/ on
@@ -16,12 +41,34 @@
        the diff here (it updates the two hashed URLs below to match),
        commit, push. -->
   <script type="module">
-import init, * as bindings from '/app/lightphotos-2caf644268fb99a7.js';
+// Import inside the try block so download and module-evaluation failures count.
+
+// The gap between app_page_view and wasm_loaded is the drop-off across an
+// 8.5 MB payload, and wasm_load_failed catches the browsers that never get
+// there at all. Both are invisible to a page view, since the app renders
+// in-canvas and this document's body stays empty either way.
+const lpT0 = performance.now();
+try {
+if (!navigator.gpu && window.lpTrack) {
+  window.lpTrack('webgpu_unsupported', { reason: 'api_missing' });
+}
+const bindings = await import('/app/lightphotos-2caf644268fb99a7.js');
+const init = bindings.default;
 const wasm = await init({ module_or_path: '/app/lightphotos-2caf644268fb99a7_bg.wasm' });
 
 window.wasmBindings = bindings;
 
+if (window.lpTrack) window.lpTrack("wasm_loaded", { ms: Math.round(performance.now() - lpT0) });
+
 dispatchEvent(new CustomEvent("TrunkApplicationStarted", {detail: {wasm}}));
+} catch (e) {
+  // e.name only ("CompileError", "TypeError", "AbortError"). The full message
+  // often embeds the failing URL, which the collector would then reject as
+  // path-shaped, losing the reason entirely.
+  const reason = ["CompileError", "LinkError", "RuntimeError", "TypeError", "AbortError"].includes(e && e.name) ? e.name : "error";
+  if (window.lpTrack) window.lpTrack("wasm_load_failed", { reason });
+  throw e;
+}
   </script>
   <!-- The Web Worker decode pool's entry point (wasm_worker.js/_bg.wasm) —
        stable, non-hashed filenames by design (see web_worker_pool.rs's

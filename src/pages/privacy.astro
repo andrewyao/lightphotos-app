@@ -1,0 +1,117 @@
+---
+import Base from "../layouts/Base.astro";
+
+// Written because the rest of the site tells people to verify the privacy
+// claims rather than trust them (see blogs/my-plan.astro). Counting traffic
+// without saying so plainly would undercut that. No `active` value: the footer
+// links here, the nav doesn't.
+---
+<Base
+  title="Privacy — LightPhotos"
+  desc="What LightPhotos counts on this website, what it deliberately does not, and why the desktop app makes no network requests at all."
+>
+  <main class="lp-page">
+    <article class="lp-article">
+      <header class="lp-article-head">
+        <h1>Privacy</h1>
+        <p class="lp-article-dek">
+          This site counts visits and browser app usage. Here is exactly
+          where that line sits, in plain terms.
+        </p>
+      </header>
+
+      <h2>The short version</h2>
+      <p>
+        There are no cookies on this site, no accounts, no advertising networks
+        and no third-party analytics service. Events go to a first-party endpoint hosted by Cloudflare and are stored
+        in our Cloudflare D1 database. We do not send events to advertising networks.
+      </p>
+
+      <h2>What the website records</h2>
+      <p>
+        When you load a page here, it records the page&rsquo;s path, the site
+        you followed a link from &mdash; the domain only, never the full
+        address &mdash; your country, and a daily pseudonymous visitor number described
+        below. It also records a few named events: that a download button was
+        clicked and which platform it was for, and whether the web app finished
+        loading.
+      </p>
+      <p>
+        The browser app also records folder opens, rating changes, committed
+        edits (including Auto Tone), filter changes, successful exports, and
+        categorized decode or export failures. Startup and first-photo timing
+        help identify reliability problems. First-photo time includes time
+        spent choosing a folder; it is not a decode benchmark. Session length
+        and photo counts use coarse bands. Error messages are never sent.
+      </p>
+
+      <h2>How visitors are counted without cookies</h2>
+      <p>
+        Counting people normally means giving each browser a lasting identifier
+        and storing it. This site doesn&rsquo;t. Instead the server takes your
+        IP address, your browser&rsquo;s user-agent string, today&rsquo;s date
+        and a random number generated fresh each morning, and runs the lot
+        through a one-way hash. What gets stored is the result &mdash; a short
+        pseudonymous string rather than the original IP address.
+      </p>
+      <p>
+        Because the date and that day&rsquo;s random number are both part of
+        the hash, the number representing you changes at midnight and
+        tomorrow&rsquo;s cannot be connected to today&rsquo;s. So it can count
+        how many distinct people visited on a given day, and it cannot follow
+        anyone from one day to the next. Your IP address and user-agent are
+        used to compute the hash and are then discarded. Neither is written
+        down.
+      </p>
+      <p>
+        Each day&rsquo;s random number is itself deleted after two days. That
+        matters: while it exists, someone holding the database could in
+        principle confirm a guess about one specific IP address by recomputing
+        the hash. Once it is gone, that stops being possible at all, for
+        anyone, permanently &mdash; including for me. Events themselves are
+        deleted after a year.
+      </p>
+
+      <h2>What is never recorded</h2>
+      <ul class="lp-check">
+        <li>No cookies, and nothing stored in your browser</li>
+        <li>No IP addresses or user-agent strings kept after hashing</li>
+        <li>No tracking across days, across sites, or across devices</li>
+        <li>No advertising trackers; event storage is hosted by Cloudflare, and data is not sold</li>
+        <li>Nothing about your photos &mdash; no filenames, folders, paths or image data, ever</li>
+      </ul>
+
+      <h2>The desktop app makes no network requests</h2>
+      <p>
+        This page is about the website. The downloadable app is a different
+        matter, and the answer there is simpler: it does not talk to the
+        network at all. The code that reports anything is compiled only into
+        the browser build. For the desktop build it does not exist &mdash; not
+        disabled by a setting you have to trust, but absent from the binary.
+      </p>
+      <p>
+        The web app, running at <a href="/app.html">/app.html</a>, does report
+        which features get used &mdash; that a folder was opened, that a photo
+        was rated, that an export ran. Those are counts and categories only.
+        The number of photos in a folder is recorded as a rough band rather
+        than an exact figure, and never the folder, never the filenames, never
+        the images. Your photos are read by the browser on your own machine and
+        are not uploaded, in either version.
+      </p>
+
+      <h2>Opting out</h2>
+      <p>
+        If your browser sends Do Not Track or Global Privacy Control, this site
+        records nothing at all &mdash; not even a page view. No banner, no
+        preference to set here. Any content blocker that stops the request will
+        also work, and nothing on the site breaks when it does.
+      </p>
+
+      <h2>Questions</h2>
+      <p>
+        If something here is unclear or you think it is wrong, open an issue on
+        <a href="https://github.com/andrewyao/lightphotos-app/issues">GitHub</a>.
+      </p>
+    </article>
+  </main>
+</Base>

@@ -1,2 +1,13 @@
 name = "lightphotos-app"
 pages_build_output_dir = "dist"
+
+# Required once the project has Functions (functions/api/e.js).
+compatibility_date = "2026-09-21"
+
+# Event store for the first-party analytics pipeline. Create the database once
+# with `npx wrangler d1 create lightphotos_analytics` and paste the id it
+# prints below, then apply migrations/0001_init.sql.
+[[d1_databases]]
+binding = "ANALYTICS"
+database_name = "lightphotos_analytics"
+database_id = "REPLACE_WITH_ID_FROM_WRANGLER_D1_CREATE"

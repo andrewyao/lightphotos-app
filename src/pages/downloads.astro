@@ -120,6 +120,21 @@ const osCss = builds
     }
 
     document.addEventListener("click", function (event) {
+      // Downloads are static files, so a click on one produces no page view of
+      // its own. This is the only place the platform split gets recorded.
+      // Never preventDefault here -- sendBeacon has already handed the request
+      // to the browser, and the download must proceed untouched.
+      var dl = event.target.closest(".lp-btn[download]");
+      if (dl) {
+        var card = dl.closest("[data-os-id]");
+        if (window.lpTrack) {
+          window.lpTrack("download", {
+            platform: card ? card.getAttribute("data-os-id") : "unknown",
+          });
+        }
+        return;
+      }
+
       var btn = event.target.closest(".lp-dl-toggle");
       if (!btn) return;
       var grid = document.querySelector(".lp-dl-grid");

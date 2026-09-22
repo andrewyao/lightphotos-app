@@ -328,6 +328,7 @@ body {
 .lp-site-footer {
   display: flex;
   justify-content: flex-end;
+  gap: 1rem;
   padding: 0 clamp(1.25rem, 4vw, 2.5rem) 1.75rem;
 }
 
@@ -338,6 +339,16 @@ body {
   font-variant-numeric: tabular-nums;
   color: var(--lp-muted);
   white-space: nowrap;
+}
+
+/* The footer's privacy link shares the version line's muted styling so it
+   reads as one strip, and only picks up colour on hover. */
+a.lp-version {
+  text-decoration: none;
+}
+
+a.lp-version:hover {
+  color: var(--lp-ink);
 }
 
 .lp-hero {
