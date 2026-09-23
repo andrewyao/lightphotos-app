@@ -331,6 +331,14 @@ body {
   padding: 7.5rem clamp(1.25rem, 4vw, 2.5rem) 5rem;
 }
 
+.lp-page--wide {
+  max-width: 90rem;
+}
+
+.lp-page--wide .lp-post-list {
+  max-width: none;
+}
+
 .lp-site-footer {
   display: flex;
   justify-content: flex-end;
@@ -997,16 +1005,19 @@ a.lp-split-card:focus-visible {
 /* --- blog: post index and article prose --- */
 .lp-post-list {
   list-style: none;
-  max-width: 40rem;
+  max-width: 70rem;
   margin: 3.5rem auto 0;
   padding: 0;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: 1.35rem;
 }
 
 .lp-post-card {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  height: 100%;
   overflow: hidden;
   background: var(--surface-card);
   border: 1px solid var(--border-subtle);
@@ -1036,6 +1047,9 @@ a.lp-split-card:focus-visible {
 }
 
 .lp-post-content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
   padding: 1.35rem 1.6rem 1.5rem;
 }
 
@@ -1072,6 +1086,18 @@ a.lp-split-card:focus-visible {
   font-size: 0.92rem;
   line-height: 1.6;
   color: var(--lp-muted);
+}
+
+@media (min-width: 48rem) {
+  .lp-post-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 64rem) {
+  .lp-post-list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 }
 
 .lp-article {
