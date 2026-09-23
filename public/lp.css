@@ -997,45 +997,78 @@ a.lp-split-card:focus-visible {
 /* --- blog: post index and article prose --- */
 .lp-post-list {
   list-style: none;
-  max-width: 44rem;
+  max-width: 40rem;
   margin: 3.5rem auto 0;
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 1.1rem;
+  gap: 1.35rem;
 }
 
-.lp-post-list a {
+.lp-post-card {
   display: block;
-  padding: 1.4rem 1.6rem;
+  overflow: hidden;
   background: var(--surface-card);
   border: 1px solid var(--border-subtle);
   border-radius: 18px;
   color: inherit;
   text-decoration: none;
-  transition: border-color 0.2s ease;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-.lp-post-list a:hover,
-.lp-post-list a:focus-visible {
+.lp-post-card:hover,
+.lp-post-card:focus-visible {
   border-color: var(--border-accent);
+  box-shadow: 0 12px 32px color-mix(in srgb, var(--lp-glow) 10%, transparent);
 }
 
-.lp-post-list time,
+.lp-post-cover {
+  aspect-ratio: 1.9 / 1;
+  overflow: hidden;
+  background: var(--surface-sunken);
+}
+
+.lp-post-cover img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.lp-post-content {
+  padding: 1.35rem 1.6rem 1.5rem;
+}
+
+.lp-post-list h2 {
+  margin-top: 0;
+  font-size: 1.4rem;
+  font-weight: 560;
+}
+
+.lp-post-meta,
 .lp-article-meta {
   font-size: 0.72rem;
   letter-spacing: 0.04em;
   color: var(--lp-muted);
 }
 
-.lp-post-list h2 {
-  margin-top: 0.4rem;
-  font-size: 1.4rem;
-  font-weight: 560;
+.lp-post-meta {
+  margin-top: 0.55rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: 0.45rem;
+  row-gap: 0.2rem;
+  line-height: 1.4;
 }
 
-.lp-post-list p {
-  margin-top: 0.5rem;
+.lp-post-meta time,
+.lp-post-meta span {
+  color: inherit;
+}
+
+.lp-post-blurb {
+  margin-top: 0.8rem;
   font-size: 0.92rem;
   line-height: 1.6;
   color: var(--lp-muted);
