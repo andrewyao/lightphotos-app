@@ -14,73 +14,163 @@ import Base from "../layouts/Base.astro";
 
     <ul class="lp-post-list">
       <li>
-        <a href="/blogs/my-plan.html">
-          <time datetime="2026-09-20">September 20, 2026</time>
-          <h2>My plan, and what's not in it</h2>
-          <p>Where LightPhotos is going. Your photos stay on your drive, AI runs on your machine, and only the table-stakes features get ported to every platform.</p>
+        <a class="lp-post-card" href="/blogs/my-plan.html">
+          <div class="lp-post-cover">
+            <img src="/blog-covers/my-plan.webp" alt="" width="1200" height="675" decoding="async" fetchpriority="high" />
+          </div>
+          <div class="lp-post-content">
+            <h2>My plan, and what's not in it</h2>
+            <p class="lp-post-meta">
+              <time datetime="2026-09-20">Sep 20, 2026</time>
+              <span aria-hidden="true">·</span>
+              <span>6 min read</span>
+            </p>
+            <p class="lp-post-blurb">Where LightPhotos is going—and what it will never become.</p>
+          </div>
         </a>
       </li>
       <li>
-        <a href="/blogs/measuring-a-gui-app.html">
-          <time datetime="2026-09-15">September 15, 2026</time>
-          <h2>Measuring a GUI app without lying to yourself</h2>
-          <p>You cannot profile a desktop app by clicking around in it, because you never do the same thing twice. Here is the harness I built instead, and the three reports that changed what I worked on.</p>
+        <a class="lp-post-card" href="/blogs/measuring-a-gui-app.html">
+          <div class="lp-post-cover">
+            <img src="/blog-covers/measuring-a-gui-app.webp" alt="" width="1200" height="675" loading="lazy" decoding="async" />
+          </div>
+          <div class="lp-post-content">
+            <h2>Measuring a GUI app without lying to yourself</h2>
+            <p class="lp-post-meta">
+              <time datetime="2026-09-15">Sep 15, 2026</time>
+              <span aria-hidden="true">·</span>
+              <span>5 min read</span>
+            </p>
+            <p class="lp-post-blurb">A repeatable way to measure a GUI app without guessing.</p>
+          </div>
         </a>
       </li>
       <li>
-        <a href="/blogs/never-load-the-whole-folder.html">
-          <time datetime="2026-09-01">September 1, 2026</time>
-          <h2>Never load the whole folder</h2>
-          <p>A folder of 8,889 photos used 1.9 GB of memory and then crashed. The fix is the most reused idea in the codebase, and I made the same mistake four times.</p>
+        <a class="lp-post-card" href="/blogs/never-load-the-whole-folder.html">
+          <div class="lp-post-cover">
+            <img src="/blog-covers/never-load-the-whole-folder.webp" alt="" width="1200" height="675" loading="lazy" decoding="async" />
+          </div>
+          <div class="lp-post-content">
+            <h2>Never load the whole folder</h2>
+            <p class="lp-post-meta">
+              <time datetime="2026-09-01">Sep 1, 2026</time>
+              <span aria-hidden="true">·</span>
+              <span>5 min read</span>
+            </p>
+            <p class="lp-post-blurb">Why the first version of a photo browser ran out of memory.</p>
+          </div>
         </a>
       </li>
       <li>
-        <a href="/blogs/six-queues-and-a-reserved-worker.html">
-          <time datetime="2026-08-20">August 20, 2026</time>
-          <h2>Six queues and a reserved worker</h2>
-          <p>The background decode system in LightPhotos, told as the sequence of problems that produced it. None of the problems are photo-specific.</p>
+        <a class="lp-post-card" href="/blogs/six-queues-and-a-reserved-worker.html">
+          <div class="lp-post-cover">
+            <img src="/blog-covers/six-queues-and-a-reserved-worker.webp" alt="" width="1200" height="675" loading="lazy" decoding="async" />
+          </div>
+          <div class="lp-post-content">
+            <h2>Six queues and a reserved worker</h2>
+            <p class="lp-post-meta">
+              <time datetime="2026-08-20">Aug 20, 2026</time>
+              <span aria-hidden="true">·</span>
+              <span>5 min read</span>
+            </p>
+            <p class="lp-post-blurb">How background decoding stays responsive under pressure.</p>
+          </div>
         </a>
       </li>
       <li>
-        <a href="/blogs/where-your-data-lives.html">
-          <time datetime="2026-08-10">August 10, 2026</time>
-          <h2>Your data lives where you are allowed to write</h2>
-          <p>Why ratings, edits and thumbnails sit in a folder next to your photos instead of in a database, and how a browser's permission rules made that decision for me.</p>
+        <a class="lp-post-card" href="/blogs/where-your-data-lives.html">
+          <div class="lp-post-cover">
+            <img src="/blog-covers/where-your-data-lives.webp" alt="" width="1200" height="675" loading="lazy" decoding="async" />
+          </div>
+          <div class="lp-post-content">
+            <h2>Your data lives where you are allowed to write</h2>
+            <p class="lp-post-meta">
+              <time datetime="2026-08-10">Aug 10, 2026</time>
+              <span aria-hidden="true">·</span>
+              <span>4 min read</span>
+            </p>
+            <p class="lp-post-blurb">Why photos, edits, and metadata stay in ordinary folders.</p>
+          </div>
         </a>
       </li>
       <li>
-        <a href="/blogs/what-imageio-gives-you-free.html">
-          <time datetime="2026-07-20">July 20, 2026</time>
-          <h2>What ImageIO gives you free, and what it costs to leave</h2>
-          <p>One call to Apple's ImageIO was doing far more for LightPhotos than I realised. Porting to Linux, Windows and the browser put a number on exactly how much.</p>
+        <a class="lp-post-card" href="/blogs/what-imageio-gives-you-free.html">
+          <div class="lp-post-cover">
+            <img src="/blog-covers/what-imageio-gives-you-free.webp" alt="" width="1200" height="675" loading="lazy" decoding="async" />
+          </div>
+          <div class="lp-post-content">
+            <h2>What ImageIO gives you free, and what it costs to leave</h2>
+            <p class="lp-post-meta">
+              <time datetime="2026-07-20">Jul 20, 2026</time>
+              <span aria-hidden="true">·</span>
+              <span>4 min read</span>
+            </p>
+            <p class="lp-post-blurb">What ImageIO gives you—and what portability costs.</p>
+          </div>
         </a>
       </li>
       <li>
-        <a href="/blogs/how-a-photo-gets-on-screen.html">
-          <time datetime="2026-07-08">July 8, 2026</time>
-          <h2>How a photo gets on screen</h2>
-          <p>Opening one photo costs one, two or three decodes, and what decides it isn't the file format. The whole trip from a file on disk to pixels on your monitor.</p>
+        <a class="lp-post-card" href="/blogs/how-a-photo-gets-on-screen.html">
+          <div class="lp-post-cover">
+            <img src="/blog-covers/how-a-photo-gets-on-screen.webp" alt="" width="1200" height="675" loading="lazy" decoding="async" />
+          </div>
+          <div class="lp-post-content">
+            <h2>How a photo gets on screen</h2>
+            <p class="lp-post-meta">
+              <time datetime="2026-07-08">Jul 8, 2026</time>
+              <span aria-hidden="true">·</span>
+              <span>6 min read</span>
+            </p>
+            <p class="lp-post-blurb">The path from a raw file to pixels on your display.</p>
+          </div>
         </a>
       </li>
       <li>
-        <a href="/blogs/learning-rust-while-the-agents-write-it.html">
-          <time datetime="2026-07-02">July 2, 2026</time>
-          <h2>Learning Rust while the agents write it</h2>
-          <p>I picked Rust knowing only the basics, and I still write very little of it by hand. The loop I run around the agents instead, and the four ways it goes wrong.</p>
+        <a class="lp-post-card" href="/blogs/learning-rust-while-the-agents-write-it.html">
+          <div class="lp-post-cover">
+            <img src="/blog-covers/learning-rust-while-the-agents-write-it.webp" alt="" width="1200" height="675" loading="lazy" decoding="async" />
+          </div>
+          <div class="lp-post-content">
+            <h2>Learning Rust while the agents write it</h2>
+            <p class="lp-post-meta">
+              <time datetime="2026-07-02">Jul 2, 2026</time>
+              <span aria-hidden="true">·</span>
+              <span>8 min read</span>
+            </p>
+            <p class="lp-post-blurb">A practical loop for learning while agents write the code.</p>
+          </div>
         </a>
       </li>
       <li>
-        <a href="/blogs/why-rust.html">
-          <time datetime="2026-06-28">June 28, 2026</time>
-          <h2>Why Rust</h2>
-          <p>All Rust, or a Rust engine with a web or Swift UI on top? What I weighed, what I gave up, and the one argument that actually decided it.</p>
+        <a class="lp-post-card" href="/blogs/why-rust.html">
+          <div class="lp-post-cover">
+            <img src="/blog-covers/why-rust.webp" alt="" width="1200" height="675" loading="lazy" decoding="async" />
+          </div>
+          <div class="lp-post-content">
+            <h2>Why Rust</h2>
+            <p class="lp-post-meta">
+              <time datetime="2026-06-28">Jun 28, 2026</time>
+              <span aria-hidden="true">·</span>
+              <span>6 min read</span>
+            </p>
+            <p class="lp-post-blurb">The architecture decision behind LightPhotos.</p>
+          </div>
         </a>
       </li>
       <li>
-        <a href="/blogs/why-i-started-lightphotos.html">
-          <time datetime="2026-06-23">June 23, 2026</time>
-          <h2>Why I started LightPhotos</h2>
-          <p>A Lightroom license that stopped working, years of photos I couldn't open, and the afternoon I gave up and built the small editor I actually needed.</p>
+        <a class="lp-post-card" href="/blogs/why-i-started-lightphotos.html">
+          <div class="lp-post-cover">
+            <img src="/blog-covers/why-i-started-lightphotos.webp" alt="" width="1200" height="675" loading="lazy" decoding="async" />
+          </div>
+          <div class="lp-post-content">
+            <h2>Why I started LightPhotos</h2>
+            <p class="lp-post-meta">
+              <time datetime="2026-06-23">Jun 23, 2026</time>
+              <span aria-hidden="true">·</span>
+              <span>5 min read</span>
+            </p>
+            <p class="lp-post-blurb">The lost photo library that started a small photo editor.</p>
+          </div>
         </a>
       </li>
     </ul>
