@@ -28,18 +28,11 @@ import Base from "../../layouts/Base.astro";
           accessibility to do it.
         </p>
         <p>
-          What decided it wasn't speed. It was that a photo editor has to
-          answer every mouse movement in real time, and that a bug living in
-          the gap between two languages is exactly the bug I'd end up debugging
-          by hand at midnight.
+          A photo editor has to answer every mouse movement in real time, and that a bug living in the gap between two languages is exactly the bug I'd end up debugging by hand at midnight.
         </p>
       </aside>
 
       <h2>What I learned</h2>
-      <p>
-        If you're weighing a similar choice, these are the four things I'd pass
-        along.
-      </p>
       <ul class="lp-article-list">
         <li>
           <strong>Write the trade-offs down before you pick.</strong> Listing
@@ -51,17 +44,15 @@ import Base from "../../layouts/Base.astro";
           <strong>Pick a design you can step into.</strong> Agents write nearly
           all of this code, and they're good at it right up until they aren't.
           When one starts fixing symptom after symptom, I need an architecture
-          simple enough that I can find the real problem myself.
+          simple enough that I can debug it reliably.
         </li>
         <li>
           <strong>Think a couple of steps ahead, not ten.</strong> Swift would
-          have been a perfectly good choice for a Mac-only app. Asking one
-          question about the browser ruled it out in about a minute.
+          have been a perfectly good choice for a Mac-only app. Adding support in the browser ruled it out immediately.
         </li>
         <li>
-          <strong>Keep the core away from the UI anyway.</strong> Even with one
-          language, the editing logic lives in its own module. That's cheap
-          insurance against my own future opinions.
+          <strong>Keep the core away from the UI.</strong> Even with one
+          language, the editing logic lives in its own module.
         </li>
       </ul>
 
@@ -89,8 +80,8 @@ import Base from "../../layouts/Base.astro";
       </ul>
       <p>
         Two more things were nagging at me. I eventually wanted a browser
-        version, so I could edit the same way without sitting at my Mac. And I
-        had a feeling I'd want Windows and Linux one day.
+        version, so I could edit the same way without using my own Mac. I
+        had a feeling that I might want to support Windows and Linux one day as well.
       </p>
 
       <p>It came down to two shapes for the app.</p>
@@ -120,8 +111,7 @@ import Base from "../../layouts/Base.astro";
           </div>
         </div>
         <figcaption>
-          With all Rust, the UI calls the engine directly. With the split, every
-          slider drag and every preview crosses between two runtimes.
+          With all Rust, the UI calls the engine directly. With the split, every slider drag and every preview crosses between two runtimes.
         </figcaption>
       </figure>
 
@@ -132,17 +122,12 @@ import Base from "../../layouts/Base.astro";
         better performance, fewer dependencies and a simpler thing to ship.
       </p>
       <p>
-        What I'd lose is real, and I want to be honest about it. Rust has no UI
-        toolkit of its own. The community libraries work, but nothing I build
-        with them will look as sharp as a well-styled web page or a native Mac
-        app. Browsers also hand you good accessibility for free, and Rust UI
-        libraries don't come close yet.
+        What I'd lose is real too. Rust has no UI toolkit of its own. The community libraries work, but nothing I build with them will look as sharp as a well-styled web page or a native Mac app. Browsers also hand you good accessibility for free, and Rust UI libraries don't come close yet.
       </p>
       <p>
         Splitting it would give me the best of both ecosystems and total
         control over the look, since with CSS I could fuss over every pixel.
-        The cost is keeping two systems in sync, and on the Mac it means
-        shipping an Electron app.
+        The cost is keeping two systems in sync.
       </p>
 
       <h2>What about Swift?</h2>
@@ -215,10 +200,6 @@ import Base from "../../layouts/Base.astro";
         </table>
       </div>
 
-      <h2>The argument that actually decided it</h2>
-      <p>
-        Here's the thing I kept coming back to. A photo editor isn't a web app.
-      </p>
       <p>
         In a web app a little latency is expected and forgiven. You click a
         button, you wait a beat, the server answers. In a photo editor, drag,
@@ -278,17 +259,13 @@ import Base from "../../layouts/Base.astro";
         This is where the choice stopped being a normal architecture debate.
       </p>
       <p>
-        I don't write most of this code. Coding agents do, and I've found
+        I didn't write most of this code. Coding agents did, and I've found
         they're strong inside one language and one mental model, and much
         weaker at a subtle mismatch between two systems written in different
-        languages. That's the kind of problem where an agent will patch the
-        symptom, then patch the next symptom, and after four rounds you have a
-        pile of guards and nobody has said out loud what's actually wrong.
+        languages.
       </p>
       <p>
-        So when I picked the architecture, I wasn't only asking what would
-        perform well. I was asking which design leaves me able to step in and
-        find a problem myself when the agents get stuck. One language and one
+        I wanted a design that lets me able to step in and find a problem myself when the agents get stuck. One language and one
         runtime means there's no gap for that class of bug to hide in.
       </p>
       <p>
@@ -296,10 +273,6 @@ import Base from "../../layouts/Base.astro";
         to use no more memory than it needs, and with everything in Rust
         there's no second runtime to load and no copies of the image handed
         back and forth.
-      </p>
-      <p>
-        So I built it all in Rust. The UI isn't the prettiest thing you'll see
-        this year. I'm at peace with that.
       </p>
 
       <h2>Leaving myself a way out</h2>
@@ -313,7 +286,6 @@ import Base from "../../layouts/Base.astro";
         it pile up, which is the same instinct. Both are about keeping the
         thing small enough that I can still hold it in my head.
       </p>
-
 
 
       <nav class="lp-article-nav" aria-label="More posts">

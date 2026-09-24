@@ -12,9 +12,8 @@ import Base from "../../layouts/Base.astro";
         <p class="lp-article-meta"><a href="/blogs.html">Blogs</a> &middot; <time datetime="2026-06-23">June 23, 2026</time></p>
         <h1>Why I started LightPhotos</h1>
         <p class="lp-article-dek">
-          A Lightroom license that stopped working, years of photos I couldn't
-          open, and the afternoon I gave up and built the small editor I
-          actually needed.
+          A Lightroom license stopped working, years of photos I couldn't
+          open from Apple Photos, and the afternoon I gave up and built the small editor I actually needed.
         </p>
         <p class="lp-article-byline">Andrew Yao &middot; 5 min read</p>
       </header>
@@ -22,30 +21,20 @@ import Base from "../../layouts/Base.astro";
       <aside class="lp-tldr">
         <p class="lp-tldr-label">TL;DR</p>
         <p>
-          I paid for Lightroom, then an OS upgrade quietly killed it. I lost
-          years of photos to a library format only one app could read. The free
-          editors wanted me to learn a whole craft when I just wanted to send
-          some pictures to my friends.
+          I paid for Lightroom 6, then an Mac OS upgrade prevented me from installing it again. I switched to Apple Photos, but after several years and more upgrades, I lost years of photos to a library format only accessible to an older version of Apple Photos. I tried various free photo editors like Darktable, but they all wanted me to learn a whole craft when I just wanted to send some pictures to my friends.
         </p>
         <p>
-          So one afternoon I wrote down seven things and built the smallest
-          editor that would do them. It has also turned into how I'm embracing
-          coding agents to build software, and doing it with care rather than
-          speed.
+          So one afternoon I wrote down the things and built the smallest
+          photo editor that would work for my workflows. It has also turned into how I'm embracing coding agents to build software, and doing it with care rather than speed.
         </p>
       </aside>
 
       <h2>What I learned</h2>
-      <p>
-        If you only read this far, these are the four things I'd want you to
-        take away.
-      </p>
       <ul class="lp-article-list">
         <li>
           <strong>Keep your photos as plain files.</strong> A backup only helps
           you if something can still open it. Ordinary files on a drive can be
-          opened by any app, today or in ten years. I learned this the
-          expensive way.
+          opened by any app, today or in ten years.
         </li>
         <li>
           <strong>Buying software once doesn't mean you own it.</strong> An OS
@@ -57,19 +46,11 @@ import Base from "../../layouts/Base.astro";
           editors could do everything, and that is exactly what made them
           impossible for me to pick up.
         </li>
-        <li>
-          <strong>Write the list first.</strong> Deciding on seven things up
-          front is what let me say no to everything else, and it's the single
-          habit that has mattered most since.
-        </li>
       </ul>
 
       <h2>Nothing quite fit</h2>
       <p>
-        I took some pictures with my Sony full-frame camera. I shoot RAW, so
-        most of them needed a little work before I could share them. That
-        should be a five-minute problem. It took me a week, and none of it was
-        editing.
+        I am an amateur photographer who likes taking pictures with my Sony full-frame camera. I shoot RAW, so most of them needed a little work before I could share them.
       </p>
 
       <figure class="lp-figure">
@@ -77,14 +58,14 @@ import Base from "../../layouts/Base.astro";
           <text class="lp-fig-label" x="0" y="12">WHAT I TRIED FIRST</text>
 
           <rect class="lp-fig-box" x="0" y="24" width="190" height="24" rx="5"></rect>
-          <text class="lp-fig-s" x="12" y="40">Lightroom Classic</text>
+          <text class="lp-fig-s" x="12" y="40">Lightroom 6</text>
           <circle class="lp-fig-bad" cx="204" cy="36" r="3"></circle>
-          <text class="lp-fig-s" x="216" y="40">I own it. The installer stopped running after an upgrade.</text>
+          <text class="lp-fig-s" x="216" y="40">I own it. After a clean OS upgrade and I tried to reinstall lightroom 6, the installer does not run on the new OS.</text>
 
           <rect class="lp-fig-box" x="0" y="54" width="190" height="24" rx="5"></rect>
           <text class="lp-fig-s" x="12" y="70">Luminar AI</text>
           <circle class="lp-fig-bad" cx="204" cy="66" r="3"></circle>
-          <text class="lp-fig-s" x="216" y="70">Fine, but not the keyboard-first way I actually edit.</text>
+          <text class="lp-fig-s" x="216" y="70">Fine, but not quite the experience and performance I was looking for.</text>
 
           <rect class="lp-fig-box" x="0" y="84" width="190" height="24" rx="5"></rect>
           <text class="lp-fig-s" x="12" y="100">Apple Photos</text>
@@ -99,23 +80,17 @@ import Base from "../../layouts/Base.astro";
           <rect class="lp-fig-box" x="0" y="144" width="190" height="24" rx="5"></rect>
           <text class="lp-fig-s" x="12" y="160">Lightroom subscription</text>
           <circle class="lp-fig-bad" cx="204" cy="156" r="3"></circle>
-          <text class="lp-fig-s" x="216" y="160">$10 a month for something I open a few times a year.</text>
+          <text class="lp-fig-s" x="216" y="160">$10 a month for something I open once in a while.</text>
 
           <line class="lp-fig-line" x1="95" y1="168" x2="95" y2="184"></line>
           <path class="lp-fig-arrow" d="M90 184 L100 184 L95 194 Z"></path>
           <rect class="lp-fig-box-accent" x="0" y="196" width="190" height="28" rx="5"></rect>
           <text class="lp-fig-t" x="95" y="215" text-anchor="middle">Build a small one myself</text>
         </svg>
-        <figcaption>
-          A week of evaluating software to avoid an afternoon of writing it.
-          I've made worse trades.
-        </figcaption>
       </figure>
 
-      <h2>The one I actually loved</h2>
       <p>
-        I want to slow down on Apple Photos, because it doesn't belong with the
-        others on that list. I really like Apple Photos. It's beautiful, it's
+        I actually really like Apple Photos. It's beautiful, it's
         fast, and it does very nearly everything I wanted. If you use it and
         you're happy, I completely understand why.
       </p>
@@ -125,10 +100,6 @@ import Base from "../../layouts/Base.astro";
         what that means the hard way. A newer version of macOS refused to open
         Photos libraries from my older backups, and several years of pictures
         went with it.
-      </p>
-      <p>
-        The backups were fine. They were sitting right there on the drive. The
-        only app that could read them just wouldn't.
       </p>
       <p>
         That's the part I can't get past, and it has nothing to do with the
@@ -175,8 +146,7 @@ import Base from "../../layouts/Base.astro";
       <p>
         It doesn't fit how I keep things either. My main drive is for recent
         work, and older shoots move off to other drives. I don't want hundreds
-        of gigabytes sitting on my laptop, locked inside a library I might not
-        be able to open in a few years.
+        of gigabytes sitting on my laptop's main hard drive, locked inside a library I might not be able to open in a few years.
       </p>
 
       <h2>So I built one</h2>
@@ -188,17 +158,14 @@ import Base from "../../layouts/Base.astro";
       </p>
       <ol class="lp-article-list">
         <li>
-          <strong>Open any folder and show the photos in it.</strong> No import
-          step and no library file. My photos stay as ordinary files on
-          whatever drive holds them, so I can always open them with something
-          else.
+          <strong>Open any folder and show the photos in it.</strong> My photos stay as ordinary files on whatever drive holds them, so I can always open them with something else.
         </li>
         <li>
           <strong>Rate photos from 1 to 5,</strong> so I can go through a shoot
           quickly and mark the keepers.
         </li>
         <li>
-          <strong>Filter by rating,</strong> so I only see the photos I like.
+          <strong>Filter by rating,</strong> so I only see and work on the photos I like.
         </li>
         <li>
           <strong>Adjust exposure, highlights, shadows and the other basics.</strong>
@@ -222,13 +189,7 @@ import Base from "../../layouts/Base.astro";
 
       <h2>What I'm really after</h2>
       <p>
-        Here's the part I didn't expect when I started, and it's the reason
-        I've kept going long after those photos were sent.
-      </p>
-      <p>
-        I don't write much of the code. Coding agents do. That's easy to say
-        and much harder to do well, because an agent will happily hand you
-        something that compiles, runs, and is quietly wrong or quietly slow. A
+        I try not to write much of the code and let coding agents do the work. That's easy to say and much harder to do well, because an agent will happily hand you something that compiles, runs, but produces the wrong some of the time or crashes under untested conditions. A
         photo editor is an unusually honest place to find that out. If a slider
         lags or a folder of RAW files eats your memory, you feel it
         immediately. There's nowhere to hide.
