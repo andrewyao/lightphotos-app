@@ -5,6 +5,8 @@
   <title>LightPhotos for Web</title>
   <meta name="description" content="LightPhotos in the browser — open a local folder, cull and develop your photos, your photos stay on your machine. Anonymous usage and reliability events help improve the app." />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" type="image/png" href="/favicon.png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
   <style>
     html, body { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background: #1e1e1e; }
   </style>
@@ -52,9 +54,9 @@ try {
 if (!navigator.gpu && window.lpTrack) {
   window.lpTrack('webgpu_unsupported', { reason: 'api_missing' });
 }
-const bindings = await import('/app/lightphotos-4ae34c10e3b58db1.js');
+const bindings = await import('/app/lightphotos-b5cf898f397c3f68.js');
 const init = bindings.default;
-const wasm = await init({ module_or_path: '/app/lightphotos-4ae34c10e3b58db1_bg.wasm' });
+const wasm = await init({ module_or_path: '/app/lightphotos-b5cf898f397c3f68_bg.wasm' });
 
 window.wasmBindings = bindings;
 
@@ -74,8 +76,8 @@ dispatchEvent(new CustomEvent("TrunkApplicationStarted", {detail: {wasm}}));
        stable, non-hashed filenames by design (see web_worker_pool.rs's
        spawn_worker doc comment), so these two don't need updating on
        redeploy the way the two hashed URLs above do. -->
-  <link rel="modulepreload" href="/app/lightphotos-4ae34c10e3b58db1.js" crossorigin="anonymous">
-  <link rel="preload" href="/app/lightphotos-4ae34c10e3b58db1_bg.wasm" crossorigin="anonymous" as="fetch" type="application/wasm">
+  <link rel="modulepreload" href="/app/lightphotos-b5cf898f397c3f68.js" crossorigin="anonymous">
+  <link rel="preload" href="/app/lightphotos-b5cf898f397c3f68_bg.wasm" crossorigin="anonymous" as="fetch" type="application/wasm">
 </head>
 <body>
   <!-- winit inserts its own <canvas> here at startup (web_canvas.rs) — the
