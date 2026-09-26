@@ -1,9 +1,11 @@
 ---
 import Base from "../layouts/Base.astro";
 
-// Build artifacts live in public/downloads/ and are served straight from
-// /downloads/<file>. Sizes are the on-disk archive sizes, refreshed whenever a
-// new build is dropped in.
+// Build artifacts are the assets of the newest GitHub release. GitHub's
+// /releases/latest/download/<file> redirect always serves the newest one, so
+// the asset names must stay unversioned. Sizes are the release asset sizes in
+// MiB, refreshed by hand with each release.
+const RELEASES = "https://github.com/andrewyao/lightphotos/releases/latest/download";
 //
 // `id` is the join key between this table, the per-build CSS below and the
 // platform sniffer in the inline script. An id the sniffer picks that isn't
@@ -18,7 +20,7 @@ const builds = [
     id: "macos-arm64",
     label: "Download for Apple Silicon",
     file: "lightphotos-macos-arm64.dmg",
-    size: "4.4 MB",
+    size: "4.5 MB",
     steps: [
       "Open the .dmg and drag LightPhotos into your Applications folder.",
       "The first launch gets blocked, because the app is not notarized yet.",
@@ -30,7 +32,7 @@ const builds = [
     id: "windows-x86_64",
     label: "Download for Windows",
     file: "lightphotos-windows-x86_64.zip",
-    size: "7.6 MB",
+    size: "7.8 MB",
     steps: [
       "Unzip the archive anywhere. Inside is one lightphotos.exe, with no installer to sit through.",
       "SmartScreen warns about an unrecognized publisher the first time you run it.",
@@ -42,7 +44,7 @@ const builds = [
     label: "Download for Linux x86",
     note: "Ubuntu 24.04+, Debian 13, Fedora 40+",
     file: "lightphotos-linux-x86_64.tar.gz",
-    size: "9.8 MB",
+    size: "9.9 MB",
     steps: [
       "Extract the tarball and run the binary inside. Nothing to install, nothing to configure.",
     ],
@@ -53,7 +55,7 @@ const builds = [
     label: "Download for Linux ARM",
     note: "Ubuntu 24.04+, Debian 13, Fedora 40+",
     file: "lightphotos-linux-arm64.tar.gz",
-    size: "9.3 MB",
+    size: "9.5 MB",
     steps: [
       "Extract the tarball and run the binary inside. Nothing to install, nothing to configure.",
     ],
@@ -161,7 +163,7 @@ const osCss = builds
       {builds.map((b) => (
         <article class="lp-split-card" data-os-id={b.id}>
           <div class="lp-dl-foot">
-            <a class="lp-btn" href={`/downloads/${b.file}`} download>{b.label}</a>
+            <a class="lp-btn" href={`${RELEASES}/${b.file}`}>{b.label}</a>
             <span class="lp-meta">{b.size}</span>
           </div>
           {b.note && <p class="lp-dl-req">{b.note}</p>}
