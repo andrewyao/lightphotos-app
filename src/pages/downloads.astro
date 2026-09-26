@@ -122,11 +122,11 @@ const osCss = builds
     }
 
     document.addEventListener("click", function (event) {
-      // Downloads are static files, so a click on one produces no page view of
-      // its own. This is the only place the platform split gets recorded.
-      // Never preventDefault here -- sendBeacon has already handed the request
-      // to the browser, and the download must proceed untouched.
-      var dl = event.target.closest(".lp-btn[download]");
+      // Downloads are GitHub release assets, so a click on one produces no page
+      // view of its own. This is the only place the platform split gets
+      // recorded. Never preventDefault here -- sendBeacon has already handed
+      // the request to the browser, and the download must proceed untouched.
+      var dl = event.target.closest(".lp-dl-grid .lp-btn");
       if (dl) {
         var card = dl.closest("[data-os-id]");
         if (window.lpTrack) {
@@ -183,6 +183,7 @@ const osCss = builds
       <span class="lp-shared-tag">Nothing here fits?</span>
       <ul class="lp-check lp-shared-list">
         <li>On an Intel Mac, or something else entirely? The <a href="/app.html">web app</a> is the same editor, in any browser with WebGPU</li>
+        <li>Want release notes or an older version? Every build is on the <a href="https://github.com/andrewyao/lightphotos/releases">GitHub releases page</a></li>
         <li>Either way your photos stay on disk. Your edits are saved in a small file inside a .lightphotos subfolder, so if you move a folder somewhere else, all of its edits travel with it</li>
       </ul>
     </div>
