@@ -1,0 +1,316 @@
+---
+import Base from "../../layouts/Base.astro";
+---
+<Base
+  title="How Auto Tone works — LightPhotos Blog"
+  desc="Auto Tone sets seven sliders from a photo's own histogram. Four of them are solved against the real editing pipeline, three are rules of thumb, and none of it is a trained model."
+  active="blogs"
+>
+  <main class="lp-page">
+    <article class="lp-article">
+      <header class="lp-article-head">
+        <p class="lp-article-meta"><a href="/blogs.html">Blogs</a> &middot; <time datetime="2026-09-26">September 26, 2026</time></p>
+        <h1>How Auto Tone works</h1>
+        <p class="lp-article-dek">
+          Auto Tone sets seven sliders from a photo's own histogram. Four are
+          solved against the real editing pipeline, three are rules of thumb,
+          and none of it is a trained model.
+        </p>
+        <p class="lp-article-byline">Andrew Yao &middot; 7 min read</p>
+      </header>
+
+      <aside class="lp-tldr">
+        <p class="lp-tldr-label">TL;DR</p>
+        <p>
+          Press Auto (or Cmd+U) and LightPhotos looks at a 256-pixel version
+          of the photo and sets Exposure, Blacks, Whites, Contrast, Shadows,
+          Highlights and Vibrance. It doesn't work out the right numbers with
+          math. It guesses a slider value, runs it through the same pipeline
+          the editor uses, checks the result, and halves the guess until the
+          middle of the histogram, the darkest 1% and the brightest 1% land
+          where they should.
+        </p>
+        <p>
+          The first version got colourful photos badly wrong, and fixing that
+          taught me more than writing it did. It takes about 7&nbsp;ms per
+          photo, so a batch of thousands runs in the background while you keep
+          working.
+        </p>
+      </aside>
+
+      <h2>What I learned</h2>
+      <ul class="lp-article-list">
+        <li>
+          <strong>Let the computer find the number.</strong> Working out the
+          exact slider value by hand means inverting every curve in the
+          pipeline, and every change to the pipeline breaks it. Guessing and
+          checking against the real pipeline stays correct for free.
+        </li>
+        <li>
+          <strong>An average can lie about the thing it summarises.</strong>
+          Treating a bucket of red pixels as "a gray of the same brightness"
+          made saturated photos read twice as bright as they were.
+        </li>
+        <li>
+          <strong>A sorted list stops being sorted once you change the
+          values.</strong> Brightening one colour more than another can swap
+          their order, so the darkest 1% has to be found again for every
+          guess.
+        </li>
+        <li>
+          <strong>Size a batch by what's in flight, not by what was
+          asked.</strong> Asking for every thumbnail up front was fine for 50
+          photos and asked the browser for about 8&nbsp;GB at 20,000.
+        </li>
+      </ul>
+
+      <h2>What it's for</h2>
+      <p>
+        Most of my RAW files need the same few things: a bit more exposure,
+        deeper blacks, a little less glare in the sky. Auto Tone is there to
+        do that first pass so I start from something close and only nudge. It
+        only touches the tone sliders. Your crop, white balance, saturation
+        and noise reduction are left exactly as they were.
+      </p>
+      <p>
+        The idea isn't mine. The overall shape comes from RapidRAW's auto
+        adjust, an open-source editor. Its constants didn't carry over,
+        because its sliders are built differently: its Blacks lifts only the
+        pixels near black, while ours remaps the whole range. So I kept the
+        shape and found new numbers.
+      </p>
+
+      <figure class="lp-figure">
+        <svg viewBox="0 0 640 196" role="img" aria-label="The Auto Tone pipeline. The photo is shrunk to 256 pixels and turned into a 256-bin histogram. Exposure, Blacks, Whites and Contrast are solved three times over against the real pipeline. Then Shadows, Highlights and Vibrance are set by simple rules, and the result is saved as an ordinary edit.">
+          <text class="lp-fig-label" x="0" y="12">ONE PHOTO THROUGH AUTO TONE</text>
+
+          <rect class="lp-fig-box" x="0" y="28" width="140" height="44" rx="5"></rect>
+          <text class="lp-fig-t" x="70" y="47" text-anchor="middle">256 px sample</text>
+          <text class="lp-fig-s" x="70" y="63" text-anchor="middle">linear light</text>
+          <line class="lp-fig-line" x1="140" y1="50" x2="158" y2="50"></line>
+          <path class="lp-fig-arrow" d="M158 45 L168 50 L158 55 Z"></path>
+
+          <rect class="lp-fig-box" x="168" y="28" width="140" height="44" rx="5"></rect>
+          <text class="lp-fig-t" x="238" y="47" text-anchor="middle">Histogram</text>
+          <text class="lp-fig-s" x="238" y="63" text-anchor="middle">256 bins, colour kept</text>
+          <line class="lp-fig-line" x1="308" y1="50" x2="326" y2="50"></line>
+          <path class="lp-fig-arrow" d="M326 45 L336 50 L326 55 Z"></path>
+
+          <rect class="lp-fig-box-accent" x="336" y="28" width="304" height="44" rx="5"></rect>
+          <text class="lp-fig-t" x="488" y="47" text-anchor="middle">Solve, three passes</text>
+          <text class="lp-fig-s" x="488" y="63" text-anchor="middle">Exposure → Blacks → Whites → Contrast</text>
+
+          <line class="lp-fig-line" x1="488" y1="72" x2="488" y2="94"></line>
+          <path class="lp-fig-arrow" d="M483 94 L493 94 L488 104 Z"></path>
+
+          <rect class="lp-fig-box" x="336" y="104" width="304" height="44" rx="5"></rect>
+          <text class="lp-fig-t" x="488" y="123" text-anchor="middle">Rules of thumb</text>
+          <text class="lp-fig-s" x="488" y="139" text-anchor="middle">Shadows, Highlights, Vibrance</text>
+          <line class="lp-fig-line" x1="336" y1="126" x2="318" y2="126"></line>
+          <path class="lp-fig-arrow" d="M318 121 L308 126 L318 131 Z"></path>
+
+          <rect class="lp-fig-box" x="168" y="104" width="140" height="44" rx="5"></rect>
+          <text class="lp-fig-t" x="238" y="123" text-anchor="middle">Saved edit</text>
+          <text class="lp-fig-s" x="238" y="139" text-anchor="middle">original untouched</text>
+
+          <text class="lp-fig-s" x="0" y="184">Other sliders (crop, white balance, saturation, denoise) are kept as you set them.</text>
+        </svg>
+      </figure>
+
+      <h2>Looking at a small copy</h2>
+      <p>
+        Auto Tone never reads the full-size file. For the photo you're looking
+        at, it reuses the 256-pixel sample the histogram already has. For
+        everything else, it shrinks the cached 512-pixel thumbnail down to the
+        same 256 pixels, so a photo gets the same answer whether you toned it
+        on its own or in a batch of a thousand.
+      </p>
+      <p>
+        Each pixel goes through the editor's own pipeline with every slider at
+        zero, so Auto Tone sees the photo the way you see it on screen.
+        Brightness goes into one of 256 bins. Each bin also keeps the average
+        colour of the pixels in it, which turned out to matter a lot.
+      </p>
+
+      <h2>Guessing instead of deriving</h2>
+      <p>
+        Four sliders each have one job:
+      </p>
+      <ul class="lp-article-list">
+        <li><strong>Exposure</strong> puts the middle of the histogram at 50% brightness.</li>
+        <li><strong>Blacks</strong> puts the darkest 1% at 1%.</li>
+        <li><strong>Whites</strong> puts the brightest 1% at 99%.</li>
+        <li>
+          <strong>Contrast</strong> only kicks in if Blacks and Whites still
+          couldn't spread the photo far enough. A well-exposed photo keeps
+          Contrast at zero.
+        </li>
+      </ul>
+      <p>
+        The targets are 1% and 99% rather than 0% and 100% because aiming at
+        the very ends would clip 1% of the photo to pure black and pure white.
+      </p>
+      <p>
+        To hit each target, Auto Tone uses the oldest trick there is:
+        bisection. Try the middle of the slider's range, run the histogram
+        through the pipeline, see whether the result is too dark or too
+        bright, and throw away the wrong half. Twenty-four halvings of a
+        &minus;100 to +100 slider gets within a hundred-thousandth.
+      </p>
+      <pre class="lp-code">lo, hi = slider range
+repeat 24 times:
+    mid = (lo + hi) / 2
+    if measure(photo with slider = mid) &lt; target: lo = mid
+    else: hi = mid</pre>
+      <p>
+        The sliders affect each other, so it does Exposure, Blacks, Whites and
+        Contrast in order and then goes round twice more. Three passes was
+        enough for every photo I tried.
+      </p>
+      <p>
+        This only works if a slider always moves its measure in one direction:
+        more Exposure never makes the middle darker. There are tests that check
+        exactly that, on both the ordinary and RAW pipelines, because if it
+        stops being true the search quietly lands on the wrong number.
+      </p>
+      <p>
+        The first version's notes said Blacks and Whites were worked out
+        "in closed form" by a function that didn't exist. The code had always
+        been bisecting them. It's a good example of why I read the code, not
+        the summary.
+      </p>
+
+      <h2>The red-pixel bug</h2>
+      <p>
+        Bisection is cheap only because it doesn't re-run every pixel for
+        every guess. Each of the 256 bins sends one stand-in through the
+        pipeline, weighted by how many pixels it holds. In the first version
+        that stand-in was a gray with the bin's average brightness.
+      </p>
+      <p>
+        That's wrong for colour. Pure red appears about 30% bright on screen,
+        but a gray carrying the same amount of light appears about 58%
+        bright. On a very saturated test photo, Auto Tone measured the middle
+        of the histogram at twice its real brightness and stopped with the
+        photo still too dark. The solved middle sat at 0.15 when the target
+        was 0.5.
+      </p>
+
+      <figure class="lp-figure">
+        <svg viewBox="0 0 640 156" role="img" aria-label="Pure red displays at about 0.30 brightness. A gray carrying the same amount of light displays at about 0.58. Using the gray as a stand-in made saturated photos read too bright. After the fix, the solved middle of a saturated test photo moved from 0.15 to 0.53 against a target of 0.50.">
+          <text class="lp-fig-label" x="0" y="12">SAME LIGHT, DIFFERENT BRIGHTNESS ON SCREEN</text>
+
+          <text class="lp-fig-s" x="0" y="44">Pure red</text>
+          <rect class="lp-fig-bad" x="130" y="32" width="150" height="16" rx="3"></rect>
+          <text class="lp-fig-s" x="290" y="44">0.30</text>
+
+          <text class="lp-fig-s" x="0" y="72">Gray stand-in</text>
+          <rect class="lp-fig-bar-dim" x="130" y="60" width="290" height="16" rx="3"></rect>
+          <text class="lp-fig-s" x="430" y="72">0.58, reads too bright</text>
+
+          <line class="lp-fig-line-soft" x1="0" y1="92" x2="640" y2="92"></line>
+
+          <text class="lp-fig-label" x="0" y="114">SOLVED MIDDLE ON A SATURATED PHOTO (TARGET 0.50)</text>
+          <circle class="lp-fig-bad" cx="6" cy="136" r="4"></circle>
+          <text class="lp-fig-s" x="18" y="140">Gray stand-ins: 0.15</text>
+          <circle class="lp-fig-good" cx="206" cy="136" r="4"></circle>
+          <text class="lp-fig-s" x="218" y="140">Colour stand-ins: 0.53</text>
+        </svg>
+      </figure>
+
+      <p>
+        The fix was to keep a real colour for each bin: the average colour of
+        its pixels, scaled down until it appears exactly as bright as the bin
+        says. The scaling matters too. Averaging in linear light and then
+        converting for the screen reads up to 8% brighter than the pixels
+        really are, and that alone was enough to make Exposure stop short.
+        After the fix, the saturated photo landed at 0.53.
+      </p>
+
+      <h2>Sorted lists don't stay sorted</h2>
+      <p>
+        The first version also sorted the bins once and assumed the order
+        held: if bin A was darker than bin B before the edit, it would be
+        darker after. For grays that's true. For colours it isn't. Push Whites
+        to +100 and a bright red can end up darker than a gray it used to
+        outshine.
+      </p>
+      <p>
+        So now every guess re-sorts the 256 stand-ins by their new brightness
+        before finding the middle and the 1% ends. That's 256 pipeline runs
+        and a sort per guess, still tiny next to running every pixel. The test
+        for this builds a scene where red and gray swap places and checks the
+        answer against every real pixel.
+      </p>
+
+      <h2>The three sliders I eyeballed</h2>
+      <p>
+        Shadows, Highlights and Vibrance don't have a clean target, so they're
+        rules of thumb. The code says so plainly: "Hand-picked rules with
+        eyeballed constants. Retune by eye."
+      </p>
+      <ul class="lp-article-list">
+        <li>
+          <strong>Shadows</strong> lifts when more than 5% of the photo is
+          near black.
+        </li>
+        <li>
+          <strong>Highlights</strong> pulls down when more than 2% is near
+          white.
+        </li>
+        <li>
+          <strong>Vibrance</strong> adds a little colour to very muted
+          photos.
+        </li>
+      </ul>
+      <p>
+        There's one guard that matters more than the rules. If the photo
+        already has blown highlights, Exposure can only go down. An auto
+        button that brightens a clipped sky is worse than no button.
+      </p>
+
+      <h2>Doing thousands at once</h2>
+      <p>
+        Cmd+Shift+U tones the whole selection. Each photo takes about 7&nbsp;ms
+        to analyse, and it runs on the main thread, so a batch works through
+        at most 5&nbsp;ms of analysis per frame and the app never stutters.
+        Thumbnails load in the background, at most 32 at a time. That number
+        comes from measurement: a slow RAW thumbnail can take 137&nbsp;ms, so
+        you need about 17 in flight to keep the analysis fed, and 32 leaves
+        margin for about 13&nbsp;MB.
+      </p>
+      <p>
+        Before that window existed, a batch asked for every thumbnail at once.
+        On the desktop that meant thumbnails could be thrown out of the cache
+        before Auto Tone got to them. In the browser, a 20,000-photo selection
+        asked for roughly 8&nbsp;GB in a memory space that tops out at 4.
+      </p>
+      <p>
+        Two smaller rules keep batches honest. If you edit a photo by hand
+        while it's waiting in the batch, Auto Tone skips it. If you switch
+        folders, the batch is cancelled, so a late result can't land on a
+        same-named photo in the new folder.
+      </p>
+
+      <h2>What it doesn't do</h2>
+      <p>
+        It doesn't touch white balance, and it looks at the whole frame even
+        if you've cropped. There's no undo for it yet either. Reset or the
+        sliders get you back. Those are the next things I'd like to fix.
+      </p>
+      <p>
+        If Auto Tone does something odd to one of your photos, I'd love to
+        see it. Open an issue on the <a
+        href="https://github.com/andrewyao/lightphotos/issues">issue
+        tracker</a> with the photo if you can share it.
+      </p>
+
+      <nav class="lp-article-nav" aria-label="More posts">
+        <a class="lp-article-nav-prev" href="/blogs/exporting-to-your-own-immich-server.html">
+          <span class="lp-article-nav-dir">Back</span>
+          <span class="lp-article-nav-title">Exporting to your own Immich server</span>
+        </a>
+      </nav>
+    </article>
+  </main>
+</Base>
