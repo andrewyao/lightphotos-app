@@ -171,8 +171,10 @@ import Base from "../../layouts/Base.astro";
       </p>
       <p>
         The fix was to do the conversion in the shaders ourselves, on every
-        platform, not just the browser. With one path, the desktop and
-        browser builds can no longer drift apart on colour.
+        platform, not just the browser. That last step is now shared, so the
+        desktop and browser builds can't drift apart on how colour reaches
+        the screen. Decoding still differs: on macOS photos come in through
+        Apple's ImageIO, and everywhere else through our own decoders.
       </p>
 
       <h2>Threads that aren't threads</h2>
@@ -291,7 +293,7 @@ import Base from "../../layouts/Base.astro";
       <p>
         Yes. Being able to send someone a link instead of an installer is
         worth a lot, and the port made the desktop app better along the way:
-        one colour path everywhere, thread pools that don't panic when they
+        the same shader colour conversion on every platform, thread pools that don't panic when they
         can't start, and a thumbnail cache that lives next to your photos.
       </p>
       <p>
