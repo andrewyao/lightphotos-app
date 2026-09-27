@@ -21,11 +21,14 @@ import Base from "../../layouts/Base.astro";
       <aside class="lp-tldr">
         <p class="lp-tldr-label">TL;DR</p>
         <p>
-          I paid for Lightroom 6, then an Mac OS upgrade prevented me from installing it again. I switched to Apple Photos, but after several years and more upgrades, I lost years of photos to a library format only accessible to an older version of Apple Photos. I tried various free photo editors like Darktable, but they all wanted me to learn a whole craft when I just wanted to send some pictures to my friends.
-        </p>
-        <p>
-          So one afternoon I wrote down the things and built the smallest
-          photo editor that would work for my workflows. It has also turned into how I'm embracing coding agents to build software, and doing it with care rather than speed.
+          I paid for Lightroom 6, and after a macOS upgrade I couldn't install
+          it again. I moved to Apple Photos, and a few years and a few upgrades
+          later I lost years of photos stuck in a library the newer version
+          wouldn't open. The free editors I tried, like Darktable, wanted me to
+          learn a whole craft when I just wanted to send some pictures to my
+          friends. So I wrote down the few things I actually needed and built
+          the smallest editor that does them, with coding agents writing most
+          of the code.
         </p>
       </aside>
 
@@ -33,24 +36,33 @@ import Base from "../../layouts/Base.astro";
       <ul class="lp-article-list">
         <li>
           <strong>Keep your photos as plain files.</strong> A backup only helps
-          you if something can still open it. Ordinary files on a drive can be
-          opened by any app, today or in ten years.
+          if something can still open it. Ordinary files on a drive can be
+          opened by pretty much any app, now or ten years from now.
         </li>
         <li>
-          <strong>Buying software once doesn't mean you own it.</strong> An OS
-          upgrade can end a license just as surely as cancelling a
-          subscription, and nobody will warn you.
+          <strong>Buying software once doesn't mean you'll always be able to use it.</strong>
+          A macOS upgrade stopped my Lightroom license working just as
+          completely as cancelling a subscription would have, and nothing
+          warned me first.
         </li>
         <li>
-          <strong>More features can make a tool worse.</strong> The free
-          editors could do everything, and that is exactly what made them
-          impossible for me to pick up.
+          <strong>More features made the free editors harder for me.</strong>
+          They could do everything, and that's why I couldn't get started with
+          them.
+        </li>
+        <li>
+          <strong>Write the list before the code.</strong> Writing down what
+          the first version had to do is what let me keep saying no to
+          everything else.
         </li>
       </ul>
 
       <h2>Nothing quite fit</h2>
       <p>
-        I am an amateur photographer who likes taking pictures with my Sony full-frame camera. I shoot RAW, so most of them needed a little work before I could share them.
+        I'm an amateur photographer, and I like taking pictures with my Sony
+        full-frame camera. I shoot RAW, which means the camera saves the
+        unprocessed sensor data, so most of my shots need a little work before
+        I can share them.
       </p>
 
       <figure class="lp-figure">
@@ -90,21 +102,22 @@ import Base from "../../layouts/Base.astro";
       </figure>
 
       <p>
-        I actually really like Apple Photos. It's beautiful, it's
-        fast, and it does very nearly everything I wanted. If you use it and
-        you're happy, I completely understand why.
+        I really do like Apple Photos. It looks great, it's fast, and it does
+        nearly everything I wanted. If you use it and you're happy, I
+        completely understand why.
       </p>
       <p>
-        There's one deal breaker, and it's a big one. Your whole library lives
-        in a single file, in a format only Apple Photos can read. I found out
-        what that means the hard way. A newer version of macOS refused to open
-        Photos libraries from my older backups, and several years of pictures
-        went with it.
+        There's one deal breaker for me, though, and it's a big one. Your whole
+        library lives in a single file, in a format only Apple Photos can read.
+        I found out what that means the hard way. A newer version of macOS
+        refused to open the Photos libraries on my older backups, and several
+        years of pictures went with them. If you've ever lost photos to an
+        upgrade, you know how sick that feels.
       </p>
       <p>
-        That's the part I can't get past, and it has nothing to do with the
-        features or the speed. Everything good about it sits on top of a format
-        I don't control, and I'm not willing to make that trade a second time.
+        I can't get past that. The features and the speed are fine, but all of
+        it depends on a format I don't control, and I'm not willing to take
+        that risk again.
       </p>
 
       <figure class="lp-figure">
@@ -138,22 +151,23 @@ import Base from "../../layouts/Base.astro";
           <text class="lp-fig-s" x="520" y="170" text-anchor="middle">Open them in anything</text>
         </svg>
         <figcaption>
-          Same photos, same backup drive. The only difference is whether one
-          company's file format sits between you and them.
+          The photos and the backup drive are the same in both cases. What
+          changes is whether you need one company's app to open them.
         </figcaption>
       </figure>
 
       <p>
-        It doesn't fit how I keep things either. My main drive is for recent
-        work, and older shoots move off to other drives. I don't want hundreds
-        of gigabytes sitting on my laptop's main hard drive, locked inside a library I might not be able to open in a few years.
+        A single library doesn't fit how I keep things either. My main drive is
+        for recent work, and older shoots move off to other drives. I don't
+        want hundreds of gigabytes sitting on my laptop's main drive, locked
+        inside a library I might not be able to open in a few years.
       </p>
 
       <h2>So I built one</h2>
       <p>
         That afternoon I sat down to write a basic version myself. I wasn't
         trying to clone Lightroom. I wanted the smallest thing that would get
-        these photos to my friends, and I wrote the list down before I wrote
+        these photos to my friends, so I wrote the list down before I wrote
         any code.
       </p>
       <ol class="lp-article-list">
@@ -182,30 +196,32 @@ import Base from "../../layouts/Base.astro";
         </li>
       </ol>
       <p>
-        That's all it had to do. Anything not on that list didn't make it into
-        the first version, and writing it down is the only reason I was able to
-        keep saying no.
+        That's all it had to do. Anything that wasn't on the list stayed out of
+        the first version, and having it written down is what helped me keep
+        saying no.
       </p>
 
-      <h2>What I'm really after</h2>
+      <h2>What else I'm trying to learn</h2>
       <p>
-        I try not to write much of the code and let coding agents do the work. That's easy to say and much harder to do well, because an agent will happily hand you something that compiles, runs, but produces the wrong some of the time or crashes under untested conditions. A
-        photo editor is an unusually honest place to find that out. If a slider
-        lags or a folder of RAW files eats your memory, you feel it
-        immediately. There's nowhere to hide.
+        I try to write very little of the code myself and let coding agents do
+        most of it. That sounds simple, but doing it well is hard. An agent will
+        happily hand you something that compiles and runs, but gives the wrong
+        result some of the time or crashes in a case nobody tested. A photo
+        editor shows those problems quickly. If a slider lags, or a folder of
+        RAW files uses up all your memory, you notice right away.
       </p>
       <p>
         So LightPhotos is two projects for me at once. It's the photo editor I
-        wanted, and it's how I'm working out what it takes to build software
-        with agents and still care about quality and speed. That's what these
-        posts are mostly about.
+        wanted, and it's how I'm figuring out what it takes to build software
+        with agents while still caring about quality and speed. That's mostly
+        what these posts are about.
       </p>
 
       <h2>What comes next</h2>
       <p>
-        In the next post I'll walk through the architectural choices behind
+        In the next post I'll walk through the big design choices behind
         LightPhotos and what I gave up for each one. If any of this sounds
-        familiar, I'd genuinely like to hear how you solved it.
+        familiar, I'd really like to hear how you dealt with it.
       </p>
 
 

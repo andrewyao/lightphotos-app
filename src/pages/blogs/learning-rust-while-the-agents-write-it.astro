@@ -12,7 +12,7 @@ import Base from "../../layouts/Base.astro";
         <p class="lp-article-meta"><a href="/blogs.html">Blogs</a> &middot; <time datetime="2026-07-02">July 2, 2026</time></p>
         <h1>Learning Rust while the agents write it</h1>
         <p class="lp-article-dek">
-          I picked Rust knowing only the fundamentals. Here's the loop I run around the agents instead, and the four ways it goes wrong.
+          I picked Rust knowing only the fundamentals.
         </p>
         <p class="lp-article-byline">Andrew Yao &middot; 8 min read</p>
       </header>
@@ -20,38 +20,35 @@ import Base from "../../layouts/Base.astro";
       <aside class="lp-tldr">
         <p class="lp-tldr-label">TL;DR</p>
         <p>
-          My actual job is the loop around the agents. I draft the plan, have the coding agent improve it, let a different coding agents build it, a different agent prove it works by reviewing it, running it and parsing the logs.
+          My actual job is the loop around the agents. I draft the plan and
+          have a coding agent improve it. A different coding agent builds it,
+          and another one checks that it works by reviewing the code, running
+          it and reading the logs.
         </p>
       </aside>
 
       <h2>What I learned</h2>
-      <p>
-        If you're working this way too, or thinking about it, here's what I'd
-        want you to know before you start.
-      </p>
       <ul class="lp-article-list">
         <li>
-          <strong>Write the plan, including the proof.</strong> If I can't say
-          what would show the change worked, the agent will happily pick its
-          own definition of done, and it will be generous with itself.
+          <strong>Write down how you'll know it worked.</strong> If I don't,
+          the agent picks its own idea of done, and it's usually generous with
+          itself. Then I build one change at a time, so when something breaks
+          I know which change did it.
         </li>
         <li>
-          <strong>Be the witness.</strong> "Should now be faster" is not a
-          result. A number I watched get produced is. This one sentence has
-          saved me more time than anything else on the list.
+          <strong>Check the result yourself.</strong> When an agent says
+          something "should now be faster", I don't count it until I've seen
+          the number myself.
         </li>
         <li>
-          <strong>Review with a reader that has no history.</strong> Whatever
-          wrote the code is the worst judge of it, and also the most agreeable.
+          <strong>Get a second agent to review the code.</strong> The agent
+          that wrote it is a poor judge of it, and it tends to agree with
+          whatever I say.
         </li>
         <li>
-          <strong>One change at a time.</strong> It costs almost nothing, and
-          it preserves the only clue worth having when something breaks, which
-          is knowing which change did it.
-        </li>
-        <li>
-          <strong>Learn the language anyway.</strong> Not so I can type faster.
-          So I can tell good from merely plausible.
+          <strong>Learn the language anyway.</strong> I don't need to type Rust
+          faster. I need to be able to tell good code from code that only looks
+          right.
         </li>
       </ul>
 
@@ -61,20 +58,19 @@ import Base from "../../layouts/Base.astro";
         <a href="/blogs/why-rust.html">choosing Rust for the whole app</a>.
         What I skipped in that post is how much Rust I actually knew when I
         chose it, which was the basics. I'd shipped Rust before, so I wasn't
-        starting from zero. But the basics are a long way from a real-time
-        image pipeline that has to keep up with a slider, and I knew that gap
-        was going to hurt.
+        starting from zero. But knowing the basics is a long way from writing
+        image code that keeps up as you drag a slider, and I knew that gap was
+        going to hurt.
       </p>
       <p>
-        The second problem is the goal itself. I don't want a photo editor that
-        merely works. I want one where you move a slider and the image has
-        already changed, on a folder with thousands of RAW files in it. That's
-        a performance target, and performance is the one thing you can't bolt
-        on at the end.
+        The second problem is the goal itself. I want a photo editor where you
+        move a slider and the image has already changed, even in a folder with
+        thousands of RAW files in it. That's a speed target, and in my
+        experience speed is very hard to add at the end.
       </p>
       <p>
-        Taking on both at once is normally how a side project quietly dies.
-        What makes it survivable is that I'm not the one typing.
+        Taking on both at once is how a lot of side projects stall. I think
+        the reason mine hasn't is that I'm not the one doing the typing.
       </p>
 
       <h2>Where my time actually goes</h2>
@@ -112,93 +108,91 @@ import Base from "../../layouts/Base.astro";
           <text class="lp-fig-label" x="96" y="222">BLUE IS MY OWN HANDS ON THE KEYBOARD</text>
         </svg>
         <figcaption>
-          The agents do nearly all of the typing. The first stage is the one
-          I keep for myself, and it's the one that decides everything after
-          it.
+          The agents do nearly all of the typing. I keep planning for myself,
+          because everything after it depends on getting it right.
         </figcaption>
       </figure>
 
       <h2>Planning is the part I won't hand over</h2>
       <p>
-        Every change starts as a short written plan, and I write it. Not a
-        document, not a spec with headings. Usually a paragraph and a list. It
-        says what the change is, which parts of the app it touches, what's
-        deliberately out of scope, and how I'll know it worked.
+        Every change starts as a short written plan, and I write it myself.
+        It's usually just a paragraph and a list. It says what the change is,
+        which parts of the app it touches, what I'm deliberately leaving out,
+        and how I'll know it worked.
       </p>
       <p>
-        That last item does most of the work. If I can't say what would prove
-        the change is done, I don't have a plan, I have a wish. "Make
-        thumbnails faster" is a wish. "A folder of 3,000 photos fills the first
-        two screens without the scroll stuttering, and memory doesn't climb
-        while I scroll" is a plan.
+        That last item does most of the work. If I can't say what would show
+        the change is done, I don't really have a plan yet. "Make thumbnails
+        faster" is too vague to check. "A folder of 3,000 photos fills the
+        first two screens without the scroll stuttering, and memory doesn't
+        climb while I scroll" is something I can actually test.
       </p>
       <p>
-        Planning first is also the cheapest possible place to be wrong. An
-        agent will confidently build something completely the wrong shape.
-        Catching that in a paragraph costs me a minute. Catching it in a branch
-        costs an afternoon, and honestly I probably won't throw the branch
-        away, because by then it compiles and I'm attached to it.
+        Planning first is also the cheapest place to be wrong. An agent will
+        sometimes confidently build the wrong thing. Catching that in a
+        paragraph costs me a minute. Catching it in finished code costs an
+        afternoon, and honestly I probably won't throw that code away, because
+        by then it compiles and I'm attached to it.
       </p>
-      <blockquote class="lp-pullquote">
-        The agent's wrong assumption is free while it's still a sentence. Once
-        it's code that compiles, I start defending it.
-      </blockquote>
       <p>
-        This is the same discipline as the seven-item list in
-        <a href="/blogs/why-i-started-lightphotos.html">the first post</a>. It
-        turns out writing the list up front matters more, not less, when
-        something can implement the whole list in twenty minutes.
+        This is the same habit as the seven-item list in
+        <a href="/blogs/why-i-started-lightphotos.html">the first post</a>. I've
+        found that writing the list up front matters even more when something
+        can build the whole list in twenty minutes.
       </p>
 
       <h2>Building one thing at a time</h2>
       <p>
-        The rule I keep coming back to is that a change has to end somewhere I
-        can stand. One task, then build, then run the app, then the next task.
-        Not five tasks and a hopeful build at the end.
+        The rule I keep coming back to is that every change has to leave the
+        app in a working state. One task, then build, then run the app, then
+        the next task. I don't let five tasks pile up and hope the build works
+        at the end.
       </p>
       <p>
-        This isn't about tidiness. When two changes land together and the app
-        misbehaves, I've lost the one piece of information I care about, which
-        is which change did it. Agents are very good at producing a lot of
-        plausible code quickly, which makes them very good at destroying that
-        information if I let them.
+        I do this because when two changes land together and the app
+        misbehaves, I can't tell which one caused it, and that's the thing I
+        most need to know. Agents can write a lot of reasonable-looking code
+        very quickly, so if I'm not careful they bundle changes together and I
+        lose that clue.
       </p>
 
-      <h2>The agent can't be the only witness</h2>
+      <h2>I don't take the agent's word for it</h2>
       <p>
-        Agents are excellent at announcing success. "The thumbnail loading
-        should now be much faster." Should. That one word has cost me more time
-        than any bug in this codebase.
+        Agents are quick to announce success: "The thumbnail loading should
+        now be much faster." I've lost more time to that word "should" than to
+        any bug in this codebase.
       </p>
       <p>
-        So the pixel maths has real tests, because it's the easy case. Exposure,
-        the tone curve, white balance and the rest are pure functions, and a
-        pure function is something you can pin down with numbers that don't
-        move.
+        The pixel maths is the easy part to test, so it has real tests.
+        Exposure, the tone curve, white balance and the rest are pure
+        functions, meaning the same input always gives the same output, so I
+        can check them against fixed numbers.
       </p>
       <p>
         Everything else I check by running the app myself, and this is where
-        I'm weakest right now. Scrolling, decoding, panning, memory. Clicking
+        I'm weakest right now: scrolling, decoding, panning, memory. Clicking
         around a window tells me whether something is broken. It doesn't
-        reliably tell me whether a change made things faster or slower, because
-        I never click the same way twice.
+        reliably tell me whether a change made things faster or slower,
+        because I never click the same way twice.
       </p>
       <p>
         I don't have a good answer for that yet. It's the next thing I want to
-        fix, and I expect it'll be its own post. In the meantime my working
-        rule is that it works when I ran it, not when the agent says so.
+        fix, and I expect it'll be its own post. For now my rule is that
+        something works when I've run it and seen it work, whatever the agent
+        says.
       </p>
 
-      <h2>A reader that didn't write the code</h2>
+      <h2>Getting a second agent to review</h2>
       <p>
-        When a change is done, a fresh agent reviews it. One with no memory of
-        the conversation that produced it, told to go and find what's wrong
-        with the diff.
+        When a change is done, a fresh agent reviews it. It has no memory of
+        the conversation that produced the code, and I ask it to find what's
+        wrong with the diff, which is the list of lines the change adds and
+        removes.
       </p>
       <p>
-        That framing matters more than I expected. The agent that just wrote
-        four hundred lines is the worst possible judge of them, and it'll agree
-        with you enthusiastically whichever way you lean.
+        This helped more than I expected. The agent that just wrote four
+        hundred lines is a poor judge of them, and it'll happily agree with
+        whatever I suggest.
       </p>
 
       <figure class="lp-figure">
@@ -227,32 +221,35 @@ import Base from "../../layouts/Base.astro";
           <text class="lp-fig-s" x="352" y="158">An unasked-for refactor</text>
         </svg>
         <figcaption>
-          The findings on the right are boringly consistent, and almost all of
-          them are about waste rather than correctness.
+          The fresh reviewer finds the same kinds of problems again and again.
+          Most of them are about wasted work, and few are outright bugs.
         </figcaption>
       </figure>
 
       <p>
-        Those five come up again and again. Cloning is the easiest way to make
-        Rust stop complaining, and on a 60 MB image buffer in a per-frame
-        function that's a disaster that compiles cleanly. Allocating inside a
-        per-pixel loop looks perfectly reasonable right up until it runs twenty
-        million times. A lock held during slow work is what turns a background
-        thread into a stalled interface.
+        Those five come up over and over. Rust's compiler has a set of rules
+        about who owns each piece of memory, and making a copy (a "clone") is
+        the easiest way to get it to stop complaining. On a 60 MB image in a
+        function that runs every frame, that copy is a real problem, and it
+        still compiles without a warning. Asking for new memory inside a loop
+        that runs once per pixel looks reasonable until it runs twenty million
+        times. And holding a lock, which stops other threads from touching
+        some data, while doing slow work is how a background task ends up
+        freezing the interface.
       </p>
       <p>
-        Then I read the diff myself. Not to catch what the reviewer missed,
-        because mostly I can't. I do it because this turned out to be how I
-        learned Rust.
+        Then I read the diff myself. I'm mostly not going to catch what the
+        reviewer missed. I do it because reading those diffs is how I ended up
+        learning Rust.
       </p>
 
-      <h2>Making releases boring on purpose</h2>
+      <h2>Keeping releases dull on purpose</h2>
       <p>
-        A release is a version bump, a build for each target, and the site
-        updated with the new build. It's scripted, and it's safe to run twice.
-        That second property is the one I keep deliberately. A release I have
-        to concentrate on is a release I'll put off, and then I'm sitting on a
-        month of unshipped work.
+        A release is a version bump, a build for each platform, and the site
+        updated with the new build. It's scripted, and it's safe to run twice
+        by accident. I care about keeping it that easy. If a release takes
+        concentration, I'll put it off, and then I'm sitting on a month of
+        work nobody can use.
       </p>
 
       <div class="lp-compare-wrap">
@@ -297,12 +294,13 @@ import Base from "../../layouts/Base.astro";
       <h2>Four ways this goes wrong</h2>
       <p>
         I don't want to make this sound smoother than it is. Here's where it
-        falls over.
+        goes wrong for me.
       </p>
       <p>
-        <strong>Whack-a-mole.</strong> A symptom gets fixed, another appears,
-        and the agent cheerfully fixes that one too. Four rounds in, the code
-        is a pile of guards and nobody has said out loud what's actually wrong.
+        <strong>Fixing symptoms.</strong> One symptom gets fixed, another
+        appears, and the agent cheerfully patches that one too. Four rounds
+        in, the code is full of special-case checks and nobody has said out
+        loud what's actually wrong.
       </p>
 
       <figure class="lp-figure">
@@ -339,69 +337,70 @@ import Base from "../../layouts/Base.astro";
           <text class="lp-fig-s" x="520" y="180" text-anchor="middle">One fix</text>
         </svg>
         <figcaption>
-          The only thing that works is to stop, reproduce the problem, and make
-          the agent state the cause before it's allowed to touch a line.
+          What works for me is to stop, reproduce the problem, and have the
+          agent tell me the cause before it changes any code.
         </figcaption>
       </figure>
 
       <p>
-        <strong>Confident numbers that were never measured.</strong> I've been
-        told a change made something "roughly three times faster" by an agent
-        that ran nothing at all. Any number I didn't watch get produced is a
-        guess wearing a number's clothes.
+        <strong>Confident numbers that were never measured.</strong> An agent
+        once told me a change made something "roughly three times faster"
+        when it hadn't run anything at all. If I didn't see a number get
+        measured, I treat it as a guess.
       </p>
       <p>
         <strong>Code that is correct and wasteful.</strong> Rust's compiler is
-        a strict reviewer, and it made me braver than I should have been. It
-        checks that you aren't doing anything unsafe. It has no opinion
-        whatsoever about whether you just copied fifty megabytes for no reason.
-        For an app whose whole premise is speed, that's a gap I have to cover
-        myself, and it's why performance is a gate in the loop rather than
-        something I hope for.
+        strict, and that made me more confident than I should have been. It
+        checks that your code isn't doing anything unsafe with memory. It
+        doesn't care at all whether you just copied fifty megabytes for no
+        reason. The whole point of this app is speed, so I have to watch for
+        that myself, and it's why a change has to pass a speed check before I
+        accept it.
       </p>
       <p>
-        <strong>Scope drift.</strong> Left unattended, a change grows. Naming
-        what's out of scope in the plan handles most of it, and reading the
-        diff handles the rest.
+        <strong>The change keeps growing.</strong> Left alone, a change picks
+        up extra work nobody asked for. Writing down what's out of scope in
+        the plan stops most of it, and reading the diff catches the rest.
       </p>
 
       <h2>So how did I actually learn Rust?</h2>
       <p>
-        Not from a book, and not by writing an app from scratch. Four things
-        did it, roughly in order of how much they taught me.
+        I didn't learn it from a book or by writing an app from scratch. Four
+        things did it, roughly in order of how much they taught me.
       </p>
       <ul class="lp-article-list">
         <li>
-          <strong>Reading diffs with one question.</strong> Why is this line
-          here? Asked a few hundred times, across real code doing something I
-          care about.
+          <strong>Reading diffs and asking why.</strong> Why is this line
+          here? I asked that a few hundred times, about real code doing
+          something I care about.
         </li>
         <li>
-          <strong>Asking for justifications.</strong> Why a clone here, why a
-          reference there, why <code>Arc</code> and not a plain value. Those
-          answers are where ownership stopped being a rule I'd read about and
-          became something I could predict.
+          <strong>Asking the agent to explain its choices.</strong> Why a
+          clone here, why a reference there, why <code>Arc</code> (a way to
+          share one value between threads) and not a plain value. Those
+          answers are where Rust's ownership rules stopped being something I'd
+          read about and became something I could predict.
         </li>
         <li>
-          <strong>Borrow checker errors.</strong> A tutor with no patience and
-          no small talk, which turns out to be a surprisingly effective
-          combination.
+          <strong>Compiler errors.</strong> Rust's borrow checker, the part of
+          the compiler that enforces those ownership rules, rejects mistakes
+          bluntly and tells you exactly where they are. That taught me a lot.
         </li>
         <li>
-          <strong>Writing some of it by hand anyway.</strong> A function per
-          session, no agent. Slow, and the only way I found out what I actually
-          understood versus what I only recognised.
+          <strong>Writing some of it by hand anyway.</strong> One function per
+          session, with no agent. It's slow, and it was the only way I found
+          out what I actually understood and what I only recognised.
         </li>
       </ul>
       <p>
         A few weeks in, I can read all of the Rust in LightPhotos and write
-        most of it. Reading is the half that matters for this loop.
+        most of it. Reading is the part that matters most for the way I work.
       </p>
       <p>
         An agent can always produce more code than I can write. What it can't
-        give me is the judgment to tell whether the code it produced is any
-        good, and that judgment is the only thing standing between "it works"
-        and the app I'm actually trying to build.
+        do is tell me whether that code is any good. I have to be able to
+        judge that myself if I want the app I'm trying to build, and not just
+        one that works.
       </p>
 
 

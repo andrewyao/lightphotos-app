@@ -3,7 +3,7 @@ import Base from "../../layouts/Base.astro";
 ---
 <Base
   title="Never load the whole folder — LightPhotos Blog"
-  desc="A folder of 8,889 photos used 1.9 GB and crashed. The fix is the most reused idea in the codebase, and I have now made the same mistake four times."
+  desc="A folder of 8,889 photos used 1.9 GB of memory and crashed. The fix is the idea I reuse most in the code, and I've now made the same mistake four times."
   active="blogs"
 >
   <main class="lp-page">
@@ -13,45 +13,79 @@ import Base from "../../layouts/Base.astro";
         <h1>Never load the whole folder</h1>
         <p class="lp-article-dek">
           A folder of 8,889 photos used 1.9 GB of memory and then crashed. The
-          fix is the most reused idea in the codebase, and I have now made the
-          same mistake four times in four disguises.
+          fix is the idea I reuse most in the code, and I've now made the same
+          mistake four times, each time in a different spot.
         </p>
         <p class="lp-article-byline">Andrew Yao &middot; 5 min read</p>
       </header>
 
+      <aside class="lp-tldr">
+        <p class="lp-tldr-label">TL;DR</p>
+        <p>
+          LightPhotos crashed on a folder of 8,889 photos because I was loading
+          a thumbnail for every single one. I fixed it by only keeping what's on
+          screen, plus a little extra. Then I found the same mistake three more
+          times in other parts of the app. If you're building anything that
+          handles someone's photo library, check where your code quietly
+          assumes the folder is small.
+        </p>
+      </aside>
+
+      <h2>What I learned</h2>
+      <ul class="lp-article-list">
+        <li>
+          <strong>Look for loops over everything the user gave you.</strong>
+          Loops that handle one request are usually fine. The ones that grow
+          with how many photos someone owns are the ones that bite.
+        </li>
+        <li>
+          <strong>Size memory by what has to be kept at once.</strong> I kept
+          asking how many photos were in a job. The better question was how
+          long each thumbnail actually needs to stay in memory.
+        </li>
+        <li>
+          <strong>Write the calculation next to the number.</strong> Whoever
+          reads a bare 32 later, including me, needs to know what would make it
+          wrong.
+        </li>
+        <li>
+          <strong>Recheck old numbers when things change.</strong> Three of
+          these four bugs were correct when I wrote them. Something changed
+          later and I didn't go back.
+        </li>
+      </ul>
+
       <p>
-        A wedding photographer hands you a card with 8,889 photos on it. You
-        point LightPhotos at it. The app dies.
+        Imagine a wedding photographer handing you a card with 8,889 photos on
+        it. You open the folder in LightPhotos, and the app dies.
       </p>
       <p>
-        That was a real bug. What I did not expect is that I would go on to fix
-        the same bug three more times, in places that looked nothing like each
-        other.
+        That was a real bug. I didn't expect to fix the same bug three more
+        times, in places that looked nothing like each other.
       </p>
 
       <h2>The crash</h2>
       <p>
-        The grid draws a thumbnail for every photo in the folder. My code for
-        filling it came down to this:
+        The grid shows a small preview (a thumbnail) for every photo in the
+        folder. My code for filling it came down to this:
       </p>
       <pre class="lp-code">for each photo in folder:
     request a thumbnail
     upload it to the GPU as a texture</pre>
       <p>
-        That is a perfectly reasonable loop if you have twenty photos. With
-        8,889 it asks the graphics card for 8,889 textures, about 1.3 GB of
-        video memory, which drags resident memory to around 1.9 GB. Then the
-        operating system kills the process.
+        That loop is fine if you have twenty photos. With 8,889 it asks the
+        graphics card to hold 8,889 images (textures), about 1.3 GB of video
+        memory, which pushes the app's total memory use to around 1.9 GB. Then
+        the operating system kills the app.
       </p>
       <p>
-        Nothing in that loop is wrong. It is correct code. It just assumes the
-        number of photos in a folder is small, and I never noticed I was
-        assuming it.
+        The loop itself does what it says. It just assumes a folder only has a
+        few photos in it, and I never noticed I was assuming that.
       </p>
 
       <h2>The fix, the first time</h2>
       <p>
-        You can only see about forty thumbnails at once on a large monitor. The
+        On a large monitor you can see about forty thumbnails at once. The
         other 8,849 are off screen and nobody needs them yet.
       </p>
 
@@ -302,51 +336,55 @@ import Base from "../../layouts/Base.astro";
           <text class="lp-fig-s" x="498" y="234" text-anchor="middle">110 to 150 MB, whatever the folder holds</text>
         </svg>
         <figcaption>
-          The number on the right is set by how big the window is, not by how
-          many photos the folder has. A much larger folder costs the same.
+          The memory on the right depends on how big the window is, not on how
+          many photos are in the folder. A much larger folder costs the same.
         </figcaption>
       </figure>
 
       <p>
-        So the grid now draws only the rows scrolled into view, and requests
-        thumbnails for that range plus a bit of scroll cushion. Everything else
-        is never decoded, never uploaded and never held. This is not a clever
-        fix. It is list virtualisation, and any web developer who has rendered a
-        long table already knows it. The interesting part is what happened next.
+        So now the grid only draws the rows you've scrolled to, and asks for
+        thumbnails for those rows plus a few extra above and below so scrolling
+        stays smooth. Nothing else gets loaded or kept around. Web developers
+        who've built long scrolling tables will know this trick; it's usually
+        called list virtualisation. I'd have stopped there, but the same
+        problem kept coming back.
       </p>
 
       <h2>The fix, the second time</h2>
       <p>
-        Decoded thumbnails live in a memory cache with a maximum number of
-        entries. I picked that number long ago, when thumbnails were small. Then
-        thumbnails got bigger, a fixed 512 pixels on the long side and about
-        700 KB each, roughly seven times what an entry used to cost.
+        Once a thumbnail is loaded, I keep it in a memory cache that holds up to
+        a fixed number of them. I picked that number a long time ago, when
+        thumbnails were small. Later I made thumbnails bigger, a fixed 512
+        pixels on the long side and about 700 KB each, roughly seven times what
+        each one used to cost.
       </p>
       <p>
-        Nothing failed loudly. The number was still a valid number. It just
-        meant something completely different from what it meant when I wrote it.
+        Nothing crashed or complained. The limit was still a valid number, but
+        it meant something very different from what I had in mind when I
+        wrote it.
       </p>
       <p>
-        So I recalculated the limit from what it should have been based on all
-        along, which is how many entries need to be in memory at once. That is
-        the visible grid plus three cushion rows on each side, around 180 cells,
-        so the limit is now 256. Set it lower and the cache evicts entries the
-        frame after it decodes them, which is worse than having no cache.
+        So I worked the limit out again from what it should have depended on in
+        the first place: how many thumbnails need to be in memory at the same
+        time. That's the visible grid plus three extra rows above and below,
+        around 180 cells, so the limit is now 256. If I set it lower, the cache
+        throws thumbnails away right after loading them, which is worse than
+        having no cache.
       </p>
 
       <h2>The fix, the third time</h2>
       <p>
-        Select a few thousand photos, hit Auto Tone, and the app analyses each
-        one. My first version requested a thumbnail for every selected photo up
-        front, on the grounds that it was going to need all of them eventually.
-        Select 20,000 and, at roughly 0.4 MB each, I was asking the cache to
-        hold about 8 GB inside a browser tab whose limit is 4 GB and which never
-        hands memory back.
+        If you select a few thousand photos and hit Auto Tone, LightPhotos looks
+        at each one to work out its adjustments. My first version asked for a
+        thumbnail for every selected photo up front, since it would need all of
+        them eventually. With 20,000 selected, at roughly 0.4 MB each, I was
+        asking the cache to hold about 8 GB inside a browser tab that's limited
+        to 4 GB and never gives memory back.
       </p>
-      <blockquote class="lp-pullquote">
-        I had asked "how many photos are in this job" when the question was "how
-        long does one thumbnail need to stay in memory".
-      </blockquote>
+      <p>
+        I'd been asking how many photos were in the job. What mattered was how
+        long each thumbnail needed to stay in memory.
+      </p>
 
       <figure class="lp-figure">
         <svg viewBox="0 0 640 152" role="img" aria-label="Diagram: a 32-photo window slides across a selection of 20,000, so only 32 thumbnails are ever requested at once.">
@@ -363,64 +401,40 @@ import Base from "../../layouts/Base.astro";
           <text class="lp-fig-s" x="0" y="140">Slowest cold RAW decode 137 ms &divide; one analysis 8 ms = 17, rounded up to 32.</text>
         </svg>
         <figcaption>
-          About 13 MB resident, whether you selected 30 photos or 30,000. A
-          compile-time assertion keeps the window under 64, so nobody quietly
-          turns it into a tuning knob.
+          About 13 MB of memory, whether you selected 30 photos or 30,000. A
+          check in the code stops the build if the window ever goes to 64 or
+          above, so nobody quietly turns it into a setting to fiddle with.
         </figcaption>
       </figure>
 
       <p>
-        The 32 is not a taste call. Analysing one photo costs about 8 ms on the
-        main thread, so it cannot be spread across cores, and decoding a
-        thumbnail costs 137 ms at the ninety-fifth percentile for a cold RAW
-        file. To keep the decoders ahead of the analyser in the worst case, the
-        window is the slowest decode divided by one analysis.
+        I didn't pick 32 by feel. Analysing one photo takes about 8 ms, and it
+        has to run on the app's main thread, so I can't split it across CPU
+        cores. Loading a thumbnail from a RAW file that isn't cached yet takes
+        137 ms in the slow cases (95 out of 100 loads are faster). To keep the
+        loading ahead of the analysis even in that worst case, the window is
+        the slowest load divided by one analysis.
       </p>
       <p>
-        Before I measured, I assumed the batch was limited by decoding. It is
-        not. Analysis costs about fifty-five times more wall-clock time, because
-        it cannot be parallelised. Optimising the decoding would have made no
-        difference at all.
+        Before I measured, I assumed loading the thumbnails was what held the
+        batch back. I was wrong. The analysis takes about fifty-five times
+        longer in real time, because it can't run in parallel. If I'd spent my
+        time speeding up the loading, it wouldn't have helped at all.
       </p>
 
       <h2>The fix, the fourth time</h2>
       <p>
-        The large version of a photo is decoded to fit the window, so resizing
-        by one pixel would in principle need a fresh decode. The requested size
-        now rounds up to a multiple of 512 pixels, so dragging a window edge
-        asks for a handful of decodes instead of one per frame.
+        When you open a photo large, I load it at a size that fits the window.
+        In principle, resizing the window by one pixel would mean loading it
+        again. Now the requested size rounds up to a multiple of 512 pixels, so
+        dragging a window edge only triggers a handful of reloads instead of
+        one for every frame.
       </p>
       <p>
-        It is the same idea as the other three, applied to a continuous input
-        instead of a list. If an expensive cache is keyed on something the user
-        can vary smoothly, round the key off.
+        It's the same idea as the other three, applied to something you can
+        change smoothly (window size) instead of a list. If an expensive cache
+        depends on a value like that, I round the value off.
       </p>
-
-      <h2>What I learned</h2>
-      <ul class="lp-article-list">
-        <li>
-          <strong>Find every loop over everything a user gave you.</strong> Not
-          the ones bounded by a request. The ones bounded by how much stuff
-          somebody has.
-        </li>
-        <li>
-          <strong>Size the buffer from what has to be resident, not from the
-          input.</strong> "How many are there" is almost never the right
-          question. "How long must one of these survive" almost always is.
-        </li>
-        <li>
-          <strong>Write the calculation next to the constant.</strong> The
-          person who inherits a 32 needs to know what would make it wrong.
-        </li>
-        <li>
-          <strong>Re-check the inputs to old calculations.</strong> Three of
-          these four were not written wrong. They were written right, and then
-          something changed underneath them.
-        </li>
-      </ul>
-
-
-
 
       <nav class="lp-article-nav" aria-label="More posts">
         <a class="lp-article-nav-prev" href="/blogs/six-queues-and-a-reserved-worker.html">
