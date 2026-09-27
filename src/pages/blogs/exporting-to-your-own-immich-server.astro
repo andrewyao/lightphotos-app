@@ -3,7 +3,7 @@ import Base from "../../layouts/Base.astro";
 ---
 <Base
   title="Exporting to your own Immich server — LightPhotos Blog"
-  desc="LightPhotos can upload finished photos straight to any Immich server, including one on a box in your closet. Here is what it took to make a custom server URL and an API key just work."
+  desc="LightPhotos can upload finished photos straight to any Immich server, including one on a box in your closet. Here's what it took to make your own server address and an API key just work."
   active="blogs"
 >
   <main class="lp-page">
@@ -13,8 +13,8 @@ import Base from "../../layouts/Base.astro";
         <h1>Exporting to your own Immich server</h1>
         <p class="lp-article-dek">
           LightPhotos can upload finished photos straight to any Immich server,
-          including one on a box in your closet. Here is what it took to make
-          a custom server URL and an API key just work.
+          including one on a box in your closet. Here's what it took to make
+          your own server address and an API key just work.
         </p>
         <p class="lp-article-byline">Andrew Yao &middot; 6 min read</p>
       </header>
@@ -22,68 +22,66 @@ import Base from "../../layouts/Base.astro";
       <aside class="lp-tldr">
         <p class="lp-tldr-label">TL;DR</p>
         <p>
-          Immich is a self-hosted photo library, the closest thing to Google
-          Photos you can run yourself. The export form in LightPhotos now has
-          an Immich tab: paste your server's address and an API key, press
-          Connect, and exports go to your server instead of a folder. Each
-          upload is the edited JPEG, with the capture time and star rating
-          carried over.
-        </p>
-        <p>
-          Most of the work wasn't the upload. It was taking whatever address
-          people type and finding the real API, checking the key up front,
-          surviving slow home uploads, and not sending anyone's key over plain
-          HTTP by accident. It's desktop only, because browsers can't talk to
-          an Immich server.
+          Immich is a photo library you host yourself, the closest thing to
+          Google Photos you can run on your own hardware. LightPhotos' export
+          form now has an Immich tab: paste your server's address and an API
+          key (a password-like token your server gives you), press Connect,
+          and your edited JPEGs go to your server with their capture time and
+          star rating. Most of my work went into everything around the upload,
+          like making any typed address work, checking the key early, coping
+          with slow home internet and never sending a key unencrypted by
+          accident. It's desktop only, because browsers can't talk to an
+          Immich server.
         </p>
       </aside>
 
       <h2>What I learned</h2>
       <ul class="lp-article-list">
         <li>
-          <strong>Check a key with a request that needs it.</strong> One
-          hosted Immich service answers its "about this server" call for any
-          key at all, so a wrong key looked fine until the first upload
-          failed.
+          <strong>Check a key with a request that actually needs it.</strong>
+          One hosted Immich service answered its "about this server" request
+          for any key at all, so a wrong key looked fine until the first
+          upload failed.
         </li>
         <li>
-          <strong>Let the server do the de-duplication.</strong> Immich
-          already recognises a photo it has seen before. Keeping my own record
-          of what was uploaded would only have been a second copy of the truth
-          that could drift.
+          <strong>Let the server handle duplicates.</strong> Immich already
+          recognises a photo it's seen before. If I'd kept my own record of
+          what was uploaded, it would have been a second list that could fall
+          out of sync.
         </li>
         <li>
-          <strong>A timeout should grow with the work.</strong> One fixed
-          five-minute limit failed large batches on healthy but slow
-          connections.
+          <strong>Give bigger uploads more time.</strong> A single five-minute
+          limit per upload failed large batches on connections that were slow
+          but working fine.
         </li>
         <li>
-          <strong>A time without a time zone is a guess.</strong> Photos taken
-          at 6&nbsp;pm in California showed up in Immich at 11&nbsp;am.
+          <strong>Keep the time zone with the time.</strong> Without it,
+          photos taken at 6&nbsp;pm in California showed up in Immich at
+          11&nbsp;am.
         </li>
       </ul>
 
       <h2>Why Immich</h2>
       <p>
-        Folders on a drive are how I keep my originals, and that won't change.
-        But nobody wants to browse a folder of JPEGs on their phone, and I
-        don't want to hand my photos to a service I can't leave. Immich is a
-        good middle ground: a real photo library with a phone app, running on
-        hardware I own, or on a hosted service if I'd rather not run it
+        I keep my originals in folders on a drive, and that won't change. But
+        nobody wants to browse a folder of JPEGs on their phone, and I don't
+        want to hand my photos to a service I can't leave. Immich sits in
+        between for me. It's a real photo library with a phone app, running
+        on hardware I own, or on a hosted service if I'd rather not run it
         myself.
       </p>
       <p>
-        Before this, getting photos there meant exporting to a folder and then
-        uploading that folder by hand. Now it's one step.
+        Before this, I had to export to a folder and then upload that folder
+        by hand. Now it's one step.
       </p>
 
-      <h2>Finding the API from whatever you type</h2>
+      <h2>Making whatever you type work</h2>
       <p>
-        Everyone's server lives somewhere different. Some people type
+        Everyone's server lives at a different address. Some people type
         <code>photos.example.com</code>, some paste
-        <code>https://photos.example.com/api/</code> from the docs, some use
-        <code>http://nas.local:2283</code> on their home network. All of those
-        should work.
+        <code>https://photos.example.com/api/</code> from the docs, and some
+        use <code>http://nas.local:2283</code> on their home network. I
+        wanted all of those to work.
       </p>
 
       <figure class="lp-figure">
@@ -123,30 +121,31 @@ import Base from "../../layouts/Base.astro";
       </figure>
 
       <p>
-        First the address gets tidied: spaces trimmed, a trailing slash or
-        <code>/api</code> removed, and <code>https://</code> added if you left
-        it off. Then LightPhotos asks the server's discovery file,
-        <code>/.well-known/immich</code>, where its API lives. That covers
-        people who host Immich under a sub-path like
-        <code>/immich/api</code>. If there's no discovery file, it assumes the
-        usual <code>/api</code>.
+        First, LightPhotos tidies the address. It trims spaces, removes a
+        trailing slash or <code>/api</code>, and adds <code>https://</code>
+        if you left it off. Then it asks the server's discovery file,
+        <code>/.well-known/immich</code>, where its API lives. (The API is the
+        address the app actually sends requests to.) That helps people who
+        host Immich under a sub-path like <code>/immich/api</code>. If
+        there's no discovery file, it assumes the usual <code>/api</code>.
       </p>
       <p>
-        If you didn't type a scheme and HTTPS fails, it does not quietly try
-        plain HTTP. That would send your API key across the network
-        unencrypted without telling you. The error says to start the address
-        with <code>http://</code> if your server really doesn't have HTTPS,
-        and then it's your call.
+        If you didn't type <code>http://</code> or <code>https://</code> and
+        the secure HTTPS connection fails, LightPhotos won't quietly fall back
+        to plain HTTP. That would send your API key across the network
+        unencrypted without telling you. Instead, the error suggests starting
+        the address with <code>http://</code> if your server really doesn't
+        have HTTPS, and then it's your choice.
       </p>
 
       <h2>Checking the key before it matters</h2>
       <p>
         The obvious way to test a connection is to ask the server about
         itself. I tried that against Gumnut, a hosted Immich service, and it
-        answered for any key, including a made-up one. So instead LightPhotos
-        asks "who does this key belong to?" That only works with a real key,
-        and it gives the form something nice to show: "Connected as" your
-        name and email.
+        answered for any key, even one I made up. So LightPhotos asks "who
+        does this key belong to?" instead. That only works with a real key,
+        and it gives the form something friendly to show: "Connected as"
+        with your name and email.
       </p>
       <p>
         Nothing is saved until that check passes. Then the address goes into
@@ -167,90 +166,93 @@ import Base from "../../layouts/Base.astro";
         </li>
       </ul>
       <p>
-        One small detail I'm glad I got right: the Keychain isn't touched
-        until you open the Immich tab. If you never use Immich, you never see
-        a Keychain prompt.
+        One small detail I'm glad I got right: LightPhotos doesn't touch the
+        Keychain until you open the Immich tab. If you never use Immich,
+        you'll never see a Keychain prompt.
       </p>
 
       <h2>What actually gets uploaded</h2>
       <p>
-        Immich gets the finished photo, not the original. LightPhotos renders
-        it exactly as it would for a folder export, with your edits, crop and
-        size, and encodes a JPEG. Your originals stay on your drive, where
-        they belong.
+        Immich gets your finished photo. LightPhotos renders it exactly as it
+        would for a folder export, with your edits, crop and size, and saves
+        it as a JPEG. Your originals stay on your drive.
       </p>
       <p>
-        Two pieces of information come along with it:
+        Two pieces of information go along with it:
       </p>
       <ul class="lp-article-list">
         <li>
-          <strong>When it was taken.</strong> The first version read the
-          camera's clock as if it were UTC, so a photo taken at 6&nbsp;pm in
-          California appeared in Immich at 11&nbsp;am. Now each export carries
-          its capture time and the camera's time-zone offset, and uses the
-          file's date only when the camera didn't record one.
+          <strong>When it was taken.</strong> My first version read the
+          camera's clock as if it were UTC (universal time), so a photo taken
+          at 6&nbsp;pm in California showed up in Immich at 11&nbsp;am. Now
+          each export carries its capture time plus the camera's time-zone
+          offset, and falls back to the file's date only when the camera
+          didn't record one.
         </li>
         <li>
-          <strong>Your star rating,</strong> set right after the upload. Some
-          keys are allowed to upload but not to change photos. In that case
-          the photo still uploads and you get a warning about the rating,
-          rather than a failed export.
+          <strong>Your star rating,</strong> which is set right after the
+          upload. Some keys are allowed to upload but not to change photos.
+          With one of those, the photo still uploads and you get a warning
+          about the rating instead of a failed export.
         </li>
       </ul>
 
       <h2>Running the same batch twice</h2>
       <p>
-        Interrupted exports happen: the laptop sleeps, the Wi-Fi drops. The
-        simplest thing is to run the export again, so that has to be safe.
+        Exports get interrupted. The laptop goes to sleep, or the Wi-Fi
+        drops. The easiest fix is to run the export again, so I needed that
+        to be safe.
       </p>
       <p>
-        Immich already handles this. Upload the same bytes twice and it
-        replies "duplicate" with the photo it already has. LightPhotos keeps
-        no list of what it has uploaded. It just re-sends, counts the
-        duplicates, and tells you: "Uploaded 40 photos, 32 already on the
-        server." The batch finishes where it left off without me writing any
-        bookkeeping.
+        Luckily, Immich already handles this. If you upload the same file
+        twice, it replies "duplicate" and points to the photo it already has.
+        LightPhotos keeps no list of what it's uploaded. It just sends
+        everything again, counts the duplicates and tells you something like
+        "Uploaded 40 photos, 32 already on the server." The batch picks up
+        where it left off, and I didn't have to write any bookkeeping for it.
       </p>
 
-      <h2>Slow uploads that aren't broken</h2>
+      <h2>Slow uploads that are still working</h2>
       <p>
-        Home internet uploads slowly, and LightPhotos exports on several
-        threads at once. The first version gave each upload a fixed
-        five-minute limit. A batch of large photos on a slow connection shared
-        eight ways would hit that limit while the connection was perfectly
-        healthy.
+        Home internet is usually slow at uploading, and LightPhotos exports
+        several photos at once. My first version gave each upload a fixed
+        five-minute limit. With a batch of large photos on a slow connection
+        shared eight ways, uploads hit that limit even though the connection
+        was fine.
       </p>
       <p>
-        Now each upload gets a minute plus time for its size, worked out as
-        if the connection were a 1&nbsp;Mbit/s link split between eight
-        uploads:
+        Now each upload gets a minute plus extra time based on its size,
+        worked out as if the connection were a 1&nbsp;Mbit/s link split
+        between eight uploads:
       </p>
       <pre class="lp-code">time allowed = 60 s + photo size / 16 KB per second</pre>
       <p>
-        A 25&nbsp;MB photo gets about 28 minutes. That sounds generous, but a
-        stalled connection still fails, because the other limits (connecting,
-        waiting for the server's reply) stay short.
+        That gives a 25&nbsp;MB photo about 28 minutes. It sounds generous,
+        but a connection that's truly stuck still fails, because the other
+        limits, like connecting and waiting for the server's reply, stay
+        short.
       </p>
 
       <h2>Why it isn't in the browser</h2>
       <p>
         The web version of LightPhotos shows the Immich tab with a note that
-        it only works in the desktop app. A web page can only talk to another
-        server if that server explicitly allows it, and Immich doesn't. The
-        browser blocks the request before it leaves. The desktop app isn't a
-        web page, so the rule doesn't apply.
+        it only works in the desktop app. A web page can only talk to a
+        server on another site if that server says it's allowed, and Immich
+        doesn't. The browser blocks the request before it's even sent. The
+        desktop app isn't a web page, so that rule doesn't apply to it.
       </p>
 
       <h2>What's next</h2>
       <p>
-        I'm working on album support: pick an existing album or name a new
-        one, and the batch goes into it. After that, automatic retries for
-        uploads that fail partway through. Servers with self-signed
-        certificates, common on home networks, probably won't connect yet.
-        If you run one, I'd like to hear whether it works.
+        I'm working on album support next, so you can pick an existing album
+        or name a new one and the batch goes into it. After that, I want
+        automatic retries for uploads that fail partway through. Servers with
+        self-signed certificates, which are common on home networks, probably
+        won't connect yet. If you run one, I'd like to hear whether it works
+        for you.
       </p>
       <p>
-        If you run Immich and something about this doesn't fit your setup,
+        If you run Immich and something here doesn't fit your setup, please
         tell me on the <a
         href="https://github.com/andrewyao/lightphotos/issues">issue
         tracker</a>. The desktop builds are on the <a
