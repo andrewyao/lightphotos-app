@@ -1,0 +1,20 @@
+---
+import Base from "../layouts/Base.astro";
+
+// Its presence is what matters: without a 404.html, Cloudflare Pages treats
+// the site as a SPA and answers every missing path with index.html and a 200.
+// A missing hashed /app/*.js then comes back as text/html, the browser caches
+// it for hours, and the web app dies with a MIME-type error instead of a 404.
+---
+<Base title="Not found — LightPhotos" desc="This page does not exist.">
+  <main class="lp-page">
+    <article class="lp-article">
+      <header class="lp-article-head">
+        <h1>Page not found</h1>
+        <p class="lp-article-dek">
+          Nothing lives at this address. <a href="/">Go to the home page</a>.
+        </p>
+      </header>
+    </article>
+  </main>
+</Base>
