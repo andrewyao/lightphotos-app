@@ -48,6 +48,11 @@ export const docGroups: DocGroup[] = [
         title: "Export",
         dek: "Bake your edits into brand-new JPEGs and leave the originals exactly as they were.",
       },
+      {
+        slug: "immich",
+        title: "Immich server",
+        dek: "Upload finished photos straight to any Immich server you host yourself.",
+      },
     ],
   },
   {

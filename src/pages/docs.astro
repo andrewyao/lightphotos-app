@@ -10,6 +10,16 @@ const target = "/docs/open-the-app.html";
 <html lang="en">
   <head>
     <meta charset="utf-8" />
+    <script is:inline>
+      (function () {
+        try {
+          var t = localStorage.getItem('lp-theme');
+          if (t === 'light' || t === 'neutral' || t === 'dark') {
+            document.documentElement.setAttribute('data-theme', t);
+          }
+        } catch (e) {}
+      })();
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta http-equiv="refresh" content={`0;url=${target}`} />
     <link rel="canonical" href={target} />
@@ -25,8 +35,8 @@ const target = "/docs/open-the-app.html";
         padding: 2rem;
         text-align: center;
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-        background: #14110c;
-        color: #f3eee3;
+        background: var(--lp-bg, #14110c);
+        color: var(--lp-fg, #f3eee3);
       }
       a { color: #4f8cff; }
     </style>
