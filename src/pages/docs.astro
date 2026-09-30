@@ -2,8 +2,9 @@
 // /docs.html is the entry point every nav link, landing card and breadcrumb
 // points at, so it forwards straight to the first topic rather than sitting
 // as an index nobody asked for — the sidebar on each topic is the index.
-// Astro has no built-in redirect for static output, so this is a meta refresh
-// with a real link underneath for anything that ignores it.
+// Production never serves this page: public/_redirects sends /docs and
+// /docs.html to the first topic server-side. It remains for `astro dev`,
+// which ignores _redirects, as a meta refresh with a real link underneath.
 const target = "/docs/open-the-app.html";
 ---
 <!doctype html>
@@ -24,6 +25,7 @@ const target = "/docs/open-the-app.html";
     <meta http-equiv="refresh" content={`0;url=${target}`} />
     <link rel="canonical" href={target} />
     <title>LightPhotos Help</title>
+    <link rel="stylesheet" href="/lp.css" />
     <style>
       html { color-scheme: dark light; }
       body {

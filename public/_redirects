@@ -1,0 +1,7 @@
+# /docs has no index of its own; the sidebar on each topic is the index. A
+# server redirect sends visitors straight to the first topic instead of
+# painting src/pages/docs.astro's meta-refresh page first. 302, not 301, so
+# browsers don't cache it if the first topic changes. Targets are extensionless
+# because Pages 308s /x.html to /x anyway.
+/docs       /docs/open-the-app  302
+/docs.html  /docs/open-the-app  302
