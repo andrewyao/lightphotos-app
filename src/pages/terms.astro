@@ -1,0 +1,74 @@
+---
+import Base from "../layouts/Base.astro";
+// Kept short on purpose: there are no accounts, payments or hosted photos to
+// govern. The GPL already covers the software; this covers the website and
+// the browser app. No `active` value: the footer links here, the nav doesn't.
+---
+<Base
+  title="Terms — LightPhotos"
+  desc="The terms for using the LightPhotos website, browser app and desktop app, in plain language."
+>
+  <main class="lp-page">
+    <article class="lp-article">
+      <header class="lp-article-head">
+        <h1>Terms</h1>
+        <p class="lp-article-dek">
+          LightPhotos is free, open source software. These terms are short
+          because there is little to govern: no accounts, no payments, and
+          your photos are never uploaded to us.
+        </p>
+      </header>
+
+      <h2>The software</h2>
+      <p>
+        The LightPhotos app, in both its desktop and browser versions, is
+        licensed under the
+        <a href="https://www.gnu.org/licenses/gpl-3.0.html">GNU General Public License, version 3</a>.
+        That license sets out what you may do with the code, and it governs
+        wherever it and these terms overlap.
+      </p>
+
+      <h2>Your photos stay yours</h2>
+      <p>
+        LightPhotos reads and edits files on your own machine. We claim no
+        rights to your photos or your edits. If you export to an Immich server,
+        photos go to the server you chose, not to us, and that server&rsquo;s
+        own terms apply.
+      </p>
+
+      <h2>Keep backups</h2>
+      <p>
+        LightPhotos works on your real photo library. Software has bugs, so
+        keep backups of anything you can&rsquo;t afford to lose.
+      </p>
+
+      <h2>No warranty</h2>
+      <p>
+        The website, the browser app and the desktop app are provided
+        &ldquo;as is&rdquo;, without warranty of any kind. To the extent the
+        law allows, we are not liable for any loss or damage from using them,
+        including lost or corrupted photos, edits or metadata. This matches
+        sections 15 and 16 of the GPL.
+      </p>
+
+      <h2>Privacy</h2>
+      <p>
+        What the site and apps record is described on the
+        <a href="/privacy.html">privacy page</a>.
+      </p>
+
+      <h2>Changes</h2>
+      <p>
+        These terms may change as LightPhotos does. The current version is
+        always on this page, and its history is public in the site&rsquo;s
+        <a href="https://github.com/andrewyao/lightphotos-app">repository</a>.
+      </p>
+
+      <h2>Questions</h2>
+      <p>
+        Open an issue on
+        <a href="https://github.com/andrewyao/lightphotos/issues">GitHub</a>.
+      </p>
+    </article>
+  </main>
+</Base>
