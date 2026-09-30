@@ -3,10 +3,10 @@ import Docs from "../../layouts/Docs.astro";
 ---
 <Docs slug="immich">
   <p>
-    LightPhotos can upload finished photos straight to any Immich server you
-    point it at — including one on a box in your closet. Open the export dialog
-    and choose the <strong>Immich</strong> tab, then paste your server's address
-    and an API key.
+    The LightPhotos desktop app can upload finished photos straight to any
+    Immich server you point it at — including one on a box in your closet.
+    Open the export dialog and choose the <strong>Immich</strong> tab, then
+    paste your server's address and an API key.
   </p>
 
   <ul class="lp-article-list">
@@ -17,17 +17,18 @@ import Docs from "../../layouts/Docs.astro";
     </li>
     <li>
       <strong>Your server address and API key are stored locally.</strong> They
-      live in your browser's storage or the desktop build's config — never
-      sent anywhere except your own Immich server.
+      live in the desktop app's config and are never sent anywhere except your
+      own Immich server.
     </li>
     <li>
       <strong>Let the server handle duplicates.</strong> Immich already
       deduplicates by content hash, so re-exporting the same photo is safe.
     </li>
     <li>
-      <strong>The web version shows the Immich tab with a note</strong> that
-      browser security may block the connection if your server doesn't allow
-      cross-origin requests. The desktop builds don't have that limitation.
+      <strong>The web version can't upload to Immich.</strong> It shows the
+      Immich tab with a note that it only works in the desktop app. Browsers
+      block a web page from talking to a server on another site unless that
+      server allows it, and Immich doesn't.
     </li>
   </ul>
 

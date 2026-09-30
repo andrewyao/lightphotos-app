@@ -51,7 +51,7 @@ export const docGroups: DocGroup[] = [
       {
         slug: "immich",
         title: "Immich server",
-        dek: "Upload finished photos straight to any Immich server you host yourself.",
+        dek: "Upload finished photos from the desktop app to any Immich server you host yourself.",
       },
     ],
   },
