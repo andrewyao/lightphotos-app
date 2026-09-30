@@ -418,6 +418,17 @@ a.lp-version:hover {
   animation: lp-rise 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.35s forwards;
 }
 
+.lp-hero-shot {
+  width: 100%;
+  max-width: 40rem;
+  height: auto;
+  margin-top: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 16px 40px color-mix(in srgb, var(--lp-glow) 14%, transparent);
+  opacity: 0;
+  animation: lp-rise 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.45s forwards;
+}
+
 .lp-actions {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(225px, 1fr));
@@ -584,7 +595,7 @@ a.lp-card:focus-visible .lp-go {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .lp-glow, .lp-wordmark, .lp-lede, .lp-card, .lp-panel {
+  .lp-glow, .lp-wordmark, .lp-lede, .lp-hero-shot, .lp-card, .lp-panel {
     animation: none !important;
     opacity: 1 !important;
     filter: none !important;
