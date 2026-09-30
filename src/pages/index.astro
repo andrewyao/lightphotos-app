@@ -15,8 +15,8 @@ import Base from "../layouts/Base.astro";
     :root[data-lp-os] .lp-os-size-all { display: none; }
 
     /* No WebGPU means the web build cannot run: the heading promises two
-       ways, so it goes with the Web card and only the native one is left, and
-       the native card drops the sentence that compares it to a web version the
+       ways, so it goes with the Web card and only the Desktop one is left, and
+       the Desktop card drops the sentence that compares it to a web version the
        visitor has just stopped being shown. Decided by the script below, never
        by default, so a visitor with JS off still sees both. Held to one card's
        width rather than stretching across the hero on its own. */
@@ -69,19 +69,21 @@ import Base from "../layouts/Base.astro";
     <section class="lp-hero">
       <div class="lp-glow"></div>
       <h1 class="lp-wordmark">Light<span class="lp-light">Photos</span></h1>
-      <p class="lp-lede">
-        A Lightroom-style photo manager that keeps everything on your own
-        computer. Cull a shoot, rate and organize a big library, and develop
-        your RAW files non-destructively &mdash; It is free, and completely <a href="https://github.com/andrewyao/lightphotos" target="_blank">open source</a>.
-      </p>
+      <div class="lp-hero-intro">
+        <p class="lp-lede">
+          A Lightroom-style photo manager that keeps everything on your own
+          computer. Cull a shoot, rate and organize a big library, and develop
+          your RAW files non-destructively &mdash; It is free, and completely <a href="https://github.com/andrewyao/lightphotos" target="_blank">open source</a>.
+        </p>
 
-      <img
-        class="lp-hero-shot"
-        src="/screenshot.webp"
-        width="1400"
-        height="869"
-        alt="LightPhotos developing a night photo of Stanford's Memorial Church, with the filmstrip below and the histogram and Develop sliders on the right"
-      />
+        <img
+          class="lp-hero-shot"
+          src="/screenshot.webp"
+          width="1400"
+          height="869"
+          alt="LightPhotos developing a night photo of Stanford's Memorial Church, with the filmstrip below and the histogram and Develop sliders on the right"
+        />
+      </div>
 
       <section class="lp-hero-split" aria-labelledby="run-modes">
         <div class="lp-section-head">
@@ -115,12 +117,12 @@ import Base from "../layouts/Base.astro";
                 <rect x="3" y="4.5" width="18" height="12" rx="2"/>
                 <path d="M8.5 20h7M12 16.5v3.5"/>
               </svg>
-              <h3>Native</h3>
+              <h3>Desktop</h3>
               <span class="lp-split-tag">Fastest</span>
             </div>
             <p class="lp-split-lede" data-needs-webgpu>
-              Same interface as the Web Assembly version &mdash; with a faster
-              decode pipeline tuned to each platform.
+              Similar interface to the Web version &mdash; with a faster decode
+              pipeline tuned to each platform and some additional features.
             </p>
             <ul class="lp-check">
               <li class="lp-os-size">

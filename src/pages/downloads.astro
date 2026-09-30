@@ -23,8 +23,7 @@ const builds = [
     size: "4.5 MB",
     steps: [
       "Open the .dmg and drag LightPhotos into your Applications folder.",
-      "The first launch gets blocked, because the app is not notarized yet.",
-      "Right-click it in Finder, choose Open, and confirm. You only do this once. Or clear the quarantine flag yourself:",
+      "Run this to clear the quarantine flag:",
     ],
     code: "xattr -dr com.apple.quarantine /Applications/LightPhotos.app",
   },
