@@ -418,11 +418,30 @@ a.lp-version:hover {
   animation: lp-rise 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.35s forwards;
 }
 
+.lp-hero-intro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  margin-top: 1.4rem;
+}
+
+.lp-hero-intro .lp-lede {
+  margin-top: 0;
+}
+
+@media (min-width: 620px) {
+  .lp-hero-intro {
+    flex-direction: row;
+    text-align: left;
+  }
+}
+
 .lp-hero-shot {
+  flex-shrink: 0;
   width: 100%;
-  max-width: 40rem;
+  max-width: 13.3rem;
   height: auto;
-  margin-top: 2rem;
   border-radius: 12px;
   box-shadow: 0 16px 40px color-mix(in srgb, var(--lp-glow) 14%, transparent);
   opacity: 0;
