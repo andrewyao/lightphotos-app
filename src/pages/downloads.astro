@@ -7,9 +7,12 @@ import Base from "../layouts/Base.astro";
 // MiB, refreshed by hand with each release.
 const RELEASES = "https://github.com/andrewyao/lightphotos/releases/latest/download";
 //
-// `id` is the join key between this table, the per-build CSS below and the
-// platform sniffer in the inline script. An id the sniffer picks that isn't
-// here simply matches no rule, and the page falls back to showing every build.
+// `id` names a build in the download analytics. `os` is the join key between
+// this table, the per-platform CSS below and the platform sniffer in the
+// inline script; builds that share one, like the two Macs, show together
+// because a browser can't tell an Intel Mac from Apple Silicon. An os the
+// sniffer picks that isn't here simply matches no rule, and the page falls
+// back to showing every build.
 //
 // `label` carries the platform, so each card leads with its button instead of
 // a heading that would say the same thing again. `note` is only for builds
@@ -18,9 +21,22 @@ const RELEASES = "https://github.com/andrewyao/lightphotos/releases/latest/downl
 const builds = [
   {
     id: "macos-arm64",
+    os: "macos",
     label: "Download for Apple Silicon",
     file: "lightphotos-macos-arm64.dmg",
-    size: "4.5 MB",
+    size: "6.3 MB",
+    steps: [
+      "Open the .dmg and drag LightPhotos into your Applications folder.",
+      "Run this to clear the quarantine flag:",
+    ],
+    code: "xattr -dr com.apple.quarantine /Applications/LightPhotos.app",
+  },
+  {
+    id: "macos-x86_64",
+    os: "macos",
+    label: "Download for Intel Mac",
+    file: "lightphotos-macos-x86_64.dmg",
+    size: "6.8 MB",
     steps: [
       "Open the .dmg and drag LightPhotos into your Applications folder.",
       "Run this to clear the quarantine flag:",
@@ -29,9 +45,10 @@ const builds = [
   },
   {
     id: "windows-x86_64",
+    os: "windows-x86_64",
     label: "Download for Windows",
     file: "lightphotos-windows-x86_64.zip",
-    size: "7.8 MB",
+    size: "9.1 MB",
     steps: [
       "Unzip the archive anywhere. Inside is one lightphotos.exe, with no installer to sit through.",
       "SmartScreen warns about an unrecognized publisher the first time you run it.",
@@ -40,10 +57,11 @@ const builds = [
   },
   {
     id: "linux-x86_64",
+    os: "linux-x86_64",
     label: "Download for Linux x86",
     note: "Ubuntu 24.04+, Debian 13, Fedora 40+",
     file: "lightphotos-linux-x86_64.tar.gz",
-    size: "9.9 MB",
+    size: "11.3 MB",
     steps: [
       "Extract the tarball and run the binary inside. Nothing to install, nothing to configure.",
     ],
@@ -51,10 +69,11 @@ const builds = [
   },
   {
     id: "linux-arm64",
+    os: "linux-arm64",
     label: "Download for Linux ARM",
     note: "Ubuntu 24.04+, Debian 13, Fedora 40+",
     file: "lightphotos-linux-arm64.tar.gz",
-    size: "9.5 MB",
+    size: "10.8 MB",
     steps: [
       "Extract the tarball and run the binary inside. Nothing to install, nothing to configure.",
     ],
@@ -62,18 +81,18 @@ const builds = [
   },
 ];
 
-// One pair of rules per build, so the sniffer only has to write an id onto
-// <html> and the right tile survives. Everything that doesn't depend on which
-// id won lives in lp.css.
-const osCss = builds
+// One rule per platform, so the sniffer only has to write an os onto <html>
+// and the right tiles survive. Everything that doesn't depend on which os won
+// lives in lp.css.
+const osCss = [...new Set(builds.map((b) => b.os))]
   .map(
-    (b) => `:root[data-lp-os="${b.id}"] .lp-dl-grid:not(.lp-dl-grid--all) > :not([data-os-id="${b.id}"]) { display: none; }`
+    (os) => `:root[data-lp-os="${os}"] .lp-dl-grid:not(.lp-dl-grid--all) > :not([data-os="${os}"]) { display: none; }`
   )
   .join("\n");
 ---
 <Base
   title="Download LightPhotos"
-  desc="Download the LightPhotos desktop app for macOS, Windows and Linux. Native builds for Apple Silicon, x86-64 and ARM64 — free, offline and under 10 MB."
+  desc="Download the LightPhotos desktop app for macOS, Windows and Linux. Native builds for Apple Silicon, x86-64 and ARM64 — free, offline and under 12 MB."
   active="downloads"
 >
   <style is:inline set:html={osCss}></style>
@@ -91,7 +110,7 @@ const osCss = builds
       // through to the full grid and the web app note under it.
       { id: null, test: /Android|iPhone|iPad|iPod|CrOS/ },
       { id: "windows-x86_64", test: /Windows NT/ },
-      { id: "macos-arm64", test: /Mac OS X|Macintosh/ },
+      { id: "macos", test: /Mac OS X|Macintosh/ },
       { id: "linux-arm64", test: /aarch64|arm64/i },
       { id: "linux-x86_64", test: /Linux|X11/ },
     ];
@@ -160,7 +179,7 @@ const osCss = builds
 
     <section class="lp-dl-grid" aria-label="Desktop builds">
       {builds.map((b) => (
-        <article class="lp-split-card" data-os-id={b.id}>
+        <article class="lp-split-card" data-os-id={b.id} data-os={b.os}>
           <div class="lp-dl-foot">
             <a class="lp-btn" href={`${RELEASES}/${b.file}`}>{b.label}</a>
             <span class="lp-meta">{b.size}</span>
@@ -181,7 +200,7 @@ const osCss = builds
     <div class="lp-shared">
       <span class="lp-shared-tag">Nothing here fits?</span>
       <ul class="lp-check lp-shared-list">
-        <li>On an Intel Mac, or something else entirely? The <a href="/app.html">web app</a> is the same editor, in any browser with WebGPU</li>
+        <li>On something else entirely? The <a href="/app.html">web app</a> is the same editor, in any browser with WebGPU</li>
         <li>Want release notes or an older version? Every build is on the <a href="https://github.com/andrewyao/lightphotos/releases">GitHub releases page</a></li>
         <li>Found a bug or have an idea? <a href="https://github.com/andrewyao/lightphotos/issues">Open an issue on GitHub</a></li>
         <li>Either way your photos stay on disk. Your edits are saved in a small file inside a .lightphotos subfolder, so if you move a folder somewhere else, all of its edits travel with it</li>

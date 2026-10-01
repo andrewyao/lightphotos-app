@@ -419,33 +419,129 @@ a.lp-version:hover {
 }
 
 .lp-hero-intro {
+  container-type: inline-size;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1.5rem;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 1.5rem 2.5rem;
+  width: 100%;
   margin-top: 1.4rem;
 }
 
+/* The lede and the demo share a row while both fit at their basis, and the
+   demo drops below the lede once they don't -- no fixed breakpoint. */
 .lp-hero-intro .lp-lede {
+  flex: 1 1 min(20rem, 100%);
+  max-width: 26rem;
   margin-top: 0;
 }
 
-@media (min-width: 620px) {
-  .lp-hero-intro {
-    flex-direction: row;
+.lp-demo {
+  flex: 1 1 min(18rem, 100%);
+  max-width: 26rem;
+  margin: 0;
+  opacity: 0;
+  animation: lp-rise 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.45s forwards;
+}
+
+/* Matches the wrap point above (20rem + 18rem + 2.5rem gap): side by side,
+   the lede reads left-aligned against the video. */
+@container (min-width: 40.5rem) {
+  .lp-hero-intro .lp-lede {
     text-align: left;
   }
 }
 
-.lp-hero-shot {
-  flex-shrink: 0;
+.lp-demo-open {
+  position: relative;
+  display: block;
   width: 100%;
-  max-width: 13.3rem;
+  padding: 0;
+  border: 0;
+  border-radius: 12px;
+  background: none;
+  cursor: zoom-in;
+}
+
+.lp-demo-open:focus-visible {
+  outline: 2px solid var(--lp-accent);
+  outline-offset: 3px;
+}
+
+.lp-demo-video,
+.lp-demo-modal-video {
+  display: block;
+  width: 100%;
   height: auto;
   border-radius: 12px;
+  background: #1b1b1b;
+}
+
+.lp-demo-video {
   box-shadow: 0 16px 40px color-mix(in srgb, var(--lp-glow) 14%, transparent);
-  opacity: 0;
-  animation: lp-rise 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.45s forwards;
+}
+
+.lp-demo-expand {
+  position: absolute;
+  right: 0.6rem;
+  bottom: 0.6rem;
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 8px;
+  color: #fff;
+  background: rgb(0 0 0 / 0.55);
+  opacity: 0.75;
+  transition: opacity 0.2s;
+}
+
+.lp-demo-open:hover .lp-demo-expand,
+.lp-demo-open:focus-visible .lp-demo-expand {
+  opacity: 1;
+}
+
+.lp-demo-caption {
+  margin-top: 0.8rem;
+  font-size: 0.9rem;
+  opacity: 0.7;
+}
+
+.lp-demo-modal {
+  width: min(92vw, 1600px, calc(88vh * 1.6));
+  max-width: none;
+  max-height: none;
+  margin: auto;
+  padding: 0;
+  border: 0;
+  overflow: visible;
+  background: none;
+}
+
+.lp-demo-modal::backdrop {
+  background: rgb(0 0 0 / 0.8);
+}
+
+.lp-demo-close {
+  position: absolute;
+  top: -2.6rem;
+  right: 0;
+  display: grid;
+  place-items: center;
+  width: 2.2rem;
+  height: 2.2rem;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  color: #fff;
+  background: rgb(255 255 255 / 0.14);
+  cursor: pointer;
+}
+
+.lp-demo-close:hover,
+.lp-demo-close:focus-visible {
+  background: rgb(255 255 255 / 0.28);
 }
 
 .lp-actions {
@@ -614,7 +710,7 @@ a.lp-card:focus-visible .lp-go {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .lp-glow, .lp-wordmark, .lp-lede, .lp-hero-shot, .lp-card, .lp-panel {
+  .lp-glow, .lp-wordmark, .lp-lede, .lp-demo, .lp-card, .lp-panel {
     animation: none !important;
     opacity: 1 !important;
     filter: none !important;
@@ -932,7 +1028,7 @@ a.lp-split-card:focus-visible {
 }
 
 .lp-shared-list {
-  flex: 1 1 20rem;
+  flex: 1 1 min(20rem, 100%);
   margin: 0;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
