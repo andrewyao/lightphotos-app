@@ -12,6 +12,11 @@ import Base from "../layouts/Base.astro";
       <h1 class="lp-wordmark">Blogs</h1>
     </section>
 
+    <div class="lp-post-sort" role="group" aria-label="Sort posts">
+      <button type="button" data-sort="newest" aria-pressed="true">Newest first</button>
+      <button type="button" data-sort="oldest" aria-pressed="false">Oldest first</button>
+    </div>
+
     <ul class="lp-post-list">
       <li>
         <a class="lp-post-card" href="/blogs/exporting-to-your-own-immich-server.html">
@@ -207,4 +212,34 @@ import Base from "../layouts/Base.astro";
       </li>
     </ul>
   </main>
+  <script is:inline>
+    (function () {
+      var STORAGE_KEY = 'lp-post-sort';
+      var list = document.querySelector('.lp-post-list');
+      var buttons = document.querySelectorAll('.lp-post-sort button[data-sort]');
+      if (!list || !buttons.length) return;
+      // The markup lists posts newest first; oldest first is that order reversed.
+      var newest = Array.prototype.slice.call(list.children);
+
+      function apply(order) {
+        var items = order === 'oldest' ? newest.slice().reverse() : newest;
+        items.forEach(function (li) { list.appendChild(li); });
+        buttons.forEach(function (btn) {
+          btn.setAttribute('aria-pressed', btn.getAttribute('data-sort') === order ? 'true' : 'false');
+        });
+      }
+
+      buttons.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var order = btn.getAttribute('data-sort');
+          apply(order);
+          try { localStorage.setItem(STORAGE_KEY, order); } catch (e) {}
+        });
+      });
+
+      try {
+        if (localStorage.getItem(STORAGE_KEY) === 'oldest') apply('oldest');
+      } catch (e) {}
+    })();
+  </script>
 </Base>
