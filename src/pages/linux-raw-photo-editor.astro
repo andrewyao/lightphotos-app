@@ -1,0 +1,110 @@
+---
+import Base from "../layouts/Base.astro";
+
+// Landing page for Linux photographers. Lightroom and most paid culling tools
+// skip Linux, so this is a search phrase the site can rank for. The camera
+// limits below must match the rawler column in docs/formats.astro.
+---
+<Base
+  title="A fast RAW photo editor for Linux — LightPhotos"
+  desc="LightPhotos is a free, open-source RAW photo culler and editor with native Linux builds for ARM and x86. Under 28MB, no account, no cloud, and edits that never touch your originals."
+>
+  <main class="lp-page">
+    <article class="lp-article">
+      <header class="lp-article-head">
+        <h1>A fast RAW photo editor for Linux</h1>
+        <p class="lp-article-dek">
+          Lightroom has never run on Linux, and neither have most paid culling
+          tools. LightPhotos ships native Linux builds for ARM and x86. It is
+          free, open source, and under 28MB.
+        </p>
+      </header>
+
+      <h2>What you get</h2>
+      <ul class="lp-article-list">
+        <li><strong>Fast culling.</strong> Rate a shoot from the keyboard with 0&ndash;5 stars, check focus at 100% with Space, and filter by rating.</li>
+        <li><strong>Non-destructive RAW editing.</strong> Exposure, tone, white balance, vibrance, denoise, spot removal and Auto Tone, rendered on the GPU.</li>
+        <li><strong>Plain folders.</strong> No import and no database. Edits live in a <code>.lightphotos</code> folder beside your photos, so they back up and sync with everything else.</li>
+        <li><strong>Export.</strong> Full-quality JPEGs at the size you choose, or straight to your own <a href="/blogs/exporting-to-your-own-immich-server.html">Immich server</a>.</li>
+        <li><strong>Private.</strong> The desktop app makes no network requests. See <a href="/privacy.html">Privacy</a>.</li>
+      </ul>
+
+      <h2>How it compares with other Linux tools</h2>
+      <p>
+        Linux already has excellent open-source photo editors. LightPhotos does
+        not try to match their depth. It aims to be the quickest way through a
+        shoot.
+      </p>
+      <div class="lp-compare-wrap">
+        <table class="lp-compare">
+          <thead>
+            <tr>
+              <th scope="col"></th>
+              <th scope="col" class="lp-compare-pick">LightPhotos</th>
+              <th scope="col">darktable</th>
+              <th scope="col">RawTherapee</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Price</th>
+              <td class="lp-compare-pick">Free, open source</td>
+              <td>Free, open source</td>
+              <td>Free, open source</td>
+            </tr>
+            <tr>
+              <th scope="row">Best at</th>
+              <td class="lp-compare-pick">Culling a shoot quickly and simple global edits</td>
+              <td>Deep editing and library management</td>
+              <td>Detailed RAW processing</td>
+            </tr>
+            <tr>
+              <th scope="row">Learning curve</th>
+              <td class="lp-compare-pick">Minutes. A handful of sliders and shortcuts.</td>
+              <td>Steep. Many modules and concepts.</td>
+              <td>Moderate to steep</td>
+            </tr>
+            <tr>
+              <th scope="row">Library</th>
+              <td class="lp-compare-pick">Your folders, no import</td>
+              <td>Import into a database</td>
+              <td>File browser</td>
+            </tr>
+            <tr>
+              <th scope="row">Masks and local edits</th>
+              <td class="lp-compare-pick">Spot removal only</td>
+              <td>Extensive</td>
+              <td>Some</td>
+            </tr>
+            <tr>
+              <th scope="row">Runs in a browser</th>
+              <td class="lp-compare-pick">Yes, in Chrome</td>
+              <td>No</td>
+              <td>No</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p>
+        Plenty of people will use both: cull in LightPhotos, then take the
+        handful of keepers that need masks into darktable.
+      </p>
+
+      <h2>Requirements and limits</h2>
+      <ul class="lp-article-list">
+        <li>Ubuntu 24.04+, Debian 13+, Fedora 40+, or similar, on x86-64 or ARM64.</li>
+        <li>Distributed as a <code>.tar.gz</code>. Unpack and run, nothing to install system-wide.</li>
+        <li>RAW decoding on Linux uses the open-source rawler decoder. Tested Sony, Canon, lossless Nikon, Fujifilm GFX, Panasonic, Pentax and Leica files open fully, as do iPhone ProRAW and Pixel DNGs.</li>
+        <li>Fujifilm X-Trans files can be browsed and rated from their embedded preview but not yet edited. Nikon High Efficiency NEF, the OM System OM-5 II and Samsung Galaxy DNGs do not open. The full list is on <a href="/docs/formats.html">tested cameras</a>.</li>
+      </ul>
+
+      <h2>Get it</h2>
+      <p>
+        <a href="/downloads.html">Download for Linux</a>. The download page
+        picks the right build for your CPU. Coming from Lightroom on another
+        machine? See <a href="/lightroom-alternative.html">how LightPhotos
+        compares with Lightroom</a>.
+      </p>
+    </article>
+  </main>
+</Base>

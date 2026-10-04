@@ -1,0 +1,122 @@
+---
+import Base from "../layouts/Base.astro";
+
+// Comparison page aimed at people searching for a Lightroom alternative. The
+// "What LightPhotos does not do yet" section is the point: overclaiming here
+// would cost more trust than the page earns. Keep it in step with docs/adjust,
+// docs/export and docs/shortcuts when features land.
+---
+<Base
+  title="A free, open-source Lightroom alternative — LightPhotos"
+  desc="LightPhotos compared with Adobe Lightroom: no subscription, no account, no cloud, a download under 30MB, and Linux support. Plus an honest list of what it does not do yet."
+>
+  <main class="lp-page">
+    <article class="lp-article">
+      <header class="lp-article-head">
+        <h1>A free, open-source alternative to Lightroom</h1>
+        <p class="lp-article-dek">
+          LightPhotos is for photographers who want to get through a shoot fast,
+          make good edits, and export, without a subscription or a cloud
+          account. It is not a full Lightroom replacement yet. This page says
+          where it wins and where it falls short.
+        </p>
+      </header>
+
+      <h2>Side by side</h2>
+      <div class="lp-compare-wrap">
+        <table class="lp-compare">
+          <thead>
+            <tr>
+              <th scope="col"></th>
+              <th scope="col" class="lp-compare-pick">LightPhotos</th>
+              <th scope="col">Adobe Lightroom</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Price</th>
+              <td class="lp-compare-pick">Free</td>
+              <td>Paid subscription</td>
+            </tr>
+            <tr>
+              <th scope="row">Account</th>
+              <td class="lp-compare-pick">None</td>
+              <td>Adobe account required</td>
+            </tr>
+            <tr>
+              <th scope="row">Where photos live</th>
+              <td class="lp-compare-pick">Your own folders. Nothing is uploaded.</td>
+              <td>A catalog (Classic) or Adobe&rsquo;s cloud</td>
+            </tr>
+            <tr>
+              <th scope="row">Source code</th>
+              <td class="lp-compare-pick"><a href="https://github.com/andrewyao/lightphotos">Open source</a></td>
+              <td>Closed</td>
+            </tr>
+            <tr>
+              <th scope="row">Download size</th>
+              <td class="lp-compare-pick">Under 12MB on macOS, 20MB on Windows, 28MB on Linux</td>
+              <td>Gigabytes</td>
+            </tr>
+            <tr>
+              <th scope="row">Platforms</th>
+              <td class="lp-compare-pick">macOS, Windows, Linux, and Chrome with no install</td>
+              <td>macOS, Windows, iOS, Android, web. No Linux.</td>
+            </tr>
+            <tr>
+              <th scope="row">Culling</th>
+              <td class="lp-compare-pick">Keyboard-first: 0&ndash;5 stars, instant 100% zoom</td>
+              <td>Stars, flags, colour labels</td>
+            </tr>
+            <tr>
+              <th scope="row">Global edits</th>
+              <td class="lp-compare-pick">Exposure, contrast, highlights, shadows, whites, blacks, white balance, vibrance, saturation, denoise, Auto Tone</td>
+              <td>All of these and many more</td>
+            </tr>
+            <tr>
+              <th scope="row">Masks and local edits</th>
+              <td class="lp-compare-pick">Spot removal only</td>
+              <td>Brushes, gradients, AI subject and sky masks</td>
+            </tr>
+            <tr>
+              <th scope="row">Export</th>
+              <td class="lp-compare-pick">JPEG at the size you choose, or straight to Immich</td>
+              <td>JPEG, TIFF, PNG, DNG and more, plus print and web publishing</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>Where LightPhotos wins</h2>
+      <ul class="lp-article-list">
+        <li><strong>Speed through a shoot.</strong> Number keys rate, arrows move, Space checks focus at 100%. Previews render on the GPU, and folders open without an import step.</li>
+        <li><strong>Your files stay yours.</strong> There is no catalog to migrate and no cloud to sync. Edits sit in a small <code>.lightphotos</code> folder beside the photos, and the originals are never modified.</li>
+        <li><strong>Nothing to pay, nothing to sign up for.</strong> Download it, or open the <a href="/app.html">web app</a> in Chrome and point it at a folder.</li>
+        <li><strong>It runs on Linux.</strong> Native ARM and x86 builds. See <a href="/linux-raw-photo-editor.html">LightPhotos on Linux</a>.</li>
+      </ul>
+
+      <h2>What LightPhotos does not do yet</h2>
+      <ul class="lp-article-list">
+        <li>No masks, brushes, gradients or AI selections. Spot removal is the only local tool.</li>
+        <li>No tone curve, HSL panel, colour grading, lens corrections or presets.</li>
+        <li>No pick and reject flags or colour labels. Ratings are 0&ndash;5 stars.</li>
+        <li>No keywords, collections, maps, face recognition or print module.</li>
+        <li>JPEG is the only export format.</li>
+        <li>Some cameras are limited outside macOS. See <a href="/docs/formats.html">tested cameras</a>.</li>
+      </ul>
+      <p>
+        If you rely on masks or a large preset library every day, keep Lightroom
+        for those edits. LightPhotos can still be the fast first pass: cull the
+        shoot here, then take the keepers elsewhere.
+      </p>
+
+      <h2>Try it</h2>
+      <p>
+        <a href="/downloads.html">Download LightPhotos</a> for macOS, Windows or
+        Linux, or <a href="/app.html">open the web app</a>. The
+        <a href="/docs.html">help pages</a> walk through a whole shoot in five
+        short steps.
+      </p>
+    </article>
+  </main>
+</Base>

@@ -2,18 +2,10 @@
 import Base from "../layouts/Base.astro";
 ---
 <Base
-  title="LightPhotos — a local-first, Lightroom-style photo manager"
-  desc="LightPhotos is a fast, private photo manager for large libraries. Cull, rate, organize and develop your RAW files — in your browser or as a native desktop app. Nothing leaves your machine."
+  title="LightPhotos — a free, open-source Lightroom alternative for RAW photos"
+  desc="Cull, rate, edit and export RAW photos fast. A free, open-source alternative to Lightroom for macOS, Windows, Linux and the browser. No subscription, no account, and your photos never leave your computer."
 >
   <style is:inline>
-    /* One message per platform, all hidden until the sniffer below picks one.
-       Without JS the visitor keeps the line that names every size. */
-    .lp-os-size-item { display: none; }
-    :root[data-lp-os="macos"] .lp-os-size-item[data-os="macos"],
-    :root[data-lp-os="windows"] .lp-os-size-item[data-os="windows"],
-    :root[data-lp-os="linux"] .lp-os-size-item[data-os="linux"] { display: inline; }
-    :root[data-lp-os] .lp-os-size-all { display: none; }
-
     /* No WebGPU means the web build cannot run: the heading promises two
        ways, so it goes with the Web card and only the Desktop one is left, and
        the Desktop card drops the sentence that compares it to a web version the
@@ -68,13 +60,16 @@ import Base from "../layouts/Base.astro";
   <main class="lp-page">
     <section class="lp-hero">
       <div class="lp-glow"></div>
-      <h1 class="lp-wordmark">Light<span class="lp-light">Photos</span></h1>
+      <p class="lp-wordmark">Light<span class="lp-light">Photos</span></p>
+      <h1 class="lp-tagline">Cull and edit RAW photos fast. Free, open source, and nothing leaves your computer.</h1>
       <div class="lp-hero-intro">
         <p class="lp-lede">
-          A Lightroom-style photo manager and editor built for speed. Your photos stay on
-          your own computer. Cull a shoot, rate a big library, and develop your
-          RAW files non-destructively. Free, no sign-up, a tiny download, and
-          fully <a href="https://github.com/andrewyao/lightphotos" target="_blank">open source</a>.
+          A lightweight <a href="/lightroom-alternative.html">alternative to Lightroom</a>
+          for macOS, Windows, <a href="/linux-raw-photo-editor.html">Linux</a> and
+          the browser. Rate a shoot from the keyboard, develop your RAW files
+          non-destructively, and export finished JPEGs. No subscription, no
+          sign-up, a tiny download, and fully
+          <a href="https://github.com/andrewyao/lightphotos" target="_blank">open source</a>.
         </p>
 
         <figure class="lp-demo">
@@ -138,19 +133,38 @@ import Base from "../layouts/Base.astro";
               pipeline tuned to each platform and some additional features.
             </p>
             <ul class="lp-check">
-              <li class="lp-os-size">
-                <span class="lp-os-size-item" data-os="macos">The entire application is under <strong>12MB (macOS)</strong>.</span>
-                <span class="lp-os-size-item" data-os="windows">The entire application is under <strong>20MB (Windows)</strong>.</span>
-                <span class="lp-os-size-item" data-os="linux">The entire application is under <strong>28MB (Linux)</strong>.</span>
-                <span class="lp-os-size-all">Extremely small &mdash; the entire application is under <strong>12MB on macOS, 20MB on Windows and 28MB on Linux</strong>.</span>
-              </li>
+              <li class="lp-os-size">Extremely small &mdash; the entire application is under <strong>12MB on macOS, 20MB on Windows and 28MB on Linux</strong>.</li>
               <li>Supports macOS, Windows, Linux on ARM and x86 &mdash; Ubuntu 24.04+, Debian 13+, Fedora 40+.</li>
             </ul>
+            <script is:inline>
+            // The page ships one line naming every size, so crawlers and no-JS
+            // visitors read it once. Swapped right after it is parsed, before
+            // first paint, for the visitor's own platform.
+            (function () {
+              var sizes = { macos: "12MB (macOS)", windows: "20MB (Windows)", linux: "28MB (Linux)" };
+              var size = sizes[document.documentElement.getAttribute("data-lp-os")];
+              var li = document.querySelector(".lp-os-size");
+              if (size && li) li.innerHTML = "The entire application is under <strong>" + size + "</strong>.";
+            })();
+            </script>
             <span class="lp-split-cta">See downloads <span aria-hidden="true">&rarr;</span></span>
           </a>
         </div>
       </section>
 
+    </section>
+
+    <section aria-labelledby="flow-head">
+      <div class="lp-section-head">
+        <h2 id="flow-head">What you can do today</h2>
+      </div>
+      <ol class="lp-flow">
+        <li><strong>Open a folder</strong><span>Any folder on your disk. No import, no catalog.</span></li>
+        <li><strong>Cull</strong><span>Rate with 0&ndash;5, filter by stars, check focus at 100%.</span></li>
+        <li><strong>Edit</strong><span>Tone, white balance, color, denoise, spot removal, Auto Tone.</span></li>
+        <li><strong>Export</strong><span>Full-quality JPEGs at the size you choose. Originals untouched.</span></li>
+        <li><strong>Share</strong><span>Send exports to your own <a href="/blogs/exporting-to-your-own-immich-server.html">Immich server</a>.</span></li>
+      </ol>
     </section>
 
     <dialog class="lp-demo-modal" aria-label="LightPhotos demo">
@@ -288,6 +302,18 @@ import Base from "../layouts/Base.astro";
     </section>
 
     <section class="lp-actions" aria-label="Keep exploring">
+      <a class="lp-card" href="/lightroom-alternative.html">
+        <i class="ph-bold ph-scales" aria-hidden="true"></i>
+        <h2>Lightroom <span class="lp-go" aria-hidden="true">&rarr;</span></h2>
+        <p>What you gain by switching, and what LightPhotos does not do yet.</p>
+      </a>
+
+      <a class="lp-card" href="/linux-raw-photo-editor.html">
+        <i class="ph-bold ph-terminal-window" aria-hidden="true"></i>
+        <h2>Linux <span class="lp-go" aria-hidden="true">&rarr;</span></h2>
+        <p>Lightroom has never run on Linux. Native ARM and x86 builds of LightPhotos do.</p>
+      </a>
+
       <a class="lp-card" href="/blogs.html">
         <i class="ph-bold ph-pencil-simple" aria-hidden="true"></i>
         <h2>Blogs <span class="lp-go" aria-hidden="true">&rarr;</span></h2>

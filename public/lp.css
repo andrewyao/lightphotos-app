@@ -41,6 +41,8 @@
 .ph-bold.ph-download-simple:before { content: "\e20c"; }
 .ph-bold.ph-pencil-simple:before { content: "\e3b4"; }
 .ph-bold.ph-book-open:before { content: "\e0e6"; }
+.ph-bold.ph-scales:before { content: "\e750"; }
+.ph-bold.ph-terminal-window:before { content: "\eae8"; }
 
 /* lightphotos.app stylesheet.
  *
@@ -710,7 +712,7 @@ a.lp-card:focus-visible .lp-go {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .lp-glow, .lp-wordmark, .lp-lede, .lp-demo, .lp-card, .lp-panel {
+  .lp-glow, .lp-wordmark, .lp-tagline, .lp-lede, .lp-demo, .lp-card, .lp-panel {
     animation: none !important;
     opacity: 1 !important;
     filter: none !important;
@@ -759,6 +761,48 @@ a.lp-card:focus-visible .lp-go {
 
 .lp-hero .lp-split {
   text-align: left;
+}
+
+/* "What you can do today": the loop from folder to export, one card per step. */
+.lp-flow {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 0.9rem;
+  margin-top: 1.8rem;
+  padding: 0;
+  list-style: none;
+}
+
+.lp-flow li {
+  display: grid;
+  align-content: start;
+  gap: 0.35rem;
+  padding: 1.1rem 1.2rem;
+  background: var(--surface-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 14px;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--lp-muted);
+}
+
+.lp-flow strong {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 560;
+  color: var(--lp-ink);
+}
+
+.lp-tagline {
+  max-width: 40rem;
+  margin-top: 1.1rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.3rem, 3.2vw, 1.75rem);
+  font-weight: 520;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  opacity: 0;
+  animation: lp-rise 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.28s forwards;
 }
 
 .lp-features {
