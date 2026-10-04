@@ -11,8 +11,10 @@ import Docs from "../../layouts/Docs.astro";
   <h2>What it opens</h2>
   <ul class="lp-article-list">
     <li>
-      <strong>RAW</strong> &mdash; Sony ARW, Canon CR2 / CR3 and Adobe DNG,
-      rendered non-destructively like everything else.
+      <strong>RAW</strong> &mdash; Sony ARW, Canon CR2 / CR3, Nikon NEF,
+      Fujifilm RAF, Panasonic RW2, Olympus / OM System ORF, Pentax PEF and
+      DNG (Leica, Pentax, iPhone ProRAW, Pixel), rendered non-destructively
+      like everything else.
     </li>
     <li>
       <strong>Ordinary images</strong> &mdash; JPEG and TIFF on every
@@ -29,10 +31,99 @@ import Docs from "../../layouts/Docs.astro";
     half-working. Shooting or converting to JPEG keeps a folder readable on
     every platform.
   </p>
+  <h2>Tested cameras</h2>
+  <p>
+    RAW support depends on the camera model, not just the brand. The macOS
+    build decodes RAW through Apple's ImageIO, so it opens whatever
+    <a href="https://support.apple.com/en-us/122870">Apple's camera list</a>
+    covers. The Windows, Linux and browser builds use the open-source
+    <a href="https://github.com/dnglab/dnglab">rawler</a> decoder instead.
+    These are the files tested on both:
+  </p>
+
+  <div class="lp-compare-wrap">
+    <table class="lp-compare">
+      <thead>
+        <tr>
+          <th scope="col">Camera</th>
+          <th scope="col">macOS</th>
+          <th scope="col">Windows, Linux, browser</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Sony</strong> A7 IV</td>
+          <td>Yes</td>
+          <td>Yes</td>
+        </tr>
+        <tr>
+          <td><strong>Canon</strong> EOS R5</td>
+          <td>Yes</td>
+          <td>Yes</td>
+        </tr>
+        <tr>
+          <td><strong>Nikon</strong> D850, Z 6II, Z f, Z 8 (lossless)</td>
+          <td>Yes</td>
+          <td>Yes</td>
+        </tr>
+        <tr>
+          <td><strong>Nikon</strong> High Efficiency NEF (Z 8, Z 9)</td>
+          <td>No</td>
+          <td>No</td>
+        </tr>
+        <tr>
+          <td><strong>Fujifilm</strong> GFX100S, X-A5</td>
+          <td>Yes</td>
+          <td>Yes</td>
+        </tr>
+        <tr>
+          <td><strong>Fujifilm</strong> X-Trans: X-T4, X-T5, X-H2S, X100VI</td>
+          <td>Yes</td>
+          <td>Browse only, from the camera's embedded preview</td>
+        </tr>
+        <tr>
+          <td><strong>Panasonic</strong> S5II, GH6</td>
+          <td>Yes</td>
+          <td>Yes</td>
+        </tr>
+        <tr>
+          <td><strong>OM System</strong> OM-5 II</td>
+          <td>Yes</td>
+          <td>No</td>
+        </tr>
+        <tr>
+          <td><strong>Pentax</strong> K-r (PEF and DNG)</td>
+          <td>Yes</td>
+          <td>Yes</td>
+        </tr>
+        <tr>
+          <td><strong>Leica</strong> Q2 DNG</td>
+          <td>Yes</td>
+          <td>Yes</td>
+        </tr>
+        <tr>
+          <td><strong>iPhone</strong> 12 Pro ProRAW, <strong>Pixel</strong> 8 Pro DNG</td>
+          <td>Yes</td>
+          <td>Yes</td>
+        </tr>
+        <tr>
+          <td><strong>Samsung</strong> Galaxy S23 Ultra DNG</td>
+          <td>Yes</td>
+          <td>No</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>
+    Nikon's High Efficiency compression is the gap on every platform; shoot
+    lossless compressed NEF for now. Untested cameras from these brands will
+    usually work, but a camera released after your copy of macOS or after the
+    current rawler release may not.
+  </p>
   <p>
     Anything else in the folder is simply left out of the grid rather than
-    raising an error. If your camera's RAW format is not on the list, it will
-    not open yet &mdash; the set is small on purpose for now, and
+    raising an error. If your camera does not open,
     <a href="https://github.com/andrewyao/lightphotos/issues">the issue
     tracker</a> is where requests land.
   </p>
