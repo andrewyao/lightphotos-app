@@ -3,7 +3,7 @@ import Base from "../layouts/Base.astro";
 ---
 <Base
   title="LightPhotos — a free, open-source Lightroom alternative for RAW photos"
-  desc="Cull, rate, edit and export RAW photos fast. A free, open-source alternative to Lightroom for macOS, Windows, Linux and the browser. No subscription, no account, and your photos never leave your computer."
+  desc="Cull, rate, edit and export RAW photos fast. A free, open-source alternative to Lightroom for macOS, Windows, Linux and the browser. No subscription, no account, and your photos and edits never leave your computer."
 >
   <style is:inline>
     /* No WebGPU means the web build cannot run, so the browser button goes and
@@ -57,11 +57,12 @@ import Base from "../layouts/Base.astro";
           <h1 class="lp-tagline">Cull and edit RAW photos fast.</h1>
           <p class="lp-lede">
             A free, open-source Lightroom alternative for macOS, Windows, Linux and
-            the browser. Nothing leaves your computer.
+            the browser. Your photos and edits never leave your computer.
           </p>
           <div class="lp-hero-cta">
             <a class="lp-btn lp-hero-dl" href="/downloads.html">Download</a>
             <a class="lp-btn lp-btn--ghost" href="/app.html" data-needs-webgpu>Open in browser</a>
+            <a class="lp-hero-gh" href="https://github.com/andrewyao/lightphotos" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .7a11.5 11.5 0 0 0-3.64 22.4c.58.1.79-.25.79-.56v-2.23c-3.22.7-3.9-1.37-3.9-1.37-.52-1.34-1.28-1.7-1.28-1.7-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.57-.29-5.27-1.28-5.27-5.68 0-1.25.45-2.28 1.19-3.08-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.16 1.18a10.9 10.9 0 0 1 5.76 0c2.2-1.49 3.16-1.18 3.16-1.18.63 1.59.23 2.76.11 3.05.74.8 1.19 1.83 1.19 3.08 0 4.41-2.71 5.38-5.29 5.67.42.36.79 1.07.79 2.16v3.26c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .7Z"/></svg>GitHub</a>
           </div>
           <script is:inline>
           // Names the visitor's platform on the Download button, before first
@@ -91,7 +92,6 @@ import Base from "../layouts/Base.astro";
               <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M10 20H4v-6M20 4l-7 7M4 20l7-7"/></svg>
             </span>
           </button>
-          <figcaption class="lp-demo-caption">Number keys rate, arrows move, Enter opens, Space zooms to 100%.</figcaption>
         </figure>
       </div>
     </section>
@@ -102,7 +102,7 @@ import Base from "../layouts/Base.astro";
       </div>
       <ol class="lp-flow">
         <li><strong>Open a folder</strong><span>Any folder on your disk. No import, no catalog.</span></li>
-        <li><strong>Cull</strong><span>Rate with 0&ndash;5, filter by stars, check focus at 100%.</span></li>
+        <li><strong>Cull</strong><span>Rate 0&ndash;5, stack bursts under the best shot, check focus at 100%.</span></li>
         <li><strong>Edit</strong><span>Tone, white balance, color, denoise, spot removal, Auto Tone.</span></li>
         <li><strong>Export</strong><span>Full-quality JPEGs at the size you choose. Originals untouched.</span></li>
         <li><strong>Share</strong><span>Send exports to your own <a href="/blogs/exporting-to-your-own-immich-server.html">Immich server</a>.</span></li>
@@ -167,8 +167,8 @@ import Base from "../layouts/Base.astro";
           <rect x="6" y="6" width="12" height="12" rx="2"/>
           <path d="M9 3v3M15 3v3M9 18v3M15 18v3M3 9h3M3 15h3M18 9h3M18 15h3"/>
         </svg>
-        <h3>Fast on big files</h3>
-        <p>Previews and sliders render on the GPU. macOS also uses the system&rsquo;s native RAW decoder.</p>
+        <h3>Fast</h3>
+        <p>Renders on the GPU. Written in Rust. Native RAW decoding on macOS desktop.</p>
       </div>
       <div class="lp-feature">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -176,8 +176,8 @@ import Base from "../layouts/Base.astro";
           <circle cx="8.5" cy="10" r="1.8"/>
           <path d="M4 17l4.5-4.5 3.5 3.5 3-3 5 5"/>
         </svg>
-        <h3>Opens your RAW files</h3>
-        <p>Sony, Canon, Nikon, Fujifilm, Panasonic, Olympus, Pentax, Leica, phone DNGs, JPEG and TIFF. <a href="/docs/formats.html">Tested cameras</a>.</p>
+        <h3>File formats</h3>
+        <p>Sony, Canon, Nikon, Fujifilm, Panasonic, Olympus, Pentax, Leica, phone DNGs, JPEG and TIFF. <a href="/docs/formats.html">Supported formats</a></p>
       </div>
       <div class="lp-feature">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -207,19 +207,19 @@ import Base from "../layouts/Base.astro";
       <a class="lp-card" href="/linux-raw-photo-editor.html">
         <i class="ph-bold ph-terminal-window" aria-hidden="true"></i>
         <h2>Linux <span class="lp-go" aria-hidden="true">&rarr;</span></h2>
-        <p>Lightroom has never run on Linux. Native ARM and x86 builds of LightPhotos do.</p>
+        <p>Lightroom has no Linux app. LightPhotos has native ARM and x86 builds.</p>
       </a>
 
       <a class="lp-card" href="/blogs.html">
         <i class="ph-bold ph-pencil-simple" aria-hidden="true"></i>
         <h2>Blogs <span class="lp-go" aria-hidden="true">&rarr;</span></h2>
-        <p>Write-ups on the hard parts: WebAssembly, threading, RAW decoding and color pipelines.</p>
+        <p>The journey of building LightPhotos and its RAW engine.</p>
       </a>
 
       <a class="lp-card" href="/docs.html">
         <i class="ph-bold ph-book-open" aria-hidden="true"></i>
         <h2>Help <span class="lp-go" aria-hidden="true">&rarr;</span></h2>
-        <p>User guides, supported formats, keyboard shortcuts and common questions.</p>
+        <p>User guides, supported formats, keyboard shortcuts.</p>
       </a>
 
     </section>

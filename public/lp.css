@@ -279,14 +279,6 @@ body {
   font-size: 1.15rem;
 }
 
-/* GitHub's mark isn't in the Phosphor subset, so it's an inline SVG sized to
-   match the font icons beside it. */
-svg.lp-nav-icon {
-  width: 1.15rem;
-  height: 1.15rem;
-  vertical-align: middle;
-}
-
 .lp-nav-label {
   position: absolute;
   width: 1px;
@@ -472,6 +464,29 @@ a.lp-version:hover {
   box-shadow: inset 0 0 0 1px var(--border-strong);
 }
 
+/* A quiet text link beside the two buttons, so it doesn't compete with them. */
+.lp-hero-gh {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  padding: 0.7em 0.5em;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--lp-muted);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.lp-hero-gh:hover,
+.lp-hero-gh:focus-visible {
+  color: var(--lp-ink);
+}
+
+.lp-hero-gh svg {
+  width: 1.1em;
+  height: 1.1em;
+}
+
 .lp-demo {
   flex: 1 1 min(18rem, 100%);
   max-width: 26rem;
@@ -541,12 +556,6 @@ a.lp-version:hover {
   opacity: 1;
 }
 
-.lp-demo-caption {
-  margin-top: 0.8rem;
-  font-size: 0.9rem;
-  opacity: 0.7;
-}
-
 .lp-demo-modal {
   width: min(92vw, 1600px, calc(88vh * 1.6));
   max-width: none;
@@ -594,6 +603,7 @@ a.lp-version:hover {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr);
   align-items: center;
+  align-content: start;
   column-gap: 0.75rem;
   row-gap: 0.9rem;
   padding: 1.4rem;
@@ -828,13 +838,12 @@ a.lp-card:focus-visible .lp-go {
 
 .lp-features {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
   gap: 1.1rem;
   margin-top: 4.5rem;
 }
 
-/* Four tiles: two rows of two, then one row of four -- never three and an
-   orphan. */
+/* Four tiles: one column, then two by two, then one row of four -- never
+   three and an orphan. */
 @media (min-width: 560px) {
   .lp-features {
     grid-template-columns: repeat(2, 1fr);
@@ -847,10 +856,13 @@ a.lp-card:focus-visible .lp-go {
   }
 }
 
+/* Icon and heading share the first row, the text spans below. Rows pack at
+   the top so a short tile's text lines up with its taller neighbours'. */
 .lp-feature {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr);
   align-items: center;
+  align-content: start;
   column-gap: 0.65rem;
   row-gap: 0.6rem;
   padding: 1.35rem;
@@ -867,16 +879,12 @@ a.lp-card:focus-visible .lp-go {
 .lp-feature:nth-child(4) { animation-delay: 0.81s; }
 
 .lp-feature > svg {
-  grid-column: 1;
-  grid-row: 1;
   width: 26px;
   height: 26px;
   color: var(--lp-accent);
 }
 
 .lp-feature h3 {
-  grid-column: 2;
-  grid-row: 1;
   font-family: var(--font-display);
   font-size: 1.05rem;
   font-weight: 560;
@@ -1349,6 +1357,13 @@ a.lp-split-card:focus-visible {
 .lp-article-list li::marker {
   color: var(--lp-accent);
   font-weight: 600;
+}
+
+/* Fine print under an article, e.g. the trademark notice on the Lightroom page. */
+.lp-article p.lp-trademark {
+  margin-top: 3rem;
+  font-size: 0.75rem;
+  color: var(--lp-muted);
 }
 
 /* Architecture diagram: two panels of stacked boxes, side by side when there
