@@ -279,6 +279,14 @@ body {
   font-size: 1.15rem;
 }
 
+/* GitHub's mark isn't in the Phosphor subset, so it's an inline SVG sized to
+   match the font icons beside it. */
+svg.lp-nav-icon {
+  width: 1.15rem;
+  height: 1.15rem;
+  vertical-align: middle;
+}
+
 .lp-nav-label {
   position: absolute;
   width: 1px;
@@ -433,10 +441,35 @@ a.lp-version:hover {
 
 /* The lede and the demo share a row while both fit at their basis, and the
    demo drops below the lede once they don't -- no fixed breakpoint. */
-.lp-hero-intro .lp-lede {
+.lp-hero-copy {
   flex: 1 1 min(20rem, 100%);
-  max-width: 26rem;
-  margin-top: 0;
+  max-width: 30rem;
+}
+
+.lp-hero-intro .lp-lede {
+  margin-top: 1rem;
+}
+
+.lp-hero-cta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-top: 1.4rem;
+  opacity: 0;
+  animation: lp-rise 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
+}
+
+.lp-btn.lp-btn--ghost {
+  background: transparent;
+  color: var(--lp-ink);
+  box-shadow: inset 0 0 0 1px var(--border-strong);
+}
+
+.lp-btn.lp-btn--ghost:hover,
+.lp-btn.lp-btn--ghost:focus-visible {
+  background: var(--surface-hover);
+  box-shadow: inset 0 0 0 1px var(--border-strong);
 }
 
 .lp-demo {
@@ -448,10 +481,14 @@ a.lp-version:hover {
 }
 
 /* Matches the wrap point above (20rem + 18rem + 2.5rem gap): side by side,
-   the lede reads left-aligned against the video. */
+   the copy reads left-aligned against the video. */
 @container (min-width: 40.5rem) {
-  .lp-hero-intro .lp-lede {
+  .lp-hero-copy {
     text-align: left;
+  }
+
+  .lp-hero-cta {
+    justify-content: flex-start;
   }
 }
 
@@ -745,23 +782,7 @@ a.lp-card:focus-visible .lp-go {
   grid-row: 1;
 }
 
-/* --- landing page: run-modes split in the hero, feature grid --- */
-/* The split lives where the dual CTA buttons used to sit, inside the hero's
-   centered column, so it claims the page's full width and takes the cards back
-   to left-aligned text. Its heading takes the old button row's top gap instead
-   of the 5.5rem a standalone section head would want. */
-.lp-hero-split {
-  width: 100%;
-  margin-top: 2.1rem;
-}
-
-.lp-hero .lp-section-head {
-  margin-top: 0;
-}
-
-.lp-hero .lp-split {
-  text-align: left;
-}
+/* --- landing page: feature grid --- */
 
 /* "What you can do today": the loop from folder to export, one card per step. */
 .lp-flow {
@@ -793,13 +814,13 @@ a.lp-card:focus-visible .lp-go {
   color: var(--lp-ink);
 }
 
+/* The home page's headline, heading the copy column beside the demo now that
+   the big wordmark is gone -- so it carries the hero's display size. */
 .lp-tagline {
-  max-width: 40rem;
-  margin-top: 1.1rem;
   font-family: var(--font-display);
-  font-size: clamp(1.3rem, 3.2vw, 1.75rem);
-  font-weight: 520;
-  line-height: 1.3;
+  font-size: clamp(2rem, 4.5vw, 2.75rem);
+  font-weight: 560;
+  line-height: 1.1;
   letter-spacing: -0.01em;
   opacity: 0;
   animation: lp-rise 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.28s forwards;
@@ -812,9 +833,17 @@ a.lp-card:focus-visible .lp-go {
   margin-top: 4.5rem;
 }
 
-@media (min-width: 860px) {
+/* Four tiles: two rows of two, then one row of four -- never three and an
+   orphan. */
+@media (min-width: 560px) {
   .lp-features {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1000px) {
+  .lp-features {
+    grid-template-columns: repeat(4, 1fr);
   }
 }
 
@@ -836,11 +865,6 @@ a.lp-card:focus-visible .lp-go {
 .lp-feature:nth-child(2) { animation-delay: 0.67s; }
 .lp-feature:nth-child(3) { animation-delay: 0.74s; }
 .lp-feature:nth-child(4) { animation-delay: 0.81s; }
-.lp-feature:nth-child(5) { animation-delay: 0.88s; }
-.lp-feature:nth-child(6) { animation-delay: 0.95s; }
-.lp-feature:nth-child(7) { animation-delay: 1.02s; }
-.lp-feature:nth-child(8) { animation-delay: 1.09s; }
-.lp-feature:nth-child(9) { animation-delay: 1.16s; }
 
 .lp-feature > svg {
   grid-column: 1;
@@ -863,36 +887,6 @@ a.lp-card:focus-visible .lp-go {
   font-size: 0.85rem;
   line-height: 1.55;
   color: var(--lp-muted);
-}
-
-a.lp-feature--github {
-  color: inherit;
-  text-decoration: none;
-  transition: border-color 0.25s ease, box-shadow 0.25s ease;
-}
-
-.lp-feature--github > svg {
-  width: 20px;
-  height: 20px;
-}
-
-a.lp-feature--github:hover,
-a.lp-feature--github:focus-visible {
-  border-color: var(--border-accent);
-  box-shadow: 0 12px 32px color-mix(in srgb, var(--lp-glow) 10%, transparent);
-}
-
-a.lp-feature--github:focus-visible {
-  outline: 2px solid var(--lp-accent);
-  outline-offset: 3px;
-}
-
-.lp-github-url {
-  min-width: 0;
-  color: var(--lp-muted);
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  overflow-wrap: anywhere;
 }
 
 .lp-section-head {

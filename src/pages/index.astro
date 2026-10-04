@@ -6,23 +6,15 @@ import Base from "../layouts/Base.astro";
   desc="Cull, rate, edit and export RAW photos fast. A free, open-source alternative to Lightroom for macOS, Windows, Linux and the browser. No subscription, no account, and your photos never leave your computer."
 >
   <style is:inline>
-    /* No WebGPU means the web build cannot run: the heading promises two
-       ways, so it goes with the Web card and only the Desktop one is left, and
-       the Desktop card drops the sentence that compares it to a web version the
-       visitor has just stopped being shown. Decided by the script below, never
-       by default, so a visitor with JS off still sees both. Held to one card's
-       width rather than stretching across the hero on its own. */
-    :root[data-lp-webgpu="0"] .lp-hero-split .lp-section-head,
+    /* No WebGPU means the web build cannot run, so the browser button goes and
+       only Download is left. Decided by the script below, never by default, so
+       a visitor with JS off still sees both. */
     :root[data-lp-webgpu="0"] [data-needs-webgpu] {
       display: none;
     }
-    :root[data-lp-webgpu="0"] .lp-hero-split .lp-split {
-      max-width: 34rem;
-      margin-inline: auto;
-    }
   </style>
   <script is:inline>
-  // Runs before the hero is parsed, so the size line never paints the generic
+  // Runs before the hero is parsed, so the Download button never paints the generic
   // wording and then blinks over to the visitor's own platform.
   (function () {
     var ua = navigator.userAgent || "";
@@ -60,17 +52,27 @@ import Base from "../layouts/Base.astro";
   <main class="lp-page">
     <section class="lp-hero">
       <div class="lp-glow"></div>
-      <p class="lp-wordmark">Light<span class="lp-light">Photos</span></p>
-      <h1 class="lp-tagline">Cull and edit RAW photos fast. Free, open source, and nothing leaves your computer.</h1>
       <div class="lp-hero-intro">
-        <p class="lp-lede">
-          A lightweight <a href="/lightroom-alternative.html">alternative to Lightroom</a>
-          for macOS, Windows, <a href="/linux-raw-photo-editor.html">Linux</a> and
-          the browser. Rate a shoot from the keyboard, develop your RAW files
-          non-destructively, and export finished JPEGs. No subscription, no
-          sign-up, a tiny download, and fully
-          <a href="https://github.com/andrewyao/lightphotos" target="_blank">open source</a>.
-        </p>
+        <div class="lp-hero-copy">
+          <h1 class="lp-tagline">Cull and edit RAW photos fast.</h1>
+          <p class="lp-lede">
+            A free, open-source Lightroom alternative for macOS, Windows, Linux and
+            the browser. Nothing leaves your computer.
+          </p>
+          <div class="lp-hero-cta">
+            <a class="lp-btn lp-hero-dl" href="/downloads.html">Download</a>
+            <a class="lp-btn lp-btn--ghost" href="/app.html" data-needs-webgpu>Open in browser</a>
+          </div>
+          <script is:inline>
+          // Names the visitor's platform on the Download button, before first
+          // paint. Crawlers, phones and no-JS visitors keep the generic label.
+          (function () {
+            var OS = { macos: "macOS", windows: "Windows", linux: "Linux" };
+            var os = OS[document.documentElement.getAttribute("data-lp-os")];
+            if (os) document.querySelector(".lp-hero-dl").textContent = "Download for " + os;
+          })();
+          </script>
+        </div>
 
         <figure class="lp-demo">
           <button class="lp-demo-open" type="button" aria-haspopup="dialog" aria-label="Play the demo larger">
@@ -92,66 +94,6 @@ import Base from "../layouts/Base.astro";
           <figcaption class="lp-demo-caption">Number keys rate, arrows move, Enter opens, Space zooms to 100%.</figcaption>
         </figure>
       </div>
-
-      <section class="lp-hero-split" aria-labelledby="run-modes">
-        <div class="lp-section-head">
-          <h2 id="run-modes">Two ways to run it</h2>
-        </div>
-
-        <div class="lp-split">
-          <a class="lp-split-card" href="/app.html" data-needs-webgpu>
-            <div class="lp-split-head">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <circle cx="12" cy="12" r="9"/>
-                <path d="M3 12h18M12 3c3 3.6 3 14.4 0 18M12 3c-3 3.6-3 14.4 0 18"/>
-              </svg>
-              <h3>Web</h3>
-              <span class="lp-split-tag">No install</span>
-            </div>
-            <p class="lp-split-lede">
-              Runs the latest version entirely in your browser through WebAssembly
-              and Rust. Point it at a folder and start working.
-            </p>
-            <ul class="lp-check">
-              <li>The entire application is under <strong>5.6MB (WebAssembly)</strong>.</li>
-              <li>Works in Chrome or any WebGPU enabled browser.</li>
-            </ul>
-            <span class="lp-split-cta">Open the web app <span aria-hidden="true">&rarr;</span></span>
-          </a>
-
-          <a class="lp-split-card lp-split-card--accent" href="/downloads.html">
-            <div class="lp-split-head">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <rect x="3" y="4.5" width="18" height="12" rx="2"/>
-                <path d="M8.5 20h7M12 16.5v3.5"/>
-              </svg>
-              <h3>Desktop</h3>
-              <span class="lp-split-tag">Fastest</span>
-            </div>
-            <p class="lp-split-lede" data-needs-webgpu>
-              Similar interface to the Web version &mdash; with a faster decode
-              pipeline tuned to each platform and some additional features.
-            </p>
-            <ul class="lp-check">
-              <li class="lp-os-size">Extremely small &mdash; the entire application is under <strong>12MB on macOS, 20MB on Windows and 28MB on Linux</strong>.</li>
-              <li>Supports macOS, Windows, Linux on ARM and x86 &mdash; Ubuntu 24.04+, Debian 13+, Fedora 40+.</li>
-            </ul>
-            <script is:inline>
-            // The page ships one line naming every size, so crawlers and no-JS
-            // visitors read it once. Swapped right after it is parsed, before
-            // first paint, for the visitor's own platform.
-            (function () {
-              var sizes = { macos: "12MB (macOS)", windows: "20MB (Windows)", linux: "28MB (Linux)" };
-              var size = sizes[document.documentElement.getAttribute("data-lp-os")];
-              var li = document.querySelector(".lp-os-size");
-              if (size && li) li.innerHTML = "The entire application is under <strong>" + size + "</strong>.";
-            })();
-            </script>
-            <span class="lp-split-cta">See downloads <span aria-hidden="true">&rarr;</span></span>
-          </a>
-        </div>
-      </section>
-
     </section>
 
     <section aria-labelledby="flow-head">
@@ -225,55 +167,8 @@ import Base from "../layouts/Base.astro";
           <rect x="6" y="6" width="12" height="12" rx="2"/>
           <path d="M9 3v3M15 3v3M9 18v3M15 18v3M3 9h3M3 15h3M18 9h3M18 15h3"/>
         </svg>
-        <h3>GPU-accelerated engine</h3>
-        <p>Previews and adjustments render on the GPU, so panning, zooming and slider changes stay smooth even on large files.</p>
-      </div>
-      <div class="lp-feature">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <line x1="4" y1="8" x2="20" y2="8"/>
-          <line x1="4" y1="16" x2="20" y2="16"/>
-          <circle cx="9" cy="8" r="2.6" fill="currentColor" stroke="none"/>
-          <circle cx="15" cy="16" r="2.6" fill="currentColor" stroke="none"/>
-        </svg>
-        <h3>Professional adjustments</h3>
-        <p>Crop, exposure, contrast, highlights, shadows, whites and blacks, white balance, tint, denoise, and much more coming soon.</p>
-      </div>
-      <div class="lp-feature">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M3 12a9 9 0 1 0 3-6.7"/>
-          <path d="M3 4v4h4"/>
-        </svg>
-        <h3>Non-destructive workflow</h3>
-        <p>Every edit is an instruction and resets cleanly. Your originals are never modified. All edits are written to sidecar files under .lightphotos in each folder.</p>
-      </div>
-      <div class="lp-feature">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <rect x="3" y="7" width="14" height="13" rx="2"/>
-          <path d="M8 7V5a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/>
-        </svg>
-        <h3>Complete image library</h3>
-        <p>Browse straight from any folders on your disk using rating filters.</p>
-      </div>
-      <a
-        class="lp-feature lp-feature--github"
-        href="https://github.com/andrewyao/lightphotos"
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="View LightPhotos on GitHub (opens in a new tab)"
-      >
-        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-          <path d="M12 .7a11.5 11.5 0 0 0-3.64 22.4c.58.1.79-.25.79-.56v-2.23c-3.22.7-3.9-1.37-3.9-1.37-.52-1.34-1.28-1.7-1.28-1.7-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.57-.29-5.27-1.28-5.27-5.68 0-1.25.45-2.28 1.19-3.08-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.16 1.18a10.9 10.9 0 0 1 5.76 0c2.2-1.49 3.16-1.18 3.16-1.18.63 1.59.23 2.76.11 3.05.74.8 1.19 1.83 1.19 3.08 0 4.41-2.71 5.38-5.29 5.67.42.36.79 1.07.79 2.16v3.26c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .7Z"/>
-        </svg>
-        <h3>GitHub</h3>
-        <p class="lp-github-url">github.com/andrewyao/lightphotos</p>
-      </a>
-      <div class="lp-feature">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M12 3.5l8.5 4.7-8.5 4.7L3.5 8.2z"/>
-          <path d="M3.5 12.6l8.5 4.7 8.5-4.7"/>
-        </svg>
-        <h3>Batch operations</h3>
-        <p>Copy adjustments across multiple files in one operation.</p>
+        <h3>Fast on big files</h3>
+        <p>Previews and sliders render on the GPU. macOS also uses the system&rsquo;s native RAW decoder.</p>
       </div>
       <div class="lp-feature">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -282,22 +177,23 @@ import Base from "../layouts/Base.astro";
           <path d="M4 17l4.5-4.5 3.5 3.5 3-3 5 5"/>
         </svg>
         <h3>Opens your RAW files</h3>
-        <p>Sony, Canon, Nikon, Fujifilm, Panasonic, Olympus, Pentax and Leica RAW, DNG from phones, plus JPEG and TIFF. HEIC opens in the macOS build only. <a href="/docs/formats.html">Tested cameras</a>.</p>
+        <p>Sony, Canon, Nikon, Fujifilm, Panasonic, Olympus, Pentax, Leica, phone DNGs, JPEG and TIFF. <a href="/docs/formats.html">Tested cameras</a>.</p>
       </div>
       <div class="lp-feature">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M12 3l7 3v5.5c0 4.2-2.9 7.6-7 9.5-4.1-1.9-7-5.3-7-9.5V6z"/>
-          <path d="M9 12.2l2.2 2.2 4-4.4"/>
+          <path d="M3 12a9 9 0 1 0 3-6.7"/>
+          <path d="M3 4v4h4"/>
         </svg>
-        <h3>Private by default</h3>
-        <p>Photos are read locally and never leave your machine.</p>
+        <h3>Non-destructive</h3>
+        <p>Edits are saved as small sidecar files next to your photos. Originals never change.</p>
       </div>
       <div class="lp-feature">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M13 2.5L5.5 13.5H11l-1 8 7.5-10.5H12z"/>
+          <path d="M12 3.5l8.5 4.7-8.5 4.7L3.5 8.2z"/>
+          <path d="M3.5 12.6l8.5 4.7 8.5-4.7"/>
         </svg>
-        <h3>Native decode on macOS</h3>
-        <p>macOS uses the system ImageIO framework &mdash; significantly faster RAW decode and previews.</p>
+        <h3>Batch edits</h3>
+        <p>Copy adjustments to many photos at once.</p>
       </div>
     </section>
 
@@ -325,6 +221,7 @@ import Base from "../layouts/Base.astro";
         <h2>Help <span class="lp-go" aria-hidden="true">&rarr;</span></h2>
         <p>User guides, supported formats, keyboard shortcuts and common questions.</p>
       </a>
+
     </section>
   </main>
 </Base>
