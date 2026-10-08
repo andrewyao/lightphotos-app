@@ -1,29 +1,32 @@
 ---
-import Base from "../layouts/Base.astro";
+import Base from "../../layouts/Base.astro";
 
-// Landing page for Linux photographers. Lightroom and most paid culling tools
+// Post for Linux photographers. Lightroom and most paid culling tools
 // skip Linux, so this is a search phrase the site can rank for. The camera
 // limits below must match the rawler column in docs/formats.astro.
 ---
 <Base
-  title="A fast RAW photo editor for Linux — LightPhotos"
+  title="A fast RAW photo editor for Linux — LightPhotos Blog"
   desc="LightPhotos is a free, open-source RAW photo culler and editor with native Linux builds for ARM and x86. Under 28MB, no account, no cloud, and edits that never touch your originals."
+  active="blogs"
 >
   <main class="lp-page">
     <article class="lp-article">
       <header class="lp-article-head">
+        <p class="lp-article-meta"><a href="/blogs.html">Blogs</a> &middot; <time datetime="2026-10-08">October 8, 2026</time></p>
         <h1>A fast RAW photo editor for Linux</h1>
         <p class="lp-article-dek">
           Lightroom has no Linux app, and neither do most paid culling
           tools. LightPhotos ships native Linux builds for ARM and x86. It is
           free, open source, and under 28MB.
         </p>
+        <p class="lp-article-byline">Andrew Yao &middot; 2 min read</p>
       </header>
 
       <h2>What you get</h2>
       <ul class="lp-article-list">
-        <li><strong>Fast culling.</strong> Rate a shoot from the keyboard with 0&ndash;5 stars, check focus at 100% with Space, and filter by rating.</li>
-        <li><strong>Non-destructive RAW editing.</strong> Exposure, tone, white balance, vibrance, denoise, spot removal and Auto Tone, rendered on the GPU.</li>
+        <li><strong>Fast culling.</strong> Rate a shoot from the keyboard with 0&ndash;5 stars, pick and reject flags and colour labels, check focus at 100% with Space, and filter by rating, flag or label.</li>
+        <li><strong>Non-destructive RAW editing.</strong> Exposure, tone, tone curve, white balance, vibrance, denoise, spot removal and Auto Adjust, rendered on the GPU.</li>
         <li><strong>Plain folders.</strong> No import and no database. Edits live in a <code>.lightphotos</code> folder beside your photos, so they back up and sync with everything else.</li>
         <li><strong>Export.</strong> Full-quality JPEGs at the size you choose, or straight to your own <a href="/blogs/exporting-to-your-own-immich-server.html">Immich server</a>.</li>
         <li><strong>Private.</strong> The desktop app makes no network requests. See <a href="/privacy.html">Privacy</a>.</li>
@@ -102,9 +105,20 @@ import Base from "../layouts/Base.astro";
       <p>
         <a href="/downloads.html">Download for Linux</a>. The download page
         picks the right build for your CPU. Coming from Lightroom on another
-        machine? See <a href="/lightroom-alternative.html">how LightPhotos
+        machine? See <a href="/blogs/lightroom-alternative.html">how LightPhotos
         compares with Lightroom</a>.
       </p>
+
+      <nav class="lp-article-nav" aria-label="More posts">
+        <a class="lp-article-nav-prev" href="/blogs/two-rust-photo-apps-on-the-mac.html">
+          <span class="lp-article-nav-dir">Back</span>
+          <span class="lp-article-nav-title">Two Rust photo apps on the Mac</span>
+        </a>
+        <a class="lp-article-nav-next" href="/blogs/lightroom-alternative.html">
+          <span class="lp-article-nav-dir">Next</span>
+          <span class="lp-article-nav-title">A free, open-source alternative to Lightroom</span>
+        </a>
+      </nav>
     </article>
   </main>
 </Base>

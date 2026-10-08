@@ -5,3 +5,10 @@
 # because Pages 308s /x.html to /x anyway.
 /docs       /docs/open-the-app  302
 /docs.html  /docs/open-the-app  302
+
+# The Lightroom and Linux comparisons moved under /blogs. 301 so search
+# engines carry the old pages' ranking over to the new URLs.
+/lightroom-alternative        /blogs/lightroom-alternative   301
+/lightroom-alternative.html   /blogs/lightroom-alternative   301
+/linux-raw-photo-editor       /blogs/linux-raw-photo-editor  301
+/linux-raw-photo-editor.html  /blogs/linux-raw-photo-editor  301

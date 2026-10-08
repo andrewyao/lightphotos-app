@@ -24,7 +24,7 @@ def field(src, pattern, path, what):
 
 posts = []
 for path in POSTS:
-    src = NAV.sub("\n", path.read_text(encoding="utf-8"))
+    src = NAV.sub("", path.read_text(encoding="utf-8"))
     posts.append({
         "path": path,
         "src": src,
@@ -33,7 +33,10 @@ for path in POSTS:
         "title": field(src, r"<h1>(.*?)</h1>", path, "title"),
     })
 
-posts.sort(key=lambda p: p["date"])
+# Posts on the same day keep the order of the blog index, which lists newest
+# first.
+INDEX = re.findall(r'href="/blogs/([\w-]+)\.html"', pathlib.Path("src/pages/blogs.astro").read_text(encoding="utf-8"))
+posts.sort(key=lambda p: (p["date"], -INDEX.index(p["path"].stem) if p["path"].stem in INDEX else 0))
 
 def card(post, direction, cls):
     return (

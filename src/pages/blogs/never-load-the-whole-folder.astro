@@ -133,7 +133,7 @@ import Base from "../../layouts/Base.astro";
 
       <h2>The fix, the third time</h2>
       <p>
-        Auto Tone analyses each selected photo to calculate its adjustments.
+        Auto Adjust analyses each selected photo to calculate its adjustments.
         My first version requested a thumbnail for every selected photo at the
         start, because it would need all of them eventually. With 20,000
         photos at roughly 0.4 MB each, I asked the cache to hold about 8 GB
@@ -148,7 +148,7 @@ import Base from "../../layouts/Base.astro";
           <label>Selected <input type="range" min="0" max="5" step="1" value="4" aria-valuetext="20,000 photos"></label>
         </div>
         <svg viewBox="0 0 640 214" role="img" aria-label="A window of 32 photos moves across a selection of 20,000 photos and uses about 13 MB. If the app requests every thumbnail at the start, memory is about 8 GB, which is above the 4 GB limit of the browser tab.">
-          <text class="lp-fig-label" x="0" y="12">AUTO TONE ACROSS A SELECTION</text>
+          <text class="lp-fig-label" x="0" y="12">AUTO ADJUST ACROSS A SELECTION</text>
           <rect class="lp-fig-box" x="0" y="30" width="640" height="38" rx="6"></rect>
           <g data-view="window">
             <rect class="lp-fig-bar-dim" x="1" y="31" width="199" height="36"></rect>
@@ -273,7 +273,7 @@ import Base from "../../layouts/Base.astro";
       });
     }
 
-    // Auto Tone demo. Facts from the post: roughly 0.4 MB per thumbnail,
+    // Auto Adjust demo. Facts from the post: roughly 0.4 MB per thumbnail,
     // a 4 GB tab limit, and about 13 MB for the window of 32.
     const tone = document.getElementById("tone-demo");
     if (tone) {

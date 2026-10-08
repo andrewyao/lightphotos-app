@@ -96,19 +96,6 @@ import Base from "../layouts/Base.astro";
       </div>
     </section>
 
-    <section aria-labelledby="flow-head">
-      <div class="lp-section-head">
-        <h2 id="flow-head">What you can do today</h2>
-      </div>
-      <ol class="lp-flow">
-        <li><strong>Open a folder</strong><span>Any folder on your disk. No import, no catalog.</span></li>
-        <li><strong>Cull</strong><span>Rate 0&ndash;5, stack bursts under the best shot, check focus at 100%.</span></li>
-        <li><strong>Edit</strong><span>Tone, white balance, color, denoise, spot removal, Auto Tone.</span></li>
-        <li><strong>Export</strong><span>Full-quality JPEGs at the size you choose. Originals untouched.</span></li>
-        <li><strong>Share</strong><span>Send exports to your own <a href="/blogs/exporting-to-your-own-immich-server.html">Immich server</a>.</span></li>
-      </ol>
-    </section>
-
     <dialog class="lp-demo-modal" aria-label="LightPhotos demo">
       <button class="lp-demo-close" type="button" aria-label="Close">
         <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
@@ -164,11 +151,18 @@ import Base from "../layouts/Base.astro";
     <section class="lp-features" aria-label="What LightPhotos does">
       <div class="lp-feature">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+        </svg>
+        <h3>No imports</h3>
+        <p>Open any folder on your disk. No import, no copying photos, no catalog. The originals are never modified. <a href="/blogs/where-your-data-lives.html">Where your data lives</a></p>
+      </div>
+      <div class="lp-feature">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <rect x="6" y="6" width="12" height="12" rx="2"/>
           <path d="M9 3v3M15 3v3M9 18v3M15 18v3M3 9h3M3 15h3M18 9h3M18 15h3"/>
         </svg>
         <h3>Fast</h3>
-        <p>Renders on the GPU. Written entirely in Rust. Native RAW decoding on macOS desktop.</p>
+        <p>Renders on the GPU. Written entirely in Rust. Native RAW decoding on macOS desktop. <a href="/blogs/why-rust.html">Why Rust</a></p>
       </div>
       <div class="lp-feature">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -181,35 +175,31 @@ import Base from "../layouts/Base.astro";
       </div>
       <div class="lp-feature">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M3 12a9 9 0 1 0 3-6.7"/>
-          <path d="M3 4v4h4"/>
-        </svg>
-        <h3>Non-destructive</h3>
-        <p>Edits are saved as small sidecar files under the .lightphotos folder. Originals untouched.</p>
-      </div>
-      <div class="lp-feature">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <path d="M12 3.5l8.5 4.7-8.5 4.7L3.5 8.2z"/>
           <path d="M3.5 12.6l8.5 4.7 8.5-4.7"/>
         </svg>
         <h3>Batch edits</h3>
-        <p>Copy adjustments to many photos at once.</p>
+        <p>Copy adjustments, set stars and labels, and pick or reject many photos at once.</p>
+      </div>
+      <div class="lp-feature">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="7" y="7" width="13" height="13" rx="2"/>
+          <path d="M4 16V6a2 2 0 0 1 2-2h10"/>
+        </svg>
+        <h3>Compare a stack</h3>
+        <p>Stack a burst, then see every frame side by side, zoomed to the same spot. Keep the sharpest. <a href="/docs/compare-a-stack.html">Compare a stack</a></p>
+      </div>
+      <div class="lp-feature">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M7 18a4.5 4.5 0 0 1-.6-8.96A6 6 0 0 1 18 8.5a4 4 0 0 1-.5 9.5"/>
+          <path d="M12 12v8M9 15l3-3 3 3"/>
+        </svg>
+        <h3>Export &amp; Immich</h3>
+        <p>Export finished photos as JPEGs to another local folder, or your own Immich server (Desktop only). <a href="/blogs/exporting-to-your-own-immich-server.html">How it works</a></p>
       </div>
     </section>
 
     <section class="lp-actions" aria-label="Keep exploring">
-      <a class="lp-card" href="/lightroom-alternative.html">
-        <i class="ph-bold ph-scales" aria-hidden="true"></i>
-        <h2>Lightroom <span class="lp-go" aria-hidden="true">&rarr;</span></h2>
-        <p>What you gain by switching, and what LightPhotos does not do yet.</p>
-      </a>
-
-      <a class="lp-card" href="/linux-raw-photo-editor.html">
-        <i class="ph-bold ph-terminal-window" aria-hidden="true"></i>
-        <h2>Linux <span class="lp-go" aria-hidden="true">&rarr;</span></h2>
-        <p>Lightroom has no Linux app. LightPhotos has native ARM and x86 builds.</p>
-      </a>
-
       <a class="lp-card" href="/blogs.html">
         <i class="ph-bold ph-pencil-simple" aria-hidden="true"></i>
         <h2>Blogs <span class="lp-go" aria-hidden="true">&rarr;</span></h2>

@@ -51,25 +51,25 @@ const DISCORD_INVITE = "https://discord.gg/H4zCSVRqDn";
     <a class="lp-brand" href="/">Light<span class="lp-light">Photos</span></a>
     <div class="lp-header-right">
     <nav aria-label="Main">
-      <a href="/app.html" target="_blank" rel="noopener"><i class="ph ph-app-window lp-nav-icon" aria-hidden="true"></i><span class="lp-nav-label">Web app<i class="ph ph-arrow-square-out lp-ext-icon" aria-hidden="true"></i></span></a>
       <a href="/downloads.html" class={active === "downloads" ? "lp-active" : undefined}><i class="ph ph-download-simple lp-nav-icon" aria-hidden="true"></i><span class="lp-nav-label">Downloads</span></a>
+      <a href="/app.html" target="_blank" rel="noopener"><i class="ph ph-app-window lp-nav-icon" aria-hidden="true"></i><span class="lp-nav-label">Open in browser<i class="ph ph-arrow-square-out lp-ext-icon" aria-hidden="true"></i></span></a>
       <a href="/blogs.html" class={active === "blogs" ? "lp-active" : undefined}><i class="ph ph-article lp-nav-icon" aria-hidden="true"></i><span class="lp-nav-label">Blogs</span></a>
       <a href="/docs.html" class={active === "docs" ? "lp-active" : undefined}><i class="ph ph-question lp-nav-icon" aria-hidden="true"></i><span class="lp-nav-label">Help</span></a>
+      <a class="lp-nav-glyph" href={DISCORD_INVITE} target="_blank" rel="noopener" aria-label="Join the LightPhotos Discord" title="Discord"><i class="ph ph-discord-logo" aria-hidden="true"></i></a>
+      <a class="lp-nav-glyph" href="https://github.com/andrewyao/lightphotos" target="_blank" rel="noopener" aria-label="LightPhotos on GitHub" title="GitHub"><i class="ph ph-github-logo" aria-hidden="true"></i></a>
     </nav>
-    <div class="lp-theme-toggle" role="group" aria-label="Theme">
-      <button type="button" data-theme-choice="light" aria-label="Light theme" aria-pressed="false">
-        <i class="ph ph-sun" aria-hidden="true"></i>
+    <div class="lp-theme-toggle">
+      <button type="button" class="lp-theme-btn" aria-haspopup="menu" aria-expanded="false" aria-controls="lp-theme-menu" aria-label="Theme" title="Theme">
+        <i class="ph ph-sun" data-theme-icon="light" aria-hidden="true"></i>
+        <i class="ph ph-circle-half" data-theme-icon="neutral" aria-hidden="true"></i>
+        <i class="ph ph-moon" data-theme-icon="dark" aria-hidden="true"></i>
       </button>
-      <button type="button" data-theme-choice="neutral" aria-label="Neutral gray theme" aria-pressed="false">
-        <i class="ph ph-circle-half" aria-hidden="true"></i>
-      </button>
-      <button type="button" data-theme-choice="dark" aria-label="Dark theme" aria-pressed="true">
-        <i class="ph ph-moon" aria-hidden="true"></i>
-      </button>
+      <div class="lp-theme-menu" id="lp-theme-menu" role="menu" aria-label="Theme" hidden>
+        <button type="button" role="menuitemradio" data-theme-choice="light" aria-checked="false"><i class="ph ph-sun" aria-hidden="true"></i>Light</button>
+        <button type="button" role="menuitemradio" data-theme-choice="neutral" aria-checked="false"><i class="ph ph-circle-half" aria-hidden="true"></i>Neutral gray</button>
+        <button type="button" role="menuitemradio" data-theme-choice="dark" aria-checked="true"><i class="ph ph-moon" aria-hidden="true"></i>Dark</button>
+      </div>
     </div>
-    <a class="lp-discord" href={DISCORD_INVITE} target="_blank" rel="noopener" aria-label="Join the LightPhotos Discord" title="Discord">
-      <i class="ph ph-discord-logo" aria-hidden="true"></i>
-    </a>
     </div>
   </header>
 

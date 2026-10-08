@@ -39,6 +39,7 @@
 .ph.ph-article:before { content: "\e0a8"; }
 .ph.ph-question:before { content: "\e3e8"; }
 .ph.ph-discord-logo:before { content: "\e61a"; }
+.ph.ph-github-logo:before { content: "\e576"; }
 .ph-bold.ph-download-simple:before { content: "\e20c"; }
 .ph-bold.ph-pencil-simple:before { content: "\e3b4"; }
 .ph-bold.ph-book-open:before { content: "\e0e6"; }
@@ -205,60 +206,109 @@ body {
   align-items: center;
 }
 
+/* Theme: one icon button showing the current theme, opening a menu of all
+ * three. The icon follows :root[data-theme] so it is right before JS runs;
+ * no data-theme means the dark default. */
 .lp-theme-toggle {
+  position: relative;
   display: flex;
-  align-items: center;
-  gap: 2px;
-  padding: 3px;
-  border-radius: 999px;
-  background: color-mix(in srgb, var(--lp-ink) 6%, transparent);
-  border: 1px solid var(--lp-line);
 }
 
-.lp-theme-toggle button {
+.lp-theme-btn {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 26px;
-  height: 26px;
+  width: 30px;
+  height: 30px;
+  padding: 0;
   border-radius: 50%;
+  border: 1px solid var(--lp-line);
+  background: color-mix(in srgb, var(--lp-ink) 6%, transparent);
+  color: var(--lp-muted);
+  font-size: 15px;
+  cursor: pointer;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.lp-theme-btn:hover,
+.lp-theme-btn[aria-expanded="true"] {
+  color: var(--lp-ink);
+  border-color: var(--border-strong);
+}
+
+.lp-theme-btn i {
+  display: none;
+}
+
+:root[data-theme="light"] .lp-theme-btn [data-theme-icon="light"],
+:root[data-theme="neutral"] .lp-theme-btn [data-theme-icon="neutral"],
+:root[data-theme="dark"] .lp-theme-btn [data-theme-icon="dark"],
+:root:not([data-theme]) .lp-theme-btn [data-theme-icon="dark"] {
+  display: block;
+}
+
+.lp-theme-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  z-index: 20;
+  display: grid;
+  min-width: 10rem;
+  padding: 4px;
+  border-radius: 10px;
+  border: 1px solid var(--border-strong);
+  background: var(--lp-card);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+}
+
+.lp-theme-menu[hidden] {
+  display: none;
+}
+
+.lp-theme-menu button {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.45rem 0.6rem;
   border: none;
+  border-radius: 6px;
   background: transparent;
   color: var(--lp-muted);
+  font: inherit;
+  font-size: 0.85rem;
+  text-align: left;
   cursor: pointer;
-  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-.lp-theme-toggle button svg {
-  width: 14px;
-  height: 14px;
+.lp-theme-menu button i {
+  font-size: 15px;
 }
 
-.lp-theme-toggle button:hover {
+.lp-theme-menu button:hover,
+.lp-theme-menu button:focus-visible {
+  background: var(--surface-hover);
   color: var(--lp-ink);
+  outline: none;
 }
 
-.lp-theme-toggle button[aria-pressed="true"] {
-  background: var(--lp-accent);
-  color: var(--lp-btn-ink);
+.lp-theme-menu button[aria-checked="true"] {
+  color: var(--lp-accent);
 }
 
-.lp-theme-toggle button:focus-visible {
+.lp-theme-btn:focus-visible {
   outline: 2px solid var(--lp-accent);
   outline-offset: 2px;
 }
 
-.lp-discord {
+/* Icon-only nav links (Discord, GitHub). They sit together after the text
+ * links, with no '|' between them. */
+.lp-site-header nav a.lp-nav-glyph {
   display: flex;
-  font-size: 1.25rem;
-  color: var(--lp-muted);
-  text-decoration: none;
-  transition: color 0.2s ease;
+  align-items: center;
 }
 
-.lp-discord:hover,
-.lp-discord:focus-visible {
-  color: var(--lp-ink);
+.lp-nav-glyph i {
+  font-size: 1.2rem;
 }
 
 .lp-site-header nav a {
@@ -279,14 +329,7 @@ body {
   color: var(--lp-ink);
 }
 
-.lp-site-header nav a .lp-ext-icon {
-  width: 1em;
-  height: 1em;
-  margin-left: 0.3em;
-  vertical-align: -0.15em;
-}
-
-/* Phone header: the four nav links collapse to icons so the bar stays on one
+/* Phone header: the three nav links collapse to icons so the bar stays on one
  * line. Labels stay in the DOM (visually hidden) so each link keeps its
  * accessible name; ≥620px swaps back to the text nav with '|' separators. */
 .lp-nav-icon {
@@ -306,6 +349,19 @@ body {
 
 .lp-site-header nav a {
   padding: 0.3rem;
+}
+
+/* Six icons plus the theme button only just fit beside the brand on the
+ * narrowest phones. */
+@media (max-width: 379px) {
+  .lp-site-header {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .lp-site-header nav a {
+    padding: 0.2rem;
+  }
 }
 
 @media (min-width: 620px) {
@@ -342,6 +398,26 @@ body {
     content: '|';
     margin: 0 0.85em;
     color: color-mix(in srgb, var(--lp-ink) 18%, transparent);
+  }
+
+  .lp-site-header nav a.lp-nav-glyph + a.lp-nav-glyph {
+    margin-left: 0.7em;
+  }
+
+  .lp-site-header nav a.lp-nav-glyph + a.lp-nav-glyph::before {
+    content: none;
+  }
+}
+
+/* Just past the phone breakpoint the text nav is a tight fit; narrow the
+ * separators and gaps until there is room. */
+@media (min-width: 620px) and (max-width: 759px) {
+  .lp-header-right {
+    gap: 0.8rem;
+  }
+
+  .lp-site-header nav a + a::before {
+    margin: 0 0.55em;
   }
 }
 
@@ -789,11 +865,6 @@ a.lp-card:focus-visible .lp-go {
 }
 
 /* --- Phosphor glyph sizing where <svg> selectors used to sit --- */
-.lp-theme-toggle button i {
-  font-size: 14px;
-  line-height: 1;
-}
-
 .lp-site-header nav a .lp-ext-icon {
   font-size: 1em;
   margin-left: 0.3em;
@@ -811,36 +882,6 @@ a.lp-card:focus-visible .lp-go {
 }
 
 /* --- landing page: feature grid --- */
-
-/* "What you can do today": the loop from folder to export, one card per step. */
-.lp-flow {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  gap: 0.9rem;
-  margin-top: 1.8rem;
-  padding: 0;
-  list-style: none;
-}
-
-.lp-flow li {
-  display: grid;
-  align-content: start;
-  gap: 0.35rem;
-  padding: 1.1rem 1.2rem;
-  background: var(--surface-card);
-  border: 1px solid var(--border-subtle);
-  border-radius: 14px;
-  font-size: 0.85rem;
-  line-height: 1.5;
-  color: var(--lp-muted);
-}
-
-.lp-flow strong {
-  font-family: var(--font-display);
-  font-size: 1.05rem;
-  font-weight: 560;
-  color: var(--lp-ink);
-}
 
 /* The home page's headline, heading the copy column beside the demo now that
    the big wordmark is gone -- so it carries the hero's display size. */
@@ -860,8 +901,8 @@ a.lp-card:focus-visible .lp-go {
   margin-top: 4.5rem;
 }
 
-/* Four tiles: one column, then two by two, then one row of four -- never
-   three and an orphan. */
+/* Six tiles: one column, then three rows of two, then two rows of three --
+   never a row with an orphan. */
 @media (min-width: 560px) {
   .lp-features {
     grid-template-columns: repeat(2, 1fr);
@@ -870,7 +911,7 @@ a.lp-card:focus-visible .lp-go {
 
 @media (min-width: 1000px) {
   .lp-features {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
@@ -895,6 +936,8 @@ a.lp-card:focus-visible .lp-go {
 .lp-feature:nth-child(2) { animation-delay: 0.67s; }
 .lp-feature:nth-child(3) { animation-delay: 0.74s; }
 .lp-feature:nth-child(4) { animation-delay: 0.81s; }
+.lp-feature:nth-child(5) { animation-delay: 0.88s; }
+.lp-feature:nth-child(6) { animation-delay: 0.95s; }
 
 .lp-feature > svg {
   width: 26px;

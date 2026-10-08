@@ -1,8 +1,9 @@
 ---
 import Base from "../layouts/Base.astro";
 // Kept short on purpose: there are no accounts, payments or hosted photos to
-// govern. The MIT/Apache licenses cover the software; this covers the website and
-// the browser app. No `active` value: the footer links here, the nav doesn't.
+// govern. The MIT/Apache licenses cover our code and the LGPL covers rawler;
+// this covers the website and the browser app. No `active` value: the footer
+// links here, the nav doesn't.
 ---
 <Base
   title="Terms — LightPhotos"
@@ -27,6 +28,16 @@ import Base from "../layouts/Base.astro";
         <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License, version 2.0</a>.
         That license sets out what you may do with the code, and it governs
         wherever it and these terms overlap.
+      </p>
+      <p>
+        The Windows, Linux and browser versions also include a modified copy
+        of <a href="https://crates.io/crates/rawler">rawler</a>, the RAW
+        decoder, which is licensed under the
+        <a href="https://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">GNU LGPL, version 2.1</a>.
+        The macOS desktop app does not include it. The licenses of rawler and
+        every other third-party component, and where to get rawler&rsquo;s
+        modified source, are in
+        <a href="/app/THIRD-PARTY-LICENSES.txt">THIRD-PARTY-LICENSES.txt</a>.
       </p>
 
       <h2>Your photos stay yours</h2>
