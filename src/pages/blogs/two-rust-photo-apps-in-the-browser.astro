@@ -102,9 +102,11 @@ import Base from "../../layouts/Base.astro";
         <li>
           <strong>RAW decoder and license.</strong> LightPhotos's own code is
           MIT or Apache-2.0, but it decodes RAW files with rawler, a library
-          under the LGPL-2.1. So every download has to say it uses rawler and
-          include that license. LightCraft wrote its own decoder, so the whole
-          app is MIT or Apache-2.0.
+          under the LGPL-2.1. So the web build has to say it uses rawler and
+          include that license. (The Mac app decodes with Apple's own
+          ImageIO, so it doesn't include rawler.) LightCraft wrote its own
+          decoder, so its own code is MIT or Apache-2.0 with no copyleft
+          libraries.
         </li>
         <li>
           <strong>One tab or several.</strong> LightCraft allows one tab at a
@@ -381,10 +383,9 @@ import Base from "../../layouts/Base.astro";
         <code>Instant::now()</code> crashes in the browser instead of
         returning an error. LightCraft already uses a small library that
         asks the browser's clock everywhere else, but one timer in its RAW
-        loader still called the standard one. It came in with a speed-up a
-        week earlier, and every test passed, because the tests run on the
-        desktop. The built-in demo photos aren't RAW files, so even the
-        browser build looked fine until a real RAW file came in. Swapping in
+        loader still called the standard one. Tests run on the desktop,
+        where that call works, and the built-in demo photos aren't RAW
+        files, so it only showed up once a real RAW file came in. Swapping in
         the browser-safe clock is a one-line fix. I made it in my local copy
         to finish the measurements, so LightCraft's numbers here are with
         that change.
@@ -395,6 +396,24 @@ import Base from "../../layouts/Base.astro";
         catches it if it runs in a browser. The better fix is a lint that
         rejects <code>std::time::Instant::now</code> outright, so the
         mistake can't get in at all.
+      </p>
+
+      <h2>Wrapping up</h2>
+      <p>
+        Two apps with the same language and the same interface library
+        found quite different answers to the same browser problems.
+        LightPhotos leans on the camera's JPEG, your own folders and shared
+        memory, so it feels quick when you're going through a shoot.
+        LightCraft takes on the whole RAW pipeline and a full Lightroom-style
+        feature set, with a library that lives in the browser and a build
+        that needs no special server setup. And it got all of that working
+        in about a week.
+      </p>
+      <p>
+        I learned something from each, and I'm looking forward to seeing
+        where LightCraft goes. Both also run as desktop apps on Mac,
+        Windows and Linux, where neither has to live with the browser's
+        limits. That comparison is next.
       </p>
 
       <nav class="lp-article-nav" aria-label="More posts">
