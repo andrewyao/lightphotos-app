@@ -65,13 +65,23 @@ import Base from "../layouts/Base.astro";
             </tr>
             <tr>
               <th scope="row">Culling</th>
-              <td class="lp-compare-pick">Keyboard-first: 0&ndash;5 stars, instant 100% zoom</td>
-              <td>Stars, flags, colour labels</td>
+              <td class="lp-compare-pick">Keyboard-first: 0&ndash;5 stars, pick and reject flags, colour labels, instant 100% zoom, stacks with side-by-side compare</td>
+              <td>Stars, flags, colour labels, stacks</td>
             </tr>
             <tr>
               <th scope="row">Global edits</th>
-              <td class="lp-compare-pick">Exposure, contrast, highlights, shadows, whites, blacks, white balance, vibrance, saturation, denoise, Auto Tone</td>
+              <td class="lp-compare-pick">Exposure, contrast, highlights, shadows, whites, blacks, white balance, vibrance, saturation, denoise, black &amp; white, Auto Adjust</td>
               <td>All of these and many more</td>
+            </tr>
+            <tr>
+              <th scope="row">Crop and rotate</th>
+              <td class="lp-compare-pick">Crop to an aspect ratio, straighten up to 45&deg; or by drawing a level line, rotate in 90&deg; steps</td>
+              <td>All of these, plus Upright perspective correction</td>
+            </tr>
+            <tr>
+              <th scope="row">Lens corrections</th>
+              <td class="lp-compare-pick">Chromatic aberration removal, measured from the photo</td>
+              <td>Lens profiles for distortion and vignetting, chromatic aberration, defringe</td>
             </tr>
             <tr>
               <th scope="row">Masks and local edits</th>
@@ -90,6 +100,8 @@ import Base from "../layouts/Base.astro";
       <h2>Where LightPhotos wins</h2>
       <ul class="lp-article-list">
         <li><strong>Speed through a shoot.</strong> Number keys rate, arrows move, Space checks focus at 100%. Previews render on the GPU, and folders open without an import step.</li>
+        <li><strong>Picking the best of a burst.</strong> Stack the frames and click <strong>Compare Photos in Stack</strong>. Every frame zooms into the same spot, so a closed eye or missed focus shows at a glance. Promote the winner and reject the rest without leaving the view. See <a href="/docs/compare-a-stack.html">Compare a stack</a>.</li>
+        <li><strong>A fast start on every edit.</strong> <strong>Auto Adjust</strong> sets the tone sliders from each photo&rsquo;s own histogram, for one photo or a whole selection. <strong>Black &amp; White</strong> turns a selection black and white, or back to colour, in one click.</li>
         <li><strong>Your files stay yours.</strong> There is no catalog to migrate and no cloud to sync. Edits sit in a small <code>.lightphotos</code> folder beside the photos, and the originals are never modified.</li>
         <li><strong>Nothing to pay, nothing to sign up for.</strong> Download it, or open the <a href="/app.html">web app</a> in Chrome and point it at a folder.</li>
         <li><strong>It runs on Linux.</strong> Native ARM and x86 builds. See <a href="/linux-raw-photo-editor.html">LightPhotos on Linux</a>.</li>
@@ -98,8 +110,8 @@ import Base from "../layouts/Base.astro";
       <h2>What LightPhotos does not do yet</h2>
       <ul class="lp-article-list">
         <li>No masks, brushes, gradients or AI selections. Spot removal is the only local tool.</li>
-        <li>No tone curve, HSL panel, colour grading, lens corrections or presets.</li>
-        <li>No pick and reject flags or colour labels. Ratings are 0&ndash;5 stars.</li>
+        <li>No tone curve, HSL panel, colour grading or presets.</li>
+        <li>Chromatic aberration is the only lens correction. No lens profiles, distortion or vignetting correction, and no perspective correction.</li>
         <li>No keywords, collections, maps, face recognition or print module.</li>
         <li>JPEG is the only export format.</li>
         <li>Some cameras are limited outside macOS. See <a href="/docs/formats.html">tested cameras</a>.</li>
