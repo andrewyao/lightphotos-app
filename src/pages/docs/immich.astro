@@ -5,8 +5,10 @@ import Docs from "../../layouts/Docs.astro";
   <p>
     The LightPhotos desktop app can upload finished photos straight to any
     Immich server you point it at — including one on a box in your closet.
-    Open the export dialog and choose the <strong>Immich</strong> tab, then
-    paste your server's address and an API key.
+    Open the export form and set <strong>Destination</strong> to
+    <strong>Immich</strong>, then paste your server's address into
+    <strong>Server URL</strong>, add an <strong>API key</strong>, and click
+    <strong>Connect</strong>.
   </p>
 
   <ul class="lp-article-list">
@@ -25,8 +27,8 @@ import Docs from "../../layouts/Docs.astro";
       deduplicates by content hash, so re-exporting the same photo is safe.
     </li>
     <li>
-      <strong>The web version can't upload to Immich.</strong> It shows the
-      Immich tab with a note that it only works in the desktop app. Browsers
+      <strong>The web version can't upload to Immich.</strong> Choosing
+      <strong>Immich</strong> there shows a note that it only works in the desktop app. Browsers
       block a web page from talking to a server on another site unless that
       server allows it, and Immich doesn't.
     </li>
@@ -34,7 +36,8 @@ import Docs from "../../layouts/Docs.astro";
 
   <p>
     Once connected, exporting to Immich works exactly like exporting to disk:
-    select your photos, choose the Immich tab, and confirm. Your adjustments
+    select your photos, pick an <strong>Album</strong> if you
+    want one, and click <strong>Export</strong>. Your adjustments
     are baked in before the upload, so what lands on the server is the
     finished photo.
   </p>
