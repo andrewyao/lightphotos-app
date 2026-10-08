@@ -14,106 +14,78 @@ import Base from "../../layouts/Base.astro";
         <p class="lp-article-dek">
           I picked Rust when I knew only the fundamentals.
         </p>
-        <p class="lp-article-byline">Andrew Yao &middot; 8 min read</p>
+        <p class="lp-article-byline">Andrew Yao &middot; 6 min read</p>
       </header>
 
       <aside class="lp-tldr">
         <p class="lp-tldr-label">TL;DR</p>
         <p>
-          My real job is the process around the agents. I write the first
-          draft of the plan, and a coding agent improves it. A different coding
-          agent builds it. Another agent checks that it works. That agent
-          reviews the code, runs it, and reads the logs.
+          My real job is the process around the agents. I write the plan, and
+          an agent improves it. A second agent builds it, one task at a time. A
+          third agent reviews the code, runs it, and reads the logs. Then I run
+          the app and see it work.
         </p>
       </aside>
 
-      <figure class="lp-figure">
-        <svg viewBox="0 0 640 172" role="img" aria-label="A loop of four steps and the owner of each step. First, I write the first draft of the plan. Second, agent 1 improves the plan. Third, agent 2 builds one task at a time. Fourth, agent 3 reviews the code, runs the app, and reads the logs. Then the loop comes back to me. I run the app and see it work before the next change starts.">
-          <text class="lp-fig-label" x="0" y="12">WHO OWNS EACH STEP OF A CHANGE</text>
-
-          <rect class="lp-fig-box-accent" x="1" y="28" width="147" height="88" rx="6"></rect>
-          <text class="lp-fig-t" x="13" y="50">Me</text>
-          <text class="lp-fig-s" x="13" y="72">Write the first</text>
-          <text class="lp-fig-s" x="13" y="88">draft of the plan</text>
-
-          <line class="lp-fig-line" x1="148" y1="72" x2="155" y2="72"></line>
-          <path class="lp-fig-arrow" d="M155 67 L164 72 L155 77 Z"></path>
-
-          <rect class="lp-fig-box" x="164" y="28" width="148" height="88" rx="6"></rect>
-          <text class="lp-fig-t" x="176" y="50">Agent 1</text>
-          <text class="lp-fig-s" x="176" y="72">Improves the plan</text>
-
-          <line class="lp-fig-line" x1="312" y1="72" x2="319" y2="72"></line>
-          <path class="lp-fig-arrow" d="M319 67 L328 72 L319 77 Z"></path>
-
-          <rect class="lp-fig-box" x="328" y="28" width="148" height="88" rx="6"></rect>
-          <text class="lp-fig-t" x="340" y="50">Agent 2</text>
-          <text class="lp-fig-s" x="340" y="72">Builds one task</text>
-          <text class="lp-fig-s" x="340" y="88">at a time</text>
-
-          <line class="lp-fig-line" x1="476" y1="72" x2="483" y2="72"></line>
-          <path class="lp-fig-arrow" d="M483 67 L492 72 L483 77 Z"></path>
-
-          <rect class="lp-fig-box" x="492" y="28" width="147" height="88" rx="6"></rect>
-          <text class="lp-fig-t" x="504" y="50">Agent 3</text>
-          <text class="lp-fig-s" x="504" y="72">Reviews the code,</text>
-          <text class="lp-fig-s" x="504" y="88">runs the app, and</text>
-          <text class="lp-fig-s" x="504" y="104">reads the logs</text>
-
-          <path class="lp-fig-line" d="M566 116 L566 140 L74 140 L74 126"></path>
-          <path class="lp-fig-arrow" d="M69 126 L79 126 L74 116 Z"></path>
-          <text class="lp-fig-s" x="320" y="162" text-anchor="middle">Back to me: I run the app and see it work. Then the next change starts.</text>
+      <figure class="lp-figure lp-try" id="batch-demo">
+        <div class="lp-try-controls">
+          <button type="button" class="lp-try-btn" data-mode="one" aria-pressed="true">One task at a time</button>
+          <button type="button" class="lp-try-btn" data-mode="all" aria-pressed="false">All five at once</button>
+          <button type="button" class="lp-try-btn" data-run>Run</button>
+        </div>
+        <svg viewBox="0 0 640 128" role="img" aria-label="Five tasks land one at a time. The app runs after task 1 and task 2. It breaks after task 3, so task 3 is the only suspect. Tasks 4 and 5 wait.">
+          <text class="lp-fig-label" x="0" y="12">FIVE TASKS. ONE OF THEM HAS A BUG.</text>
+          <g data-task>
+            <rect class="lp-fig-box-accent" x="1" y="28" width="110" height="56" rx="6"></rect>
+            <text class="lp-fig-t" x="56" y="51" text-anchor="middle">Task 1</text>
+            <text class="lp-fig-s" x="56" y="71" text-anchor="middle">built</text>
+            <text class="lp-fig-s lp-fig-good" x="56" y="106" text-anchor="middle">app runs</text>
+          </g>
+          <g data-task>
+            <rect class="lp-fig-box-accent" x="133" y="28" width="110" height="56" rx="6"></rect>
+            <text class="lp-fig-t" x="188" y="51" text-anchor="middle">Task 2</text>
+            <text class="lp-fig-s" x="188" y="71" text-anchor="middle">built</text>
+            <text class="lp-fig-s lp-fig-good" x="188" y="106" text-anchor="middle">app runs</text>
+          </g>
+          <g data-task>
+            <rect class="lp-fig-bad-stroke" x="265" y="28" width="110" height="56" rx="6"></rect>
+            <text class="lp-fig-t" x="320" y="51" text-anchor="middle">Task 3</text>
+            <text class="lp-fig-s" x="320" y="71" text-anchor="middle">suspect</text>
+            <text class="lp-fig-s lp-fig-bad" x="320" y="106" text-anchor="middle">app breaks</text>
+          </g>
+          <g data-task>
+            <rect class="lp-fig-box" x="397" y="28" width="110" height="56" rx="6"></rect>
+            <text class="lp-fig-t" x="452" y="51" text-anchor="middle">Task 4</text>
+            <text class="lp-fig-s" x="452" y="71" text-anchor="middle">waiting</text>
+            <text class="lp-fig-s" x="452" y="106" text-anchor="middle"></text>
+          </g>
+          <g data-task>
+            <rect class="lp-fig-box" x="529" y="28" width="110" height="56" rx="6"></rect>
+            <text class="lp-fig-t" x="584" y="51" text-anchor="middle">Task 5</text>
+            <text class="lp-fig-s" x="584" y="71" text-anchor="middle">waiting</text>
+            <text class="lp-fig-s" x="584" y="106" text-anchor="middle"></text>
+          </g>
+          <g data-batch opacity="0">
+            <path class="lp-fig-line" d="M1 92 V98 H639 V92"></path>
+            <text class="lp-fig-s lp-fig-bad" x="320" y="118" text-anchor="middle" data-batch-text>one build, one run: app breaks</text>
+          </g>
         </svg>
+        <p class="lp-try-readout" aria-live="polite">Task 3 broke the app. App runs: 3. Suspects: 1.</p>
         <figcaption>
-          I own the first and the last step of each change. Three different
-          agents improve the plan, build it, and check it.
+          Pick how the five tasks land, then press Run. One task at a time
+          costs more runs, but it tells me which task broke the app.
         </figcaption>
       </figure>
 
-      <h2>What I learned</h2>
-      <ul class="lp-article-list">
-        <li>
-          <strong>Write down how you will know that it worked.</strong> If I do
-          not, the agent picks its own idea of "done", and that idea is usually
-          generous to itself. Then I build one change at a time. So when
-          something breaks, I know which change caused it.
-        </li>
-        <li>
-          <strong>Check the result yourself.</strong> When an agent says that
-          something "should now be faster", I do not count it until I see the
-          number myself.
-        </li>
-        <li>
-          <strong>Get a second agent to review the code.</strong> The agent
-          that wrote the code is a poor judge of it. It also tends to agree with
-          whatever I say.
-        </li>
-        <li>
-          <strong>Learn the language anyway.</strong> I do not need to type Rust
-          faster. I need to be able to tell good code from code that only looks
-          right.
-        </li>
-      </ul>
-
       <h2>I took on two problems at once</h2>
       <p>
-        A few days ago, I wrote about
-        <a href="/blogs/why-rust.html">choosing Rust for the whole app</a>.
-        In that post, I did not say how much Rust I knew when I chose it. I
-        knew the basics. I shipped Rust before, so I did not start from zero.
-        But the basics are very far from image code that keeps up when you
-        drag a slider. I knew that this gap was going to cause pain.
-      </p>
-      <p>
-        The second problem is the goal itself. I want a photo editor where the
-        image changes as soon as you move a slider. This must stay true in a
-        folder with thousands of RAW files. That is a speed target. In my
-        experience, it is very hard to add speed at the end.
-      </p>
-      <p>
-        Many side projects stall when they take on both problems at once. I
-        think that mine did not stall because I am not the one who types the
-        code.
+        When I <a href="/blogs/why-rust.html">chose Rust for the whole app</a>,
+        I knew the basics. That is very far from image code that keeps up when
+        you drag a slider. The second problem is the goal: the image must
+        change as soon as you move a slider, also in a folder with thousands
+        of RAW files. It is very hard to add speed at the end. Many side
+        projects stall with both problems at once. I think that mine did not
+        stall because I do not type the code.
       </p>
 
       <h2>Where my time goes</h2>
@@ -158,84 +130,57 @@ import Base from "../../layouts/Base.astro";
 
       <h2>Planning is the part that I do not hand over</h2>
       <p>
-        Every change starts as a short written plan, and I write it myself.
-        Usually, it is only a paragraph and a list. It says what the change is
-        and which parts of the app it touches. It also says what I leave out on
-        purpose, and how I will know that it worked.
+        Every change starts as a paragraph and a list that I write myself. It
+        says what the change is, which parts of the app it touches, what I
+        leave out on purpose, and how I will know that it worked.
       </p>
       <p>
-        That last item does most of the work. If I cannot say what will show
-        that the change is done, I do not have a plan yet. "Make thumbnails
-        faster" is too vague to check. But I can test a target like this one.
-        "A folder of 3,000 photos fills the first two screens, the scroll does
+        That last item does most of the work. Without it, the agent picks its
+        own idea of "done", and that idea is generous to itself. "Make
+        thumbnails faster" is too vague to check. This target is not: "A
+        folder of 3,000 photos fills the first two screens, the scroll does
         not stutter, and memory does not climb while I scroll."
       </p>
       <p>
-        A plan is also the cheapest place to be wrong. Sometimes an agent
-        confidently builds the wrong thing. If I find that in a paragraph, it
-        costs me a minute. If I find it in finished code, it costs an
-        afternoon. Also, I probably will not throw that code away, because by
-        then it compiles and I am attached to it.
-      </p>
-      <p>
-        This is the same habit as the seven-item list in
-        <a href="/blogs/why-i-started-lightphotos.html">the first post</a>. I
-        found that it is even more important to write the list first when
-        something can build the whole list in twenty minutes.
+        A plan is also the cheapest place to be wrong. A wrong idea in a
+        paragraph costs me a minute. In finished code, it costs an afternoon,
+        and by then it compiles and I am attached to it. This is the habit of
+        the seven-item list in
+        <a href="/blogs/why-i-started-lightphotos.html">the first post</a>.
       </p>
 
       <h2>Building one thing at a time</h2>
       <p>
-        My main rule is that every change must leave the app in a working
-        state. I do one task, then I build, then I run the app, then I start
-        the next task. I do not let five tasks pile up and hope that the build
-        works at the end.
-      </p>
-      <p>
-        Here is why. When two changes land together and the app misbehaves, I
-        cannot tell which one caused it. That is the thing that I most need to
-        know. Agents can write a lot of reasonable-looking code very quickly.
-        If I am not careful, they bundle changes together, and I lose that
-        information.
+        Every change must leave the app in a working state. I build and run
+        the app after each task. When two changes land together and the app
+        misbehaves, I cannot tell which one caused it. Agents write a lot of
+        code very quickly, and they bundle changes if I let them.
       </p>
 
       <h2>I do not take the agent's word for it</h2>
       <p>
         Agents are quick to announce success: "The thumbnail loading should
         now be much faster." That word "should" cost me more time than any bug
-        in this codebase.
+        in this codebase. I do not count a number until I see it myself.
       </p>
       <p>
-        The pixel maths is the easy part to test, so it has real tests.
-        Exposure, the tone curve, white balance, and the other adjustments are
-        pure functions. This means that the same input always gives the same
-        output. So I can check them against fixed numbers.
+        The pixel maths has real tests. Exposure, the tone curve, white
+        balance, and the other adjustments are pure functions: the same input
+        always gives the same output. So I check them against fixed numbers.
       </p>
       <p>
-        I check everything else when I run the app myself. This is my weakest
-        area now: scrolling, decoding, panning, and memory. When I click around
-        a window, I can see if something is broken. But I cannot reliably see
-        if a change made the app faster or slower, because I never click the
-        same way twice.
-      </p>
-      <p>
-        I do not have a good answer for that yet. It is the next thing that I
-        want to fix, and I expect that it will get its own post. For now, my
-        rule is this: something works when I run it and see it work. What the
-        agent says does not change that.
+        I check scrolling, decoding, panning, and memory when I run the app.
+        This is my weakest area. I can see if something is broken, but not if
+        a change made the app faster or slower, because I never click the
+        same way twice. I want to fix that next.
       </p>
 
       <h2>Getting a second agent to review</h2>
       <p>
-        When a change is done, a fresh agent reviews it. The fresh agent has
-        no memory of the conversation that produced the code. I ask it to find
-        what is wrong with the diff. The diff is the list of lines that the
-        change adds and removes.
-      </p>
-      <p>
-        This helped more than I expected. The agent that just wrote four
-        hundred lines is a poor judge of them. It will also happily agree with
-        whatever I suggest.
+        When a change is done, a fresh agent with no memory of the work
+        reviews the diff. This helped more than I expected. The agent that
+        just wrote four hundred lines is a poor judge of them, and it agrees
+        with whatever I suggest.
       </p>
 
       <figure class="lp-figure">
@@ -270,32 +215,22 @@ import Base from "../../layouts/Base.astro";
       </figure>
 
       <p>
-        Those five come up again and again. Rust's compiler has a set of rules
-        about who owns each piece of memory. A copy (a "clone") is the easiest
-        way to make the compiler stop complaining. On a 60 MB image in a
-        function that runs every frame, that copy is a real problem. But the
-        code still compiles without a warning. A request for new memory inside
-        a loop that runs once per pixel looks reasonable until it runs twenty
-        million times.
+        Rust compiles all five without a warning. A clone (a copy) is the
+        easiest way to satisfy the rules about who owns each piece of memory.
+        On a 60 MB image in a function that runs every frame, that copy is a
+        real problem. A new allocation in a per-pixel loop runs twenty million
+        times. A lock held during slow work can freeze the interface.
       </p>
       <p>
-        A lock stops other threads from touching some data. If code holds a
-        lock while it does slow work, a background task can freeze the
-        interface.
-      </p>
-      <p>
-        Then I read the diff myself. Usually, I will not catch what the
-        reviewer missed. I do it because reading those diffs is how I learned
-        Rust.
+        Then I read the diff myself. I rarely catch what the reviewer missed,
+        but reading diffs is how I learned Rust.
       </p>
 
       <h2>Keeping releases dull on purpose</h2>
       <p>
-        A release is a version bump, a build for each platform, and a site
-        update with the new build. A script does it, and it is safe to run
-        twice by accident. It is important to me that releases stay that easy.
-        If a release takes concentration, I will put it off. Then I have a
-        month of work that nobody can use.
+        A script bumps the version, builds each platform, and updates the
+        site. It is safe to run twice by accident. If a release takes
+        concentration, I put it off, and then nobody can use a month of work.
       </p>
 
       <div class="lp-compare-wrap">
@@ -339,117 +274,60 @@ import Base from "../../layouts/Base.astro";
 
       <h2>Four ways this goes wrong</h2>
       <p>
-        I do not want to make this sound easier than it is. Here is where it
-        goes wrong for me.
+        <strong>Fixing symptoms.</strong> The agent patches one symptom, then
+        the next one. After four rounds, the code is full of special-case
+        checks, and nobody has said what the real problem is. Now I stop and
+        reproduce the problem, and the agent names the cause before it makes
+        one fix.
       </p>
-      <p>
-        <strong>Fixing symptoms.</strong> The agent fixes one symptom, and
-        another symptom appears. Then the agent cheerfully patches that one
-        too. After four rounds, the code is full of special-case checks. And
-        nobody has said what the real problem is.
-      </p>
-
-      <figure class="lp-figure">
-        <svg viewBox="0 0 640 212" role="img" aria-label="Symptom chasing goes symptom, guard, symptom, guard, symptom, guard. After four rounds, nobody has said what the real problem is. What works instead is to reproduce the problem, make the agent name the cause, and then apply one fix.">
-          <text class="lp-fig-label" x="0" y="12">WHEN AN AGENT FIXES SYMPTOMS</text>
-
-          <rect class="lp-fig-panel" x="0" y="24" width="640" height="92" rx="8"></rect>
-          <text class="lp-fig-t" x="16" y="44">Symptom chasing</text>
-          <rect class="lp-fig-bad-stroke" x="16" y="56" width="92" height="26" rx="5"></rect>
-          <text class="lp-fig-s" x="62" y="73" text-anchor="middle">Symptom</text>
-          <rect class="lp-fig-box" x="116" y="56" width="92" height="26" rx="5"></rect>
-          <text class="lp-fig-s" x="162" y="73" text-anchor="middle">Guard</text>
-          <rect class="lp-fig-bad-stroke" x="216" y="56" width="92" height="26" rx="5"></rect>
-          <text class="lp-fig-s" x="262" y="73" text-anchor="middle">Symptom</text>
-          <rect class="lp-fig-box" x="316" y="56" width="92" height="26" rx="5"></rect>
-          <text class="lp-fig-s" x="362" y="73" text-anchor="middle">Guard</text>
-          <rect class="lp-fig-bad-stroke" x="416" y="56" width="92" height="26" rx="5"></rect>
-          <text class="lp-fig-s" x="462" y="73" text-anchor="middle">Symptom</text>
-          <rect class="lp-fig-box" x="516" y="56" width="92" height="26" rx="5"></rect>
-          <text class="lp-fig-s" x="562" y="73" text-anchor="middle">Guard</text>
-          <text class="lp-fig-s lp-fig-bad" x="16" y="104">After four rounds, nobody has said what the real problem is.</text>
-
-          <rect class="lp-fig-panel" x="0" y="128" width="640" height="76" rx="8"></rect>
-          <text class="lp-fig-t" x="16" y="148">What works instead</text>
-          <rect class="lp-fig-box" x="16" y="160" width="176" height="30" rx="5"></rect>
-          <text class="lp-fig-s" x="104" y="180" text-anchor="middle">Reproduce it</text>
-          <line class="lp-fig-line" x1="192" y1="175" x2="214" y2="175"></line>
-          <path class="lp-fig-arrow" d="M214 170 L224 175 L214 180 Z"></path>
-          <rect class="lp-fig-box" x="224" y="160" width="176" height="30" rx="5"></rect>
-          <text class="lp-fig-s" x="312" y="180" text-anchor="middle">Name the cause</text>
-          <line class="lp-fig-line" x1="400" y1="175" x2="422" y2="175"></line>
-          <path class="lp-fig-arrow" d="M422 170 L432 175 L422 180 Z"></path>
-          <rect class="lp-fig-box-accent" x="432" y="160" width="176" height="30" rx="5"></rect>
-          <text class="lp-fig-s" x="520" y="180" text-anchor="middle">One fix</text>
-        </svg>
-        <figcaption>
-          What works for me is to stop and reproduce the problem. Then the
-          agent tells me the cause before it changes any code.
-        </figcaption>
-      </figure>
-
       <p>
         <strong>Confident numbers that nobody measured.</strong> An agent once
-        told me that a change made something "roughly three times faster". But
-        it did not run anything at all. If I do not see someone measure a
-        number, I treat it as a guess.
+        told me that a change made something "roughly three times faster". It
+        did not run anything. A number that nobody measured is a guess.
       </p>
       <p>
-        <strong>Code that is correct but wasteful.</strong> Rust's compiler is
-        strict, and that made me more confident than I should have been. It
-        checks that your code does nothing unsafe with memory. But it does not
-        care at all if you copied fifty megabytes for no reason. Speed is the
-        whole point of this app, so I have to watch for that myself. That is
-        why a change must pass a speed check before I accept it.
+        <strong>Code that is correct but wasteful.</strong> Rust's compiler
+        checks that your code does nothing unsafe with memory. It does not
+        care if you copied fifty megabytes for no reason. Speed is the point
+        of this app, so a change must pass a speed check before I accept it.
       </p>
       <p>
-        <strong>The change keeps growing.</strong> If nobody watches it, a
-        change picks up extra work that nobody asked for. In the plan, I write
-        down what is out of scope, and that stops most of it. When I read the
-        diff, I catch the rest.
+        <strong>The change keeps growing.</strong> A change picks up work that
+        nobody asked for. The out-of-scope list in the plan stops most of it,
+        and I catch the rest in the diff.
       </p>
 
       <h2>How I learned Rust</h2>
       <p>
-        I did not learn it from a book, or by writing an app from scratch.
-        Four things did it. The list is approximately in order of how much
-        each one taught me.
+        Four things taught me, in approximate order of value.
       </p>
       <ul class="lp-article-list">
         <li>
-          <strong>Reading diffs and asking why.</strong> "Why is this line
-          here?" I asked that a few hundred times, about real code that does
-          something I care about.
+          <strong>Reading diffs and asking why.</strong> I asked "Why is this
+          line here?" a few hundred times, about code that I care about.
         </li>
         <li>
           <strong>Asking the agent to explain its choices.</strong> Why a
           clone here? Why a reference there? Why <code>Arc</code> (a way to
-          share one value between threads) and not a plain value? With those
-          answers, Rust's ownership rules stopped being something that I only
-          read about. They became something that I could predict.
+          share one value between threads) and not a plain value? The answers
+          made the ownership rules predictable.
         </li>
         <li>
-          <strong>Compiler errors.</strong> Rust's borrow checker is the part
-          of the compiler that enforces those ownership rules. It rejects
-          mistakes bluntly and tells you exactly where they are. That taught me
-          a lot.
+          <strong>Compiler errors.</strong> The borrow checker enforces the
+          ownership rules, and it tells you exactly where you broke them.
         </li>
         <li>
           <strong>Writing some of it by hand anyway.</strong> I write one
-          function per session, with no agent. It is slow. But it was the only
-          way that I found out what I understood and what I only recognised.
+          function per session, with no agent. It is slow, but it shows what I
+          understand and what I only recognise.
         </li>
       </ul>
       <p>
-        A few weeks in, I can read all of the Rust in LightPhotos, and I can
-        write most of it. For the way I work, reading is the part that matters
-        most.
-      </p>
-      <p>
-        An agent can always produce more code than I can write. But it cannot
-        tell me if that code is any good. I must be able to judge that myself.
-        If I cannot, I will get an app that only works, and not the app that I
-        want to build.
+        A few weeks in, I can read all of the Rust in LightPhotos and write
+        most of it. Reading matters most. An agent can always write more code
+        than I can, but it cannot tell me if that code is good. If I cannot
+        tell good code from code that only looks right, I will get an app that
+        only works, not the app that I want.
       </p>
 
 
@@ -465,4 +343,86 @@ import Base from "../../layouts/Base.astro";
       </nav>
     </article>
   </main>
+  <script>
+    const fig = document.getElementById("batch-demo");
+    if (fig) {
+      const tasks = [...fig.querySelectorAll("[data-task]")];
+      const modeBtns = [...fig.querySelectorAll("[data-mode]")];
+      const runBtn = fig.querySelector("[data-run]");
+      const batch = fig.querySelector("[data-batch]");
+      const svg = fig.querySelector("svg");
+      const readout = fig.querySelector(".lp-try-readout");
+      const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
+      const LOOK = {
+        wait: ["lp-fig-box", "waiting", "", ""],
+        built: ["lp-fig-box-accent", "built", "", ""],
+        ok: ["lp-fig-box-accent", "built", "app runs", "lp-fig-good"],
+        bad: ["lp-fig-bad-stroke", "suspect", "app breaks", "lp-fig-bad"],
+        suspect: ["lp-fig-bad-stroke", "suspect", "", ""],
+      };
+      let mode = "one";
+      let timer = 0;
+
+      const setTask = (i, state) => {
+        const [box, status, check, tone] = LOOK[state];
+        const [rect, , statusEl, checkEl] = tasks[i].children;
+        rect.setAttribute("class", box);
+        statusEl.textContent = status;
+        checkEl.textContent = check;
+        checkEl.setAttribute("class", ("lp-fig-s " + tone).trim());
+      };
+
+      // Each frame is a list of task states, a batch line flag and a readout.
+      const frames = (bug) => {
+        const out = [];
+        if (mode === "one") {
+          for (let i = 0; i <= bug; i++) {
+            const states = tasks.map((_, j) => (j < i ? "ok" : j === i ? (i === bug ? "bad" : "ok") : "wait"));
+            const text = i === bug
+              ? `Task ${bug + 1} broke the app. App runs: ${bug + 1}. Suspects: 1.`
+              : `Task ${i + 1} built. The app runs.`;
+            out.push([states, false, text]);
+          }
+        } else {
+          for (let i = 0; i < tasks.length; i++) {
+            out.push([tasks.map((_, j) => (j <= i ? "built" : "wait")), false, `Task ${i + 1} built. No run yet.`]);
+          }
+          out.push([tasks.map(() => "suspect"), true, "The app broke. App runs: 1. Suspects: 5, tasks 1 to 5."]);
+        }
+        return out;
+      };
+
+      const show = ([states, batchOn, text]) => {
+        states.forEach((s, i) => setTask(i, s));
+        batch.setAttribute("opacity", batchOn ? "1" : "0");
+        readout.textContent = text;
+        svg.setAttribute("aria-label", text);
+      };
+
+      const stop = () => clearTimeout(timer);
+
+      const run = () => {
+        stop();
+        const list = frames(Math.floor(Math.random() * tasks.length));
+        if (reduce.matches) return show(list[list.length - 1]);
+        let k = 0;
+        const step = () => {
+          show(list[k++]);
+          if (k < list.length) timer = setTimeout(step, 450);
+        };
+        step();
+      };
+
+      modeBtns.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          stop();
+          mode = btn.dataset.mode;
+          modeBtns.forEach((b) => b.setAttribute("aria-pressed", String(b === btn)));
+          show([tasks.map(() => "wait"), false,
+            mode === "one" ? "Press Run to land the tasks one at a time." : "Press Run to land all five tasks, then run the app once."]);
+        });
+      });
+      runBtn.addEventListener("click", run);
+    }
+  </script>
 </Base>

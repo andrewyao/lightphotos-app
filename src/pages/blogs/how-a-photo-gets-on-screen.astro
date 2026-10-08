@@ -16,252 +16,152 @@ import Base from "../../layouts/Base.astro";
           file format does not decide how many. This post follows the whole
           trip from a file on disk to pixels on your monitor.
         </p>
-        <p class="lp-article-byline">Andrew Yao &middot; 5 min read</p>
+        <p class="lp-article-byline">Andrew Yao &middot; 4 min read</p>
       </header>
 
       <aside class="lp-tldr">
         <p class="lp-tldr-label">TL;DR</p>
         <p>
-          When you open a photo, LightPhotos first decodes it (turns the file
-          into pixels) in the fastest way it can. If the result is as big as
-          the window needs, it stops there. If not, it runs a slower, correct
-          decode next. It runs a third decode only if you zoom in past the
-          detail that is already on screen. After that, zooming, panning and
-          every slider are only math on the graphics card, and the app does not
-          touch the image data again.
+          LightPhotos first does the fastest decode it can. If the result is
+          as big as the window needs, it stops. If not, it runs a slower,
+          correct decode. A third decode runs only when you zoom past the
+          detail on screen. After that, zoom, pan and every slider are only
+          math on the graphics card.
         </p>
       </aside>
 
-      <figure class="lp-figure">
-        <svg viewBox="0 0 640 236" role="img" aria-label="Overview: when you open a photo, the app reads the file from disk, decodes it in one, two or three passes, and sends it to the GPU one time. After that, every frame uses the GPU only. The texture stays on the card, the tone shader applies your edits, and the monitor shows the pixels. A slider drag, a zoom or a pan sends only a few numbers to the GPU. The app does not decode the photo again.">
-          <text class="lp-fig-label" x="0" y="12">WHEN YOU OPEN A PHOTO</text>
-          <rect class="lp-fig-box" x="0" y="22" width="145" height="50" rx="6"></rect>
-          <text class="lp-fig-t" x="72.5" y="43" text-anchor="middle">File on disk</text>
-          <text class="lp-fig-s" x="72.5" y="61" text-anchor="middle">RAW or JPEG</text>
-          <rect class="lp-fig-box" x="165" y="22" width="145" height="50" rx="6"></rect>
-          <text class="lp-fig-t" x="237.5" y="43" text-anchor="middle">Read bytes</text>
-          <text class="lp-fig-s" x="237.5" y="61" text-anchor="middle">per platform</text>
-          <rect class="lp-fig-box" x="330" y="22" width="145" height="50" rx="6"></rect>
-          <text class="lp-fig-t" x="402.5" y="43" text-anchor="middle">Decode</text>
-          <text class="lp-fig-s" x="402.5" y="61" text-anchor="middle">1, 2 or 3 passes</text>
-          <rect class="lp-fig-box-accent" x="495" y="22" width="145" height="50" rx="6"></rect>
-          <text class="lp-fig-t" x="567.5" y="43" text-anchor="middle">Upload to GPU</text>
-          <text class="lp-fig-s" x="567.5" y="61" text-anchor="middle">one time only</text>
-          <path class="lp-fig-line" d="M145 47 H157 M310 47 H322 M475 47 H487"></path>
-          <path class="lp-fig-arrow" d="M157 41 L157 53 L165 47 Z M322 41 L322 53 L330 47 Z M487 41 L487 53 L495 47 Z"></path>
+      <figure class="lp-figure lp-try" id="decode-demo">
+        <div class="lp-try-controls">
+          <button type="button" class="lp-try-btn" data-kind="raw" aria-pressed="true">Sony RAW</button>
+          <button type="button" class="lp-try-btn" data-kind="jpeg" aria-pressed="false">JPEG</button>
+          <label>Window needs <input type="range" min="800" max="3200" step="40" value="2560" aria-valuetext="2560 pixels"></label>
+          <button type="button" class="lp-try-btn" data-zoom aria-pressed="false">Zoom past screen size</button>
+        </div>
+        <svg viewBox="0 0 640 236" role="img" aria-label="Interactive: the size of the first decode compared with the size the window needs, and the decode passes that run as a result.">
+          <text class="lp-fig-label" x="0" y="12">THE CHECK AFTER PASS 1</text>
+          <text class="lp-fig-s" x="0" y="34" data-result-label>Pass 1 result: 1616 px camera preview</text>
+          <rect class="lp-fig-bar-dim" x="0" y="44" width="303" height="16" rx="4" data-result-bar></rect>
+          <line class="lp-fig-line" x1="0" y1="66" x2="600" y2="66"></line>
+          <line class="lp-fig-line" x1="480" y1="38" x2="480" y2="72" stroke-width="2" data-window-line></line>
+          <text class="lp-fig-t" x="480" y="90" text-anchor="middle" data-window-label>Window needs 2560 px</text>
 
-          <path class="lp-fig-line" d="M567.5 72 V96 H72.5 V118"></path>
-          <path class="lp-fig-arrow" d="M66.5 118 L78.5 118 L72.5 128 Z"></path>
-          <text class="lp-fig-label" x="90" y="116">EVERY FRAME, 60 TIMES A SECOND</text>
+          <text class="lp-fig-label" x="0" y="122">DECODES THAT RUN</text>
+          <rect class="lp-fig-box" x="0" y="132" width="180" height="30" rx="5" data-pass="1"></rect>
+          <text class="lp-fig-s" x="90" y="151" text-anchor="middle" data-pass-label="1">Pass 1 &middot; 35 ms</text>
+          <rect class="lp-fig-box-accent" x="188" y="132" width="240" height="30" rx="5" data-pass="2"></rect>
+          <text class="lp-fig-s" x="308" y="151" text-anchor="middle" data-pass-label="2">Pass 2 &middot; 250 ms</text>
+          <rect class="lp-fig-box" x="436" y="132" width="203" height="30" rx="5" data-pass="3" opacity="0.35"></rect>
+          <text class="lp-fig-s" x="538" y="151" text-anchor="middle" data-pass-label="3" opacity="0.35">Pass 3 &middot; full size, seconds</text>
+          <text class="lp-fig-t" x="0" y="188" data-total>2 decodes</text>
 
-          <rect class="lp-fig-box" x="0" y="128" width="145" height="50" rx="6"></rect>
-          <text class="lp-fig-t" x="72.5" y="149" text-anchor="middle">GPU texture</text>
-          <text class="lp-fig-s" x="72.5" y="167" text-anchor="middle">stays on the card</text>
-          <rect class="lp-fig-box-accent" x="165" y="128" width="145" height="50" rx="6"></rect>
-          <text class="lp-fig-t" x="237.5" y="149" text-anchor="middle">Tone shader</text>
-          <text class="lp-fig-s" x="237.5" y="167" text-anchor="middle">applies the edits</text>
-          <rect class="lp-fig-box" x="330" y="128" width="145" height="50" rx="6"></rect>
-          <text class="lp-fig-t" x="402.5" y="149" text-anchor="middle">Monitor</text>
-          <text class="lp-fig-s" x="402.5" y="167" text-anchor="middle">pixels on screen</text>
-          <path class="lp-fig-line" d="M145 153 H157 M310 153 H322"></path>
-          <path class="lp-fig-arrow" d="M157 147 L157 159 L165 153 Z M322 147 L322 159 L330 153 Z"></path>
-
-          <rect class="lp-fig-box" x="165" y="200" width="145" height="30" rx="6"></rect>
-          <text class="lp-fig-s" x="237.5" y="219" text-anchor="middle">Slider, zoom, pan</text>
-          <line class="lp-fig-line" x1="237.5" y1="200" x2="237.5" y2="188"></line>
-          <path class="lp-fig-arrow" d="M231.5 188 L243.5 188 L237.5 178 Z"></path>
-          <text class="lp-fig-s" x="330" y="212">Only a few numbers go to the GPU.</text>
-          <text class="lp-fig-s" x="330" y="228">The app does not decode again.</text>
+          <line class="lp-fig-line-soft" x1="0" y1="204" x2="640" y2="204" stroke-dasharray="3 4"></line>
+          <text class="lp-fig-s" x="0" y="226">Then: one upload to the GPU. A slider, zoom or pan sends only a few numbers.</text>
         </svg>
+        <p class="lp-try-readout" aria-live="polite">The 1616 px preview is smaller than 2560 px. You see it after 35 ms, then the 250 ms decode swaps in.</p>
         <figcaption>
-          The app decodes a photo and sends it to the GPU one time. After that,
-          a zoom or a slider drag changes only a few numbers. The app does not
-          decode the photo again.
+          The rule is the size of the result, not the file format. Make the
+          window smaller than 1616 px and the RAW needs only one decode.
         </figcaption>
       </figure>
 
-      <h2>What I learned</h2>
-      <ul class="lp-article-list">
-        <li>
-          <strong>Show something cheap while the real work runs.</strong> When
-          the app showed the preview from the camera first, a 250 ms wait
-          became a 35 ms wait. But nothing actually got faster.
-        </li>
-        <li>
-          <strong>Base the next step on what came back.</strong> I first
-          checked "is this a RAW file?" That seemed sensible, but it would have
-          led to a growing list of special cases for each format. The check "is
-          the result big enough?" is one rule that covers every format.
-        </li>
-        <li>
-          <strong>Send the photo to the graphics card once.</strong> Anything
-          that happens 60 times a second, like a zoom or a slider drag, must
-          change only a few numbers. It must never redo the expensive decode.
-        </li>
-        <li>
-          <strong>Keep platform differences in one place.</strong> The four
-          builds differ only in how they read files. Everything after that is
-          shared, so the platforms cannot drift apart.
-        </li>
-      </ul>
-
       <h2>Three different jobs</h2>
       <p>
-        I want LightPhotos to feel instant. You open a folder of holiday
-        photos, and the thumbnails fill in. You double-click one, and it opens
-        at full size. You turn the scroll wheel, and it zooms. None of that
-        should surprise anyone, and that is my goal.
-      </p>
-      <p>
-        A photo takes one of three paths through the app. I treat each path as
-        its own problem.
+        A photo takes one of three paths through the app. I treat each path
+        as its own problem.
       </p>
       <ul class="lp-article-list">
         <li>
-          <strong>Opening.</strong> You clicked, and you want the photo large on
-          screen right now.
+          <strong>Opening.</strong> The time from your click to the first
+          image on screen is what counts.
         </li>
         <li>
           <strong>Browsing.</strong> The grid needs a small version of every
-          photo that you can see at the moment.
+          visible photo, fast.
         </li>
         <li>
-          <strong>Exporting.</strong> You want a JPEG on disk with your edits
-          applied.
+          <strong>Exporting.</strong> The JPEG must be exactly right. It can
+          take as long as it needs.
         </li>
       </ul>
-      <p>
-        When you open a photo, the important thing is the time between your
-        click and the first image on screen. Browsing means doing one small job
-        a hundred times without slowing down. An export must get the pixels
-        exactly right. It can take as long as it needs, because you already
-        pressed the button and walked away.
-      </p>
 
       <h2>Opening a photo</h2>
       <p>
-        A camera RAW file is not really an image yet. It is the raw readout
-        from the sensor, and it takes real work to turn it into something you
-        can look at. That step is called demosaicing. On my machine, it takes
-        approximately 250 ms for a Sony ARW file at screen size.
+        A camera RAW file is the raw readout from the sensor. To turn it into
+        a picture takes real work, called demosaicing. On my machine, that
+        takes approximately 250 ms for a Sony ARW file at screen size.
       </p>
       <p>
-        But almost every RAW file comes with a shortcut. Your camera already
-        saved a small JPEG preview inside the file, so that it could show you
-        the shot on its own screen. On that Sony, the preview is 1616 pixels on
-        the long side. It takes approximately 35 ms to extract.
-      </p>
-      <p>
-        So the first pass always does the same thing. It gets the cheapest
-        decode it can near the size that I asked for. If the file has an
-        embedded preview that is good enough, it uses that preview. Then the
-        app checks one thing.
+        But your camera also saved a small JPEG preview inside the file. On my
+        Sony, the preview is 1616 pixels on the long side, and it takes
+        approximately 35 ms to extract. So the first pass gets the cheapest
+        decode it can near the size I asked for. Then the app checks one
+        thing.
       </p>
       <blockquote class="lp-pullquote">
         Is the result as big as the window actually needs?
       </blockquote>
       <p>
-        If it is, the app stops there, and you see the final result after one
-        decode. That happens with every JPEG. A JPEG has no embedded preview,
-        so the first pass decodes it at the requested size. It also happens
-        with a RAW file in a smaller window. If the loupe (the single-photo
-        view) needs only 1400 pixels, the 1616-pixel camera preview is already
-        bigger than that. So the expensive decode never runs.
+        If it is, the app stops after one decode. That happens with every
+        JPEG, because the first pass decodes it at the requested size. It
+        also happens with a RAW in a small window. If the loupe (the
+        single-photo view) needs only 1400 pixels, the 1616-pixel preview is
+        enough.
       </p>
       <p>
         If the result is too small, the app queues a second decode at the full
-        target size. When that decode is done, the app swaps it in. That is the
-        case I see most days. My window asks for approximately 2560 pixels, and
-        the camera preview is 1616.
-      </p>
-
-      <figure class="lp-figure">
-        <svg viewBox="0 0 640 220" role="img" aria-label="Three cases. A JPEG, or a RAW with a preview as big as the window, needs one decode and is done. A RAW with a preview smaller than the window needs two: a 35 millisecond first pass on screen, then a 250 millisecond second pass that swaps in. If you zoom past the screen-size version, a third full-resolution decode runs on demand. The rule is the size of the result, not the file format.">
-          <text class="lp-fig-label" x="0" y="12">HOW MANY DECODES ONE PHOTO NEEDS</text>
-
-          <text class="lp-fig-s" x="0" y="34">JPEG, or a RAW with a preview as big as the window</text>
-          <rect class="lp-fig-box-accent" x="0" y="42" width="180" height="26" rx="5"></rect>
-          <text class="lp-fig-s" x="90" y="59" text-anchor="middle">Pass 1</text>
-          <text class="lp-fig-s" x="192" y="59">one decode, done</text>
-
-          <text class="lp-fig-s" x="0" y="96">RAW with a preview smaller than the window</text>
-          <rect class="lp-fig-box" x="0" y="104" width="180" height="26" rx="5"></rect>
-          <text class="lp-fig-s" x="90" y="121" text-anchor="middle">Pass 1 &middot; 35 ms</text>
-          <rect class="lp-fig-box-accent" x="188" y="104" width="240" height="26" rx="5"></rect>
-          <text class="lp-fig-s" x="308" y="121" text-anchor="middle">Pass 2 &middot; 250 ms</text>
-          <text class="lp-fig-s" x="440" y="121">two decodes</text>
-
-          <text class="lp-fig-s" x="0" y="158">You zoom past the screen-size version</text>
-          <rect class="lp-fig-box" x="0" y="166" width="180" height="26" rx="5"></rect>
-          <text class="lp-fig-s" x="90" y="183" text-anchor="middle">Pass 1</text>
-          <rect class="lp-fig-box" x="188" y="166" width="240" height="26" rx="5"></rect>
-          <text class="lp-fig-s" x="308" y="183" text-anchor="middle">Pass 2</text>
-          <rect class="lp-fig-box-accent" x="436" y="166" width="172" height="26" rx="5"></rect>
-          <text class="lp-fig-s" x="522" y="183" text-anchor="middle">Pass 3 &middot; on demand</text>
-
-          <text class="lp-fig-s lp-fig-bad" x="0" y="212">The rule is the size of the result, not the file format.</text>
-        </svg>
-        <figcaption>
-          Nothing here got faster. The app shows something useful while the
-          expensive work still runs. And it skips that work when it is not
-          needed.
-        </figcaption>
-      </figure>
-
-      <p>
-        I like this rule much better than my first rule, which checked whether
-        the file was a RAW. A check of the result size is one rule that covers
-        every format. That includes formats I have not added yet.
+        target size and swaps it in. That is my usual case: my window asks
+        for approximately 2560 pixels. A 250 ms wait became a 35 ms wait, but
+        nothing actually got faster. The app shows something useful while the
+        expensive work runs, and it skips that work when it is not needed.
       </p>
       <p>
-        The third pass is for zooming. A full-resolution decode takes seconds
-        and hundreds of megabytes of memory. So it runs only when you zoom in
-        past the point where the screen-size version still has enough detail.
+        My first rule checked whether the file was a RAW. That would have
+        grown into a list of special cases for each format. A check of the
+        result size is one rule that covers every format, including formats I
+        have not added yet.
       </p>
       <p>
-        I am pleased with one more detail. When you use the arrow keys to move
-        through a shoot, the app loads the photos on each side of you ahead of
-        time. But it uses only the cheap first pass for them. A full decode for
-        a photo you have not looked at yet would compete with the photo you
-        are looking at now. When you move onto that photo, it gets the full
-        decode like any other photo.
+        The third pass takes seconds and hundreds of megabytes of memory. So
+        it runs only when you zoom in past the detail that the screen-size
+        version has.
+      </p>
+      <p>
+        When you use the arrow keys, the app loads the photos on each side
+        ahead of time with only the cheap first pass. They do not compete with
+        the photo you look at now.
       </p>
 
       <h2>After that, it all happens on the graphics card</h2>
       <p>
-        After the app decodes a photo, it sends the photo to the graphics card
-        (the GPU) once. Zooming and panning never touch the image data again.
-        They only change a few numbers that the app sends to the card each
-        frame.
+        The app sends a decoded photo to the graphics card (the GPU) once.
+        Zooming and panning only change a few numbers that the app sends to
+        the card each frame. Anything that happens 60 times a second must
+        never redo the decode.
       </p>
       <p>
-        The editing sliders work the same way. When you drag Exposure, the new
-        value goes to the GPU. A shader, which is a small program that runs on
-        the card, then redraws the picture immediately. Nothing gets decoded
-        again, and the main processor never loops over the pixels. You see the
-        original decode with some math applied on its way to the screen.
+        The sliders work the same way. When you drag Exposure, only the new
+        value goes to the GPU. A shader, a small program on the card, redraws
+        the picture. The main processor never loops over the pixels.
       </p>
 
       <h2>Two ways of drawing</h2>
       <p>
-        egui draws the buttons, grid, filmstrip and sliders. egui is a Rust
-        interface library that redraws the whole interface every frame. A few
-        hundred lines of hand-written GPU code draw the photo itself,
-        underneath a transparent panel.
+        egui, a Rust interface library that redraws the whole interface every
+        frame, draws the buttons, grid, filmstrip and sliders. A few hundred
+        lines of hand-written GPU code draw the photo underneath a transparent
+        panel.
       </p>
       <p>
-        This split lets me write the interface in the loose, convenient style
-        that egui encourages. It also keeps the pixel-heavy part small enough
-        to tune by hand. With a general-purpose toolkit, the photo would be a
-        widget. It is hard to make a widget take a 24-megapixel image with a
-        custom shader.
+        This split keeps the interface code loose and convenient, and the
+        pixel-heavy part small enough to tune by hand. In a general-purpose
+        toolkit, the photo is a widget, and a widget does not easily take a
+        24-megapixel image with a custom shader.
       </p>
 
       <h2>Where the four builds meet</h2>
       <p>
         The macOS, Linux, Windows and browser builds differ in only one place:
-        how they turn a file into pixels. After that, they all use the same
-        code.
+        how they turn a file into pixels.
       </p>
 
       <figure class="lp-figure">
@@ -312,15 +212,14 @@ import Base from "../../layouts/Base.astro";
         users: the exporter and the thumbnail you are looking at.
       </p>
       <p>
-        That is why an exported JPEG matches what you saw on screen. I never
-        built that as a separate feature. It comes from having only one code
-        path. I would much rather get that for free than keep it true by hand.
+        That is why an exported JPEG matches what you saw on screen. It is
+        not a separate feature. It comes from one code path, and I prefer that
+        to keeping two paths the same by hand.
       </p>
 
       <p>
-        If you want to see how this feels, the
-        <a href="/downloads.html">downloads page</a> has builds for all four
-        platforms.
+        The <a href="/downloads.html">downloads page</a> has builds for all
+        four platforms.
       </p>
 
       <nav class="lp-article-nav" aria-label="More posts">
@@ -335,4 +234,84 @@ import Base from "../../layouts/Base.astro";
       </nav>
     </article>
   </main>
+  <script>
+    const fig = document.getElementById("decode-demo");
+    if (fig) {
+      const PREVIEW = 1616; // embedded preview on the author's Sony ARW
+      const MAX = 3200; // right end of the size axis, in px
+      const AXIS = 600; // axis width in SVG units
+      const kindBtns = fig.querySelectorAll("[data-kind]");
+      const zoomBtn = fig.querySelector("[data-zoom]");
+      const range = fig.querySelector('input[type="range"]');
+      const q = (sel) => fig.querySelector(sel);
+      const readout = fig.querySelector(".lp-try-readout");
+      let kind = "raw";
+      let zoom = false;
+
+      const setPass = (n, on, last, label) => {
+        const box = q(`[data-pass="${n}"]`);
+        const text = q(`[data-pass-label="${n}"]`);
+        box.setAttribute("class", on && last ? "lp-fig-box-accent" : "lp-fig-box");
+        box.setAttribute("opacity", on ? "1" : "0.35");
+        text.setAttribute("opacity", on ? "1" : "0.35");
+        text.textContent = label;
+      };
+
+      const render = () => {
+        const need = Number(range.value);
+        range.setAttribute("aria-valuetext", `${need} pixels`);
+        const result = kind === "raw" ? PREVIEW : need;
+        const enough = result >= need;
+        const x = (need / MAX) * AXIS;
+
+        const bar = q("[data-result-bar]");
+        bar.setAttribute("width", String((result / MAX) * AXIS));
+        bar.setAttribute("class", enough ? "lp-fig-bar" : "lp-fig-bar-dim");
+        q("[data-result-label]").textContent =
+          kind === "raw"
+            ? `Pass 1 result: ${PREVIEW} px camera preview`
+            : `Pass 1 result: ${need} px, decoded at the requested size`;
+        const line = q("[data-window-line]");
+        line.setAttribute("x1", String(x));
+        line.setAttribute("x2", String(x));
+        const wl = q("[data-window-label]");
+        wl.setAttribute("x", String(Math.min(Math.max(x, 80), 560)));
+        wl.textContent = `Window needs ${need} px`;
+
+        const two = !enough;
+        const last = zoom ? 3 : two ? 2 : 1;
+        setPass(1, true, last === 1, kind === "raw" ? "Pass 1 · 35 ms" : "Pass 1");
+        setPass(2, two, last === 2, "Pass 2 · 250 ms");
+        setPass(3, zoom, last === 3, "Pass 3 · full size, seconds");
+        const count = 1 + (two ? 1 : 0) + (zoom ? 1 : 0);
+        q("[data-total]").textContent = `${count} decode${count > 1 ? "s" : ""}`;
+
+        let msg;
+        if (kind === "jpeg") {
+          msg = "A JPEG has no embedded preview. Pass 1 decodes it at the requested size, so it is always big enough.";
+        } else if (enough) {
+          msg = `The ${PREVIEW} px preview is big enough for ${need} px. The expensive decode never runs.`;
+        } else {
+          msg = `The ${PREVIEW} px preview is smaller than ${need} px. You see it after 35 ms, then the 250 ms decode swaps in.`;
+        }
+        if (zoom) msg += " You zoomed past the screen-size detail, so a full-size decode runs on demand.";
+        readout.textContent = msg;
+      };
+
+      kindBtns.forEach((btn) =>
+        btn.addEventListener("click", () => {
+          kind = btn.dataset.kind;
+          kindBtns.forEach((b) => b.setAttribute("aria-pressed", String(b === btn)));
+          render();
+        })
+      );
+      zoomBtn.addEventListener("click", () => {
+        zoom = !zoom;
+        zoomBtn.setAttribute("aria-pressed", String(zoom));
+        render();
+      });
+      range.addEventListener("input", render);
+      render();
+    }
+  </script>
 </Base>

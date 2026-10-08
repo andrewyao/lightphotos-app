@@ -16,369 +16,224 @@ import Base from "../../layouts/Base.astro";
           When I moved to Linux, Windows and the browser, I saw exactly how
           much.
         </p>
-        <p class="lp-article-byline">Andrew Yao &middot; 7 min read</p>
+        <p class="lp-article-byline">Andrew Yao &middot; 5 min read</p>
       </header>
 
       <aside class="lp-tldr">
         <p class="lp-tldr-label">TL;DR</p>
         <p>
-          On the Mac, one call to Apple's ImageIO library made RAW photos load
-          fast, and I never noticed. When I brought LightPhotos to Linux,
+          On the Mac, one ImageIO call made RAW photos load fast. On Linux,
           Windows and the browser, I had to rebuild that work by hand. My
-          version was slower, missed a format and needed a patched library.
-          The hardest part was making photos look the same as on the Mac
-          without the camera profiles that bigger projects have. Also, Apple's
-          decoder cannot open one kind of file at all. A platform library does
-          more than you think, and you only find out when you leave it.
+          version is slower, cannot read HEIC and needs a patched library. The
+          hardest part was making photos look the same as on the Mac. A
+          platform library does more than you think, and you only see it when
+          you leave.
         </p>
       </aside>
 
-      <figure class="lp-figure">
-        <svg viewBox="0 0 640 332" role="img" aria-label="Diagram: one ImageIO call on the Mac asks for an image at approximately a given size. Under it are six jobs that the call does for free. Each job shows what I had to do without ImageIO: read the tags by hand to find the RAW preview, accept 680 ms per photo for the sensor decode, fit a brightness curve to match the look, add a fixed amount of noise reduction, read the rotation myself, and HEIC, for which no pure-Rust decoder exists.">
-          <text class="lp-fig-label" x="0" y="16">ON THE MAC</text>
-          <rect class="lp-fig-box-accent" x="140" y="32" width="360" height="56" rx="8"></rect>
-          <text class="lp-fig-t" x="320" y="55" text-anchor="middle">One ImageIO call</text>
-          <text class="lp-fig-s" x="320" y="75" text-anchor="middle">Give me this image at approximately this size</text>
-          <line class="lp-fig-line" x1="320" y1="88" x2="320" y2="104"></line>
-          <path class="lp-fig-arrow" d="M314 104 L326 104 L320 112 Z"></path>
-
-          <rect class="lp-fig-panel" x="1" y="116" width="638" height="204" rx="10"></rect>
-
-          <rect class="lp-fig-box" x="16" y="132" width="296" height="52" rx="6"></rect>
-          <text class="lp-fig-t" x="30" y="154">Find the RAW preview</text>
-          <text class="lp-fig-s" x="30" y="173">Without it: read the tags by hand</text>
-          <rect class="lp-fig-box" x="328" y="132" width="296" height="52" rx="6"></rect>
-          <text class="lp-fig-t" x="342" y="154">Shrink the image as it decodes</text>
-          <text class="lp-fig-s" x="342" y="173">Without it: 680 ms per photo</text>
-
-          <rect class="lp-fig-box" x="16" y="192" width="296" height="52" rx="6"></rect>
-          <text class="lp-fig-t" x="30" y="214">Match Apple's look</text>
-          <text class="lp-fig-s" x="30" y="233">Without it: a fitted brightness curve</text>
-          <rect class="lp-fig-box" x="328" y="192" width="296" height="52" rx="6"></rect>
-          <text class="lp-fig-t" x="342" y="214">Reduce noise</text>
-          <text class="lp-fig-s" x="342" y="233">Without it: a fixed amount</text>
-
-          <rect class="lp-fig-box" x="16" y="252" width="296" height="52" rx="6"></rect>
-          <text class="lp-fig-t" x="30" y="274">Turn the photo upright</text>
-          <text class="lp-fig-s" x="30" y="293">Without it: I read the rotation</text>
-          <rect class="lp-fig-box" x="328" y="252" width="296" height="52" rx="6"></rect>
-          <text class="lp-fig-t" x="342" y="274">Read HEIC files</text>
-          <text class="lp-fig-s lp-fig-bad" x="342" y="293">Without it: no pure-Rust decoder</text>
+      <figure class="lp-figure lp-try" id="imageio-demo">
+        <div class="lp-try-controls" role="group" aria-label="Platform">
+          <button type="button" class="lp-try-btn" data-plat="mac" aria-pressed="true">macOS, ImageIO</button>
+          <button type="button" class="lp-try-btn" data-plat="other" aria-pressed="false">Linux, Windows, browser</button>
+        </div>
+        <svg viewBox="0 0 640 286" role="img" aria-label="Interactive: seven jobs of reading a photo file, and who does each job on the selected platform.">
+          <text class="lp-fig-label" x="0" y="12">THE JOB</text>
+          <text class="lp-fig-label" x="216" y="12" data-plat-label>ON THE MAC: ONE IMAGEIO CALL DOES IT</text>
+          <rect class="lp-fig-box-accent" x="200" y="22" width="439" height="260" rx="8" data-one-call></rect>
+          <text class="lp-fig-t" x="0" y="49">Find the RAW preview</text>
+          <rect class="lp-fig-box" x="200" y="30" width="439" height="28" rx="5" data-row-box opacity="0"></rect>
+          <text class="lp-fig-s" x="216" y="48" data-row="0">Built in, 11 ms</text>
+          <text class="lp-fig-t" x="0" y="85">Shrink as it decodes</text>
+          <rect class="lp-fig-box" x="200" y="66" width="439" height="28" rx="5" data-row-box opacity="0"></rect>
+          <text class="lp-fig-s" x="216" y="84" data-row="1">170 to 210 ms to screen size</text>
+          <text class="lp-fig-t" x="0" y="121">Match Apple&#39;s look</text>
+          <rect class="lp-fig-box" x="200" y="102" width="439" height="28" rx="5" data-row-box opacity="0"></rect>
+          <text class="lp-fig-s" x="216" y="120" data-row="2">Built in</text>
+          <text class="lp-fig-t" x="0" y="157">Reduce noise</text>
+          <rect class="lp-fig-box" x="200" y="138" width="439" height="28" rx="5" data-row-box opacity="0"></rect>
+          <text class="lp-fig-s" x="216" y="156" data-row="3">Automatic</text>
+          <text class="lp-fig-t" x="0" y="193">Turn the photo upright</text>
+          <rect class="lp-fig-box" x="200" y="174" width="439" height="28" rx="5" data-row-box opacity="0"></rect>
+          <text class="lp-fig-s" x="216" y="192" data-row="4">Built in</text>
+          <text class="lp-fig-t" x="0" y="229">Read HEIC</text>
+          <rect class="lp-fig-box" x="200" y="210" width="439" height="28" rx="5" data-row-box opacity="0"></rect>
+          <text class="lp-fig-s" x="216" y="228" data-row="5">Yes</text>
+          <text class="lp-fig-t" x="0" y="265">Read Linear DNG</text>
+          <rect class="lp-fig-box" x="200" y="246" width="439" height="28" rx="5" data-row-box opacity="0"></rect>
+          <text class="lp-fig-s lp-fig-bad" x="216" y="264" data-row="6">Cannot decode it</text>
         </svg>
+        <p class="lp-try-readout" aria-live="polite">One call does six of the seven jobs. It cannot open a Linear DNG, and I cannot patch it.</p>
         <figcaption>
-          On the Mac, ImageIO does all six jobs inside one call. On Linux,
-          Windows and the browser, I rebuilt five of them myself. I could not
-          rebuild HEIC support.
+          Switch platforms to see what I had to build to replace one function
+          argument.
         </figcaption>
       </figure>
 
-      <h2>What I learned</h2>
-      <ul class="lp-article-list">
-        <li>
-          <strong>Find out what a library does for you before you have to
-          leave it.</strong> For me, that meant writing the replacement and
-          timing both. The docs would not have told me.
-        </li>
-        <li>
-          <strong>A platform library has a price, so write it down.</strong>
-          The price covers speed, file formats, running on other systems, and
-          bugs you cannot fix yourself. I guessed three of those four wrong.
-        </li>
-        <li>
-          <strong>Plan for the reference to be wrong.</strong> A test image
-          that I could work out by hand was the better check.
-        </li>
-        <li>
-          <strong>Check the order of your processing steps.</strong> I shrank
-          the image before noise reduction instead of after. That two-line
-          change saved 1.1 seconds per photo.
-        </li>
-      </ul>
-
       <p>
-        LightPhotos started out as a Mac-only app. When I moved it to other
-        platforms, I expected the hard parts to be the window, the graphics
-        and the file dialogs. They were not. The hard part was something I had
-        stopped thinking about years ago: reading an image file.
+        When I moved LightPhotos off the Mac, I expected the window, graphics
+        and file dialogs to be hard. The hard part was reading an image
+        file.
       </p>
 
       <h2>The one call</h2>
       <p>
-        ImageIO is Apple's built-in image library. It has a function that
-        means "give me this image, already shrunk to approximately this size".
-        You do not load the full image and resize it yourself. The size is
-        part of the request.
+        ImageIO is Apple's built-in image library. One of its functions means
+        "give me this image, already shrunk to approximately this size". The
+        size is part of the request.
       </p>
       <p>
-        For a JPEG, that is useful. For a camera RAW file, it makes a very
-        large difference. A RAW file holds the raw data from the camera
-        sensor, not a finished picture. Turning that data into full colour
-        takes a lot of work.
+        For a camera RAW file, that makes a very large difference. A RAW file
+        holds the raw data from the sensor, and to turn that data into full
+        colour takes a lot of work. But almost every RAW file also carries a
+        small JPEG preview for the camera screen. If you ask ImageIO for a
+        small version, it uses that preview and skips the sensor processing.
+        On Sony ARW files, I measured 11 ms instead of 170 to 210.
       </p>
-      <p>
-        Almost every RAW file also carries a small JPEG preview. The camera
-        writes it so that its own screen has something to show. If you ask
-        ImageIO for a small version, it finds that preview and skips the
-        sensor processing entirely. On Sony ARW files, I measured 11 ms
-        instead of 170 to 210.
-      </p>
-      <p>I did not write any of that. I got it from one function argument.</p>
 
       <h2>No other platform has that function</h2>
-
-      <figure class="lp-figure">
-        <svg viewBox="0 0 640 234" role="img" aria-label="Comparison: on macOS, one ImageIO call does scaled decoding. On other platforms, the program reads the EXIF tags to find an embedded preview. If that fails, it does a full sensor decode.">
-          <text class="lp-fig-label" x="0" y="12">MACOS</text>
-          <rect class="lp-fig-panel" x="0" y="22" width="290" height="192" rx="10"></rect>
-          <rect class="lp-fig-box-accent" x="26" y="90" width="238" height="56" rx="8"></rect>
-          <text class="lp-fig-t" x="145" y="113" text-anchor="middle">One call</text>
-          <text class="lp-fig-s" x="145" y="133" text-anchor="middle">scaling is part of the request</text>
-          <text class="lp-fig-s" x="145" y="180" text-anchor="middle">11 ms to a RAW preview</text>
-
-          <text class="lp-fig-label" x="350" y="12">LINUX, WINDOWS, BROWSER</text>
-          <rect class="lp-fig-panel" x="350" y="22" width="290" height="192" rx="10"></rect>
-          <rect class="lp-fig-box" x="430" y="40" width="130" height="28" rx="6"></rect>
-          <text class="lp-fig-s" x="495" y="59" text-anchor="middle">RAW file</text>
-          <line class="lp-fig-line" x1="495" y1="68" x2="495" y2="76"></line>
-          <path class="lp-fig-arrow" d="M489 76 L501 76 L495 84 Z"></path>
-          <rect class="lp-fig-box" x="375" y="88" width="240" height="28" rx="6"></rect>
-          <text class="lp-fig-s" x="495" y="107" text-anchor="middle">Read the TIFF and EXIF tags</text>
-          <path class="lp-fig-line" d="M495 116 V128 H424 V136 M495 128 H566 V136"></path>
-          <path class="lp-fig-arrow" d="M418 136 L430 136 L424 144 Z M560 136 L572 136 L566 144 Z"></path>
-          <rect class="lp-fig-box" x="360" y="144" width="128" height="46" rx="6"></rect>
-          <text class="lp-fig-s" x="424" y="164" text-anchor="middle">Decode the</text>
-          <text class="lp-fig-s" x="424" y="179" text-anchor="middle">embedded JPEG</text>
-          <rect class="lp-fig-box" x="502" y="144" width="128" height="46" rx="6"></rect>
-          <text class="lp-fig-s" x="566" y="164" text-anchor="middle">rawler:</text>
-          <text class="lp-fig-s" x="566" y="179" text-anchor="middle">demosaic the sensor</text>
-          <text class="lp-fig-s" x="424" y="206" text-anchor="middle">fast path</text>
-          <text class="lp-fig-s" x="566" y="206" text-anchor="middle">fallback</text>
-        </svg>
-        <figcaption>
-          I could not find a ready-made equivalent on any other platform. I
-          checked before I committed to the move. Everywhere I looked, the
-          answer was to build it yourself.
-        </figcaption>
-      </figure>
-
       <p>
-        To build it yourself, you have to learn a few things. Most RAW files
-        are really TIFF files underneath. A TIFF file is a list of labelled
-        entries (tags), and the preview sits at a known spot in that list. I
-        know all of that now. Honestly, I would rather not have needed to.
+        I found no ready-made equivalent anywhere, so I built it. Most RAW files are TIFF files
+        underneath. A TIFF file is a list of labelled entries (tags), and the
+        preview sits at a known spot in that list. If that fails, rawler, the
+        open source RAW library I use, demosaics the sensor data.
       </p>
-
-      <div class="lp-compare-wrap">
-        <table class="lp-compare">
-          <thead>
-            <tr>
-              <th scope="col"></th>
-              <th scope="col">macOS, ImageIO</th>
-              <th scope="col">Linux, Windows, browser</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th scope="row">Embedded RAW preview</th>
-              <td>11 ms, built in</td>
-              <td>Hand-rolled from EXIF tags</td>
-            </tr>
-            <tr>
-              <th scope="row">Sensor decode to screen size</th>
-              <td>170 to 210 ms</td>
-              <td>680 ms, after optimising</td>
-            </tr>
-            <tr>
-              <th scope="row">Matching Apple's look</th>
-              <td>Built in</td>
-              <td>A brightness curve I fitted on Sony files</td>
-            </tr>
-            <tr>
-              <th scope="row">HEIC</th>
-              <td>Yes</td>
-              <td>No pure-Rust decoder exists</td>
-            </tr>
-            <tr>
-              <th scope="row">Linear DNG</th>
-              <td>Cannot decode it</td>
-              <td>Byte-exact against ground truth</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
 
       <h2>Two steps in the wrong order</h2>
       <p>
-        That 680 ms started out as 1.80 seconds. My code did noise reduction
-        on the full-size image from the sensor, and only shrank it afterwards.
+        That 680 ms started as 1.80 seconds. My code did noise reduction on
+        the full-size sensor image, and only shrank it afterwards.
       </p>
 
-      <figure class="lp-figure">
-        <svg viewBox="0 0 640 176" role="img" aria-label="Pipeline comparison: noise reduction at 24 megapixels before the shrink takes 1.80 seconds. The shrink before noise reduction takes 0.68 seconds.">
+      <figure class="lp-figure lp-try" id="order-demo">
+        <div class="lp-try-controls" role="group" aria-label="Step order">
+          <button type="button" class="lp-try-btn" data-order="before" aria-pressed="true">Denoise, then shrink</button>
+          <button type="button" class="lp-try-btn" data-order="after" aria-pressed="false">Shrink, then denoise</button>
+        </div>
+        <svg viewBox="0 0 640 110" role="img" aria-label="Interactive: the order of the denoise and shrink steps, and the time and peak memory for each order.">
           <text class="lp-fig-label" x="0" y="12">A 2560 PX PREVIEW FROM A 24 MP SONY ARW</text>
-
           <rect class="lp-fig-box" x="0" y="26" width="142" height="32" rx="6"></rect>
           <text class="lp-fig-s" x="71" y="46" text-anchor="middle">Decode sensor</text>
-          <path class="lp-fig-arrow" d="M146 36 L146 48 L156 42 Z"></path>
-          <rect class="lp-fig-box lp-fig-bad-stroke" x="160" y="26" width="142" height="32" rx="6"></rect>
-          <text class="lp-fig-s" x="231" y="46" text-anchor="middle">Denoise at 24 MP</text>
-          <path class="lp-fig-arrow" d="M306 36 L306 48 L316 42 Z"></path>
-          <rect class="lp-fig-box" x="320" y="26" width="142" height="32" rx="6"></rect>
-          <text class="lp-fig-s" x="391" y="46" text-anchor="middle">Shrink to 2560</text>
-          <rect class="lp-fig-bar-dim" x="0" y="66" width="462" height="7" rx="3.5"></rect>
-          <text class="lp-fig-s" x="476" y="52">1.80 s &middot; peak 1.39 GB</text>
-
-          <rect class="lp-fig-box" x="0" y="106" width="142" height="32" rx="6"></rect>
-          <text class="lp-fig-s" x="71" y="126" text-anchor="middle">Decode sensor</text>
-          <path class="lp-fig-arrow" d="M146 116 L146 128 L156 122 Z"></path>
-          <rect class="lp-fig-box" x="160" y="106" width="142" height="32" rx="6"></rect>
-          <text class="lp-fig-s" x="231" y="126" text-anchor="middle">Shrink to 2560</text>
-          <path class="lp-fig-arrow" d="M306 116 L306 128 L316 122 Z"></path>
-          <rect class="lp-fig-box-accent" x="320" y="106" width="142" height="32" rx="6"></rect>
-          <text class="lp-fig-s" x="391" y="126" text-anchor="middle">Denoise at 2560</text>
-          <rect class="lp-fig-bar" x="0" y="146" width="175" height="7" rx="3.5"></rect>
-          <text class="lp-fig-s" x="476" y="132">0.68 s &middot; peak 1.21 GB</text>
+          <path class="lp-fig-arrow" d="M146 36 L146 48 L156 42 Z M306 36 L306 48 L316 42 Z"></path>
+          <g data-step="denoise" transform="translate(160 0)">
+            <rect class="lp-fig-box lp-fig-bad-stroke" x="0" y="26" width="142" height="32" rx="6"></rect>
+            <text class="lp-fig-s" x="71" y="46" text-anchor="middle">Denoise at 24 MP</text>
+          </g>
+          <g data-step="shrink" transform="translate(320 0)">
+            <rect class="lp-fig-box" x="0" y="26" width="142" height="32" rx="6"></rect>
+            <text class="lp-fig-s" x="71" y="46" text-anchor="middle">Shrink to 2560</text>
+          </g>
+          <rect class="lp-fig-bar-dim" x="0" y="74" width="462" height="10" rx="5" data-time-bar></rect>
+          <text class="lp-fig-t" x="0" y="104" data-time>1.80 s &middot; peak 1.39 GB</text>
         </svg>
+        <p class="lp-try-readout" aria-live="polite">Noise reduction runs on all 24 MP. 1.80 s per photo.</p>
         <figcaption>
-          I swapped two lines. At full size, the output is identical in every
-          byte.
+          A two-line swap. At full size, the output is identical in every byte.
         </figcaption>
       </figure>
 
       <p>
-        Swapping those two steps was a two-line change, and it saved 1.1
-        seconds per photo.
+        Swapping the two steps saved 1.1 seconds per photo. Check the order of
+        your processing steps.
       </p>
 
       <h2>The other costs</h2>
       <p>
-        Speed was the first cost, and file formats were the second. ImageIO
-        reads HEIC, the format that iPhones use. Nobody has written a HEIC
-        reader in pure Rust, the language LightPhotos uses. My only option was
-        to hook into a C library, and that meant extra build tools on every
-        platform. I was trying to keep those platforms simple to build. So
-        HEIC still only works on the Mac, and you can see that difference as a
-        user.
+        File formats were the second cost. ImageIO reads HEIC, the iPhone
+        format. Nobody has written a HEIC reader in pure Rust, the language
+        LightPhotos uses. A C library would add build tools on every platform,
+        and I want those builds simple. So HEIC only works on the Mac, and you
+        can see that as a user.
       </p>
       <p>
-        The third cost was a library that would not run in a browser. The RAW
-        library reads the system clock to log how long each photo took to
-        load. In the browser (under WebAssembly), no clock exists behind that
-        call, so it crashes. My build now downloads the library, applies a
-        four-line patch and builds from that copy. Cargo, the Rust build tool,
-        cannot apply a patch for only the browser build, so every build uses
-        the patched copy.
+        The third cost was a library that did not run in a browser. The RAW
+        library reads the system clock to log load times. Under WebAssembly,
+        no clock exists behind that call, so it crashes. My build now
+        downloads the library and applies a four-line patch. Cargo, the Rust
+        build tool, cannot apply a patch for only the browser build, so every
+        build uses the patched copy.
+      </p>
+      <p>
+        A platform library has a price: speed, file formats, other systems,
+        and bugs you cannot fix. I guessed three of those four wrong. Only the
+        replacement, timed against the original, told me the real price.
       </p>
 
       <h2>Making the other platforms look like the Mac</h2>
       <p>
-        Opening a RAW file on Linux, Windows and in the browser was only half
-        the job. The photo also had to look the same as it does on the Mac.
-        That was the hardest part of the whole move.
+        The photo also had to look the same as on the Mac. That was the
+        hardest part of the move. Bigger photo projects have camera profiles,
+        each tuned for one camera model. I only have the basic colour data
+        that rawler keeps for each camera. My first version looked flat and
+        approximately 1.45 times darker than the Mac.
       </p>
-      <p>
-        Bigger photo projects have camera profiles. Each profile is tuned for
-        one camera model and describes how that camera records colour. I do
-        not have those. All I have is the basic colour data that rawler, the
-        open source RAW library I use, keeps for each camera. My first version
-        on the other platforms looked flat. It was also approximately 1.45
-        times darker than the same photo on the Mac.
-      </p>
-      <p>These are the steps I did by hand to close that gap.</p>
       <ul class="lp-article-list">
         <li>
-          <strong>Use what the camera recorded.</strong> I apply the white
-          balance that the camera saved when you took the shot. Then I convert
-          the camera colours into normal screen colours with the numbers that
+          <strong>Use what the camera recorded.</strong> I apply the saved
+          white balance, then convert to screen colours with the numbers
           rawler has for that camera.
         </li>
         <li>
-          <strong>Handle the brightest parts the way Apple does.</strong> I
-          pull back colours that are too bright for the screen gently instead
-          of cutting them off. The very brightest tones go to pure white, and
-          ImageIO does the same.
+          <strong>Handle highlights the way Apple does.</strong> I pull back
+          colours that are too bright for the screen gently instead of cutting
+          them off. The very brightest tones go to pure white, as in ImageIO.
         </li>
         <li>
-          <strong>Trim the edges.</strong> A sensor has a border of pixels
-          that are not part of the picture. I was not trimming all of them.
-          Those dark edges made the browser version visibly darker than the
-          Mac.
+          <strong>Trim the edges.</strong> I did not trim all of the sensor
+          border pixels, and those dark edges made the browser version visibly
+          darker.
         </li>
         <li>
           <strong>Turn the photo the right way up.</strong> The RAW library
-          always reported photos as upright, so I read the rotation from the
-          photo metadata myself. Before I did that, some previews came out
-          sideways.
+          reported every photo as upright, so I read the rotation myself.
         </li>
         <li>
-          <strong>Reduce noise.</strong> ImageIO cleans up noise automatically
-          when it opens a RAW file. I added a fixed amount of noise reduction
-          to replace it.
+          <strong>Reduce noise.</strong> ImageIO does this automatically. I
+          add a fixed amount.
         </li>
       </ul>
       <p>
-        Brightness was the biggest piece. At first I tuned it by eye with a
-        brightness and contrast adjustment. The result got close but never
-        looked quite right. So I wrote a small tool that opens the same RAW
-        file twice, once with ImageIO and once with my own code. The tool then
-        compares how bright the two results are. I used it to fit a brightness
-        curve.
+        Brightness was the biggest piece. Tuning by eye got close but never
+        looked right. So I wrote a small tool that opens
+        the same RAW file with ImageIO and with my code, and compares how
+        bright the results are. Across 148 Sony files, it aligned my output
+        with Apple's at 17 points from black to white. I kept the middle value
+        at each point and fitted a curve. On the ten files I checked, my
+        version had been 1.34 to 1.51 times darker. With the curve, it is
+        within 2% either way.
       </p>
       <p>
-        Across 148 Sony files, the tool aligned my output with Apple's at 17
-        points from black to white. I kept the middle value at each point. On
-        the ten files I checked, my version had been 1.34 to 1.51 times darker
-        than the Mac. With the curve, it is within 2% either way.
-      </p>
-      <p>
-        It is still not a perfect match, and I want to be honest about that.
-        I only fitted the curve on Sony files, because I shoot with Sony.
-        Photos from other cameras may not match as closely. The curve fixes
-        brightness and contrast, not colour, so a shade can still come out a
-        little different. Fujifilm cameras with X-Trans sensors also get a
-        softer result than they would on the Mac.
+        It is still not a perfect match. I only fitted the curve on Sony
+        files, because I shoot with Sony, so other cameras may not match as
+        closely. The curve fixes brightness and contrast, not colour.
+        Fujifilm cameras with X-Trans sensors also get a softer result than on
+        the Mac.
       </p>
 
       <h2>Apple's decoder is not always right</h2>
       <p>
-        Part of my plan was an accuracy check. I would open a test file both
-        ways, confirm that the results match, and treat Apple's result as the
-        correct one.
+        My plan for an accuracy check was to open a test file both ways and
+        treat Apple's result as correct. Apple's decoder could not open the
+        file. It cannot read Linear DNG files at all.
       </p>
       <p>
-        Apple's decoder could not open the file. It cannot read Linear DNG
-        files at all.
-      </p>
-      <p>
-        So I rebuilt the test around an answer I worked out myself. I made an
-        artificial DNG file that holds a known mathematical gradient. Then I
-        calculated every pixel by hand. The Rust decoder matched exactly, with
-        zero mismatches across 147,456 samples.
-      </p>
-      <p>
-        If two decoders agree, that only tells me that they agree. When one
-        matches numbers I worked out myself, I know that it is right.
+        So I made an artificial DNG file that holds a known mathematical
+        gradient, and I calculated every pixel by hand. The Rust decoder
+        matched exactly, with zero mismatches across 147,456 samples. If two
+        decoders agree, that only tells me that they agree. When one matches
+        numbers I worked out myself, I know that it is right.
       </p>
 
       <h2>I would use it again</h2>
       <p>
-        I still use ImageIO on the Mac, and it gives you a lot. It gives you
-        decades of support for many file formats. It gives you a fast shortcut
-        that I would never have thought to build. It also gives correct
-        results on formats that are mostly reverse-engineered. Each camera
-        maker adds its own quirks to those formats.
-      </p>
-      <p>
-        I rebuilt a small piece of ImageIO myself, and now I respect it much
-        more. Apple has done this work for years, across a huge list of
-        cameras. On the Mac, I get all of it from one call. Thank you, Apple.
+        I still use ImageIO on the Mac. It gives decades of format support, a
+        fast shortcut I would not have thought to build, and correct results
+        on reverse-engineered camera formats. I rebuilt a small piece of it,
+        and now I respect it much more. Thank you, Apple.
       </p>
       <p>
         The price is that ImageIO only works on Apple's platforms, and you
-        cannot fix some of its bugs. Apple's decoder cannot open a Linear DNG,
-        and I cannot patch it. The only workaround is to ship a second
-        decoder. I do not control that code. I just live with whatever it
-        does.
+        cannot fix its bugs. I cannot patch the Linear DNG gap. The only
+        workaround is to ship a second decoder.
       </p>
 
       <nav class="lp-article-nav" aria-label="More posts">
@@ -393,4 +248,70 @@ import Base from "../../layouts/Base.astro";
       </nav>
     </article>
   </main>
+  <script>
+    // Each pair is [macOS with ImageIO, Linux/Windows/browser], from the post.
+    const JOBS = [
+      [["Built in, 11 ms"], ["I read the TIFF and EXIF tags by hand"]],
+      [["170 to 210 ms to screen size"], ["680 ms, after a fix (it was 1.80 s)"]],
+      [["Built in"], ["A brightness curve fitted on 148 Sony files"]],
+      [["Automatic"], ["A fixed amount"]],
+      [["Built in"], ["I read the rotation from the metadata"]],
+      [["Yes"], ["No pure-Rust decoder exists", "bad"]],
+      [["Cannot decode it", "bad"], ["Byte-exact against a hand-worked answer"]],
+    ];
+
+    const pick = (fig, attr, onPick) => {
+      const btns = fig.querySelectorAll(`[${attr}]`);
+      btns.forEach((btn) =>
+        btn.addEventListener("click", () => {
+          btns.forEach((b) => b.setAttribute("aria-pressed", String(b === btn)));
+          onPick(btn.getAttribute(attr));
+        })
+      );
+    };
+
+    const platFig = document.getElementById("imageio-demo");
+    if (platFig) {
+      const readout = platFig.querySelector(".lp-try-readout");
+      pick(platFig, "data-plat", (plat) => {
+        const mac = plat === "mac";
+        platFig.querySelector("[data-one-call]").setAttribute("opacity", mac ? "1" : "0");
+        platFig.querySelectorAll("[data-row-box]").forEach((r) => r.setAttribute("opacity", mac ? "0" : "1"));
+        platFig.querySelector("[data-plat-label]").textContent = mac
+          ? "ON THE MAC: ONE IMAGEIO CALL DOES IT"
+          : "ELSEWHERE: CODE I WROTE, JOB BY JOB";
+        JOBS.forEach((job, i) => {
+          const [text, tone] = job[mac ? 0 : 1];
+          const el = platFig.querySelector(`[data-row="${i}"]`);
+          el.textContent = text;
+          el.setAttribute("class", tone === "bad" ? "lp-fig-s lp-fig-bad" : "lp-fig-s");
+        });
+        readout.textContent = mac
+          ? "One call does six of the seven jobs. It cannot open a Linear DNG, and I cannot patch it."
+          : "I rebuilt six of the seven jobs by hand. HEIC still works only on the Mac.";
+      });
+    }
+
+    const orderFig = document.getElementById("order-demo");
+    if (orderFig) {
+      const readout = orderFig.querySelector(".lp-try-readout");
+      pick(orderFig, "data-order", (order) => {
+        const late = order === "before";
+        const denoise = orderFig.querySelector('[data-step="denoise"]');
+        denoise.setAttribute("transform", `translate(${late ? 160 : 320} 0)`);
+        orderFig.querySelector('[data-step="shrink"]').setAttribute("transform", `translate(${late ? 320 : 160} 0)`);
+        denoise.querySelector("rect").setAttribute("class", late ? "lp-fig-box lp-fig-bad-stroke" : "lp-fig-box-accent");
+        denoise.querySelector("text").textContent = late ? "Denoise at 24 MP" : "Denoise at 2560";
+        const bar = orderFig.querySelector("[data-time-bar]");
+        bar.setAttribute("width", late ? "462" : "175");
+        bar.setAttribute("class", late ? "lp-fig-bar-dim" : "lp-fig-bar");
+        orderFig.querySelector("[data-time]").textContent = late
+          ? "1.80 s · peak 1.39 GB"
+          : "0.68 s · peak 1.21 GB";
+        readout.textContent = late
+          ? "Noise reduction runs on all 24 MP. 1.80 s per photo."
+          : "Noise reduction runs on the 2560 px image. 0.68 s per photo, 1.1 s saved.";
+      });
+    }
+  </script>
 </Base>

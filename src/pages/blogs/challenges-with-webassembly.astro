@@ -16,130 +16,70 @@ import Base from "../../layouts/Base.astro";
           Getting the colours right, reading files reliably and shipping it
           without breaks took me much longer.
         </p>
-        <p class="lp-article-byline">Andrew Yao &middot; 8 min read</p>
+        <p class="lp-article-byline">Andrew Yao &middot; 6 min read</p>
       </header>
 
       <aside class="lp-tldr">
         <p class="lp-tldr-label">TL;DR</p>
         <p>
           The <a href="/app.html">web version</a> of LightPhotos is the Rust
-          code of the desktop app, compiled to WebAssembly so it runs in a
-          browser tab. It works in desktop Chrome and Edge. Almost none of the
-          hard bugs appeared when I compiled it. They appeared when it ran, in
-          the clock, threads, crashes, colours and file access. Each one needed
-          its own workaround, and a few of those changed the desktop app too.
+          code of the desktop app, compiled to WebAssembly. It works in desktop
+          Chrome and Edge. The compile was easy. The hard bugs appeared when
+          the app ran: in the clock, threads, crashes, colours, file access and
+          deploys. A few of the fixes changed the desktop app too.
         </p>
       </aside>
 
-      <figure class="lp-figure">
-        <svg viewBox="0 0 640 256" role="img" aria-label="Desktop compared to browser, in four rows. Colour: on the desktop, the system converts linear light to sRGB. The browser canvas does not, so a 50% gray appeared as approximately 21%. Now the shaders do the conversion on every platform. Files: the desktop reads files from paths on the disk. The browser gives only handles, and too many reads at one time cause NotReadableError. Now the app tries again after a random delay that grows each time. Crashes: the desktop app catches a panic and shows a placeholder. In the browser, a panic kills the worker. Now the app checks each file before the decoder gets it. Shipping: the desktop app has no web cache. In the browser, Cloudflare kept the worker JavaScript for four hours and the WebAssembly for zero. Now each release puts the build hash in the file addresses.">
-          <text class="lp-fig-label" x="0" y="12">SAME RUST CODE, NEW PROBLEMS</text>
+      <figure class="lp-figure lp-try" id="wasm-colour">
+        <div class="lp-try-controls">
+          <span>Colour path:</span>
+          <button type="button" class="lp-try-btn" data-mode="bug" aria-pressed="true">First browser build</button>
+          <button type="button" class="lp-try-btn" data-mode="fix" aria-pressed="false">Now: shaders convert</button>
+        </div>
+        <svg viewBox="0 0 640 204" role="img" aria-label="The colour path from the shader to the monitor, and the values that three gray test bars got on the screen.">
+          <rect class="lp-fig-box" x="0" y="8" width="190" height="46" rx="5"></rect>
+          <text class="lp-fig-t" x="12" y="28">Shader output</text>
+          <text class="lp-fig-s" x="12" y="45">linear light</text>
+          <line class="lp-fig-line" x1="190" y1="31" x2="215" y2="31"></line>
+          <path class="lp-fig-arrow" d="M215 26 L225 31 L215 36 Z"></path>
+          <rect class="lp-fig-box" data-el="conv-box" x="225" y="8" width="190" height="46" rx="5"></rect>
+          <circle class="lp-fig-bad" data-el="conv-dot" cx="401" cy="22" r="3"></circle>
+          <text class="lp-fig-t" data-el="conv-t" x="237" y="28">No conversion</text>
+          <text class="lp-fig-s" data-el="conv-s" x="237" y="45">the WebGPU canvas has none</text>
+          <line class="lp-fig-line" x1="415" y1="31" x2="440" y2="31"></line>
+          <path class="lp-fig-arrow" d="M440 26 L450 31 L440 36 Z"></path>
+          <rect class="lp-fig-box" x="450" y="8" width="190" height="46" rx="5"></rect>
+          <text class="lp-fig-t" x="462" y="28">Monitor</text>
+          <text class="lp-fig-s" x="462" y="45">expects sRGB values</text>
 
-          <text class="lp-fig-label" x="0" y="34">ON THE DESKTOP</text>
-          <text class="lp-fig-label" x="220" y="34">IN THE BROWSER</text>
-          <text class="lp-fig-label" x="440" y="34">WHAT I CHANGED</text>
-
-          <rect class="lp-fig-box" x="0" y="44" width="200" height="44" rx="5"></rect>
-          <text class="lp-fig-t" x="12" y="63">System converts</text>
-          <text class="lp-fig-s" x="12" y="80">linear light to sRGB</text>
-          <line class="lp-fig-line" x1="200" y1="66" x2="210" y2="66"></line>
-          <path class="lp-fig-arrow" d="M210 61 L220 66 L210 71 Z"></path>
-          <rect class="lp-fig-box" x="220" y="44" width="200" height="44" rx="5"></rect>
-          <circle class="lp-fig-bad" cx="406" cy="58" r="3"></circle>
-          <text class="lp-fig-t" x="232" y="63">No conversion</text>
-          <text class="lp-fig-s" x="232" y="80">a 50% gray read as ~21%</text>
-          <line class="lp-fig-line" x1="420" y1="66" x2="430" y2="66"></line>
-          <path class="lp-fig-arrow" d="M430 61 L440 66 L430 71 Z"></path>
-          <rect class="lp-fig-box-accent" x="440" y="44" width="200" height="44" rx="5"></rect>
-          <text class="lp-fig-t" x="452" y="63">Shaders convert</text>
-          <text class="lp-fig-s" x="452" y="80">on every platform</text>
-
-          <rect class="lp-fig-box" x="0" y="98" width="200" height="44" rx="5"></rect>
-          <text class="lp-fig-t" x="12" y="117">File paths</text>
-          <text class="lp-fig-s" x="12" y="134">read straight from disk</text>
-          <line class="lp-fig-line" x1="200" y1="120" x2="210" y2="120"></line>
-          <path class="lp-fig-arrow" d="M210 115 L220 120 L210 125 Z"></path>
-          <rect class="lp-fig-box" x="220" y="98" width="200" height="44" rx="5"></rect>
-          <circle class="lp-fig-bad" cx="406" cy="112" r="3"></circle>
-          <text class="lp-fig-t" x="232" y="117">Handles only</text>
-          <text class="lp-fig-mono lp-fig-s" x="232" y="134">NotReadableError</text>
-          <line class="lp-fig-line" x1="420" y1="120" x2="430" y2="120"></line>
-          <path class="lp-fig-arrow" d="M430 115 L440 120 L430 125 Z"></path>
-          <rect class="lp-fig-box-accent" x="440" y="98" width="200" height="44" rx="5"></rect>
-          <text class="lp-fig-t" x="452" y="117">Retry with delay</text>
-          <text class="lp-fig-s" x="452" y="134">random, grows each time</text>
-
-          <rect class="lp-fig-box" x="0" y="152" width="200" height="44" rx="5"></rect>
-          <text class="lp-fig-t" x="12" y="171">Catch the panic</text>
-          <text class="lp-fig-s" x="12" y="188">show a placeholder</text>
-          <line class="lp-fig-line" x1="200" y1="174" x2="210" y2="174"></line>
-          <path class="lp-fig-arrow" d="M210 169 L220 174 L210 179 Z"></path>
-          <rect class="lp-fig-box" x="220" y="152" width="200" height="44" rx="5"></rect>
-          <circle class="lp-fig-bad" cx="406" cy="166" r="3"></circle>
-          <text class="lp-fig-t" x="232" y="171">No recovery</text>
-          <text class="lp-fig-s" x="232" y="188">a panic kills the worker</text>
-          <line class="lp-fig-line" x1="420" y1="174" x2="430" y2="174"></line>
-          <path class="lp-fig-arrow" d="M430 169 L440 174 L430 179 Z"></path>
-          <rect class="lp-fig-box-accent" x="440" y="152" width="200" height="44" rx="5"></rect>
-          <text class="lp-fig-t" x="452" y="171">Check files first</text>
-          <text class="lp-fig-s" x="452" y="188">before the decoder</text>
-
-          <rect class="lp-fig-box" x="0" y="206" width="200" height="44" rx="5"></rect>
-          <text class="lp-fig-t" x="12" y="225">Installed app</text>
-          <text class="lp-fig-s" x="12" y="242">no web cache</text>
-          <line class="lp-fig-line" x1="200" y1="228" x2="210" y2="228"></line>
-          <path class="lp-fig-arrow" d="M210 223 L220 228 L210 233 Z"></path>
-          <rect class="lp-fig-box" x="220" y="206" width="200" height="44" rx="5"></rect>
-          <circle class="lp-fig-bad" cx="406" cy="220" r="3"></circle>
-          <text class="lp-fig-t" x="232" y="225">Cloudflare cache</text>
-          <text class="lp-fig-s" x="232" y="242">worker JS 4 h, wasm 0 h</text>
-          <line class="lp-fig-line" x1="420" y1="228" x2="430" y2="228"></line>
-          <path class="lp-fig-arrow" d="M430 223 L440 228 L430 233 Z"></path>
-          <rect class="lp-fig-box-accent" x="440" y="206" width="200" height="44" rx="5"></rect>
-          <text class="lp-fig-t" x="452" y="225">Build hash in URL</text>
-          <text class="lp-fig-s" x="452" y="242">new URLs each release</text>
+          <text class="lp-fig-label" x="0" y="86">GRAY TEST BARS: VALUE ON SCREEN, 0 TO 255</text>
+          <text class="lp-fig-s" x="0" y="113">target 64</text>
+          <rect class="lp-fig-line" x="80" y="99" width="118" height="20" rx="2"></rect>
+          <rect class="lp-fig-bad" data-bar="0" x="80" y="99" width="24" height="20" rx="2"></rect>
+          <text class="lp-fig-t lp-fig-mono" data-val="0" x="448" y="114">13</text>
+          <text class="lp-fig-s" x="0" y="145">target 128</text>
+          <rect class="lp-fig-line" x="80" y="131" width="236" height="20" rx="2"></rect>
+          <rect class="lp-fig-bad" data-bar="1" x="80" y="131" width="101" height="20" rx="2"></rect>
+          <text class="lp-fig-t lp-fig-mono" data-val="1" x="448" y="146">55</text>
+          <text class="lp-fig-s" x="0" y="177">target 192</text>
+          <rect class="lp-fig-line" x="80" y="163" width="354" height="20" rx="2"></rect>
+          <rect class="lp-fig-bad" data-bar="2" x="80" y="163" width="247" height="20" rx="2"></rect>
+          <text class="lp-fig-t lp-fig-mono" data-val="2" x="448" y="178">134</text>
+          <text class="lp-fig-s" x="80" y="200">outline: the correct value</text>
         </svg>
+        <p class="lp-try-readout" aria-live="polite">A 50% gray (128) reached the screen as 55, approximately 21%. Every midtone was too dark.</p>
         <figcaption>
-          Four things that work on the desktop, what the browser does instead,
-          and what I changed for each one. The compiler caught none of these
-          problems.
+          Switch between the first browser build and the current one. The
+          compiler caught none of this.
         </figcaption>
       </figure>
 
-      <h2>What I learned</h2>
-      <ul class="lp-article-list">
-        <li>
-          <strong>A successful compile did not tell me much.</strong> The
-          first time the app ran in a browser, it hit three bugs. The compiler
-          could not catch any of them.
-        </li>
-        <li>
-          <strong>It helped to write my predictions down.</strong> My plan got
-          memory right and threading completely wrong. I only know that
-          because I wrote the plan down before I started.
-        </li>
-        <li>
-          <strong>In the browser, a crash in any library is my
-          problem.</strong> A Rust panic is a deliberate crash after something
-          unexpected happens. When Rust code panics in the browser, the panic
-          kills the worker. So I must check a file before I give it to a
-          decoder that might panic on it.
-        </li>
-        <li>
-          <strong>How I deploy matters as much as the code.</strong> The cache
-          kept two files from the same build for different lengths of time.
-          That broke every photo for anyone who visited recently.
-        </li>
-      </ul>
-
       <h2>How the browser version is laid out</h2>
       <p>
-        The browser version is two programs. The main one runs the window,
-        the interface and the graphics on the main thread of the page. A
-        second, smaller one runs in Web Workers, which are background threads
-        that the browser gives you. It does the slow work of decoding RAW files
-        and rendering exports. I needed the second program because a worker
-        has no window, so it cannot run the interface or the graphics code.
+        The browser version is two programs. The main one runs the
+        interface and the graphics on the main thread. A smaller one runs in
+        Web Workers, background threads with no window, and decodes RAW files
+        and renders exports.
       </p>
 
       <figure class="lp-figure">
@@ -181,186 +121,168 @@ import Base from "../../layouts/Base.astro";
       </figure>
 
       <p>
-        I build everything with a tool called trunk. It runs the Rust compiler
-        and generates the JavaScript that connects the program to the page.
-        Even trunk had a problem. The graphics code needs one setting, and
-        that setting should go in the config file of trunk. But in my version
-        of trunk, the setting never reaches the compiler. So every build
+        A tool called trunk builds it. One setting for the graphics code
+        never reaches the compiler from the trunk config file, so every build
         script sets it as an environment variable instead.
       </p>
 
       <h2>It compiled, but it did not run</h2>
       <p>
-        When I compiled the code for the browser, I found the problems that I
-        expected. There is no system trash and no clipboard. There is no
-        source of random numbers until you tell a library to use the one in
-        the browser. And starting a thread fails. These problems appear at
-        compile time or right at startup, and they were easy to fix.
-      </p>
-      <p>
-        Then I opened the app in a browser, and it crashed.
+        The compile showed the expected gaps: no system trash, no clipboard,
+        no random numbers until a library uses the browser source, and no
+        threads. These were easy. Then I opened the app in a browser, and it
+        crashed. The compiler could not catch any of these:
       </p>
       <ul class="lp-article-list">
         <li>
-          <strong>Asking for the time crashed the app.</strong> The standard
-          Rust function <code>Instant::now()</code> has no implementation in
-          the browser. It crashes instead of returning an error. The app reads
-          the clock at startup, so every launch died. Now every timer in the
-          app uses a small library that asks the clock of the browser. A
-          patched copy of the RAW decoder uses it too.
+          <strong>Asking for the time crashed the app.</strong>
+          <code>Instant::now()</code> has no browser implementation and
+          crashes instead of returning an error. Now every timer, and a
+          patched copy of the RAW decoder, uses a small library that asks the
+          clock of the browser.
         </li>
         <li>
           <strong>I could not wait on the main thread.</strong> The desktop
-          app waits for the graphics card to be ready before it shows a
-          window. A browser page must give control back to the browser, or
-          nothing happens. Now graphics setup starts in the background. The
-          app checks on every frame whether the setup is done.
+          app waits for the graphics card before it shows a window. A browser
+          page must give control back, or nothing happens. Now the app checks
+          on every frame whether graphics setup is done.
         </li>
         <li>
-          <strong>The window started at zero by zero.</strong> The canvas is
-          0&times;0 pixels until the browser reports its size. WebGPU, the
-          browser's way to use the graphics card, rejects every drawing
-          command outside the canvas. On a high-resolution screen, the
-          rectangles that I use to clip drawing were also twice too big.
+          <strong>The window started at 0&times;0 pixels</strong> until the
+          browser reported its size, and WebGPU rejects every drawing command
+          outside the canvas. On a high-resolution screen, my clip rectangles
+          were also twice too big.
         </li>
         <li>
           <strong>WebGPU is stricter than Metal.</strong> One shader stopped
-          early for some pixels and then read from a texture. (A shader is a
-          small program that runs on the graphics card.) Metal, the graphics
-          system from Apple, and Vulkan allowed that without a warning. WebGPU
-          refused to compile it.
+          early for some pixels and then read from a texture. Metal and Vulkan
+          allowed that. WebGPU refused to compile it.
         </li>
       </ul>
 
       <h2>The colours were wrong</h2>
       <p>
-        When the app first drew something, everything looked dull and dark.
-        A 50% gray appeared as approximately 21%.
-      </p>
-      <p>
-        On the desktop, the app gives colours to the graphics card in linear
-        light. Linear values scale with the real amount of light. The system
-        then converts them to sRGB, the values that a monitor expects. A
-        WebGPU canvas never offers that conversion. So the linear values went
-        straight to the screen, and every midtone was far too dark. Gray test
-        bars that should have read 64, 128 and 192 read 13, 55 and 134.
-      </p>
-      <p>
-        I fixed it: the shaders now do the conversion themselves, on every
-        platform, including the desktop. This last step is now shared, so the
-        desktop and browser builds cannot drift apart in how colour reaches
-        the screen. Decoding is still different. On macOS, Apple's ImageIO
-        decodes the photos. On all other platforms, the app's own decoders do
-        it.
+        On the desktop, the app gives the graphics card linear light, and the
+        system converts it to the sRGB values that a monitor expects. A WebGPU
+        canvas never converts, so every midtone was far too dark, as the demo
+        at the top shows. Now the shaders convert on every platform, including
+        the desktop, so the two builds cannot drift apart. Decoding still
+        differs: Apple ImageIO on macOS, the app's own decoders everywhere
+        else.
       </p>
 
       <h2>Threads without shared memory</h2>
       <p>
-        Before I started the port, I wrote a memo on whether it was possible
-        at all. For threading, the memo predicted the usual approach. That
-        approach uses memory that the workers share, and the site must send
-        two special security headers. It also needs a library that lets the
-        Rust thread pool run in the browser.
+        Before the port, I wrote down a plan. It got memory right and
+        threading completely wrong, and I know that only because I wrote it
+        down. It predicted shared memory, two special security headers and a
+        library that runs the Rust thread pool in the browser. That library
+        expects JavaScript to start first. LightPhotos is a normal Rust
+        program with its own <code>main()</code>.
       </p>
       <p>
-        That library did not fit. It expects JavaScript to set up the thread
-        pool before the Rust program starts. But LightPhotos is a normal Rust
-        program with its own <code>main()</code>. So I dropped shared memory
-        completely. Each worker runs its own separate copy of the worker
-        program. The main thread sends it the bytes of a file and gets pixels
-        back.
-      </p>
-      <p>
-        The result was simpler than my plan. It needs no special headers from
-        the server and no experimental Rust. The cost is memory, because each
-        worker has its own. That is why the pool stops at four workers, no
-        matter how many cores you have.
-      </p>
-      <p>
-        But the memo was right about memory. A browser tab can only address a
-        limited amount of memory, because it is 32-bit. And when that memory
-        grows, it never shrinks again. I wrote about this in <a
-        href="/blogs/measuring-a-gui-app.html">measuring a GUI app</a> and
-        <a href="/blogs/never-load-the-whole-folder.html">never load the
+        So each worker runs its own copy of the worker program. The main
+        thread sends it file bytes and gets pixels back. No special headers,
+        no experimental Rust. The cost is memory, so the pool stops at four
+        workers. A tab is 32-bit, and its memory never shrinks after it grows.
+        See <a href="/blogs/measuring-a-gui-app.html">measuring a GUI app</a>
+        and <a href="/blogs/never-load-the-whole-folder.html">never load the
         whole folder</a>.
       </p>
 
       <h2>No recovery after a crash</h2>
       <p>
-        On the desktop, if the RAW decoder panics on an unusual file, the app
-        catches the panic and shows a placeholder. The browser build cannot
-        do that. WebAssembly in the browser has no way to recover from a
-        panic, so the panic kills the worker outright.
-      </p>
-      <p>
-        So the app checks each file before it gives the file to the decoder:
+        In the browser, a crash in any library is my problem. On the desktop,
+        if the RAW decoder panics on an unusual file, the app catches the
+        panic and shows a placeholder. In the browser, a panic kills the
+        worker. So the app checks each file before the decoder gets it:
       </p>
       <ul class="lp-article-list">
-        <li>The app rejects file layouts that the decoder does not implement yet, where the decoder would hit a <code>todo!()</code>.</li>
-        <li>The app rejects files from Fujifilm X-Trans sensors, because they hit an <code>unreachable!()</code> in the decoder.</li>
-        <li>
-          The app checks image sizes for overflow. In the 32-bit browser
-          build, the width times the height of a big RAW file can overflow.
-          That never happens on a 64-bit Mac.
-        </li>
+        <li>It rejects file layouts that hit a <code>todo!()</code> in the decoder.</li>
+        <li>It rejects Fujifilm X-Trans files, which hit an <code>unreachable!()</code>.</li>
+        <li>It checks width times height for overflow, which a big RAW file can cause in the 32-bit build but never on a 64-bit Mac.</li>
       </ul>
       <p>
-        When it can, the worker skips the decoder completely. It uses the
-        JPEG preview that most cameras embed in the RAW file. That is faster,
-        and it cannot crash.
+        When it can, the worker uses the JPEG preview inside the RAW file
+        instead. That is faster, and it cannot crash.
       </p>
 
       <h2>Files, one handle at a time</h2>
       <p>
-        The File System Access API is what makes the web version possible.
-        You pick a folder, and the page can read and write inside it. But the
-        page never sees a path, only handles. And every operation is
-        asynchronous: you ask, and the answer arrives later. Code that said
-        "list the directory" now says "ask for the list, and use it when it
-        arrives".
-      </p>
-      <p>
-        Two errors took me the longest time to understand.
+        The File System Access API lets the page read and write inside a
+        folder that you pick. It gives only handles, never paths, and every
+        operation is asynchronous. Two errors took me the longest:
       </p>
       <ul class="lp-article-list">
         <li>
           <strong><code>NotReadableError</code>.</strong> Chrome throws it
-          when too many file reads run at once. Two at a time never caused it.
-          The app allows four. When a read fails, the app tries again after a
-          random delay that grows each time. When I retried right away, or at
-          fixed intervals, the reads failed again. The cause was that all the
-          reads retried at the same moment.
+          when too many reads run at once. Two never caused it. The app allows
+          four, and retries after a random delay that grows each time. Fixed
+          retries failed again, because all the reads retried at the same
+          moment.
         </li>
         <li>
           <strong><code>RangeError: Array buffer allocation failed</code>.</strong>
-          When the app read a RAW file, it copied the file once into
-          JavaScript and again into the memory of WebAssembly. After a few of
-          those reads in a row, the tab ran out of memory. Now the bytes move
-          across without the extra copy.
+          The app copied each RAW file into JavaScript and again into
+          WebAssembly memory, and the tab ran out. Now there is no extra copy.
         </li>
       </ul>
       <p>
-        I have not fixed some rough edges yet. You must pick the folder again
-        every time you open the page. When you delete a photo, the deletion is
-        permanent, because the API has no trash. The app warns you about that
-        before it deletes.
+        You must still pick the folder again each time you open the page.
+        Deletes are permanent, because the API has no trash. The app warns
+        you first.
       </p>
 
       <h2>Deploying broke it</h2>
       <p>
-        The worst bug in the whole port was not in the Rust code. Cloudflare
-        serves the site. It cached the JavaScript of the worker for four hours
-        and its WebAssembly file for zero. After a release, recent visitors
-        got old JavaScript paired with new WebAssembly. Every decode then
-        failed with an error that said a function did not exist.
+        The worst bug was not in the Rust code. How I deploy matters as much
+        as the code. Cloudflare cached the worker JavaScript for four hours
+        and its WebAssembly for zero. Recent visitors got old JavaScript with
+        new WebAssembly. Every decode failed because a function did not exist.
       </p>
+
+      <figure class="lp-figure lp-try" id="wasm-cache">
+        <div class="lp-try-controls">
+          <label>Hours after a release <input type="range" min="0" max="6" step="0.5" value="1"></label>
+          <button type="button" class="lp-try-btn" data-hash="off" aria-pressed="true">Same file addresses</button>
+          <button type="button" class="lp-try-btn" data-hash="on" aria-pressed="false">Build hash in addresses</button>
+        </div>
+        <svg viewBox="0 0 640 150" role="img" aria-label="Which build of each worker file a visitor gets from the Cloudflare cache, by hours after a release.">
+          <text class="lp-fig-label" x="0" y="12">WHAT A VISITOR GETS FROM THE CACHE</text>
+          <text class="lp-fig-t" x="0" y="44">Worker JS</text>
+          <text class="lp-fig-s" x="0" y="60">cached 4 hours</text>
+          <rect class="lp-fig-box" data-el="js-old" x="150" y="28" width="320" height="36" rx="4"></rect>
+          <text class="lp-fig-s" data-el="js-old-t" x="162" y="50">old build</text>
+          <rect class="lp-fig-box-accent" data-el="js-new" x="470" y="28" width="160" height="36" rx="4"></rect>
+          <text class="lp-fig-s" data-el="js-new-t" x="482" y="50">new build</text>
+          <text class="lp-fig-t" x="0" y="90">Worker wasm</text>
+          <text class="lp-fig-s" x="0" y="106">cached 0 hours</text>
+          <rect class="lp-fig-box-accent" x="150" y="74" width="480" height="36" rx="4"></rect>
+          <text class="lp-fig-s" x="162" y="96">new build</text>
+          <line class="lp-fig-bad-stroke" data-el="marker" x1="230" y1="20" x2="230" y2="118" stroke-width="2"></line>
+          <g class="lp-fig-s">
+            <text x="150" y="138" text-anchor="middle">0 h</text>
+            <text x="230" y="138" text-anchor="middle">1 h</text>
+            <text x="310" y="138" text-anchor="middle">2 h</text>
+            <text x="390" y="138" text-anchor="middle">3 h</text>
+            <text x="470" y="138" text-anchor="middle">4 h</text>
+            <text x="550" y="138" text-anchor="middle">5 h</text>
+            <text x="630" y="138" text-anchor="end">6 h</text>
+          </g>
+        </svg>
+        <p class="lp-try-readout" aria-live="polite">1 h: old worker JS with new wasm. Every decode fails.</p>
+        <figcaption>
+          Move the slider, then add the build hash. With new addresses, the
+          cache has no old copy to give.
+        </figcaption>
+      </figure>
+
       <p>
-        To fix it, the app now adds the build hash of the main bundle to the
-        end of the worker file addresses. (The build hash is a fingerprint of
-        that build.) So every release gets new addresses for both files. When
-        I moved the app under <code>/app/</code>, the worker address broke
-        too. Now the worker finds its own location from the page and does not
-        assume it.
+        The fix adds the build hash of the main bundle, a fingerprint of the
+        build, to the worker file
+        addresses, so every release gets new addresses. When I moved the app
+        under <code>/app/</code>, the worker address broke too. Now the worker
+        finds its own location from the page.
       </p>
 
       <h2>What the browser version gives up</h2>
@@ -368,23 +290,19 @@ import Base from "../../layouts/Base.astro";
         <li>It works only in desktop Chrome and Edge, which have WebGPU and folder access.</li>
         <li>No HEIC, no face detection and no subject selection.</li>
         <li>No Immich upload, because Immich servers do not accept requests from web pages.</li>
-        <li>No clipboard and no Lightroom preset import. You also cannot choose where exports go. They go to an <code>Exports</code> folder inside the folder that you picked.</li>
+        <li>No clipboard. Exports always go to an <code>Exports</code> folder inside the folder that you picked.</li>
         <li>You download approximately 4.3&nbsp;MB, compressed, before the app starts.</li>
       </ul>
 
       <h2>Was it worth it?</h2>
       <p>
-        Yes, I think so. Sending someone a link is much easier than asking
-        them to install something. The port also made the desktop app better.
-        Every platform now uses the same shader colour conversion. Thread
-        pools no longer panic when they cannot start. And the thumbnail cache
-        now lives next to your photos.
-      </p>
-      <p>
-        If you try the <a href="/app.html">web app</a> and it breaks, I would
-        really like to know which browser you used and what you were doing.
-        The <a href="https://github.com/andrewyao/lightphotos/issues">issue
-        tracker</a> is the best place to tell me.
+        Yes. A link is easier to send than an installer. The port also made
+        the desktop app better: shared shader colour conversion, thread pools
+        that do not panic when they cannot start, and a thumbnail cache next
+        to your photos. If the <a href="/app.html">web app</a> breaks for
+        you, tell me your browser and what you did on the <a
+        href="https://github.com/andrewyao/lightphotos/issues">issue
+        tracker</a>.
       </p>
 
       <nav class="lp-article-nav" aria-label="More posts">
@@ -399,4 +317,67 @@ import Base from "../../layouts/Base.astro";
       </nav>
     </article>
   </main>
+  <script>
+    // Colour demo: values are the gray test bars from the post (64, 128, 192 read 13, 55, 134).
+    const colour = document.getElementById("wasm-colour");
+    if (colour) {
+      const targets = [64, 128, 192];
+      const onScreen = { bug: [13, 55, 134], fix: targets };
+      const scale = 118 / 64;
+      const el = (name) => colour.querySelector(`[data-el="${name}"]`);
+      const readout = colour.querySelector(".lp-try-readout");
+      const show = (mode) => {
+        const bug = mode === "bug";
+        colour.querySelectorAll("[data-mode]").forEach((b) =>
+          b.setAttribute("aria-pressed", String(b.dataset.mode === mode)));
+        el("conv-box").setAttribute("class", bug ? "lp-fig-box" : "lp-fig-box-accent");
+        el("conv-dot").style.opacity = bug ? "1" : "0";
+        el("conv-t").textContent = bug ? "No conversion" : "Shader converts";
+        el("conv-s").textContent = bug ? "the WebGPU canvas has none" : "same code on every platform";
+        onScreen[mode].forEach((v, i) => {
+          const bar = colour.querySelector(`[data-bar="${i}"]`);
+          bar.setAttribute("width", String(Math.round(v * scale)));
+          bar.setAttribute("class", bug ? "lp-fig-bad" : "lp-fig-bar");
+          colour.querySelector(`[data-val="${i}"]`).textContent = String(v);
+        });
+        readout.textContent = bug
+          ? "A 50% gray (128) reached the screen as 55, approximately 21%. Every midtone was too dark."
+          : "A 50% gray (128) reaches the screen as 128. The shader does the sRGB conversion.";
+      };
+      colour.querySelectorAll("[data-mode]").forEach((b) =>
+        b.addEventListener("click", () => show(b.dataset.mode)));
+    }
+
+    // Cache demo: Cloudflare kept the worker JS for 4 hours and the wasm for 0.
+    const cache = document.getElementById("wasm-cache");
+    if (cache) {
+      const range = cache.querySelector("input[type=range]");
+      const readout = cache.querySelector(".lp-try-readout");
+      const el = (name) => cache.querySelector(`[data-el="${name}"]`);
+      const x0 = 150, perHour = 80, jsHours = 4;
+      let hashed = false;
+      const update = () => {
+        const h = Number(range.value);
+        const stale = !hashed && h < jsHours;
+        cache.querySelectorAll("[data-hash]").forEach((b) =>
+          b.setAttribute("aria-pressed", String((b.dataset.hash === "on") === hashed)));
+        el("js-old").style.opacity = hashed ? "0" : "1";
+        el("js-old-t").style.opacity = hashed ? "0" : "1";
+        el("js-new").setAttribute("x", String(hashed ? x0 : x0 + jsHours * perHour));
+        el("js-new").setAttribute("width", String(hashed ? 480 : 160));
+        el("js-new-t").setAttribute("x", String((hashed ? x0 : x0 + jsHours * perHour) + 12));
+        el("js-new-t").textContent = hashed ? "new build, new address" : "new build";
+        const x = x0 + h * perHour;
+        el("marker").setAttribute("x1", String(x));
+        el("marker").setAttribute("x2", String(x));
+        el("marker").setAttribute("class", stale ? "lp-fig-bad-stroke" : "lp-fig-line");
+        readout.textContent = stale
+          ? `${h} h: old worker JS with new wasm. Every decode fails.`
+          : `${h} h: worker JS and wasm come from the same build. Decodes work.`;
+      };
+      range.addEventListener("input", update);
+      cache.querySelectorAll("[data-hash]").forEach((b) =>
+        b.addEventListener("click", () => { hashed = b.dataset.hash === "on"; update(); }));
+    }
+  </script>
 </Base>

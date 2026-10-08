@@ -17,185 +17,113 @@ import Base from "../../layouts/Base.astro";
           tool that I built instead, and the three reports that changed what I
           worked on.
         </p>
-        <p class="lp-article-byline">Andrew Yao &middot; 5 min read</p>
+        <p class="lp-article-byline">Andrew Yao &middot; 4 min read</p>
       </header>
 
       <aside class="lp-tldr">
         <p class="lp-tldr-label">TL;DR</p>
         <p>
-          I spent a long time making the thumbnail grid faster, but it was
-          already fast. The real wait came when the app opened a RAW file. So I
-          added a mode that runs the same fixed script on a folder and prints
-          timings, without a window. Its first three reports showed me that I
-          worked on the wrong things. If you tune an app by your impressions, a
-          repeatable measurement will probably surprise you too.
+          I made the thumbnail grid faster, but it was already fast. The real
+          wait came when the app opened a RAW file. A mode that runs the same
+          fixed script and prints timings showed me this in its first report.
         </p>
       </aside>
 
-      <figure class="lp-figure">
-        <svg viewBox="0 0 640 198" role="img" aria-label="Top: clicking through the app by hand is crossed out, because I cannot do the same thing twice. Below: the --profile flag runs a pipeline. A fixed script of 120 thumbnails and 10 photos goes to the real app code with no window and no graphics card. That code prints timings that give the same number on every run. The timings make a report that shows where the wait really is.">
-          <text class="lp-fig-label" x="0" y="12">HOW I MEASURE THE APP</text>
+      <figure class="lp-figure lp-try" id="runs-demo">
+        <div class="lp-try-controls">
+          <button type="button" class="lp-try-btn" data-run="hand">Run by hand</button>
+          <button type="button" class="lp-try-btn" data-run="script">Run --profile</button>
+        </div>
+        <svg viewBox="0 0 640 186" role="img" aria-label="Dot plot of six runs of the same benchmark. Six runs by hand have a wide spread on the time axis. Six scripted --profile runs have almost the same value.">
+          <text class="lp-fig-label" x="0" y="12">SIX RUNS OF THE SAME &ldquo;BENCHMARK&rdquo;</text>
 
-          <rect class="lp-fig-bad-stroke" x="0" y="28" width="300" height="40" rx="6"></rect>
-          <text class="lp-fig-t" x="16" y="53">Click through the app by hand</text>
-          <path class="lp-fig-bad-stroke" stroke-width="2" d="M274 42 L286 54 M286 42 L274 54"></path>
-          <text class="lp-fig-s lp-fig-bad" x="316" y="53">I cannot do the same thing twice</text>
+          <text class="lp-fig-t" x="0" y="52">Clicks by hand</text>
+          <text class="lp-fig-s" x="0" y="70">in the app</text>
+          <line class="lp-fig-line-soft" x1="176" y1="56" x2="624" y2="56"></line>
+          <g data-row="hand">
+            <circle class="lp-fig-bad" cx="433" cy="56" r="6"></circle>
+            <circle class="lp-fig-bad" cx="268" cy="56" r="6"></circle>
+            <circle class="lp-fig-bad" cx="598" cy="56" r="6"></circle>
+            <circle class="lp-fig-bad" cx="192" cy="56" r="6"></circle>
+            <circle class="lp-fig-bad" cx="521" cy="56" r="6"></circle>
+            <circle class="lp-fig-bad" cx="341" cy="56" r="6"></circle>
+          </g>
+          <path class="lp-fig-bad-stroke" data-spread="hand" d="M192 76 V84 M192 80 H598 M598 76 V84"></path>
+          <text class="lp-fig-s lp-fig-bad" x="395" y="102" text-anchor="middle">the spread comes from you</text>
 
-          <text class="lp-fig-t lp-fig-mono" x="0" y="100">--profile &lt;folder&gt;</text>
-          <text class="lp-fig-s" x="150" y="100">one command, then the app exits</text>
-
-          <rect class="lp-fig-box" x="0" y="114" width="142" height="72" rx="6"></rect>
-          <text class="lp-fig-t" x="12" y="138">Fixed script</text>
-          <text class="lp-fig-s" x="12" y="157">120 thumbnails</text>
-          <text class="lp-fig-s" x="12" y="173">then 10 photos</text>
-
-          <path class="lp-fig-line" d="M145 150 H155"></path>
-          <path class="lp-fig-arrow" d="M155 145 L163 150 L155 155 Z"></path>
-
-          <rect class="lp-fig-box" x="166" y="114" width="142" height="72" rx="6"></rect>
-          <text class="lp-fig-t" x="178" y="138">Real app code</text>
-          <text class="lp-fig-s" x="178" y="157">no window</text>
-          <text class="lp-fig-s" x="178" y="173">no graphics card</text>
-
-          <path class="lp-fig-line" d="M311 150 H321"></path>
-          <path class="lp-fig-arrow" d="M321 145 L329 150 L321 155 Z"></path>
-
-          <rect class="lp-fig-box" x="332" y="114" width="142" height="72" rx="6"></rect>
-          <text class="lp-fig-t" x="344" y="138">Timings</text>
-          <text class="lp-fig-s" x="344" y="157">the same number</text>
-          <text class="lp-fig-s" x="344" y="173">on every run</text>
-
-          <path class="lp-fig-line" d="M477 150 H487"></path>
-          <path class="lp-fig-arrow" d="M487 145 L495 150 L487 155 Z"></path>
-
-          <rect class="lp-fig-box-accent" x="498" y="114" width="142" height="72" rx="6"></rect>
-          <text class="lp-fig-t" x="510" y="138">Report</text>
-          <text class="lp-fig-s" x="510" y="157">shows where the</text>
-          <text class="lp-fig-s" x="510" y="173">wait really is</text>
+          <text class="lp-fig-t" x="0" y="136">--profile</text>
+          <text class="lp-fig-s" x="0" y="154">the same script, always</text>
+          <line class="lp-fig-line-soft" x1="176" y1="140" x2="624" y2="140"></line>
+          <g data-row="script">
+            <circle class="lp-fig-bar" cx="397" cy="140" r="6"></circle>
+            <circle class="lp-fig-bar" cx="401" cy="140" r="6"></circle>
+            <circle class="lp-fig-bar" cx="392" cy="140" r="6"></circle>
+            <circle class="lp-fig-bar" cx="404" cy="140" r="6"></circle>
+            <circle class="lp-fig-bar" cx="399" cy="140" r="6"></circle>
+            <circle class="lp-fig-bar" cx="395" cy="140" r="6"></circle>
+          </g>
+          <text class="lp-fig-s" x="398" y="172" text-anchor="middle">a change that you can see</text>
+          <text class="lp-fig-s" x="624" y="172" text-anchor="end">time &rarr;</text>
         </svg>
+        <p class="lp-try-readout" aria-live="polite">Six runs each. Press a button to run again from zero.</p>
         <figcaption>
-          The script takes me out of the measurement. The same steps run every
-          time, so a change in the number comes from a change in the code.
+          Hand runs never repeat, so I could find any meaning in my before
+          and after numbers. The script repeats.
         </figcaption>
       </figure>
 
       <h2>What I learned</h2>
       <ul class="lp-article-list">
         <li>
-          <strong>A benchmark has to give the same answer twice.</strong> A
-          realistic test can give a different number on every run. Such a test
-          cannot tell me if a change helped, because I have no stable value to
-          compare against.
-        </li>
-        <li>
-          <strong>Take yourself out of the measurement.</strong> If a
-          measurement needs me to operate the app, I script the steps instead.
-          I do this even if the script is less realistic than a real session.
+          <strong>A benchmark has to give the same answer twice.</strong> So I
+          script the steps, even if the script is less realistic than a real
+          session.
         </li>
         <li>
           <strong>Write down why the test does what it does.</strong> "120
           thumbnails, because that is two screenfuls" is a reason that someone
-          can question. "120" alone is only a number that nobody understands.
+          can question. "120" alone is only a number.
         </li>
         <li>
-          <strong>Measure memory as well as time.</strong> One function caused
-          47% of the memory that the app asked for. None of my timing reports
-          showed it. It mattered most in the browser version, which has the
-          least memory.
+          <strong>Measure memory as well as time.</strong> No timing report
+          showed the function that caused 47% of the memory use.
         </li>
       </ul>
 
-      <p>
-        I spent a long time making the thumbnail grid faster. It was already
-        fast, and nobody waited for it.
-      </p>
-      <p>
-        People actually waited when they opened a RAW file. I never measured
-        that. A correct measurement was inconvenient, and I had a guess about
-        where the time went. My guess was wrong.
-      </p>
-
       <h2>Why I could not just use the app</h2>
       <p>
-        In the usual method, you attach a profiler (a tool that records where
-        the program spends its time). Then you click through the app for thirty
-        seconds and read the chart that the profiler makes. That is fine for
-        finding something that is badly broken. It did not help me decide if a
-        change made the app better, and that is the question I care about.
+        The usual method is to attach a profiler (a tool that records where
+        the program spends its time) and click through the app for thirty
+        seconds. That finds things that are badly broken. It does not tell me
+        if a change made the app better, because I cannot do the same thing
+        twice. On one run, I reached row 40 with an empty cache. On the next,
+        I reached row 31 with a full cache.
       </p>
-      <p>
-        The problem is that I cannot do the same thing twice. On the first run,
-        I scrolled a bit fast and reached row 40. On the second run, I reached
-        row 31. On the first run, the thumbnail cache was empty. On the second
-        run, it was full, because the first run filled it.
-      </p>
-
-      <figure class="lp-figure">
-        <svg viewBox="0 0 640 186" role="img" aria-label="Dot plot: six manual runs have a wide spread on the time axis. Six scripted profile runs have almost the same value.">
-          <text class="lp-fig-label" x="0" y="12">SIX RUNS OF THE SAME &ldquo;BENCHMARK&rdquo;</text>
-
-          <text class="lp-fig-t" x="0" y="52">Clicks by hand</text>
-          <text class="lp-fig-s" x="0" y="70">in the app</text>
-          <line class="lp-fig-line-soft" x1="176" y1="56" x2="624" y2="56"></line>
-          <circle class="lp-fig-bad" cx="192" cy="56" r="6"></circle>
-          <circle class="lp-fig-bad" cx="268" cy="56" r="6"></circle>
-          <circle class="lp-fig-bad" cx="341" cy="56" r="6"></circle>
-          <circle class="lp-fig-bad" cx="433" cy="56" r="6"></circle>
-          <circle class="lp-fig-bad" cx="521" cy="56" r="6"></circle>
-          <circle class="lp-fig-bad" cx="598" cy="56" r="6"></circle>
-          <path class="lp-fig-bad-stroke" d="M192 76 V84 M192 80 H598 M598 76 V84"></path>
-          <text class="lp-fig-s lp-fig-bad" x="395" y="102" text-anchor="middle">the spread comes from you</text>
-
-          <text class="lp-fig-t" x="0" y="136">--profile</text>
-          <text class="lp-fig-s" x="0" y="154">the same script, always</text>
-          <line class="lp-fig-line-soft" x1="176" y1="140" x2="624" y2="140"></line>
-          <circle class="lp-fig-bar" cx="392" cy="140" r="6"></circle>
-          <circle class="lp-fig-bar" cx="399" cy="140" r="6"></circle>
-          <circle class="lp-fig-bar" cx="404" cy="140" r="6"></circle>
-          <circle class="lp-fig-bar" cx="397" cy="140" r="6"></circle>
-          <circle class="lp-fig-bar" cx="401" cy="140" r="6"></circle>
-          <circle class="lp-fig-bar" cx="395" cy="140" r="6"></circle>
-          <text class="lp-fig-s" x="398" y="172" text-anchor="middle">a change that you can see</text>
-        </svg>
-        <figcaption>
-          My before and after numbers came from different sessions. I could
-          find almost any meaning in that data, and that is what I did.
-        </figcaption>
-      </figure>
 
       <h2>Run the code without the window</h2>
       <p>
         My fix was a command-line flag. <code>--profile &lt;folder&gt;</code>
-        starts the app and runs the real code on that folder. This code lists
-        the folder and loads photos, the catalog, and thumbnails. Then the app
-        prints timings and exits. It never opens a window, so it does not use
-        the UI library or the graphics card.
+        runs the real code on that folder: it lists the folder and loads
+        photos, the catalog, and thumbnails. Then it prints timings and exits.
+        It never opens a window, so it does not use the UI library or the
+        graphics card.
       </p>
       <p>
-        It follows a fixed script. First, it lists the folder and fills
-        thumbnails for 120 photos, which is approximately two screenfuls. Then
-        it opens ten photos in sequence, as you do when you step through a
-        shoot with the arrow keys. Each of those numbers has a comment in the
-        code that tells why. The numbers are my guess about how people use the
-        app, so I want that guess written next to the number.
-      </p>
-      <p>
-        The full mode is approximately 230 lines. It is not clever. It only
-        gives me the same number twice.
+        The script fills thumbnails for 120 photos, which is approximately two
+        screenfuls. Then it opens ten photos in sequence, as you do with the
+        arrow keys. A comment in the code tells why for each number. The full
+        mode is approximately 230 lines. It is not clever. It only gives me
+        the same number twice.
       </p>
 
       <h2>Keep it out of the version that you download</h2>
       <p>
-        Small markers attach the timing code to functions. Only two build
-        settings switch it on, and they are off by default. When these settings
-        are off, the markers do not change the function. So the release build
+        Small markers attach the timing code to functions. Two build settings
+        switch it on, and they are off by default. So the release build
         contains none of the timing code, and the browser build does not get
-        any bigger.
-      </p>
-      <p>
-        One detail surprised me. The profiling library has to be a normal
-        dependency, not an optional one. The reason is that the compiler must
-        understand the markers in every build, even when they do nothing.
+        bigger. One surprise: the profiling library must be a normal
+        dependency, not an optional one, because the compiler must understand
+        the markers in every build.
       </p>
 
       <h2>The first report</h2>
@@ -221,44 +149,34 @@ import Base from "../../layouts/Base.astro";
           <text class="lp-fig-on-bar" x="238" y="171">170 to 210 ms &middot; all of the wait is here</text>
         </svg>
         <figcaption>
-          Almost everything on this chart was already fast enough. So I could
-          stop working on it.
+          I made the grid faster. The report showed me in approximately four
+          seconds that the wait was somewhere else.
         </figcaption>
       </figure>
 
       <p>
-        I made the wrong thing faster, and the report showed me this in
-        approximately four seconds.
-      </p>
-      <p>
         The report also showed a fix that I would never find by reading the
-        code. The app fetches the quick, low-quality preview of the next photo
-        ahead of time. But it does not fetch the slow, sharp version. So when
-        you use the arrow keys in a folder of RAW files, you wait the full
-        200 ms every time. This occurs although the app knew half a second
-        earlier which photo you would look at next.
+        code. The app fetches the quick preview of the next photo ahead of
+        time, but not the sharp version. So with the arrow keys in a folder of
+        RAW files, you wait the full 200 ms every time, although the app knew
+        half a second earlier which photo came next.
       </p>
 
       <h2>The second report</h2>
       <p>
-        The profiler can also count how much memory each function asks for,
-        not only how long it takes. One function asked for 12.0 MB out of
-        25.3 MB. That is 47% of all the memory that the app asked for in that
-        session. It was the function that gives thumbnails to the UI library
-        to draw.
+        The profiler can also count the memory that each function asks for.
+        One function asked for 12.0 MB out of 25.3 MB, which is 47% of the
+        session. It gave thumbnails to the UI library to draw.
       </p>
       <p>
-        The cause was the way that the UI library accepts images. You can only
-        make its image type if you copy the pixels into new memory. But the
-        pixels were already in the cache of the loader, in exactly the right
-        layout. So I wrote them directly to the graphics card instead. That
-        change took the function from 12.0 MB to 0.16 MB, and the full session
-        from 25.3 MB to 13.4 MB.
+        The UI library makes its image type only from a new copy of the
+        pixels, but the pixels were already in the loader cache in the correct
+        layout. So I wrote them directly to the graphics card. The function
+        went from 12.0 MB to 0.16 MB, and the session from 25.3 MB to 13.4 MB.
       </p>
       <p>
-        Nothing was slow, and no user would ever report it. But in the browser
-        build, the app runs as WebAssembly, and its memory never decreases
-        after it increases. So memory that the app needs for only a moment
+        Nothing was slow. But the browser build runs as WebAssembly, and its
+        memory never decreases, so memory that the app needs for a moment
         stays in use while the tab is open.
       </p>
 
@@ -267,15 +185,13 @@ import Base from "../../layouts/Base.astro";
         I used 200 photos with a warm cache. The decode of all 200 thumbnails
         on 8 workers took 39.5 ms in total. The analysis of one photo took
         7.39 ms, so 1.48 seconds for the batch. The analysis runs on the main
-        thread, and it cannot be split across the processor cores. So it costs
-        approximately fifty-five times as much as the decode.
+        thread and cannot be split across cores, so it costs approximately
+        fifty-five times as much as the decode.
       </p>
       <p>
-        My plan was to make the decode faster and to fetch it all ahead of
-        time. Neither change would make a difference that you can notice.
+        My plan was to make the decode faster and to fetch it ahead of time.
+        You would not notice either change.
       </p>
-
-
 
       <nav class="lp-article-nav" aria-label="More posts">
         <a class="lp-article-nav-prev" href="/blogs/never-load-the-whole-folder.html">
@@ -289,4 +205,57 @@ import Base from "../../layouts/Base.astro";
       </nav>
     </article>
   </main>
+
+  <script>
+    const fig = document.getElementById("runs-demo");
+    if (fig) {
+      const svgNS = "http://www.w3.org/2000/svg";
+      const readout = fig.querySelector(".lp-try-readout");
+      // Dot positions on the time axis: the same six values as the static plot.
+      const rows = {
+        hand: { cy: 56, cls: "lp-fig-bad", xs: [433, 268, 598, 192, 521, 341] },
+        script: { cy: 140, cls: "lp-fig-bar", xs: [397, 401, 392, 404, 399, 395] },
+      };
+      const handNotes = [
+        "You scrolled fast and reached row 40. The thumbnail cache was empty.",
+        "You reached row 31. The cache was full, because run 1 filled it.",
+        "A different scroll and a different cache state.",
+        "A different scroll and a different cache state.",
+        "A different scroll and a different cache state.",
+        "A different scroll and a different cache state.",
+      ];
+      const count = { hand: 6, script: 6 };
+
+      function spread(key) {
+        const xs = rows[key].xs.slice(0, count[key]);
+        const path = fig.querySelector(`[data-spread="${key}"]`);
+        if (!path) return;
+        if (xs.length < 2) { path.setAttribute("d", ""); return; }
+        const lo = Math.min(...xs), hi = Math.max(...xs);
+        path.setAttribute("d", `M${lo} 76 V84 M${lo} 80 H${hi} M${hi} 76 V84`);
+      }
+
+      function run(key) {
+        const g = fig.querySelector(`[data-row="${key}"]`);
+        if (count[key] >= 6) { g.replaceChildren(); count[key] = 0; }
+        const row = rows[key];
+        const dot = document.createElementNS(svgNS, "circle");
+        dot.setAttribute("class", row.cls);
+        dot.setAttribute("cx", row.xs[count[key]]);
+        dot.setAttribute("cy", row.cy);
+        dot.setAttribute("r", "6");
+        g.appendChild(dot);
+        count[key] += 1;
+        if (key === "hand") spread("hand");
+        const n = count[key];
+        readout.textContent = key === "hand"
+          ? `Run ${n} by hand: ${handNotes[n - 1]}`
+          : `Run ${n} of --profile: 120 thumbnails, then 10 photos. The same steps as every run.`;
+      }
+
+      fig.querySelectorAll("[data-run]").forEach((btn) => {
+        btn.addEventListener("click", () => run(btn.dataset.run));
+      });
+    }
+  </script>
 </Base>

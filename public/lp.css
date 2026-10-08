@@ -1657,6 +1657,87 @@ a.lp-split-card:focus-visible {
   font-size: 11.5px;
 }
 
+/* --- Interactive demos -----------------------------------------------------
+ * A figure the reader can drive. Markup: <figure class="lp-figure lp-try">,
+ * then a .lp-try-controls row (buttons, ranges, toggles), the SVG or HTML
+ * stage, a .lp-try-readout line, and the figcaption. Each post owns its own
+ * small inline script; these classes only keep the controls consistent.
+ * The stage is rendered in its default state in markup, so the figure still
+ * reads correctly without JavaScript.
+ */
+.lp-try {
+  padding: 1rem 1.1rem 0.9rem;
+  border: 1px solid var(--border-subtle);
+  border-radius: 10px;
+  background: var(--surface-card);
+}
+
+.lp-try-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.9rem;
+  margin-bottom: 0.85rem;
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+  color: var(--lp-muted);
+}
+
+.lp-try-controls label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.lp-try-controls input[type="range"] {
+  width: 10rem;
+  accent-color: var(--lp-accent);
+}
+
+.lp-try-btn {
+  padding: 0.35rem 0.8rem;
+  border: 1px solid var(--border-strong);
+  border-radius: 6px;
+  background: var(--surface-input);
+  color: var(--lp-ink);
+  font: inherit;
+  cursor: pointer;
+}
+
+.lp-try-btn:hover {
+  background: var(--surface-hover);
+}
+
+.lp-try-btn[aria-pressed="true"] {
+  border-color: var(--border-accent);
+  background: var(--lp-glow-soft);
+  color: var(--lp-accent);
+}
+
+.lp-try-btn:focus-visible,
+.lp-try-controls input:focus-visible {
+  outline: 2px solid var(--lp-accent);
+  outline-offset: 2px;
+}
+
+.lp-try-readout {
+  margin-top: 0.7rem;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--lp-ink);
+  min-height: 1.3em;
+}
+
+.lp-try svg * {
+  transition: opacity 0.25s ease, fill 0.25s ease, stroke 0.25s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lp-try svg * {
+    transition: none;
+  }
+}
+
 /* --- Article TL;DR ---------------------------------------------------------
  * Sits between the dek and the first heading. Tinted rather than outlined so
  * it reads as a summary of the article, not as a warning or an aside.

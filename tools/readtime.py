@@ -24,6 +24,7 @@ def body_words(src: str) -> int:
         return 0
     text = body.group(0)
     text = re.sub(r"<svg\b.*?</svg>", " ", text, flags=re.S)
+    text = re.sub(r"<(script|style)\b.*?</\1>", " ", text, flags=re.S)
     text = re.sub(r"<[^>]+>", " ", text)
     return len(html.unescape(text).split())
 

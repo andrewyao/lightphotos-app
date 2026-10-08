@@ -16,297 +16,222 @@ import Base from "../../layouts/Base.astro";
           even one on a box in your home. Here is how I made your server address
           and an API key work with no extra steps.
         </p>
-        <p class="lp-article-byline">Andrew Yao &middot; 6 min read</p>
+        <p class="lp-article-byline">Andrew Yao &middot; 5 min read</p>
       </header>
 
       <aside class="lp-tldr">
         <p class="lp-tldr-label">TL;DR</p>
         <p>
-          Immich is a photo library that you host yourself. It is the nearest
-          equivalent to Google Photos that you can run on your own hardware.
-          The LightPhotos export form now has an Immich tab. Paste the address
-          of your server and an API key, then click Connect. (An API key is a
-          token, similar to a password, that your server gives you.)
-          LightPhotos then sends your edited JPEGs to your server with their
-          capture time and star rating.
+          Immich is a photo library that you host yourself, similar to Google
+          Photos on your own hardware. The LightPhotos export form now has an
+          Immich tab. Paste your server address and an API key (a token,
+          similar to a password, from your server), then click Connect.
+          LightPhotos sends your edited JPEGs with their capture time and star
+          rating.
         </p>
         <p>
-          Most of my work was on the tasks around the upload. LightPhotos must
-          accept any address that you type, and it must check the key early.
-          It must also cope with slow home internet. And it must never send a
-          key unencrypted by accident. This feature is only in
-          the desktop app, because browsers cannot talk to an Immich
-          server.
+          Most of the work was around the upload: accept any address, check
+          the key early, survive slow home internet, and never send a key
+          unencrypted by accident. This feature is only in the desktop app.
         </p>
       </aside>
 
-      <figure class="lp-figure">
-        <svg viewBox="0 0 640 190" role="img" aria-label="LightPhotos, the desktop app, renders your edits to a finished JPEG. It sends the JPEG directly to your Immich server, at home or hosted. The capture time, the time zone and the star rating go with the photo. The app uses your API key. Your original files stay on your drive. No third-party service is between the app and the server. The web version cannot upload, because the browser blocks the request.">
-          <text class="lp-fig-label" x="0" y="12">FROM YOUR APP TO YOUR SERVER</text>
+      <figure class="lp-figure lp-try" id="immich-connect">
+        <div class="lp-try-controls">
+          <span role="group" aria-label="Address" style="display:inline-flex;flex-wrap:wrap;align-items:center;gap:0.5rem">
+          <span>You type:</span>
+          <button type="button" class="lp-try-btn" data-addr="0" aria-pressed="true">photos.example.com</button>
+          <button type="button" class="lp-try-btn" data-addr="1" aria-pressed="false">https://photos.example.com/api/</button>
+          <button type="button" class="lp-try-btn" data-addr="2" aria-pressed="false">http://nas.local:2283</button>
+          </span>
+          <span role="group" aria-label="Key" style="display:inline-flex;flex-wrap:wrap;align-items:center;gap:0.5rem">
+          <span>Key:</span>
+          <button type="button" class="lp-try-btn" data-key="real" aria-pressed="true">Real key</button>
+          <button type="button" class="lp-try-btn" data-key="fake" aria-pressed="false">Invented key</button>
+          </span>
+          <span role="group" aria-label="Check" style="display:inline-flex;flex-wrap:wrap;align-items:center;gap:0.5rem">
+          <span>Check with:</span>
+          <button type="button" class="lp-try-btn" data-check="me" aria-pressed="true">Who owns this key?</button>
+          <button type="button" class="lp-try-btn" data-check="about" aria-pressed="false">About this server</button>
+          </span>
+        </div>
+        <svg viewBox="0 0 640 236" role="img" aria-label="The three steps from a typed address to a saved key, and the result.">
+          <rect class="lp-fig-box" x="0" y="0" width="180" height="50" rx="5"></rect>
+          <text class="lp-fig-t" x="12" y="21">1. Clean the address</text>
+          <text class="lp-fig-s" x="12" y="39">trim, drop / and /api</text>
+          <text class="lp-fig-s" x="196" y="20">typed</text>
+          <text class="lp-fig-t lp-fig-mono" data-el="typed" x="250" y="20">photos.example.com</text>
+          <text class="lp-fig-s" x="196" y="40">clean</text>
+          <text class="lp-fig-t lp-fig-mono" data-el="clean" x="250" y="40">https://photos.example.com</text>
 
-          <rect class="lp-fig-box-accent" x="0" y="28" width="170" height="80" rx="6"></rect>
-          <text class="lp-fig-t" x="85" y="58" text-anchor="middle">LightPhotos</text>
-          <text class="lp-fig-s" x="85" y="78" text-anchor="middle">desktop app</text>
-          <text class="lp-fig-s" x="85" y="94" text-anchor="middle">renders your edits</text>
+          <rect class="lp-fig-box" x="0" y="60" width="180" height="50" rx="5"></rect>
+          <text class="lp-fig-t" x="12" y="81">2. Find the API</text>
+          <text class="lp-fig-s lp-fig-mono" x="12" y="99">/.well-known/immich</text>
+          <text class="lp-fig-s" x="196" y="80">else</text>
+          <text class="lp-fig-t lp-fig-mono" x="250" y="80">/api</text>
+          <text class="lp-fig-s" x="196" y="100">API</text>
+          <text class="lp-fig-t lp-fig-mono" data-el="api" x="250" y="100">https://photos.example.com/api</text>
 
-          <line class="lp-fig-line" x1="170" y1="68" x2="205" y2="68"></line>
+          <rect class="lp-fig-box" x="0" y="120" width="180" height="50" rx="5"></rect>
+          <text class="lp-fig-t" x="12" y="141">3. Check the key</text>
+          <text class="lp-fig-s" x="12" y="159">before anything is saved</text>
+          <text class="lp-fig-s" x="196" y="140">ask</text>
+          <text class="lp-fig-t lp-fig-mono" data-el="ask" x="250" y="140">GET /users/me</text>
+          <text class="lp-fig-s" x="196" y="160">reply</text>
+          <text class="lp-fig-t" data-el="reply" x="250" y="160">&ldquo;Connected as&rdquo; your name and email</text>
 
-          <rect class="lp-fig-box" x="205" y="28" width="230" height="80" rx="6"></rect>
-          <text class="lp-fig-t" x="320" y="50" text-anchor="middle">Finished JPEG</text>
-          <text class="lp-fig-s" x="320" y="68" text-anchor="middle">capture time and time zone</text>
-          <text class="lp-fig-s" x="320" y="84" text-anchor="middle">star rating</text>
-          <text class="lp-fig-s" x="320" y="100" text-anchor="middle">sent with your API key</text>
-
-          <line class="lp-fig-line" x1="435" y1="68" x2="460" y2="68"></line>
-          <path class="lp-fig-arrow" d="M460 63 L470 68 L460 73 Z"></path>
-
-          <rect class="lp-fig-box-accent" x="470" y="28" width="170" height="80" rx="6"></rect>
-          <text class="lp-fig-t" x="555" y="58" text-anchor="middle">Your Immich server</text>
-          <text class="lp-fig-s" x="555" y="78" text-anchor="middle">at home or hosted</text>
-          <text class="lp-fig-s" x="555" y="94" text-anchor="middle">with a phone app</text>
-
-          <line class="lp-fig-line-soft" x1="85" y1="108" x2="85" y2="136"></line>
-          <rect class="lp-fig-box" x="0" y="136" width="170" height="48" rx="6"></rect>
-          <text class="lp-fig-t" x="85" y="156" text-anchor="middle">Your drive</text>
-          <text class="lp-fig-s" x="85" y="173" text-anchor="middle">originals stay here</text>
-
-          <circle class="lp-fig-good" cx="211" cy="146" r="3"></circle>
-          <text class="lp-fig-s" x="223" y="150">No third-party service in between</text>
-          <circle class="lp-fig-bad" cx="211" cy="170" r="3"></circle>
-          <text class="lp-fig-s" x="223" y="174">Web version: the browser blocks the request</text>
+          <line class="lp-fig-line" x1="90" y1="170" x2="90" y2="184"></line>
+          <path class="lp-fig-arrow" d="M85 184 L95 184 L90 192 Z"></path>
+          <rect class="lp-fig-box-accent" data-el="result-box" x="0" y="192" width="640" height="40" rx="5"></rect>
+          <circle class="lp-fig-good" data-el="result-dot" cx="16" cy="212" r="4"></circle>
+          <text class="lp-fig-t" data-el="result" x="30" y="217">Saves the address and the key.</text>
         </svg>
+        <p class="lp-try-readout" aria-live="polite">No scheme typed, so LightPhotos adds https://.</p>
         <figcaption>
-          LightPhotos sends each finished JPEG directly to your Immich server.
-          No other service is between them. Your original files stay on your
-          drive.
+          Pick an address, a key and a check. Then try the invented key with
+          each check.
         </figcaption>
       </figure>
 
-      <h2>What I learned</h2>
-      <ul class="lp-article-list">
-        <li>
-          <strong>Check a key with a request that needs the key.</strong>
-          One hosted Immich service gave a reply to its "about this server"
-          request for all keys. So a wrong key looked fine until
-          the first upload failed.
-        </li>
-        <li>
-          <strong>Let the server find duplicates.</strong> Immich already
-          recognises a photo that it has seen before. A record of my own
-          would be a second list, and that list could fall out of sync with the
-          server.
-        </li>
-        <li>
-          <strong>Give larger uploads more time.</strong> One five-minute
-          limit for each upload made large batches fail. This happened on
-          connections that were slow but worked fine.
-        </li>
-        <li>
-          <strong>Keep the time zone with the time.</strong> Without the time
-          zone, photos that I took at 6&nbsp;pm in California appeared in
-          Immich at 11&nbsp;am.
-        </li>
-      </ul>
-
       <h2>Why Immich</h2>
       <p>
-        I keep my original photos in folders on a drive, and I will not change
-        that. But nobody wants to browse a folder of JPEGs on a phone.
-        Also, I do not want to give my photos to a service that I cannot leave.
-        Immich sits between the two for me. It is a real photo library with
-        a phone app. It runs on hardware that I own, or on a hosted service if
-        I do not want to run it myself.
-      </p>
-      <p>
-        Before this feature, I exported to a folder. Then I uploaded that
-        folder by hand. Now this is one step.
+        I keep my originals in folders on a drive, and I will not change
+        that. But nobody wants to browse a folder of JPEGs on a phone, and I
+        will not give my photos to a service that I cannot leave. Immich is a
+        real photo library with a phone app, on my own hardware or a hosted
+        service. Before, I exported to a folder and uploaded it by hand. Now
+        it is one step.
       </p>
 
       <h2>Accept any address that you type</h2>
       <p>
-        Each person has a server at a different address. Some people type
-        <code>photos.example.com</code>, some paste
+        People type <code>photos.example.com</code>, paste
         <code>https://photos.example.com/api/</code> from the documentation,
-        and some use <code>http://nas.local:2283</code> on their home network.
-        I wanted all of these addresses to work.
-      </p>
-
-      <figure class="lp-figure">
-        <svg viewBox="0 0 640 214" role="img" aria-label="How LightPhotos connects. First, it cleans the address. It removes spaces, a trailing slash and /api, and it adds https if there is no scheme. Then it reads the well-known discovery file of the server to find the API. If there is no discovery file, it uses /api. Then it checks the key: it asks the server who owns the key. LightPhotos saves the address and the key only if this check is successful.">
-          <text class="lp-fig-label" x="0" y="12">FROM A TYPED ADDRESS TO A CONNECTION</text>
-
-          <rect class="lp-fig-box" x="0" y="28" width="196" height="54" rx="5"></rect>
-          <text class="lp-fig-t" x="98" y="48" text-anchor="middle">1. Clean the address</text>
-          <text class="lp-fig-s" x="98" y="64" text-anchor="middle">trim, drop trailing / and /api,</text>
-          <text class="lp-fig-s" x="98" y="76" text-anchor="middle">add https:// if missing</text>
-          <line class="lp-fig-line" x1="196" y1="55" x2="212" y2="55"></line>
-          <path class="lp-fig-arrow" d="M212 50 L222 55 L212 60 Z"></path>
-
-          <rect class="lp-fig-box" x="222" y="28" width="196" height="54" rx="5"></rect>
-          <text class="lp-fig-t" x="320" y="48" text-anchor="middle">2. Find the API</text>
-          <text class="lp-fig-mono lp-fig-s" x="320" y="64" text-anchor="middle">/.well-known/immich</text>
-          <text class="lp-fig-s" x="320" y="76" text-anchor="middle">if not found, use /api</text>
-          <line class="lp-fig-line" x1="418" y1="55" x2="434" y2="55"></line>
-          <path class="lp-fig-arrow" d="M434 50 L444 55 L434 60 Z"></path>
-
-          <rect class="lp-fig-box" x="444" y="28" width="196" height="54" rx="5"></rect>
-          <text class="lp-fig-t" x="542" y="48" text-anchor="middle">3. Check the key</text>
-          <text class="lp-fig-mono lp-fig-s" x="542" y="64" text-anchor="middle">GET /users/me</text>
-          <text class="lp-fig-s" x="542" y="76" text-anchor="middle">"Connected as …"</text>
-
-          <line class="lp-fig-line" x1="542" y1="82" x2="542" y2="104"></line>
-          <path class="lp-fig-arrow" d="M537 104 L547 104 L542 114 Z"></path>
-
-          <rect class="lp-fig-box-accent" x="444" y="114" width="196" height="40" rx="5"></rect>
-          <text class="lp-fig-t" x="542" y="138" text-anchor="middle">Save address and key</text>
-
-          <circle class="lp-fig-bad" cx="6" cy="176" r="3"></circle>
-          <text class="lp-fig-s" x="18" y="180">Incorrect key: "the server rejected the API key". LightPhotos saves nothing.</text>
-          <circle class="lp-fig-bad" cx="6" cy="200" r="3"></circle>
-          <text class="lp-fig-s" x="18" y="204">No HTTPS: a hint to type http:// yourself. No silent change to HTTP.</text>
-        </svg>
-      </figure>
-
-      <p>
-        First, LightPhotos cleans the address. It removes spaces, a trailing
-        slash, or <code>/api</code>, and it adds <code>https://</code> if you
-        did not type it. Then it reads the discovery file of the server,
-        <code>/.well-known/immich</code>, to find the location of the API.
-        (The API is the address that receives the requests from the app.)
-        This helps people who host Immich under a sub-path, for example
-        <code>/immich/api</code>. If there is no discovery file, LightPhotos
-        uses the usual <code>/api</code>.
+        or use <code>http://nas.local:2283</code> at home. All must work. The
+        discovery file <code>/.well-known/immich</code> helps people who host
+        Immich under a sub-path, for example <code>/immich/api</code>.
       </p>
       <p>
-        Sometimes you do not type <code>http://</code> or
-        <code>https://</code>, and the secure HTTPS connection fails. In that
-        case, LightPhotos does not quietly fall back to plain HTTP. That
-        change would send your API key across the network without encryption,
-        and it would not tell you. Instead, the error message tells you to
-        start the address with <code>http://</code> if your server does not
-        have HTTPS. Then the decision is yours.
+        If you type no scheme and HTTPS fails, LightPhotos does not quietly
+        try plain HTTP. That would send your API key without encryption. The
+        error tells you to type <code>http://</code> yourself if your server
+        has no HTTPS. The decision is yours.
       </p>
 
       <h2>Check the key early</h2>
       <p>
-        The usual method to test a connection is to ask the server for
-        information about itself. I tried that method on Gumnut, a hosted
-        Immich service. Gumnut gave a reply for all keys, also for a key that
-        I invented. So LightPhotos asks "who owns this key?" instead. Only
-        a real key gets a reply to that question. The reply also gives the
-        form a friendly message to show: "Connected as" with your name and
-        email.
+        The usual connection test asks the server about itself. Gumnut, a
+        hosted Immich service, replied to that for every key, also one that I
+        invented. A wrong key looked fine until the first upload failed. So
+        LightPhotos asks "who owns this key?" instead. Only a real key gets a
+        reply. Check a key with a request that needs the key.
       </p>
       <p>
-        LightPhotos saves nothing until that check is successful. Then it
-        saves the address in the app settings, and it keeps the key in a
-        safer location.
+        LightPhotos saves nothing until that check passes. The address goes
+        in the app settings. The key goes somewhere safer:
       </p>
       <ul class="lp-article-list">
-        <li>
-          <strong>On a Mac</strong>, the key goes into your login Keychain.
-          There is one entry for each server.
-        </li>
-        <li>
-          <strong>On Linux</strong>, the key is in a file in the config folder
-          of the app. Only your user can read this file.
-        </li>
-        <li>
-          <strong>On Windows</strong>, the key is in a file in your own app
-          data folder.
-        </li>
+        <li><strong>Mac:</strong> your login Keychain, one entry for each server.</li>
+        <li><strong>Linux:</strong> a file in the app config folder that only your user can read.</li>
+        <li><strong>Windows:</strong> a file in your own app data folder.</li>
       </ul>
       <p>
-        I am glad that I did one small detail correctly. LightPhotos does not
-        access the Keychain until you open the Immich tab. If you never use
-        Immich, you will never see a Keychain prompt.
+        LightPhotos does not touch the Keychain until you open the Immich
+        tab, so if you never use Immich, you never see a Keychain prompt.
       </p>
 
       <h2>What LightPhotos uploads</h2>
       <p>
-        Immich gets your finished photo. LightPhotos renders the photo the
-        same as for a folder export, with your edits, crop, and size. Then it
-        saves the photo as a JPEG. Your original files stay on your drive.
-      </p>
-      <p>
-        Two items of information go with the photo:
+        Immich gets the finished JPEG, rendered as for a folder export with
+        your edits, crop and size. Your originals stay on your drive. Two
+        items go with it:
       </p>
       <ul class="lp-article-list">
         <li>
-          <strong>The capture time.</strong> My first version read the clock
-          of the camera as UTC (universal time). So a photo taken at
-          6&nbsp;pm in California appeared in Immich at 11&nbsp;am. Now each
-          export sends its capture time and the time-zone offset of the
-          camera. If the camera did not record a capture time, LightPhotos
-          uses the date of the file.
+          <strong>The capture time, with its time zone.</strong> My first
+          version read the camera clock as UTC, so a photo taken at
+          6&nbsp;pm in California appeared at 11&nbsp;am. Now each export
+          sends the time-zone offset of the camera too. With no capture time,
+          LightPhotos uses the file date.
         </li>
         <li>
-          <strong>Your star rating.</strong> LightPhotos sets the rating
-          immediately after the upload. Some keys have permission to upload
-          but not to change photos. With such a key, the photo still uploads,
-          and you get a warning about the rating. The export does not fail.
+          <strong>Your star rating,</strong> set immediately after the
+          upload. If a key can upload but not change photos, the photo still
+          uploads and you get a warning. The export does not fail.
         </li>
       </ul>
 
       <h2>Running the same batch twice</h2>
       <p>
-        Sometimes an export stops before it is complete. The laptop goes to
-        sleep, or the Wi-Fi drops. The easiest fix is to do the
-        export again, so that action must be safe.
-      </p>
-      <p>
-        Luckily, Immich already handles this. If you upload the same
-        file twice, Immich replies "duplicate" and identifies the photo
-        that it already has. LightPhotos keeps no list of its uploads. It
-        sends all the photos again, counts the duplicates, and shows a message
-        such as "Uploaded 40 photos, 32 already on the server." The batch
-        picks up where it stopped. I did not need to write any bookkeeping
-        code for it.
+        An export can stop early when the laptop sleeps or the Wi-Fi drops.
+        The easiest fix is to export again, so that must be safe. I let the
+        server find duplicates. For a file that it has, Immich replies
+        "duplicate" and identifies the photo. LightPhotos keeps no upload
+        list that could fall out of sync. It sends everything again and shows
+        a message such as "Uploaded 40 photos, 32 already on the server."
+        The batch picks up where it stopped.
       </p>
 
       <h2>Slow uploads that still work</h2>
       <p>
-        Home internet connections are usually slow for uploads. Also,
-        LightPhotos exports several photos at the same time. My first version
-        gave each upload a fixed limit of five minutes. I tried a batch of
-        large photos on a slow connection that eight uploads shared. The
-        uploads hit that limit, although the connection worked fine.
+        Home connections are slow for uploads, and LightPhotos uploads
+        several photos at once. My first version gave each upload a fixed
+        five minutes. Large photos on a slow connection that eight uploads
+        shared hit that limit, although the connection worked. Now the limit
+        assumes 1&nbsp;Mbit/s shared by eight uploads:
       </p>
+      <pre class="lp-code">time allowed = 60 s
+             + photo size / 16 KB per second</pre>
+
+      <figure class="lp-figure lp-try" id="immich-timeout">
+        <div class="lp-try-controls">
+          <label>Photo size <input type="range" min="1" max="40" step="1" value="25"></label>
+        </div>
+        <svg viewBox="0 0 640 124" role="img" aria-label="Upload time at 16 KB per second compared with the old five-minute limit and the new limit, for the selected photo size.">
+          <text class="lp-fig-label" x="0" y="12">MINUTES, ONE UPLOAD AT 16 KB/S</text>
+          <text class="lp-fig-t" x="0" y="40">Upload needs</text>
+          <rect class="lp-fig-bar-dim" data-el="need" x="140" y="26" width="276" height="20" rx="2"></rect>
+          <text class="lp-fig-t" x="0" y="72">New limit</text>
+          <rect class="lp-fig-bar" data-el="new" x="140" y="58" width="287" height="20" rx="2"></rect>
+          <line class="lp-fig-bad-stroke" x1="192" y1="20" x2="192" y2="86" stroke-width="2"></line>
+          <text class="lp-fig-s" x="198" y="98">old limit: 5 min</text>
+          <g class="lp-fig-s">
+            <text x="140" y="118" text-anchor="middle">0</text>
+            <text x="244" y="118" text-anchor="middle">10</text>
+            <text x="348" y="118" text-anchor="middle">20</text>
+            <text x="452" y="118" text-anchor="middle">30</text>
+            <text x="556" y="118" text-anchor="middle">40</text>
+          </g>
+        </svg>
+        <p class="lp-try-readout" aria-live="polite">25 MB: needs approximately 27 min. Old limit 5 min: fails. New limit: approximately 28 min.</p>
+        <figcaption>
+          Drag the photo size. The new limit always leaves one minute more
+          than the upload needs at 16 KB/s.
+        </figcaption>
+      </figure>
+
       <p>
-        Now each upload gets one minute plus extra time that depends on its
-        size. LightPhotos calculates the extra time for a 1&nbsp;Mbit/s
-        connection that eight uploads share:
-      </p>
-      <pre class="lp-code">time allowed = 60 s + photo size / 16 KB per second</pre>
-      <p>
-        So a 25&nbsp;MB photo gets approximately 28 minutes. This time is
-        long, but a connection that is truly stuck still fails. The other
-        limits stay short, for example the limit to connect and the limit to
-        wait for a reply from the server.
+        A stuck connection still fails. The limits to connect and to wait for
+        a reply stay short.
       </p>
 
       <h2>Why it is not in the browser</h2>
       <p>
-        The web version of LightPhotos shows the Immich tab with a note. The
-        note tells you that the tab only works in the desktop app. A web
-        page can talk to a server on a different site only if that
-        server gives permission. Immich does not give this permission. So
-        the browser blocks the request before it sends it. The desktop app is
-        not a web page, so that rule does not apply to it.
+        A web page can talk to a server on another site only if that server
+        gives permission. Immich does not, so the browser blocks the request.
+        The web version shows the Immich tab with a note that it works only
+        in the desktop app, which is not a web page.
       </p>
 
       <h2>What is next</h2>
       <p>
-        My next task is album support. You will select an existing album or
-        type the name of a new album, and the batch will go into it. After
-        that, I want automatic retries for uploads that fail before they are
-        complete. Servers with self-signed certificates are common on home
-        networks, and they probably will not connect yet. If you have such a
-        server, please tell me if it works for you.
+        Next is albums: pick an existing album or type a new name. After
+        that, automatic retries for uploads that fail part way. Servers with
+        self-signed certificates, common on home networks, probably will not
+        connect yet. If you have one, please tell me.
       </p>
       <p>
-        If you use Immich and something in this post does not fit your
-        setup, please tell me on the <a
+        Report problems on the <a
         href="https://github.com/andrewyao/lightphotos/issues">issue
         tracker</a>. The desktop builds are on the <a
         href="/downloads.html">downloads page</a>.
@@ -324,4 +249,79 @@ import Base from "../../layouts/Base.astro";
       </nav>
     </article>
   </main>
+  <script>
+    // Connect demo: the three steps from the post. Addresses are the post's own examples.
+    const connect = document.getElementById("immich-connect");
+    if (connect) {
+      const typed = ["photos.example.com", "https://photos.example.com/api/", "http://nas.local:2283"];
+      const state = { addr: 0, key: "real", check: "me" };
+      const el = (name) => connect.querySelector(`[data-el="${name}"]`);
+      const readout = connect.querySelector(".lp-try-readout");
+      const clean = (raw) => {
+        let a = raw.trim().replace(/\/+$/, "").replace(/\/api$/, "");
+        return /^https?:\/\//.test(a) ? a : `https://${a}`;
+      };
+      const update = () => {
+        const raw = typed[state.addr];
+        const base = clean(raw);
+        for (const [attr, key] of [["data-addr", "addr"], ["data-key", "key"], ["data-check", "check"]]) {
+          connect.querySelectorAll(`[${attr}]`).forEach((b) =>
+            b.setAttribute("aria-pressed", String(b.getAttribute(attr) === String(state[key]))));
+        }
+        el("typed").textContent = raw;
+        el("clean").textContent = base;
+        el("api").textContent = `${base}/api`;
+        el("ask").textContent = state.check === "me" ? "GET /users/me" : "about this server";
+        const real = state.key === "real";
+        const replied = real || state.check === "about";
+        let result, cls, dot;
+        if (real) {
+          result = "Saves the address and the key.";
+          cls = "lp-fig-box-accent"; dot = "lp-fig-good";
+        } else if (state.check === "me") {
+          result = "Saves nothing. You see the error at once.";
+          cls = "lp-fig-box"; dot = "lp-fig-bad";
+        } else {
+          result = "Looks fine. The first upload fails later.";
+          cls = "lp-fig-box"; dot = "lp-fig-bad";
+        }
+        el("reply").textContent = !replied
+          ? "“the server rejected the API key”"
+          : state.check === "me" ? "“Connected as” your name and email" : "a reply, for every key (Gumnut)";
+        el("result").textContent = result;
+        el("result-box").setAttribute("class", cls);
+        el("result-dot").setAttribute("class", dot);
+        readout.textContent = raw.startsWith("http://")
+          ? "You typed http://, so LightPhotos uses it. It never switches to HTTP by itself."
+          : raw.includes("/api")
+            ? "LightPhotos removes the trailing slash and /api, then finds the API again."
+            : "No scheme typed, so LightPhotos adds https://.";
+      };
+      connect.querySelectorAll("[data-addr]").forEach((b) =>
+        b.addEventListener("click", () => { state.addr = Number(b.dataset.addr); update(); }));
+      connect.querySelectorAll("[data-key]").forEach((b) =>
+        b.addEventListener("click", () => { state.key = b.dataset.key; update(); }));
+      connect.querySelectorAll("[data-check]").forEach((b) =>
+        b.addEventListener("click", () => { state.check = b.dataset.check; update(); }));
+    }
+
+    // Timeout demo: time allowed = 60 s + size / 16 KB per second. Old limit: 5 minutes.
+    const timeout = document.getElementById("immich-timeout");
+    if (timeout) {
+      const range = timeout.querySelector("input[type=range]");
+      const readout = timeout.querySelector(".lp-try-readout");
+      const x0 = 140, pxPerMin = 10.4;
+      const update = () => {
+        const mb = Number(range.value);
+        const needMin = (mb * 1024) / 16 / 60;
+        const newMin = needMin + 1;
+        timeout.querySelector('[data-el="need"]').setAttribute("width", String(Math.round(needMin * pxPerMin)));
+        timeout.querySelector('[data-el="new"]').setAttribute("width", String(Math.round(newMin * pxPerMin)));
+        const fmt = (m) => (m < 10 ? m.toFixed(1) : String(Math.round(m)));
+        const old = needMin > 5 ? "fails" : "passes";
+        readout.textContent = `${mb} MB: needs approximately ${fmt(needMin)} min. Old limit 5 min: ${old}. New limit: approximately ${fmt(newMin)} min.`;
+      };
+      range.addEventListener("input", update);
+    }
+  </script>
 </Base>

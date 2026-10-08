@@ -16,144 +16,140 @@ import Base from "../../layouts/Base.astro";
           your drive. Any AI runs on your own computer. Only the basic features
           must work on every platform.
         </p>
-        <p class="lp-article-byline">Andrew Yao &middot; 7 min read</p>
+        <p class="lp-article-byline">Andrew Yao &middot; 5 min read</p>
       </header>
 
       <aside class="lp-tldr">
         <p class="lp-tldr-label">TL;DR</p>
         <p>
-          This post tells where I want LightPhotos to go in the next year. Your
-          photos stay as files on your own drive, and any AI features will run
-          on your own computer. Only the basic features must work on every
-          platform. I also want keyboard access to all features, with shortcuts
-          that you can change to the keys that you already know. I plan to make
-          the full app open source. The plan has no dates, and its main job
-          is to give me a list that I can use to say no to other features.
+          This is where I want LightPhotos to go in the next year. Your photos
+          stay as files on your drive, and any AI runs on your own computer.
+          Only the basic features must work on every platform. Every feature
+          will work from the keyboard, with shortcuts that you can change. The
+          full app will be open source. The plan has no dates. Its main job is
+          to help me say no to other features.
         </p>
       </aside>
 
-      <figure class="lp-figure">
-        <svg viewBox="0 0 640 256" role="img" aria-label="Three rows. Each row pairs a part of the plan with an item that I will not do. Photos stay on your drive, not on a photo platform of my own. AI runs on your computer, and no AI uploads your photos. Basic features work on every platform, but not every feature works on all four.">
-          <text class="lp-fig-label" x="0" y="12">THE CORE OF THE PLAN</text>
-          <text class="lp-fig-label" x="0" y="40">I WILL DO THIS</text>
-          <text class="lp-fig-label" x="336" y="40">I WILL NOT DO THIS</text>
-
-          <rect class="lp-fig-box-accent" x="0" y="52" width="304" height="56" rx="6"></rect>
-          <text class="lp-fig-t" x="16" y="76">Photos stay on your drive</text>
-          <text class="lp-fig-s" x="16" y="95">Files in your folders. No account.</text>
-          <rect class="lp-fig-box" x="336" y="52" width="304" height="56" rx="6"></rect>
-          <text class="lp-fig-t" x="352" y="76">My own photo platform</text>
-          <text class="lp-fig-s" x="352" y="95">No upload, no library that I keep</text>
-          <path class="lp-fig-bad-stroke" stroke-width="2" d="M610 74 L622 86 M622 74 L610 86"></path>
-
-          <rect class="lp-fig-box-accent" x="0" y="120" width="304" height="56" rx="6"></rect>
-          <text class="lp-fig-t" x="16" y="144">AI runs on your computer</text>
-          <text class="lp-fig-s" x="16" y="163">An idea to try: ComfyUI</text>
-          <rect class="lp-fig-box" x="336" y="120" width="304" height="56" rx="6"></rect>
-          <text class="lp-fig-t" x="352" y="144">AI that uploads your photos</text>
-          <text class="lp-fig-s" x="352" y="163">To servers of a different company</text>
-          <path class="lp-fig-bad-stroke" stroke-width="2" d="M610 142 L622 154 M622 142 L610 154"></path>
-
-          <rect class="lp-fig-box-accent" x="0" y="188" width="304" height="56" rx="6"></rect>
-          <text class="lp-fig-t" x="16" y="212">Basic features everywhere</text>
-          <text class="lp-fig-s" x="16" y="231">Mac, Windows, Linux, the browser</text>
-          <rect class="lp-fig-box" x="336" y="188" width="304" height="56" rx="6"></rect>
-          <text class="lp-fig-t" x="352" y="212">Every feature on all four</text>
-          <text class="lp-fig-s" x="352" y="231">That ships fewer, plainer features</text>
-          <path class="lp-fig-bad-stroke" stroke-width="2" d="M610 210 L622 222 M622 210 L610 222"></path>
+      <figure class="lp-figure lp-try" id="plan-demo">
+        <div class="lp-try-controls" role="group" aria-label="Test a request against the plan">
+          <span>Request:</span>
+          <button type="button" class="lp-try-btn" aria-pressed="true" data-req="0">Cloud library</button>
+          <button type="button" class="lp-try-btn" aria-pressed="false" data-req="1">Google Drive</button>
+          <button type="button" class="lp-try-btn" aria-pressed="false" data-req="2">Cloud AI</button>
+          <button type="button" class="lp-try-btn" aria-pressed="false" data-req="3">Local AI</button>
+          <button type="button" class="lp-try-btn" aria-pressed="false" data-req="4">Mac-only Vision</button>
+          <button type="button" class="lp-try-btn" aria-pressed="false" data-req="5">Send to Immich</button>
+          <button type="button" class="lp-try-btn" aria-pressed="false" data-req="6">No shortcut</button>
+          <button type="button" class="lp-try-btn" aria-pressed="false" data-req="7">Lightroom keys</button>
+        </div>
+        <svg viewBox="0 0 640 276" role="img" aria-label="The plan on one page, with the request Cloud library. It matches the Storage row, in the Not doing column. The verdict is no.">
+          <text class="lp-fig-label" x="0" y="12">TEST A REQUEST AGAINST THE PLAN</text>
+          <text class="lp-fig-t lp-fig-bad" x="639" y="14" text-anchor="end" data-verdict>VERDICT: NO</text>
+          <text class="lp-fig-label" x="88" y="38">NOT DOING</text>
+          <text class="lp-fig-label" x="340" y="38">DOING</text>
+          <g data-row>
+            <text class="lp-fig-t" x="0" y="66">Storage</text>
+            <rect class="lp-fig-bad-stroke" x="88" y="48" width="240" height="26" rx="5"></rect>
+            <text class="lp-fig-s" x="100" y="65">A photo platform of my own</text>
+            <rect class="lp-fig-panel" x="340" y="48" width="299" height="26" rx="5"></rect>
+            <text class="lp-fig-s" x="352" y="65">Your drive, and Google Drive if it is fast</text>
+          </g>
+          <g data-row>
+            <text class="lp-fig-s" x="0" y="98">AI</text>
+            <rect class="lp-fig-panel" x="88" y="80" width="240" height="26" rx="5"></rect>
+            <text class="lp-fig-s" x="100" y="97">Anything that uploads your photos</text>
+            <rect class="lp-fig-panel" x="340" y="80" width="299" height="26" rx="5"></rect>
+            <text class="lp-fig-s" x="352" y="97">Investigate ComfyUI on your own computer</text>
+          </g>
+          <g data-row>
+            <text class="lp-fig-s" x="0" y="130">Platforms</text>
+            <rect class="lp-fig-panel" x="88" y="112" width="240" height="26" rx="5"></rect>
+            <text class="lp-fig-s" x="100" y="129">Every feature on all four</text>
+            <rect class="lp-fig-panel" x="340" y="112" width="299" height="26" rx="5"></rect>
+            <text class="lp-fig-s" x="352" y="129">Basics everywhere, Apple frameworks on Mac</text>
+          </g>
+          <g data-row>
+            <text class="lp-fig-s" x="0" y="162">Sharing</text>
+            <rect class="lp-fig-panel" x="88" y="144" width="240" height="26" rx="5"></rect>
+            <text class="lp-fig-s" x="100" y="161">Becoming your library</text>
+            <rect class="lp-fig-panel" x="340" y="144" width="299" height="26" rx="5"></rect>
+            <text class="lp-fig-s" x="352" y="161">Immich, and export to local or remote servers</text>
+          </g>
+          <g data-row>
+            <text class="lp-fig-s" x="0" y="194">Input</text>
+            <rect class="lp-fig-panel" x="88" y="176" width="240" height="26" rx="5"></rect>
+            <text class="lp-fig-s" x="100" y="193">Mouse-first design</text>
+            <rect class="lp-fig-panel" x="340" y="176" width="299" height="26" rx="5"></rect>
+            <text class="lp-fig-s" x="352" y="193">Every feature reachable from the keyboard</text>
+          </g>
+          <g data-row>
+            <text class="lp-fig-s" x="0" y="226">Shortcuts</text>
+            <rect class="lp-fig-panel" x="88" y="208" width="240" height="26" rx="5"></rect>
+            <text class="lp-fig-s" x="100" y="225">A fixed set of keys to learn</text>
+            <rect class="lp-fig-panel" x="340" y="208" width="299" height="26" rx="5"></rect>
+            <text class="lp-fig-s" x="352" y="225">Shortcuts that you can change</text>
+          </g>
+          <g data-row>
+            <text class="lp-fig-s" x="0" y="258">Code</text>
+            <rect class="lp-fig-panel" x="88" y="240" width="240" height="26" rx="5"></rect>
+            <text class="lp-fig-s" x="100" y="257">A binary that you must trust</text>
+            <rect class="lp-fig-panel" x="340" y="240" width="299" height="26" rx="5"></rect>
+            <text class="lp-fig-s" x="352" y="257">Open source, the full app</text>
+          </g>
         </svg>
+        <p class="lp-try-readout" aria-live="polite">No. Your photos stay as files on your drive. I will not keep a library for you.</p>
         <figcaption>
-          Each part of the plan has a matching item that I will not do. For
-          me, the right column is the most useful part.
+          Pick a request. The plan finds the row that applies to it. For me,
+          the Not doing column is the most useful part.
         </figcaption>
       </figure>
 
-      <h2>What I learned</h2>
-      <ul class="lp-article-list">
-        <li>
-          <strong>Write down what you will not build.</strong> If you decide
-          on features one at a time, a small tool slowly becomes a large tool.
-          A written list kept the first version small. I will use the same
-          method for the next year.
-        </li>
-        <li>
-          <strong>Not every feature must run on every platform.</strong> If
-          every feature must work on all four platforms, I will ship fewer
-          features. I would rather have a feature on the Mac than not have it at all.
-        </li>
-        <li>
-          <strong>Know the cost of the tools of a platform before you use them.</strong>
-          Apple frameworks do a lot of work for you, but you cannot take that
-          work with you to other platforms. I learned this when I ported my code away from Image I/O.
-        </li>
-        <li>
-          <strong>If I ask for your trust, you should be able to check.</strong>
-          I say that your photos never leave your drive. If the full app is open
-          source, you can check that yourself.
-        </li>
-      </ul>
-
       <p>
-        I wrote many posts about how LightPhotos works, but no post about its
-        direction. I decided its direction one feature at a time. That is how a
-        small tool slowly becomes a large tool.
-      </p>
-      <p>
-        Here is the plan. For me, the most useful part is what I am leaving
-        out. It is the same idea as the seven-item list in
+        Until now, I decided the direction one feature at a time. That is how
+        a small tool slowly becomes a large tool. A written list kept the
+        first version small: the seven-item list in
         <a href="/blogs/why-i-started-lightphotos.html">the first post</a>.
-        But this list is for the next year, not for the first afternoon.
+        This list is for the next year.
       </p>
 
       <h2>Your photos stay yours</h2>
       <p>
-        I will not build a service that stores your photos. You do not create
-        an account, you do not upload photos, and I do not keep a library for
-        you. Your photos are files on your drive. LightPhotos opens the folder
+        There is no account, no upload, and no library that I keep for you.
+        Your photos are files on your drive, and LightPhotos opens the folder
         that already contains them.
       </p>
       <p>
-        I did not start with this principle. I learned it from a bad
-        experience. I lost years of photos because only one app could read
-        their library format. I wrote about that in the first post. That
-        experience still controls most of these decisions.
+        I learned this when I lost years of photos, because only one app could
+        read their library format. That still controls most of these
+        decisions.
       </p>
       <p>
-        I also want LightPhotos to access drives that are not connected to your
-        computer. The first one will be Google Drive. The problem is speed. If
-        a photo tool stops each time that you push the arrow key for the next
-        photo, it is not good enough to ship. Thus I will do this only if the
-        performance is good enough, and I do not know yet if it will be.
+        I also want LightPhotos to open remote drives, first Google Drive. The
+        problem is speed. If a photo tool stops each time that you push the
+        arrow key for the next photo, it is not good enough to ship. I do not
+        know yet if it will be fast enough.
       </p>
 
       <h2>I am not cloning Lightroom</h2>
       <p>
-        Lightroom has a lot of really good features, and I will not try to match
-        them. The AI features are the strongest part. Almost all of them send
-        your photo to servers that a different person or company controls. I
-        said that I will never do that.
+        Lightroom has many very good features, and I will not try to match
+        them. Its AI features are the strongest part, and almost all of them
+        send your photo to servers that a different company controls. I will
+        never do that.
       </p>
       <p>
-        Instead, I want to look at ComfyUI. ComfyUI is a tool that runs AI
-        image models on your own computer. I did not build any of this yet.
-        So it is an idea that I want to try, not a promise. I like that the
-        model runs on the same computer as your photos, and nothing leaves your
-        drive.
+        Instead, I want to try ComfyUI, which runs AI image models on your own
+        computer, next to your photos. I did not build any of this yet, so it
+        is an idea, not a promise.
       </p>
 
       <h2>Not every feature on every platform</h2>
       <p>
         If every feature must work the same on all four platforms, I will ship
-        fewer features. Also, the features that I ship will be the plainest
-        versions.
-      </p>
-      <p>
-        So I put features into two groups, and I use different rules for
-        each group. The basic features that all users expect already run on all
-        platforms: the browser, Windows, Linux, and the Mac. With these
-        features, you can browse a folder, rate and filter photos, make basic
-        adjustments, and export. Similar features that I build next will also
-        go into this group.
+        fewer features, and plainer ones. So I use two groups with different
+        rules. The basic features already run everywhere, and similar
+        features that I build next join them.
       </p>
 
       <figure class="lp-figure">
@@ -201,164 +197,77 @@ import Base from "../../layouts/Base.astro";
       </figure>
 
       <p>
-        Beyond these basic features, I want to find out how much Apple
-        frameworks can do for me. Apple supplies these code libraries for
-        Mac apps. The ones I mean are Core Image, Vision and VisionKit, Image
-        I/O, AVFoundation, and Object Capture. Object Capture makes 3D models
-        from photos. I already know the result from
-        <a href="/blogs/what-imageio-gives-you-free.html">porting away from
-        Image I/O</a>. Apple frameworks do a lot of work for you for free, but
-        you cannot take any of it with you to other platforms.
-      </p>
-      <p>
-        This time, I expect that result before I start. Features that use
-        those frameworks will probably be Mac-only, possibly permanently. I would
-        rather have a feature on one platform than not have it at all.
+        Beyond the basics, I want to find how much the Apple frameworks can do
+        for me. Object Capture, for example, makes 3D models from photos. I
+        know the cost from <a href="/blogs/what-imageio-gives-you-free.html">porting
+        away from Image I/O</a>: these frameworks do a lot of work for free,
+        but you cannot take it to other platforms. So these features will
+        probably stay Mac-only, possibly permanently. I would rather have a
+        feature on the Mac than not at all.
       </p>
 
       <h2>Getting your photos out</h2>
       <p>
-        I do not want LightPhotos to be your photo library. So it must be
-        easy to send your photos to a photo library. I plan to support Immich,
-        a photo library that you can host yourself. I also plan to support
-        export to cloud storage in general.
-      </p>
-      <p>
-        For me, the important thing is that export works the same way for a
-        server on your home network and a server on the internet. I do not
-        want two different features, with one of them only half complete.
+        LightPhotos is not your photo library, so it must be easy to send your
+        photos to one. I plan to support Immich, a photo library that you can
+        host yourself, and export to cloud storage in general. Export must
+        work the same for a server on your home network and one on the
+        internet, not as two features with one half complete.
       </p>
 
       <h2>Everything from the keyboard</h2>
       <p>
-        I want keyboard access to every feature. Then you can use the full app
-        without the mouse. This applies to all features, not only the common
-        features.
-      </p>
-      <p>
-        One reason is that I wanted keyboard shortcuts from a photo tool from
-        the start. Shortcuts are also why Luminar did not fit how I work. The other reason is that when I
+        I want every feature, not only the common ones, to work without the
+        mouse. I wanted shortcuts from a photo tool from the start, and they
+        are why Luminar did not fit how I work. Also, when I
         <a href="/blogs/why-rust.html">chose to build everything in Rust</a>, I
-        gave up the accessibility that browsers give you for free. I said this at
-        that time. Keyboard support is the part of that problem that I can
-        correct myself, so I make it a requirement.
+        gave up the accessibility that browsers give you for free. Keyboard
+        support is the part of that problem that I can correct myself.
       </p>
 
       <h2>Shortcuts you can change</h2>
       <p>
-        What I hate most about photo apps is that each app uses a different set
-        of keys. Luminar AI, RawTherapee and Darktable each want you to learn
-        their own keys. That is a large part of the reason that I do not want
-        to use them.
-      </p>
-      <p>
-        If you changed photo apps before, you probably know that feeling. You
-        already know how you like to work, but the app tells you to start
-        again. I do not want LightPhotos to do that to anyone.
-      </p>
-      <p>
-        So I want you to be able to change every keyboard shortcut in
-        LightPhotos. If you already know a set of keys from a different app,
-        you can use those keys here. You do not have to learn my keys.
+        What I hate most about photo apps is that each one uses different
+        keys. Luminar AI, RawTherapee and Darktable each want you to learn
+        their own keys, and that is a large part of why I do not use them. So
+        you will be able to change every shortcut in LightPhotos to the keys
+        that you already know.
       </p>
 
       <h2>Open source, all of it</h2>
       <p>
-        I plan to make the full codebase open source. I do not mean a core
-        library without the interesting parts. I also do not mean an old
-        version that I release later. I mean the full app.
-      </p>
-      <p>
-        The reason is the same as for the storage decision. I ask you to trust
+        I plan to open source the full app. I do not mean a core library
+        without the interesting parts, or an old version later. I ask you to trust
         that your photos stay on your drive and that nothing goes to a server.
         You should be able to check that yourself.
       </p>
 
       <h2>The next app works the same way</h2>
       <p>
-        This plan is not only for one photo editor. I want to build other Rust
-        apps in the same way. I now follow that pattern on purpose.
+        I want to build other Rust apps the same way. First, a native Mac app,
+        because I use a Mac and know that user well. Then WebAssembly moves
+        the basic features to the browser, and after that to the other
+        platforms.
       </p>
       <p>
-        First, I build a native Mac app. I use a Mac, and I want the first
-        version to be for a user that I know well. Then I use WebAssembly to
-        move the basic features to the browser. After that, I move them to the
-        other platforms that people use.
+        Three methods came from this codebase, and I expect to use them again
+        without changes:
       </p>
-      <p>
-        I worked out that order with LightPhotos. Three methods came from this
-        codebase. The first is to share the basic features across all
-        platforms, but let the other features be different. The second is to
-        keep the core editing code in a module that is separate from the
-        interface. The third is to weigh the cost of the frameworks of a
-        platform before I use them. I expect to use those methods again without
-        changes.
-      </p>
-
-      <h2>The plan on one page</h2>
-      <div class="lp-compare-wrap">
-        <table class="lp-compare">
-          <thead>
-            <tr>
-              <th scope="col"></th>
-              <th scope="col">Not doing</th>
-              <th scope="col" class="lp-compare-pick">Doing</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th scope="row">Storage</th>
-              <td>A photo platform of my own</td>
-              <td class="lp-compare-pick">Local drives, and Google Drive if it is fast enough</td>
-            </tr>
-            <tr>
-              <th scope="row">AI</th>
-              <td>Anything that uploads your photos</td>
-              <td class="lp-compare-pick">Investigating ComfyUI on your own computer</td>
-            </tr>
-            <tr>
-              <th scope="row">Platforms</th>
-              <td>Every feature on all four</td>
-              <td class="lp-compare-pick">Basic features on all platforms, Apple frameworks on the Mac</td>
-            </tr>
-            <tr>
-              <th scope="row">Sharing</th>
-              <td>Becoming your library</td>
-              <td class="lp-compare-pick">Immich, and export to local or remote servers</td>
-            </tr>
-            <tr>
-              <th scope="row">Input</th>
-              <td>Mouse-first design</td>
-              <td class="lp-compare-pick">Every feature reachable from the keyboard</td>
-            </tr>
-            <tr>
-              <th scope="row">Shortcuts</th>
-              <td>A fixed set of keys that you must learn</td>
-              <td class="lp-compare-pick">Shortcuts that you can change to match how you work</td>
-            </tr>
-            <tr>
-              <th scope="row">Code</th>
-              <td>A binary that you must trust</td>
-              <td class="lp-compare-pick">Open source, the full app</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+      <ul class="lp-article-list">
+        <li>Share the basic features across all platforms, but let the other features be different.</li>
+        <li>Keep the core editing code in a module that is separate from the interface.</li>
+        <li>Weigh the cost of the frameworks of a platform before I use them.</li>
+      </ul>
 
       <h2>What the list is actually for</h2>
       <p>
         This plan has no dates. I work on LightPhotos at irregular times, so
-        the deadlines in a quarterly roadmap would only be guesses.
+        quarterly deadlines would only be guesses. The list gives me a reason
+        to say no. The first version shipped because I wrote down seven things
+        and left everything else out. This list uses the same idea, but it is larger.
       </p>
       <p>
-        What the list really does is give me a reason to say no to other
-        features. The first version shipped because I wrote down seven things
-        and left everything else out. This list uses the same idea, but
-        it is larger.
-      </p>
-      <p>
-        I also want people to argue with it. If something here is wrong, or
-        if an obvious item is missing, tell me in
+        Please argue with it. If something is wrong or missing, tell me in
         <a href="https://github.com/andrewyao/lightphotos/issues">the issue
         tracker</a>. I will read it.
       </p>
@@ -380,4 +289,45 @@ import Base from "../../layouts/Base.astro";
       </nav>
     </article>
   </main>
+  <script>
+    const fig = document.getElementById("plan-demo");
+    if (fig) {
+      const buttons = [...fig.querySelectorAll("[data-req]")];
+      const rows = [...fig.querySelectorAll("[data-row]")];
+      const verdict = fig.querySelector("[data-verdict]");
+      const svg = fig.querySelector("svg");
+      const readout = fig.querySelector(".lp-try-readout");
+      const AREAS = ["Storage", "AI", "Platforms", "Sharing", "Input", "Shortcuts", "Code"];
+      // [row, doing?, verdict, reason], all from the post text.
+      const REQUESTS = [
+        [0, false, "No", "Your photos stay as files on your drive. I will not keep a library for you."],
+        [0, true, "Maybe", "Only if the next photo opens fast enough. I do not know yet if it will."],
+        [1, false, "No", "Cloud AI sends your photo to servers that a different company controls. I will never do that."],
+        [1, true, "Maybe", "ComfyUI runs AI models on your own computer. It is an idea to try, not a promise."],
+        [2, true, "Yes", "On the Mac only. Not every feature must run on all four platforms."],
+        [3, true, "Yes", "Immich is planned. Export works the same for home and internet servers."],
+        [4, false, "No", "Every feature must be reachable from the keyboard."],
+        [5, true, "Yes", "You can change every shortcut to the keys that you already know."],
+      ];
+
+      const pick = (n) => {
+        const [row, doing, word, reason] = REQUESTS[n];
+        rows.forEach((g, i) => {
+          const [area, noCell, , yesCell] = g.children;
+          const on = i === row;
+          area.setAttribute("class", on ? "lp-fig-t" : "lp-fig-s");
+          noCell.setAttribute("class", on && !doing ? "lp-fig-bad-stroke" : "lp-fig-panel");
+          yesCell.setAttribute("class", on && doing ? "lp-fig-box-accent" : "lp-fig-panel");
+        });
+        verdict.textContent = "VERDICT: " + word.toUpperCase();
+        verdict.setAttribute("class", ("lp-fig-t " + (word === "No" ? "lp-fig-bad" : word === "Yes" ? "lp-fig-good" : "")).trim());
+        buttons.forEach((b, i) => b.setAttribute("aria-pressed", String(i === n)));
+        readout.textContent = word + ". " + reason;
+        svg.setAttribute("aria-label", `The plan on one page, with the request ${buttons[n].textContent}. ` +
+          `It matches the ${AREAS[row]} row, in the ${doing ? "Doing" : "Not doing"} column. The verdict is ${word.toLowerCase()}.`);
+      };
+
+      buttons.forEach((b, i) => b.addEventListener("click", () => pick(i)));
+    }
+  </script>
 </Base>

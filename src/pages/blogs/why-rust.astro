@@ -16,181 +16,245 @@ import Base from "../../layouts/Base.astro";
           interface on a Rust engine. Here is what I compared and what made the
           decision.
         </p>
-        <p class="lp-article-byline">Andrew Yao &middot; 5 min read</p>
+        <p class="lp-article-byline">Andrew Yao &middot; 4 min read</p>
       </header>
 
       <aside class="lp-tldr">
         <p class="lp-tldr-label">TL;DR</p>
         <p>
-          I had two options: all of the app in Rust, or a fast Rust engine
-          with a better interface in React or Swift. I went with all Rust. For
-          this, I accepted a less attractive interface and weaker accessibility
-          (support for screen readers and similar tools). A photo editor must
-          respond immediately to each mouse movement. When two languages must
-          stay synchronized that frequently, bugs usually occur in the handoff
-          between them. Coding agents have difficulty with these bugs, so I
-          must find them by hand.
+          I picked all Rust over a Rust engine with a React or Swift
+          interface. I accepted a plainer interface and weaker accessibility.
+          A photo editor sends each mouse movement to the engine 60 times a
+          second. At that rate, bugs occur in the handoff between two
+          languages. Coding agents have difficulty with these bugs, so I must
+          find them by hand.
         </p>
       </aside>
 
-      <figure class="lp-figure">
-        <svg viewBox="0 0 640 300" role="img" aria-label="A balance scale for the all-Rust option. On the left side is what I gave up: a plain interface and limited accessibility. On the right side is what I got: one language, bugs that I can debug when the agents get stuck, the same code in the browser and on Windows and Linux, and no second runtime. The right side is heavier.">
-          <text class="lp-fig-label" x="0" y="12">ALL RUST: WHAT I GAVE UP AND WHAT I GOT</text>
-          <g transform="rotate(3 320 254)">
-            <text class="lp-fig-label" x="30" y="146">WHAT I GAVE UP</text>
-            <rect class="lp-fig-box" x="30" y="156" width="260" height="44" rx="6"></rect>
-            <text class="lp-fig-t" x="44" y="175">A plain interface</text>
-            <text class="lp-fig-s" x="44" y="192">less polish than CSS or Mac</text>
-            <rect class="lp-fig-box" x="30" y="206" width="260" height="44" rx="6"></rect>
-            <text class="lp-fig-t" x="44" y="225">Limited accessibility</text>
-            <text class="lp-fig-s" x="44" y="242">UI libraries are far behind</text>
-
-            <text class="lp-fig-label" x="350" y="46">WHAT I GOT</text>
-            <rect class="lp-fig-box-accent" x="350" y="56" width="260" height="44" rx="6"></rect>
-            <text class="lp-fig-t" x="364" y="75">One language</text>
-            <text class="lp-fig-s" x="364" y="92">no handoff between two systems</text>
-            <rect class="lp-fig-box-accent" x="350" y="106" width="260" height="44" rx="6"></rect>
-            <text class="lp-fig-t" x="364" y="125">Bugs I can debug myself</text>
-            <text class="lp-fig-s" x="364" y="142">when the agents get stuck</text>
-            <rect class="lp-fig-box-accent" x="350" y="156" width="260" height="44" rx="6"></rect>
-            <text class="lp-fig-t" x="364" y="175">Same code in the browser</text>
-            <text class="lp-fig-s" x="364" y="192">and on Windows and Linux</text>
-            <rect class="lp-fig-box-accent" x="350" y="206" width="260" height="44" rx="6"></rect>
-            <text class="lp-fig-t" x="364" y="225">No second runtime</text>
-            <text class="lp-fig-s" x="364" y="242">no image copies between sides</text>
-
-            <rect class="lp-fig-bar-dim" x="20" y="251" width="600" height="5" rx="2"></rect>
+      <figure class="lp-figure lp-try" id="handoff-demo">
+        <div class="lp-try-controls">
+          <button type="button" class="lp-try-btn" data-mode="rust" aria-pressed="true">All Rust</button>
+          <button type="button" class="lp-try-btn" data-mode="split" aria-pressed="false">Rust engine + web UI</button>
+          <label>Exposure <input type="range" min="0" max="100" value="50" data-drag></label>
+          <button type="button" class="lp-try-btn" data-run>Run 1 second</button>
+        </div>
+        <svg viewBox="0 0 640 204" role="img" aria-label="One slider drag. The slider moves, the engine makes the edit, and new pixels appear. With all Rust, this is a function call with no runtime boundary. With a Rust engine and a web UI, each frame crosses the boundary between the two runtimes two times. Below, a row of 60 frames shows one second of drag.">
+          <text class="lp-fig-label" x="0" y="12">ONE SLIDER DRAG</text>
+          <rect class="lp-fig-box" x="16" y="26" width="176" height="30" rx="5"></rect>
+          <text class="lp-fig-s" x="104" y="46" text-anchor="middle" data-label="0">Slider moves</text>
+          <line class="lp-fig-line" x1="192" y1="41" x2="214" y2="41"></line>
+          <path class="lp-fig-arrow" d="M214 36 L224 41 L214 46 Z"></path>
+          <rect class="lp-fig-box" x="224" y="26" width="176" height="30" rx="5"></rect>
+          <text class="lp-fig-s" x="312" y="46" text-anchor="middle" data-label="1">Edit function</text>
+          <line class="lp-fig-line" x1="400" y1="41" x2="422" y2="41"></line>
+          <path class="lp-fig-arrow" d="M422 36 L432 41 L422 46 Z"></path>
+          <rect class="lp-fig-box-accent" x="432" y="26" width="176" height="30" rx="5"></rect>
+          <text class="lp-fig-s" x="520" y="46" text-anchor="middle" data-label="2">New pixels</text>
+          <g data-split opacity="0">
+            <line class="lp-fig-bad-stroke" x1="208" y1="20" x2="208" y2="64" stroke-dasharray="3 4"></line>
+            <line class="lp-fig-bad-stroke" x1="416" y1="20" x2="416" y2="64" stroke-dasharray="3 4"></line>
+            <text class="lp-fig-s" x="208" y="80" text-anchor="middle">events cross</text>
+            <text class="lp-fig-s" x="416" y="80" text-anchor="middle">pixels cross</text>
           </g>
-          <path class="lp-fig-arrow" d="M320 256 L344 290 L296 290 Z"></path>
-          <line class="lp-fig-line" x1="250" y1="290" x2="390" y2="290"></line>
+          <text class="lp-fig-s" x="16" y="104" data-note>No runtime boundary. It is a function call.</text>
+          <text class="lp-fig-label" x="0" y="128">ONE SECOND OF DRAG = 60 FRAMES</text>
+          <rect class="lp-fig-bar-dim" data-tick x="20" y="138" width="8" height="16" rx="1" opacity="0.35"></rect>
+          <rect class="lp-fig-bad" data-cross x="20" y="158" width="8" height="5" opacity="0"></rect><rect class="lp-fig-bad" data-cross x="20" y="165" width="8" height="5" opacity="0"></rect>
+          <rect class="lp-fig-bar-dim" data-tick x="30" y="138" width="8" height="16" rx="1" opacity="0.35"></rect>
+          <rect class="lp-fig-bad" data-cross x="30" y="158" width="8" height="5" opacity="0"></rect><rect class="lp-fig-bad" data-cross x="30" y="165" width="8" height="5" opacity="0"></rect>
+          <rect class="lp-fig-bar-dim" data-tick x="40" y="138" width="8" height="16" rx="1" opacity="0.35"></rect>
+          <rect class="lp-fig-bad" data-cross x="40" y="158" width="8" height="5" opacity="0"></rect><rect class="lp-fig-bad" data-cross x="40" y="165" width="8" height="5" opacity="0"></rect>
+          <rect class="lp-fig-bar-dim" data-tick x="50" y="138" width="8" height="16" rx="1" opacity="0.35"></rect>
+          <rect class="lp-fig-bad" data-cross x="50" y="158" width="8" height="5" opacity="0"></rect><rect class="lp-fig-bad" data-cross x="50" y="165" width="8" height="5" opacity="0"></rect>
+          <rect class="lp-fig-bar-dim" data-tick x="60" y="138" width="8" height="16" rx="1" opacity="0.35"></rect>
+          <rect class="lp-fig-bad" data-cross x="60" y="158" width="8" height="5" opacity="0"></rect><rect class="lp-fig-bad" data-cross x="60" y="165" width="8" height="5" opacity="0"></rect>
+          <rect class="lp-fig-bar-dim" data-tick x="70" y="138" width="8" height="16" rx="1" opacity="0.35"></rect>
+          <rect class="lp-fig-bad" data-cross x="70" y="158" width="8" height="5" opacity="0"></rect><rect class="lp-fig-bad" data-cross x="70" y="165" width="8" height="5" opacity="0"></rect>
+          <rect class="lp-fig-bar-dim" data-tick x="80" y="138" width="8" height="16" rx="1" opacity="0.35"></rect>
+          <rect class="lp-fig-bad" data-cross x="80" y="158" width="8" height="5" opacity="0"></rect><rect class="lp-fig-bad" data-cross x="80" y="165" width="8" height="5" opacity="0"></rect>
+          <rect class="lp-fig-bar-dim" data-tick x="90" y="138" width="8" height="16" rx="1" opacity="0.35"></rect>
+          <rect class="lp-fig-bad" data-cross x="90" y="158" width="8" height="5" opacity="0"></rect><rect class="lp-fig-bad" data-cross x="90" y="165" width="8" height="5" opacity="0"></rect>
+          <rect class="lp-fig-bar-dim" data-tick x="100" y="138" width="8" height="16" rx="1" opacity="0.35"></rect>
+          <rect class="lp-fig-bad" data-cross x="100" y="158" width="8" height="5" opacity="0"></rect><rect class="lp-fig-bad" data-cross x="100" y="165" width="8" height="5" opacity="0"></rect>
+          <rect class="lp-fig-bar-dim" data-tick x="110" y="138" width="8" height="16" rx="1" opacity="0.35"></rect>
+          <rect class="lp-fig-bad" data-cross x="110" y="158" width="8" height="5" opacity="0"></rect><rect class="lp-fig-bad" data-cross x="110" y="165" width="8" height="5" opacity="0"></rect>
+          <rect class="lp-fig-bar-dim" data-tick x="120" y="138" width="8" height="16" rx="1" opacity="0.35"></rect>
+          <rect class="lp-fig-bad" data-cross x="120" y="158" width="8" height="5" opacity="0"></rect><rect class="lp-fig-bad" data-cross x="120" y="165" width="8" height="5" opacity="0"></rect>
+          <rect class="lp-fig-bar-dim" data-tick x="130" y="138" width="8" height="16" rx="1" opacity="0.35"></rect>
+          <rect class="lp-fig-bad" data-cross x="130" y="158" width="8" height="5" opacity="0"></rect><rect class="lp-fig-bad" data-cross x="130" y="165" width="8" height="5" opacity="0"></rect>
+          <rect class="lp-fig-bar-dim" data-tick x="140" y="138" width="8" height="16" rx="1" opacity="0.35"></rect>
+          <rect class="lp-fig-bad" data-cross x="140" y="158" width="8" height="5" opacity="0"></rect><rect class="lp-fig-bad" data-cross x="140" y="165" width="8" height="5" opacity="0"></rect>
+          <rect class="lp-fig-bar-dim" data-tick x="150" y="138" width="8" height="16" rx="1" opacity="0.35"></rect>
+          <rect class="lp-fig-bad" data-cross x="150" y="158" width="8" height="5" opacity="0"></rect><rect class="lp-fig-bad" data-cross x="150" y="165" width="8" height="5" opacity="0"></rect>
+          <rect class="lp-fig-bar-dim" data-tick x="160" y="138" width="8" height="16" rx="1" opacity="0.35"></rect>
+          <rect class="lp-fig-bad" data-cross x="160" y="158" width="8" height="5" opacity="0"></rect><rect class="lp-fig-bad" data-cross x="160" y="165" width="8" height="5" opacity="0"></rect>
+          <rect class="lp-fig-bar-dim" data-tick x="170" y="138" width="8" height="16" rx="1" opacity="0.35"></rect>
+          <rect class="lp-fig-bad" data-cross x="170" y="158" width="8" height="5" opacity="0"></rect><rect class="lp-fig-bad" data-cross x="170" y="165" width="8" height="5" opacity="0"></rect>
+          <rect class="lp-fig-bar-dim" data-tick x="180" y="138" width="8" height="16" rx="1" opacity="0.35"></rect>
+          <rect class="lp-fig-bad" data-cross x="180" y="158" width="8" height="5" opacity="0"></rect><rect class="lp-fig-bad" data-cross x="180" y="165" width="8" height="5" opacity="0"></rect>
+          <rect class="lp-fig-bar-dim" data-tick x="190" y="138" width="8" height="16" rx="1" opacity="0.35"></rect>
+          <rect class="lp-fig-bad" data-cross x="190" y="158" width="8" height="5" opacity="0"></rect><rect class="lp-fig-bad" data-cross x="190" y="165" width="8" height="5" opacity="0"></rect>
+          <rect class="lp-fig-bar-dim" data-tick x="200" y="138" width="8" height="16" rx="1" opacity="0.35"></rect>
+          <rect class="lp-fig-bad" data-cross x="200" y="158" width="8" height="5" opacity="0"></rect><rect class="lp-fig-bad" data-cross x="200" y="165" width="8" height="5" opacity="0"></rect>
+          <rect class="lp-fig-bar-dim" data-tick x="210" y="138" width="8" height="16" rx="1" opacity="0.35"></rect>
+          <rect class="lp-fig-bad" data-cross x="210" y="158" width="8" height="5" opacity="0"></rect><rect class="lp-fig-bad" data-cross x="210" y="165" width="8" height="5" opacity="0"></rect>
+          <rect class="lp-fig-bar-dim" data-tick x="220" y="138" width="8" height="16" rx="1" opacity="0.35"></rect>
+          <rect class="lp-fig-bad" data-cross x="220" y="158" width="8" height="5" opacity="0"></rect><rect class="lp-fig-bad" data-cross x="220" y="165" width="8" height="5" opacity="0"></rect>
+          <rect class="lp-fig-bar-dim" data-tick x="230" y="138" width="8" height="16" rx="1" opacity="0.35"></rect>
+          <rect class="lp-fig-bad" data-cross x="230" y="158" width="8" height="5" opacity="0"></rect><rect class="lp-fig-bad" data-cross x="230" y="165" width="8" height="5" opacity="0"></rect>
+          <rect class="lp-fig-bar-dim" data-tick x="240" y="138" width="8" height="16" rx="1" opacity="0.35"></rect>
+          <rect class="lp-fig-bad" data-cross x="240" y="158" width="8" height="5" opacity="0"></rect><rect class="lp-fig-bad" data-cross x="240" y="165" width="8" height="5" opacity="0"></rect>
+          <rect class="lp-fig-bar-dim" data-tick x="250" y="138" width="8" height="16" rx="1" opacity="0.35"></rect>
+          <rect class="lp-fig-bad" data-cross x="250" y="158" width="8" height="5" opacity="0"></rect><rect class="lp-fig-bad" data-cross x="250" y="165" width="8" height="5" opacity="0"></rect>
+          <rect class="lp-fig-bar-dim" data-tick x="260" y="138" width="8" height="16" rx="1" opacity="0.35"></rect>
+          <rect class="lp-fig-bad" data-cross x="260" y="158" width="8" height="5" opacity="0"></rect><rect class="lp-fig-bad" data-cross x="260" y="165" width="8" height="5" opacity="0"></rect>
+          <rect class="lp-fig-bar-dim" data-tick x="270" y="138" width="8" height="16" rx="1" opacity="0.35"></rect>
+          <rect class="lp-fig-bad" data-cross x="270" y="158" width="8" height="5" opacity="0"></rect><rect class="lp-fig-bad" data-cross x="270" y="165" width="8" height="5" opacity="0"></rect>
+          <rect class="lp-fig-bar-dim" data-tick x="280" y="138" width="8" height="16" rx="1" opacity="0.35"></rect>
+          <rect class="lp-fig-bad" data-cross x="280" y="158" width="8" height="5" opacity="0"></rect><rect class="lp-fig-bad" data-cross x="280" y="165" width="8" height="5" opacity="0"></rect>
+          <rect class="lp-fig-bar-dim" data-tick x="290" y="138" width="8" height="16" rx="1" opacity="0.35"></rect>
+          <rect class="lp-fig-bad" data-cross x="290" y="158" width="8" height="5" opacity="0"></rect><rect class="lp-fig-bad" data-cross x="290" y="165" width="8" height="5" opacity="0"></rect>
+          <rect class="lp-fig-bar-dim" data-tick x="300" y="138" width="8" height="16" rx="1" opacity="0.35"></rect>
+          <rect class="lp-fig-bad" data-cross x="300" y="158" width="8" height="5" opacity="0"></rect><rect class="lp-fig-bad" data-cross x="300" y="165" width="8" height="5" opacity="0"></rect>
+          <rect class="lp-fig-bar-dim" data-tick x="310" y="138" width="8" height="16" rx="1" opacity="0.35"></rect>
+          <rect class="lp-fig-bad" data-cross x="310" y="158" width="8" height="5" opacity="0"></rect><rect class="lp-fig-bad" data-cross x="310" y="165" width="8" height="5" opacity="0"></rect>
+          <rect class="lp-fig-bar-dim" data-tick x="320" y="138" width="8" height="16" rx="1" opacity="0.35"></rect>
+          <rect class="lp-fig-bad" data-cross x="320" y="158" width="8" height="5" opacity="0"></rect><rect class="lp-fig-bad" data-cross x="320" y="165" width="8" height="5" opacity="0"></rect>
+          <rect class="lp-fig-bar-dim" data-tick x="330" y="138" width="8" height="16" rx="1" opacity="0.35"></rect>
+          <rect class="lp-fig-bad" data-cross x="330" y="158" width="8" height="5" opacity="0"></rect><rect class="lp-fig-bad" data-cross x="330" y="165" width="8" height="5" opacity="0"></rect>
+          <rect class="lp-fig-bar-dim" data-tick x="340" y="138" width="8" height="16" rx="1" opacity="0.35"></rect>
+          <rect class="lp-fig-bad" data-cross x="340" y="158" width="8" height="5" opacity="0"></rect><rect class="lp-fig-bad" data-cross x="340" y="165" width="8" height="5" opacity="0"></rect>
+          <rect class="lp-fig-bar-dim" data-tick x="350" y="138" width="8" height="16" rx="1" opacity="0.35"></rect>
+          <rect class="lp-fig-bad" data-cross x="350" y="158" width="8" height="5" opacity="0"></rect><rect class="lp-fig-bad" data-cross x="350" y="165" width="8" height="5" opacity="0"></rect>
+          <rect class="lp-fig-bar-dim" data-tick x="360" y="138" width="8" height="16" rx="1" opacity="0.35"></rect>
+          <rect class="lp-fig-bad" data-cross x="360" y="158" width="8" height="5" opacity="0"></rect><rect class="lp-fig-bad" data-cross x="360" y="165" width="8" height="5" opacity="0"></rect>
+          <rect class="lp-fig-bar-dim" data-tick x="370" y="138" width="8" height="16" rx="1" opacity="0.35"></rect>
+          <rect class="lp-fig-bad" data-cross x="370" y="158" width="8" height="5" opacity="0"></rect><rect class="lp-fig-bad" data-cross x="370" y="165" width="8" height="5" opacity="0"></rect>
+          <rect class="lp-fig-bar-dim" data-tick x="380" y="138" width="8" height="16" rx="1" opacity="0.35"></rect>
+          <rect class="lp-fig-bad" data-cross x="380" y="158" width="8" height="5" opacity="0"></rect><rect class="lp-fig-bad" data-cross x="380" y="165" width="8" height="5" opacity="0"></rect>
+          <rect class="lp-fig-bar-dim" data-tick x="390" y="138" width="8" height="16" rx="1" opacity="0.35"></rect>
+          <rect class="lp-fig-bad" data-cross x="390" y="158" width="8" height="5" opacity="0"></rect><rect class="lp-fig-bad" data-cross x="390" y="165" width="8" height="5" opacity="0"></rect>
+          <rect class="lp-fig-bar-dim" data-tick x="400" y="138" width="8" height="16" rx="1" opacity="0.35"></rect>
+          <rect class="lp-fig-bad" data-cross x="400" y="158" width="8" height="5" opacity="0"></rect><rect class="lp-fig-bad" data-cross x="400" y="165" width="8" height="5" opacity="0"></rect>
+          <rect class="lp-fig-bar-dim" data-tick x="410" y="138" width="8" height="16" rx="1" opacity="0.35"></rect>
+          <rect class="lp-fig-bad" data-cross x="410" y="158" width="8" height="5" opacity="0"></rect><rect class="lp-fig-bad" data-cross x="410" y="165" width="8" height="5" opacity="0"></rect>
+          <rect class="lp-fig-bar-dim" data-tick x="420" y="138" width="8" height="16" rx="1" opacity="0.35"></rect>
+          <rect class="lp-fig-bad" data-cross x="420" y="158" width="8" height="5" opacity="0"></rect><rect class="lp-fig-bad" data-cross x="420" y="165" width="8" height="5" opacity="0"></rect>
+          <rect class="lp-fig-bar-dim" data-tick x="430" y="138" width="8" height="16" rx="1" opacity="0.35"></rect>
+          <rect class="lp-fig-bad" data-cross x="430" y="158" width="8" height="5" opacity="0"></rect><rect class="lp-fig-bad" data-cross x="430" y="165" width="8" height="5" opacity="0"></rect>
+          <rect class="lp-fig-bar-dim" data-tick x="440" y="138" width="8" height="16" rx="1" opacity="0.35"></rect>
+          <rect class="lp-fig-bad" data-cross x="440" y="158" width="8" height="5" opacity="0"></rect><rect class="lp-fig-bad" data-cross x="440" y="165" width="8" height="5" opacity="0"></rect>
+          <rect class="lp-fig-bar-dim" data-tick x="450" y="138" width="8" height="16" rx="1" opacity="0.35"></rect>
+          <rect class="lp-fig-bad" data-cross x="450" y="158" width="8" height="5" opacity="0"></rect><rect class="lp-fig-bad" data-cross x="450" y="165" width="8" height="5" opacity="0"></rect>
+          <rect class="lp-fig-bar-dim" data-tick x="460" y="138" width="8" height="16" rx="1" opacity="0.35"></rect>
+          <rect class="lp-fig-bad" data-cross x="460" y="158" width="8" height="5" opacity="0"></rect><rect class="lp-fig-bad" data-cross x="460" y="165" width="8" height="5" opacity="0"></rect>
+          <rect class="lp-fig-bar-dim" data-tick x="470" y="138" width="8" height="16" rx="1" opacity="0.35"></rect>
+          <rect class="lp-fig-bad" data-cross x="470" y="158" width="8" height="5" opacity="0"></rect><rect class="lp-fig-bad" data-cross x="470" y="165" width="8" height="5" opacity="0"></rect>
+          <rect class="lp-fig-bar-dim" data-tick x="480" y="138" width="8" height="16" rx="1" opacity="0.35"></rect>
+          <rect class="lp-fig-bad" data-cross x="480" y="158" width="8" height="5" opacity="0"></rect><rect class="lp-fig-bad" data-cross x="480" y="165" width="8" height="5" opacity="0"></rect>
+          <rect class="lp-fig-bar-dim" data-tick x="490" y="138" width="8" height="16" rx="1" opacity="0.35"></rect>
+          <rect class="lp-fig-bad" data-cross x="490" y="158" width="8" height="5" opacity="0"></rect><rect class="lp-fig-bad" data-cross x="490" y="165" width="8" height="5" opacity="0"></rect>
+          <rect class="lp-fig-bar-dim" data-tick x="500" y="138" width="8" height="16" rx="1" opacity="0.35"></rect>
+          <rect class="lp-fig-bad" data-cross x="500" y="158" width="8" height="5" opacity="0"></rect><rect class="lp-fig-bad" data-cross x="500" y="165" width="8" height="5" opacity="0"></rect>
+          <rect class="lp-fig-bar-dim" data-tick x="510" y="138" width="8" height="16" rx="1" opacity="0.35"></rect>
+          <rect class="lp-fig-bad" data-cross x="510" y="158" width="8" height="5" opacity="0"></rect><rect class="lp-fig-bad" data-cross x="510" y="165" width="8" height="5" opacity="0"></rect>
+          <rect class="lp-fig-bar-dim" data-tick x="520" y="138" width="8" height="16" rx="1" opacity="0.35"></rect>
+          <rect class="lp-fig-bad" data-cross x="520" y="158" width="8" height="5" opacity="0"></rect><rect class="lp-fig-bad" data-cross x="520" y="165" width="8" height="5" opacity="0"></rect>
+          <rect class="lp-fig-bar-dim" data-tick x="530" y="138" width="8" height="16" rx="1" opacity="0.35"></rect>
+          <rect class="lp-fig-bad" data-cross x="530" y="158" width="8" height="5" opacity="0"></rect><rect class="lp-fig-bad" data-cross x="530" y="165" width="8" height="5" opacity="0"></rect>
+          <rect class="lp-fig-bar-dim" data-tick x="540" y="138" width="8" height="16" rx="1" opacity="0.35"></rect>
+          <rect class="lp-fig-bad" data-cross x="540" y="158" width="8" height="5" opacity="0"></rect><rect class="lp-fig-bad" data-cross x="540" y="165" width="8" height="5" opacity="0"></rect>
+          <rect class="lp-fig-bar-dim" data-tick x="550" y="138" width="8" height="16" rx="1" opacity="0.35"></rect>
+          <rect class="lp-fig-bad" data-cross x="550" y="158" width="8" height="5" opacity="0"></rect><rect class="lp-fig-bad" data-cross x="550" y="165" width="8" height="5" opacity="0"></rect>
+          <rect class="lp-fig-bar-dim" data-tick x="560" y="138" width="8" height="16" rx="1" opacity="0.35"></rect>
+          <rect class="lp-fig-bad" data-cross x="560" y="158" width="8" height="5" opacity="0"></rect><rect class="lp-fig-bad" data-cross x="560" y="165" width="8" height="5" opacity="0"></rect>
+          <rect class="lp-fig-bar-dim" data-tick x="570" y="138" width="8" height="16" rx="1" opacity="0.35"></rect>
+          <rect class="lp-fig-bad" data-cross x="570" y="158" width="8" height="5" opacity="0"></rect><rect class="lp-fig-bad" data-cross x="570" y="165" width="8" height="5" opacity="0"></rect>
+          <rect class="lp-fig-bar-dim" data-tick x="580" y="138" width="8" height="16" rx="1" opacity="0.35"></rect>
+          <rect class="lp-fig-bad" data-cross x="580" y="158" width="8" height="5" opacity="0"></rect><rect class="lp-fig-bad" data-cross x="580" y="165" width="8" height="5" opacity="0"></rect>
+          <rect class="lp-fig-bar-dim" data-tick x="590" y="138" width="8" height="16" rx="1" opacity="0.35"></rect>
+          <rect class="lp-fig-bad" data-cross x="590" y="158" width="8" height="5" opacity="0"></rect><rect class="lp-fig-bad" data-cross x="590" y="165" width="8" height="5" opacity="0"></rect>
+          <rect class="lp-fig-bar-dim" data-tick x="600" y="138" width="8" height="16" rx="1" opacity="0.35"></rect>
+          <rect class="lp-fig-bad" data-cross x="600" y="158" width="8" height="5" opacity="0"></rect><rect class="lp-fig-bad" data-cross x="600" y="165" width="8" height="5" opacity="0"></rect>
+          <rect class="lp-fig-bar-dim" data-tick x="610" y="138" width="8" height="16" rx="1" opacity="0.35"></rect>
+          <rect class="lp-fig-bad" data-cross x="610" y="158" width="8" height="5" opacity="0"></rect><rect class="lp-fig-bad" data-cross x="610" y="165" width="8" height="5" opacity="0"></rect>
+          <rect class="lp-fig-bar" x="20" y="186" width="8" height="10" rx="1"></rect>
+          <text class="lp-fig-s" x="34" y="195">Frame drawn</text>
+          <rect class="lp-fig-bad" x="160" y="186" width="8" height="10"></rect>
+          <text class="lp-fig-s" x="174" y="195">Boundary cross</text>
         </svg>
+        <p class="lp-try-readout" aria-live="polite">All Rust: 0 frames, 0 boundary crosses. Drag the slider or press Run.</p>
         <figcaption>
-          All Rust cost me polish and accessibility. It gave me one language,
-          bugs that I can find myself, and the same code for the browser and
-          other platforms. For me, the right side was heavier.
+          Each slider movement makes one frame. The Rust engine is equally
+          fast in the two designs. The split design adds two crossings to
+          each frame.
         </figcaption>
       </figure>
 
       <h2>What I learned</h2>
       <ul class="lp-article-list">
         <li>
-          <strong>Write down the trade-offs before you pick.</strong> A list of
-          the gains and losses of each option showed me what I did not know
-          yet. Thus I could answer these questions first, and they did not
-          surprise me later.
+          <strong>Write down the trade-offs before you pick.</strong> The list
+          showed me what I did not know yet.
         </li>
         <li>
-          <strong>Pick a design that you can debug yourself.</strong> Agents
-          write almost all of this code, and they usually write it well.
+          <strong>Pick a design that you can debug yourself.</strong>
           Sometimes an agent fixes one symptom after another and does not find
-          the cause. Then I need to step in and find the problem myself, so the
-          design must be simple.
+          the cause.
         </li>
         <li>
-          <strong>Plan for the next one or two steps.</strong> Swift is a good
-          choice for a Mac-only app. But I wanted a browser version, and that
-          ruled Swift out right away.
+          <strong>Plan for the next one or two steps.</strong> Swift is good
+          for a Mac-only app, but I wanted a browser version.
         </li>
-        <li>
-          <strong>Keep the core separate from the UI.</strong> I use one
-          language, but I keep the photo editing logic in its own module. Thus
-          I can replace the interface later.
-        </li>
+        <li><strong>Keep the core separate from the UI.</strong></li>
       </ul>
 
       <h2>Why I considered Rust</h2>
       <p>
-        I think that Rust is a very interesting language. It is roughly
-        as powerful as C++, and its compiler is strict. The compiler does not
-        build code that looks unsafe. It feels a bit like a picky reviewer who
-        sits next to me.
+        I think that Rust is a very interesting language. It is approximately
+        as powerful as C++, and its strict compiler does not build code that
+        looks unsafe. It feels like a picky reviewer who sits next to me.
       </p>
       <p>
-        But this does not automatically make Rust correct for a photo editor.
-        Before I wrote much code, I had many questions that I could not answer.
+        But that does not make Rust correct for a photo editor. I had many
+        questions:
       </p>
       <ul class="lp-article-list">
-        <li>Is Rust a good choice for this app?</li>
-        <li>
-          Should I write only the critical part, the image engine, in Rust, and
-          make the UI with a tool such as React?
-        </li>
-        <li>Or should I build all of the app in Rust?</li>
-        <li>Does Rust have a UI library that is good enough to use?</li>
-        <li>
-          Or should I write the UI in Swift, so that it feels like a native Mac app?
-        </li>
+        <li>Only the image engine in Rust, with a React UI?</li>
+        <li>All of the app in Rust, if a Rust UI library is good enough?</li>
+        <li>A Swift UI that feels like a native Mac app?</li>
       </ul>
       <p>
-        Two more things worried me. I wanted a browser version one day, so I could edit in the same way without my Mac. I also
-        thought that one day I could want support for Windows and Linux.
+        I also wanted a browser version one day, so that I can edit without
+        my Mac. One day, I possibly want Windows and Linux too.
       </p>
-
-      <p>In the end, I had two ways to build the app.</p>
-
-      <figure class="lp-arch">
-        <div class="lp-arch-panel">
-          <p class="lp-arch-label">Option 1 &middot; All Rust</p>
-          <div class="lp-arch-process">
-            <span class="lp-arch-process-name">One Rust app</span>
-            <div class="lp-arch-box">UI module</div>
-            <div class="lp-arch-link">function calls</div>
-            <div class="lp-arch-box lp-arch-box-core">Core engine</div>
-          </div>
-        </div>
-        <div class="lp-arch-panel">
-          <p class="lp-arch-label">Option 2 &middot; Split</p>
-          <div class="lp-arch-process">
-            <span class="lp-arch-process-name">Electron</span>
-            <div class="lp-arch-box">React UI</div>
-          </div>
-          <div class="lp-arch-link lp-arch-link-cross">
-            events &darr;&ensp;pixels &uarr;
-          </div>
-          <div class="lp-arch-process">
-            <span class="lp-arch-process-name">Rust</span>
-            <div class="lp-arch-box lp-arch-box-core">Core engine</div>
-          </div>
-        </div>
-        <figcaption>
-          With all Rust, the interface calls the engine directly. With the
-          split design, each slider drag and each preview must move between two
-          separate programs.
-        </figcaption>
-      </figure>
 
       <h2>The cost of each option</h2>
       <p>
-        All Rust gives me one language for all of the app. I do not have to
-        copy image data between two programs. I also do not have to send each
-        click and drag across a bridge between them. The app is also faster,
-        needs fewer external libraries, and is simpler to ship.
+        All Rust gives me one language and no bridge between two programs.
+        The app is faster, needs fewer external libraries, and is simpler to
+        ship.
       </p>
       <p>
-        This option also has real disadvantages. Rust has no official UI
-        toolkit. The libraries that people made work. But my UI will not look
-        as good as a well-styled web page or a native Mac app.
-        Browsers also give good accessibility by default, and the Rust UI
-        libraries are far behind.
+        But Rust has no official UI toolkit. The community libraries work, but
+        my UI will not look as good as a well-styled web page or a native Mac
+        app. Browsers give good accessibility (support for screen readers and
+        similar tools) by default. The Rust UI libraries are far behind.
       </p>
       <p>
-        A split design lets me use the best tools on each side. CSS lets me
-        adjust each pixel, so I have full control of the appearance. The cost
-        is that I must keep two systems synchronized.
+        A split design (for example, a React UI in Electron) lets me use the
+        best tools on each side. With CSS, I control each pixel. The cost is
+        two systems that I must keep synchronized.
       </p>
 
       <h2>The Swift option</h2>
       <p>
-        A Swift interface feels the most natural on a Mac, and I wanted that.
-        But it has the same split as option 2: Swift communicates with a Rust
-        engine. Also, Swift does not run in the browser. A browser version
-        (made with WebAssembly, which lets compiled code run in a web page)
-        needs a second interface, written from nothing.
-      </p>
-      <p>
-        Swift also makes me dependent on Apple. Windows or Linux will need one
-        more interface. The Rust UI libraries and Electron already run on all
-        three.
+        A Swift interface feels the most natural on a Mac. But it is also a
+        split: Swift communicates with a Rust engine. Swift does not run in
+        the browser, so a browser version (made with WebAssembly, which lets
+        compiled code run in a web page) needs a second interface. Windows or
+        Linux needs one more. The Rust UI libraries and Electron already run
+        on all three.
       </p>
 
       <h2>Comparison</h2>
@@ -251,91 +315,39 @@ import Base from "../../layouts/Base.astro";
         </table>
       </div>
 
+      <h2>Why the handoff decided it</h2>
       <p>
-        In a web app, people expect a short delay. You click a button, you
-        wait a moment, and the server answers. A photo editor is different,
-        because drag, zoom, and pan operations are continuous. Each mouse
-        movement must go to the engine and come back as a new image. This
-        occurs sixty times a second, without a delay that you can feel.
+        In a web app, people expect a short delay. A photo editor is
+        different. Drag, zoom, and pan are continuous, and each movement must
+        come back as a new image with no delay that you can feel.
       </p>
-
-      <figure class="lp-figure">
-        <svg viewBox="0 0 640 220" role="img" aria-label="One slider drag, sixty times a second. With all Rust, the slider moves, an edit function runs, and new pixels appear. There is no runtime boundary. With a Rust engine and a web UI, the same drag crosses a runtime boundary into the engine and again on the return. This occurs two times for each frame.">
-          <text class="lp-fig-label" x="0" y="12">ONE SLIDER DRAG, 60 TIMES A SECOND</text>
-
-          <rect class="lp-fig-panel" x="0" y="24" width="640" height="88" rx="8"></rect>
-          <text class="lp-fig-t" x="16" y="44">All Rust</text>
-          <rect class="lp-fig-box" x="16" y="56" width="176" height="30" rx="5"></rect>
-          <text class="lp-fig-s" x="104" y="76" text-anchor="middle">Slider moves</text>
-          <line class="lp-fig-line" x1="192" y1="71" x2="214" y2="71"></line>
-          <path class="lp-fig-arrow" d="M214 66 L224 71 L214 76 Z"></path>
-          <rect class="lp-fig-box" x="224" y="56" width="176" height="30" rx="5"></rect>
-          <text class="lp-fig-s" x="312" y="76" text-anchor="middle">Edit function</text>
-          <line class="lp-fig-line" x1="400" y1="71" x2="422" y2="71"></line>
-          <path class="lp-fig-arrow" d="M422 66 L432 71 L422 76 Z"></path>
-          <rect class="lp-fig-box-accent" x="432" y="56" width="176" height="30" rx="5"></rect>
-          <text class="lp-fig-s" x="520" y="76" text-anchor="middle">New pixels</text>
-          <text class="lp-fig-s" x="16" y="104">No runtime boundary. It is a function call.</text>
-
-          <rect class="lp-fig-panel" x="0" y="124" width="640" height="88" rx="8"></rect>
-          <text class="lp-fig-t" x="16" y="144">Rust engine, web UI</text>
-          <rect class="lp-fig-box" x="16" y="156" width="176" height="30" rx="5"></rect>
-          <text class="lp-fig-s" x="104" y="176" text-anchor="middle">Slider moves (JS)</text>
-          <line class="lp-fig-bad-stroke" x1="208" y1="152" x2="208" y2="190" stroke-dasharray="3 4"></line>
-          <rect class="lp-fig-box" x="224" y="156" width="176" height="30" rx="5"></rect>
-          <text class="lp-fig-s" x="312" y="176" text-anchor="middle">Engine (Rust)</text>
-          <line class="lp-fig-bad-stroke" x1="416" y1="152" x2="416" y2="190" stroke-dasharray="3 4"></line>
-          <rect class="lp-fig-box" x="432" y="156" width="176" height="30" rx="5"></rect>
-          <text class="lp-fig-s" x="520" y="176" text-anchor="middle">New pixels (JS)</text>
-          <text class="lp-fig-s lp-fig-bad" x="16" y="204">Two boundary crosses per frame, 120 a second.</text>
-        </svg>
-        <figcaption>
-          The Rust engine is equally fast in the split version. The extra time
-          comes from the data that crosses between the two sides two times in
-          each frame.
-        </figcaption>
-      </figure>
-
       <p>
         To keep two systems synchronized at that rate is much more difficult
         than to handle an occasional request. When they are not synchronized,
-        the bug is usually in the handoff between them. Neither side's code
-        looks wrong on its own. This type of bug is very
-        difficult to find.
-      </p>
-
-      <h2>Why this was more important for me than usual</h2>
-      <p>
-        This part made the decision for me.
+        the bug is usually in the handoff. The code on each side looks correct
+        alone, so this type of bug is very difficult to find.
       </p>
       <p>
-        I did not write most of this code. Coding agents wrote it. In my
-        experience, they are strong when all of the code is in one language.
-        They are much weaker when they must find a small mismatch between two
-        systems in different languages.
+        Coding agents wrote most of this code. In my experience, they are
+        strong when all of the code is in one language. They are much weaker
+        when they must find a small mismatch between two systems in different
+        languages. With one language and one program, there is no handoff
+        where this bug can occur. When the agents get stuck, I can find the
+        problem myself.
       </p>
       <p>
-        I wanted a design where I can step in and find the problem myself
-        when the agents get stuck. With one language and one program, there is no handoff between
-        systems where this type of bug can occur.
-      </p>
-      <p>
-        The second reason was performance. I want this app to be fast and to
-        use only the memory that it needs. With all of the code in Rust, there
-        is no second runtime to load. Also, the app does not send copies of the
-        image between two sides.
+        The second reason was performance. I want the app to be fast and to
+        use only the memory that it needs. All Rust has no second runtime to
+        load and sends no image copies between two sides.
       </p>
 
       <h2>How I keep the option to change</h2>
       <p>
-        I use one language, but I keep the UI logic and the core photo editing
-        in separate modules. If I change my decision in a year and want a
-        different interface, I can keep most of the core without changes.
-      </p>
-      <p>
-        For the same reason, I clean up sloppy generated code as it
-        arrives. I do not let it pile up. I want the code to stay small enough
-        that I can still understand all of it.
+        I keep the UI and the photo editing core in separate modules. If I
+        want a different interface in a year, I can keep most of the core.
+        For the same reason, I clean up sloppy generated code
+        when it arrives. I want the code to stay small enough that I can
+        understand all of it.
       </p>
 
 
@@ -351,4 +363,99 @@ import Base from "../../layouts/Base.astro";
       </nav>
     </article>
   </main>
+  <script>
+    const fig = document.getElementById("handoff-demo");
+    if (fig) {
+      const LABELS = {
+        rust: ["Slider moves", "Edit function", "New pixels"],
+        split: ["Slider moves (JS)", "Engine (Rust)", "New pixels (JS)"],
+      };
+      const NOTES = {
+        rust: "No runtime boundary. It is a function call.",
+        split: "Two boundary crosses per frame, 120 a second.",
+      };
+      const NAMES = { rust: "All Rust", split: "Rust engine + web UI" };
+      const modeBtns = [...fig.querySelectorAll("[data-mode]")];
+      const slider = fig.querySelector("[data-drag]");
+      const runBtn = fig.querySelector("[data-run]");
+      const ticks = [...fig.querySelectorAll("[data-tick]")];
+      const crosses = [...fig.querySelectorAll("[data-cross]")];
+      const note = fig.querySelector("[data-note]");
+      const readout = fig.querySelector(".lp-try-readout");
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+      let mode = "rust";
+      let frames = 0;
+      let running = false;
+
+      function clearTicks() {
+        ticks.forEach((t) => {
+          t.setAttribute("class", "lp-fig-bar-dim");
+          t.setAttribute("opacity", "0.35");
+        });
+        crosses.forEach((c) => c.setAttribute("opacity", "0"));
+      }
+
+      function report() {
+        const perFrame = mode === "split" ? 2 : 0;
+        readout.textContent = `${NAMES[mode]}: ${frames} frames, ${frames * perFrame} boundary crosses.`;
+      }
+
+      function frame() {
+        const i = frames % 60;
+        if (i === 0) clearTicks();
+        ticks[i].setAttribute("class", "lp-fig-bar");
+        ticks[i].setAttribute("opacity", "1");
+        if (mode === "split") {
+          crosses[i * 2].setAttribute("opacity", "1");
+          crosses[i * 2 + 1].setAttribute("opacity", "1");
+        }
+        frames++;
+        report();
+      }
+
+      function setMode(next) {
+        mode = next;
+        frames = 0;
+        modeBtns.forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.mode === mode)));
+        fig.querySelectorAll("[data-label]").forEach((t) => {
+          t.textContent = LABELS[mode][+t.dataset.label];
+        });
+        fig.querySelector("[data-split]").setAttribute("opacity", mode === "split" ? "1" : "0");
+        note.textContent = NOTES[mode];
+        clearTicks();
+        report();
+      }
+
+      modeBtns.forEach((b) => b.addEventListener("click", () => setMode(b.dataset.mode)));
+      slider.addEventListener("input", () => {
+        if (!running) frame();
+      });
+
+      runBtn.addEventListener("click", () => {
+        if (running) return;
+        frames = 0;
+        if (reduceMotion.matches) {
+          for (let n = 0; n < 60; n++) frame();
+          return;
+        }
+        running = true;
+        runBtn.disabled = true;
+        const start = performance.now();
+        function step(now) {
+          const due = Math.min(60, Math.floor(((now - start) / 1000) * 60) + 1);
+          while (frames < due) {
+            frame();
+            slider.value = String(50 + Math.round(40 * Math.sin((frames / 60) * Math.PI * 2)));
+          }
+          if (frames < 60) {
+            requestAnimationFrame(step);
+          } else {
+            running = false;
+            runBtn.disabled = false;
+          }
+        }
+        requestAnimationFrame(step);
+      });
+    }
+  </script>
 </Base>

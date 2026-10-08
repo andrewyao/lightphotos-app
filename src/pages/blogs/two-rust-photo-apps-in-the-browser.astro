@@ -14,206 +14,82 @@ import Base from "../../layouts/Base.astro";
         <p class="lp-article-dek">
           <a href="https://github.com/storytold/lightcraft">LightCraft</a>
           is another wonderful Lightroom replacement, written in Rust, that
-          runs in a browser tab. Here is what I learned when I put the two
-          approaches side by side. I include some measurements. To be fair,
-          they are not a fully equal comparison.
+          runs in a browser tab. Here is what I learned when I put it next to
+          LightPhotos. I include some measurements, but they are not a fully
+          equal comparison.
         </p>
-        <p class="lp-article-byline">Andrew Yao &middot; 7 min read</p>
+        <p class="lp-article-byline">Andrew Yao &middot; 6 min read</p>
       </header>
 
       <aside class="lp-tldr">
         <p class="lp-tldr-label">TL;DR</p>
         <p>
-          Both apps are Rust and egui compiled to WebAssembly. They download
-          about the same amount: 3.5&nbsp;MB and 3.8&nbsp;MB compressed. On
-          twenty Sony RAW files, LightPhotos filled its grid in 1.4&nbsp;s
-          and showed each photo in about half a second. LightCraft took
-          2.3&nbsp;s and about 1.9&nbsp;s, and used nearly twice the memory.
-          But that is not the same work done faster. At fit-to-window,
-          LightPhotos applies your edits to the JPEG that the camera already
-          made. It only decodes the RAW data when you zoom in. LightCraft
-          develops the RAW data itself every time.
+          Both apps are Rust and egui compiled to WebAssembly, with downloads
+          of 3.5&nbsp;MB and 3.8&nbsp;MB compressed. On twenty Sony RAW
+          files, LightPhotos filled its grid in 1.4&nbsp;s and showed each
+          photo in 0.53&nbsp;s. LightCraft took 2.3&nbsp;s and 1.88&nbsp;s,
+          and used nearly twice the memory. Most of the gap is the starting
+          point. At fit-to-window, LightPhotos edits the JPEG that the camera
+          already made. LightCraft develops the RAW data every time.
         </p>
       </aside>
 
-      <figure class="lp-figure">
-        <svg viewBox="0 0 640 236" role="img" aria-label="What each app starts from. A RAW file holds two things: a full-size JPEG that the camera made, and the sensor data. At fit-to-window, LightPhotos applies your edits to the embedded JPEG, and it decodes the RAW data only when you zoom in. It shows the next photo full size in 0.53 seconds. LightCraft develops the sensor data for every view: demosaic, white balance, highlight recovery, its colour model, then your edits. It shows the next photo full size in 1.88 seconds.">
+      <figure class="lp-figure lp-try" id="start-demo">
+        <div class="lp-try-controls">
+          <button type="button" class="lp-try-btn" data-view="fit" aria-pressed="true">Fit to window</button>
+          <button type="button" class="lp-try-btn" data-view="zoom" aria-pressed="false">Zoomed in</button>
+          <button type="button" class="lp-try-btn" data-act="next">Next photo</button>
+        </div>
+        <svg viewBox="0 0 640 232" role="img" aria-label="What each app starts from. A RAW file holds a full-size JPEG that the camera made, and the sensor data. At fit-to-window, LightPhotos applies your edits to the embedded JPEG and shows the next photo in 0.53 seconds. When you zoom in, it decodes the RAW data. LightCraft develops the sensor data for every view and shows the next photo in 1.88 seconds.">
           <text class="lp-fig-label" x="0" y="12">ONE RAW FILE</text>
-          <text class="lp-fig-label" x="250" y="12">WHAT EACH APP SHOWS</text>
+          <text class="lp-fig-label" x="250" y="12">WORK FOR THE NEXT PHOTO</text>
 
           <rect class="lp-fig-panel" x="0" y="26" width="200" height="180" rx="8"></rect>
-          <rect class="lp-fig-box-accent" x="16" y="40" width="168" height="64" rx="6"></rect>
+          <rect class="lp-fig-box-accent" data-el="jpeg" x="16" y="40" width="168" height="64" rx="6"></rect>
           <text class="lp-fig-t" x="32" y="66">Embedded JPEG</text>
           <text class="lp-fig-s" x="32" y="86">made by the camera</text>
           <rect class="lp-fig-box" x="16" y="128" width="168" height="64" rx="6"></rect>
           <text class="lp-fig-t" x="32" y="154">Sensor data</text>
           <text class="lp-fig-s" x="32" y="174">needs a full develop</text>
 
-          <line class="lp-fig-line" x1="184" y1="72" x2="240" y2="72"></line>
+          <path class="lp-fig-line" data-el="from-jpeg" d="M184 72 H240"></path>
+          <path class="lp-fig-line" data-el="from-raw" d="M184 150 C214 150 212 72 240 72" opacity="0"></path>
           <path class="lp-fig-arrow" d="M240 67 L250 72 L240 77 Z"></path>
-          <line class="lp-fig-line" x1="184" y1="160" x2="240" y2="160"></line>
+          <path class="lp-fig-line" d="M184 160 H240"></path>
           <path class="lp-fig-arrow" d="M240 155 L250 160 L240 165 Z"></path>
 
-          <rect class="lp-fig-box-accent" x="250" y="34" width="290" height="76" rx="6"></rect>
-          <text class="lp-fig-t" x="266" y="58">LightPhotos, at fit-to-window</text>
-          <text class="lp-fig-s" x="266" y="78">Your edits on the JPEG</text>
-          <text class="lp-fig-s" x="266" y="96">On zoom: it decodes the RAW data</text>
-          <text class="lp-fig-t" x="556" y="66">0.53 s</text>
-          <text class="lp-fig-s" x="556" y="86">per photo</text>
+          <rect class="lp-fig-box-accent" data-el="lp-box" x="250" y="34" width="390" height="76" rx="6"></rect>
+          <text class="lp-fig-t" x="266" y="58">LightPhotos</text>
+          <text class="lp-fig-s" data-el="lp-work" x="266" y="78">Your edits on the camera's JPEG</text>
+          <rect class="lp-fig-panel" x="266" y="90" width="270" height="8" rx="4"></rect>
+          <rect class="lp-fig-bar" data-el="lp-bar" x="266" y="90" width="76" height="8" rx="4"></rect>
+          <text class="lp-fig-t" data-el="lp-time" x="556" y="78">0.53 s</text>
 
-          <rect class="lp-fig-box" x="250" y="122" width="290" height="76" rx="6"></rect>
-          <text class="lp-fig-t" x="266" y="146">LightCraft, every view</text>
-          <text class="lp-fig-s" x="266" y="166">Demosaic, white balance, highlights,</text>
-          <text class="lp-fig-s" x="266" y="184">colour model, then your edits</text>
-          <text class="lp-fig-t" x="556" y="154">1.88 s</text>
-          <text class="lp-fig-s" x="556" y="174">per photo</text>
+          <rect class="lp-fig-box" x="250" y="122" width="390" height="76" rx="6"></rect>
+          <text class="lp-fig-t" x="266" y="146">LightCraft</text>
+          <text class="lp-fig-s" x="266" y="166">Develops the RAW data, then your edits</text>
+          <rect class="lp-fig-panel" x="266" y="178" width="270" height="8" rx="4"></rect>
+          <rect class="lp-fig-bar-dim" data-el="lc-bar" x="266" y="178" width="270" height="8" rx="4"></rect>
+          <text class="lp-fig-t" data-el="lc-time" x="556" y="166">1.88 s</text>
 
-          <text class="lp-fig-s" x="0" y="230">Time to show the next photo full size, median of 8 steps</text>
+          <text class="lp-fig-s" x="0" y="226">Bars run in real time. Median of 8 steps, Chromium, 24-megapixel Sony RAW files.</text>
         </svg>
+        <p class="lp-try-readout" aria-live="polite">Fit to window: LightPhotos shows the next photo in 0.53 s. LightCraft takes 1.88 s.</p>
         <figcaption>
-          Most of the speed gap comes from the starting point. LightPhotos
-          edits the JPEG that the camera already made. LightCraft develops
-          the RAW data itself every time.
+          Press Next photo to replay one step in real time. Zoomed in,
+          LightPhotos decodes the RAW data too.
         </figcaption>
       </figure>
 
-      <h2>What I learned</h2>
-      <ul class="lp-article-list">
-        <li>
-          <strong>The language does not decide much.</strong> The two apps
-          have the same language, the same interface library and the same
-          compile target. They still differ on threads, graphics, storage and
-          toolchain.
-        </li>
-        <li>
-          <strong>Most of the speed gap is a choice about the starting
-          point.</strong> Editing the camera's embedded JPEG is quicker than
-          developing the RAW data. At fit-to-window, the JPEG is enough to
-          judge a photo. The RAW data only becomes useful when you zoom in.
-        </li>
-        <li>
-          <strong>The clock bug is everywhere.</strong> While I measured,
-          LightCraft crashed on the same <code>Instant::now()</code> bug that
-          I wrote about in my last post. Nothing catches it until the code
-          runs in a browser.
-        </li>
-      </ul>
-
-      <h2>What they have in common</h2>
+      <h2>Same language, different answers</h2>
       <p>
-        They have a lot in common, and that made the comparison interesting.
-      </p>
-      <ul class="lp-article-list">
-        <li>
-          <strong>Rust, top to bottom.</strong> Decoding, editing, the
-          catalog and the interface are all Rust, with no JavaScript
-          framework.
-        </li>
-        <li>
-          <strong>egui for the interface.</strong> Both apps draw every
-          button and slider themselves on a canvas. They do it the same way
-          on the desktop and in the browser.
-        </li>
-        <li>
-          <strong>WebAssembly for the browser.</strong> The web version of
-          each app is its desktop app compiled to WebAssembly. It is not a
-          separate web app. A fix in one usually fixes the other.
-        </li>
-        <li>
-          <strong>About the same download.</strong> The downloads are
-          3.5&nbsp;MB and 3.8&nbsp;MB compressed. Each one still includes its
-          own RAW decoding and editing code.
-        </li>
-      </ul>
-
-      <h2>The main differences</h2>
-      <ul class="lp-article-list">
-        <li>
-          <strong>Your folders, directly.</strong> LightPhotos opens a folder
-          that you pick and works on the files where they are. So there is no
-          import step. LightCraft imports photos by copying them into the
-          browser's own storage. This keeps its library there after a reload.
-        </li>
-        <li>
-          <strong>Decode on zoom.</strong> Most cameras store a full-size
-          JPEG inside a RAW file. At fit-to-window, LightPhotos applies your
-          edits to that JPEG. It only decodes the RAW data when you zoom in.
-          LightCraft develops the RAW data for every view.
-        </li>
-        <li>
-          <strong>RAW decoder and license.</strong> LightPhotos's own code is
-          MIT or Apache-2.0. But it decodes RAW files with rawler, a library
-          under the LGPL-2.1. So the web build must state that it uses rawler
-          and include that license. (The Mac app decodes with Apple's own
-          ImageIO, so it does not include rawler.) LightCraft wrote its own
-          decoder. So its code is MIT or Apache-2.0, with no copyleft
-          libraries.
-        </li>
-        <li>
-          <strong>One tab or several.</strong> LightCraft allows only one tab
-          at a time, so two copies cannot overwrite each other's saves.
-          LightPhotos does not guard against that yet. Two tabs on the same
-          folder can each save over the other's edits to a photo.
-        </li>
-        <li>
-          <strong>WebGPU and WebGL2.</strong> LightPhotos draws with WebGPU,
-          the browser's newer graphics API. LightCraft uses WebGL2, which
-          more browsers support.
-        </li>
-        <li>
-          <strong>Threads and workers.</strong> LightPhotos runs its decodes
-          on threads that share one block of memory. LightCraft sends jobs to
-          up to four Web Workers, and each worker has its own memory.
-        </li>
-        <li>
-          <strong>Features.</strong> LightCraft has many more of them.
-          LightPhotos is for going through a folder fast, keeping the good
-          photos and giving them quick edits. LightCraft is a full
-          Lightroom-style editor. It has masks, tone curves, colour grading,
-          healing, lens corrections, presets, versions and history. It also
-          has HDR and panorama merges, and export to six formats. It also
-          organizes your photos into albums, smart albums and stacks.
-        </li>
-      </ul>
-
-      <figure class="lp-figure">
-        <svg viewBox="0 0 640 236" role="img" aria-label="Two ways to lay out the browser build. LightPhotos: the main thread reads your folder through the File System Access API. It gives file bytes to decode threads that share one block of memory, and it draws with WebGPU. It needs cross-origin isolation headers and a nightly Rust toolchain. LightCraft: the main thread copies imported photos into the browser's own storage. It sends jobs to up to four Web Workers, each with its own memory, and it draws with WebGL2. It needs no special headers and builds on stable Rust.">
-          <text class="lp-fig-label" x="0" y="12">LIGHTPHOTOS</text>
-          <rect class="lp-fig-box-accent" x="0" y="26" width="300" height="56" rx="6"></rect>
-          <text class="lp-fig-t" x="16" y="48">Main thread, WebGPU</text>
-          <text class="lp-fig-s" x="16" y="68">reads your folder in place</text>
-          <rect class="lp-fig-panel" x="0" y="92" width="300" height="70" rx="8"></rect>
-          <text class="lp-fig-t" x="16" y="114">6 decode threads</text>
-          <text class="lp-fig-s" x="16" y="134">one shared memory (SharedArrayBuffer)</text>
-          <text class="lp-fig-s" x="16" y="152">same queues as the desktop app</text>
-          <text class="lp-fig-s" x="0" y="186">Needs: COOP/COEP headers, nightly Rust</text>
-          <text class="lp-fig-s" x="0" y="204">Browsers: Chrome, Edge</text>
-
-          <text class="lp-fig-label" x="340" y="12">LIGHTCRAFT</text>
-          <rect class="lp-fig-box" x="340" y="26" width="300" height="56" rx="6"></rect>
-          <text class="lp-fig-t" x="356" y="48">Main thread, WebGL2</text>
-          <text class="lp-fig-s" x="356" y="68">copies photos into browser storage</text>
-          <rect class="lp-fig-panel" x="340" y="92" width="300" height="70" rx="8"></rect>
-          <text class="lp-fig-t" x="356" y="114">4 Web Workers</text>
-          <text class="lp-fig-s" x="356" y="134">each its own copy, its own memory</text>
-          <text class="lp-fig-s" x="356" y="152">jobs in as JSON, pixels back</text>
-          <text class="lp-fig-s" x="340" y="186">Needs: nothing special, stable Rust</text>
-          <text class="lp-fig-s" x="340" y="204">Browsers: no WebGPU or folder access needed</text>
-
-          <line class="lp-fig-line-soft" x1="320" y1="0" x2="320" y2="216"></line>
-        </svg>
-      </figure>
-
-      <p>
-        LightCraft's layout looks familiar. LightPhotos used it until late
-        September. I described it in <a
+        Both apps are Rust from top to bottom. Both draw their interface
+        with egui on a canvas, and each web version is its desktop app
+        compiled to WebAssembly. So the language does not decide much. The
+        apps still differ on storage, threads, graphics and toolchain, and
+        LightPhotos used LightCraft's layout until late September (see <a
         href="/blogs/challenges-with-webassembly.html">challenges with
-        WebAssembly</a>: separate workers, no shared memory and no special
-        headers.
-      </p>
-
-      <p>
-        Here are the differences in more detail:
+        WebAssembly</a>).
       </p>
       <div class="lp-compare-wrap">
         <table class="lp-compare">
@@ -232,13 +108,18 @@ import Base from "../../layouts/Base.astro";
             </tr>
             <tr>
               <th scope="row">Parallel work</th>
-              <td class="lp-compare-pick">Threads that share one memory</td>
-              <td>Up to 4 workers, each with its own memory</td>
+              <td class="lp-compare-pick">6 decode threads that share one memory, with the same queues as the desktop app</td>
+              <td>Up to 4 Web Workers, each with its own memory. Jobs go in as JSON, pixels come back</td>
             </tr>
             <tr>
               <th scope="row">Graphics</th>
-              <td class="lp-compare-pick">WebGPU</td>
-              <td>WebGL2</td>
+              <td class="lp-compare-pick">WebGPU, the newer API</td>
+              <td>WebGL2, which more browsers support</td>
+            </tr>
+            <tr>
+              <th scope="row">Browsers</th>
+              <td class="lp-compare-pick">Chrome, Edge</td>
+              <td>No WebGPU or folder access needed</td>
             </tr>
             <tr>
               <th scope="row">Rust toolchain</th>
@@ -247,7 +128,7 @@ import Base from "../../layouts/Base.astro";
             </tr>
             <tr>
               <th scope="row">Server headers</th>
-              <td class="lp-compare-pick">Required (cross-origin isolation)</td>
+              <td class="lp-compare-pick">Required (cross-origin isolation, COOP/COEP)</td>
               <td>Optional</td>
             </tr>
             <tr>
@@ -279,23 +160,30 @@ import Base from "../../layouts/Base.astro";
         </table>
       </div>
 
+      <p>
+        The Mac app decodes with Apple's ImageIO, so it does not include
+        rawler. LightCraft also has many more features. LightPhotos is for
+        going through a folder fast, keeping the good photos and giving them
+        quick edits. LightCraft is a full Lightroom-style editor, with masks,
+        tone curves, colour grading, healing, lens corrections, presets,
+        versions, history, HDR and panorama merges, export to six formats,
+        and albums, smart albums and stacks.
+      </p>
+
       <h2>How I measured</h2>
       <p>
         I built both apps from their current code and served each from its
-        own local address. I drove them with Playwright in Chromium 154 on an
-        M4 Pro Mac with 48&nbsp;GB of memory. The photos were twenty RAW
-        files from a Sony A7 II, 24 megapixels and about 25&nbsp;MB each.
-        Neither app had seen them before.
+        own local address. Playwright drove them in Chromium 154 on an M4 Pro
+        Mac with 48&nbsp;GB of memory. The photos were twenty new RAW files
+        from a Sony A7 II, 24 megapixels and about 25&nbsp;MB each.
       </p>
       <p>
-        A timer starts when I press the key. It stops when the screen stops
-        changing. Every 150&nbsp;ms the script takes a screenshot. When
-        three screenshots in a row match, it counts the step as done. That
-        is how <code>tools/web-bench</code> already measures LightPhotos, and
-        it works the same for any app. But it is coarse. Each number includes
+        A timer starts at the key press. Every 150&nbsp;ms the script takes
+        a screenshot, and a step is done when three screenshots in a row
+        match. <code>tools/web-bench</code> measures LightPhotos the same
+        way, and it works for any app. It is coarse: each number includes
         about 140&nbsp;ms of screenshot overhead. So compare the two apps
-        with each other, not with a stopwatch. For the next-photo number, I
-        pressed the right arrow eight times and took the median.
+        with each other, not with a stopwatch.
       </p>
 
       <h2>The numbers</h2>
@@ -338,126 +226,79 @@ import Base from "../../layouts/Base.astro";
         </table>
       </div>
 
-      <figure class="lp-figure">
-        <svg viewBox="0 0 640 172" role="img" aria-label="Time in seconds. Fill grid with 20 RAWs, total: LightPhotos 1.4, LightCraft 2.3. Next photo, each: LightPhotos 0.53, LightCraft 1.88.">
-          <text class="lp-fig-label" x="0" y="12">SECONDS, LOWER IS FASTER</text>
-
-          <text class="lp-fig-t" x="0" y="46">Fill grid with 20 RAWs, total</text>
-          <text class="lp-fig-s" x="0" y="66">LightPhotos</text>
-          <rect class="lp-fig-bar" x="120" y="58" width="244" height="10" rx="5"></rect>
-          <text class="lp-fig-s" x="372" y="67">1.4</text>
-          <text class="lp-fig-s" x="0" y="86">LightCraft</text>
-          <rect class="lp-fig-bar-dim" x="120" y="78" width="400" height="10" rx="5"></rect>
-          <text class="lp-fig-s" x="528" y="87">2.3</text>
-
-          <text class="lp-fig-t" x="0" y="122">Next photo full size, each</text>
-          <text class="lp-fig-s" x="0" y="142">LightPhotos</text>
-          <rect class="lp-fig-bar" x="120" y="134" width="92" height="10" rx="5"></rect>
-          <text class="lp-fig-s" x="220" y="143">0.53</text>
-          <text class="lp-fig-s" x="0" y="162">LightCraft</text>
-          <rect class="lp-fig-bar-dim" x="120" y="154" width="327" height="10" rx="5"></rect>
-          <text class="lp-fig-s" x="455" y="163">1.88</text>
-        </svg>
-      </figure>
-
       <p>
-        The two downloads are close. LightCraft includes a whole editing
-        pipeline and its own RAW decoder, and it is still only 0.3&nbsp;MB
-        bigger compressed. Its file would be bigger again with the Japanese
-        font that it embeds in release builds. I left that font out.
+        LightCraft includes a whole editing pipeline and its own RAW decoder,
+        and it is still only 0.3&nbsp;MB bigger compressed. Its release
+        builds also embed a Japanese font, which I left out.
       </p>
 
       <h2>Why the numbers differ</h2>
       <p>
-        The main reason is what each app starts from. Most cameras store a
-        full-size JPEG inside every RAW file. At fit-to-window, that JPEG has
-        more pixels than the screen can show. So when you open a photo,
-        LightPhotos decodes that JPEG and applies your sliders to it. Only
-        when you zoom in does it load the full decode. The full decode
-        demosaics the sensor data (turns it into a full colour image) at full
-        resolution.
-      </p>
-      <p>
-        LightCraft never starts from the camera's JPEG. Everything you see
-        comes out of its own pipeline, at every zoom level. So it develops
-        the RAW data for every view: demosaic, white balance, highlight
-        recovery, its colour model, then your edits. That is more work per
-        photo. But the colours you see at fit come from the same place as
-        the colours you get at 100%. It does all that in under two seconds,
+        At fit-to-window, the camera's embedded JPEG has more pixels than
+        the screen can show. So LightPhotos applies your sliders to it, and
+        it demosaics the sensor data (turns it into a full colour image)
+        only when you zoom in. LightCraft develops the RAW data for every
+        view. That is more work, but the colours at fit come from the same
+        place as the colours at 100%. It does all that in under two seconds,
         in a browser, on a 24-megapixel file. That is a good result.
       </p>
       <p>
-        Opening the folder is closer, and the reasons are the threads and
-        the copy. The LightPhotos decode threads pull thumbnails from one
-        shared queue, and the photo you are looking at gets priority. When I
-        moved to shared memory, the number of thumbnails decoding at once
-        went from 1 to 9. The cause was that the RAW library I use had
-        silently run every decode on a single fallback thread. LightCraft
-        copies all 498&nbsp;MB into the browser's storage while it imports.
-        That copy is part of its 2.3&nbsp;s, and it lets the library survive
-        a reload.
+        The grid is closer. The LightPhotos decode threads pull thumbnails
+        from one shared queue, and the photo on screen gets priority. When I
+        moved to shared memory, the number of thumbnails that decode at once
+        went from
+        1 to 9, because the RAW library had silently used a single fallback
+        thread. LightCraft copies all 498&nbsp;MB into the browser's storage
+        while it imports. That copy is part of its 2.3&nbsp;s, and it lets
+        the library survive a reload.
       </p>
 
       <h2>Why LightCraft uses more memory</h2>
       <p>
         Each LightCraft worker is a separate copy of the program with its
-        own memory. When a WebAssembly program grows its memory, the memory
-        never shrinks back. LightCraft also keeps recently used originals in
-        memory on the main thread. That is the 498&nbsp;MB of RAW files.
-        Four workers plus that come to 3.4&nbsp;GB.
+        own memory, and WebAssembly memory never shrinks after it grows. The
+        main thread also keeps recently used originals, the 498&nbsp;MB of
+        RAW files. Four workers plus that come to 3.4&nbsp;GB.
       </p>
       <p>
         Shared memory has a cost too. Each LightPhotos decode thread needs
-        about 300&nbsp;MB of scratch space for a RAW file. All of it comes
-        from one heap, and that heap has a limit of 4&nbsp;GB. With ten
-        threads, memory peaked at 3.4&nbsp;GB, the same as LightCraft here.
-        So I limited the browser build to six threads. That is where the
-        1.9&nbsp;GB comes from.
+        about 300&nbsp;MB of scratch space for a RAW file, all from one heap
+        with a limit of 4&nbsp;GB. With ten threads, memory peaked at
+        3.4&nbsp;GB. So I limited the browser build to six threads, which
+        gives the 1.9&nbsp;GB.
       </p>
 
       <h2>The same bug, again</h2>
       <p>
         The first time I imported the RAW files into LightCraft, all four
         workers stopped, and then the page stopped. The console said
-        <code>time not implemented on this platform</code>.
+        <code>time not implemented on this platform</code>. That is the bug
+        from my last post: Rust's standard <code>Instant::now()</code>
+        crashes in the browser instead of returning an error.
       </p>
       <p>
-        That is the bug from my last post. Rust's standard
-        <code>Instant::now()</code> crashes in the browser instead of
-        returning an error. LightCraft already uses a small library that
-        asks the browser's clock everywhere else. But one timer in its RAW
-        loader still called the standard one. Tests run on the desktop, where
-        that call works. And the built-in demo photos are not RAW files. So
-        the bug only appeared when a real RAW file came in.
+        LightCraft uses the browser's clock everywhere else, but one timer
+        in its RAW loader still called the standard one. Tests run on the
+        desktop, and the demo photos are not RAW files, so only a real RAW
+        file showed the bug. The fix is one line. I made it in my local
+        copy, so the LightCraft numbers include it.
       </p>
       <p>
-        A switch to the browser-safe clock is a one-line fix. I made it in
-        my local copy to finish the measurements. So the LightCraft numbers
-        here include that change.
-      </p>
-      <p>
-        Both apps hit the same problem in the same way. So I do not think it
-        is about being careful. A compiler will not catch it. A test only
-        catches it if the test runs in a browser. The better fix is a lint
-        that rejects <code>std::time::Instant::now</code> completely. Then
-        the mistake cannot get in at all.
+        Both apps hit this bug in the same way, so I do not think care is
+        the answer. A compiler will not catch it, and a test only catches it
+        in a browser. The better fix is a lint that rejects
+        <code>std::time::Instant::now</code> completely.
       </p>
 
       <h2>Wrapping up</h2>
       <p>
-        Two apps with the same language and the same interface library found
-        quite different answers to the same browser problems. LightPhotos
-        relies on the camera's JPEG, your own folders and shared memory. So
-        it feels quick when you go through a shoot. LightCraft takes on the
-        whole RAW pipeline and a full Lightroom-style feature set. Its
-        library lives in the browser, and its build needs no special server
-        configuration. And it got all of that working in about a week.
-      </p>
-      <p>
-        I learned something from each app, and I look forward to seeing
-        where LightCraft goes. Both also run as desktop apps on Mac, Windows
-        and Linux. There, neither app has to live with the browser's limits.
-        That comparison is next.
+        LightPhotos relies on the camera's JPEG, your own folders and shared
+        memory, so it feels quick when you go through a shoot. LightCraft
+        takes on the whole RAW pipeline and a full Lightroom-style feature
+        set, keeps its library in the browser and needs no special server
+        configuration. It got all of that working in about a week. I look
+        forward to seeing where it goes. Both also run on Mac, Windows and
+        Linux, and that comparison is next.
       </p>
 
       <nav class="lp-article-nav" aria-label="More posts">
@@ -472,4 +313,77 @@ import Base from "../../layouts/Base.astro";
       </nav>
     </article>
   </main>
+  <script>
+    // Replays one "next photo" step in real time, at fit or zoomed in.
+    const fig = document.getElementById("start-demo");
+    if (fig) {
+      const el = (name: string) => fig.querySelector(`[data-el="${name}"]`) as SVGElement;
+      const readout = fig.querySelector(".lp-try-readout") as HTMLElement;
+      const viewBtns = fig.querySelectorAll<HTMLButtonElement>("[data-view]");
+      const nextBtn = fig.querySelector('[data-act="next"]') as HTMLButtonElement;
+      const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+      const LP = 0.53; // s, LightPhotos at fit (median of 8)
+      const LC = 1.88; // s, LightCraft (median of 8)
+      const PX_PER_S = 270 / LC;
+      let zoom = false;
+      let frame = 0;
+
+      const setBar = (name: string, t: number) => el(name).setAttribute("width", String(Math.max(0, t * PX_PER_S)));
+      const fmt = (t: number) => `${t.toFixed(2)} s`;
+
+      function draw(t: number) {
+        const lc = Math.min(t, LC);
+        setBar("lc-bar", lc);
+        el("lc-time").textContent = fmt(lc);
+        if (zoom) {
+          setBar("lp-bar", 0);
+          el("lp-time").textContent = "not timed";
+        } else {
+          const lp = Math.min(t, LP);
+          setBar("lp-bar", lp);
+          el("lp-time").textContent = fmt(lp);
+        }
+      }
+
+      function summary() {
+        readout.textContent = zoom
+          ? "Zoomed in: LightPhotos now decodes the RAW data too. I did not time this case. LightCraft does the same work at every zoom level."
+          : "Fit to window: LightPhotos shows the next photo in 0.53 s. LightCraft takes 1.88 s, 1.35 s more.";
+      }
+
+      function setView(isZoom: boolean) {
+        cancelAnimationFrame(frame);
+        zoom = isZoom;
+        viewBtns.forEach((b) => b.setAttribute("aria-pressed", String((b.dataset.view === "zoom") === zoom)));
+        el("jpeg").setAttribute("class", zoom ? "lp-fig-box" : "lp-fig-box-accent");
+        el("from-jpeg").setAttribute("opacity", zoom ? "0" : "1");
+        el("from-raw").setAttribute("opacity", zoom ? "1" : "0");
+        el("lp-work").textContent = zoom ? "Decodes the RAW data at full size" : "Your edits on the camera's JPEG";
+        draw(LC);
+        summary();
+      }
+
+      function run() {
+        cancelAnimationFrame(frame);
+        if (reduce.matches) {
+          draw(LC);
+          summary();
+          return;
+        }
+        readout.textContent = "Next photo…";
+        const start = performance.now();
+        const tick = (now: number) => {
+          const t = Math.max(0, now - start) / 1000;
+          draw(t);
+          if (t < LC) frame = requestAnimationFrame(tick);
+          else summary();
+        };
+        frame = requestAnimationFrame(tick);
+      }
+
+      viewBtns.forEach((b) => b.addEventListener("click", () => setView(b.dataset.view === "zoom")));
+      nextBtn.addEventListener("click", run);
+    }
+  </script>
 </Base>
