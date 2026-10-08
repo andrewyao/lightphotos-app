@@ -1,0 +1,389 @@
+---
+import Base from "../../layouts/Base.astro";
+---
+<Base
+  title="Two Rust photo apps on the Mac — LightPhotos Blog"
+  desc="The same comparison as last time, on the desktop. On the Mac, LightPhotos hands every decode to Apple's ImageIO while LightCraft does it all in its own Rust, and that changes which one is faster, and where."
+  active="blogs"
+>
+  <main class="lp-page">
+    <article class="lp-article">
+      <header class="lp-article-head">
+        <p class="lp-article-meta"><a href="/blogs.html">Blogs</a> &middot; <time datetime="2026-10-07">October 7, 2026</time></p>
+        <h1>Two Rust photo apps on the Mac</h1>
+        <p class="lp-article-dek">
+          The same comparison as <a
+          href="/blogs/two-rust-photo-apps-in-the-browser.html">last
+          time</a>, on the desktop. On the Mac, LightPhotos hands every
+          decode to Apple's ImageIO while
+          <a href="https://github.com/storytold/lightcraft">LightCraft</a>
+          does it all in its own Rust, and that changes which one is faster,
+          and where.
+        </p>
+        <p class="lp-article-byline">Andrew Yao &middot; 9 min read</p>
+      </header>
+
+      <aside class="lp-tldr">
+        <p class="lp-tldr-label">TL;DR</p>
+        <p>
+          On the same twenty Sony RAW files, LightPhotos filled its grid in
+          0.73&nbsp;s to LightCraft's 1.24&nbsp;s, and used 0.9&nbsp;GB of
+          memory to its 1.7&nbsp;GB, from a 14&nbsp;MB app to its
+          43&nbsp;MB. Stepping to the next photo
+          went the other way. Both reacted in about 0.35&nbsp;s, but
+          LightCraft was finished in 0.38&nbsp;s and LightPhotos took
+          1.1&nbsp;s. LightCraft fully develops the photos on either side of
+          the one you're looking at. LightPhotos only gets their embedded
+          JPEGs ready, and asks ImageIO to develop the RAW data once you
+          arrive.
+        </p>
+      </aside>
+
+      <h2>What I learned</h2>
+      <ul class="lp-article-list">
+        <li>
+          <strong>The next-photo result flipped.</strong> In the browser,
+          LightPhotos finished the next photo in 0.53&nbsp;s and LightCraft
+          in 1.88&nbsp;s. On the Mac, LightCraft finishes in 0.38&nbsp;s and
+          LightPhotos in 1.1&nbsp;s, though both put something on screen in
+          about 0.35&nbsp;s. A Retina
+          window wants more pixels than the camera's JPEG has, so on the Mac
+          LightPhotos develops the RAW data too, and it does that only once
+          you arrive.
+        </li>
+        <li>
+          <strong>Two ways to step through a shoot.</strong> LightCraft
+          develops the next and previous photos while you look at the current
+          one, so each step is finished the moment you arrive. LightPhotos
+          only does the work for the photo you're on. It shows something just
+          as fast, and does less work you never see.
+        </li>
+        <li>
+          <strong>ImageIO still pays for itself.</strong> It makes LightPhotos
+          small, makes its thumbnails nearly free, and reads HEIC and Canon
+          CR3 files, which LightCraft can't fully decode yet.
+        </li>
+      </ul>
+
+      <h2>What changes on the desktop</h2>
+      <p>
+        In the browser, the interesting differences were about threads,
+        workers and storage. On the desktop those mostly go away: both apps
+        are ordinary Rust programs that use every core and draw with
+        <code>wgpu</code> on Metal. What's left is the difference that matters
+        most for a photo app, which is where the pixels come from.
+      </p>
+      <ul class="lp-article-list">
+        <li>
+          <strong>LightPhotos uses ImageIO for everything.</strong> On the
+          Mac, every JPEG, HEIC and RAW file goes through Apple's ImageIO, the
+          same library Preview and Photos use. The RAW library the other
+          builds use isn't even compiled in. I wrote about what that one call
+          does in <a href="/blogs/what-imageio-gives-you-free.html">What
+          ImageIO gives you free</a>.
+        </li>
+        <li>
+          <strong>LightCraft brings its own.</strong> It runs the same
+          decoders on the Mac as everywhere else: its own RAW decoder and
+          demosaic, and Rust libraries for JPEG, PNG, TIFF, WebP and JPEG XL.
+          A photo looks the same on every platform, and LightCraft doesn't
+          depend on what Apple supports.
+        </li>
+        <li>
+          <strong>Both read your folders in place.</strong> LightPhotos opens
+          a folder and keeps its thumbnail cache beside the photos.
+          LightCraft adds them to a library catalog, without copying them
+          unless you ask it to.
+        </li>
+        <li>
+          <strong>LightCraft has far more finished features.</strong>
+          LightPhotos is for going through a folder fast, keeping the good
+          ones and giving them quick edits, and much of what a full editor
+          does isn't there yet. LightCraft is already a full Lightroom-style
+          editor: masks, tone curves, colour grading, healing, lens
+          corrections, presets, versions and history, HDR and panorama
+          merges, albums and stacks, and export to six formats. Keep that in
+          mind with every number below.
+        </li>
+      </ul>
+
+      <div class="lp-compare-wrap">
+        <table class="lp-compare">
+          <thead>
+            <tr>
+              <th scope="col"></th>
+              <th scope="col" class="lp-compare-pick">LightPhotos</th>
+              <th scope="col">LightCraft</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Decoding</th>
+              <td class="lp-compare-pick">Apple's ImageIO, for every format</td>
+              <td>Its own, in Rust, for every format</td>
+            </tr>
+            <tr>
+              <th scope="row">A RAW at fit-to-window</th>
+              <td class="lp-compare-pick">The embedded JPEG, then ImageIO's develop at the window's size</td>
+              <td>Its own develop, up to 2560&nbsp;px</td>
+            </tr>
+            <tr>
+              <th scope="row">The photos either side</th>
+              <td class="lp-compare-pick">Embedded JPEG ready</td>
+              <td>Fully developed</td>
+            </tr>
+            <tr>
+              <th scope="row">HEIC</th>
+              <td class="lp-compare-pick">Yes</td>
+              <td>Not yet</td>
+            </tr>
+            <tr>
+              <th scope="row">Canon CR3</th>
+              <td class="lp-compare-pick">Yes</td>
+              <td>Embedded preview only</td>
+            </tr>
+            <tr>
+              <th scope="row">Your photos</th>
+              <td class="lp-compare-pick">A folder, read in place</td>
+              <td>A library catalog, files left in place</td>
+            </tr>
+            <tr>
+              <th scope="row">License</th>
+              <td class="lp-compare-pick">MIT or Apache-2.0, with no copyleft libraries in the Mac app</td>
+              <td>MIT or Apache-2.0</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>How I measured</h2>
+      <p>
+        I built both from their current code with each project's own release
+        script, the one that makes the download, and ran them on the same
+        M4 Pro Mac with 48&nbsp;GB of memory, on macOS 26.3. The photos were
+        the same twenty Sony A7 II RAW files as last time, copied to a new
+        folder for every run so that no cache had seen them. Each app also
+        got a fresh home folder, so it started with its default settings, and
+        a window of 1600 by 1000 points.
+      </p>
+      <p>
+        The method is the browser one, moved to the desktop. A script
+        launches the app on the folder, double-clicks the first photo, then
+        presses the right arrow eight times. It captures the window every
+        150&nbsp;ms and calls a step done once nothing has changed for three
+        seconds. This time it also records the first capture that changed, so
+        you can see when the app reacted as well as when it finished. Each
+        number is the median of five runs. The runs agreed to within a few
+        percent, except one of LightCraft's opens, which took 0.86&nbsp;s.
+        Every capture takes about 0.23&nbsp;s, so nothing measures
+        below about 0.35&nbsp;s. The script is <code>tools/desktop-bench</code>,
+        and it only looks at the window, so it works on any Mac app.
+      </p>
+
+      <h2>The numbers</h2>
+      <div class="lp-compare-wrap">
+        <table class="lp-compare">
+          <thead>
+            <tr>
+              <th scope="col"></th>
+              <th scope="col" class="lp-compare-pick">LightPhotos</th>
+              <th scope="col">LightCraft</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Download (.dmg)</th>
+              <td class="lp-compare-pick">7.3&nbsp;MB</td>
+              <td>15.2&nbsp;MB</td>
+            </tr>
+            <tr>
+              <th scope="row">App, installed</th>
+              <td class="lp-compare-pick">14&nbsp;MB</td>
+              <td>43&nbsp;MB</td>
+            </tr>
+            <tr>
+              <th scope="row">Launch to window</th>
+              <td class="lp-compare-pick">0.31&nbsp;s</td>
+              <td>0.43&nbsp;s</td>
+            </tr>
+            <tr>
+              <th scope="row">Launch to finished grid, 20 RAWs</th>
+              <td class="lp-compare-pick">0.73&nbsp;s</td>
+              <td>1.24&nbsp;s</td>
+            </tr>
+            <tr>
+              <th scope="row">Open the first photo: reacts / finished</th>
+              <td class="lp-compare-pick">0.42 / 1.12&nbsp;s</td>
+              <td>0.48 / 0.51&nbsp;s</td>
+            </tr>
+            <tr>
+              <th scope="row">Next photo, each (median of 8): reacts / finished</th>
+              <td class="lp-compare-pick">0.35 / 1.11&nbsp;s</td>
+              <td>0.37 / 0.38&nbsp;s</td>
+            </tr>
+            <tr>
+              <th scope="row">Memory afterwards</th>
+              <td class="lp-compare-pick">0.9&nbsp;GB</td>
+              <td>1.7&nbsp;GB</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <figure class="lp-figure">
+        <svg viewBox="0 0 640 248" role="img" aria-label="Time in seconds. Launch to finished grid: LightPhotos 0.73, LightCraft 1.24. Next photo, reacts: LightPhotos 0.35, LightCraft 0.37. Next photo, finished: LightPhotos 1.11, LightCraft 0.38.">
+          <text class="lp-fig-label" x="0" y="12">SECONDS, LOWER IS FASTER</text>
+
+          <text class="lp-fig-t" x="0" y="46">Launch to finished grid</text>
+          <text class="lp-fig-s" x="0" y="66">LightPhotos</text>
+          <rect class="lp-fig-bar" x="120" y="58" width="234" height="10" rx="5"></rect>
+          <text class="lp-fig-s" x="362" y="67">0.73</text>
+          <text class="lp-fig-s" x="0" y="86">LightCraft</text>
+          <rect class="lp-fig-bar-dim" x="120" y="78" width="400" height="10" rx="5"></rect>
+          <text class="lp-fig-s" x="528" y="87">1.24</text>
+
+          <text class="lp-fig-t" x="0" y="122">Next photo, reacts</text>
+          <text class="lp-fig-s" x="0" y="142">LightPhotos</text>
+          <rect class="lp-fig-bar" x="120" y="134" width="113" height="10" rx="5"></rect>
+          <text class="lp-fig-s" x="241" y="143">0.35</text>
+          <text class="lp-fig-s" x="0" y="162">LightCraft</text>
+          <rect class="lp-fig-bar-dim" x="120" y="154" width="119" height="10" rx="5"></rect>
+          <text class="lp-fig-s" x="247" y="163">0.37</text>
+
+          <text class="lp-fig-t" x="0" y="198">Next photo, finished</text>
+          <text class="lp-fig-s" x="0" y="218">LightPhotos</text>
+          <rect class="lp-fig-bar" x="120" y="210" width="358" height="10" rx="5"></rect>
+          <text class="lp-fig-s" x="486" y="219">1.11</text>
+          <text class="lp-fig-s" x="0" y="238">LightCraft</text>
+          <rect class="lp-fig-bar-dim" x="120" y="230" width="123" height="10" rx="5"></rect>
+          <text class="lp-fig-s" x="251" y="239">0.38</text>
+        </svg>
+      </figure>
+
+      <p>
+        One caveat on the grid. LightCraft opens its grid scrolled to the
+        end, so at this window size 11 of the 20 thumbnails were on screen,
+        and its 1.24&nbsp;s is for those 11. LightPhotos showed all 20.
+      </p>
+
+      <h2>Why the next photo flipped</h2>
+      <p>
+        I turned on both apps' timing logs for this part. When you step to
+        a photo, LightPhotos shows the JPEG the camera embedded in the RAW
+        file within about 20&nbsp;ms. That's why both apps react at the same
+        time: the first change you see is at the measurement floor either
+        way.
+      </p>
+      <p>
+        But the A7 II's embedded JPEG is only 1616&nbsp;px wide, and on a
+        Retina screen this window's photo area is 3584&nbsp;px wide. So
+        LightPhotos then asks ImageIO to develop the RAW data at that size,
+        which took 0.5 to 0.6&nbsp;s per photo. It already has the embedded
+        JPEGs of the photos on either side, but it doesn't start that develop
+        until you arrive, so every step pays for it.
+      </p>
+      <p>
+        LightCraft develops the RAW data itself, at up to 2560&nbsp;px, which
+        is about half as many pixels. Once a photo is on screen, it decodes
+        and develops the next and previous ones in the background and keeps
+        them ready. Pressing the arrow then costs only a GPU pass of about
+        35&nbsp;ms, which is why its 0.38&nbsp;s is right at the floor. My
+        script spends a few seconds on each photo, which gives it time to get
+        ahead, and that's about the pace of someone looking at each one.
+        Holding the arrow key down could outrun it. I didn't measure that.
+      </p>
+      <p>
+        I don't think either is the wrong choice. Preparing both neighbours
+        means at least one of the two develops is thrown away on every step,
+        and when you hold the arrow key or jump around the grid, most of them
+        are. That's CPU time and battery spent on photos you never look at.
+        Meanwhile LightPhotos has something on screen in the same time as
+        LightCraft, and the camera's JPEG is plenty to judge framing and
+        expression, which is most of culling. The half second after that is
+        the photo sharpening to full Retina detail while you're already
+        looking at it.
+      </p>
+      <p>
+        If LightPhotos did prepare its neighbours, it wouldn't cost what it
+        costs LightCraft, since it keeps finished 8-bit images: about
+        34&nbsp;MB each at this size, so roughly 70&nbsp;MB for two. Whether
+        that's worth the wasted develops depends on how people move through a
+        folder, and that's worth measuring before changing anything.
+      </p>
+
+      <h2>Why the grid and the memory go the other way</h2>
+      <p>
+        For a grid thumbnail, LightPhotos asks ImageIO for an image no bigger
+        than the thumbnail, and ImageIO answers from the JPEG embedded in the
+        RAW file. That took 12 to 22&nbsp;ms per file here, which is how
+        twenty RAW files fill the grid in under a second. LightCraft also
+        shows each file's embedded JPEG first, then replaces it with its own
+        thumbnail developed from the RAW data. Its grid isn't finished until
+        those land.
+      </p>
+      <p>
+        Part of the memory gap is preparing ahead, and part is what each app
+        keeps. LightCraft keeps the decoded RAW data for the current photo
+        and both neighbours as 32-bit floating-point RGB, 12 bytes a pixel,
+        about 52&nbsp;MB each at 2560&nbsp;px. That's what lets its sliders
+        work on the full range of the sensor: highlights above white, and
+        exposure changes without banding. On the Mac, LightPhotos gets
+        finished 8-bit images from ImageIO, 4 bytes a pixel, and for the
+        neighbours keeps only their small embedded JPEGs. On screen the two
+        look the same. Those sources only account for about 150&nbsp;MB of
+        the 0.8&nbsp;GB difference, though, and I didn't break down the
+        rest.
+      </p>
+      <p>
+        The app size is ImageIO again. LightCraft ships its own decoders for
+        RAW, JPEG, JPEG XL and more, plus its own colour management, and its
+        release build skips link-time optimisation and keeps some debug
+        information. LightPhotos uses the
+        decoders that already come with macOS, so they cost it nothing.
+      </p>
+
+      <h2>What ImageIO costs</h2>
+      <p>
+        ImageIO isn't free in every sense. The photos look the way Apple
+        develops them, which isn't the same as LightPhotos on Linux, Windows
+        or the browser. LightPhotos only supports the cameras Apple supports,
+        when Apple supports them. And when ImageIO gets a file wrong, I can't
+        fix it.
+      </p>
+      <p>
+        LightCraft gets the opposite trade. One decoder and one develop on
+        every platform means the same photo looks the same everywhere, and a
+        bug in it is one LightCraft can fix. The cost is a bigger app and the
+        formats it hasn't written yet. HEIC needs an HEVC decoder, and there
+        isn't a pure-Rust, permissively licensed one yet. CR3 shows only its
+        embedded preview for now.
+      </p>
+
+      <h2>Wrapping up</h2>
+      <p>
+        On the Mac, LightPhotos leans on the operating system and LightCraft
+        leans on itself, and the numbers follow. LightPhotos is smaller,
+        starts faster, fills its grid faster and uses less memory, because
+        Apple already did that work. Part of it is also that LightPhotos
+        simply does less: a much smaller feature set fits in a smaller app.
+        LightCraft is faster where it decided to do more work ahead of time,
+        looks the same on every platform, and does far more once you start
+        editing.
+      </p>
+      <p>
+        Stepping through photos shows the same split in miniature. LightCraft
+        spends memory and work up front so every step is finished on
+        arrival. LightPhotos does only what you ask for and shows the
+        camera's JPEG while it catches up. Both feel fast, for different
+        reasons.
+      </p>
+
+      <nav class="lp-article-nav" aria-label="More posts">
+        <a class="lp-article-nav-prev" href="/blogs/two-rust-photo-apps-in-the-browser.html">
+          <span class="lp-article-nav-dir">Back</span>
+          <span class="lp-article-nav-title">Two Rust photo apps in the browser</span>
+        </a>
+      </nav>
+    </article>
+  </main>
+</Base>
