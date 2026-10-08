@@ -20,6 +20,9 @@ let buildVersion = "dev";
 try {
   buildVersion = execSync("git rev-parse --short HEAD", { cwd: import.meta.dirname }).toString().trim();
 } catch (e) {}
+
+// Server invite, not a channel link: channel URLs only open for existing members.
+const DISCORD_INVITE = "https://discord.gg/rJh6NNW9u";
 ---
 <!doctype html>
 <html lang="en">
@@ -64,6 +67,9 @@ try {
         <i class="ph ph-moon" aria-hidden="true"></i>
       </button>
     </div>
+    <a class="lp-discord" href={DISCORD_INVITE} target="_blank" rel="noopener" aria-label="Join the LightPhotos Discord" title="Discord">
+      <i class="ph ph-discord-logo" aria-hidden="true"></i>
+    </a>
     </div>
   </header>
 

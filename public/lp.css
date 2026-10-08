@@ -38,6 +38,7 @@
 .ph.ph-download-simple:before { content: "\e20c"; }
 .ph.ph-article:before { content: "\e0a8"; }
 .ph.ph-question:before { content: "\e3e8"; }
+.ph.ph-discord-logo:before { content: "\e61a"; }
 .ph-bold.ph-download-simple:before { content: "\e20c"; }
 .ph-bold.ph-pencil-simple:before { content: "\e3b4"; }
 .ph-bold.ph-book-open:before { content: "\e0e6"; }
@@ -164,7 +165,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1rem;
+  gap: 0.5rem;
   padding: 1.1rem clamp(1.25rem, 4vw, 2.5rem);
   background: color-mix(in srgb, var(--lp-bg) 82%, transparent);
   backdrop-filter: blur(8px);
@@ -196,7 +197,7 @@ body {
 .lp-header-right {
   display: flex;
   align-items: center;
-  gap: 0.65rem;
+  gap: 0.4rem;
 }
 
 .lp-site-header nav {
@@ -245,6 +246,19 @@ body {
 .lp-theme-toggle button:focus-visible {
   outline: 2px solid var(--lp-accent);
   outline-offset: 2px;
+}
+
+.lp-discord {
+  display: flex;
+  font-size: 1.25rem;
+  color: var(--lp-muted);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.lp-discord:hover,
+.lp-discord:focus-visible {
+  color: var(--lp-ink);
 }
 
 .lp-site-header nav a {
@@ -297,6 +311,10 @@ body {
 @media (min-width: 620px) {
   .lp-brand {
     font-size: 1.25rem;
+  }
+
+  .lp-site-header {
+    gap: 1rem;
   }
 
   .lp-header-right {
