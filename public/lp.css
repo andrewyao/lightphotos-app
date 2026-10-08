@@ -39,7 +39,6 @@
 .ph.ph-article:before { content: "\e0a8"; }
 .ph.ph-question:before { content: "\e3e8"; }
 .ph.ph-discord-logo:before { content: "\e61a"; }
-.ph.ph-github-logo:before { content: "\e576"; }
 .ph-bold.ph-download-simple:before { content: "\e20c"; }
 .ph-bold.ph-pencil-simple:before { content: "\e3b4"; }
 .ph-bold.ph-book-open:before { content: "\e0e6"; }
@@ -309,6 +308,13 @@ body {
 
 .lp-nav-glyph i {
   font-size: 1.2rem;
+}
+
+/* GitHub mark: same inline SVG as the home page hero link. Phosphor's
+ * github-logo is a line-drawn cat that does not read as GitHub. */
+.lp-nav-glyph svg {
+  width: 1.05rem;
+  height: 1.05rem;
 }
 
 .lp-site-header nav a {
