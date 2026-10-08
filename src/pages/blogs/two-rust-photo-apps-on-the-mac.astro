@@ -20,7 +20,7 @@ import Base from "../../layouts/Base.astro";
           does every decode in its own Rust. That changes which app is faster,
           and where.
         </p>
-        <p class="lp-article-byline">Andrew Yao &middot; 7 min read</p>
+        <p class="lp-article-byline">Andrew Yao &middot; 9 min read</p>
       </header>
 
       <aside class="lp-tldr">
@@ -193,6 +193,44 @@ import Base from "../../layouts/Base.astro";
           </tbody>
         </table>
       </div>
+
+      <h2>Import is still a big difference</h2>
+      <p>
+        On the desktop, both apps can leave your files where they are. The
+        difference is in what each app remembers about them.
+      </p>
+      <p>
+        LightCraft keeps a library, the way Lightroom does. A
+        <code>LightCraft Library</code> folder holds the catalog, presets,
+        thumbnail cache and, if you ask for them, copies of your photos. The
+        import dialog scans a folder and its subfolders, skips files that are
+        already in the catalog by their content, and reads any XMP sidecars.
+        Then it adds each photo in place, copies it into
+        <code>Originals/YYYY/YYYY-MM-DD/</code>, or moves it there. Even
+        <strong>Browse Folder…</strong>, which looks at a folder without
+        importing it, records what it sees in the catalog, and forgets those
+        records later if you did not change them. One catalog knows every
+        photo, so searches, albums, smart albums and stacks can span all of
+        them.
+      </p>
+      <p>
+        LightPhotos deliberately has no catalog. There is no list of your
+        folders and no import step. You open a folder, and everything the app
+        knows about it is in the <code>.lightphotos</code> folder inside it.
+        I tried a central catalog first, and it lost track of ratings every
+        time someone moved a folder to another drive (see <a
+        href="/blogs/where-your-data-lives.html">where your data lives</a>).
+        With nothing central, there is nothing to get out of step with the
+        disk. You can move, copy, rename or delete a folder in Finder, and
+        the app does not need to know.
+      </p>
+      <p>
+        The cost is that LightPhotos sees one folder at a time. It cannot
+        search across a year of shoots or put photos from two folders in one
+        album. The next step is to let you open several folders at once,
+        not to add a catalog. Each folder will still own its own data, and
+        the app will only remember which folders you have open.
+      </p>
 
       <h2>How I measured</h2>
       <p>

@@ -18,7 +18,7 @@ import Base from "../../layouts/Base.astro";
           LightPhotos. I include some measurements, but they are not a fully
           equal comparison.
         </p>
-        <p class="lp-article-byline">Andrew Yao &middot; 6 min read</p>
+        <p class="lp-article-byline">Andrew Yao &middot; 8 min read</p>
       </header>
 
       <aside class="lp-tldr">
@@ -168,6 +168,105 @@ import Base from "../../layouts/Base.astro";
         tone curves, colour grading, healing, lens corrections, presets,
         versions, history, HDR and panorama merges, export to six formats,
         and albums, smart albums and stacks.
+      </p>
+
+      <h2>Import is the biggest difference</h2>
+      <p>
+        The row in the table that you feel first is the one about your
+        photos. The two apps answer "where are my photos?" in opposite ways.
+      </p>
+
+      <figure class="lp-figure lp-try" id="import-demo">
+        <div class="lp-try-controls" role="group" aria-label="What you do">
+          <button type="button" class="lp-try-btn" data-act="open" aria-pressed="true">Open 20 photos</button>
+          <button type="button" class="lp-try-btn" data-act="reload" aria-pressed="false">Reload the page</button>
+          <button type="button" class="lp-try-btn" data-act="clear" aria-pressed="false">Clear site data</button>
+          <button type="button" class="lp-try-btn" data-act="other" aria-pressed="false">Use Firefox or Safari</button>
+        </div>
+        <svg viewBox="0 0 640 252" role="img" aria-label="Where each app keeps your photos. LightPhotos reads the folder on your disk in place and saves its data in a .lightphotos folder inside it. LightCraft copies the 498 megabytes of photos into the browser's own storage. The result for each app changes with the selected action.">
+          <text class="lp-fig-label" x="0" y="12">YOUR DISK</text>
+          <text class="lp-fig-label" x="340" y="12">BROWSER STORAGE (OPFS)</text>
+
+          <rect class="lp-fig-panel" x="0" y="24" width="300" height="108" rx="8"></rect>
+          <text class="lp-fig-mono lp-fig-t" x="14" y="46">~/Pictures/Iceland/</text>
+          <text class="lp-fig-s" x="14" y="66">20 Sony RAW files, 498 MB</text>
+          <g data-el="side">
+            <rect class="lp-fig-box-accent" x="14" y="78" width="272" height="42" rx="5"></rect>
+            <text class="lp-fig-mono lp-fig-s" x="24" y="95">.lightphotos/</text>
+            <text class="lp-fig-s" x="24" y="111">LightPhotos: ratings, edits, thumbnails</text>
+          </g>
+
+          <g data-el="copy">
+            <text class="lp-fig-s" x="304" y="54">copy</text>
+            <path class="lp-fig-line" d="M300 64 H330"></path>
+            <path class="lp-fig-arrow" d="M330 59 L340 64 L330 69 Z"></path>
+          </g>
+
+          <rect class="lp-fig-box" data-el="opfs" x="340" y="24" width="300" height="108" rx="8"></rect>
+          <text class="lp-fig-t" x="354" y="46">LightCraft library</text>
+          <text class="lp-fig-s" x="354" y="66">Catalog, presets, settings</text>
+          <rect class="lp-fig-panel" x="354" y="82" width="272" height="10" rx="5"></rect>
+          <rect class="lp-fig-bar" data-el="bar" x="354" y="82" width="272" height="10" rx="5"></rect>
+          <text class="lp-fig-s" data-el="size" x="354" y="116">Originals by content hash: 498 MB</text>
+          <path class="lp-fig-bad-stroke" data-el="opfs-x" d="M604 36 L624 56 M624 36 L604 56" display="none"></path>
+
+          <text class="lp-fig-label" x="0" y="160">RESULT</text>
+          <text class="lp-fig-t" x="0" y="186">LightPhotos</text>
+          <circle class="lp-fig-good" data-el="lp-ok" cx="122" cy="182" r="4"></circle>
+          <path class="lp-fig-bad-stroke" data-el="lp-bad" d="M118 178 L126 186 M126 178 L118 186" display="none"></path>
+          <text class="lp-fig-s" data-el="lp-1" x="136" y="186">Reads the folder in place. 0 MB copied.</text>
+          <text class="lp-fig-s" data-el="lp-2" x="136" y="202">The browser asks once for access to it.</text>
+
+          <text class="lp-fig-t" x="0" y="230">LightCraft</text>
+          <circle class="lp-fig-good" data-el="lc-ok" cx="122" cy="226" r="4"></circle>
+          <path class="lp-fig-bad-stroke" data-el="lc-bad" d="M118 222 L126 230 M126 222 L118 230" display="none"></path>
+          <text class="lp-fig-s" data-el="lc-1" x="136" y="230">Copies all 498 MB into browser storage.</text>
+          <text class="lp-fig-s" data-el="lc-2" x="136" y="246">The copy is part of its 2.3 s to fill the grid.</text>
+        </svg>
+        <p class="lp-try-readout" aria-live="polite">LightPhotos reads the photos where they are. LightCraft copies 498 MB first.</p>
+        <figcaption>
+          Pick what you do. The original files on your disk are never
+          changed by either app.
+        </figcaption>
+      </figure>
+      <p>
+        LightPhotos does not import. <strong>Open Folder</strong> calls the
+        browser's <code>showDirectoryPicker</code>, you grant access to one
+        folder, and the app reads the files where they are. Nothing is
+        copied. Ratings, edits and thumbnails go into a hidden
+        <code>.lightphotos</code> folder inside the folder you picked (see <a
+        href="/blogs/where-your-data-lives.html">where your data lives</a>),
+        so you can see them in Finder or Explorer and they move with the
+        folder. The cost is that this API exists only in Chrome and Edge,
+        and after a reload the browser asks you to grant access again,
+        unless you chose to allow it on every visit.
+      </p>
+      <p>
+        LightCraft imports. You pick files with the standard file dialog, or
+        drop them on the window. It reads the bytes of each file and writes
+        them into the browser's own file system, the Origin Private File
+        System (OPFS), under a hash of their content. The catalog, presets
+        and settings go there too, or into IndexedDB where OPFS cannot be
+        written. This works in every modern browser, with no permission
+        prompt. A reload opens the same library, and a photo imported twice
+        is stored once.
+      </p>
+      <p>
+        The cost is a second copy of every photo. Twenty Sony RAW files are
+        498&nbsp;MB, and each import puts another 498&nbsp;MB into browser
+        storage. That storage has a quota, it is invisible in Finder or
+        Explorer, and the browser can evict it under storage pressure, so
+        LightCraft asks for persistent storage and warns you when it does
+        not get it. If you clear the site's data, the library goes with it.
+        Your original files are safe, but to get edited photos out, you
+        export them.
+      </p>
+      <p>
+        Neither answer is wrong. A web page cannot simply open a path on
+        your disk. It can read a file you hand it once, or keep a folder you
+        granted, with the browser's permission. So an app must either ask
+        for the folder or keep its own copy. LightPhotos asks. LightCraft
+        keeps a copy.
       </p>
 
       <h2>How I measured</h2>
@@ -388,6 +487,69 @@ import Base from "../../layouts/Base.astro";
 
       viewBtns.forEach((b) => b.addEventListener("click", () => setView(b.dataset.view === "zoom")));
       nextBtn.addEventListener("click", run);
+    }
+  </script>
+  <script>
+    // Shows where each app keeps the photos, and what one action does to each.
+    type Line = { ok: boolean; a: string; b: string };
+    type Step = { lp: Line; lc: Line; copied: boolean; say: string };
+
+    // Each line restates a fact from the post.
+    const STEPS: Record<string, Step> = {
+      open: {
+        lp: { ok: true, a: "Reads the folder in place. 0 MB copied.", b: "The browser asks once for access to it." },
+        lc: { ok: true, a: "Copies all 498 MB into browser storage.", b: "The copy is part of its 2.3 s to fill the grid." },
+        copied: true,
+        say: "LightPhotos reads the photos where they are. LightCraft copies 498 MB first.",
+      },
+      reload: {
+        lp: { ok: false, a: "Asks for access to the folder again,", b: "unless you allowed it on every visit." },
+        lc: { ok: true, a: "The library is still there.", b: "No prompt." },
+        copied: true,
+        say: "After a reload, LightCraft's library is waiting. LightPhotos must ask for the folder.",
+      },
+      clear: {
+        lp: { ok: true, a: "Nothing lost. Ratings and edits are in", b: ".lightphotos, on your disk." },
+        lc: { ok: false, a: "The library and its copies are gone.", b: "Edits you did not export are lost." },
+        copied: false,
+        say: "Clearing the site's data empties browser storage. Your disk is not touched.",
+      },
+      other: {
+        lp: { ok: false, a: "No folder access in these browsers,", b: "so it cannot open the folder." },
+        lc: { ok: true, a: "Works. It needs only the file dialog", b: "and browser storage." },
+        copied: true,
+        say: "LightPhotos needs Chrome or Edge. LightCraft runs in every modern browser.",
+      },
+    };
+
+    const fig = document.getElementById("import-demo");
+    if (fig) {
+      const el = (name: string) => fig.querySelector(`[data-el="${name}"]`) as SVGElement;
+      const show = (name: string, on: boolean) => el(name).setAttribute("display", on ? "inline" : "none");
+      const readout = fig.querySelector(".lp-try-readout") as HTMLElement;
+      const btns = fig.querySelectorAll<HTMLButtonElement>("[data-act]");
+
+      const line = (key: string, l: Line) => {
+        show(`${key}-ok`, l.ok);
+        show(`${key}-bad`, !l.ok);
+        el(`${key}-1`).textContent = l.a;
+        el(`${key}-2`).textContent = l.b;
+      };
+
+      const render = (act: string) => {
+        const s = STEPS[act];
+        btns.forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.act === act)));
+        el("side").setAttribute("opacity", act === "other" ? "0.3" : "1");
+        el("copy").setAttribute("opacity", s.copied ? "1" : "0");
+        el("bar").setAttribute("width", s.copied ? "272" : "0");
+        el("size").textContent = s.copied ? "Originals by content hash: 498 MB" : "Empty. Cleared with the site's data.";
+        show("opfs-x", !s.copied);
+        line("lp", s.lp);
+        line("lc", s.lc);
+        readout.textContent = s.say;
+      };
+
+      btns.forEach((b) => b.addEventListener("click", () => render(b.dataset.act!)));
     }
   </script>
 </Base>
