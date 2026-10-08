@@ -3,7 +3,7 @@ import Base from "../../layouts/Base.astro";
 ---
 <Base
   title="Measuring a GUI app without lying to yourself — LightPhotos Blog"
-  desc="You can't measure a desktop app's speed by clicking around in it, because you never do the same thing twice. Here's the small tool I built instead, and the three reports that changed what I worked on."
+  desc="You cannot measure the speed of a desktop app by clicking through it, because you never do the same thing twice. This post shows the small tool that I built instead, and the three reports that changed what I worked on."
   active="blogs"
 >
   <main class="lp-page">
@@ -12,9 +12,10 @@ import Base from "../../layouts/Base.astro";
         <p class="lp-article-meta"><a href="/blogs.html">Blogs</a> &middot; <time datetime="2026-09-15">September 15, 2026</time></p>
         <h1>Measuring a GUI app without lying to yourself</h1>
         <p class="lp-article-dek">
-          You can't measure a desktop app's speed by clicking around in it,
-          because you never do the same thing twice. Here's the small tool I
-          built instead, and the three reports that changed what I worked on.
+          You cannot measure the speed of a desktop app by clicking through it,
+          because you never do the same thing twice. This post shows the small
+          tool that I built instead, and the three reports that changed what I
+          worked on.
         </p>
         <p class="lp-article-byline">Andrew Yao &middot; 5 min read</p>
       </header>
@@ -22,11 +23,11 @@ import Base from "../../layouts/Base.astro";
       <aside class="lp-tldr">
         <p class="lp-tldr-label">TL;DR</p>
         <p>
-          I spent a while speeding up the thumbnail grid, which was already
-          fast, while the real wait was opening a RAW file. So I added a mode
-          that runs the same fixed script against a folder and prints timings,
-          without opening a window. Its first three reports showed me I'd been
-          working on the wrong things. If you're tuning an app by feel, a
+          I spent a long time making the thumbnail grid faster, but it was
+          already fast. The real wait came when the app opened a RAW file. So I
+          added a mode that runs the same fixed script on a folder and prints
+          timings, without a window. Its first three reports showed me that I
+          worked on the wrong things. If you tune an app by your impressions, a
           repeatable measurement will probably surprise you too.
         </p>
       </aside>
@@ -35,58 +36,58 @@ import Base from "../../layouts/Base.astro";
       <ul class="lp-article-list">
         <li>
           <strong>A benchmark has to give the same answer twice.</strong> A
-          realistic test that gives a different number every run can't tell
-          me whether a change helped, because I have nothing steady to compare
-          against.
+          realistic test can give a different number on every run. Such a test
+          cannot tell me if a change helped, because I have no stable value to
+          compare against.
         </li>
         <li>
-          <strong>Take yourself out of the measurement.</strong> If measuring
-          something needs me driving the app, I script the steps instead, even
-          if the script is less true to life than a real session.
+          <strong>Take yourself out of the measurement.</strong> If a
+          measurement needs me to operate the app, I script the steps instead.
+          I do this even if the script is less realistic than a real session.
         </li>
         <li>
           <strong>Write down why the test does what it does.</strong> "120
-          thumbnails, because that's two screenfuls" is something someone can
-          question. "120" on its own is just a number nobody understands.
+          thumbnails, because that is two screenfuls" is a reason that someone
+          can question. "120" alone is only a number that nobody understands.
         </li>
         <li>
-          <strong>Measure memory as well as time.</strong> One function was
-          responsible for 47% of the memory the app asked for, and none of my
-          timing reports showed it. It mattered most in the browser version,
-          where memory is tightest.
+          <strong>Measure memory as well as time.</strong> One function caused
+          47% of the memory that the app asked for. None of my timing reports
+          showed it. It mattered most in the browser version, which has the
+          least memory.
         </li>
       </ul>
 
       <p>
-        I spent a good while making the thumbnail grid faster. It was already
-        fast, and nobody was waiting on it.
+        I spent a long time making the thumbnail grid faster. It was already
+        fast, and nobody waited for it.
       </p>
       <p>
-        What people were actually waiting on was opening a RAW file. I'd
-        never measured that, because measuring it properly was annoying and I
-        had a hunch about where the time was going. My hunch was wrong.
+        People actually waited when they opened a RAW file. I never measured
+        that. A correct measurement was inconvenient, and I had a guess about
+        where the time went. My guess was wrong.
       </p>
 
-      <h2>Why I couldn't just use the app</h2>
+      <h2>Why I could not just use the app</h2>
       <p>
-        The usual approach is to attach a profiler (a tool that records where
-        the program spends its time), click around for thirty seconds, and
-        read the chart it produces. That's fine for finding something badly
-        broken. It didn't help me decide whether a change made things better,
-        and that's the question I actually care about.
+        In the usual method, you attach a profiler (a tool that records where
+        the program spends its time). Then you click through the app for thirty
+        seconds and read the chart that the profiler makes. That is fine for
+        finding something that is badly broken. It did not help me decide if a
+        change made the app better, and that is the question I care about.
       </p>
       <p>
-        The problem is that I can't do the same thing twice. On the first run
-        I scrolled a bit fast and reached row 40. On the second, row 31. On the
-        first run the thumbnail cache was empty, and on the second it was full,
-        because the first run filled it.
+        The problem is that I cannot do the same thing twice. On the first run,
+        I scrolled a bit fast and reached row 40. On the second run, I reached
+        row 31. On the first run, the thumbnail cache was empty. On the second
+        run, it was full, because the first run filled it.
       </p>
 
       <figure class="lp-figure">
-        <svg viewBox="0 0 640 186" role="img" aria-label="Dot plot: six manual runs scatter widely across the time axis, while six scripted profile runs land on nearly the same value.">
+        <svg viewBox="0 0 640 186" role="img" aria-label="Dot plot: six manual runs have a wide spread on the time axis. Six scripted profile runs have almost the same value.">
           <text class="lp-fig-label" x="0" y="12">SIX RUNS OF THE SAME &ldquo;BENCHMARK&rdquo;</text>
 
-          <text class="lp-fig-t" x="0" y="52">Clicking around</text>
+          <text class="lp-fig-t" x="0" y="52">Clicks by hand</text>
           <text class="lp-fig-s" x="0" y="70">in the app</text>
           <line class="lp-fig-line-soft" x1="176" y1="56" x2="624" y2="56"></line>
           <circle class="lp-fig-bad" cx="192" cy="56" r="6"></circle>
@@ -96,7 +97,7 @@ import Base from "../../layouts/Base.astro";
           <circle class="lp-fig-bad" cx="521" cy="56" r="6"></circle>
           <circle class="lp-fig-bad" cx="598" cy="56" r="6"></circle>
           <path class="lp-fig-bad-stroke" d="M192 76 V84 M192 80 H598 M598 76 V84"></path>
-          <text class="lp-fig-s lp-fig-bad" x="395" y="102" text-anchor="middle">the spread is your own hands</text>
+          <text class="lp-fig-s lp-fig-bad" x="395" y="102" text-anchor="middle">the spread comes from you</text>
 
           <text class="lp-fig-t" x="0" y="136">--profile</text>
           <text class="lp-fig-s" x="0" y="154">the same script, always</text>
@@ -107,54 +108,53 @@ import Base from "../../layouts/Base.astro";
           <circle class="lp-fig-bar" cx="397" cy="140" r="6"></circle>
           <circle class="lp-fig-bar" cx="401" cy="140" r="6"></circle>
           <circle class="lp-fig-bar" cx="395" cy="140" r="6"></circle>
-          <text class="lp-fig-s" x="398" y="172" text-anchor="middle">a change you can actually read</text>
+          <text class="lp-fig-s" x="398" y="172" text-anchor="middle">a change that you can see</text>
         </svg>
         <figcaption>
           My before and after numbers came from different sessions. I could
-          read almost anything into that, and that's exactly what I had been
-          doing.
+          find almost any meaning in that data, and that is what I did.
         </figcaption>
       </figure>
 
-      <h2>Running the code without the window</h2>
+      <h2>Run the code without the window</h2>
       <p>
         My fix was a command-line flag. <code>--profile &lt;folder&gt;</code>
-        starts the app and runs the real code for listing the folder, loading
-        photos, the catalog and thumbnails against that folder. Then it prints
-        timings and exits. It never opens a window, so the UI library and the
-        graphics card aren't involved.
+        starts the app and runs the real code on that folder. This code lists
+        the folder and loads photos, the catalog, and thumbnails. Then the app
+        prints timings and exits. It never opens a window, so it does not use
+        the UI library or the graphics card.
       </p>
       <p>
-        It follows a fixed script. It lists the folder, fills thumbnails for
-        120 photos, which is about two screenfuls, then opens ten photos one
-        after another, the way you do when stepping through a shoot with the
-        arrow keys. Each of those numbers sits in the code with a comment
-        explaining it. They're my guess about how people use the app, so I
-        want that guess written down right next to the number.
+        It follows a fixed script. First, it lists the folder and fills
+        thumbnails for 120 photos, which is approximately two screenfuls. Then
+        it opens ten photos in sequence, as you do when you step through a
+        shoot with the arrow keys. Each of those numbers has a comment in the
+        code that tells why. The numbers are my guess about how people use the
+        app, so I want that guess written next to the number.
       </p>
       <p>
-        The whole thing is about 230 lines. It's nothing clever. It just gives
-        me the same number twice.
+        The full mode is approximately 230 lines. It is not clever. It only
+        gives me the same number twice.
       </p>
 
-      <h2>Keeping it out of the version you download</h2>
+      <h2>Keep it out of the version that you download</h2>
       <p>
-        The timing code is attached to functions with small markers, and it's
-        only switched on by two build settings that are off by default. With
-        them off, the markers leave the function exactly as it was, so the
-        release build carries none of it and the browser build doesn't get any
-        bigger.
+        Small markers attach the timing code to functions. Only two build
+        settings switch it on, and they are off by default. When these settings
+        are off, the markers do not change the function. So the release build
+        contains none of the timing code, and the browser build does not get
+        any bigger.
       </p>
       <p>
-        One detail caught me out. The profiling library has to be a normal
-        dependency instead of an optional one, because the markers have to
-        make sense to the compiler in every build, even when they do nothing.
+        One detail surprised me. The profiling library has to be a normal
+        dependency, not an optional one. The reason is that the compiler must
+        understand the markers in every build, even when they do nothing.
       </p>
 
       <h2>The first report</h2>
 
       <figure class="lp-figure">
-        <svg viewBox="0 0 640 196" role="img" aria-label="Bar chart: listing a folder takes 3 to 5 milliseconds, filling 120 warm thumbnails 22 milliseconds, a RAW preview 11 milliseconds, and a sharp RAW decode 170 to 210 milliseconds.">
+        <svg viewBox="0 0 640 196" role="img" aria-label="Bar chart: the folder list takes 3 to 5 milliseconds. 120 warm thumbnails take 22 milliseconds. A RAW preview takes 11 milliseconds. A sharp RAW decode takes 170 to 210 milliseconds.">
           <text class="lp-fig-label" x="0" y="12">300 PHOTOS, WARM CACHE</text>
 
           <text class="lp-fig-s" x="0" y="51">List the folder</text>
@@ -174,58 +174,58 @@ import Base from "../../layouts/Base.astro";
           <text class="lp-fig-on-bar" x="238" y="171">170 to 210 ms &middot; all of the wait is here</text>
         </svg>
         <figcaption>
-          Almost everything on this chart was already fast enough, so I
-          could stop working on it.
+          Almost everything on this chart was already fast enough. So I could
+          stop working on it.
         </figcaption>
       </figure>
 
       <p>
-        I had been speeding up the wrong thing, and the report showed me in
-        about four seconds.
+        I made the wrong thing faster, and the report showed me this in
+        approximately four seconds.
       </p>
       <p>
-        It also pointed at a fix I'd never have found by reading the code. The
-        app fetches the quick, low-quality preview of the next photo ahead of
-        time, but not the slow, sharp version. So when you arrow through a
-        folder of RAW files, you wait the full 200 ms every time, even though
-        the app knew half a second earlier which photo you were about to look
-        at.
+        The report also showed a fix that I would never find by reading the
+        code. The app fetches the quick, low-quality preview of the next photo
+        ahead of time. But it does not fetch the slow, sharp version. So when
+        you use the arrow keys in a folder of RAW files, you wait the full
+        200 ms every time. This occurs although the app knew half a second
+        earlier which photo you would look at next.
       </p>
 
       <h2>The second report</h2>
       <p>
         The profiler can also count how much memory each function asks for,
-        instead of how long it takes. One function was responsible for 12.0 MB
-        out of 25.3 MB, 47% of all the memory the app asked for in that
-        session. It was the function that hands thumbnails to the UI library
+        not only how long it takes. One function asked for 12.0 MB out of
+        25.3 MB. That is 47% of all the memory that the app asked for in that
+        session. It was the function that gives thumbnails to the UI library
         to draw.
       </p>
       <p>
-        The cause was the way the UI library expects to be given images. Its
-        image type can only be made by copying the pixels
-        into fresh memory, even though the pixels were already sitting in the
-        loader's cache in exactly the right layout. Writing them straight to
-        the graphics card instead took that function from 12.0 MB to 0.16 MB,
-        and the whole session from 25.3 MB to 13.4 MB.
+        The cause was the way that the UI library accepts images. You can only
+        make its image type if you copy the pixels into new memory. But the
+        pixels were already in the cache of the loader, in exactly the right
+        layout. So I wrote them directly to the graphics card instead. That
+        change took the function from 12.0 MB to 0.16 MB, and the full session
+        from 25.3 MB to 13.4 MB.
       </p>
       <p>
-        Nothing was slow, and no user would ever have reported it. But in the
-        browser build, the app runs as WebAssembly, and its memory never
-        shrinks once it has grown. So memory the app only needed for a moment
-        stays taken for as long as the tab is open.
+        Nothing was slow, and no user would ever report it. But in the browser
+        build, the app runs as WebAssembly, and its memory never decreases
+        after it increases. So memory that the app needs for only a moment
+        stays in use while the tab is open.
       </p>
 
       <h2>The third report</h2>
       <p>
-        On 200 photos with a warm cache, decoding all 200 thumbnails across
-        8 workers took 39.5 ms in total. Analysing one photo took 7.39 ms, so
-        1.48 seconds for the batch. The analysis runs on the main thread and
-        can't be split across the processor's cores, so it costs about
-        fifty-five times as much as the decoding.
+        I used 200 photos with a warm cache. The decode of all 200 thumbnails
+        on 8 workers took 39.5 ms in total. The analysis of one photo took
+        7.39 ms, so 1.48 seconds for the batch. The analysis runs on the main
+        thread, and it cannot be split across the processor cores. So it costs
+        approximately fifty-five times as much as the decode.
       </p>
       <p>
-        My plan had been to make the decoding faster and to fetch it all
-        ahead of time. Neither would have made any noticeable difference.
+        My plan was to make the decode faster and to fetch it all ahead of
+        time. Neither change would make a difference that you can notice.
       </p>
 
 
@@ -237,7 +237,7 @@ import Base from "../../layouts/Base.astro";
         </a>
         <a class="lp-article-nav-next" href="/blogs/my-plan.html">
           <span class="lp-article-nav-dir">Next</span>
-          <span class="lp-article-nav-title">My plan, and what's not in it</span>
+          <span class="lp-article-nav-title">My plan, and what is not in it</span>
         </a>
       </nav>
     </article>

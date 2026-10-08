@@ -3,7 +3,7 @@ import Base from "../../layouts/Base.astro";
 ---
 <Base
   title="What ImageIO gives you free — LightPhotos Blog"
-  desc="One call to Apple's image library was doing far more for LightPhotos than I realised. Moving to other platforms showed me exactly how much."
+  desc="One call to Apple's image library did far more for LightPhotos than I knew. When I moved to other platforms, I saw exactly how much."
   active="blogs"
 >
   <main class="lp-page">
@@ -12,25 +12,24 @@ import Base from "../../layouts/Base.astro";
         <p class="lp-article-meta"><a href="/blogs.html">Blogs</a> &middot; <time datetime="2026-07-20">July 20, 2026</time></p>
         <h1>What ImageIO gives you free, and what it costs to leave</h1>
         <p class="lp-article-dek">
-          One call to Apple's ImageIO was doing far more for LightPhotos than I
-          realised. Moving to Linux, Windows and the browser showed me exactly
-          how much.
+          One call to Apple's ImageIO did far more for LightPhotos than I knew.
+          When I moved to Linux, Windows and the browser, I saw exactly how
+          much.
         </p>
-        <p class="lp-article-byline">Andrew Yao &middot; 6 min read</p>
+        <p class="lp-article-byline">Andrew Yao &middot; 7 min read</p>
       </header>
 
       <aside class="lp-tldr">
         <p class="lp-tldr-label">TL;DR</p>
         <p>
-          On the Mac, one call to Apple's ImageIO library was quietly making
-          RAW photos load fast. When I brought LightPhotos to Linux, Windows and
-          the browser, I had to rebuild that by hand, and it was slower, missed
-          a format and needed a patched library. Making the photos look the
-          same as on the Mac, without the camera profiles bigger projects
-          have, was the hardest part. Apple's decoder also turned out
-          to be unable to open one kind of file at all. If you lean on a
-          platform library, it's doing more than you think, and you only find
-          out when you leave.
+          On the Mac, one call to Apple's ImageIO library made RAW photos load
+          fast, and I never noticed. When I brought LightPhotos to Linux,
+          Windows and the browser, I had to rebuild that work by hand. My
+          version was slower, missed a format and needed a patched library.
+          The hardest part was making photos look the same as on the Mac
+          without the camera profiles that bigger projects have. Also, Apple's
+          decoder cannot open one kind of file at all. A platform library does
+          more than you think, and you only find out when you leave it.
         </p>
       </aside>
 
@@ -39,55 +38,57 @@ import Base from "../../layouts/Base.astro";
         <li>
           <strong>Find out what a library does for you before you have to
           leave it.</strong> For me, that meant writing the replacement and
-          timing both. Reading the docs wouldn't have told me.
+          timing both. The docs would not have told me.
         </li>
         <li>
-          <strong>Relying on a platform library has a price, so write it
-          down.</strong> Speed, file formats, running on other systems, and bugs
-          you can't fix yourself. I guessed three of those four wrong.
+          <strong>A platform library has a price, so write it down.</strong>
+          The price covers speed, file formats, running on other systems, and
+          bugs you cannot fix yourself. I guessed three of those four wrong.
         </li>
         <li>
-          <strong>Plan for the reference being wrong.</strong> A test image I
-          could work out by hand ended up being the better check.
+          <strong>Plan for the reference to be wrong.</strong> A test image
+          that I could work out by hand was the better check.
         </li>
         <li>
-          <strong>Check the order of your processing steps.</strong> Shrinking
-          the image before cleaning up noise, instead of after, saved 1.1
-          seconds per photo with a two-line change.
+          <strong>Check the order of your processing steps.</strong> I shrank
+          the image before noise reduction instead of after. That two-line
+          change saved 1.1 seconds per photo.
         </li>
       </ul>
 
       <p>
-        LightPhotos started out Mac-only. When I moved it to other platforms, I
-        expected the hard parts to be the window, the graphics and the file
-        dialogs. They weren't. The hard part was something I'd stopped
-        thinking about years ago: reading an image file.
+        LightPhotos started out as a Mac-only app. When I moved it to other
+        platforms, I expected the hard parts to be the window, the graphics
+        and the file dialogs. They were not. The hard part was something I had
+        stopped thinking about years ago: reading an image file.
       </p>
 
       <h2>The one call</h2>
       <p>
-        ImageIO, Apple's built-in image library, has a function that means
-        "give me this image, already shrunk to about this size". You don't load
-        the full image and resize it yourself. The size is part of the request.
+        ImageIO is Apple's built-in image library. It has a function that
+        means "give me this image, already shrunk to approximately this size".
+        You do not load the full image and resize it yourself. The size is
+        part of the request.
       </p>
       <p>
-        For a JPEG that's handy. For a camera RAW file it makes a huge
-        difference. A RAW file is the raw data from the camera's sensor, not a
-        finished picture, and turning it into full colour takes a lot of work.
+        For a JPEG, that is useful. For a camera RAW file, it makes a very
+        large difference. A RAW file holds the raw data from the camera
+        sensor, not a finished picture. Turning that data into full colour
+        takes a lot of work.
       </p>
       <p>
-        Almost every RAW file also carries a small JPEG preview, which the
-        camera writes so its own screen has something to show. If you ask
-        ImageIO for a small version, it finds that preview and skips the sensor
-        processing entirely. On Sony ARW files I measured 11 ms instead of 170
-        to 210.
+        Almost every RAW file also carries a small JPEG preview. The camera
+        writes it so that its own screen has something to show. If you ask
+        ImageIO for a small version, it finds that preview and skips the
+        sensor processing entirely. On Sony ARW files, I measured 11 ms
+        instead of 170 to 210.
       </p>
-      <p>I didn't write any of that. I got it from one function argument.</p>
+      <p>I did not write any of that. I got it from one function argument.</p>
 
       <h2>No other platform has that function</h2>
 
       <figure class="lp-figure">
-        <svg viewBox="0 0 640 234" role="img" aria-label="Comparison: on macOS a single ImageIO call handles scaled decoding; everywhere else the program walks EXIF tags to find an embedded preview and falls back to a full sensor decode.">
+        <svg viewBox="0 0 640 234" role="img" aria-label="Comparison: on macOS, one ImageIO call does scaled decoding. On other platforms, the program reads the EXIF tags to find an embedded preview. If that fails, it does a full sensor decode.">
           <text class="lp-fig-label" x="0" y="12">MACOS</text>
           <rect class="lp-fig-panel" x="0" y="22" width="290" height="192" rx="10"></rect>
           <rect class="lp-fig-box-accent" x="26" y="90" width="238" height="56" rx="8"></rect>
@@ -102,7 +103,7 @@ import Base from "../../layouts/Base.astro";
           <line class="lp-fig-line" x1="495" y1="68" x2="495" y2="76"></line>
           <path class="lp-fig-arrow" d="M489 76 L501 76 L495 84 Z"></path>
           <rect class="lp-fig-box" x="375" y="88" width="240" height="28" rx="6"></rect>
-          <text class="lp-fig-s" x="495" y="107" text-anchor="middle">Walk the TIFF and EXIF tags</text>
+          <text class="lp-fig-s" x="495" y="107" text-anchor="middle">Read the TIFF and EXIF tags</text>
           <path class="lp-fig-line" d="M495 116 V128 H424 V136 M495 128 H566 V136"></path>
           <path class="lp-fig-arrow" d="M418 136 L430 136 L424 144 Z M560 136 L572 136 L566 144 Z"></path>
           <rect class="lp-fig-box" x="360" y="144" width="128" height="46" rx="6"></rect>
@@ -115,18 +116,17 @@ import Base from "../../layouts/Base.astro";
           <text class="lp-fig-s" x="566" y="206" text-anchor="middle">fallback</text>
         </svg>
         <figcaption>
-          I couldn't find a ready-made equivalent on any other platform. I
-          checked before committing to the move, and everywhere I looked the
+          I could not find a ready-made equivalent on any other platform. I
+          checked before I committed to the move. Everywhere I looked, the
           answer was to build it yourself.
         </figcaption>
       </figure>
 
       <p>
-        Building it yourself means learning that most RAW files are really
-        TIFF files underneath, that TIFF files are organised as a list of
-        labelled entries (tags), and that the preview sits at a known spot in
-        that list. I know all of that now, and honestly I'd rather not have
-        needed to.
+        To build it yourself, you have to learn a few things. Most RAW files
+        are really TIFF files underneath. A TIFF file is a list of labelled
+        entries (tags), and the preview sits at a known spot in that list. I
+        know all of that now. Honestly, I would rather not have needed to.
       </p>
 
       <div class="lp-compare-wrap">
@@ -170,13 +170,12 @@ import Base from "../../layouts/Base.astro";
 
       <h2>Two steps in the wrong order</h2>
       <p>
-        That 680 ms started out as 1.80 seconds. My code was cleaning up noise
-        on the full-size image from the sensor and only shrinking it
-        afterwards.
+        That 680 ms started out as 1.80 seconds. My code did noise reduction
+        on the full-size image from the sensor, and only shrank it afterwards.
       </p>
 
       <figure class="lp-figure">
-        <svg viewBox="0 0 640 176" role="img" aria-label="Pipeline comparison: denoising at 24 megapixels then shrinking takes 1.80 seconds; shrinking first then denoising takes 0.68 seconds.">
+        <svg viewBox="0 0 640 176" role="img" aria-label="Pipeline comparison: noise reduction at 24 megapixels before the shrink takes 1.80 seconds. The shrink before noise reduction takes 0.68 seconds.">
           <text class="lp-fig-label" x="0" y="12">A 2560 PX PREVIEW FROM A 24 MP SONY ARW</text>
 
           <rect class="lp-fig-box" x="0" y="26" width="142" height="32" rx="6"></rect>
@@ -202,8 +201,8 @@ import Base from "../../layouts/Base.astro";
           <text class="lp-fig-s" x="476" y="132">0.68 s &middot; peak 1.21 GB</text>
         </svg>
         <figcaption>
-          I swapped two lines. At full size, the output is exactly the same,
-          down to the byte.
+          I swapped two lines. At full size, the output is identical in every
+          byte.
         </figcaption>
       </figure>
 
@@ -214,129 +213,133 @@ import Base from "../../layouts/Base.astro";
 
       <h2>The other costs</h2>
       <p>
-        Speed was the first cost. File formats were the second. ImageIO reads
-        HEIC, the format iPhones use, and nobody has written a HEIC reader in
-        pure Rust (the language LightPhotos is written in). My only option
-        would be to hook into a C library, which would mean extra build tools
-        on every platform I was trying to keep simple to build. So HEIC still
-        only works on the Mac, and that's a difference you can see as a user.
+        Speed was the first cost, and file formats were the second. ImageIO
+        reads HEIC, the format that iPhones use. Nobody has written a HEIC
+        reader in pure Rust, the language LightPhotos uses. My only option was
+        to hook into a C library, and that meant extra build tools on every
+        platform. I was trying to keep those platforms simple to build. So
+        HEIC still only works on the Mac, and you can see that difference as a
+        user.
       </p>
       <p>
-        The third cost was a library that wouldn't run in a browser. The RAW
-        library checks the system clock to log how long each photo took to
-        load. In the browser (under WebAssembly) there's no clock behind that
+        The third cost was a library that would not run in a browser. The RAW
+        library reads the system clock to log how long each photo took to
+        load. In the browser (under WebAssembly), no clock exists behind that
         call, so it crashes. My build now downloads the library, applies a
-        four-line patch and builds from that copy. Rust's build tool, Cargo,
-        can't apply a patch for just the browser build, so every build uses
+        four-line patch and builds from that copy. Cargo, the Rust build tool,
+        cannot apply a patch for only the browser build, so every build uses
         the patched copy.
       </p>
 
       <h2>Making the other platforms look like the Mac</h2>
       <p>
         Opening a RAW file on Linux, Windows and in the browser was only half
-        the job. The photo also had to look the same as it does on the Mac,
-        and that turned out to be the hardest part of the whole move.
+        the job. The photo also had to look the same as it does on the Mac.
+        That was the hardest part of the whole move.
       </p>
       <p>
-        Bigger photo projects have camera profiles, tuned for each camera
-        model, that describe how that camera sees colour. I don't have those.
-        All I have is the basic colour information the open source RAW library
-        I use (rawler) keeps for each camera. My first version on the other
-        platforms looked flat, and about 1.45 times darker than the same photo
-        on the Mac.
+        Bigger photo projects have camera profiles. Each profile is tuned for
+        one camera model and describes how that camera records colour. I do
+        not have those. All I have is the basic colour data that rawler, the
+        open source RAW library I use, keeps for each camera. My first version
+        on the other platforms looked flat. It was also approximately 1.45
+        times darker than the same photo on the Mac.
       </p>
-      <p>Here's what I had to do by hand to close that gap.</p>
+      <p>These are the steps I did by hand to close that gap.</p>
       <ul class="lp-article-list">
         <li>
           <strong>Use what the camera recorded.</strong> I apply the white
-          balance the camera saved when you took the shot, then convert the
-          camera's colours into normal screen colours using the numbers rawler
-          has for that camera.
+          balance that the camera saved when you took the shot. Then I convert
+          the camera colours into normal screen colours with the numbers that
+          rawler has for that camera.
         </li>
         <li>
-          <strong>Handle the brightest parts the way Apple does.</strong>
-          Colours too bright for the screen get pulled back gently instead of
-          being cut off, and the very brightest tones go to pure white, which
-          is what ImageIO does.
+          <strong>Handle the brightest parts the way Apple does.</strong> I
+          pull back colours that are too bright for the screen gently instead
+          of cutting them off. The very brightest tones go to pure white, and
+          ImageIO does the same.
         </li>
         <li>
           <strong>Trim the edges.</strong> A sensor has a border of pixels
-          that aren't part of the picture. I wasn't trimming all of them, and
-          those dark edges made the browser version noticeably darker than the
+          that are not part of the picture. I was not trimming all of them.
+          Those dark edges made the browser version visibly darker than the
           Mac.
         </li>
         <li>
           <strong>Turn the photo the right way up.</strong> The RAW library
           always reported photos as upright, so I read the rotation from the
-          photo's details myself. Until I did, some previews came out
+          photo metadata myself. Before I did that, some previews came out
           sideways.
         </li>
         <li>
-          <strong>Reduce noise.</strong> ImageIO quietly cleans up noise when
-          it opens a RAW file. I added a fixed amount of noise reduction to
-          stand in for it.
+          <strong>Reduce noise.</strong> ImageIO cleans up noise automatically
+          when it opens a RAW file. I added a fixed amount of noise reduction
+          to replace it.
         </li>
       </ul>
       <p>
-        Brightness was the biggest piece. At first I tuned it by eye, with a
-        brightness and contrast tweak that got close but never looked quite
-        right. So I wrote a small tool that opens the same RAW file twice, once
-        with ImageIO and once with my own code, and compares how bright the
-        two results are. Then I used it to fit a brightness curve. Across 148
-        Sony files, the tool lined my output up with Apple's at 17 points from
-        black to white, and I kept the middle value at each point.
+        Brightness was the biggest piece. At first I tuned it by eye with a
+        brightness and contrast adjustment. The result got close but never
+        looked quite right. So I wrote a small tool that opens the same RAW
+        file twice, once with ImageIO and once with my own code. The tool then
+        compares how bright the two results are. I used it to fit a brightness
+        curve.
       </p>
       <p>
-        On the ten files I checked, my version had been 1.34 to 1.51 times
-        darker than the Mac. With the curve, it's within 2% either way.
+        Across 148 Sony files, the tool aligned my output with Apple's at 17
+        points from black to white. I kept the middle value at each point. On
+        the ten files I checked, my version had been 1.34 to 1.51 times darker
+        than the Mac. With the curve, it is within 2% either way.
       </p>
       <p>
-        It still isn't a perfect match, and I want to be honest about that. I
-        only fitted the curve on Sony files, because that's what I shoot with,
-        so photos from other cameras may not match as closely. The curve fixes
+        It is still not a perfect match, and I want to be honest about that.
+        I only fitted the curve on Sony files, because I shoot with Sony.
+        Photos from other cameras may not match as closely. The curve fixes
         brightness and contrast, not colour, so a shade can still come out a
         little different. Fujifilm cameras with X-Trans sensors also get a
         softer result than they would on the Mac.
       </p>
 
-      <h2>Apple's decoder isn't always right</h2>
+      <h2>Apple's decoder is not always right</h2>
       <p>
-        Part of my plan was an accuracy check: open a test file both ways,
-        confirm they match, and treat Apple's result as the correct one.
+        Part of my plan was an accuracy check. I would open a test file both
+        ways, confirm that the results match, and treat Apple's result as the
+        correct one.
       </p>
       <p>
-        Apple's decoder couldn't open the file. It can't read Linear DNG files
-        at all.
+        Apple's decoder could not open the file. It cannot read Linear DNG
+        files at all.
       </p>
       <p>
         So I rebuilt the test around an answer I worked out myself. I made an
-        artificial DNG file holding a known mathematical gradient and
+        artificial DNG file that holds a known mathematical gradient. Then I
         calculated every pixel by hand. The Rust decoder matched exactly, with
         zero mismatches across 147,456 samples.
       </p>
       <p>
-        If two decoders agree, that only tells me they agree. When one matches
-        numbers I worked out myself, I know it's right.
+        If two decoders agree, that only tells me that they agree. When one
+        matches numbers I worked out myself, I know that it is right.
       </p>
 
-      <h2>Would I use it again?</h2>
+      <h2>I would use it again</h2>
       <p>
-        Yes, and I still do on the Mac. It gives you a lot: decades of support
-        for different file formats, a fast shortcut I'd never have thought to
-        build, and correct results on formats that are mostly
-        reverse-engineered and full of quirks from each camera maker.
+        I still use ImageIO on the Mac, and it gives you a lot. It gives you
+        decades of support for many file formats. It gives you a fast shortcut
+        that I would never have thought to build. It also gives correct
+        results on formats that are mostly reverse-engineered. Each camera
+        maker adds its own quirks to those formats.
       </p>
       <p>
-        Having rebuilt a small piece of it myself, I have a lot more respect
-        for how good ImageIO is. Apple has been doing this for years, across a
-        huge list of cameras, and on the Mac I get all of it from one call.
-        Thank you, Apple.
+        I rebuilt a small piece of ImageIO myself, and now I respect it much
+        more. Apple has done this work for years, across a huge list of
+        cameras. On the Mac, I get all of it from one call. Thank you, Apple.
       </p>
       <p>
-        The price is that it only works on Apple's platforms, and some bugs are
-        out of your hands. When Apple's decoder can't open a Linear DNG, I
-        can't patch it, and the only workaround is shipping a second decoder.
-        I don't control that code. I just live with whatever it does.
+        The price is that ImageIO only works on Apple's platforms, and you
+        cannot fix some of its bugs. Apple's decoder cannot open a Linear DNG,
+        and I cannot patch it. The only workaround is to ship a second
+        decoder. I do not control that code. I just live with whatever it
+        does.
       </p>
 
       <nav class="lp-article-nav" aria-label="More posts">

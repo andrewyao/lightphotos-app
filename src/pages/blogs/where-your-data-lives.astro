@@ -3,7 +3,7 @@ import Base from "../../layouts/Base.astro";
 ---
 <Base
   title="Your data lives where you can write — LightPhotos Blog"
-  desc="Why LightPhotos keeps ratings, edits and thumbnails in a folder next to your photos instead of in a database, and how a browser's permission rules decided it for me."
+  desc="LightPhotos keeps ratings, edits and thumbnails in a folder next to your photos, not in a database. This post explains why, and how the permission rules of a browser made the decision for me."
   active="blogs"
 >
   <main class="lp-page">
@@ -12,97 +12,100 @@ import Base from "../../layouts/Base.astro";
         <p class="lp-article-meta"><a href="/blogs.html">Blogs</a> &middot; <time datetime="2026-08-10">August 10, 2026</time></p>
         <h1>Your data lives where you are allowed to write</h1>
         <p class="lp-article-dek">
-          Why ratings, edits and thumbnails sit in a folder next to your photos
-          instead of in a database, and how a browser's permission rules made
-          that decision for me.
+          LightPhotos keeps ratings, edits and thumbnails in a folder next to
+          your photos, not in a database. This post explains why, and how the
+          permission rules of a browser made the decision for me.
         </p>
-        <p class="lp-article-byline">Andrew Yao &middot; 4 min read</p>
+        <p class="lp-article-byline">Andrew Yao &middot; 7 min read</p>
       </header>
 
       <aside class="lp-tldr">
         <p class="lp-tldr-label">TL;DR</p>
         <p>
-          My first version kept all your ratings in one central catalog, and
-          it lost track of them as soon as you moved a folder. So I started
-          saving them in a hidden folder next to your photos. Later, the
-          browser version of the app could only write inside the folder you
-          picked, so the thumbnail cache moved there too. Now your work goes
-          wherever your photos go. The costs are that searching across every
-          folder is slow, and renaming a photo loses track of its ratings and
-          edits until I build a fix.
+          My first version kept all your ratings in one central catalog. When
+          you moved a folder, the catalog could no longer find its ratings. So
+          I started to save the ratings in a hidden folder next to your photos.
+          Later, the browser version of the app could write only inside the
+          folder you picked, so the thumbnail cache moved there too. Now your
+          work goes wherever your photos go.
+        </p>
+        <p>
+          There are two costs. A search across every folder is slow. And when
+          you rename a photo, the app can no longer find its ratings and edits.
+          That stays true until I build a fix.
         </p>
       </aside>
 
       <h2>What I learned</h2>
       <ul class="lp-article-list">
         <li>
-          <strong>Where you keep data decides what's easy.</strong> Keeping it
-          next to the photos makes moving, copying and sharing free, and makes
-          searching across folders slow. A central database is the other way
-          round.
+          <strong>Where you keep data decides what is easy.</strong> When the
+          data is next to the photos, you can move, copy and share the photos
+          with no extra work. But a search across folders is slow. A central
+          database gives the opposite result.
         </li>
         <li>
-          <strong>The most limited platform taught me the most.</strong> I
-          didn't choose to put the cache next to the photos. The browser's
-          permission rules didn't let me put it anywhere else.
+          <strong>The most limited platform taught me the most.</strong> I did
+          not choose to put the cache next to the photos. The permission rules
+          of the browser did not let me put it anywhere else.
         </li>
         <li>
           <strong>Design for the strictest platform early.</strong> The cache
-          in the system folder worked fine and nobody was complaining, so I'd
-          never have found the better design on my own.
+          in the system folder worked correctly, and nobody complained. So I
+          would never have found the better design on my own.
         </li>
         <li>
-          <strong>Write down the downside where someone will run into
-          it.</strong> Keying records by filename alone makes late background
-          results risky, so that warning belongs on the code that has to deal
-          with it.
+          <strong>Write down the disadvantage where someone will find
+          it.</strong> Records that use only the filename as a key make late
+          background results risky. So that warning belongs on the code that
+          handles those results.
         </li>
       </ul>
 
       <p>
-        LightPhotos has no database. When you rate a photo four stars, it
-        writes a small JSON file called <code>IMG_4471.jpg.xmp</code> into a
-        hidden <code>.lightphotos</code> folder, right next to
-        <code>IMG_4471.jpg</code>. That's all there is to how it saves your
-        work.
+        LightPhotos has no database. When you give a photo four stars, the app
+        writes a small JSON file called <code>IMG_4471.jpg.xmp</code>. It
+        writes this file into a hidden <code>.lightphotos</code> folder, right
+        next to <code>IMG_4471.jpg</code>. That is the whole system for saving
+        your work.
       </p>
       <p>
-        The first version didn't work this way, and I wouldn't have picked
-        this design if you'd asked me up front. I ended up here because I was
-        pushed into it twice.
+        The first version did not work this way. If you asked me at the start,
+        I would not have picked this design. I got here because two problems
+        pushed me into it.
       </p>
 
       <h2>My first attempt</h2>
       <p>
-        I started with one catalog for the whole app, which recorded each
-        photo by its full path on disk and lived in the usual folder where
-        Mac apps keep their data. It's the standard approach, and it works
-        fine for a while.
+        I started with one catalog for the whole app. The catalog recorded each
+        photo by its full path on disk. It lived in the usual folder where Mac
+        apps keep their data. This is the standard approach, and it works well
+        for a while.
       </p>
       <p>
-        But it breaks in exactly the way people use a photo tool, because
-        people move folders. You import a card into
-        <code>~/Desktop/import</code>, go through it picking keepers, then
-        drag the folder onto an external drive. As soon as you do that, every
-        path in the catalog points at nothing.
+        But it fails in exactly the way people use a photo tool, because people
+        move folders. You import a card into <code>~/Desktop/import</code> and
+        go through the photos to pick the ones to keep. Then you drag the
+        folder to an external drive. When you do that, every path in the
+        catalog points to nothing.
       </p>
 
       <figure class="lp-figure">
-        <svg viewBox="0 0 640 246" role="img" aria-label="Comparison: a central catalog keyed by full path breaks when a folder moves, while sidecar files inside the folder travel with the photos.">
+        <svg viewBox="0 0 640 246" role="img" aria-label="Comparison: a central catalog that uses the full path as a key fails when a folder moves. Sidecar files in the folder move with the photos.">
           <text class="lp-fig-label" x="0" y="12">V1 &middot; CENTRAL CATALOG</text>
           <rect class="lp-fig-panel" x="0" y="22" width="300" height="208" rx="10"></rect>
           <rect class="lp-fig-box" x="50" y="44" width="200" height="30" rx="6"></rect>
           <text class="lp-fig-s" x="150" y="63" text-anchor="middle">catalog.db in ~/Library</text>
           <line class="lp-fig-line" x1="150" y1="74" x2="150" y2="112"></line>
           <path class="lp-fig-bad-stroke" d="M142 85 L158 101 M158 85 L142 101"></path>
-          <text class="lp-fig-s lp-fig-bad" x="168" y="97">path points at nothing</text>
+          <text class="lp-fig-s lp-fig-bad" x="168" y="97">path points to nothing</text>
           <rect class="lp-fig-box" x="50" y="118" width="200" height="54" rx="8"></rect>
           <text class="lp-fig-mono lp-fig-t" x="64" y="139">Iceland/</text>
           <text class="lp-fig-mono lp-fig-s" x="80" y="159">IMG_4471.jpg</text>
           <text class="lp-fig-s lp-fig-bad" x="150" y="194" text-anchor="middle">folder moved to an external drive</text>
-          <text class="lp-fig-s" x="150" y="212" text-anchor="middle">an hour of culling, gone</text>
+          <text class="lp-fig-s" x="150" y="212" text-anchor="middle">an hour of culling is lost</text>
 
-          <text class="lp-fig-label" x="340" y="12">V2 &middot; BESIDE THE PHOTOS</text>
+          <text class="lp-fig-label" x="340" y="12">V2 &middot; NEXT TO THE PHOTOS</text>
           <rect class="lp-fig-panel" x="340" y="22" width="300" height="208" rx="10"></rect>
           <rect class="lp-fig-box" x="370" y="44" width="240" height="118" rx="8"></rect>
           <text class="lp-fig-mono lp-fig-t" x="384" y="66">Iceland/</text>
@@ -113,50 +116,51 @@ import Base from "../../layouts/Base.astro";
           <line class="lp-fig-line" x1="490" y1="162" x2="490" y2="176"></line>
           <path class="lp-fig-arrow" d="M484 176 L496 176 L490 186 Z"></path>
           <text class="lp-fig-s" x="490" y="204" text-anchor="middle">move it, copy it, back it up</text>
-          <text class="lp-fig-s" x="490" y="222" text-anchor="middle">the ratings come with it</text>
+          <text class="lp-fig-s" x="490" y="222" text-anchor="middle">the ratings move with it</text>
         </svg>
         <figcaption>
-          I fixed it by saving the ratings in the same folder as the photos,
-          so they can't get separated.
+          I fixed it by saving the ratings in the same folder as the photos. Now
+          the ratings and the photos always stay together.
         </figcaption>
       </figure>
 
       <h2>Putting it next to the photos</h2>
       <p>
-        Now if you move the folder, your ratings and edits move with it. The
-        same goes for copying it to a friend or backing it up. I didn't write
-        any code for that. It just works because your work and your photos
-        are in the same place.
+        Now when you move the folder, your ratings and edits move with it. The
+        same is true when you copy it to a friend or back it up. I did not
+        write any code for that. It works because your work and your photos are
+        in the same place.
       </p>
-      <p>A few details make it pleasant to live with.</p>
+      <p>A few details make it pleasant to use.</p>
       <ul class="lp-article-list">
         <li>
-          <strong>The folder is only created when you save something.</strong>
-          Just looking through someone else's photos leaves nothing behind.
+          <strong>The app makes the folder only when you save something.</strong>
+          If you only look through someone else's photos, the app leaves
+          nothing behind.
         </li>
         <li>
-          <strong>Files are written to a temporary copy, then renamed.</strong>
-          On any common disk format a rename happens all at once, so if the app
-          crashes partway through, you still have the previous version instead
-          of a half-written file.
+          <strong>The app writes each file to a temporary copy, then renames
+          it.</strong> On all common disk formats, a rename happens in one step.
+          So if the app crashes partway through, you still have the previous
+          version, not a half-written file.
         </li>
         <li>
-          <strong>Your original photo is never touched.</strong> This app is
-          for deciding which photos to keep, so it shouldn't change the photos
-          you might keep.
+          <strong>The app never changes your original photo.</strong> This app
+          is for deciding which photos to keep. So it must not change the
+          photos you might keep.
         </li>
       </ul>
 
       <h2>Then the browser made the decision for me</h2>
       <p>
-        Thumbnails take a while to make, so the app saves them to disk. When
-        LightPhotos only ran on the Mac, that cache lived in
-        <code>~/Library/Caches</code>, which is where Apple tells you to put
-        it. Then I made the app run in a browser tab.
+        Thumbnails take time to make, so the app saves them to disk. When
+        LightPhotos ran only on the Mac, that cache lived in
+        <code>~/Library/Caches</code>, where Apple tells you to put it. Then I
+        made the app run in a browser tab.
       </p>
 
       <figure class="lp-figure">
-        <svg viewBox="0 0 640 160" role="img" aria-label="Diagram: a browser tab may read and write only inside the folder the user picked; the system cache directory and the rest of the disk are unreachable.">
+        <svg viewBox="0 0 640 160" role="img" aria-label="Diagram: a browser tab can read and write only inside the folder that the user picked. The tab cannot reach the system cache folder or the rest of the disk.">
           <rect class="lp-fig-box-accent" x="0" y="62" width="150" height="50" rx="8"></rect>
           <text class="lp-fig-t" x="75" y="92" text-anchor="middle">Browser tab</text>
 
@@ -173,114 +177,115 @@ import Base from "../../layouts/Base.astro";
 
         </svg>
         <figcaption>
-          In a browser, the app can only read and write inside the folder you
+          In a browser, the app can read and write only inside the folder you
           picked. With the cache anywhere else, the browser version would have
-          had to rebuild every thumbnail each time you opened the page.
+          to rebuild every thumbnail each time you opened the page.
         </figcaption>
       </figure>
 
       <p>
-        The system cache folder simply isn't reachable from a browser tab. So
-        I moved the thumbnail cache into <code>.lightphotos</code>, next to the
-        ratings that were already there. I only did it because the browser
-        left me no choice, but it ended up being better on the Mac too.
+        A browser tab cannot reach the system cache folder. So I moved the
+        thumbnail cache into <code>.lightphotos</code>, next to the ratings
+        that were already there. I did it only because the browser left me no
+        choice. But the result was better on the Mac too.
       </p>
 
-      <h2>What I got out of it</h2>
+      <h2>What I got from it</h2>
       <p>
-        Moving a folder now brings its thumbnails along with its ratings. Plug
-        the drive into another computer and the grid fills instantly, instead
-        of spending a minute rebuilding every thumbnail.
+        Now when you move a folder, its thumbnails move with its ratings. When
+        you plug the drive into another computer, the grid fills instantly. The
+        app does not spend a minute rebuilding every thumbnail.
       </p>
       <p>
-        The Mac and browser versions also share one cache, which needed one
+        The Mac and browser versions also share one cache, and that needed one
         deliberate compromise. The app recognises a cached thumbnail by the
-        photo's file size and the time it was last changed, rounded to the
-        millisecond, because milliseconds are all a browser will tell you. The
-        Mac reports that time down to the nanosecond, so without rounding the
-        two versions would label the same untouched photo differently and
-        never find each other's thumbnails.
+        file size of the photo and the time it was last changed. The app rounds
+        that time to the millisecond, because a browser gives the time only to
+        the millisecond. The Mac reports the time to the nanosecond. Without the
+        rounding, the two versions would label the same untouched photo
+        differently and never find each other's thumbnails.
       </p>
       <p>
-        There's one cached thumbnail per photo, so a folder's cache can never
-        grow bigger than the number of photos in it, and I don't need rules
-        for throwing old entries out. I just clear out leftovers for deleted
-        photos when a folder opens. If the app can't write to a folder, it
-        makes fresh thumbnails every time and doesn't bother you about it.
-        Losing the cache there is a small slowdown, and I didn't think it was
-        worth an error message.
+        There is one cached thumbnail per photo. So the cache of a folder can
+        never have more entries than there are photos in it, and I do not need
+        rules to throw old entries out. When a folder opens, I only clear out
+        leftovers for deleted photos. If the app cannot write to a folder, it
+        makes fresh thumbnails every time and does not bother you about it.
+        Without the cache, the app is a little slower there, and I decided that
+        was not worth an error message.
       </p>
 
       <h2>What it cost me</h2>
       <p>
-        Everything is saved under the photo's filename alone, because the
-        folder is already known from where the file sits. That makes work that
-        spans folders risky. If you switch folders while a background job is
-        running, a result that arrives late could get saved against a photo
-        with the same name in the new folder.
+        The app saves everything under the filename of the photo alone. It does
+        not need the folder, because the location of the file already tells
+        the app which folder it is in. This makes work across folders risky. If
+        you switch folders while a background job runs, a late result could go
+        to a photo with the same name in the new folder.
       </p>
       <p>
-        You can change folders at any time, even with work still running.
-        Here's what happens to each kind of job when you do.
+        You can change folders at any time, even while work is still running.
+        Here is what happens to each kind of job when you do.
       </p>
       <ul class="lp-article-list">
         <li>
           <strong>Exports keep running.</strong> Each export already knows the
-          photo's full location and its edits, so it finishes no matter which
-          folder you're looking at.
+          full location of the photo and its edits. So it finishes no matter
+          which folder you are looking at.
         </li>
         <li>
-          <strong>Edits you were making get saved first.</strong> If you moved
-          a slider and haven't left the photo yet, I save that change before
-          the new folder opens, so you don't lose it.
+          <strong>The app saves your current edits first.</strong> If you moved
+          a slider and did not leave the photo yet, I save that change before
+          the new folder opens. So you do not lose it.
         </li>
         <li>
-          <strong>Thumbnails keep running, and late results are thrown
-          away.</strong> Anything that finishes for the old folder after
-          you've left it gets dropped, so it can't land on a photo with the
-          same name.
+          <strong>Thumbnails keep running, and the app throws away late
+          results.</strong> If a result for the old folder finishes after you
+          leave that folder, the app drops it. So it cannot land on a photo
+          with the same name.
         </li>
         <li>
-          <strong>Auto Tone stops.</strong> Photos it already finished keep
-          their changes, and the rest are skipped.
+          <strong>Auto Tone stops.</strong> Photos that it already finished
+          keep their changes. The app skips the rest.
         </li>
         <li>
-          <strong>Bulk delete stops.</strong> It finishes the photo it's
-          moving to the trash right now, then stops.
+          <strong>Bulk delete stops.</strong> It finishes the photo that it is
+          moving to the trash at that moment, then stops.
         </li>
       </ul>
       <p>
-        Those last two are on my to-do list. It's frustrating to start Auto
-        Tone on a big shoot, or clear out a batch of rejects, and then have to
-        sit and wait before you can look at another folder. I'd like both to
-        keep running the way exports do, by having each job carry the full
-        location of the photo it's working on, so it no longer matters which
-        folder is open when it finishes.
+        I plan to fix those last two. You might start Auto Tone on a big shoot,
+        or clear out a batch of rejects. It is frustrating to then sit and wait
+        before you can look at another folder. I want both jobs to keep running
+        the way exports do. To do this, each job would carry the full location
+        of the photo it works on. Then the open folder would not matter when the
+        job finishes.
       </p>
       <p>
-        There's also no quick way to ask a question across every folder
-        you've ever opened. "Show me everything I rated five stars this year"
-        would mean going through all of them. A central database could answer
-        that in a millisecond. If that kind of search were central to what
-        LightPhotos does, this would be the wrong design.
+        Also, there is no quick way to ask a question across every folder you
+        ever opened. "Show me everything I rated five stars this year" would
+        mean going through all of them. A central database could answer that
+        in a millisecond. If that kind of search was central to the purpose of
+        LightPhotos, this would be the wrong design.
       </p>
       <p>
-        The downside that worries me most is renaming. The small file that
-        holds your ratings and edits (a sidecar file) only finds its photo by
-        filename. If you rename <code>IMG_4471.jpg</code> to
+        The disadvantage that worries me most is renaming. A small file (a
+        sidecar file) holds your ratings and edits, and it finds its photo only
+        by filename. If you rename <code>IMG_4471.jpg</code> to
         <code>iceland-sunset.jpg</code> in Finder, the sidecar is still called
-        <code>IMG_4471.jpg.xmp</code>, and LightPhotos no longer knows the two
-        belong together. Your rating and edits for that photo seem to vanish.
-        Renaming files is a normal thing to do, so this is fragile.
+        <code>IMG_4471.jpg.xmp</code>. Then LightPhotos no longer knows that the
+        two files belong together, and your rating and edits for that photo
+        seem to disappear. Renaming files is a normal thing to do, so this
+        design breaks easily.
       </p>
       <p>
-        I haven't fixed this yet, but I know how I'd like to. Each sidecar
-        would also store a fingerprint of the original photo, a short code
-        worked out from the photo's contents (a hash). When LightPhotos opens a
-        folder and finds sidecars that don't match any photo, it would work out
-        the fingerprints of the photos in that same folder. If one matches, the
-        photo was just renamed, so the app renames the sidecar to match the
-        photo's new name, and your ratings and edits come back.
+        I have not fixed this yet, but I know how I want to fix it. Each sidecar
+        would also store a fingerprint of the original photo. This fingerprint
+        (a hash) is a short code that the app calculates from the contents of
+        the photo. When LightPhotos opens a folder and finds sidecars that do
+        not match any photo, it would calculate the fingerprints of the photos
+        in that folder. If one matches, the photo was only renamed, so the app
+        renames the sidecar to match. Then your ratings and edits come back.
       </p>
 
 

@@ -2,129 +2,130 @@
 import Base from "../../layouts/Base.astro";
 ---
 <Base
-  title="My plan, and what's not in it — LightPhotos Blog"
-  desc="Where I want LightPhotos to go. Your photos stay on your drive, any AI runs on your own computer, and only the basic features have to work on every platform."
+  title="My plan, and what is not in it — LightPhotos Blog"
+  desc="This post tells where I want LightPhotos to go. Your photos stay on your drive. Any AI runs on your own computer. Only the basic features must work on every platform."
   active="blogs"
 >
   <main class="lp-page">
     <article class="lp-article">
       <header class="lp-article-head">
         <p class="lp-article-meta"><a href="/blogs.html">Blogs</a> &middot; <time datetime="2026-09-20">September 20, 2026</time></p>
-        <h1>My plan, and what's not in it</h1>
+        <h1>My plan, and what is not in it</h1>
         <p class="lp-article-dek">
-          Where I want LightPhotos to go. Your photos stay on your drive, any
-          AI runs on your own computer, and only the basic features have to
-          work on every platform.
+          This post tells where I want LightPhotos to go. Your photos stay on
+          your drive. Any AI runs on your own computer. Only the basic features
+          must work on every platform.
         </p>
-        <p class="lp-article-byline">Andrew Yao &middot; 6 min read</p>
+        <p class="lp-article-byline">Andrew Yao &middot; 7 min read</p>
       </header>
 
       <aside class="lp-tldr">
         <p class="lp-tldr-label">TL;DR</p>
         <p>
-          This is where I want LightPhotos to go over the next year. Your
-          photos stay as files on your own drive, any AI features would run on
-          your own computer, and only the basic features need to work on every
-          platform. I also want everything reachable from the keyboard, with
-          shortcuts you can change to match the keys you already know, and I
-          plan to open source the whole app. None of it has dates, and the list
-          is mostly there so I have something to say no against.
+          This post tells where I want LightPhotos to go in the next year. Your
+          photos stay as files on your own drive, and any AI features will run
+          on your own computer. Only the basic features must work on every
+          platform. I also want keyboard access to all features, with shortcuts
+          that you can change to the keys that you already know. I plan to make
+          the full app open source. The plan has no dates, and its main job
+          is to give me a list that I can use to say no to other features.
         </p>
       </aside>
 
       <h2>What I learned</h2>
       <ul class="lp-article-list">
         <li>
-          <strong>Write down what you won't build.</strong> Deciding features
-          one at a time is how a small tool slowly becomes a big one. A written
-          list kept the first version small, so I'm doing the same for the next
-          year.
+          <strong>Write down what you will not build.</strong> If you decide
+          on features one at a time, a small tool slowly becomes a large tool.
+          A written list kept the first version small. I will use the same
+          method for the next year.
         </li>
         <li>
-          <strong>Not every feature has to run everywhere.</strong> If every
-          feature had to work on all four platforms, I'd ship less. I'd rather
-          have a feature on the Mac than not have it at all.
+          <strong>Not every feature must run on every platform.</strong> If
+          every feature must work on all four platforms, I will ship fewer
+          features. I would rather have a feature on the Mac than not have it at all.
         </li>
         <li>
-          <strong>Count the cost of a platform's tools before relying on them.</strong>
-          Apple's frameworks do a lot of work for you, but you can't take that
-          work with you to other platforms. I learned that when I ported away
-          from Image I/O.
+          <strong>Know the cost of the tools of a platform before you use them.</strong>
+          Apple frameworks do a lot of work for you, but you cannot take that
+          work with you to other platforms. I learned this when I ported my code away from Image I/O.
         </li>
         <li>
-          <strong>If I'm asking for trust, you should be able to check.</strong>
-          I say your photos never leave your drive. Open sourcing the whole app
-          means you don't have to take my word for it.
+          <strong>If I ask for your trust, you should be able to check.</strong>
+          I say that your photos never leave your drive. If the full app is open
+          source, you can check that yourself.
         </li>
       </ul>
 
       <p>
-        I've written a fair amount about how LightPhotos works, but not about
-        where it's going. I've been deciding that one feature at a time, and
-        that's how a small tool slowly turns into a big one.
+        I wrote many posts about how LightPhotos works, but no post about its
+        direction. I decided its direction one feature at a time. That is how a
+        small tool slowly becomes a large tool.
       </p>
       <p>
-        So here's the plan, and the part I find most useful is what I'm leaving
-        out. It's the same idea as the seven-item list in
-        <a href="/blogs/why-i-started-lightphotos.html">the first post</a>,
-        except this list covers the next year instead of the first afternoon.
+        Here is the plan. For me, the most useful part is what I am leaving
+        out. It is the same idea as the seven-item list in
+        <a href="/blogs/why-i-started-lightphotos.html">the first post</a>.
+        But this list is for the next year, not for the first afternoon.
       </p>
 
       <h2>Your photos stay yours</h2>
       <p>
-        I'm not building a service to store your photos. There's no account to
-        create, nothing to upload, and no library I keep for you. Your photos
-        are files on your drive, and LightPhotos opens the folder they're
-        already in.
+        I will not build a service that stores your photos. You do not create
+        an account, you do not upload photos, and I do not keep a library for
+        you. Your photos are files on your drive. LightPhotos opens the folder
+        that already contains them.
       </p>
       <p>
-        I didn't start out with this as a principle. I got here the hard way,
-        after losing years of photos to a library format only one app could
-        read. I wrote about that in the first post, and it still shapes most of
-        these decisions.
+        I did not start with this principle. I learned it from a bad
+        experience. I lost years of photos because only one app could read
+        their library format. I wrote about that in the first post. That
+        experience still controls most of these decisions.
       </p>
       <p>
-        I do want to reach drives that aren't plugged into your computer,
-        starting with Google Drive. What's holding that back is speed. A photo
-        tool that stalls every time you press the arrow key to go to the next
-        photo isn't worth shipping, so I'll only do this if the performance is
-        good enough. I don't know yet whether it will be.
+        I also want LightPhotos to access drives that are not connected to your
+        computer. The first one will be Google Drive. The problem is speed. If
+        a photo tool stops each time that you push the arrow key for the next
+        photo, it is not good enough to ship. Thus I will do this only if the
+        performance is good enough, and I do not know yet if it will be.
       </p>
 
-      <h2>I'm not cloning Lightroom</h2>
+      <h2>I am not cloning Lightroom</h2>
       <p>
-        Lightroom has a lot of really good features, and I'm not going to match
-        them. The AI features are the strongest part, and nearly all of them
-        work by sending your photo to someone else's servers. That's the one
-        thing I've said I won't do.
+        Lightroom has a lot of really good features, and I will not try to match
+        them. The AI features are the strongest part. Almost all of them send
+        your photo to servers that a different person or company controls. I
+        said that I will never do that.
       </p>
       <p>
-        What I want to look at instead is ComfyUI, a tool for running AI image
-        models on your own computer. I haven't built any of this yet, so think
-        of it as something I want to try, not a promise. What I like about it
-        is that the model runs where your photos already are, and nothing
-        leaves your drive.
+        Instead, I want to look at ComfyUI. ComfyUI is a tool that runs AI
+        image models on your own computer. I did not build any of this yet.
+        So it is an idea that I want to try, not a promise. I like that the
+        model runs on the same computer as your photos, and nothing leaves your
+        drive.
       </p>
 
       <h2>Not every feature on every platform</h2>
       <p>
-        If every feature had to work the same way on all four platforms, I'd
-        ship less, and what I did ship would be the plainest version.
+        If every feature must work the same on all four platforms, I will ship
+        fewer features. Also, the features that I ship will be the plainest
+        versions.
       </p>
       <p>
-        So I treat two groups of features differently. The basics everyone
-        expects already run everywhere, in the browser and on Windows and Linux
-        as well as the Mac. Browsing a folder, rating, filtering, the basic
-        adjustments and export are all in that group, and anything similar I
-        build next will join them.
+        So I put features into two groups, and I use different rules for
+        each group. The basic features that all users expect already run on all
+        platforms: the browser, Windows, Linux, and the Mac. With these
+        features, you can browse a folder, rate and filter photos, make basic
+        adjustments, and export. Similar features that I build next will also
+        go into this group.
       </p>
 
       <figure class="lp-figure">
-        <svg viewBox="0 0 640 216" role="img" aria-label="Two panels. The left panel, table stakes, lists macOS, Windows, Linux and browser, with browsing, rating, filtering, adjustments and export from one Rust codebase compiled to WASM. The right panel, Mac only, lists Core Image, Vision and VisionKit, Image I/O, AVFoundation and Object Capture as Apple frameworks that are hard to port.">
+        <svg viewBox="0 0 640 216" role="img" aria-label="Two panels. The left panel, Basic features, shows macOS, Windows, Linux and the browser. It lists browse, rate, filter, adjustments and export, from one Rust codebase that compiles to WASM. The right panel, Mac only, lists Core Image, Vision and VisionKit, Image I/O, AVFoundation and Object Capture. These are Apple frameworks that are difficult to port.">
           <text class="lp-fig-label" x="0" y="12">WHAT RUNS WHERE</text>
 
           <rect class="lp-fig-panel" x="0" y="24" width="380" height="180" rx="8"></rect>
-          <text class="lp-fig-t" x="16" y="48">Table stakes</text>
+          <text class="lp-fig-t" x="16" y="48">Basic features</text>
           <text class="lp-fig-s" x="16" y="66">One Rust codebase, compiled to WASM for the browser</text>
 
           <rect class="lp-fig-box" x="16" y="80" width="78" height="26" rx="5"></rect>
@@ -143,7 +144,7 @@ import Base from "../../layouts/Base.astro";
 
           <rect class="lp-fig-panel" x="400" y="24" width="240" height="180" rx="8"></rect>
           <text class="lp-fig-t" x="416" y="48">Mac only</text>
-          <text class="lp-fig-s" x="416" y="66">Apple frameworks, hard to port</text>
+          <text class="lp-fig-s" x="416" y="66">Apple frameworks, difficult to port</text>
 
           <rect class="lp-fig-box-accent" x="416" y="88" width="7" height="7" rx="1"></rect>
           <text class="lp-fig-s" x="432" y="96">Core Image</text>
@@ -157,105 +158,105 @@ import Base from "../../layouts/Base.astro";
           <text class="lp-fig-s" x="432" y="184">Object Capture</text>
         </svg>
         <figcaption>
-          The left side is already built and runs on all four. The right side
-          is an experiment, and anything that ends up there may stay Mac-only
-          for a long time.
+          The left side is already built and runs on all four platforms. The
+          right side is an experiment. Features on the right side can stay
+          Mac-only for a long time.
         </figcaption>
       </figure>
 
       <p>
-        Beyond those basics, I want to find out how much Apple's own frameworks
-        (the building blocks Apple provides for Mac apps) can do for me. That
-        means Core Image, Vision and VisionKit, Image I/O, AVFoundation, and
-        Object Capture, which builds 3D models from photos. I already know from
+        Beyond these basic features, I want to find out how much Apple
+        frameworks can do for me. Apple supplies these code libraries for
+        Mac apps. The ones I mean are Core Image, Vision and VisionKit, Image
+        I/O, AVFoundation, and Object Capture. Object Capture makes 3D models
+        from photos. I already know the result from
         <a href="/blogs/what-imageio-gives-you-free.html">porting away from
-        Image I/O</a> how this goes. You get a lot of work done for free, and
-        then you can't take any of it with you.
+        Image I/O</a>. Apple frameworks do a lot of work for you for free, but
+        you cannot take any of it with you to other platforms.
       </p>
       <p>
-        This time I'm going in expecting that. Anything built on those
-        frameworks will probably be Mac-only, maybe for good, and I'd rather
-        have a feature on one platform than not have it at all.
+        This time, I expect that result before I start. Features that use
+        those frameworks will probably be Mac-only, possibly permanently. I would
+        rather have a feature on one platform than not have it at all.
       </p>
 
       <h2>Getting your photos out</h2>
       <p>
-        Since I don't want LightPhotos to be your photo library, it has to be
-        easy to send your photos to something that is. So I plan to support
-        Immich, a photo library you can host yourself, and exporting to cloud
-        storage more generally.
+        I do not want LightPhotos to be your photo library. So it must be
+        easy to send your photos to a photo library. I plan to support Immich,
+        a photo library that you can host yourself. I also plan to support
+        export to cloud storage in general.
       </p>
       <p>
-        What I care about is that export works the same way whether the server
-        is on your home network or somewhere out on the internet. I don't want
-        to end up with two separate features where one of them is
-        half-finished.
+        For me, the important thing is that export works the same way for a
+        server on your home network and a server on the internet. I do not
+        want two different features, with one of them only half complete.
       </p>
 
       <h2>Everything from the keyboard</h2>
       <p>
-        I want every feature reachable from the keyboard, so you can use the
-        whole app without touching the mouse. I mean all of them, not just the
-        common ones.
+        I want keyboard access to every feature. Then you can use the full app
+        without the mouse. This applies to all features, not only the common
+        features.
       </p>
       <p>
-        Part of the reason is that keyboard shortcuts are what I wanted from a
-        photo tool in the first place, and they're why Luminar didn't fit how I
-        work. The other part is that when I
+        One reason is that I wanted keyboard shortcuts from a photo tool from
+        the start. Shortcuts are also why Luminar did not fit how I work. The other reason is that when I
         <a href="/blogs/why-rust.html">chose to build everything in Rust</a>, I
-        gave up the kind of accessibility browsers give you for free, and I
-        said so at the time. Keyboard support is the part of that gap I can
-        close myself, so I'm treating it as a requirement.
+        gave up the accessibility that browsers give you for free. I said this at
+        that time. Keyboard support is the part of that problem that I can
+        correct myself, so I make it a requirement.
       </p>
 
       <h2>Shortcuts you can change</h2>
       <p>
-        The thing I've hated most about photo apps is that every one of them
-        expects a different set of keys. Luminar AI, RawTherapee and Darktable
-        each want you to learn their own keys, and that's a big part of why I
-        don't want to use any of them.
+        What I hate most about photo apps is that each app uses a different set
+        of keys. Luminar AI, RawTherapee and Darktable each want you to learn
+        their own keys. That is a large part of the reason that I do not want
+        to use them.
       </p>
       <p>
-        If you've switched photo apps before, you probably know that feeling.
-        You already know how you like to work, and the app is asking you to
-        start over. I don't want LightPhotos to do that to anyone.
+        If you changed photo apps before, you probably know that feeling. You
+        already know how you like to work, but the app tells you to start
+        again. I do not want LightPhotos to do that to anyone.
       </p>
       <p>
-        So I want every keyboard shortcut in LightPhotos to be customizable.
-        If your hands already know a set of keys from another app, you should
-        be able to use those keys here instead of learning mine.
+        So I want you to be able to change every keyboard shortcut in
+        LightPhotos. If you already know a set of keys from a different app,
+        you can use those keys here. You do not have to learn my keys.
       </p>
 
       <h2>Open source, all of it</h2>
       <p>
-        I plan to open source the whole codebase. I don't mean a core library
-        with the interesting parts held back, or an old version released
-        later. I mean the whole app.
+        I plan to make the full codebase open source. I do not mean a core
+        library without the interesting parts. I also do not mean an old
+        version that I release later. I mean the full app.
       </p>
       <p>
-        It's the same reason as the storage decision. I'm asking you to trust
-        that your photos stay on your drive and nothing gets uploaded, and you
-        should be able to check that yourself instead of taking my word for it.
+        The reason is the same as for the storage decision. I ask you to trust
+        that your photos stay on your drive and that nothing goes to a server.
+        You should be able to check that yourself.
       </p>
 
       <h2>The next app works the same way</h2>
       <p>
-        This plan goes beyond one photo editor. I want to build other Rust apps
-        the same way, and by now I'm following that pattern on purpose.
+        This plan is not only for one photo editor. I want to build other Rust
+        apps in the same way. I now follow that pattern on purpose.
       </p>
       <p>
-        First I build a native Mac app, because a Mac is what I use and I'd
-        rather aim the first version at a user I understand well. Then I take
-        the basic features to the browser with WebAssembly, and from there to
-        the other platforms people actually use.
+        First, I build a native Mac app. I use a Mac, and I want the first
+        version to be for a user that I know well. Then I use WebAssembly to
+        move the basic features to the browser. After that, I move them to the
+        other platforms that people use.
       </p>
       <p>
-        LightPhotos is where I worked out that order. Sharing the basic
-        features across every platform while letting the extras differ,
-        keeping the core editing code in its own module away from the
-        interface, and weighing the cost of a platform's frameworks before
-        depending on them all came from this codebase. I expect to carry those
-        over as they are.
+        I worked out that order with LightPhotos. Three methods came from this
+        codebase. The first is to share the basic features across all
+        platforms, but let the other features be different. The second is to
+        keep the core editing code in a module that is separate from the
+        interface. The third is to weigh the cost of the frameworks of a
+        platform before I use them. I expect to use those methods again without
+        changes.
       </p>
 
       <h2>The plan on one page</h2>
@@ -272,22 +273,22 @@ import Base from "../../layouts/Base.astro";
             <tr>
               <th scope="row">Storage</th>
               <td>A photo platform of my own</td>
-              <td class="lp-compare-pick">Local drives, and Google Drive if it's fast enough</td>
+              <td class="lp-compare-pick">Local drives, and Google Drive if it is fast enough</td>
             </tr>
             <tr>
               <th scope="row">AI</th>
               <td>Anything that uploads your photos</td>
-              <td class="lp-compare-pick">Investigating ComfyUI on your own machine</td>
+              <td class="lp-compare-pick">Investigating ComfyUI on your own computer</td>
             </tr>
             <tr>
               <th scope="row">Platforms</th>
               <td>Every feature on all four</td>
-              <td class="lp-compare-pick">Table stakes everywhere, Apple frameworks on the Mac</td>
+              <td class="lp-compare-pick">Basic features on all platforms, Apple frameworks on the Mac</td>
             </tr>
             <tr>
               <th scope="row">Sharing</th>
               <td>Becoming your library</td>
-              <td class="lp-compare-pick">Immich, and export that works local or remote</td>
+              <td class="lp-compare-pick">Immich, and export to local or remote servers</td>
             </tr>
             <tr>
               <th scope="row">Input</th>
@@ -296,13 +297,13 @@ import Base from "../../layouts/Base.astro";
             </tr>
             <tr>
               <th scope="row">Shortcuts</th>
-              <td>A fixed set of keys you have to learn</td>
-              <td class="lp-compare-pick">Shortcuts you can change to match how you work</td>
+              <td>A fixed set of keys that you must learn</td>
+              <td class="lp-compare-pick">Shortcuts that you can change to match how you work</td>
             </tr>
             <tr>
               <th scope="row">Code</th>
-              <td>A binary you have to trust</td>
-              <td class="lp-compare-pick">Open source, the whole app</td>
+              <td>A binary that you must trust</td>
+              <td class="lp-compare-pick">Open source, the full app</td>
             </tr>
           </tbody>
         </table>
@@ -310,24 +311,25 @@ import Base from "../../layouts/Base.astro";
 
       <h2>What the list is actually for</h2>
       <p>
-        None of this has dates on it. I work on LightPhotos in bursts, and a
-        roadmap with quarterly deadlines would just be made up.
+        This plan has no dates. I work on LightPhotos at irregular times, so
+        the deadlines in a quarterly roadmap would only be guesses.
       </p>
       <p>
-        What the list really does is give me something to say no against. The
-        first version shipped because I wrote down seven things and left
-        everything else out. This is the same idea with a bigger list.
+        What the list really does is give me a reason to say no to other
+        features. The first version shipped because I wrote down seven things
+        and left everything else out. This list uses the same idea, but
+        it is larger.
       </p>
       <p>
-        I'd also like people to argue with it. If something here is wrong, or
-        something obvious is missing, log it at
+        I also want people to argue with it. If something here is wrong, or
+        if an obvious item is missing, tell me in
         <a href="https://github.com/andrewyao/lightphotos/issues">the issue
-        tracker</a> and I'll read it.
+        tracker</a>. I will read it.
       </p>
       <p>
         The current builds are on the <a href="/downloads.html">downloads
-        page</a>, and the browser version is at <a href="/app.html">the web
-        app</a> if you want to try it without installing anything.
+        page</a>. To try LightPhotos without an installation, use the browser
+        version at <a href="/app.html">the web app</a>.
       </p>
 
       <nav class="lp-article-nav" aria-label="More posts">

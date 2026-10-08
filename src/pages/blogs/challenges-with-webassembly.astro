@@ -3,7 +3,7 @@ import Base from "../../layouts/Base.astro";
 ---
 <Base
   title="Challenges with WebAssembly — LightPhotos Blog"
-  desc="The same Rust code runs in a browser tab. Getting it to compile was quick. Getting the colours right, reading files reliably and shipping it without breaking took me much longer."
+  desc="The same Rust code runs in a browser tab. It compiled quickly. Getting the colours right, reading files reliably and shipping it without breaks took me much longer."
   active="blogs"
 >
   <main class="lp-page">
@@ -12,65 +12,63 @@ import Base from "../../layouts/Base.astro";
         <p class="lp-article-meta"><a href="/blogs.html">Blogs</a> &middot; <time datetime="2026-09-26">September 26, 2026</time></p>
         <h1>Challenges with WebAssembly</h1>
         <p class="lp-article-dek">
-          The same Rust code runs in a browser tab. Getting it to compile was
-          quick. Getting the colours right, reading files reliably and
-          shipping it without breaking took me much longer.
+          The same Rust code runs in a browser tab. It compiled quickly.
+          Getting the colours right, reading files reliably and shipping it
+          without breaks took me much longer.
         </p>
-        <p class="lp-article-byline">Andrew Yao &middot; 7 min read</p>
+        <p class="lp-article-byline">Andrew Yao &middot; 8 min read</p>
       </header>
 
       <aside class="lp-tldr">
         <p class="lp-tldr-label">TL;DR</p>
         <p>
-          The <a href="/app.html">web version</a> of LightPhotos is the
-          desktop app's Rust code, compiled to WebAssembly so it runs in a
+          The <a href="/app.html">web version</a> of LightPhotos is the Rust
+          code of the desktop app, compiled to WebAssembly so it runs in a
           browser tab. It works in desktop Chrome and Edge. Almost none of the
-          hard bugs showed up when I compiled it. They showed up when it ran,
-          in the clock, threads, crashes, colours and file access, and each
-          one needed its own workaround, a few of which changed the desktop
-          app too.
+          hard bugs appeared when I compiled it. They appeared when it ran, in
+          the clock, threads, crashes, colours and file access. Each one needed
+          its own workaround, and a few of those changed the desktop app too.
         </p>
       </aside>
 
       <h2>What I learned</h2>
       <ul class="lp-article-list">
         <li>
-          <strong>Getting it to compile didn't tell me much.</strong> The
-          first time the app ran in a browser it hit three bugs, and the
-          compiler couldn't have caught any of them.
+          <strong>A successful compile did not tell me much.</strong> The
+          first time the app ran in a browser, it hit three bugs. The compiler
+          could not catch any of them.
         </li>
         <li>
-          <strong>Writing my predictions down helped.</strong> My plan got
+          <strong>It helped to write my predictions down.</strong> My plan got
           memory right and threading completely wrong. I only know that
           because I wrote the plan down before I started.
         </li>
         <li>
           <strong>In the browser, a crash in any library is my
-          problem.</strong> When Rust code panics (crashes on purpose because
-          something unexpected happened) in the browser, it kills the worker.
-          So I have to check a file before handing it to a decoder that might
-          panic on it.
+          problem.</strong> A Rust panic is a deliberate crash after something
+          unexpected happens. When Rust code panics in the browser, the panic
+          kills the worker. So I must check a file before I give it to a
+          decoder that might panic on it.
         </li>
         <li>
-          <strong>How I deploy matters as much as the code.</strong> Two
-          files from the same build were cached for different lengths of
-          time, and that broke every photo for anyone who had visited
-          recently.
+          <strong>How I deploy matters as much as the code.</strong> The cache
+          kept two files from the same build for different lengths of time.
+          That broke every photo for anyone who visited recently.
         </li>
       </ul>
 
       <h2>How the browser version is laid out</h2>
       <p>
-        The browser version is really two programs. The main one runs the
-        window, the interface and the graphics on the page's main thread. A
+        The browser version is two programs. The main one runs the window,
+        the interface and the graphics on the main thread of the page. A
         second, smaller one runs in Web Workers, which are background threads
-        the browser gives you, and it does the slow work of decoding RAW files
+        that the browser gives you. It does the slow work of decoding RAW files
         and rendering exports. I needed the second program because a worker
-        has no window, so it can't run the interface or the graphics code.
+        has no window, so it cannot run the interface or the graphics code.
       </p>
 
       <figure class="lp-figure">
-        <svg viewBox="0 0 640 214" role="img" aria-label="The browser build. The page's main thread runs the interface and draws with WebGPU. It reads and writes your folder through the File System Access API. It sends decode and export jobs to up to four Web Workers, each a separate copy of a smaller WebAssembly program with its own memory. Downloads: about 3.2 MB for the main program and 1.1 MB for the worker, compressed.">
+        <svg viewBox="0 0 640 214" role="img" aria-label="The browser build. The main thread of the page runs the interface and draws with WebGPU. It reads and writes your folder through the File System Access API. It sends decode and export jobs to a maximum of four Web Workers. Each worker is a separate copy of a smaller WebAssembly program with its own memory. Downloads, compressed: approximately 3.2 MB for the main program and 1.1 MB for the worker.">
           <text class="lp-fig-label" x="0" y="12">ONE BROWSER TAB</text>
 
           <rect class="lp-fig-box-accent" x="0" y="28" width="250" height="72" rx="6"></rect>
@@ -108,206 +106,207 @@ import Base from "../../layouts/Base.astro";
       </figure>
 
       <p>
-        I build everything with a tool called trunk, which runs the Rust
-        compiler and generates the JavaScript that connects the program to
-        the page. Even that had a catch. One setting the graphics code needs
-        is supposed to go in trunk's config file, but in the version I use it
-        never reaches the compiler. So every build script sets it as an
-        environment variable instead.
+        I build everything with a tool called trunk. It runs the Rust compiler
+        and generates the JavaScript that connects the program to the page.
+        Even trunk had a problem. The graphics code needs one setting, and
+        that setting should go in the config file of trunk. But in my version
+        of trunk, the setting never reaches the compiler. So every build
+        script sets it as an environment variable instead.
       </p>
 
-      <h2>It compiled, but it didn't run</h2>
+      <h2>It compiled, but it did not run</h2>
       <p>
-        Getting the code to compile for the browser turned up the problems I
-        expected. There's no system trash, no clipboard, no source of random
-        numbers until you tell a library to use the browser's, and starting a
-        thread fails. Those show up when you compile or right at startup, and
-        they were easy to fix.
+        When I compiled the code for the browser, I found the problems that I
+        expected. There is no system trash and no clipboard. There is no
+        source of random numbers until you tell a library to use the one in
+        the browser. And starting a thread fails. These problems appear at
+        compile time or right at startup, and they were easy to fix.
       </p>
       <p>
-        Then I opened it in a browser, and it crashed.
+        Then I opened the app in a browser, and it crashed.
       </p>
       <ul class="lp-article-list">
         <li>
-          <strong>Asking for the time crashed the app.</strong> Rust's
-          standard <code>Instant::now()</code> isn't implemented in the
-          browser, and instead of returning an error, it crashes. The app
-          checks the clock at startup, so every launch died. Every timer in
-          the app now uses a small library that asks the browser's clock
-          instead, and so does a patched copy of the RAW decoder.
+          <strong>Asking for the time crashed the app.</strong> The standard
+          Rust function <code>Instant::now()</code> has no implementation in
+          the browser. It crashes instead of returning an error. The app reads
+          the clock at startup, so every launch died. Now every timer in the
+          app uses a small library that asks the clock of the browser. A
+          patched copy of the RAW decoder uses it too.
         </li>
         <li>
-          <strong>I couldn't wait on the main thread.</strong> The desktop app
-          waits for the graphics card to be ready before showing a window. A
-          browser page has to hand control back to the browser, or nothing
-          happens. Graphics setup now starts in the background, and the app
-          checks every frame whether it's done.
+          <strong>I could not wait on the main thread.</strong> The desktop
+          app waits for the graphics card to be ready before it shows a
+          window. A browser page must give control back to the browser, or
+          nothing happens. Now graphics setup starts in the background. The
+          app checks on every frame whether the setup is done.
         </li>
         <li>
-          <strong>The window started at zero by zero.</strong> Until the
-          browser reports the canvas size, it's 0&times;0 pixels, and WebGPU
-          (the browser's way of using the graphics card) rejects every
-          drawing command outside the canvas. On a high-resolution screen,
-          the rectangles I use to clip drawing were also twice too big.
+          <strong>The window started at zero by zero.</strong> The canvas is
+          0&times;0 pixels until the browser reports its size. WebGPU, the
+          browser's way to use the graphics card, rejects every drawing
+          command outside the canvas. On a high-resolution screen, the
+          rectangles that I use to clip drawing were also twice too big.
         </li>
         <li>
-          <strong>WebGPU is stricter than Metal.</strong> One shader (a small
-          program that runs on the graphics card) stopped early for some
-          pixels and then read from a texture. Metal, Apple's graphics system,
-          and Vulkan had quietly allowed that. WebGPU refused to compile it.
+          <strong>WebGPU is stricter than Metal.</strong> One shader stopped
+          early for some pixels and then read from a texture. (A shader is a
+          small program that runs on the graphics card.) Metal, the graphics
+          system from Apple, and Vulkan allowed that without a warning. WebGPU
+          refused to compile it.
         </li>
       </ul>
 
       <h2>The colours were wrong</h2>
       <p>
-        Once it drew anything, everything looked muddy. A 50% gray showed up
-        as about 21%.
+        When the app first drew something, everything looked dull and dark.
+        A 50% gray appeared as approximately 21%.
       </p>
       <p>
-        On the desktop, the app gives the graphics card colours in linear
-        light, meaning numbers that scale with the actual amount of light.
-        The system then converts them to sRGB, the values a monitor expects.
-        A WebGPU canvas never offers that conversion, so the linear values
-        went straight to the screen and every midtone came out far too dark.
-        Gray test bars that should have read 64, 128 and 192 read 13, 55 and
-        134.
+        On the desktop, the app gives colours to the graphics card in linear
+        light. Linear values scale with the real amount of light. The system
+        then converts them to sRGB, the values that a monitor expects. A
+        WebGPU canvas never offers that conversion. So the linear values went
+        straight to the screen, and every midtone was far too dark. Gray test
+        bars that should have read 64, 128 and 192 read 13, 55 and 134.
       </p>
       <p>
-        I fixed it by doing the conversion in the shaders myself, on every
-        platform, including the desktop. Because that last step is now
-        shared, the desktop and browser builds can't drift apart on how
-        colour reaches the screen. Decoding still differs. On macOS, photos
-        come in through Apple's ImageIO, and everywhere else through the
-        app's own decoders.
+        I fixed it: the shaders now do the conversion themselves, on every
+        platform, including the desktop. This last step is now shared, so the
+        desktop and browser builds cannot drift apart in how colour reaches
+        the screen. Decoding is still different. On macOS, Apple's ImageIO
+        decodes the photos. On all other platforms, the app's own decoders do
+        it.
       </p>
 
       <h2>Threads without shared memory</h2>
       <p>
-        Before I started the port, I wrote a memo on whether it was even
-        feasible. For threading, it predicted the usual approach: memory
-        shared between workers, which needs the site to send two special
-        security headers, plus a library that lets Rust's thread pool run in
-        the browser.
+        Before I started the port, I wrote a memo on whether it was possible
+        at all. For threading, the memo predicted the usual approach. That
+        approach uses memory that the workers share, and the site must send
+        two special security headers. It also needs a library that lets the
+        Rust thread pool run in the browser.
       </p>
       <p>
-        That library didn't fit. It expects JavaScript to set up the thread
-        pool before the Rust program starts, and LightPhotos is a normal Rust
+        That library did not fit. It expects JavaScript to set up the thread
+        pool before the Rust program starts. But LightPhotos is a normal Rust
         program with its own <code>main()</code>. So I dropped shared memory
-        altogether. Each worker runs its own separate copy of the worker
-        program. The main thread sends it a file's bytes and gets pixels
+        completely. Each worker runs its own separate copy of the worker
+        program. The main thread sends it the bytes of a file and gets pixels
         back.
       </p>
       <p>
-        This ended up simpler than what I'd planned. It doesn't need special
-        headers from the server or experimental Rust. The cost is memory,
-        because each worker has its own. That's why the pool stops at four
-        workers, no matter how many cores you have.
+        The result was simpler than my plan. It needs no special headers from
+        the server and no experimental Rust. The cost is memory, because each
+        worker has its own. That is why the pool stops at four workers, no
+        matter how many cores you have.
       </p>
       <p>
-        The memo's warnings about memory were right, though. A browser tab
-        can only address a limited amount of memory (it's 32-bit), and
-        memory it grows never shrinks back. I've written about that in <a
+        But the memo was right about memory. A browser tab can only address a
+        limited amount of memory, because it is 32-bit. And when that memory
+        grows, it never shrinks again. I wrote about this in <a
         href="/blogs/measuring-a-gui-app.html">measuring a GUI app</a> and
         <a href="/blogs/never-load-the-whole-folder.html">never load the
         whole folder</a>.
       </p>
 
-      <h2>No second chances after a crash</h2>
+      <h2>No recovery after a crash</h2>
       <p>
-        On the desktop, if the RAW decoder panics on a strange file, the app
-        catches it and shows a placeholder. The browser build can't do that.
-        WebAssembly in the browser has no way to recover from a panic, so it
-        kills the worker outright.
+        On the desktop, if the RAW decoder panics on an unusual file, the app
+        catches the panic and shows a placeholder. The browser build cannot
+        do that. WebAssembly in the browser has no way to recover from a
+        panic, so the panic kills the worker outright.
       </p>
       <p>
-        So the app checks each file before handing it to the decoder:
+        So the app checks each file before it gives the file to the decoder:
       </p>
       <ul class="lp-article-list">
-        <li>File layouts the decoder hasn't implemented yet, where it would hit a <code>todo!()</code>, are turned away.</li>
-        <li>Files from Fujifilm's X-Trans sensors, which hit an <code>unreachable!()</code> in the decoder, are turned away.</li>
+        <li>The app rejects file layouts that the decoder does not implement yet, where the decoder would hit a <code>todo!()</code>.</li>
+        <li>The app rejects files from Fujifilm X-Trans sensors, because they hit an <code>unreachable!()</code> in the decoder.</li>
         <li>
-          Image sizes are checked for overflow. In the 32-bit browser build,
-          a big RAW file's width times height can overflow where it never
-          would on a 64-bit Mac.
+          The app checks image sizes for overflow. In the 32-bit browser
+          build, the width times the height of a big RAW file can overflow.
+          That never happens on a 64-bit Mac.
         </li>
       </ul>
       <p>
-        When it can, the worker skips the decoder entirely and uses the JPEG
-        preview most cameras embed in the RAW file. That's faster, and it
-        can't crash.
+        When it can, the worker skips the decoder completely. It uses the
+        JPEG preview that most cameras embed in the RAW file. That is faster,
+        and it cannot crash.
       </p>
 
       <h2>Files, one handle at a time</h2>
       <p>
-        The File System Access API is what makes the web version possible at
-        all. You pick a folder, and the page can read and write inside it.
-        But the page never sees a path, only handles, and every operation is
-        asynchronous, meaning you ask and the answer arrives later. Code that
-        used to say "list the directory" now says "ask for the list, and use
-        it when it arrives".
+        The File System Access API is what makes the web version possible.
+        You pick a folder, and the page can read and write inside it. But the
+        page never sees a path, only handles. And every operation is
+        asynchronous: you ask, and the answer arrives later. Code that said
+        "list the directory" now says "ask for the list, and use it when it
+        arrives".
       </p>
       <p>
-        Two errors took me the longest to understand.
+        Two errors took me the longest time to understand.
       </p>
       <ul class="lp-article-list">
         <li>
           <strong><code>NotReadableError</code>.</strong> Chrome throws it
-          when too many file reads run at once. Two at a time never triggered
-          it. The app allows four, and when one fails it retries after a
+          when too many file reads run at once. Two at a time never caused it.
+          The app allows four. When a read fails, the app tries again after a
           random delay that grows each time. When I retried right away, or at
-          fixed intervals, it failed again, because all the reads retried at
-          the same moment.
+          fixed intervals, the reads failed again. The cause was that all the
+          reads retried at the same moment.
         </li>
         <li>
           <strong><code>RangeError: Array buffer allocation failed</code>.</strong>
-          Reading a RAW file copied it once into JavaScript and again into
-          WebAssembly's memory. A few of those in a row and the tab ran out of
-          room. Now the bytes move across without the extra copy.
+          When the app read a RAW file, it copied the file once into
+          JavaScript and again into the memory of WebAssembly. After a few of
+          those reads in a row, the tab ran out of memory. Now the bytes move
+          across without the extra copy.
         </li>
       </ul>
       <p>
-        There are rough edges I haven't fixed yet. You have to pick the
-        folder again every time you open the page. Deleting a photo is
-        permanent, because the API has no trash, and the app warns you about
-        that before it deletes.
+        I have not fixed some rough edges yet. You must pick the folder again
+        every time you open the page. When you delete a photo, the deletion is
+        permanent, because the API has no trash. The app warns you about that
+        before it deletes.
       </p>
 
       <h2>Deploying broke it</h2>
       <p>
-        The worst bug in the whole port wasn't in the Rust code. The site is
-        served through Cloudflare, which cached the worker's JavaScript for
-        four hours and its WebAssembly file for zero. After a release, anyone
-        who had visited recently got old JavaScript paired with new
-        WebAssembly, and every decode failed with an error saying a function
-        didn't exist.
+        The worst bug in the whole port was not in the Rust code. Cloudflare
+        serves the site. It cached the JavaScript of the worker for four hours
+        and its WebAssembly file for zero. After a release, recent visitors
+        got old JavaScript paired with new WebAssembly. Every decode then
+        failed with an error that said a function did not exist.
       </p>
       <p>
-        To fix it, the worker files are now requested with the main bundle's
-        build hash (a fingerprint of that build) added to the end of the
-        address, so every release gets new addresses for both. Moving the app
-        under <code>/app/</code> broke the worker's address too, so now it
-        works out where it lives from the page instead of assuming.
+        To fix it, the app now adds the build hash of the main bundle to the
+        end of the worker file addresses. (The build hash is a fingerprint of
+        that build.) So every release gets new addresses for both files. When
+        I moved the app under <code>/app/</code>, the worker address broke
+        too. Now the worker finds its own location from the page and does not
+        assume it.
       </p>
 
       <h2>What the browser version gives up</h2>
       <ul class="lp-article-list">
-        <li>Only desktop Chrome and Edge, which have WebGPU and folder access.</li>
-        <li>No HEIC, no face detection, no subject selection.</li>
-        <li>No Immich upload, because Immich servers don't accept requests from web pages.</li>
-        <li>No clipboard, no Lightroom preset import, and you can't choose where exports go. They go to an <code>Exports</code> folder inside the one you picked.</li>
-        <li>You download about 4.3&nbsp;MB, compressed, before the app starts.</li>
+        <li>It works only in desktop Chrome and Edge, which have WebGPU and folder access.</li>
+        <li>No HEIC, no face detection and no subject selection.</li>
+        <li>No Immich upload, because Immich servers do not accept requests from web pages.</li>
+        <li>No clipboard and no Lightroom preset import. You also cannot choose where exports go. They go to an <code>Exports</code> folder inside the folder that you picked.</li>
+        <li>You download approximately 4.3&nbsp;MB, compressed, before the app starts.</li>
       </ul>
 
       <h2>Was it worth it?</h2>
       <p>
-        Yes, I think so. Sending someone a link is a lot easier than asking
-        them to install something, and the port made the desktop app better
-        along the way. Every platform now uses the same shader colour
-        conversion, thread pools no longer panic when they can't start, and
-        the thumbnail cache lives next to your photos.
+        Yes, I think so. Sending someone a link is much easier than asking
+        them to install something. The port also made the desktop app better.
+        Every platform now uses the same shader colour conversion. Thread
+        pools no longer panic when they cannot start. And the thumbnail cache
+        now lives next to your photos.
       </p>
       <p>
-        If you try the <a href="/app.html">web app</a> and it breaks, I'd
+        If you try the <a href="/app.html">web app</a> and it breaks, I would
         really like to know which browser you used and what you were doing.
         The <a href="https://github.com/andrewyao/lightphotos/issues">issue
         tracker</a> is the best place to tell me.
@@ -316,7 +315,7 @@ import Base from "../../layouts/Base.astro";
       <nav class="lp-article-nav" aria-label="More posts">
         <a class="lp-article-nav-prev" href="/blogs/my-plan.html">
           <span class="lp-article-nav-dir">Back</span>
-          <span class="lp-article-nav-title">My plan, and what's not in it</span>
+          <span class="lp-article-nav-title">My plan, and what is not in it</span>
         </a>
         <a class="lp-article-nav-next" href="/blogs/exporting-to-your-own-immich-server.html">
           <span class="lp-article-nav-dir">Next</span>

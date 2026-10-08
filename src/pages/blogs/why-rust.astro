@@ -3,7 +3,7 @@ import Base from "../../layouts/Base.astro";
 ---
 <Base
   title="Why Rust — LightPhotos Blog"
-  desc="Should I write the whole app in Rust, or put a web or Swift interface on top of a Rust engine? Here's what I weighed and what finally decided it."
+  desc="I had to decide: write all of the app in Rust, or put a web or Swift interface on a Rust engine. Here is what I compared and what made the decision."
   active="blogs"
 >
   <main class="lp-page">
@@ -12,84 +12,83 @@ import Base from "../../layouts/Base.astro";
         <p class="lp-article-meta"><a href="/blogs.html">Blogs</a> &middot; <time datetime="2026-06-28">June 28, 2026</time></p>
         <h1>Why Rust</h1>
         <p class="lp-article-dek">
-          Should I write the whole app in Rust, or put a web or Swift interface
-          on top of a Rust engine? Here's what I weighed and what finally
-          decided it.
+          I had to decide: write all of the app in Rust, or put a web or Swift
+          interface on a Rust engine. Here is what I compared and what made the
+          decision.
         </p>
-        <p class="lp-article-byline">Andrew Yao &middot; 6 min read</p>
+        <p class="lp-article-byline">Andrew Yao &middot; 5 min read</p>
       </header>
 
       <aside class="lp-tldr">
         <p class="lp-tldr-label">TL;DR</p>
         <p>
-          I had to choose between writing the whole app in Rust or splitting
-          it into a fast Rust engine with a nicer interface built in React or
-          Swift. I went with all Rust, and gave up a better-looking interface
-          and good accessibility (support for screen readers and similar
-          tools) to do it. A photo editor has to respond to every mouse
-          movement right away, and when two languages have to stay in step
-          that often, the bugs tend to show up in the handoff between them.
-          Those are the bugs coding agents struggle with, so I'd be the one
-          chasing them by hand.
+          I had two options: all of the app in Rust, or a fast Rust engine
+          with a better interface in React or Swift. I went with all Rust. For
+          this, I accepted a less attractive interface and weaker accessibility
+          (support for screen readers and similar tools). A photo editor must
+          respond immediately to each mouse movement. When two languages must
+          stay synchronized that frequently, bugs usually occur in the handoff
+          between them. Coding agents have difficulty with these bugs, so I
+          must find them by hand.
         </p>
       </aside>
 
       <h2>What I learned</h2>
       <ul class="lp-article-list">
         <li>
-          <strong>Write the trade-offs down before you pick.</strong> Listing
-          what each option gains and loses showed me what I didn't know yet, so
-          I could answer those questions first instead of getting caught out
-          by them later.
+          <strong>Write down the trade-offs before you pick.</strong> A list of
+          the gains and losses of each option showed me what I did not know
+          yet. Thus I could answer these questions first, and they did not
+          surprise me later.
         </li>
         <li>
-          <strong>Pick a design you can debug yourself.</strong> Agents write
-          nearly all of this code and they're usually good at it. When one gets
-          stuck fixing symptom after symptom, I need the design to be simple
-          enough that I can step in and find the problem.
+          <strong>Pick a design that you can debug yourself.</strong> Agents
+          write almost all of this code, and they usually write it well.
+          Sometimes an agent fixes one symptom after another and does not find
+          the cause. Then I need to step in and find the problem myself, so the
+          design must be simple.
         </li>
         <li>
-          <strong>Plan for the next step or two.</strong> Swift would have been
-          a fine choice for a Mac-only app. Wanting a browser version ruled it
-          out right away.
+          <strong>Plan for the next one or two steps.</strong> Swift is a good
+          choice for a Mac-only app. But I wanted a browser version, and that
+          ruled Swift out right away.
         </li>
         <li>
-          <strong>Keep the core away from the UI.</strong> Even with one
-          language, I keep the photo editing logic in its own module, so I
-          could swap the interface later.
+          <strong>Keep the core separate from the UI.</strong> I use one
+          language, but I keep the photo editing logic in its own module. Thus
+          I can replace the interface later.
         </li>
       </ul>
 
-      <h2>Why Rust was on the table</h2>
+      <h2>Why I considered Rust</h2>
       <p>
-        I find Rust a really interesting language to work in. It's roughly as
-        powerful as C++, and its compiler is strict. It refuses to build code
-        that looks unsafe, which feels a bit like having a picky reviewer
-        sitting next to me.
+        I think that Rust is a very interesting language. It is roughly
+        as powerful as C++, and its compiler is strict. The compiler does not
+        build code that looks unsafe. It feels a bit like a picky reviewer who
+        sits next to me.
       </p>
       <p>
-        That doesn't automatically make it right for a photo editor, though.
-        Before I wrote much code, I had a pile of questions I couldn't answer.
+        But this does not automatically make Rust correct for a photo editor.
+        Before I wrote much code, I had many questions that I could not answer.
       </p>
       <ul class="lp-article-list">
-        <li>Is Rust a sensible choice for this at all?</li>
+        <li>Is Rust a good choice for this app?</li>
         <li>
-          Should I write only the critical piece, the image engine, in Rust and
-          build the UI with something like React?
+          Should I write only the critical part, the image engine, in Rust, and
+          make the UI with a tool such as React?
         </li>
-        <li>Or should I build the whole thing in Rust?</li>
-        <li>Does Rust even have a UI library worth using?</li>
+        <li>Or should I build all of the app in Rust?</li>
+        <li>Does Rust have a UI library that is good enough to use?</li>
         <li>
-          Or should I write the UI in Swift so it feels like a proper Mac app?
+          Or should I write the UI in Swift, so that it feels like a native Mac app?
         </li>
       </ul>
       <p>
-        Two more things were nagging at me. I eventually wanted a browser
-        version, so I could edit the same way without my own Mac. I also had a
-        feeling I might want to support Windows and Linux one day.
+        Two more things worried me. I wanted a browser version one day, so I could edit in the same way without my Mac. I also
+        thought that one day I could want support for Windows and Linux.
       </p>
 
-      <p>In the end it came down to two ways of putting the app together.</p>
+      <p>In the end, I had two ways to build the app.</p>
 
       <figure class="lp-arch">
         <div class="lp-arch-panel">
@@ -117,46 +116,46 @@ import Base from "../../layouts/Base.astro";
         </div>
         <figcaption>
           With all Rust, the interface calls the engine directly. With the
-          split, every slider drag and every preview has to pass between two
+          split design, each slider drag and each preview must move between two
           separate programs.
         </figcaption>
       </figure>
 
-      <h2>What each one would cost me</h2>
+      <h2>The cost of each option</h2>
       <p>
-        Going all Rust, I'd have one language for the whole app. I wouldn't
-        need to copy image data back and forth between two programs, or pass
-        every click and drag across a bridge between them. It would also run
-        faster, need fewer outside libraries, and be simpler to ship.
+        All Rust gives me one language for all of the app. I do not have to
+        copy image data between two programs. I also do not have to send each
+        click and drag across a bridge between them. The app is also faster,
+        needs fewer external libraries, and is simpler to ship.
       </p>
       <p>
-        The downsides are real too. Rust has no official UI toolkit. The
-        libraries people have built work, but nothing I make with them will
-        look as polished as a well-styled web page or a native Mac app.
-        Browsers also give you good accessibility out of the box, and the Rust
-        UI libraries are a long way behind.
+        This option also has real disadvantages. Rust has no official UI
+        toolkit. The libraries that people made work. But my UI will not look
+        as good as a well-styled web page or a native Mac app.
+        Browsers also give good accessibility by default, and the Rust UI
+        libraries are far behind.
       </p>
       <p>
-        Splitting it would let me use the best tools on each side, and I'd have
-        full control over the look, since CSS lets me adjust every pixel. The
-        cost is keeping two systems in sync.
-      </p>
-
-      <h2>What about Swift?</h2>
-      <p>
-        A Swift interface would feel the most at home on a Mac, and I did want
-        that. But it has the same split as option two, with Swift talking to a
-        Rust engine, and Swift doesn't come with me to the browser. A browser
-        version (built with WebAssembly, which lets compiled code run in a web
-        page) would need a second interface written from scratch.
-      </p>
-      <p>
-        It would also tie me to Apple. Windows or Linux would need yet another
-        interface, while the Rust UI libraries and Electron both already run on
-        all three.
+        A split design lets me use the best tools on each side. CSS lets me
+        adjust each pixel, so I have full control of the appearance. The cost
+        is that I must keep two systems synchronized.
       </p>
 
-      <h2>Side by side</h2>
+      <h2>The Swift option</h2>
+      <p>
+        A Swift interface feels the most natural on a Mac, and I wanted that.
+        But it has the same split as option 2: Swift communicates with a Rust
+        engine. Also, Swift does not run in the browser. A browser version
+        (made with WebAssembly, which lets compiled code run in a web page)
+        needs a second interface, written from nothing.
+      </p>
+      <p>
+        Swift also makes me dependent on Apple. Windows or Linux will need one
+        more interface. The Rust UI libraries and Electron already run on all
+        three.
+      </p>
+
+      <h2>Comparison</h2>
       <div class="lp-compare-wrap">
         <table class="lp-compare">
           <thead>
@@ -175,7 +174,7 @@ import Base from "../../layouts/Base.astro";
               <td>2</td>
             </tr>
             <tr>
-              <th scope="row">Engine and UI to keep in sync</th>
+              <th scope="row">Engine and UI to keep synchronized</th>
               <td class="lp-compare-pick">No</td>
               <td>Yes</td>
               <td>Yes</td>
@@ -187,7 +186,7 @@ import Base from "../../layouts/Base.astro";
               <td>None</td>
             </tr>
             <tr>
-              <th scope="row">Look</th>
+              <th scope="row">Appearance</th>
               <td class="lp-compare-pick">Plain</td>
               <td>Anything CSS can do</td>
               <td>Native Mac</td>
@@ -215,15 +214,15 @@ import Base from "../../layouts/Base.astro";
       </div>
 
       <p>
-        In a web app, people expect a short delay. You click a button, wait a
-        moment, and the server answers. A photo editor is different, because
-        dragging, zooming and panning are continuous. Every mouse movement has
-        to reach the engine and come back as a new image, sixty times a second,
-        without any lag you can feel.
+        In a web app, people expect a short delay. You click a button, you
+        wait a moment, and the server answers. A photo editor is different,
+        because drag, zoom, and pan operations are continuous. Each mouse
+        movement must go to the engine and come back as a new image. This
+        occurs sixty times a second, without a delay that you can feel.
       </p>
 
       <figure class="lp-figure">
-        <svg viewBox="0 0 640 220" role="img" aria-label="One slider drag, sixty times a second. With all Rust, the slider moves, an edit function runs and new pixels appear, with no runtime boundary. With a Rust engine and a web UI, the same drag crosses a runtime boundary on the way into the engine and again on the way back, twice per frame.">
+        <svg viewBox="0 0 640 220" role="img" aria-label="One slider drag, sixty times a second. With all Rust, the slider moves, an edit function runs, and new pixels appear. There is no runtime boundary. With a Rust engine and a web UI, the same drag crosses a runtime boundary into the engine and again on the return. This occurs two times for each frame.">
           <text class="lp-fig-label" x="0" y="12">ONE SLIDER DRAG, 60 TIMES A SECOND</text>
 
           <rect class="lp-fig-panel" x="0" y="24" width="640" height="88" rx="8"></rect>
@@ -250,54 +249,55 @@ import Base from "../../layouts/Base.astro";
           <line class="lp-fig-bad-stroke" x1="416" y1="152" x2="416" y2="190" stroke-dasharray="3 4"></line>
           <rect class="lp-fig-box" x="432" y="156" width="176" height="30" rx="5"></rect>
           <text class="lp-fig-s" x="520" y="176" text-anchor="middle">New pixels (JS)</text>
-          <text class="lp-fig-s lp-fig-bad" x="16" y="204">Two boundary crossings per frame, 120 a second.</text>
+          <text class="lp-fig-s lp-fig-bad" x="16" y="204">Two boundary crosses per frame, 120 a second.</text>
         </svg>
         <figcaption>
-          The Rust engine runs just as fast in the split version. The extra
-          time comes from the data crossing between the two sides twice every
-          frame.
+          The Rust engine is equally fast in the split version. The extra time
+          comes from the data that crosses between the two sides two times in
+          each frame.
         </figcaption>
       </figure>
 
       <p>
-        Keeping two systems in agreement at that rate is much harder than
-        handling the odd request. When they get out of step, the bug usually
-        sits in the handoff between them, where neither side's code looks
-        wrong on its own. That kind of bug is really hard to track down.
+        To keep two systems synchronized at that rate is much more difficult
+        than to handle an occasional request. When they are not synchronized,
+        the bug is usually in the handoff between them. Neither side's code
+        looks wrong on its own. This type of bug is very
+        difficult to find.
       </p>
 
-      <h2>Why that mattered more than usual for me</h2>
+      <h2>Why this was more important for me than usual</h2>
       <p>
-        This is the part that made the decision for me.
+        This part made the decision for me.
       </p>
       <p>
-        I didn't write most of this code. Coding agents did. In my experience
-        they're strong when everything is in one language, and much weaker at
-        spotting a subtle mismatch between two systems written in different
-        languages.
+        I did not write most of this code. Coding agents wrote it. In my
+        experience, they are strong when all of the code is in one language.
+        They are much weaker when they must find a small mismatch between two
+        systems in different languages.
       </p>
       <p>
-        I wanted a design where I can step in and find the problem myself when
-        the agents get stuck. With one language and one program, there's no
-        handoff between systems for that kind of bug to live in.
+        I wanted a design where I can step in and find the problem myself
+        when the agents get stuck. With one language and one program, there is no handoff between
+        systems where this type of bug can occur.
       </p>
       <p>
-        The second reason was plain performance. I want this app to be fast and
-        to use no more memory than it needs, and with everything in Rust
-        there's no second runtime to load and no copies of the image handed
-        back and forth.
+        The second reason was performance. I want this app to be fast and to
+        use only the memory that it needs. With all of the code in Rust, there
+        is no second runtime to load. Also, the app does not send copies of the
+        image between two sides.
       </p>
 
-      <h2>Leaving myself a way out</h2>
+      <h2>How I keep the option to change</h2>
       <p>
-        Even with one language, I keep the UI logic and the core photo editing
-        in separate modules. If I change my mind in a year and want a different
-        interface, most of the core comes with me untouched.
+        I use one language, but I keep the UI logic and the core photo editing
+        in separate modules. If I change my decision in a year and want a
+        different interface, I can keep most of the core without changes.
       </p>
       <p>
-        I also clean up sloppy generated code as it arrives instead of letting
-        it pile up, for the same reason. I want the code to stay small enough
-        that I can still hold it in my head.
+        For the same reason, I clean up sloppy generated code as it
+        arrives. I do not let it pile up. I want the code to stay small enough
+        that I can still understand all of it.
       </p>
 
 

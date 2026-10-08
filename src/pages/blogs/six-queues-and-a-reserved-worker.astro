@@ -3,7 +3,7 @@ import Base from "../../layouts/Base.astro";
 ---
 <Base
   title="Six queues and a reserved worker — LightPhotos Blog"
-  desc="How LightPhotos loads images in the background, told as the problems that shaped it. None of the problems are specific to photos."
+  desc="How LightPhotos loads images in the background, told as the problems that caused each part of the design. None of the problems are specific to photos."
   active="blogs"
 >
   <main class="lp-page">
@@ -12,10 +12,10 @@ import Base from "../../layouts/Base.astro";
         <p class="lp-article-meta"><a href="/blogs.html">Blogs</a> &middot; <time datetime="2026-08-20">August 20, 2026</time></p>
         <h1>Six queues and a reserved worker</h1>
         <p class="lp-article-dek">
-          How LightPhotos loads images in the background, told as the problems
-          that shaped it. Six queues and a worker that refuses the most common
-          job sounds like overkill, I know. I added each piece because
-          something visibly broke without it.
+          This post tells how LightPhotos loads images in the background. I
+          tell it as a series of problems. Six queues and a worker that refuses
+          the most common job can look like too much. But I added each part
+          because something broke visibly without it.
         </p>
         <p class="lp-article-byline">Andrew Yao &middot; 5 min read</p>
       </header>
@@ -23,66 +23,68 @@ import Base from "../../layouts/Base.astro";
       <aside class="lp-tldr">
         <p class="lp-tldr-label">TL;DR</p>
         <p>
-          When you opened a photo in LightPhotos, it could get stuck waiting
-          behind a hundred thumbnails you'd already scrolled past. I fixed that
-          with a few layers: separate queues by urgency, one worker kept free
-          for the photo you open, and a handful of fixes for the bugs those
-          changes caused. If you're building anything with background workers,
-          most of these problems will show up for you too, and none of them are
-          about photos.
+          In LightPhotos, a photo that you opened could wait behind a hundred
+          thumbnails that you scrolled past before. I fixed this problem in
+          layers. I made separate queues by urgency, and I kept one worker free
+          for the photo that you open. I also fixed the bugs that these changes
+          caused. If you make software with background workers, you will
+          probably get most of these problems too, and none of them are about
+          photos.
         </p>
       </aside>
 
       <h2>What I learned</h2>
       <ul class="lp-article-list">
         <li>
-          <strong>Putting urgent work first in line isn't enough.</strong> If
-          every worker is already busy with background jobs, the urgent job
-          still waits. Keeping one worker free is what actually got it through.
+          <strong>Urgent work at the front of the queue is not
+          sufficient.</strong> If all workers are busy with background jobs,
+          the urgent job still waits. Keeping one worker free is what
+          actually got it through.
         </li>
         <li>
-          <strong>Try keeping a worker free before trying to cancel
-          work.</strong> Keeping one worker free took a few lines. Stopping a
-          load halfway through someone else's library usually can't be done.
+          <strong>Try to keep a worker free before you try to cancel
+          work.</strong> Keeping one worker free took a few lines. You usually
+          cannot stop a load halfway through inside someone else's library.
         </li>
         <li>
-          <strong>Letting a worker refuse jobs changes the rules.</strong> The
-          usual way of waking workers assumes any of them can take any job. Once
-          that stopped being true, work just sat there with no error.
+          <strong>A worker that can refuse jobs changes the rules.</strong> The
+          usual way to wake workers assumes that any worker can take any job.
+          When that stopped being true, work just sat there with no error.
         </li>
         <li>
-          <strong>Every "someone's handling this" flag needs someone to clear
-          it.</strong> Think through every way that someone might not exist, and
-          have the code that queues the job say which one happened.
+          <strong>Every "someone is handling this" flag needs someone to
+          clear it.</strong> Think through every way that someone might not
+          exist. Then make the code that queues the job say which case happened.
         </li>
       </ul>
 
       <h2>One queue, several workers</h2>
       <p>
-        LightPhotos loads (decodes) images on a few background threads, which I
-        call workers, so the app stays responsive while they work. My first
-        version was the simplest thing I could think of: one queue, a handful
-        of workers, first come first served.
+        LightPhotos loads (decodes) images on a few background threads. I call
+        these threads workers. The workers keep the app responsive while they
+        decode. My first version was the simplest thing I could think of. It
+        had one queue and a handful of workers, and they took jobs in the
+        order they arrived.
       </p>
       <p>
-        It worked until I scrolled. Scrolling the grid queues up a hundred
-        thumbnails. Then you double-click a photo, and it goes to the back of
-        the line behind a hundred thumbnails you're no longer looking at. The
-        app looks frozen while it finishes work for part of the screen you
-        already scrolled past, which is frustrating when all you want is to
-        see your photo.
+        It worked until I scrolled. When you scroll the grid, the app
+        queues a hundred thumbnails. Then you double-click a photo, and the
+        photo goes to the end of the queue. It waits behind a hundred
+        thumbnails that you do not look at now. The app looks frozen while it
+        completes work for a part of the screen that you scrolled past. This
+        is frustrating when you only want to see your photo.
       </p>
 
-      <h2>Some jobs matter more</h2>
+      <h2>Some jobs are more important</h2>
       <p>
-        So I split the one queue into six, ordered by how much you care about
-        the result right now. The photo you just opened jumps ahead of the
-        thumbnails.
+        So I split the one queue into six. I ordered them by how much you
+        care about the result right now. The photo that you opened goes in
+        front of the thumbnails.
       </p>
 
       <figure class="lp-figure">
-        <svg viewBox="0 0 640 240" role="img" aria-label="Diagram: six priority queues drain in order into a pool of eight decode workers, one of which is reserved and never accepts thumbnail jobs.">
-          <text class="lp-fig-label" x="0" y="24">SIX QUEUES, DRAINED IN THIS ORDER</text>
+        <svg viewBox="0 0 640 240" role="img" aria-label="Diagram: six priority queues send jobs in order to a pool of eight decode workers. One worker is reserved and never accepts thumbnail jobs.">
+          <text class="lp-fig-label" x="0" y="24">WORKERS TAKE JOBS IN THIS ORDER</text>
 
           <rect class="lp-fig-box-accent" x="0" y="36" width="300" height="26" rx="5"></rect>
           <text class="lp-fig-s" x="12" y="53">1</text>
@@ -101,7 +103,7 @@ import Base from "../../layouts/Base.astro";
           <text class="lp-fig-s" x="30" y="181">Thumbnails for the grid</text>
           <rect class="lp-fig-box" x="0" y="196" width="300" height="26" rx="5"></rect>
           <text class="lp-fig-s" x="12" y="213">6</text>
-          <text class="lp-fig-s" x="30" y="213">Capture times for burst grouping</text>
+          <text class="lp-fig-s" x="30" y="213">Capture times for burst groups</text>
 
           <line class="lp-fig-line" x1="310" y1="96" x2="368" y2="96"></line>
           <path class="lp-fig-arrow" d="M368 90 L368 102 L380 96 Z"></path>
@@ -121,50 +123,51 @@ import Base from "../../layouts/Base.astro";
           <text class="lp-fig-s" x="392" y="226">reserved &middot; never takes thumbnails</text>
         </svg>
         <figcaption>
-          The order that might surprise you is camera details (metadata) coming
-          before thumbnails. The details panel sits next to a photo you're
-          already looking at, so you'd notice a delay there, while a thumbnail
-          two rows down isn't on screen yet.
+          Camera details (metadata) come before thumbnails, and this order can
+          be a surprise. The details panel is next to the photo that you look
+          at now, so you would see a delay there. A thumbnail two rows down is
+          not on the screen yet.
         </figcaption>
       </figure>
 
       <p>
-        I ordered the queues by what you're looking at right now. How quick a
-        job is didn't factor in.
+        I ordered the queues by what you are looking at right now. How quick a
+        job is did not matter.
       </p>
 
-      <h2>Being first in line isn't enough</h2>
+      <h2>The first position in the queue is not sufficient</h2>
       <p>
-        With six queues, the freeze got shorter, but it didn't go away.
-        Priority only decides which waiting job <em>starts</em> next. It does
-        nothing about jobs already running. If all eight workers picked up
-        thumbnails a millisecond before you double-clicked, your photo is at
-        the front of the line and nobody is free to take it.
+        With six queues, the freeze was shorter, but it did not stop. Priority
+        only decides which job in the queue <em>starts</em> next. It has no
+        effect on jobs that already run. Suppose all eight workers picked up
+        thumbnails one millisecond before you double-clicked. Then your photo
+        is at the front of the queue, but no worker is free to take it.
       </p>
       <p>
-        The usual answer is to interrupt a running job and give the worker to
-        the urgent one. I couldn't do that, because the loading happens inside
-        someone else's library, and it has no way to know I want it to stop.
+        The usual solution is to interrupt a job that runs and give its worker
+        to the urgent job. I could not do this. The loading happens inside
+        someone else's library, and it has no way to know that I
+        want it to stop.
       </p>
       <p>
-        What I could do was keep one worker aside. It never takes thumbnails
-        at all. It sits idle while the others churn through thumbnails, and
-        it's ready the moment you open a photo. On a machine with a single CPU
-        core I turn this off, because setting aside the only worker would leave
-        the grid with nothing.
+        What I could do was keep one worker aside. This worker never takes
+        thumbnails. It sits idle while the other workers decode thumbnails,
+        and it is ready immediately when you open a photo. On a computer with
+        only one CPU core, I turn this off. If I set aside the only
+        worker, the grid has nothing left.
       </p>
 
-      <h2>A worker that can say no broke the wake-up</h2>
+      <h2>A worker that can refuse jobs broke the wake-up signal</h2>
       <p>
-        Workers sleep when there's nothing queued, and adding a job wakes one
-        of them up. That's the standard way to do it, and it works as long as
-        any sleeping worker can take any job. My reserved worker can't. It can
-        say no.
+        Workers sleep when the queue is empty. When the app adds a job, it
+        wakes one worker. This is the standard method, and it works if each
+        sleeping worker can take each job. My reserved worker cannot take each
+        job. It can refuse a job.
       </p>
 
       <figure class="lp-figure">
-        <svg viewBox="0 0 640 190" role="img" aria-label="Sequence: a queued thumbnail wakes one worker, which happens to be the reserved worker; it declines the job and goes back to sleep while the other seven workers are never woken.">
-          <text class="lp-fig-label" x="0" y="12">WAKING ONE SLEEPER, WHEN ONE SLEEPER CAN SAY NO</text>
+        <svg viewBox="0 0 640 190" role="img" aria-label="Sequence: the app queues a thumbnail and wakes one worker. This worker is the reserved worker. It refuses the job and sleeps again. The app never wakes the other seven workers.">
+          <text class="lp-fig-label" x="0" y="12">WAKE ONE WORKER, WHEN ONE WORKER CAN REFUSE</text>
 
           <rect class="lp-fig-box" x="0" y="32" width="140" height="48" rx="6"></rect>
           <text class="lp-fig-s" x="70" y="52" text-anchor="middle">Thumbnail</text>
@@ -176,7 +179,7 @@ import Base from "../../layouts/Base.astro";
           <path class="lp-fig-arrow" d="M316 50 L316 62 L328 56 Z"></path>
           <rect class="lp-fig-box-accent" x="340" y="32" width="220" height="48" rx="6"></rect>
           <text class="lp-fig-s" x="450" y="52" text-anchor="middle">The reserved worker looks,</text>
-          <text class="lp-fig-s" x="450" y="68" text-anchor="middle">declines, goes back to sleep</text>
+          <text class="lp-fig-s" x="450" y="68" text-anchor="middle">refuses, and sleeps again</text>
 
           <rect class="lp-fig-box" x="340" y="104" width="22" height="22" rx="3"></rect>
           <rect class="lp-fig-box" x="371" y="104" width="22" height="22" rx="3"></rect>
@@ -185,78 +188,82 @@ import Base from "../../layouts/Base.astro";
           <rect class="lp-fig-box" x="464" y="104" width="22" height="22" rx="3"></rect>
           <rect class="lp-fig-box" x="495" y="104" width="22" height="22" rx="3"></rect>
           <rect class="lp-fig-box" x="526" y="104" width="22" height="22" rx="3"></rect>
-          <text class="lp-fig-s" x="340" y="148">the other seven were never woken</text>
+          <text class="lp-fig-s" x="340" y="148">nothing wakes the other seven</text>
 
           <text class="lp-fig-s lp-fig-bad" x="0" y="112">No error. No crash.</text>
-          <text class="lp-fig-s" x="0" y="132">Just work that sits still, until</text>
-          <text class="lp-fig-s" x="0" y="152">something unrelated wakes somebody.</text>
+          <text class="lp-fig-s" x="0" y="132">The work stays in the queue until</text>
+          <text class="lp-fig-s" x="0" y="152">an unrelated event wakes a worker.</text>
         </svg>
         <figcaption>
-          The fix is to wake all of them instead of just one.
+          The fix is to wake all workers instead of only one.
         </figcaption>
       </figure>
 
       <p>
-        Waking just one worker only works if every worker can handle every
-        job. As soon as I let one of them refuse, that stopped being true. The
-        app didn't crash or show an error. Work just sat there until
-        something unrelated happened to wake a worker.
+        To wake only one worker is correct only if each worker can do each
+        job. When I let one worker refuse jobs, this condition was not true.
+        The app did not crash or show an error. The work stayed in the queue
+        until an unrelated event woke a worker.
       </p>
 
-      <h2>Marking work as started when nobody started it</h2>
+      <h2>Markers for work that no worker started</h2>
       <p>
-        The loader keeps a list of "already asked for this" markers so it
-        doesn't queue the same photo five times, and it clears each marker when
-        the job finishes. In the browser version, the worker pool doesn't
-        start any threads at all, so nothing was ever going to finish those jobs or clear
-        the markers.
+        The loader keeps a list of "already requested" markers. With these
+        markers, it does not queue the same photo five times. It clears each
+        marker when the job is complete. In the browser version, the worker
+        pool does not start threads. So nothing was ever going to finish
+        those jobs or clear the markers.
       </p>
       <p>
-        There was no error message. Instead, the app woke up sixty times a
-        second for the rest of the session, draining your laptop battery, to
-        check on work that didn't exist.
+        No error message occurred. Instead, the app woke sixty times each
+        second for the rest of the session. It did this to check on work
+        that did not exist, and it drained your laptop battery.
       </p>
       <p>
-        I fixed it by treating each marker like a loan that someone has to pay
-        back. Queueing a job now returns one of three answers: accepted, no
-        workers exist, or the worker pool is broken. The code only marks the
-        job as in progress on the first answer. I now think of any "loading"
-        flag or "already requested" list this way. Only set it once whoever is
-        responsible for clearing it has agreed to take the job.
-      </p>
-
-      <h2>In a browser, workers die</h2>
-      <p>
-        Moving the worker pool into a browser tab meant I had to babysit the
-        workers much more closely. A newly started browser worker (a Web Worker)
-        throws away any message sent to it before its script has finished
-        starting up. So each worker now says when it's ready, and if one stays
-        quiet for ten seconds I treat it as failed.
-      </p>
-      <p>
-        I replace a failed worker up to three times, then mark that slot as
-        permanently gone. I kept that separate from "not ready yet" on purpose,
-        because mixing them up caused a real hang. Exporting waits while the
-        number of running jobs is at or above capacity, and capacity only
-        counts ready workers. Without a "permanently gone" state, a slot stuck
-        halfway through being replaced looks not ready, capacity drops to zero,
-        and the export progress bar waits forever.
+        I fixed this problem with a new rule: each marker must have an owner
+        that clears it. When the app queues a job, it gets one of three
+        answers: accepted, no workers exist, or the worker pool is broken. The
+        code marks the job as in progress only for the first answer. I now use
+        this rule for each "loading" flag or "already requested" list. Set the
+        flag only after the owner that will clear it accepts the job.
       </p>
 
-      <h2>What made all of this testable</h2>
+      <h2>In a browser, workers can fail</h2>
       <p>
-        I can test all of the above without real threads, because the rules for
-        who runs what live in a plain data structure. One test builds it, adds
-        one job of each kind in reverse priority order, takes them all back out
-        and checks the order. Another takes jobs out as the reserved worker and
-        checks that thumbnails get skipped.
+        When I moved the worker pool into a browser tab, I had to watch the
+        workers much more closely. A new browser worker (a Web Worker)
+        discards each message that it gets before its script is ready. So
+        each worker now says when it is ready. If one stays quiet for ten
+        seconds, I treat it as failed.
       </p>
       <p>
-        Code that runs things in parallel usually has a predictable core (the
-        rules about who runs what, and in what order) wrapped in a layer whose
-        timing changes from run to run. When I pulled the rules out on their
-        own, I could test the decisions I'd made in microseconds, and the tests
-        give the same result every time.
+        I replace a failed worker up to three times. Then I mark that
+        slot as permanently gone. I kept this state separate from "not ready
+        yet" on purpose, because mixing them up caused a real hang.
+      </p>
+      <p>
+        Exporting waits while the number of running jobs is at or above
+        capacity. Capacity counts only the workers that are ready.
+        Without a "permanently gone" state, a slot stuck halfway through
+        replacement looks not ready. Then the capacity decreases to zero, and
+        the export progress bar waits forever.
+      </p>
+
+      <h2>What made this design easy to test</h2>
+      <p>
+        I can test all of this without real threads. The rules that decide
+        which worker runs which job are in a plain data structure. One test
+        builds this structure and adds one job of each type in reverse priority
+        order. Then it takes them all back out and checks the order. Another
+        test takes jobs out as the reserved worker and checks that it skips
+        thumbnails.
+      </p>
+      <p>
+        Parallel code usually has a predictable core. This core is the set of
+        rules about which worker runs which job, and in which order. Around
+        this core is a layer with timing that changes from run to run. When I
+        pulled the rules out on their own, I could test my decisions in
+        microseconds. The tests give the same result every time.
       </p>
 
       <nav class="lp-article-nav" aria-label="More posts">
