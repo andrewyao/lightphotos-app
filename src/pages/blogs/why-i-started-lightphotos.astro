@@ -33,6 +33,80 @@ import Base from "../../layouts/Base.astro";
         </p>
       </aside>
 
+      <figure class="lp-figure">
+        <svg viewBox="0 0 640 284" role="img" aria-label="A grid of six options and five needs. Lightroom 6 does not run after a macOS upgrade. Apple Photos does not keep my photos as plain files on my drive. Luminar AI does not have the speed and feel that I want. Darktable and similar editors give much more than I need. A Lightroom subscription costs a fee each month. LightPhotos meets all five needs.">
+          <text class="lp-fig-label" x="0" y="12">WHAT I NEEDED, AND WHERE EACH OPTION FAILED</text>
+
+          <text class="lp-fig-s" x="240" y="34" text-anchor="middle">Runs after</text>
+          <text class="lp-fig-s" x="240" y="50" text-anchor="middle">an upgrade</text>
+          <text class="lp-fig-s" x="328" y="34" text-anchor="middle">Plain files</text>
+          <text class="lp-fig-s" x="328" y="50" text-anchor="middle">on my drive</text>
+          <text class="lp-fig-s" x="416" y="34" text-anchor="middle">Speed and</text>
+          <text class="lp-fig-s" x="416" y="50" text-anchor="middle">feel I want</text>
+          <text class="lp-fig-s" x="504" y="34" text-anchor="middle">Only what</text>
+          <text class="lp-fig-s" x="504" y="50" text-anchor="middle">I need</text>
+          <text class="lp-fig-s" x="592" y="34" text-anchor="middle">No monthly</text>
+          <text class="lp-fig-s" x="592" y="50" text-anchor="middle">fee</text>
+          <line class="lp-fig-line-soft" x1="0" y1="60" x2="640" y2="60"></line>
+
+          <text class="lp-fig-t" x="8" y="82">Lightroom 6</text>
+          <circle class="lp-fig-bad" cx="240" cy="77" r="5"></circle>
+          <circle class="lp-fig-line-soft" cx="328" cy="77" r="4"></circle>
+          <circle class="lp-fig-line-soft" cx="416" cy="77" r="4"></circle>
+          <circle class="lp-fig-line-soft" cx="504" cy="77" r="4"></circle>
+          <circle class="lp-fig-line-soft" cx="592" cy="77" r="4"></circle>
+          <line class="lp-fig-line-soft" x1="0" y1="92" x2="640" y2="92"></line>
+
+          <text class="lp-fig-t" x="8" y="112">Apple Photos</text>
+          <circle class="lp-fig-line-soft" cx="240" cy="107" r="4"></circle>
+          <circle class="lp-fig-bad" cx="328" cy="107" r="5"></circle>
+          <circle class="lp-fig-line-soft" cx="416" cy="107" r="4"></circle>
+          <circle class="lp-fig-line-soft" cx="504" cy="107" r="4"></circle>
+          <circle class="lp-fig-line-soft" cx="592" cy="107" r="4"></circle>
+          <line class="lp-fig-line-soft" x1="0" y1="122" x2="640" y2="122"></line>
+
+          <text class="lp-fig-t" x="8" y="142">Luminar AI</text>
+          <circle class="lp-fig-line-soft" cx="240" cy="137" r="4"></circle>
+          <circle class="lp-fig-line-soft" cx="328" cy="137" r="4"></circle>
+          <circle class="lp-fig-bad" cx="416" cy="137" r="5"></circle>
+          <circle class="lp-fig-line-soft" cx="504" cy="137" r="4"></circle>
+          <circle class="lp-fig-line-soft" cx="592" cy="137" r="4"></circle>
+          <line class="lp-fig-line-soft" x1="0" y1="152" x2="640" y2="152"></line>
+
+          <text class="lp-fig-t" x="8" y="172">Darktable and friends</text>
+          <circle class="lp-fig-line-soft" cx="240" cy="167" r="4"></circle>
+          <circle class="lp-fig-line-soft" cx="328" cy="167" r="4"></circle>
+          <circle class="lp-fig-line-soft" cx="416" cy="167" r="4"></circle>
+          <circle class="lp-fig-bad" cx="504" cy="167" r="5"></circle>
+          <circle class="lp-fig-line-soft" cx="592" cy="167" r="4"></circle>
+          <line class="lp-fig-line-soft" x1="0" y1="182" x2="640" y2="182"></line>
+
+          <text class="lp-fig-t" x="8" y="202">Lightroom subscription</text>
+          <circle class="lp-fig-line-soft" cx="240" cy="197" r="4"></circle>
+          <circle class="lp-fig-line-soft" cx="328" cy="197" r="4"></circle>
+          <circle class="lp-fig-line-soft" cx="416" cy="197" r="4"></circle>
+          <circle class="lp-fig-line-soft" cx="504" cy="197" r="4"></circle>
+          <circle class="lp-fig-bad" cx="592" cy="197" r="5"></circle>
+
+          <rect class="lp-fig-box-accent" x="1" y="216" width="638" height="32" rx="5"></rect>
+          <text class="lp-fig-t" x="8" y="237">LightPhotos</text>
+          <circle class="lp-fig-good" cx="240" cy="232" r="5"></circle>
+          <circle class="lp-fig-good" cx="328" cy="232" r="5"></circle>
+          <circle class="lp-fig-good" cx="416" cy="232" r="5"></circle>
+          <circle class="lp-fig-good" cx="504" cy="232" r="5"></circle>
+          <circle class="lp-fig-good" cx="592" cy="232" r="5"></circle>
+
+          <circle class="lp-fig-bad" cx="6" cy="268" r="5"></circle>
+          <text class="lp-fig-s" x="18" y="272">The reason that this option did not fit me</text>
+          <circle class="lp-fig-good" cx="406" cy="268" r="5"></circle>
+          <text class="lp-fig-s" x="418" y="272">Meets the need</text>
+        </svg>
+        <figcaption>
+          Each option that I tried failed on a different need. Only
+          LightPhotos, the small editor that I built, meets all five.
+        </figcaption>
+      </figure>
+
       <h2>What I learned</h2>
       <ul class="lp-article-list">
         <li>

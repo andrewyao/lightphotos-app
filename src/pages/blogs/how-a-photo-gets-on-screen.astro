@@ -32,6 +32,54 @@ import Base from "../../layouts/Base.astro";
         </p>
       </aside>
 
+      <figure class="lp-figure">
+        <svg viewBox="0 0 640 236" role="img" aria-label="Overview: when you open a photo, the app reads the file from disk, decodes it in one, two or three passes, and sends it to the GPU one time. After that, every frame uses the GPU only. The texture stays on the card, the tone shader applies your edits, and the monitor shows the pixels. A slider drag, a zoom or a pan sends only a few numbers to the GPU. The app does not decode the photo again.">
+          <text class="lp-fig-label" x="0" y="12">WHEN YOU OPEN A PHOTO</text>
+          <rect class="lp-fig-box" x="0" y="22" width="145" height="50" rx="6"></rect>
+          <text class="lp-fig-t" x="72.5" y="43" text-anchor="middle">File on disk</text>
+          <text class="lp-fig-s" x="72.5" y="61" text-anchor="middle">RAW or JPEG</text>
+          <rect class="lp-fig-box" x="165" y="22" width="145" height="50" rx="6"></rect>
+          <text class="lp-fig-t" x="237.5" y="43" text-anchor="middle">Read bytes</text>
+          <text class="lp-fig-s" x="237.5" y="61" text-anchor="middle">per platform</text>
+          <rect class="lp-fig-box" x="330" y="22" width="145" height="50" rx="6"></rect>
+          <text class="lp-fig-t" x="402.5" y="43" text-anchor="middle">Decode</text>
+          <text class="lp-fig-s" x="402.5" y="61" text-anchor="middle">1, 2 or 3 passes</text>
+          <rect class="lp-fig-box-accent" x="495" y="22" width="145" height="50" rx="6"></rect>
+          <text class="lp-fig-t" x="567.5" y="43" text-anchor="middle">Upload to GPU</text>
+          <text class="lp-fig-s" x="567.5" y="61" text-anchor="middle">one time only</text>
+          <path class="lp-fig-line" d="M145 47 H157 M310 47 H322 M475 47 H487"></path>
+          <path class="lp-fig-arrow" d="M157 41 L157 53 L165 47 Z M322 41 L322 53 L330 47 Z M487 41 L487 53 L495 47 Z"></path>
+
+          <path class="lp-fig-line" d="M567.5 72 V96 H72.5 V118"></path>
+          <path class="lp-fig-arrow" d="M66.5 118 L78.5 118 L72.5 128 Z"></path>
+          <text class="lp-fig-label" x="90" y="116">EVERY FRAME, 60 TIMES A SECOND</text>
+
+          <rect class="lp-fig-box" x="0" y="128" width="145" height="50" rx="6"></rect>
+          <text class="lp-fig-t" x="72.5" y="149" text-anchor="middle">GPU texture</text>
+          <text class="lp-fig-s" x="72.5" y="167" text-anchor="middle">stays on the card</text>
+          <rect class="lp-fig-box-accent" x="165" y="128" width="145" height="50" rx="6"></rect>
+          <text class="lp-fig-t" x="237.5" y="149" text-anchor="middle">Tone shader</text>
+          <text class="lp-fig-s" x="237.5" y="167" text-anchor="middle">applies the edits</text>
+          <rect class="lp-fig-box" x="330" y="128" width="145" height="50" rx="6"></rect>
+          <text class="lp-fig-t" x="402.5" y="149" text-anchor="middle">Monitor</text>
+          <text class="lp-fig-s" x="402.5" y="167" text-anchor="middle">pixels on screen</text>
+          <path class="lp-fig-line" d="M145 153 H157 M310 153 H322"></path>
+          <path class="lp-fig-arrow" d="M157 147 L157 159 L165 153 Z M322 147 L322 159 L330 153 Z"></path>
+
+          <rect class="lp-fig-box" x="165" y="200" width="145" height="30" rx="6"></rect>
+          <text class="lp-fig-s" x="237.5" y="219" text-anchor="middle">Slider, zoom, pan</text>
+          <line class="lp-fig-line" x1="237.5" y1="200" x2="237.5" y2="188"></line>
+          <path class="lp-fig-arrow" d="M231.5 188 L243.5 188 L237.5 178 Z"></path>
+          <text class="lp-fig-s" x="330" y="212">Only a few numbers go to the GPU.</text>
+          <text class="lp-fig-s" x="330" y="228">The app does not decode again.</text>
+        </svg>
+        <figcaption>
+          The app decodes a photo and sends it to the GPU one time. After that,
+          a zoom or a slider drag changes only a few numbers. The app does not
+          decode the photo again.
+        </figcaption>
+      </figure>
+
       <h2>What I learned</h2>
       <ul class="lp-article-list">
         <li>

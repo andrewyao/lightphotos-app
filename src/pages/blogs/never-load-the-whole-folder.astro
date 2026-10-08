@@ -31,6 +31,46 @@ import Base from "../../layouts/Base.astro";
         </p>
       </aside>
 
+      <figure class="lp-figure">
+        <svg viewBox="0 0 640 264" role="img" aria-label="Chart: memory use against the number of photos in a folder. When the app loads all photos, memory increases to 1.9 GB at 8,889 photos, and then the app crashes. When the app loads only what is on screen, memory stays at 110 to 150 MB. Next to the chart is a list of the four parts of the app where I made the same mistake: the grid, the thumbnail cache, the Auto Tone batch, and the large view.">
+          <text class="lp-fig-label" x="0" y="12">MEMORY AS THE FOLDER GROWS</text>
+          <line class="lp-fig-line" x1="40" y1="26" x2="40" y2="220"></line>
+          <line class="lp-fig-line" x1="40" y1="220" x2="370" y2="220"></line>
+          <text class="lp-fig-s" x="48" y="34">memory</text>
+          <text class="lp-fig-s" x="40" y="238" text-anchor="middle">0</text>
+          <text class="lp-fig-s" x="330" y="238" text-anchor="middle">8,889</text>
+          <text class="lp-fig-s" x="370" y="256" text-anchor="end">photos in the folder</text>
+
+          <line class="lp-fig-bad-stroke" x1="40" y1="219" x2="330" y2="60" stroke-width="2"></line>
+          <circle class="lp-fig-bad" cx="330" cy="60" r="5"></circle>
+          <text class="lp-fig-t" x="316" y="38" text-anchor="end">Load all photos</text>
+          <text class="lp-fig-s lp-fig-bad" x="316" y="54" text-anchor="end">1.9 GB, then crash</text>
+
+          <rect class="lp-fig-bar" x="40" y="208" width="330" height="3"></rect>
+          <text class="lp-fig-t" x="370" y="184" text-anchor="end">Load only what is on screen</text>
+          <text class="lp-fig-s" x="370" y="200" text-anchor="end">110 to 150 MB at any size</text>
+
+          <text class="lp-fig-label" x="400" y="12">THE SAME MISTAKE, FOUR TIMES</text>
+          <rect class="lp-fig-box" x="400" y="26" width="240" height="48" rx="6"></rect>
+          <text class="lp-fig-t" x="414" y="46">1. Grid textures</text>
+          <text class="lp-fig-s" x="414" y="64">visible rows plus a few more</text>
+          <rect class="lp-fig-box" x="400" y="84" width="240" height="48" rx="6"></rect>
+          <text class="lp-fig-t" x="414" y="104">2. Thumbnail cache</text>
+          <text class="lp-fig-s" x="414" y="122">limit 256 for 180 cells</text>
+          <rect class="lp-fig-box" x="400" y="142" width="240" height="48" rx="6"></rect>
+          <text class="lp-fig-t" x="414" y="162">3. Auto Tone batch</text>
+          <text class="lp-fig-s" x="414" y="180">a window of 32 photos</text>
+          <rect class="lp-fig-box" x="400" y="200" width="240" height="48" rx="6"></rect>
+          <text class="lp-fig-t" x="414" y="220">4. Large view</text>
+          <text class="lp-fig-s" x="414" y="238">size rounds up to 512 px</text>
+        </svg>
+        <figcaption>
+          If the app loads all photos, memory grows with the folder until the
+          app crashes. If it keeps only what is on screen, memory stays flat. I
+          made the first mistake in four parts of the app.
+        </figcaption>
+      </figure>
+
       <h2>What I learned</h2>
       <ul class="lp-article-list">
         <li>

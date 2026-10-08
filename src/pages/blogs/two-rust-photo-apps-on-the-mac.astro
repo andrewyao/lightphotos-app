@@ -38,6 +38,51 @@ import Base from "../../layouts/Base.astro";
         </p>
       </aside>
 
+      <figure class="lp-figure">
+        <svg viewBox="0 0 640 300" role="img" aria-label="Two decode paths to the same screen. A photo file, JPEG, HEIC or RAW, goes to each app. LightPhotos gives every decode to Apple's ImageIO, which is part of macOS, so the decoders cost the app nothing. LightCraft decodes with its own Rust code: a RAW decoder, demosaic, JPEG and JPEG XL. Both apps draw with wgpu on Metal. LightPhotos is 14 MB installed, and its colours are the way Apple develops them. LightCraft is 43 MB installed, and its colours are the same on every platform.">
+          <rect class="lp-fig-box" x="160" y="0" width="320" height="48" rx="6"></rect>
+          <text class="lp-fig-t" x="176" y="21">Your photo file</text>
+          <text class="lp-fig-s" x="176" y="39">JPEG, HEIC or RAW, read in place</text>
+
+          <path class="lp-fig-line" d="M220 48 V62 H150 V80"></path>
+          <path class="lp-fig-arrow" d="M145 80 L155 80 L150 88 Z"></path>
+          <path class="lp-fig-line" d="M420 48 V62 H490 V80"></path>
+          <path class="lp-fig-arrow" d="M485 80 L495 80 L490 88 Z"></path>
+
+          <text class="lp-fig-label" x="0" y="78">LIGHTPHOTOS</text>
+          <rect class="lp-fig-box-accent" x="0" y="88" width="300" height="76" rx="6"></rect>
+          <text class="lp-fig-t" x="16" y="112">Apple's ImageIO, part of macOS</text>
+          <text class="lp-fig-s" x="16" y="132">Every decode goes to the OS</text>
+          <text class="lp-fig-s" x="16" y="150">The decoders cost the app nothing</text>
+
+          <text class="lp-fig-label" x="340" y="78">LIGHTCRAFT</text>
+          <rect class="lp-fig-box" x="340" y="88" width="300" height="76" rx="6"></rect>
+          <text class="lp-fig-t" x="356" y="112">Its own decoders, in Rust</text>
+          <text class="lp-fig-s" x="356" y="132">RAW decoder, demosaic, JPEG, JPEG XL</text>
+          <text class="lp-fig-s" x="356" y="150">The same code on every platform</text>
+
+          <path class="lp-fig-line" d="M150 164 V182 H220 V192"></path>
+          <path class="lp-fig-arrow" d="M215 192 L225 192 L220 200 Z"></path>
+          <path class="lp-fig-line" d="M490 164 V182 H420 V192"></path>
+          <path class="lp-fig-arrow" d="M415 192 L425 192 L420 200 Z"></path>
+
+          <rect class="lp-fig-box" x="160" y="200" width="320" height="48" rx="6"></rect>
+          <text class="lp-fig-t" x="176" y="221">The same screen</text>
+          <text class="lp-fig-s" x="176" y="239">Both apps draw with wgpu on Metal</text>
+
+          <text class="lp-fig-s" x="0" y="274">App, installed: 14 MB</text>
+          <text class="lp-fig-s" x="0" y="292">Colours: the way Apple develops them</text>
+          <text class="lp-fig-s" x="340" y="274">App, installed: 43 MB</text>
+          <text class="lp-fig-s" x="340" y="292">Colours: the same on every platform</text>
+        </svg>
+        <figcaption>
+          On the Mac, the two apps differ in one main place: the decoder.
+          LightPhotos uses the decoders that come with macOS. LightCraft
+          brings its own. Most of the size, speed and memory differences
+          below follow from that choice.
+        </figcaption>
+      </figure>
+
       <h2>What I learned</h2>
       <ul class="lp-article-list">
         <li>

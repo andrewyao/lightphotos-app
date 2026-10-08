@@ -33,6 +33,44 @@ import Base from "../../layouts/Base.astro";
         </p>
       </aside>
 
+      <figure class="lp-figure">
+        <svg viewBox="0 0 640 300" role="img" aria-label="A balance scale for the all-Rust option. On the left side is what I gave up: a plain interface and limited accessibility. On the right side is what I got: one language, bugs that I can debug when the agents get stuck, the same code in the browser and on Windows and Linux, and no second runtime. The right side is heavier.">
+          <text class="lp-fig-label" x="0" y="12">ALL RUST: WHAT I GAVE UP AND WHAT I GOT</text>
+          <g transform="rotate(3 320 254)">
+            <text class="lp-fig-label" x="30" y="146">WHAT I GAVE UP</text>
+            <rect class="lp-fig-box" x="30" y="156" width="260" height="44" rx="6"></rect>
+            <text class="lp-fig-t" x="44" y="175">A plain interface</text>
+            <text class="lp-fig-s" x="44" y="192">less polish than CSS or Mac</text>
+            <rect class="lp-fig-box" x="30" y="206" width="260" height="44" rx="6"></rect>
+            <text class="lp-fig-t" x="44" y="225">Limited accessibility</text>
+            <text class="lp-fig-s" x="44" y="242">UI libraries are far behind</text>
+
+            <text class="lp-fig-label" x="350" y="46">WHAT I GOT</text>
+            <rect class="lp-fig-box-accent" x="350" y="56" width="260" height="44" rx="6"></rect>
+            <text class="lp-fig-t" x="364" y="75">One language</text>
+            <text class="lp-fig-s" x="364" y="92">no handoff between two systems</text>
+            <rect class="lp-fig-box-accent" x="350" y="106" width="260" height="44" rx="6"></rect>
+            <text class="lp-fig-t" x="364" y="125">Bugs I can debug myself</text>
+            <text class="lp-fig-s" x="364" y="142">when the agents get stuck</text>
+            <rect class="lp-fig-box-accent" x="350" y="156" width="260" height="44" rx="6"></rect>
+            <text class="lp-fig-t" x="364" y="175">Same code in the browser</text>
+            <text class="lp-fig-s" x="364" y="192">and on Windows and Linux</text>
+            <rect class="lp-fig-box-accent" x="350" y="206" width="260" height="44" rx="6"></rect>
+            <text class="lp-fig-t" x="364" y="225">No second runtime</text>
+            <text class="lp-fig-s" x="364" y="242">no image copies between sides</text>
+
+            <rect class="lp-fig-bar-dim" x="20" y="251" width="600" height="5" rx="2"></rect>
+          </g>
+          <path class="lp-fig-arrow" d="M320 256 L344 290 L296 290 Z"></path>
+          <line class="lp-fig-line" x1="250" y1="290" x2="390" y2="290"></line>
+        </svg>
+        <figcaption>
+          All Rust cost me polish and accessibility. It gave me one language,
+          bugs that I can find myself, and the same code for the browser and
+          other platforms. For me, the right side was heavier.
+        </figcaption>
+      </figure>
+
       <h2>What I learned</h2>
       <ul class="lp-article-list">
         <li>

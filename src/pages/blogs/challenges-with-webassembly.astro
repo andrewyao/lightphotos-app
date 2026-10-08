@@ -31,6 +31,81 @@ import Base from "../../layouts/Base.astro";
         </p>
       </aside>
 
+      <figure class="lp-figure">
+        <svg viewBox="0 0 640 256" role="img" aria-label="Desktop compared to browser, in four rows. Colour: on the desktop, the system converts linear light to sRGB. The browser canvas does not, so a 50% gray appeared as approximately 21%. Now the shaders do the conversion on every platform. Files: the desktop reads files from paths on the disk. The browser gives only handles, and too many reads at one time cause NotReadableError. Now the app tries again after a random delay that grows each time. Crashes: the desktop app catches a panic and shows a placeholder. In the browser, a panic kills the worker. Now the app checks each file before the decoder gets it. Shipping: the desktop app has no web cache. In the browser, Cloudflare kept the worker JavaScript for four hours and the WebAssembly for zero. Now each release puts the build hash in the file addresses.">
+          <text class="lp-fig-label" x="0" y="12">SAME RUST CODE, NEW PROBLEMS</text>
+
+          <text class="lp-fig-label" x="0" y="34">ON THE DESKTOP</text>
+          <text class="lp-fig-label" x="220" y="34">IN THE BROWSER</text>
+          <text class="lp-fig-label" x="440" y="34">WHAT I CHANGED</text>
+
+          <rect class="lp-fig-box" x="0" y="44" width="200" height="44" rx="5"></rect>
+          <text class="lp-fig-t" x="12" y="63">System converts</text>
+          <text class="lp-fig-s" x="12" y="80">linear light to sRGB</text>
+          <line class="lp-fig-line" x1="200" y1="66" x2="210" y2="66"></line>
+          <path class="lp-fig-arrow" d="M210 61 L220 66 L210 71 Z"></path>
+          <rect class="lp-fig-box" x="220" y="44" width="200" height="44" rx="5"></rect>
+          <circle class="lp-fig-bad" cx="406" cy="58" r="3"></circle>
+          <text class="lp-fig-t" x="232" y="63">No conversion</text>
+          <text class="lp-fig-s" x="232" y="80">a 50% gray read as ~21%</text>
+          <line class="lp-fig-line" x1="420" y1="66" x2="430" y2="66"></line>
+          <path class="lp-fig-arrow" d="M430 61 L440 66 L430 71 Z"></path>
+          <rect class="lp-fig-box-accent" x="440" y="44" width="200" height="44" rx="5"></rect>
+          <text class="lp-fig-t" x="452" y="63">Shaders convert</text>
+          <text class="lp-fig-s" x="452" y="80">on every platform</text>
+
+          <rect class="lp-fig-box" x="0" y="98" width="200" height="44" rx="5"></rect>
+          <text class="lp-fig-t" x="12" y="117">File paths</text>
+          <text class="lp-fig-s" x="12" y="134">read straight from disk</text>
+          <line class="lp-fig-line" x1="200" y1="120" x2="210" y2="120"></line>
+          <path class="lp-fig-arrow" d="M210 115 L220 120 L210 125 Z"></path>
+          <rect class="lp-fig-box" x="220" y="98" width="200" height="44" rx="5"></rect>
+          <circle class="lp-fig-bad" cx="406" cy="112" r="3"></circle>
+          <text class="lp-fig-t" x="232" y="117">Handles only</text>
+          <text class="lp-fig-mono lp-fig-s" x="232" y="134">NotReadableError</text>
+          <line class="lp-fig-line" x1="420" y1="120" x2="430" y2="120"></line>
+          <path class="lp-fig-arrow" d="M430 115 L440 120 L430 125 Z"></path>
+          <rect class="lp-fig-box-accent" x="440" y="98" width="200" height="44" rx="5"></rect>
+          <text class="lp-fig-t" x="452" y="117">Retry with delay</text>
+          <text class="lp-fig-s" x="452" y="134">random, grows each time</text>
+
+          <rect class="lp-fig-box" x="0" y="152" width="200" height="44" rx="5"></rect>
+          <text class="lp-fig-t" x="12" y="171">Catch the panic</text>
+          <text class="lp-fig-s" x="12" y="188">show a placeholder</text>
+          <line class="lp-fig-line" x1="200" y1="174" x2="210" y2="174"></line>
+          <path class="lp-fig-arrow" d="M210 169 L220 174 L210 179 Z"></path>
+          <rect class="lp-fig-box" x="220" y="152" width="200" height="44" rx="5"></rect>
+          <circle class="lp-fig-bad" cx="406" cy="166" r="3"></circle>
+          <text class="lp-fig-t" x="232" y="171">No recovery</text>
+          <text class="lp-fig-s" x="232" y="188">a panic kills the worker</text>
+          <line class="lp-fig-line" x1="420" y1="174" x2="430" y2="174"></line>
+          <path class="lp-fig-arrow" d="M430 169 L440 174 L430 179 Z"></path>
+          <rect class="lp-fig-box-accent" x="440" y="152" width="200" height="44" rx="5"></rect>
+          <text class="lp-fig-t" x="452" y="171">Check files first</text>
+          <text class="lp-fig-s" x="452" y="188">before the decoder</text>
+
+          <rect class="lp-fig-box" x="0" y="206" width="200" height="44" rx="5"></rect>
+          <text class="lp-fig-t" x="12" y="225">Installed app</text>
+          <text class="lp-fig-s" x="12" y="242">no web cache</text>
+          <line class="lp-fig-line" x1="200" y1="228" x2="210" y2="228"></line>
+          <path class="lp-fig-arrow" d="M210 223 L220 228 L210 233 Z"></path>
+          <rect class="lp-fig-box" x="220" y="206" width="200" height="44" rx="5"></rect>
+          <circle class="lp-fig-bad" cx="406" cy="220" r="3"></circle>
+          <text class="lp-fig-t" x="232" y="225">Cloudflare cache</text>
+          <text class="lp-fig-s" x="232" y="242">worker JS 4 h, wasm 0 h</text>
+          <line class="lp-fig-line" x1="420" y1="228" x2="430" y2="228"></line>
+          <path class="lp-fig-arrow" d="M430 223 L440 228 L430 233 Z"></path>
+          <rect class="lp-fig-box-accent" x="440" y="206" width="200" height="44" rx="5"></rect>
+          <text class="lp-fig-t" x="452" y="225">Build hash in URL</text>
+          <text class="lp-fig-s" x="452" y="242">new URLs each release</text>
+        </svg>
+        <figcaption>
+          Four things that work on the desktop, what the browser does instead,
+          and what I changed for each one. The compiler caught none of these
+          problems.
+        </figcaption>
+      </figure>
+
       <h2>What I learned</h2>
       <ul class="lp-article-list">
         <li>

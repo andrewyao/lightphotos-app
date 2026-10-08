@@ -33,6 +33,45 @@ import Base from "../../layouts/Base.astro";
         </p>
       </aside>
 
+      <figure class="lp-figure">
+        <svg viewBox="0 0 640 332" role="img" aria-label="Diagram: one ImageIO call on the Mac asks for an image at approximately a given size. Under it are six jobs that the call does for free. Each job shows what I had to do without ImageIO: read the tags by hand to find the RAW preview, accept 680 ms per photo for the sensor decode, fit a brightness curve to match the look, add a fixed amount of noise reduction, read the rotation myself, and HEIC, for which no pure-Rust decoder exists.">
+          <text class="lp-fig-label" x="0" y="16">ON THE MAC</text>
+          <rect class="lp-fig-box-accent" x="140" y="32" width="360" height="56" rx="8"></rect>
+          <text class="lp-fig-t" x="320" y="55" text-anchor="middle">One ImageIO call</text>
+          <text class="lp-fig-s" x="320" y="75" text-anchor="middle">Give me this image at approximately this size</text>
+          <line class="lp-fig-line" x1="320" y1="88" x2="320" y2="104"></line>
+          <path class="lp-fig-arrow" d="M314 104 L326 104 L320 112 Z"></path>
+
+          <rect class="lp-fig-panel" x="1" y="116" width="638" height="204" rx="10"></rect>
+
+          <rect class="lp-fig-box" x="16" y="132" width="296" height="52" rx="6"></rect>
+          <text class="lp-fig-t" x="30" y="154">Find the RAW preview</text>
+          <text class="lp-fig-s" x="30" y="173">Without it: read the tags by hand</text>
+          <rect class="lp-fig-box" x="328" y="132" width="296" height="52" rx="6"></rect>
+          <text class="lp-fig-t" x="342" y="154">Shrink the image as it decodes</text>
+          <text class="lp-fig-s" x="342" y="173">Without it: 680 ms per photo</text>
+
+          <rect class="lp-fig-box" x="16" y="192" width="296" height="52" rx="6"></rect>
+          <text class="lp-fig-t" x="30" y="214">Match Apple's look</text>
+          <text class="lp-fig-s" x="30" y="233">Without it: a fitted brightness curve</text>
+          <rect class="lp-fig-box" x="328" y="192" width="296" height="52" rx="6"></rect>
+          <text class="lp-fig-t" x="342" y="214">Reduce noise</text>
+          <text class="lp-fig-s" x="342" y="233">Without it: a fixed amount</text>
+
+          <rect class="lp-fig-box" x="16" y="252" width="296" height="52" rx="6"></rect>
+          <text class="lp-fig-t" x="30" y="274">Turn the photo upright</text>
+          <text class="lp-fig-s" x="30" y="293">Without it: I read the rotation</text>
+          <rect class="lp-fig-box" x="328" y="252" width="296" height="52" rx="6"></rect>
+          <text class="lp-fig-t" x="342" y="274">Read HEIC files</text>
+          <text class="lp-fig-s lp-fig-bad" x="342" y="293">Without it: no pure-Rust decoder</text>
+        </svg>
+        <figcaption>
+          On the Mac, ImageIO does all six jobs inside one call. On Linux,
+          Windows and the browser, I rebuilt five of them myself. I could not
+          rebuild HEIC support.
+        </figcaption>
+      </figure>
+
       <h2>What I learned</h2>
       <ul class="lp-article-list">
         <li>

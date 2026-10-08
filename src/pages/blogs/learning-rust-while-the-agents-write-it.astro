@@ -27,6 +27,49 @@ import Base from "../../layouts/Base.astro";
         </p>
       </aside>
 
+      <figure class="lp-figure">
+        <svg viewBox="0 0 640 172" role="img" aria-label="A loop of four steps and the owner of each step. First, I write the first draft of the plan. Second, agent 1 improves the plan. Third, agent 2 builds one task at a time. Fourth, agent 3 reviews the code, runs the app, and reads the logs. Then the loop comes back to me. I run the app and see it work before the next change starts.">
+          <text class="lp-fig-label" x="0" y="12">WHO OWNS EACH STEP OF A CHANGE</text>
+
+          <rect class="lp-fig-box-accent" x="1" y="28" width="147" height="88" rx="6"></rect>
+          <text class="lp-fig-t" x="13" y="50">Me</text>
+          <text class="lp-fig-s" x="13" y="72">Write the first</text>
+          <text class="lp-fig-s" x="13" y="88">draft of the plan</text>
+
+          <line class="lp-fig-line" x1="148" y1="72" x2="155" y2="72"></line>
+          <path class="lp-fig-arrow" d="M155 67 L164 72 L155 77 Z"></path>
+
+          <rect class="lp-fig-box" x="164" y="28" width="148" height="88" rx="6"></rect>
+          <text class="lp-fig-t" x="176" y="50">Agent 1</text>
+          <text class="lp-fig-s" x="176" y="72">Improves the plan</text>
+
+          <line class="lp-fig-line" x1="312" y1="72" x2="319" y2="72"></line>
+          <path class="lp-fig-arrow" d="M319 67 L328 72 L319 77 Z"></path>
+
+          <rect class="lp-fig-box" x="328" y="28" width="148" height="88" rx="6"></rect>
+          <text class="lp-fig-t" x="340" y="50">Agent 2</text>
+          <text class="lp-fig-s" x="340" y="72">Builds one task</text>
+          <text class="lp-fig-s" x="340" y="88">at a time</text>
+
+          <line class="lp-fig-line" x1="476" y1="72" x2="483" y2="72"></line>
+          <path class="lp-fig-arrow" d="M483 67 L492 72 L483 77 Z"></path>
+
+          <rect class="lp-fig-box" x="492" y="28" width="147" height="88" rx="6"></rect>
+          <text class="lp-fig-t" x="504" y="50">Agent 3</text>
+          <text class="lp-fig-s" x="504" y="72">Reviews the code,</text>
+          <text class="lp-fig-s" x="504" y="88">runs the app, and</text>
+          <text class="lp-fig-s" x="504" y="104">reads the logs</text>
+
+          <path class="lp-fig-line" d="M566 116 L566 140 L74 140 L74 126"></path>
+          <path class="lp-fig-arrow" d="M69 126 L79 126 L74 116 Z"></path>
+          <text class="lp-fig-s" x="320" y="162" text-anchor="middle">Back to me: I run the app and see it work. Then the next change starts.</text>
+        </svg>
+        <figcaption>
+          I own the first and the last step of each change. Three different
+          agents improve the plan, build it, and check it.
+        </figcaption>
+      </figure>
+
       <h2>What I learned</h2>
       <ul class="lp-article-list">
         <li>
