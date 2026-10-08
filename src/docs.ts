@@ -36,7 +36,12 @@ export const docGroups: DocGroup[] = [
       {
         slug: "select-a-photo",
         title: "Select a photo",
-        dek: "Open one photo full size, step through the folder, zoom in and flip between your edit and the original.",
+        dek: "The grid is for deciding; the Loupe is for working on one photo at full size.",
+      },
+      {
+        slug: "compare-a-stack",
+        title: "Compare a stack",
+        dek: "Group a burst into one stack, compare every frame at the same spot, and keep the best one on top.",
       },
       {
         slug: "adjust",

@@ -48,11 +48,13 @@ const { prev, next } = docNeighbors(slug);
           </p>
           <h1>{topic.title}</h1>
           <p class="lp-article-dek">{topic.dek}</p>
-          <p class="lp-docs-note">
-            Shortcuts are written the macOS way &mdash; on Windows and Linux,
-            read <kbd>Cmd</kbd> as <kbd>Ctrl</kbd>. Press <kbd>?</kbd> inside
-            the app for the list as your own machine shows it.
-          </p>
+          {slug === "shortcuts" && (
+            <p class="lp-docs-note">
+              Shortcuts are written the macOS way &mdash; on Windows and Linux,
+              read <kbd>Cmd</kbd> as <kbd>Ctrl</kbd>. Press <kbd>?</kbd> inside
+              the app for the list as your own machine shows it.
+            </p>
+          )}
         </header>
 
         <slot />
