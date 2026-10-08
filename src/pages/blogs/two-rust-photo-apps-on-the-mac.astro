@@ -3,7 +3,7 @@ import Base from "../../layouts/Base.astro";
 ---
 <Base
   title="Two Rust photo apps on the Mac — LightPhotos Blog"
-  desc="The same comparison as last time, on the desktop. On the Mac, LightPhotos gives every decode to Apple's ImageIO, and LightCraft does all of them in its own Rust. That changes which app is faster, and where."
+  desc="The same comparison as last time, on the desktop. On the Mac, LightPhotos hands every decode to Apple's ImageIO, while LightCraft does every decode in its own Rust. That changes which app is faster, and where."
   active="blogs"
 >
   <main class="lp-page">
@@ -14,10 +14,10 @@ import Base from "../../layouts/Base.astro";
         <p class="lp-article-dek">
           The same comparison as <a
           href="/blogs/two-rust-photo-apps-in-the-browser.html">last
-          time</a>, on the desktop. On the Mac, LightPhotos gives every
-          decode to Apple's ImageIO.
+          time</a>, on the desktop. On the Mac, LightPhotos hands every
+          decode to Apple's ImageIO, while
           <a href="https://github.com/storytold/lightcraft">LightCraft</a>
-          does all of them in its own Rust. That changes which app is faster,
+          does every decode in its own Rust. That changes which app is faster,
           and where.
         </p>
         <p class="lp-article-byline">Andrew Yao &middot; 7 min read</p>
@@ -30,8 +30,10 @@ import Base from "../../layouts/Base.astro";
           0.73&nbsp;s to LightCraft's 1.24&nbsp;s, with 0.9&nbsp;GB of memory
           to 1.7&nbsp;GB. The next photo went the other way. Both reacted in
           about 0.35&nbsp;s, but LightCraft finished in 0.38&nbsp;s and
-          LightPhotos in 1.1&nbsp;s. LightCraft develops the neighbours ahead
-          of time. LightPhotos develops each RAW when you arrive.
+          LightPhotos in 1.1&nbsp;s. LightCraft fully develops the photos on
+          either side ahead of time. LightPhotos only gets their embedded
+          JPEGs ready, and asks ImageIO to develop the RAW data when you
+          arrive.
         </p>
       </aside>
 
@@ -111,16 +113,18 @@ import Base from "../../layouts/Base.astro";
 
       <h2>What changes on the desktop</h2>
       <p>
-        On the desktop, the browser differences mostly go away. Both apps are ordinary Rust programs that use
+        On the desktop, the browser differences in threads, workers and
+        storage mostly go away. Both apps are ordinary Rust programs that use
         every core, draw with <code>wgpu</code> on Metal and read your
-        folders in place. What remains is where the pixels come from.
+        folders in place. What remains is the difference that matters most
+        for a photo app: where the pixels come from.
       </p>
       <ul class="lp-article-list">
         <li>
           <strong>LightPhotos uses ImageIO for everything.</strong> Every
           JPEG, HEIC and RAW file goes through Apple's ImageIO, the library
           that Preview and Photos use. The Mac build does not even compile in
-          the RAW library of the other builds. (See <a
+          the RAW library that the other builds use. (See <a
           href="/blogs/what-imageio-gives-you-free.html">What ImageIO gives
           you free</a>.)
         </li>
@@ -207,8 +211,8 @@ import Base from "../../layouts/Base.astro";
         number is the median of five runs. The runs agreed to within a few
         percent, except one LightCraft open that took 0.86&nbsp;s. A capture
         takes about 0.23&nbsp;s, so no measurement can be below about
-        0.35&nbsp;s. The script, <code>tools/desktop-bench</code>, works on
-        any Mac app.
+        0.35&nbsp;s. The script, <code>tools/desktop-bench</code>, only looks
+        at the window, so it works on any Mac app.
       </p>
 
       <h2>The numbers</h2>
@@ -272,17 +276,18 @@ import Base from "../../layouts/Base.astro";
         In the browser, LightPhotos finished the next photo in 0.53&nbsp;s,
         and LightCraft in 1.88&nbsp;s. The timing logs in both apps show why
         the Mac reverses this. LightPhotos shows the camera's embedded JPEG
-        within about 20&nbsp;ms, so both apps react at the lowest time the
-        script can measure. But the A7 II's embedded JPEG is only
-        1616&nbsp;px wide, and this window on a Retina screen needs
-        3584&nbsp;px. So when you arrive, LightPhotos asks ImageIO to
+        within about 20&nbsp;ms, so both apps react at the measurement floor.
+        But the A7 II's embedded JPEG is only 1616&nbsp;px wide, and the
+        photo area of this window on a Retina screen is 3584&nbsp;px wide. So when you arrive, LightPhotos asks ImageIO to
         develop the RAW data at that size, which took 0.5 to 0.6&nbsp;s.
       </p>
       <p>
         LightCraft develops at up to 2560&nbsp;px, about half as many
-        pixels, and it develops both neighbours in the background. So the
-        arrow key costs only a GPU pass of about 35&nbsp;ms. My script
-        waits a few seconds on each photo, about the pace of a person. If
+        pixels, and it decodes and develops both neighbours in the
+        background and keeps them ready. So the arrow key costs only a GPU
+        pass of about 35&nbsp;ms. My script waits a few seconds on each
+        photo, which gives LightCraft time to get ahead. That is about the
+        pace of a person who looks at each photo. If
         you hold the arrow key down, you could move faster than LightCraft
         can prepare. I did not measure that.
       </p>
@@ -290,24 +295,27 @@ import Base from "../../layouts/Base.astro";
         I do not think either is the wrong choice. LightCraft spends CPU
         time and battery on develops that you never look at. LightPhotos has
         something on screen just as fast, and the camera's JPEG is plenty to
-        judge framing and expression, which is most of culling. The photo
-        then sharpens to full Retina detail while you look at it.
+        judge framing and expression, which is most of culling. In the half
+        second after that, the photo sharpens to full Retina detail while
+        you already look at it.
       </p>
       <p>
-        LightPhotos could prepare its neighbours too. Its finished 8-bit
-        images are about 34&nbsp;MB each at this size, so two would cost
-        about 70&nbsp;MB, less than for LightCraft. Whether that is worth
+        LightPhotos could prepare its neighbours too, and it would cost less
+        memory than for LightCraft, because LightPhotos keeps finished 8-bit
+        images: about 34&nbsp;MB each at this size, so about 70&nbsp;MB for
+        two. Whether that is worth
         the wasted develops depends on how people move through a folder. I
         want to measure that first.
       </p>
 
       <h2>Why the grid and the memory go the other way</h2>
       <p>
-        For a grid thumbnail, LightPhotos asks ImageIO for a small image,
-        and ImageIO answers from the embedded JPEG in 12 to 22&nbsp;ms per
+        For a grid thumbnail, LightPhotos asks ImageIO for an image no bigger
+        than the thumbnail, and ImageIO answers from the embedded JPEG in 12 to 22&nbsp;ms per
         file. So twenty RAW files fill the grid in under a second.
         LightCraft also shows the embedded JPEGs first, but then replaces
-        them with thumbnails that it develops from the RAW data.
+        them with thumbnails that it develops from the RAW data, and its grid
+        is not finished until those arrive.
       </p>
       <p>
         For memory, LightCraft keeps the decoded RAW data for the current
@@ -321,8 +329,8 @@ import Base from "../../layouts/Base.astro";
         0.8&nbsp;GB difference. I did not break down the rest.
       </p>
       <p>
-        The app size is ImageIO again. LightCraft ships its own decoders and
-        colour management, and its release build skips link-time
+        The app size is ImageIO again. LightCraft ships its own decoders for
+        RAW, JPEG, JPEG XL and more, plus its own colour management, and its release build skips link-time
         optimisation and keeps some debug information. The macOS decoders
         cost LightPhotos nothing.
       </p>
@@ -339,7 +347,7 @@ import Base from "../../layouts/Base.astro";
         LightCraft gets the opposite trade. One decoder and one develop
         everywhere means the same photo looks the same on every platform,
         and LightCraft can fix any bug in its decoder. The cost is a bigger
-        app and missing formats. HEIC needs an HEVC decoder, and no
+        app and the formats it has not written yet. HEIC needs an HEVC decoder, and no
         pure-Rust one with a permissive license exists yet. CR3 files show
         only their embedded preview for now.
       </p>
@@ -350,7 +358,7 @@ import Base from "../../layouts/Base.astro";
         LightCraft relies on itself. LightPhotos is smaller, starts faster,
         fills its grid faster and uses less memory, because Apple already
         did that work, and because a much smaller feature set fits in a
-        smaller app. LightCraft is faster where it chose to work ahead, looks
+        smaller app. LightCraft is faster where it chose to do more work ahead of time, looks
         the same everywhere and does far more when you start to edit. Both
         feel fast when you step through a shoot, for different reasons.
       </p>

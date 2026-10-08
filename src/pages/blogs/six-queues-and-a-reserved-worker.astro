@@ -12,8 +12,8 @@ import Base from "../../layouts/Base.astro";
         <p class="lp-article-meta"><a href="/blogs.html">Blogs</a> &middot; <time datetime="2026-08-20">August 20, 2026</time></p>
         <h1>Six queues and a reserved worker</h1>
         <p class="lp-article-dek">
-          This post tells how LightPhotos loads images in the background. I
-          tell it as a series of problems. Six queues and a worker that refuses
+          How LightPhotos loads images in the background, told as the problems
+          that shaped it. Six queues and a worker that refuses
           the most common job can look like too much. But I added each part
           because something broke visibly without it.
         </p>
@@ -100,44 +100,49 @@ import Base from "../../layouts/Base.astro";
 
       <h2>One queue, several workers</h2>
       <p>
-        LightPhotos decodes images on a few background threads. I call these
-        threads workers. My first version had one queue and a handful of
-        workers. They took jobs in the order the jobs arrived.
+        LightPhotos decodes images on a few background threads, which I call
+        workers, so that the app stays responsive while they work. My first
+        version had one queue and a handful of workers, first in, first out.
       </p>
       <p>
         It worked until I scrolled. A scroll queues a hundred thumbnails. A
-        photo that you open then goes to the end of the queue, and the app
-        looks frozen.
+        photo that you open then goes to the end of the queue, behind
+        thumbnails that are no longer on screen, and the app looks frozen.
       </p>
 
       <h2>Some jobs are more important</h2>
       <p>
         So I split the one queue into six. I ordered them by what you look at
         now, not by how quick a job is. Camera details (metadata) come before
-        thumbnails because the details panel is next to the open photo. A
-        thumbnail two rows down is not on the screen yet.
+        thumbnails because the details panel is next to the open photo, so you
+        would notice a delay there. A thumbnail two rows down is not on the
+        screen yet.
       </p>
 
       <h2>The first position in the queue is not sufficient</h2>
       <p>
-        With six queues, the freeze was shorter, but it did not stop. Priority
-        only decides which job <em>starts</em> next. If all eight workers
-        picked up thumbnails one millisecond before you double-clicked, no
-        worker is free.
+        With six queues, the freeze was shorter, but it did not go away.
+        Priority only decides which waiting job <em>starts</em> next. If all
+        eight workers picked up thumbnails one millisecond before you
+        double-clicked, your photo is first in line, but no worker is free to
+        take it.
       </p>
       <p>
-        The usual solution is to interrupt a running job. I could not, because
-        the decode happens inside someone else's library. So I kept one worker
-        aside that never takes thumbnails. That took a few lines, and it is
+        The usual solution is to interrupt a running job and give its worker
+        to the urgent one. I could not, because the decode happens inside
+        someone else's library, which has no way to know that I want it to
+        stop. So I kept one worker aside that never takes thumbnails. That took a few lines, and it is
         what actually got the photo through. On a computer with one CPU core,
-        I turn this off, or the grid has no worker left.
+        I turn this off, because reserving the only worker would leave the
+        grid with nothing.
       </p>
 
       <h2>A worker that can refuse jobs broke the wake-up signal</h2>
       <p>
         Workers sleep when the queue is empty. When the app adds a job, it
-        wakes one worker. This standard method assumes that each worker can
-        take each job. My reserved worker cannot.
+        wakes one worker. This standard method works only if any sleeping
+        worker can take any job. My reserved worker cannot: it can refuse a
+        job.
       </p>
 
       <figure class="lp-figure lp-try" id="sq-wake">
@@ -188,13 +193,14 @@ import Base from "../../layouts/Base.astro";
       <p>
         The loader keeps "already requested" markers, so it does not queue the
         same photo five times. It clears each marker when the job is complete.
-        The browser version of the worker pool does not start threads. So
-        nothing cleared the markers.
+        In the browser version, the worker pool does not start any threads at
+        all, so nothing was ever going to finish those jobs or clear the
+        markers.
       </p>
       <p>
-        No error occurred. Instead, the app woke sixty times each second for
-        the rest of the session to check on work that did not exist. It drained
-        your laptop battery.
+        No error message appeared. Instead, the app woke sixty times a second
+        for the rest of the session to check on work that did not exist, and
+        drained your laptop battery.
       </p>
       <p>
         My fix is a rule: each marker must have an owner that clears it. When
@@ -206,18 +212,18 @@ import Base from "../../layouts/Base.astro";
 
       <h2>In a browser, workers can fail</h2>
       <p>
-        A new browser worker (a Web Worker) discards each message that it gets
-        before its script is ready. So each worker now says when it is ready.
+        A newly started browser worker (a Web Worker) discards any message sent
+        to it before its script has finished loading. So each worker now says when it is ready.
         If one stays quiet for ten seconds, I treat it as failed. I replace a
         failed worker up to three times. Then I mark that slot as permanently
         gone.
       </p>
       <p>
-        "Permanently gone" must stay separate from "not ready yet". Export
-        waits while running jobs are at or above capacity, and capacity counts
-        only ready workers. A slot stuck halfway through replacement looked not
-        ready. The capacity decreased to zero, and the export progress bar
-        waited forever.
+        "Permanently gone" must stay separate from "not ready yet", because
+        mixing them up caused a real hang. Export waits while the number of
+        running jobs is at or above capacity, and capacity counts only ready
+        workers. A slot stuck halfway through replacement looked not ready, so
+        capacity dropped to zero and the export progress bar waited forever.
       </p>
 
       <h2>What made this design easy to test</h2>

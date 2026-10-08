@@ -30,7 +30,7 @@ import Base from "../../layouts/Base.astro";
           photo in 0.53&nbsp;s. LightCraft took 2.3&nbsp;s and 1.88&nbsp;s,
           and used nearly twice the memory. Most of the gap is the starting
           point. At fit-to-window, LightPhotos edits the JPEG that the camera
-          already made. LightCraft develops the RAW data every time.
+          already made. LightCraft develops the RAW data itself every time.
         </p>
       </aside>
 
@@ -174,13 +174,14 @@ import Base from "../../layouts/Base.astro";
       <p>
         I built both apps from their current code and served each from its
         own local address. Playwright drove them in Chromium 154 on an M4 Pro
-        Mac with 48&nbsp;GB of memory. The photos were twenty new RAW files
-        from a Sony A7 II, 24 megapixels and about 25&nbsp;MB each.
+        Mac with 48&nbsp;GB of memory. The photos were twenty RAW files
+        from a Sony A7 II, 24 megapixels and about 25&nbsp;MB each. Neither
+        app had seen them before.
       </p>
       <p>
-        A timer starts at the key press. Every 150&nbsp;ms the script takes
-        a screenshot, and a step is done when three screenshots in a row
-        match. <code>tools/web-bench</code> measures LightPhotos the same
+        A timer starts at the key press and stops when the screen stops
+        changing: every 150&nbsp;ms the script takes a screenshot, and a step
+        is done when three screenshots in a row match. <code>tools/web-bench</code> measures LightPhotos the same
         way, and it works for any app. It is coarse: each number includes
         about 140&nbsp;ms of screenshot overhead. So compare the two apps
         with each other, not with a stopwatch.
@@ -235,9 +236,10 @@ import Base from "../../layouts/Base.astro";
       <h2>Why the numbers differ</h2>
       <p>
         At fit-to-window, the camera's embedded JPEG has more pixels than
-        the screen can show. So LightPhotos applies your sliders to it, and
-        it demosaics the sensor data (turns it into a full colour image)
-        only when you zoom in. LightCraft develops the RAW data for every
+        the screen can show. So LightPhotos decodes that JPEG and applies
+        your sliders to it. Only when you zoom in does it load the full
+        decode, which demosaics the sensor data (turns it into a full colour
+        image) at full resolution. LightCraft develops the RAW data for every
         view. That is more work, but the colours at fit come from the same
         place as the colours at 100%. It does all that in under two seconds,
         in a browser, on a 24-megapixel file. That is a good result.
@@ -246,9 +248,8 @@ import Base from "../../layouts/Base.astro";
         The grid is closer. The LightPhotos decode threads pull thumbnails
         from one shared queue, and the photo on screen gets priority. When I
         moved to shared memory, the number of thumbnails that decode at once
-        went from
-        1 to 9, because the RAW library had silently used a single fallback
-        thread. LightCraft copies all 498&nbsp;MB into the browser's storage
+        went from 1 to 9, because the RAW library had silently run every
+        decode on a single fallback thread. LightCraft copies all 498&nbsp;MB into the browser's storage
         while it imports. That copy is part of its 2.3&nbsp;s, and it lets
         the library survive a reload.
       </p>
@@ -271,23 +272,26 @@ import Base from "../../layouts/Base.astro";
       <h2>The same bug, again</h2>
       <p>
         The first time I imported the RAW files into LightCraft, all four
-        workers stopped, and then the page stopped. The console said
+        workers crashed, and then the page crashed. The console said
         <code>time not implemented on this platform</code>. That is the bug
         from my last post: Rust's standard <code>Instant::now()</code>
         crashes in the browser instead of returning an error.
       </p>
       <p>
-        LightCraft uses the browser's clock everywhere else, but one timer
-        in its RAW loader still called the standard one. Tests run on the
-        desktop, and the demo photos are not RAW files, so only a real RAW
-        file showed the bug. The fix is one line. I made it in my local
-        copy, so the LightCraft numbers include it.
+        LightCraft already uses a small library that asks the browser's
+        clock everywhere else, but one timer in its RAW loader still called
+        the standard one. Tests run on the desktop, where that call works,
+        and the demo photos are not RAW files, so only a real RAW file
+        showed the bug. Swapping in the browser-safe clock is a one-line
+        fix. I made it in my local copy, so the LightCraft numbers include
+        it.
       </p>
       <p>
         Both apps hit this bug in the same way, so I do not think care is
         the answer. A compiler will not catch it, and a test only catches it
-        in a browser. The better fix is a lint that rejects
-        <code>std::time::Instant::now</code> completely.
+        if it runs in a browser. The better fix is a lint that rejects
+        <code>std::time::Instant::now</code> outright, so the mistake cannot
+        get in at all.
       </p>
 
       <h2>Wrapping up</h2>

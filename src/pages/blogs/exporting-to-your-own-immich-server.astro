@@ -16,23 +16,24 @@ import Base from "../../layouts/Base.astro";
           even one on a box in your home. Here is how I made your server address
           and an API key work with no extra steps.
         </p>
-        <p class="lp-article-byline">Andrew Yao &middot; 5 min read</p>
+        <p class="lp-article-byline">Andrew Yao &middot; 6 min read</p>
       </header>
 
       <aside class="lp-tldr">
         <p class="lp-tldr-label">TL;DR</p>
         <p>
-          Immich is a photo library that you host yourself, similar to Google
-          Photos on your own hardware. The LightPhotos export form now has an
-          Immich tab. Paste your server address and an API key (a token,
-          similar to a password, from your server), then click Connect.
-          LightPhotos sends your edited JPEGs with their capture time and star
-          rating.
+          Immich is a photo library that you host yourself, the nearest
+          equivalent to Google Photos that you can run on your own hardware.
+          The LightPhotos export form now has an Immich destination. Paste your server
+          address and an API key (a token, similar to a password, from your
+          server), then click Connect. LightPhotos sends your edited JPEGs to
+          your server with their capture time and star rating.
         </p>
         <p>
           Most of the work was around the upload: accept any address, check
           the key early, survive slow home internet, and never send a key
-          unencrypted by accident. This feature is only in the desktop app.
+          unencrypted by accident. This feature is only in the desktop app,
+          because browsers cannot talk to an Immich server.
         </p>
       </aside>
 
@@ -107,24 +108,32 @@ import Base from "../../layouts/Base.astro";
       <p>
         People type <code>photos.example.com</code>, paste
         <code>https://photos.example.com/api/</code> from the documentation,
-        or use <code>http://nas.local:2283</code> at home. All must work. The
-        discovery file <code>/.well-known/immich</code> helps people who host
-        Immich under a sub-path, for example <code>/immich/api</code>.
+        or use <code>http://nas.local:2283</code> at home. All must work.
+        LightPhotos trims spaces, removes a trailing slash or
+        <code>/api</code>, and adds <code>https://</code> if you left it off.
+        Then it reads the discovery file of the server,
+        <code>/.well-known/immich</code>, to find where the API lives. That
+        helps people who host Immich under a sub-path, for example
+        <code>/immich/api</code>. With no discovery file, it uses the usual
+        <code>/api</code>.
       </p>
       <p>
-        If you type no scheme and HTTPS fails, LightPhotos does not quietly
-        try plain HTTP. That would send your API key without encryption. The
-        error tells you to type <code>http://</code> yourself if your server
-        has no HTTPS. The decision is yours.
+        If you type no scheme and HTTPS fails, LightPhotos does not silently
+        fall back to plain HTTP, because that would send your API key across
+        the network without encryption and without telling you. The error
+        tells you to type <code>http://</code> yourself if your server has no
+        HTTPS. The decision is yours.
       </p>
 
       <h2>Check the key early</h2>
       <p>
         The usual connection test asks the server about itself. Gumnut, a
-        hosted Immich service, replied to that for every key, also one that I
-        invented. A wrong key looked fine until the first upload failed. So
-        LightPhotos asks "who owns this key?" instead. Only a real key gets a
-        reply. Check a key with a request that needs the key.
+        hosted Immich service, answered that request for any key, even one
+        that I invented. A wrong key looked fine until the first upload
+        failed. So LightPhotos asks "who owns this key?" instead. Only a real
+        key gets a reply, and the reply also gives the form "Connected as"
+        with your name and email. Check a key with a request that needs the
+        key.
       </p>
       <p>
         LightPhotos saves nothing until that check passes. The address goes
@@ -142,22 +151,24 @@ import Base from "../../layouts/Base.astro";
 
       <h2>What LightPhotos uploads</h2>
       <p>
-        Immich gets the finished JPEG, rendered as for a folder export with
-        your edits, crop and size. Your originals stay on your drive. Two
-        items go with it:
+        Immich gets the finished JPEG, rendered exactly as for a folder
+        export with your edits, crop and size. Your originals stay on your
+        drive. Two items go with it:
       </p>
       <ul class="lp-article-list">
         <li>
           <strong>The capture time, with its time zone.</strong> My first
           version read the camera clock as UTC, so a photo taken at
-          6&nbsp;pm in California appeared at 11&nbsp;am. Now each export
-          sends the time-zone offset of the camera too. With no capture time,
-          LightPhotos uses the file date.
+          6&nbsp;pm in California appeared in Immich at 11&nbsp;am. Now each
+          export sends its capture time plus the time-zone offset of the
+          camera. It falls back to the file date only when the camera did not
+          record a capture time.
         </li>
         <li>
           <strong>Your star rating,</strong> set immediately after the
-          upload. If a key can upload but not change photos, the photo still
-          uploads and you get a warning. The export does not fail.
+          upload. Some keys have permission to upload but not to change
+          photos. With such a key, the photo still uploads and you get a
+          warning about the rating instead of a failed export.
         </li>
       </ul>
 
@@ -165,10 +176,11 @@ import Base from "../../layouts/Base.astro";
       <p>
         An export can stop early when the laptop sleeps or the Wi-Fi drops.
         The easiest fix is to export again, so that must be safe. I let the
-        server find duplicates. For a file that it has, Immich replies
-        "duplicate" and identifies the photo. LightPhotos keeps no upload
-        list that could fall out of sync. It sends everything again and shows
-        a message such as "Uploaded 40 photos, 32 already on the server."
+        server find duplicates. If you upload the same file twice, Immich
+        replies "duplicate" and points to the photo that it already has.
+        LightPhotos keeps no upload list that could fall out of sync with the
+        server. It sends everything again, counts the duplicates and shows a
+        message such as "Uploaded 40 photos, 32 already on the server."
         The batch picks up where it stopped.
       </p>
 
@@ -176,9 +188,11 @@ import Base from "../../layouts/Base.astro";
       <p>
         Home connections are slow for uploads, and LightPhotos uploads
         several photos at once. My first version gave each upload a fixed
-        five minutes. Large photos on a slow connection that eight uploads
-        shared hit that limit, although the connection worked. Now the limit
-        assumes 1&nbsp;Mbit/s shared by eight uploads:
+        five-minute limit. Large photos on a slow connection that eight
+        uploads shared hit that limit, although the connection worked. Now
+        each upload gets one minute plus extra time based on its size,
+        calculated as if a 1&nbsp;Mbit/s connection were split between eight
+        uploads:
       </p>
       <pre class="lp-code">time allowed = 60 s
              + photo size / 16 KB per second</pre>
@@ -211,15 +225,16 @@ import Base from "../../layouts/Base.astro";
       </figure>
 
       <p>
-        A stuck connection still fails. The limits to connect and to wait for
-        a reply stay short.
+        A connection that is truly stuck still fails, because the other
+        limits, to connect and to wait for the server reply, stay short.
       </p>
 
       <h2>Why it is not in the browser</h2>
       <p>
         A web page can talk to a server on another site only if that server
-        gives permission. Immich does not, so the browser blocks the request.
-        The web version shows the Immich tab with a note that it works only
+        gives permission. Immich does not, so the browser blocks the request
+        before it sends it.
+        The web version shows a note under Immich that it works only
         in the desktop app, which is not a web page.
       </p>
 

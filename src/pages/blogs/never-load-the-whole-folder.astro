@@ -16,7 +16,7 @@ import Base from "../../layouts/Base.astro";
           crashed. The fix is the idea I reuse most in the code. I made the
           same mistake four times, each time in a different part of the app.
         </p>
-        <p class="lp-article-byline">Andrew Yao &middot; 4 min read</p>
+        <p class="lp-article-byline">Andrew Yao &middot; 5 min read</p>
       </header>
 
       <aside class="lp-tldr">
@@ -61,7 +61,7 @@ import Base from "../../layouts/Base.astro";
           <line class="lp-fig-line" data-cursor x1="309" y1="30" x2="309" y2="200" stroke-dasharray="3 3"></line>
           <circle class="lp-fig-bad" data-dot cx="309" cy="48" r="5"></circle>
         </svg>
-        <p class="lp-try-readout" aria-live="polite">8,889 photos, every photo loaded: 8,889 textures, 1.3 GB of video memory, 1.9 GB in total. Then the OS stops the app.</p>
+        <p class="lp-try-readout" aria-live="polite">8,889 photos, every photo loaded: 8,889 textures, 1.3 GB of video memory, 1.9 GB in total. Then the OS kills the app.</p>
         <figcaption>
           Drag the folder size, then switch the method. The flat line depends
           on the size of the window, not on the number of photos.
@@ -91,46 +91,54 @@ import Base from "../../layouts/Base.astro";
       <h2>The crash</h2>
       <p>
         A wedding photographer gives you a card with 8,889 photos. You open the
-        folder in LightPhotos, and the app crashes. My grid code did
-        approximately this:
+        folder in LightPhotos, and the app crashes. My code to fill the grid
+        came down to this:
       </p>
       <pre class="lp-code">for each photo in folder:
     request a thumbnail
     upload it to the GPU as a texture</pre>
       <p>
-        That loop is fine for twenty photos. With 8,889 photos, the textures
-        use about 1.3 GB of video memory, the app uses about 1.9 GB, and the
-        operating system stops it. The loop assumes that a folder is small.
+        That loop is fine for twenty photos. With 8,889 photos, it asks the
+        graphics card to hold 8,889 textures, about 1.3 GB of video memory,
+        which pushes the total memory use of the app to about 1.9 GB. Then the
+        operating system kills the app. The loop assumes that a folder is
+        small.
       </p>
 
       <h2>The fix, the first time</h2>
       <p>
-        A large monitor shows about forty thumbnails. Nobody needs the other
-        8,849 yet. Now the grid draws only the rows that you scrolled to, plus
-        a few extra rows so that scrolling stays smooth. Web developers call
+        A large monitor shows about forty thumbnails at once. Nobody needs the
+        other 8,849 yet. Now the grid draws only the rows that you scrolled to,
+        and requests thumbnails for those rows plus a few extra rows above and
+        below, so that scrolling stays smooth. Web developers call
         this list virtualisation.
       </p>
 
       <h2>The fix, the second time</h2>
       <p>
-        The thumbnail cache has a fixed maximum count. I picked it when
-        thumbnails were small. Later, thumbnails became 512 pixels on the long
-        side and about 700 KB each, roughly seven times the old cost. Nothing
-        crashed, but the limit no longer meant what I intended.
+        After a thumbnail loads, I keep it in a memory cache that holds up to
+        a fixed number of thumbnails. I picked that number when thumbnails were
+        small. Later, I made thumbnails a fixed 512 pixels on the long side and
+        about 700 KB each, roughly seven times the old cost. Nothing crashed or
+        logged an error. The limit was still a valid number, but it no longer
+        meant what I intended.
       </p>
       <p>
-        So I calculated it again from what must be in memory at the same
-        time: the visible grid plus three extra rows above and below, about
-        180 cells. The limit is now 256. A lower limit makes the cache discard
+        So I derived the limit again from what it should have depended on from
+        the start: how many thumbnails must be in memory at the same time.
+        That is the visible grid plus three extra rows above and below, about
+        180 cells, so the limit is now 256. A lower limit makes the cache evict
         thumbnails right after it loads them, which is worse than no cache.
       </p>
 
       <h2>The fix, the third time</h2>
       <p>
-        Auto Tone analyses each selected photo. My first version requested
-        every thumbnail at the start. With 20,000 photos at roughly 0.4 MB
-        each, that is about 8 GB. The browser tab has a limit of 4 GB, and it
-        never gives memory back.
+        Auto Tone analyses each selected photo to calculate its adjustments.
+        My first version requested a thumbnail for every selected photo at the
+        start, because it would need all of them eventually. With 20,000
+        photos at roughly 0.4 MB each, I asked the cache to hold about 8 GB
+        inside a browser tab that is limited to 4 GB and never gives memory
+        back.
       </p>
 
       <figure class="lp-figure lp-try" id="tone-demo">
@@ -170,31 +178,34 @@ import Base from "../../layouts/Base.astro";
         <figcaption>
           The window uses about 13 MB for 30 selected photos or for 30,000. A
           check in the code stops the build if the window is 64 or above, so
-          nobody can turn it into a casual setting.
+          nobody can silently turn it into a setting to tweak.
         </figcaption>
       </figure>
 
       <p>
-        The analysis of one photo takes about 8 ms on the main thread, so I
-        cannot split it across CPU cores. A thumbnail from an uncached RAW
-        file takes 137 ms in the slow cases (95 out of 100 loads are faster).
-        The loading must stay ahead of the analysis even then, so the window
-        is the slowest load divided by one analysis.
+        The analysis of one photo takes about 8 ms, and it must run on the
+        main thread of the app, so I cannot split it across CPU cores. Loading
+        a thumbnail from an uncached RAW file takes 137 ms in the slow cases
+        (95 out of 100 loads are faster). The loading must stay ahead of the
+        analysis even in that worst case, so the window is the slowest load
+        divided by one analysis.
       </p>
       <p>
-        I assumed that the loads made the batch slow. I was wrong. The
-        analysis takes about fifty-five times longer, because it cannot run in
-        parallel. Faster loading would not help.
+        I assumed that the thumbnail loads made the batch slow. I was wrong.
+        The analysis takes about fifty-five times longer in wall-clock time,
+        because it cannot run in parallel. Faster loading would not help at
+        all.
       </p>
 
       <h2>The fix, the fourth time</h2>
       <p>
-        The large view loads a photo at a size that fits the window, so a
-        one-pixel resize can mean a new load. Now the size rounds up to a
-        multiple of 512 pixels. A drag of the window edge causes only a few
-        reloads, not one for every frame. It is the same idea, applied to a
-        value that changes smoothly: if an expensive cache depends on it, I
-        round it.
+        The large view loads a photo at a size that fits the window, so in
+        principle a one-pixel resize means a new load. Now the requested size
+        rounds up to a multiple of 512 pixels, so a drag of the window edge
+        triggers only a few reloads, not one for every frame. It is the same
+        idea, applied to a value that changes smoothly (the window size)
+        instead of a list: if an expensive cache depends on a value like that,
+        I round the value off.
       </p>
 
       <nav class="lp-article-nav" aria-label="More posts">
@@ -254,7 +265,7 @@ import Base from "../../layouts/Base.astro";
         } else if (n < CRASH) {
           text = `${fmt(n)} photos, every photo loaded: ${fmt(n)} textures. Memory grows with every photo.`;
         } else if (n === CRASH) {
-          text = "8,889 photos, every photo loaded: 8,889 textures, 1.3 GB of video memory, 1.9 GB in total. Then the OS stops the app.";
+          text = "8,889 photos, every photo loaded: 8,889 textures, 1.3 GB of video memory, 1.9 GB in total. Then the OS kills the app.";
         } else {
           text = `${fmt(n)} photos, every photo loaded: the app crashed at 8,889.`;
         }

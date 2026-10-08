@@ -3,7 +3,7 @@ import Base from "../../layouts/Base.astro";
 ---
 <Base
   title="Challenges with WebAssembly — LightPhotos Blog"
-  desc="The same Rust code runs in a browser tab. It compiled quickly. Getting the colours right, reading files reliably and shipping it without breaks took me much longer."
+  desc="The same Rust code runs in a browser tab. It compiled quickly. Getting the colours right, reading files reliably and shipping it without breaking anything took me much longer."
   active="blogs"
 >
   <main class="lp-page">
@@ -14,9 +14,9 @@ import Base from "../../layouts/Base.astro";
         <p class="lp-article-dek">
           The same Rust code runs in a browser tab. It compiled quickly.
           Getting the colours right, reading files reliably and shipping it
-          without breaks took me much longer.
+          without breaking anything took me much longer.
         </p>
-        <p class="lp-article-byline">Andrew Yao &middot; 6 min read</p>
+        <p class="lp-article-byline">Andrew Yao &middot; 7 min read</p>
       </header>
 
       <aside class="lp-tldr">
@@ -83,7 +83,7 @@ import Base from "../../layouts/Base.astro";
       </p>
 
       <figure class="lp-figure">
-        <svg viewBox="0 0 640 214" role="img" aria-label="The browser build. The main thread of the page runs the interface and draws with WebGPU. It reads and writes your folder through the File System Access API. It sends decode and export jobs to a maximum of four Web Workers. Each worker is a separate copy of a smaller WebAssembly program with its own memory. Downloads, compressed: approximately 3.2 MB for the main program and 1.1 MB for the worker.">
+        <svg viewBox="0 0 640 214" role="img" aria-label="The browser build. The main thread of the page runs the interface and draws with WebGPU. It reads and writes your folder through the File System Access API. It sends decode and export jobs to up to four Web Workers. Each worker is a separate copy of a smaller WebAssembly program with its own memory. Downloads, compressed: approximately 3.2 MB for the main program and 1.1 MB for the worker.">
           <text class="lp-fig-label" x="0" y="12">ONE BROWSER TAB</text>
 
           <rect class="lp-fig-box-accent" x="0" y="28" width="250" height="72" rx="6"></rect>
@@ -121,31 +121,35 @@ import Base from "../../layouts/Base.astro";
       </figure>
 
       <p>
-        A tool called trunk builds it. One setting for the graphics code
-        never reaches the compiler from the trunk config file, so every build
-        script sets it as an environment variable instead.
+        A tool called trunk builds it. One setting that the graphics code
+        needs belongs in the trunk config file, but in the trunk version I use
+        it never reaches the compiler, so every build script sets it as an
+        environment variable instead.
       </p>
 
       <h2>It compiled, but it did not run</h2>
       <p>
         The compile showed the expected gaps: no system trash, no clipboard,
-        no random numbers until a library uses the browser source, and no
-        threads. These were easy. Then I opened the app in a browser, and it
-        crashed. The compiler could not catch any of these:
+        no source of random numbers until you tell a library to use the one
+        in the browser, and starting a thread fails. These show up at compile
+        time or right at startup, and were easy to fix. Then I opened the app
+        in a browser, and it crashed. The compiler could not catch any of
+        these:
       </p>
       <ul class="lp-article-list">
         <li>
-          <strong>Asking for the time crashed the app.</strong>
-          <code>Instant::now()</code> has no browser implementation and
-          crashes instead of returning an error. Now every timer, and a
+          <strong>Asking for the time crashed the app.</strong> The standard
+          Rust <code>Instant::now()</code> is not implemented in the browser,
+          and it crashes instead of returning an error. Now every timer, and a
           patched copy of the RAW decoder, uses a small library that asks the
           clock of the browser.
         </li>
         <li>
           <strong>I could not wait on the main thread.</strong> The desktop
-          app waits for the graphics card before it shows a window. A browser
-          page must give control back, or nothing happens. Now the app checks
-          on every frame whether graphics setup is done.
+          app waits for the graphics card to be ready before it shows a
+          window. A browser page must give control back to the browser, or
+          nothing happens. Now graphics setup starts in the background, and
+          the app checks on every frame whether it is done.
         </li>
         <li>
           <strong>The window started at 0&times;0 pixels</strong> until the
@@ -164,28 +168,34 @@ import Base from "../../layouts/Base.astro";
       <p>
         On the desktop, the app gives the graphics card linear light, and the
         system converts it to the sRGB values that a monitor expects. A WebGPU
-        canvas never converts, so every midtone was far too dark, as the demo
-        at the top shows. Now the shaders convert on every platform, including
-        the desktop, so the two builds cannot drift apart. Decoding still
+        canvas never offers that conversion, so the linear values went
+        straight to the screen and every midtone was far too dark, as the demo
+        at the top shows. Now the shaders do the conversion themselves on
+        every platform, including the desktop, so the two builds cannot drift
+        apart in how colour reaches the screen. Decoding still
         differs: Apple ImageIO on macOS, the app's own decoders everywhere
         else.
       </p>
 
       <h2>Threads without shared memory</h2>
       <p>
-        Before the port, I wrote down a plan. It got memory right and
-        threading completely wrong, and I know that only because I wrote it
-        down. It predicted shared memory, two special security headers and a
-        library that runs the Rust thread pool in the browser. That library
-        expects JavaScript to start first. LightPhotos is a normal Rust
-        program with its own <code>main()</code>.
+        Before the port, I wrote a memo on whether it was feasible. It got
+        memory right and threading completely wrong, and I know that only
+        because I wrote it down. For threading, it predicted the usual
+        approach: memory shared between workers, which needs the site to send
+        two special security headers, plus a library that lets the Rust thread
+        pool run in the browser. That library expects JavaScript to set up the
+        thread pool before the Rust program starts, and LightPhotos is a
+        normal Rust program with its own <code>main()</code>.
       </p>
       <p>
-        So each worker runs its own copy of the worker program. The main
-        thread sends it file bytes and gets pixels back. No special headers,
-        no experimental Rust. The cost is memory, so the pool stops at four
-        workers. A tab is 32-bit, and its memory never shrinks after it grows.
-        See <a href="/blogs/measuring-a-gui-app.html">measuring a GUI app</a>
+        So I dropped shared memory. Each worker runs its own copy of the
+        worker program. The main thread sends it the bytes of a file and gets
+        pixels back. No special headers, no experimental Rust. The cost is
+        memory, because each worker has its own, so the pool stops at four
+        workers no matter how many cores you have. A browser tab can address
+        only a limited amount of memory, because it is 32-bit, and that memory
+        never shrinks after it grows. See <a href="/blogs/measuring-a-gui-app.html">measuring a GUI app</a>
         and <a href="/blogs/never-load-the-whole-folder.html">never load the
         whole folder</a>.
       </p>
@@ -194,17 +204,19 @@ import Base from "../../layouts/Base.astro";
       <p>
         In the browser, a crash in any library is my problem. On the desktop,
         if the RAW decoder panics on an unusual file, the app catches the
-        panic and shows a placeholder. In the browser, a panic kills the
-        worker. So the app checks each file before the decoder gets it:
+        panic and shows a placeholder. WebAssembly in the browser has no way
+        to recover from a panic, so the panic kills the worker outright. So
+        the app checks each file before the decoder gets it:
       </p>
       <ul class="lp-article-list">
-        <li>It rejects file layouts that hit a <code>todo!()</code> in the decoder.</li>
-        <li>It rejects Fujifilm X-Trans files, which hit an <code>unreachable!()</code>.</li>
+        <li>It rejects file layouts that the decoder has not implemented yet, where it would hit a <code>todo!()</code>.</li>
+        <li>It rejects files from Fujifilm X-Trans sensors, which hit an <code>unreachable!()</code> in the decoder.</li>
         <li>It checks width times height for overflow, which a big RAW file can cause in the 32-bit build but never on a 64-bit Mac.</li>
       </ul>
       <p>
-        When it can, the worker uses the JPEG preview inside the RAW file
-        instead. That is faster, and it cannot crash.
+        When it can, the worker skips the decoder entirely and uses the JPEG
+        preview that most cameras embed in the RAW file. That is faster, and
+        it cannot crash.
       </p>
 
       <h2>Files, one handle at a time</h2>
@@ -216,15 +228,16 @@ import Base from "../../layouts/Base.astro";
       <ul class="lp-article-list">
         <li>
           <strong><code>NotReadableError</code>.</strong> Chrome throws it
-          when too many reads run at once. Two never caused it. The app allows
-          four, and retries after a random delay that grows each time. Fixed
-          retries failed again, because all the reads retried at the same
-          moment.
+          when too many file reads run at once. Two at a time never caused it.
+          The app allows four, and when one fails it retries after a random
+          delay that grows each time. Retries right away or at fixed intervals
+          failed again, because all the reads retried at the same moment.
         </li>
         <li>
           <strong><code>RangeError: Array buffer allocation failed</code>.</strong>
           The app copied each RAW file into JavaScript and again into
-          WebAssembly memory, and the tab ran out. Now there is no extra copy.
+          WebAssembly memory, and after a few reads in a row the tab ran out
+          of memory. Now the bytes move across without the extra copy.
         </li>
       </ul>
       <p>
@@ -237,8 +250,9 @@ import Base from "../../layouts/Base.astro";
       <p>
         The worst bug was not in the Rust code. How I deploy matters as much
         as the code. Cloudflare cached the worker JavaScript for four hours
-        and its WebAssembly for zero. Recent visitors got old JavaScript with
-        new WebAssembly. Every decode failed because a function did not exist.
+        and its WebAssembly file for zero. After a release, recent visitors
+        got old JavaScript paired with new WebAssembly, and every decode
+        failed with an error that said a function did not exist.
       </p>
 
       <figure class="lp-figure lp-try" id="wasm-cache">
@@ -282,7 +296,7 @@ import Base from "../../layouts/Base.astro";
         build, to the worker file
         addresses, so every release gets new addresses. When I moved the app
         under <code>/app/</code>, the worker address broke too. Now the worker
-        finds its own location from the page.
+        works out its own location from the page instead of assuming it.
       </p>
 
       <h2>What the browser version gives up</h2>

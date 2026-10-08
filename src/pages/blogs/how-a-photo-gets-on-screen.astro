@@ -16,7 +16,7 @@ import Base from "../../layouts/Base.astro";
           file format does not decide how many. This post follows the whole
           trip from a file on disk to pixels on your monitor.
         </p>
-        <p class="lp-article-byline">Andrew Yao &middot; 4 min read</p>
+        <p class="lp-article-byline">Andrew Yao &middot; 5 min read</p>
       </header>
 
       <aside class="lp-tldr">
@@ -24,9 +24,10 @@ import Base from "../../layouts/Base.astro";
         <p>
           LightPhotos first does the fastest decode it can. If the result is
           as big as the window needs, it stops. If not, it runs a slower,
-          correct decode. A third decode runs only when you zoom past the
-          detail on screen. After that, zoom, pan and every slider are only
-          math on the graphics card.
+          correct decode afterwards. A third decode runs only when you zoom
+          past the detail already on screen. After that, zoom, pan and every
+          slider are only math on the graphics card, and the app never touches
+          the image data again.
         </p>
       </aside>
 
@@ -86,33 +87,38 @@ import Base from "../../layouts/Base.astro";
 
       <h2>Opening a photo</h2>
       <p>
-        A camera RAW file is the raw readout from the sensor. To turn it into
-        a picture takes real work, called demosaicing. On my machine, that
-        takes approximately 250 ms for a Sony ARW file at screen size.
+        A camera RAW file is not really an image yet. It is the raw readout
+        from the sensor, and to turn it into a picture takes real work, called
+        demosaicing. On my machine, that takes approximately 250 ms for a Sony
+        ARW file at screen size.
       </p>
       <p>
-        But your camera also saved a small JPEG preview inside the file. On my
-        Sony, the preview is 1616 pixels on the long side, and it takes
-        approximately 35 ms to extract. So the first pass gets the cheapest
-        decode it can near the size I asked for. Then the app checks one
-        thing.
+        But almost every RAW file also has a small JPEG preview that the
+        camera saved inside it. On my Sony, the preview is 1616 pixels on the
+        long side, and it takes approximately 35 ms to extract. So the first
+        pass gets the cheapest decode it can near the size I asked for, using
+        the embedded preview if there is one worth using. Then the app checks
+        one thing.
       </p>
       <blockquote class="lp-pullquote">
         Is the result as big as the window actually needs?
       </blockquote>
       <p>
         If it is, the app stops after one decode. That happens with every
-        JPEG, because the first pass decodes it at the requested size. It
-        also happens with a RAW in a small window. If the loupe (the
-        single-photo view) needs only 1400 pixels, the 1616-pixel preview is
-        enough.
+        JPEG, because a JPEG has no embedded preview, so the first pass
+        decodes it at the requested size. It also happens with a RAW in a
+        small window. If the loupe (the single-photo view) needs only 1400
+        pixels, the 1616-pixel camera preview is already bigger than that, so
+        the expensive decode never runs.
       </p>
       <p>
         If the result is too small, the app queues a second decode at the full
-        target size and swaps it in. That is my usual case: my window asks
-        for approximately 2560 pixels. A 250 ms wait became a 35 ms wait, but
-        nothing actually got faster. The app shows something useful while the
-        expensive work runs, and it skips that work when it is not needed.
+        target size and swaps it in when that decode is done. That is my
+        usual case, because my window asks for approximately 2560 pixels and
+        the camera preview is 1616. Showing the preview first turned a 250 ms
+        wait into a 35 ms wait, but nothing actually got faster. The app
+        shows something useful while the expensive work runs, and it skips
+        that work when it is not needed.
       </p>
       <p>
         My first rule checked whether the file was a RAW. That would have
@@ -121,27 +127,30 @@ import Base from "../../layouts/Base.astro";
         have not added yet.
       </p>
       <p>
-        The third pass takes seconds and hundreds of megabytes of memory. So
-        it runs only when you zoom in past the detail that the screen-size
-        version has.
+        A full-resolution decode takes seconds and hundreds of megabytes of
+        memory, so the third pass runs only when you zoom in past the point
+        where the screen-size version still has enough detail.
       </p>
       <p>
-        When you use the arrow keys, the app loads the photos on each side
-        ahead of time with only the cheap first pass. They do not compete with
-        the photo you look at now.
+        When you use the arrow keys to move through a shoot, the app loads
+        the photos on each side ahead of time, but only with the cheap first
+        pass. A full decode for a photo that you have not looked at yet would
+        compete with the photo that you are looking at now. When you move
+        onto that photo, it gets the full decode like any other.
       </p>
 
       <h2>After that, it all happens on the graphics card</h2>
       <p>
         The app sends a decoded photo to the graphics card (the GPU) once.
-        Zooming and panning only change a few numbers that the app sends to
-        the card each frame. Anything that happens 60 times a second must
-        never redo the decode.
+        Zooming and panning never touch the image data again. They only
+        change a few numbers that the app sends to the card each frame.
+        Anything that happens 60 times a second must never redo the decode.
       </p>
       <p>
         The sliders work the same way. When you drag Exposure, only the new
         value goes to the GPU. A shader, a small program on the card, redraws
-        the picture. The main processor never loops over the pixels.
+        the picture on the fly. Nothing is decoded again, and the main
+        processor never loops over the pixels.
       </p>
 
       <h2>Two ways of drawing</h2>
@@ -152,10 +161,11 @@ import Base from "../../layouts/Base.astro";
         panel.
       </p>
       <p>
-        This split keeps the interface code loose and convenient, and the
-        pixel-heavy part small enough to tune by hand. In a general-purpose
-        toolkit, the photo is a widget, and a widget does not easily take a
-        24-megapixel image with a custom shader.
+        This split lets me write the interface in the loose, convenient style
+        that egui encourages, and keeps the pixel-heavy part small enough to
+        tune by hand. In a general-purpose toolkit, the photo would be a
+        widget, and it is hard to make a widget take a 24-megapixel image with
+        a custom shader.
       </p>
 
       <h2>Where the four builds meet</h2>
@@ -213,7 +223,7 @@ import Base from "../../layouts/Base.astro";
       </p>
       <p>
         That is why an exported JPEG matches what you saw on screen. It is
-        not a separate feature. It comes from one code path, and I prefer that
+        not a separate feature. It comes from having only one code path, and I prefer that
         to keeping two paths the same by hand.
       </p>
 

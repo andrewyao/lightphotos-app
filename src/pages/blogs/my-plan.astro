@@ -3,7 +3,7 @@ import Base from "../../layouts/Base.astro";
 ---
 <Base
   title="My plan, and what is not in it — LightPhotos Blog"
-  desc="This post tells where I want LightPhotos to go. Your photos stay on your drive. Any AI runs on your own computer. Only the basic features must work on every platform."
+  desc="Where I want LightPhotos to go. Your photos stay on your drive. Any AI runs on your own computer. Only the basic features must work on every platform."
   active="blogs"
 >
   <main class="lp-page">
@@ -12,9 +12,8 @@ import Base from "../../layouts/Base.astro";
         <p class="lp-article-meta"><a href="/blogs.html">Blogs</a> &middot; <time datetime="2026-09-20">September 20, 2026</time></p>
         <h1>My plan, and what is not in it</h1>
         <p class="lp-article-dek">
-          This post tells where I want LightPhotos to go. Your photos stay on
-          your drive. Any AI runs on your own computer. Only the basic features
-          must work on every platform.
+          Where I want LightPhotos to go. Your photos stay on your drive. Any
+          AI runs on your own computer. Only the basic features must work on every platform.
         </p>
         <p class="lp-article-byline">Andrew Yao &middot; 5 min read</p>
       </header>
@@ -125,10 +124,11 @@ import Base from "../../layouts/Base.astro";
         decisions.
       </p>
       <p>
-        I also want LightPhotos to open remote drives, first Google Drive. The
-        problem is speed. If a photo tool stops each time that you push the
-        arrow key for the next photo, it is not good enough to ship. I do not
-        know yet if it will be fast enough.
+        I also want LightPhotos to reach drives that are not plugged into your
+        computer, starting with Google Drive. The problem is speed. A photo
+        tool that stalls every time you press the arrow key for the next photo
+        is not good enough to ship. So I will only do this if the performance
+        is good enough, and I do not know yet if it will be.
       </p>
 
       <h2>I am not cloning Lightroom</h2>
@@ -146,8 +146,8 @@ import Base from "../../layouts/Base.astro";
 
       <h2>Not every feature on every platform</h2>
       <p>
-        If every feature must work the same on all four platforms, I will ship
-        fewer features, and plainer ones. So I use two groups with different
+        If every feature had to work the same way on all four platforms, I
+        would ship fewer features, and plainer versions of them. So I use two groups with different
         rules. The basic features already run everywhere, and similar
         features that I build next join them.
       </p>
@@ -197,7 +197,7 @@ import Base from "../../layouts/Base.astro";
       </figure>
 
       <p>
-        Beyond the basics, I want to find how much the Apple frameworks can do
+        Beyond the basics, I want to find out how much Apple's own frameworks can do
         for me. Object Capture, for example, makes 3D models from photos. I
         know the cost from <a href="/blogs/what-imageio-gives-you-free.html">porting
         away from Image I/O</a>: these frameworks do a lot of work for free,
@@ -230,24 +230,25 @@ import Base from "../../layouts/Base.astro";
         What I hate most about photo apps is that each one uses different
         keys. Luminar AI, RawTherapee and Darktable each want you to learn
         their own keys, and that is a large part of why I do not use them. So
-        you will be able to change every shortcut in LightPhotos to the keys
-        that you already know.
+        every shortcut in LightPhotos will be customizable. If you already
+        know a set of keys from another app, you can use those keys here.
       </p>
 
       <h2>Open source, all of it</h2>
       <p>
         I plan to open source the full app. I do not mean a core library
-        without the interesting parts, or an old version later. I ask you to trust
-        that your photos stay on your drive and that nothing goes to a server.
+        without the interesting parts held back, or an old version released
+        later. I ask you to trust that your photos stay on your drive and that
+        nothing gets uploaded.
         You should be able to check that yourself.
       </p>
 
       <h2>The next app works the same way</h2>
       <p>
         I want to build other Rust apps the same way. First, a native Mac app,
-        because I use a Mac and know that user well. Then WebAssembly moves
-        the basic features to the browser, and after that to the other
-        platforms.
+        because I use a Mac and know that user well. Then I take the basic
+        features to the browser with WebAssembly, and from there to the other
+        platforms that people use.
       </p>
       <p>
         Three methods came from this codebase, and I expect to use them again
@@ -256,7 +257,7 @@ import Base from "../../layouts/Base.astro";
       <ul class="lp-article-list">
         <li>Share the basic features across all platforms, but let the other features be different.</li>
         <li>Keep the core editing code in a module that is separate from the interface.</li>
-        <li>Weigh the cost of the frameworks of a platform before I use them.</li>
+        <li>Weigh the cost of a platform's frameworks before I depend on them.</li>
       </ul>
 
       <h2>What the list is actually for</h2>

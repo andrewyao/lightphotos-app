@@ -3,7 +3,7 @@ import Base from "../../layouts/Base.astro";
 ---
 <Base
   title="Why Rust — LightPhotos Blog"
-  desc="I had to decide: write all of the app in Rust, or put a web or Swift interface on a Rust engine. Here is what I compared and what made the decision."
+  desc="Should I write the whole app in Rust, or put a web or Swift interface on top of a Rust engine? Here is what I weighed and what decided it."
   active="blogs"
 >
   <main class="lp-page">
@@ -12,9 +12,8 @@ import Base from "../../layouts/Base.astro";
         <p class="lp-article-meta"><a href="/blogs.html">Blogs</a> &middot; <time datetime="2026-06-28">June 28, 2026</time></p>
         <h1>Why Rust</h1>
         <p class="lp-article-dek">
-          I had to decide: write all of the app in Rust, or put a web or Swift
-          interface on a Rust engine. Here is what I compared and what made the
-          decision.
+          Should I write the whole app in Rust, or put a web or Swift interface
+          on top of a Rust engine? Here is what I weighed and what decided it.
         </p>
         <p class="lp-article-byline">Andrew Yao &middot; 4 min read</p>
       </header>
@@ -25,9 +24,9 @@ import Base from "../../layouts/Base.astro";
           I picked all Rust over a Rust engine with a React or Swift
           interface. I accepted a plainer interface and weaker accessibility.
           A photo editor sends each mouse movement to the engine 60 times a
-          second. At that rate, bugs occur in the handoff between two
-          languages. Coding agents have difficulty with these bugs, so I must
-          find them by hand.
+          second. When two languages must stay in step that often, the bugs
+          tend to show up in the handoff between them. Coding agents struggle
+          with these bugs, so I would have to find them by hand.
         </p>
       </aside>
 
@@ -204,20 +203,21 @@ import Base from "../../layouts/Base.astro";
         </li>
         <li>
           <strong>Plan for the next one or two steps.</strong> Swift is good
-          for a Mac-only app, but I wanted a browser version.
+          for a Mac-only app, but I wanted a browser version, and that ruled
+          Swift out right away.
         </li>
         <li><strong>Keep the core separate from the UI.</strong></li>
       </ul>
 
       <h2>Why I considered Rust</h2>
       <p>
-        I think that Rust is a very interesting language. It is approximately
-        as powerful as C++, and its strict compiler does not build code that
+        I think that Rust is a very interesting language. It is roughly as
+        powerful as C++, and its strict compiler refuses to build code that
         looks unsafe. It feels like a picky reviewer who sits next to me.
       </p>
       <p>
-        But that does not make Rust correct for a photo editor. I had many
-        questions:
+        But that does not make Rust the right choice for a photo editor. I had
+        many questions:
       </p>
       <ul class="lp-article-list">
         <li>Only the image engine in Rust, with a React UI?</li>
@@ -226,13 +226,14 @@ import Base from "../../layouts/Base.astro";
       </ul>
       <p>
         I also wanted a browser version one day, so that I can edit without
-        my Mac. One day, I possibly want Windows and Linux too.
+        my Mac. I might also want to support Windows and Linux one day.
       </p>
 
       <h2>The cost of each option</h2>
       <p>
-        All Rust gives me one language and no bridge between two programs.
-        The app is faster, needs fewer external libraries, and is simpler to
+        All Rust gives me one language. I do not copy image data back and
+        forth between two programs, or pass each click and drag across a
+        bridge between them. The app is faster, needs fewer external libraries, and is simpler to
         ship.
       </p>
       <p>
@@ -244,7 +245,7 @@ import Base from "../../layouts/Base.astro";
       <p>
         A split design (for example, a React UI in Electron) lets me use the
         best tools on each side. With CSS, I control each pixel. The cost is
-        two systems that I must keep synchronized.
+        two systems that I must keep in sync.
       </p>
 
       <h2>The Swift option</h2>
@@ -252,8 +253,8 @@ import Base from "../../layouts/Base.astro";
         A Swift interface feels the most natural on a Mac. But it is also a
         split: Swift communicates with a Rust engine. Swift does not run in
         the browser, so a browser version (made with WebAssembly, which lets
-        compiled code run in a web page) needs a second interface. Windows or
-        Linux needs one more. The Rust UI libraries and Electron already run
+        compiled code run in a web page) needs a second interface, written from
+        scratch. Swift also ties me to Apple: Windows or Linux needs one more. The Rust UI libraries and Electron already run
         on all three.
       </p>
 
@@ -276,7 +277,7 @@ import Base from "../../layouts/Base.astro";
               <td>2</td>
             </tr>
             <tr>
-              <th scope="row">Engine and UI to keep synchronized</th>
+              <th scope="row">Engine and UI to keep in sync</th>
               <td class="lp-compare-pick">No</td>
               <td>Yes</td>
               <td>Yes</td>
@@ -318,14 +319,15 @@ import Base from "../../layouts/Base.astro";
       <h2>Why the handoff decided it</h2>
       <p>
         In a web app, people expect a short delay. A photo editor is
-        different. Drag, zoom, and pan are continuous, and each movement must
-        come back as a new image with no delay that you can feel.
+        different. Drag, zoom, and pan are continuous. Each mouse movement must
+        reach the engine and come back as a new image, with no lag that you
+        can feel.
       </p>
       <p>
-        To keep two systems synchronized at that rate is much more difficult
-        than to handle an occasional request. When they are not synchronized,
-        the bug is usually in the handoff. The code on each side looks correct
-        alone, so this type of bug is very difficult to find.
+        To keep two systems in step at that rate is much more difficult than
+        to handle an occasional request. When they get out of step, the bug
+        usually sits in the handoff, where the code on each side looks correct
+        on its own. So this type of bug is very difficult to track down.
       </p>
       <p>
         Coding agents wrote most of this code. In my experience, they are
@@ -338,13 +340,15 @@ import Base from "../../layouts/Base.astro";
       <p>
         The second reason was performance. I want the app to be fast and to
         use only the memory that it needs. All Rust has no second runtime to
-        load and sends no image copies between two sides.
+        load, and no copies of the image go back and forth across a runtime
+        boundary.
       </p>
 
       <h2>How I keep the option to change</h2>
       <p>
-        I keep the UI and the photo editing core in separate modules. If I
-        want a different interface in a year, I can keep most of the core.
+        I keep the UI and the photo editing core in separate modules, so I
+        can swap the interface later. If I want a different interface in a
+        year, most of the core comes with me without changes.
         For the same reason, I clean up sloppy generated code
         when it arrives. I want the code to stay small enough that I can
         understand all of it.

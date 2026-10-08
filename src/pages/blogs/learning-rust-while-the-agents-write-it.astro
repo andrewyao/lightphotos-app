@@ -14,7 +14,7 @@ import Base from "../../layouts/Base.astro";
         <p class="lp-article-dek">
           I picked Rust when I knew only the fundamentals.
         </p>
-        <p class="lp-article-byline">Andrew Yao &middot; 6 min read</p>
+        <p class="lp-article-byline">Andrew Yao &middot; 7 min read</p>
       </header>
 
       <aside class="lp-tldr">
@@ -82,10 +82,11 @@ import Base from "../../layouts/Base.astro";
         When I <a href="/blogs/why-rust.html">chose Rust for the whole app</a>,
         I knew the basics. That is very far from image code that keeps up when
         you drag a slider. The second problem is the goal: the image must
-        change as soon as you move a slider, also in a folder with thousands
-        of RAW files. It is very hard to add speed at the end. Many side
-        projects stall with both problems at once. I think that mine did not
-        stall because I do not type the code.
+        change as soon as you move a slider, even in a folder with thousands
+        of RAW files. That is a speed target, and in my experience speed is
+        very hard to add at the end. Many side projects stall when they take
+        on both problems at once. I think that mine did not stall because I
+        do not type the code.
       </p>
 
       <h2>Where my time goes</h2>
@@ -136,15 +137,17 @@ import Base from "../../layouts/Base.astro";
       </p>
       <p>
         That last item does most of the work. Without it, the agent picks its
-        own idea of "done", and that idea is generous to itself. "Make
+        own idea of "done", and that idea is usually generous to itself. "Make
         thumbnails faster" is too vague to check. This target is not: "A
         folder of 3,000 photos fills the first two screens, the scroll does
         not stutter, and memory does not climb while I scroll."
       </p>
       <p>
-        A plan is also the cheapest place to be wrong. A wrong idea in a
-        paragraph costs me a minute. In finished code, it costs an afternoon,
-        and by then it compiles and I am attached to it. This is the habit of
+        A plan is also the cheapest place to be wrong. Sometimes an agent
+        confidently builds the wrong thing. If I find that in a paragraph, it
+        costs me a minute. In finished code, it costs an afternoon, and I
+        probably will not throw that code away, because by then it compiles
+        and I am attached to it. This is the habit of
         the seven-item list in
         <a href="/blogs/why-i-started-lightphotos.html">the first post</a>.
       </p>
@@ -153,8 +156,9 @@ import Base from "../../layouts/Base.astro";
       <p>
         Every change must leave the app in a working state. I build and run
         the app after each task. When two changes land together and the app
-        misbehaves, I cannot tell which one caused it. Agents write a lot of
-        code very quickly, and they bundle changes if I let them.
+        misbehaves, I cannot tell which one caused it, and that is what I most
+        need to know. Agents write a lot of reasonable-looking code very
+        quickly, and if I let them bundle changes, I lose that clue.
       </p>
 
       <h2>I do not take the agent's word for it</h2>
@@ -177,10 +181,11 @@ import Base from "../../layouts/Base.astro";
 
       <h2>Getting a second agent to review</h2>
       <p>
-        When a change is done, a fresh agent with no memory of the work
-        reviews the diff. This helped more than I expected. The agent that
-        just wrote four hundred lines is a poor judge of them, and it agrees
-        with whatever I suggest.
+        When a change is done, a fresh agent with no memory of the
+        conversation that produced the code reviews the diff, the list of
+        lines that the change adds and removes. This helped more than I
+        expected. The agent that just wrote four hundred lines is a poor judge
+        of them, and it will happily agree with whatever I suggest.
       </p>
 
       <figure class="lp-figure">
@@ -215,11 +220,14 @@ import Base from "../../layouts/Base.astro";
       </figure>
 
       <p>
-        Rust compiles all five without a warning. A clone (a copy) is the
-        easiest way to satisfy the rules about who owns each piece of memory.
-        On a 60 MB image in a function that runs every frame, that copy is a
-        real problem. A new allocation in a per-pixel loop runs twenty million
-        times. A lock held during slow work can freeze the interface.
+        Rust compiles all five without a warning. The compiler has a set of
+        rules about who owns each piece of memory, and a clone (a copy) is the
+        easiest way to make it stop complaining. On a 60 MB image in a
+        function that runs every frame, that copy is a real problem. A request
+        for new memory inside a loop that runs once per pixel looks reasonable
+        until it runs twenty million times. A lock stops other threads from
+        touching some data, so holding one during slow work is how a
+        background task ends up freezing the interface.
       </p>
       <p>
         Then I read the diff myself. I rarely catch what the reviewer missed,
@@ -229,7 +237,7 @@ import Base from "../../layouts/Base.astro";
       <h2>Keeping releases dull on purpose</h2>
       <p>
         A script bumps the version, builds each platform, and updates the
-        site. It is safe to run twice by accident. If a release takes
+        site with the new build. It is safe to run twice by accident. If a release takes
         concentration, I put it off, and then nobody can use a month of work.
       </p>
 
@@ -277,13 +285,14 @@ import Base from "../../layouts/Base.astro";
         <strong>Fixing symptoms.</strong> The agent patches one symptom, then
         the next one. After four rounds, the code is full of special-case
         checks, and nobody has said what the real problem is. Now I stop and
-        reproduce the problem, and the agent names the cause before it makes
-        one fix.
+        reproduce the problem, and the agent names the cause before it changes
+        any code. Then it makes one fix.
       </p>
       <p>
         <strong>Confident numbers that nobody measured.</strong> An agent once
-        told me that a change made something "roughly three times faster". It
-        did not run anything. A number that nobody measured is a guess.
+        told me that a change made something "roughly three times faster",
+        when it had not run anything at all. If I do not see a number get
+        measured, I treat it as a guess.
       </p>
       <p>
         <strong>Code that is correct but wasteful.</strong> Rust's compiler
@@ -304,7 +313,8 @@ import Base from "../../layouts/Base.astro";
       <ul class="lp-article-list">
         <li>
           <strong>Reading diffs and asking why.</strong> I asked "Why is this
-          line here?" a few hundred times, about code that I care about.
+          line here?" a few hundred times, about real code that does something
+          I care about.
         </li>
         <li>
           <strong>Asking the agent to explain its choices.</strong> Why a
@@ -313,8 +323,9 @@ import Base from "../../layouts/Base.astro";
           made the ownership rules predictable.
         </li>
         <li>
-          <strong>Compiler errors.</strong> The borrow checker enforces the
-          ownership rules, and it tells you exactly where you broke them.
+          <strong>Compiler errors.</strong> The borrow checker, the part of
+          the compiler that enforces the ownership rules, rejects mistakes
+          bluntly and tells you exactly where they are.
         </li>
         <li>
           <strong>Writing some of it by hand anyway.</strong> I write one

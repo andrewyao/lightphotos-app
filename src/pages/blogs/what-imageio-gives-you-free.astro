@@ -3,7 +3,7 @@ import Base from "../../layouts/Base.astro";
 ---
 <Base
   title="What ImageIO gives you free — LightPhotos Blog"
-  desc="One call to Apple's image library did far more for LightPhotos than I knew. When I moved to other platforms, I saw exactly how much."
+  desc="One call to Apple's image library did far more for LightPhotos than I realised. When I moved to other platforms, I saw exactly how much."
   active="blogs"
 >
   <main class="lp-page">
@@ -12,9 +12,9 @@ import Base from "../../layouts/Base.astro";
         <p class="lp-article-meta"><a href="/blogs.html">Blogs</a> &middot; <time datetime="2026-07-20">July 20, 2026</time></p>
         <h1>What ImageIO gives you free, and what it costs to leave</h1>
         <p class="lp-article-dek">
-          One call to Apple's ImageIO did far more for LightPhotos than I knew.
-          When I moved to Linux, Windows and the browser, I saw exactly how
-          much.
+          One call to Apple's ImageIO did far more for LightPhotos than I
+          realised. When I moved to Linux, Windows and the browser, I saw
+          exactly how much.
         </p>
         <p class="lp-article-byline">Andrew Yao &middot; 5 min read</p>
       </header>
@@ -77,8 +77,9 @@ import Base from "../../layouts/Base.astro";
 
       <h2>The one call</h2>
       <p>
-        ImageIO is Apple's built-in image library. One of its functions means
-        "give me this image, already shrunk to approximately this size". The
+        ImageIO is Apple's built-in image library. One of its functions does
+        a scaled decode: "give me this image, already shrunk to about this
+        size". You do not decode the full image and resize it yourself. The
         size is part of the request.
       </p>
       <p>
@@ -86,22 +87,25 @@ import Base from "../../layouts/Base.astro";
         holds the raw data from the sensor, and to turn that data into full
         colour takes a lot of work. But almost every RAW file also carries a
         small JPEG preview for the camera screen. If you ask ImageIO for a
-        small version, it uses that preview and skips the sensor processing.
+        small version, it finds that preview and skips the sensor processing
+        entirely.
         On Sony ARW files, I measured 11 ms instead of 170 to 210.
       </p>
 
       <h2>No other platform has that function</h2>
       <p>
-        I found no ready-made equivalent anywhere, so I built it. Most RAW files are TIFF files
-        underneath. A TIFF file is a list of labelled entries (tags), and the
-        preview sits at a known spot in that list. If that fails, rawler, the
-        open source RAW library I use, demosaics the sensor data.
+        I found no ready-made equivalent on any other platform, so I built
+        it. Most RAW files are TIFF files underneath. A TIFF file is a list of
+        labelled entries (tags), and the preview sits at a known spot in that
+        list, so I walk the TIFF and EXIF tags to find it. If that fails,
+        rawler, the open source RAW library I use, falls back to a full
+        sensor decode and demosaics the data.
       </p>
 
       <h2>Two steps in the wrong order</h2>
       <p>
-        That 680 ms started as 1.80 seconds. My code did noise reduction on
-        the full-size sensor image, and only shrank it afterwards.
+        That 680 ms started as 1.80 seconds. My code denoised the full-size,
+        24-megapixel sensor image, and only shrank it afterwards.
       </p>
 
       <figure class="lp-figure lp-try" id="order-demo">
@@ -125,7 +129,7 @@ import Base from "../../layouts/Base.astro";
           <rect class="lp-fig-bar-dim" x="0" y="74" width="462" height="10" rx="5" data-time-bar></rect>
           <text class="lp-fig-t" x="0" y="104" data-time>1.80 s &middot; peak 1.39 GB</text>
         </svg>
-        <p class="lp-try-readout" aria-live="polite">Noise reduction runs on all 24 MP. 1.80 s per photo.</p>
+        <p class="lp-try-readout" aria-live="polite">Denoising runs on all 24 MP. 1.80 s per photo.</p>
         <figcaption>
           A two-line swap. At full size, the output is identical in every byte.
         </figcaption>
@@ -140,20 +144,23 @@ import Base from "../../layouts/Base.astro";
       <p>
         File formats were the second cost. ImageIO reads HEIC, the iPhone
         format. Nobody has written a HEIC reader in pure Rust, the language
-        LightPhotos uses. A C library would add build tools on every platform,
-        and I want those builds simple. So HEIC only works on the Mac, and you
-        can see that as a user.
+        LightPhotos uses. My only option was to hook into a C library, which
+        would add build tools on every platform that I want to keep simple to
+        build. So HEIC still only works on the Mac, and you can see that as a
+        user.
       </p>
       <p>
         The third cost was a library that did not run in a browser. The RAW
-        library reads the system clock to log load times. Under WebAssembly,
+        library checks the system clock to log how long each photo took to
+        load. Under WebAssembly,
         no clock exists behind that call, so it crashes. My build now
         downloads the library and applies a four-line patch. Cargo, the Rust
         build tool, cannot apply a patch for only the browser build, so every
         build uses the patched copy.
       </p>
       <p>
-        A platform library has a price: speed, file formats, other systems,
+        A platform library has a price: speed, file formats, running on other
+        systems,
         and bugs you cannot fix. I guessed three of those four wrong. Only the
         replacement, timed against the original, told me the real price.
       </p>
@@ -162,9 +169,9 @@ import Base from "../../layouts/Base.astro";
       <p>
         The photo also had to look the same as on the Mac. That was the
         hardest part of the move. Bigger photo projects have camera profiles,
-        each tuned for one camera model. I only have the basic colour data
-        that rawler keeps for each camera. My first version looked flat and
-        approximately 1.45 times darker than the Mac.
+        each tuned for one camera model to describe how it records colour. I
+        only have the basic colour data that rawler keeps for each camera. My
+        first version looked flat and about 1.45 times darker than the Mac.
       </p>
       <ul class="lp-article-list">
         <li>
@@ -187,19 +194,20 @@ import Base from "../../layouts/Base.astro";
           reported every photo as upright, so I read the rotation myself.
         </li>
         <li>
-          <strong>Reduce noise.</strong> ImageIO does this automatically. I
-          add a fixed amount.
+          <strong>Reduce noise.</strong> ImageIO denoises automatically when
+          it opens a RAW file. I add a fixed amount of noise reduction in its
+          place.
         </li>
       </ul>
       <p>
-        Brightness was the biggest piece. Tuning by eye got close but never
-        looked right. So I wrote a small tool that opens
-        the same RAW file with ImageIO and with my code, and compares how
-        bright the results are. Across 148 Sony files, it aligned my output
-        with Apple's at 17 points from black to white. I kept the middle value
-        at each point and fitted a curve. On the ten files I checked, my
-        version had been 1.34 to 1.51 times darker. With the curve, it is
-        within 2% either way.
+        Brightness was the biggest piece. Tuning brightness and contrast by
+        eye got close but never looked quite right. So I wrote a small tool
+        that opens the same RAW file with ImageIO and with my code, and
+        compares how bright the results are. Across 148 Sony files, it
+        aligned my output with Apple's at 17 points from black to white. I
+        kept the middle value at each point and fitted a curve. On the ten
+        files I checked, my version had been 1.34 to 1.51 times darker than
+        the Mac. With the curve, it is within 2% either way.
       </p>
       <p>
         It is still not a perfect match. I only fitted the curve on Sony
@@ -227,12 +235,13 @@ import Base from "../../layouts/Base.astro";
       <p>
         I still use ImageIO on the Mac. It gives decades of format support, a
         fast shortcut I would not have thought to build, and correct results
-        on reverse-engineered camera formats. I rebuilt a small piece of it,
+        on camera formats that are mostly reverse-engineered, with quirks
+        from each camera maker. I rebuilt a small piece of it,
         and now I respect it much more. Thank you, Apple.
       </p>
       <p>
         The price is that ImageIO only works on Apple's platforms, and you
-        cannot fix its bugs. I cannot patch the Linear DNG gap. The only
+        cannot fix some of its bugs. I cannot patch the Linear DNG gap. The only
         workaround is to ship a second decoder.
       </p>
 
@@ -251,7 +260,7 @@ import Base from "../../layouts/Base.astro";
   <script>
     // Each pair is [macOS with ImageIO, Linux/Windows/browser], from the post.
     const JOBS = [
-      [["Built in, 11 ms"], ["I read the TIFF and EXIF tags by hand"]],
+      [["Built in, 11 ms"], ["I walk the TIFF and EXIF tags by hand"]],
       [["170 to 210 ms to screen size"], ["680 ms, after a fix (it was 1.80 s)"]],
       [["Built in"], ["A brightness curve fitted on 148 Sony files"]],
       [["Automatic"], ["A fixed amount"]],
@@ -309,8 +318,8 @@ import Base from "../../layouts/Base.astro";
           ? "1.80 s · peak 1.39 GB"
           : "0.68 s · peak 1.21 GB";
         readout.textContent = late
-          ? "Noise reduction runs on all 24 MP. 1.80 s per photo."
-          : "Noise reduction runs on the 2560 px image. 0.68 s per photo, 1.1 s saved.";
+          ? "Denoising runs on all 24 MP. 1.80 s per photo."
+          : "Denoising runs on the 2560 px image. 0.68 s per photo, 1.1 s saved.";
       });
     }
   </script>

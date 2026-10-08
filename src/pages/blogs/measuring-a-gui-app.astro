@@ -96,8 +96,9 @@ import Base from "../../layouts/Base.astro";
         the program spends its time) and click through the app for thirty
         seconds. That finds things that are badly broken. It does not tell me
         if a change made the app better, because I cannot do the same thing
-        twice. On one run, I reached row 40 with an empty cache. On the next,
-        I reached row 31 with a full cache.
+        twice. On one run, I reached row 40 with an empty thumbnail cache. On
+        the next, I reached row 31 with a full cache, because the first run
+        filled it.
       </p>
 
       <h2>Run the code without the window</h2>
@@ -110,26 +111,28 @@ import Base from "../../layouts/Base.astro";
       </p>
       <p>
         The script fills thumbnails for 120 photos, which is approximately two
-        screenfuls. Then it opens ten photos in sequence, as you do with the
-        arrow keys. A comment in the code tells why for each number. The full
+        screenfuls. Then it opens ten photos in sequence, the way you step
+        through a shoot with the arrow keys. Each number has a comment in the
+        code that explains it. The full
         mode is approximately 230 lines. It is not clever. It only gives me
         the same number twice.
       </p>
 
       <h2>Keep it out of the version that you download</h2>
       <p>
-        Small markers attach the timing code to functions. Two build settings
-        switch it on, and they are off by default. So the release build
-        contains none of the timing code, and the browser build does not get
-        bigger. One surprise: the profiling library must be a normal
-        dependency, not an optional one, because the compiler must understand
-        the markers in every build.
+        Small markers attach the timing code to functions. Only two build
+        settings switch it on, and both are off by default. With them off, the
+        markers leave each function exactly as it was, so the release build
+        contains none of the timing code and the browser build does not get
+        any bigger. One surprise: the profiling library must be a normal
+        dependency, not an optional one, because the markers have to compile
+        in every build, even when they do nothing.
       </p>
 
       <h2>The first report</h2>
 
       <figure class="lp-figure">
-        <svg viewBox="0 0 640 196" role="img" aria-label="Bar chart: the folder list takes 3 to 5 milliseconds. 120 warm thumbnails take 22 milliseconds. A RAW preview takes 11 milliseconds. A sharp RAW decode takes 170 to 210 milliseconds.">
+        <svg viewBox="0 0 640 196" role="img" aria-label="Bar chart: listing the folder takes 3 to 5 milliseconds. Filling 120 thumbnails from a warm cache takes 22 milliseconds. A RAW preview takes 11 milliseconds. A sharp RAW decode takes 170 to 210 milliseconds.">
           <text class="lp-fig-label" x="0" y="12">300 PHOTOS, WARM CACHE</text>
 
           <text class="lp-fig-s" x="0" y="51">List the folder</text>
@@ -156,41 +159,46 @@ import Base from "../../layouts/Base.astro";
 
       <p>
         The report also showed a fix that I would never find by reading the
-        code. The app fetches the quick preview of the next photo ahead of
-        time, but not the sharp version. So with the arrow keys in a folder of
-        RAW files, you wait the full 200 ms every time, although the app knew
-        half a second earlier which photo came next.
+        code. The app prefetches the quick, low-quality preview of the next
+        photo, but not the slow, sharp decode. So when you step through a
+        folder of RAW files with the arrow keys, you wait the full 200 ms every
+        time, even though the app knew half a second earlier which photo came
+        next.
       </p>
 
       <h2>The second report</h2>
       <p>
-        The profiler can also count the memory that each function asks for.
-        One function asked for 12.0 MB out of 25.3 MB, which is 47% of the
-        session. It gave thumbnails to the UI library to draw.
+        The profiler can also count the memory that each function allocates,
+        instead of the time it takes. One function allocated 12.0 MB out of
+        25.3 MB, which is 47% of all the memory the app allocated in that
+        session. It was the function that hands thumbnails to the UI library
+        to draw.
       </p>
       <p>
-        The UI library makes its image type only from a new copy of the
-        pixels, but the pixels were already in the loader cache in the correct
-        layout. So I wrote them directly to the graphics card. The function
-        went from 12.0 MB to 0.16 MB, and the session from 25.3 MB to 13.4 MB.
+        The UI library can only build its image type by copying the pixels
+        into fresh memory, even though the pixels were already in the loader's
+        cache in exactly the right layout. So I wrote them directly to the
+        graphics card instead. That took the function from 12.0 MB to 0.16 MB,
+        and the whole session from 25.3 MB to 13.4 MB.
       </p>
       <p>
-        Nothing was slow. But the browser build runs as WebAssembly, and its
-        memory never decreases, so memory that the app needs for a moment
-        stays in use while the tab is open.
+        Nothing was slow. But the browser build runs as WebAssembly, and
+        WebAssembly memory never shrinks once it has grown. So memory that the
+        app needs for only a moment stays allocated for as long as the tab is
+        open.
       </p>
 
       <h2>The third report</h2>
       <p>
-        I used 200 photos with a warm cache. The decode of all 200 thumbnails
-        on 8 workers took 39.5 ms in total. The analysis of one photo took
-        7.39 ms, so 1.48 seconds for the batch. The analysis runs on the main
-        thread and cannot be split across cores, so it costs approximately
-        fifty-five times as much as the decode.
+        On 200 photos with a warm cache, decoding all 200 thumbnails across 8
+        workers took 39.5 ms in total. Analysing one photo took 7.39 ms, so
+        1.48 seconds for the batch. The analysis runs on the main thread and
+        cannot be parallelized across the processor's cores, so it costs about
+        fifty-five times as much as the decoding.
       </p>
       <p>
-        My plan was to make the decode faster and to fetch it ahead of time.
-        You would not notice either change.
+        My plan had been to make decoding faster and to prefetch it. Neither
+        change would have made a noticeable difference.
       </p>
 
       <nav class="lp-article-nav" aria-label="More posts">

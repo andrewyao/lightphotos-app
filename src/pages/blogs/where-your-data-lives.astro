@@ -3,7 +3,7 @@ import Base from "../../layouts/Base.astro";
 ---
 <Base
   title="Your data lives where you can write — LightPhotos Blog"
-  desc="LightPhotos keeps ratings, edits and thumbnails in a folder next to your photos, not in a database. This post explains why, and how the permission rules of a browser made the decision for me."
+  desc="Why LightPhotos keeps ratings, edits and thumbnails in a folder next to your photos instead of in a database, and how the permission rules of a browser made that decision for me."
   active="blogs"
 >
   <main class="lp-page">
@@ -12,9 +12,9 @@ import Base from "../../layouts/Base.astro";
         <p class="lp-article-meta"><a href="/blogs.html">Blogs</a> &middot; <time datetime="2026-08-10">August 10, 2026</time></p>
         <h1>Your data lives where you are allowed to write</h1>
         <p class="lp-article-dek">
-          LightPhotos keeps ratings, edits and thumbnails in a folder next to
-          your photos, not in a database. This post explains why, and how the
-          permission rules of a browser made the decision for me.
+          Why ratings, edits and thumbnails sit in a folder next to your photos
+          instead of in a database, and how the permission rules of a browser
+          made that decision for me.
         </p>
         <p class="lp-article-byline">Andrew Yao &middot; 5 min read</p>
       </header>
@@ -22,11 +22,13 @@ import Base from "../../layouts/Base.astro";
       <aside class="lp-tldr">
         <p class="lp-tldr-label">TL;DR</p>
         <p>
-          A central catalog lost your ratings when you moved a folder. So I
-          save them in a hidden folder next to your photos. The browser version
+          A central catalog keyed by full path lost track of your ratings when
+          you moved a folder. So I save them in a hidden folder next to your
+          photos. The browser version
           can write only inside the folder you picked, so the thumbnail cache
-          moved there too. The costs: a search across folders is slow, and a
-          renamed photo loses its ratings and edits until I build a fix.
+          moved there too. The costs: a search across every folder is slow,
+          and a renamed photo loses track of its ratings and edits until I
+          build a fix.
         </p>
       </aside>
 
@@ -102,7 +104,7 @@ import Base from "../../layouts/Base.astro";
       <p>
         I started with one catalog for the whole app, in the usual folder where
         Mac apps keep their data. It recorded each photo by its full
-        path. This fails in exactly the way people use a photo tool,
+        path on disk. This fails in exactly the way people use a photo tool,
         because people move folders. You import a card into <code>~/Desktop/import</code> and
         cull for an hour. Then you drag the folder to an external drive, and
         every path in the catalog points to nothing.
@@ -122,9 +124,9 @@ import Base from "../../layouts/Base.astro";
         </li>
         <li>
           <strong>The app writes each file to a temporary copy, then renames
-          it.</strong> On all common disk formats, a rename happens in one step.
-          If the app crashes, you keep the previous version, not a half-written
-          file.
+          it.</strong> On all common disk formats, a rename is atomic: it
+          happens in one step. So if the app crashes partway through, you keep
+          the previous version, not a half-written file.
         </li>
         <li>
           <strong>The app never changes your original photo.</strong> This app
@@ -151,33 +153,38 @@ import Base from "../../layouts/Base.astro";
       </p>
       <p>
         The Mac and browser versions share one cache, and that needed one
-        compromise. The app recognises a cached thumbnail by the file size of
+        deliberate compromise. The app recognises a cached thumbnail by the file size of
         the photo and the time it was last changed. A browser gives that time
         only to the millisecond, and the Mac gives it to the nanosecond. So
         the app rounds to the millisecond. Without the rounding, the two
-        versions would never find each other's thumbnails.
+        versions would label the same untouched photo differently and never
+        find each other's thumbnails.
       </p>
       <p>
-        There is one cached thumbnail per photo. So the cache cannot grow
-        larger than the folder, and I need no eviction rules. When a folder
+        There is one cached thumbnail per photo. So the cache of a folder can
+        never have more entries than the folder has photos, and I need no
+        eviction rules. When a folder
         opens, I only remove leftovers for deleted photos. If the app cannot
-        write to a folder, it makes fresh thumbnails every time. It is a little slower there, and I
-        decided that was not worth an error message.
+        write to a folder, it makes fresh thumbnails every time and does not
+        bother you about it. It is a little slower there, and I decided that
+        was not worth an error message.
       </p>
 
       <h2>What it cost me</h2>
       <p>
-        The app saves everything under the filename of the photo alone, because
-        the location of the file already gives the folder. This makes work across folders risky. If you switch folders while a
-        background job runs, a late result could go to a photo with the same
-        name in the new folder. I wrote that warning on the code that handles
+        The app keys everything by the filename of the photo alone, because
+        the location of the file already gives the folder. This makes work
+        across folders risky. If you switch folders while a background job
+        runs, a late result could be saved against a photo with the same name
+        in the new folder. I wrote that warning on the code that handles
         those results. You can change folders at any time. This is what happens
         to each job:
       </p>
       <ul class="lp-article-list">
         <li>
           <strong>Exports keep running.</strong> Each export knows the full
-          location of the photo and its edits.
+          location of the photo and its edits, so it finishes no matter which
+          folder is open.
         </li>
         <li>
           <strong>The app saves your current edits first.</strong> If you moved
@@ -186,8 +193,9 @@ import Base from "../../layouts/Base.astro";
         </li>
         <li>
           <strong>Thumbnails keep running, and the app drops late
-          results.</strong> So a result cannot land on a photo with the same
-          name.
+          results.</strong> If a result for the old folder finishes after you
+          leave it, the app drops it, so it cannot land on a photo with the
+          same name.
         </li>
         <li>
           <strong>Auto Tone stops.</strong> Photos that it already finished
@@ -195,13 +203,14 @@ import Base from "../../layouts/Base.astro";
         </li>
         <li>
           <strong>Bulk delete stops.</strong> It finishes the photo that it is
-          moving to the trash, then stops.
+          moving to the trash at that moment, then stops.
         </li>
       </ul>
       <p>
         I plan to fix those last two. Each job would carry the full location of
-        its photo, as exports do. Then you would not wait for Auto Tone
-        on a big shoot before you look at another folder.
+        its photo, as exports do, so the open folder would no longer matter
+        when the job finishes. Then you would not wait for Auto Tone on a big
+        shoot before you look at another folder.
       </p>
       <p>
         There is also no quick search across every folder you ever opened. "Show
@@ -214,15 +223,17 @@ import Base from "../../layouts/Base.astro";
         The cost that worries me most is renaming. The sidecar file finds its
         photo only by filename. Rename <code>IMG_4471.jpg</code> to
         <code>iceland-sunset.jpg</code> in Finder, and the sidecar is still
-        <code>IMG_4471.jpg.xmp</code>, and your rating and edits seem to
-        disappear. Renaming is normal, so this design breaks easily.
+        <code>IMG_4471.jpg.xmp</code>. LightPhotos no longer knows that the two
+        files belong together, so your rating and edits seem to disappear.
+        Renaming is normal, so this design is fragile.
       </p>
       <p>
         I have not fixed this yet, but I know how. Each sidecar would also
         store a fingerprint (a hash) that the app calculates from the contents
         of the photo. When a folder has sidecars that match no photo, the app
-        would calculate the fingerprints of the photos. If one matches, the
-        app renames the sidecar, and your ratings and edits come back.
+        would calculate the fingerprints of the photos in that folder. If one
+        matches, the photo was only renamed, so the app renames the sidecar to
+        match its new name, and your ratings and edits come back.
       </p>
 
       <nav class="lp-article-nav" aria-label="More posts">

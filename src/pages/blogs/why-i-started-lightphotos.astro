@@ -3,7 +3,7 @@ import Base from "../../layouts/Base.astro";
 ---
 <Base
   title="Why I started LightPhotos — LightPhotos Blog"
-  desc="A Lightroom license stopped working, and Apple Photos did not open years of my photos. One afternoon, I gave up and built the small editor that I actually needed."
+  desc="A Lightroom license stopped working after a macOS upgrade, and a newer Apple Photos did not open years of my photos. One afternoon, I gave up and built the small editor that I actually needed."
   active="blogs"
 >
   <main class="lp-page">
@@ -22,10 +22,12 @@ import Base from "../../layouts/Base.astro";
       <aside class="lp-tldr">
         <p class="lp-tldr-label">TL;DR</p>
         <p>
-          My Lightroom 6 did not install after a macOS upgrade. Apple Photos
-          lost years of my photos when a newer version did not open my old
-          libraries. Darktable wanted me to learn a whole craft. So I listed
-          what I needed and built the smallest editor that does it. Coding
+          I paid for Lightroom 6, and after a macOS upgrade I could not install
+          it again. A few upgrades later, a newer Apple Photos did not open the
+          libraries on my old backups, and I lost years of photos. Free editors
+          such as Darktable wanted me to learn a whole craft, when I only wanted
+          to send some pictures to my friends. So I listed what I needed and
+          built the smallest editor that does it. Coding
           agents wrote most of the code.
         </p>
       </aside>
@@ -136,9 +138,9 @@ import Base from "../../layouts/Base.astro";
 
       <h2>Nothing fit</h2>
       <p>
-        I am an amateur photographer. I shoot RAW (unprocessed sensor data)
-        with my Sony full-frame camera, so most shots need a little work
-        before I share them.
+        I am an amateur photographer. I shoot RAW with my Sony full-frame
+        camera, so the camera saves the unprocessed sensor data, and most
+        shots need a little work before I share them.
       </p>
       <p>
         Luminar AI is good, but its experience and performance are not what I
@@ -147,10 +149,10 @@ import Base from "../../layouts/Base.astro";
       </p>
       <p>
         I like Apple Photos. It is beautiful and fast. But it keeps the full
-        library in a single file that only Apple Photos can read. A newer
-        version of macOS did not open the libraries on my older backups, and
-        several years of pictures went with them. I will not take that risk
-        again.
+        library in a single file, in a format that only Apple Photos can read.
+        A newer version of macOS did not open the Photos libraries on my older
+        backups, and several years of pictures went with them. I do not
+        control that format, and I will not take that risk again.
       </p>
 
       <figure class="lp-figure">
@@ -187,9 +189,9 @@ import Base from "../../layouts/Base.astro";
 
       <p>
         A single library also does not fit how I keep my files. Recent work
-        is on my laptop, and older shoots move to other drives. I do not want
-        hundreds of gigabytes in a library that I possibly cannot open in a
-        few years.
+        is on the main drive of my laptop, and older shoots move to other
+        drives. I do not want hundreds of gigabytes in a library that I might
+        not be able to open in a few years.
       </p>
 
       <h2>So I built one</h2>
@@ -200,7 +202,7 @@ import Base from "../../layouts/Base.astro";
       </p>
       <ol class="lp-article-list">
         <li><strong>Open a folder and show the photos in it.</strong></li>
-        <li><strong>Rate photos from 1 to 5,</strong> to mark the best shots quickly.</li>
+        <li><strong>Rate photos from 1 to 5,</strong> to go through a shoot quickly and mark the keepers.</li>
         <li><strong>Filter by rating,</strong> to edit only the photos that I like.</li>
         <li><strong>Adjust exposure, highlights, shadows, and the other basic settings.</strong></li>
         <li><strong>Keep all adjustments non-destructive.</strong> The editor never changes the original file, so I can always undo an edit.</li>
@@ -212,14 +214,16 @@ import Base from "../../layouts/Base.astro";
       <p>
         Coding agents write most of the code. An
         agent gives you code that compiles and runs, but that code can give
-        the wrong result or crash in a case that nobody tested. A photo editor
+        the wrong result some of the time, or crash in a case that nobody
+        tested. A photo editor
         shows these problems quickly. If a slider lags, or a folder of RAW
         files uses all your memory, you notice immediately.
       </p>
       <p>
         So LightPhotos is two projects for me. It is the photo editor that I
-        wanted. It is also how I learn to build fast, good software with
-        agents. Most of these posts are about that.
+        wanted. It is also how I learn what it takes to build software with
+        agents and still care about quality and speed. Most of these posts are
+        about that.
       </p>
 
       <h2>What comes next</h2>
