@@ -29,8 +29,10 @@ import Base from "../../layouts/Base.astro";
           files, LightPhotos filled its grid in 1.4&nbsp;s and showed each
           photo in 0.53&nbsp;s. LightCraft took 2.3&nbsp;s and 1.88&nbsp;s,
           and used nearly twice the memory. Most of the gap is the starting
-          point. At fit-to-window, LightPhotos edits the JPEG that the camera
-          already made. LightCraft develops the RAW data itself every time.
+          point. LightPhotos first shows the small preview it already has,
+          then swaps in a version sized to the window. It decodes the full
+          RAW only when you zoom in. LightCraft develops the RAW data itself
+          every time.
         </p>
       </aside>
 
