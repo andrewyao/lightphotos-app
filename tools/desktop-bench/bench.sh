@@ -25,10 +25,10 @@ STAMP=$(date +%Y-%m-%dT%H%M%S)
 
 # Both apps lay out for this window size; the first thumbnail's centre, in
 # points from the window's top-left, depends on it.
-WIN_W=1600 WIN_H=1000
+WIN_W=${WIN_W:-1600} WIN_H=${WIN_H:-1000}
 case $APP_KIND in
-  lightphotos) FIRST_X=324 FIRST_Y=244 ;;
-  lightcraft)  FIRST_X=160 FIRST_Y=180 ;;
+  lightphotos) FIRST_X=${FIRST_X:-324} FIRST_Y=${FIRST_Y:-244} ;;
+  lightcraft)  FIRST_X=${FIRST_X:-160} FIRST_Y=${FIRST_Y:-180} ;;
   *) echo "unknown app kind: $APP_KIND" >&2; exit 2 ;;
 esac
 

@@ -3,37 +3,39 @@ import Base from "../../layouts/Base.astro";
 ---
 <Base
   title="Two Rust photo apps on the Mac — LightPhotos Blog"
-  desc="The same comparison as last time, on the desktop. On the Mac, LightPhotos hands every decode to Apple's ImageIO, while LightCraft does every decode in its own Rust. That changes which app is faster, and where."
+  desc="The same comparison as last time, on the desktop. On the Mac, LightPhotos hands its decodes to Apple, while LightCraft does every decode in its own Rust. That changes which app is faster, and where."
   active="blogs"
 >
   <main class="lp-page">
     <article class="lp-article">
       <header class="lp-article-head">
-        <p class="lp-article-meta"><a href="/blogs.html">Blogs</a> &middot; <time datetime="2026-10-07">October 7, 2026</time></p>
+        <p class="lp-article-meta"><a href="/blogs.html">Blogs</a> &middot; <time datetime="2026-10-07">October 7, 2026</time> &middot; updated <time datetime="2026-10-09">October 9</time></p>
         <h1>Two Rust photo apps on the Mac</h1>
         <p class="lp-article-dek">
           The same comparison as <a
           href="/blogs/two-rust-photo-apps-in-the-browser.html">last
-          time</a>, on the desktop. On the Mac, LightPhotos hands every
-          decode to Apple's ImageIO, while
+          time</a>, on the desktop. On the Mac, LightPhotos hands its decodes
+          to Apple, while
           <a href="https://github.com/storytold/lightcraft">LightCraft</a>
           does every decode in its own Rust. That changes which app is faster,
           and where.
         </p>
-        <p class="lp-article-byline">Andrew Yao &middot; 9 min read</p>
+        <p class="lp-article-byline">Andrew Yao &middot; 10 min read</p>
       </header>
 
       <aside class="lp-tldr">
         <p class="lp-tldr-label">TL;DR</p>
         <p>
-          On the same twenty Sony RAW files, LightPhotos filled its grid in
-          0.73&nbsp;s to LightCraft's 1.24&nbsp;s, with 0.9&nbsp;GB of memory
-          to 1.7&nbsp;GB. The next photo went the other way. Both reacted in
-          about 0.35&nbsp;s, but LightCraft finished in 0.38&nbsp;s and
-          LightPhotos in 1.1&nbsp;s. LightCraft fully develops the photos on
-          either side ahead of time. LightPhotos only gets their embedded
-          JPEGs ready, and asks ImageIO to develop the RAW data when you
-          arrive.
+          Updated October 9. LightPhotos now develops the photos on either
+          side ahead of time, as LightCraft does, and decodes full-size RAW
+          files with CoreImage's <code>CIRAWFilter</code>. In a full-screen
+          window on a 4K display, the next photo now finishes in
+          0.55&nbsp;s. The October 7 build took 1.10&nbsp;s and LightCraft
+          0.60&nbsp;s, and both new times are at the floor of what my script
+          can measure. LightPhotos still fills its grid faster, 0.85&nbsp;s
+          to 1.37&nbsp;s, and uses a little less memory, 1.2&nbsp;GB to
+          1.4&nbsp;GB. A full-size RAW decode went from 590&nbsp;ms to
+          185&nbsp;ms, which you get when you zoom in or export.
         </p>
       </aside>
 
@@ -43,14 +45,14 @@ import Base from "../../layouts/Base.astro";
           <button type="button" class="lp-try-btn" data-act="jump">Jump in the grid</button>
           <button type="button" class="lp-try-btn" data-act="reset">Reset</button>
         </div>
-        <svg viewBox="0 0 640 240" role="img" aria-label="A row of nine photos for each app, with the second photo on screen. LightPhotos has the embedded JPEGs of the two neighbours ready, and has done 1 develop. LightCraft has fully developed both neighbours, 3 develops in all. For one step, both apps react in about 0.35 seconds. LightCraft is finished at 0.38 seconds, LightPhotos at 1.11 seconds.">
-          <text class="lp-fig-label" x="0" y="12">LIGHTPHOTOS</text>
+        <svg viewBox="0 0 640 340" role="img" aria-label="A row of nine photos for three apps, with the second photo on screen. LightPhotos now and LightCraft have both neighbours developed, 3 develops each. The October 7 build of LightPhotos had only the embedded JPEGs of the neighbours ready, 1 develop. For one step, LightPhotos now finishes at 0.55 seconds, LightCraft at 0.60 seconds, and the October 7 build reacted at 0.54 seconds and finished at 1.10 seconds.">
+          <text class="lp-fig-label" x="0" y="12">LIGHTPHOTOS, NOW</text>
           <rect class="lp-fig-box" data-cell="lp0" x="0" y="20" width="52" height="40" rx="6"></rect>
-          <text class="lp-fig-s" data-label="lp0" x="26" y="45" text-anchor="middle">JPEG</text>
+          <text class="lp-fig-s" data-label="lp0" x="26" y="45" text-anchor="middle">ready</text>
           <rect class="lp-fig-box-accent" data-cell="lp1" x="58" y="20" width="52" height="40" rx="6"></rect>
           <text class="lp-fig-t" data-label="lp1" x="84" y="45" text-anchor="middle">now</text>
           <rect class="lp-fig-box" data-cell="lp2" x="116" y="20" width="52" height="40" rx="6"></rect>
-          <text class="lp-fig-s" data-label="lp2" x="142" y="45" text-anchor="middle">JPEG</text>
+          <text class="lp-fig-s" data-label="lp2" x="142" y="45" text-anchor="middle">ready</text>
           <rect class="lp-fig-panel" data-cell="lp3" x="174" y="20" width="52" height="40" rx="6"></rect>
           <text class="lp-fig-s" data-label="lp3" x="200" y="45" text-anchor="middle"></text>
           <rect class="lp-fig-panel" data-cell="lp4" x="232" y="20" width="52" height="40" rx="6"></rect>
@@ -63,51 +65,78 @@ import Base from "../../layouts/Base.astro";
           <text class="lp-fig-s" data-label="lp7" x="432" y="45" text-anchor="middle"></text>
           <rect class="lp-fig-panel" data-cell="lp8" x="464" y="20" width="52" height="40" rx="6"></rect>
           <text class="lp-fig-s" data-label="lp8" x="490" y="45" text-anchor="middle"></text>
-          <text class="lp-fig-s" data-el="lp-dev" x="536" y="36">1 develop</text>
+          <text class="lp-fig-s" data-el="lp-dev" x="536" y="36">3 develops</text>
           <text class="lp-fig-s" data-el="lp-unused" x="536" y="54">0 unused</text>
           <rect class="lp-fig-panel" x="0" y="70" width="516" height="8" rx="4"></rect>
-          <rect class="lp-fig-bar-dim" data-el="lp-react" x="0" y="70" width="151" height="8" rx="4"></rect>
-          <rect class="lp-fig-bar" data-el="lp-finish" x="151" y="70" width="326" height="8" rx="4"></rect>
-          <text class="lp-fig-s" data-el="lp-time" x="536" y="78">0.35 / 1.11 s</text>
+          <rect class="lp-fig-bar-dim" data-el="lp-react" x="0" y="70" width="237" height="8" rx="4"></rect>
+          <rect class="lp-fig-bar" data-el="lp-finish" x="237" y="70" width="0" height="8" rx="4"></rect>
+          <text class="lp-fig-s" data-el="lp-time" x="536" y="78">0.55 / 0.55 s</text>
 
-          <text class="lp-fig-label" x="0" y="112">LIGHTCRAFT</text>
-          <rect class="lp-fig-box" data-cell="lc0" x="0" y="120" width="52" height="40" rx="6"></rect>
-          <text class="lp-fig-s" data-label="lc0" x="26" y="145" text-anchor="middle">ready</text>
-          <rect class="lp-fig-box-accent" data-cell="lc1" x="58" y="120" width="52" height="40" rx="6"></rect>
-          <text class="lp-fig-t" data-label="lc1" x="84" y="145" text-anchor="middle">now</text>
-          <rect class="lp-fig-box" data-cell="lc2" x="116" y="120" width="52" height="40" rx="6"></rect>
-          <text class="lp-fig-s" data-label="lc2" x="142" y="145" text-anchor="middle">ready</text>
-          <rect class="lp-fig-panel" data-cell="lc3" x="174" y="120" width="52" height="40" rx="6"></rect>
-          <text class="lp-fig-s" data-label="lc3" x="200" y="145" text-anchor="middle"></text>
-          <rect class="lp-fig-panel" data-cell="lc4" x="232" y="120" width="52" height="40" rx="6"></rect>
-          <text class="lp-fig-s" data-label="lc4" x="258" y="145" text-anchor="middle"></text>
-          <rect class="lp-fig-panel" data-cell="lc5" x="290" y="120" width="52" height="40" rx="6"></rect>
-          <text class="lp-fig-s" data-label="lc5" x="316" y="145" text-anchor="middle"></text>
-          <rect class="lp-fig-panel" data-cell="lc6" x="348" y="120" width="52" height="40" rx="6"></rect>
-          <text class="lp-fig-s" data-label="lc6" x="374" y="145" text-anchor="middle"></text>
-          <rect class="lp-fig-panel" data-cell="lc7" x="406" y="120" width="52" height="40" rx="6"></rect>
-          <text class="lp-fig-s" data-label="lc7" x="432" y="145" text-anchor="middle"></text>
-          <rect class="lp-fig-panel" data-cell="lc8" x="464" y="120" width="52" height="40" rx="6"></rect>
-          <text class="lp-fig-s" data-label="lc8" x="490" y="145" text-anchor="middle"></text>
-          <text class="lp-fig-s" data-el="lc-dev" x="536" y="136">3 develops</text>
-          <text class="lp-fig-s" data-el="lc-unused" x="536" y="154">0 unused</text>
+          <text class="lp-fig-label" x="0" y="112">LIGHTPHOTOS, OCTOBER 7</text>
+          <rect class="lp-fig-box" data-cell="old0" x="0" y="120" width="52" height="40" rx="6"></rect>
+          <text class="lp-fig-s" data-label="old0" x="26" y="145" text-anchor="middle">JPEG</text>
+          <rect class="lp-fig-box-accent" data-cell="old1" x="58" y="120" width="52" height="40" rx="6"></rect>
+          <text class="lp-fig-t" data-label="old1" x="84" y="145" text-anchor="middle">now</text>
+          <rect class="lp-fig-box" data-cell="old2" x="116" y="120" width="52" height="40" rx="6"></rect>
+          <text class="lp-fig-s" data-label="old2" x="142" y="145" text-anchor="middle">JPEG</text>
+          <rect class="lp-fig-panel" data-cell="old3" x="174" y="120" width="52" height="40" rx="6"></rect>
+          <text class="lp-fig-s" data-label="old3" x="200" y="145" text-anchor="middle"></text>
+          <rect class="lp-fig-panel" data-cell="old4" x="232" y="120" width="52" height="40" rx="6"></rect>
+          <text class="lp-fig-s" data-label="old4" x="258" y="145" text-anchor="middle"></text>
+          <rect class="lp-fig-panel" data-cell="old5" x="290" y="120" width="52" height="40" rx="6"></rect>
+          <text class="lp-fig-s" data-label="old5" x="316" y="145" text-anchor="middle"></text>
+          <rect class="lp-fig-panel" data-cell="old6" x="348" y="120" width="52" height="40" rx="6"></rect>
+          <text class="lp-fig-s" data-label="old6" x="374" y="145" text-anchor="middle"></text>
+          <rect class="lp-fig-panel" data-cell="old7" x="406" y="120" width="52" height="40" rx="6"></rect>
+          <text class="lp-fig-s" data-label="old7" x="432" y="145" text-anchor="middle"></text>
+          <rect class="lp-fig-panel" data-cell="old8" x="464" y="120" width="52" height="40" rx="6"></rect>
+          <text class="lp-fig-s" data-label="old8" x="490" y="145" text-anchor="middle"></text>
+          <text class="lp-fig-s" data-el="old-dev" x="536" y="136">1 develop</text>
+          <text class="lp-fig-s" data-el="old-unused" x="536" y="154">0 unused</text>
           <rect class="lp-fig-panel" x="0" y="170" width="516" height="8" rx="4"></rect>
-          <rect class="lp-fig-bar-dim" data-el="lc-react" x="0" y="170" width="159" height="8" rx="4"></rect>
-          <rect class="lp-fig-bar" data-el="lc-finish" x="159" y="170" width="4" height="8" rx="2"></rect>
-          <text class="lp-fig-s" data-el="lc-time" x="536" y="178">0.37 / 0.38 s</text>
+          <rect class="lp-fig-bar-dim" data-el="old-react" x="0" y="170" width="232" height="8" rx="4"></rect>
+          <rect class="lp-fig-bar" data-el="old-finish" x="232" y="170" width="241" height="8" rx="4"></rect>
+          <text class="lp-fig-s" data-el="old-time" x="536" y="178">0.54 / 1.10 s</text>
 
-          <text class="lp-fig-s" x="0" y="198">0 s</text>
-          <text class="lp-fig-s" x="258" y="198" text-anchor="middle">0.6 s</text>
-          <text class="lp-fig-s" x="516" y="198" text-anchor="end">1.2 s</text>
-          <rect class="lp-fig-bar-dim" x="0" y="219" width="14" height="8" rx="4"></rect>
-          <text class="lp-fig-s" x="20" y="227">until it reacts</text>
-          <rect class="lp-fig-bar" x="120" y="219" width="14" height="8" rx="4"></rect>
-          <text class="lp-fig-s" x="140" y="227">until it is finished</text>
+          <text class="lp-fig-label" x="0" y="212">LIGHTCRAFT</text>
+          <rect class="lp-fig-box" data-cell="lc0" x="0" y="220" width="52" height="40" rx="6"></rect>
+          <text class="lp-fig-s" data-label="lc0" x="26" y="245" text-anchor="middle">ready</text>
+          <rect class="lp-fig-box-accent" data-cell="lc1" x="58" y="220" width="52" height="40" rx="6"></rect>
+          <text class="lp-fig-t" data-label="lc1" x="84" y="245" text-anchor="middle">now</text>
+          <rect class="lp-fig-box" data-cell="lc2" x="116" y="220" width="52" height="40" rx="6"></rect>
+          <text class="lp-fig-s" data-label="lc2" x="142" y="245" text-anchor="middle">ready</text>
+          <rect class="lp-fig-panel" data-cell="lc3" x="174" y="220" width="52" height="40" rx="6"></rect>
+          <text class="lp-fig-s" data-label="lc3" x="200" y="245" text-anchor="middle"></text>
+          <rect class="lp-fig-panel" data-cell="lc4" x="232" y="220" width="52" height="40" rx="6"></rect>
+          <text class="lp-fig-s" data-label="lc4" x="258" y="245" text-anchor="middle"></text>
+          <rect class="lp-fig-panel" data-cell="lc5" x="290" y="220" width="52" height="40" rx="6"></rect>
+          <text class="lp-fig-s" data-label="lc5" x="316" y="245" text-anchor="middle"></text>
+          <rect class="lp-fig-panel" data-cell="lc6" x="348" y="220" width="52" height="40" rx="6"></rect>
+          <text class="lp-fig-s" data-label="lc6" x="374" y="245" text-anchor="middle"></text>
+          <rect class="lp-fig-panel" data-cell="lc7" x="406" y="220" width="52" height="40" rx="6"></rect>
+          <text class="lp-fig-s" data-label="lc7" x="432" y="245" text-anchor="middle"></text>
+          <rect class="lp-fig-panel" data-cell="lc8" x="464" y="220" width="52" height="40" rx="6"></rect>
+          <text class="lp-fig-s" data-label="lc8" x="490" y="245" text-anchor="middle"></text>
+          <text class="lp-fig-s" data-el="lc-dev" x="536" y="236">3 develops</text>
+          <text class="lp-fig-s" data-el="lc-unused" x="536" y="254">0 unused</text>
+          <rect class="lp-fig-panel" x="0" y="270" width="516" height="8" rx="4"></rect>
+          <rect class="lp-fig-bar-dim" data-el="lc-react" x="0" y="270" width="258" height="8" rx="4"></rect>
+          <rect class="lp-fig-bar" data-el="lc-finish" x="258" y="270" width="0" height="8" rx="2"></rect>
+          <text class="lp-fig-s" data-el="lc-time" x="536" y="278">0.60 / 0.60 s</text>
+
+          <text class="lp-fig-s" x="0" y="298">0 s</text>
+          <text class="lp-fig-s" x="258" y="298" text-anchor="middle">0.6 s</text>
+          <text class="lp-fig-s" x="516" y="298" text-anchor="end">1.2 s</text>
+          <rect class="lp-fig-bar-dim" x="0" y="319" width="14" height="8" rx="4"></rect>
+          <text class="lp-fig-s" x="20" y="327">until it reacts</text>
+          <rect class="lp-fig-bar" x="120" y="319" width="14" height="8" rx="4"></rect>
+          <text class="lp-fig-s" x="140" y="327">until it is finished</text>
         </svg>
         <p class="lp-try-readout" aria-live="polite">Photo 2 of 9. Press Next photo to step, or Jump in the grid to skip ahead.</p>
         <figcaption>
-          LightCraft throws away at least one of its two neighbour develops
-          on every step, and most of them when you jump around the grid.
+          LightPhotos now prepares both neighbours, as LightCraft does. Both
+          throw away at least one of those develops on every step, and most
+          of them when you jump around the grid.
         </figcaption>
       </figure>
 
@@ -121,10 +150,12 @@ import Base from "../../layouts/Base.astro";
       </p>
       <ul class="lp-article-list">
         <li>
-          <strong>LightPhotos uses ImageIO for everything.</strong> Every
-          JPEG, HEIC and RAW file goes through Apple's ImageIO, the library
-          that Preview and Photos use. The Mac build does not even compile in
-          the RAW library that the other builds use. (See <a
+          <strong>LightPhotos uses Apple's decoders.</strong> Every JPEG,
+          HEIC and RAW file goes through Apple's ImageIO, the library that
+          Preview and Photos use. For a full-size RAW decode, it goes one
+          level lower, to CoreImage's <code>CIRAWFilter</code>. The Mac
+          build does not even compile in the RAW library that the other
+          builds use. (See <a
           href="/blogs/what-imageio-gives-you-free.html">What ImageIO gives
           you free</a>.)
         </li>
@@ -157,17 +188,17 @@ import Base from "../../layouts/Base.astro";
           <tbody>
             <tr>
               <th scope="row">Decoding</th>
-              <td class="lp-compare-pick">Apple's ImageIO, for every format</td>
+              <td class="lp-compare-pick">Apple's ImageIO for every format, and CoreImage's <code>CIRAWFilter</code> for full-size RAW</td>
               <td>Its own, in Rust, for every format</td>
             </tr>
             <tr>
               <th scope="row">A RAW at fit-to-window</th>
-              <td class="lp-compare-pick">The embedded JPEG, then ImageIO's develop at the window's size</td>
+              <td class="lp-compare-pick">The embedded JPEG if it is big enough for the window, otherwise ImageIO's develop at the window's size, up to 4096&nbsp;px</td>
               <td>Its own develop, up to 2560&nbsp;px</td>
             </tr>
             <tr>
               <th scope="row">The photos on either side</th>
-              <td class="lp-compare-pick">Embedded JPEG ready</td>
+              <td class="lp-compare-pick">Developed at the window's size</td>
               <td>Fully developed</td>
             </tr>
             <tr>
@@ -238,18 +269,27 @@ import Base from "../../layouts/Base.astro";
         them on the same M4 Pro Mac with 48&nbsp;GB of memory, on macOS
         26.3. The photos were the same twenty Sony A7 II RAW files, copied
         to a new folder for every run so that no cache had seen them. Each
-        app got a fresh home folder, with default settings and a 1600 by
-        1000 point window.
+        app got a fresh home folder, with default settings.
+      </p>
+      <p>
+        The first version of this post used a 1600 by 1000 point window on
+        a Retina screen. For this update, the screen was a 4K display at
+        its native size, where that window would show each photo smaller
+        than the camera's embedded JPEG, and no RAW develop would happen.
+        So each app got a window of 3840 by 2000 pixels, the whole screen
+        except the menu bar and the Dock. That changes every number, so I
+        measured all three builds again in this setup: LightPhotos now,
+        LightPhotos as of October 7, and LightCraft, which has not changed
+        since then.
       </p>
       <p>
         As in the browser, a script launches the app, double-clicks the first photo and presses the
         right arrow eight times. It captures the window every 150&nbsp;ms. It
         records the first capture that changed (the app reacted) and the
         point where nothing changed for three seconds (it finished). Each
-        number is the median of five runs. The runs agreed to within a few
-        percent, except one LightCraft open that took 0.86&nbsp;s. A capture
-        takes about 0.23&nbsp;s, so no measurement can be below about
-        0.35&nbsp;s. The script, <code>tools/desktop-bench</code>, only looks
+        number is the median of five runs. A capture of this larger window
+        takes about 0.34&nbsp;s, so no measurement can be below about
+        0.5&nbsp;s. The script, <code>tools/desktop-bench</code>, only looks
         at the window, so it works on any Mac app.
       </p>
 
@@ -260,90 +300,114 @@ import Base from "../../layouts/Base.astro";
             <tr>
               <th scope="col"></th>
               <th scope="col" class="lp-compare-pick">LightPhotos</th>
+              <th scope="col">LightPhotos, October 7</th>
               <th scope="col">LightCraft</th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <th scope="row">Download (.dmg)</th>
-              <td class="lp-compare-pick">7.3&nbsp;MB</td>
+              <td class="lp-compare-pick">7.4&nbsp;MB</td>
+              <td>7.3&nbsp;MB</td>
               <td>15.2&nbsp;MB</td>
             </tr>
             <tr>
               <th scope="row">App, installed</th>
-              <td class="lp-compare-pick">14&nbsp;MB</td>
+              <td class="lp-compare-pick">15&nbsp;MB</td>
+              <td>14&nbsp;MB</td>
               <td>43&nbsp;MB</td>
             </tr>
             <tr>
               <th scope="row">Launch to window</th>
-              <td class="lp-compare-pick">0.31&nbsp;s</td>
+              <td class="lp-compare-pick">0.27&nbsp;s</td>
+              <td>0.29&nbsp;s</td>
               <td>0.43&nbsp;s</td>
             </tr>
             <tr>
               <th scope="row">Launch to finished grid, 20 RAWs</th>
-              <td class="lp-compare-pick">0.73&nbsp;s</td>
-              <td>1.24&nbsp;s</td>
+              <td class="lp-compare-pick">0.85&nbsp;s</td>
+              <td>0.90&nbsp;s</td>
+              <td>1.37&nbsp;s</td>
             </tr>
             <tr>
               <th scope="row">Open the first photo: reacts / finished</th>
-              <td class="lp-compare-pick">0.42 / 1.12&nbsp;s</td>
-              <td>0.48 / 0.51&nbsp;s</td>
+              <td class="lp-compare-pick">0.57 / 1.46&nbsp;s</td>
+              <td>0.59 / 1.12&nbsp;s</td>
+              <td>0.67 / 0.67&nbsp;s</td>
             </tr>
             <tr>
               <th scope="row">Next photo, each (median of 8): reacts / finished</th>
-              <td class="lp-compare-pick">0.35 / 1.11&nbsp;s</td>
-              <td>0.37 / 0.38&nbsp;s</td>
+              <td class="lp-compare-pick">0.55 / 0.55&nbsp;s</td>
+              <td>0.54 / 1.10&nbsp;s</td>
+              <td>0.60 / 0.60&nbsp;s</td>
             </tr>
             <tr>
               <th scope="row">Memory afterwards</th>
-              <td class="lp-compare-pick">0.9&nbsp;GB</td>
-              <td>1.7&nbsp;GB</td>
+              <td class="lp-compare-pick">1.2&nbsp;GB</td>
+              <td>1.0&nbsp;GB</td>
+              <td>1.4&nbsp;GB</td>
             </tr>
           </tbody>
         </table>
       </div>
 
       <p>
-        One note on the grid. LightCraft opens its grid scrolled to the end.
-        At this window size, 11 of the 20 thumbnails were on screen, so its
-        1.24&nbsp;s is for those 11. LightPhotos showed all 20.
+        The runs agreed to within a few percent, with three exceptions. The
+        first photo finished in 1.0 to 1.5&nbsp;s in both LightPhotos
+        builds. One LightCraft grid took 2.3&nbsp;s. LightCraft's memory
+        went from 1.3 to 1.7&nbsp;GB. At this window size, both apps
+        showed all 20 thumbnails.
       </p>
 
-      <h2>Why the next photo reversed</h2>
+      <h2>What changed in LightPhotos</h2>
       <p>
-        In the browser, LightPhotos finished the next photo in 0.53&nbsp;s,
-        and LightCraft in 1.88&nbsp;s. The timing logs in both apps show why
-        the Mac reverses this. LightPhotos shows the camera's embedded JPEG
-        within about 20&nbsp;ms, so both apps react at the measurement floor.
-        But the A7 II's embedded JPEG is only 1616&nbsp;px wide, and the
-        photo area of this window on a Retina screen is 3584&nbsp;px wide. So when you arrive, LightPhotos asks ImageIO to
-        develop the RAW data at that size, which took 0.5 to 0.6&nbsp;s.
+        In the first version of this post, LightPhotos reacted as fast as
+        LightCraft but finished the next photo about 0.7&nbsp;s later. It
+        showed the camera's embedded JPEG at once, and only asked ImageIO
+        to develop the RAW data when you arrived. Two changes since then
+        close that gap.
       </p>
       <p>
-        LightCraft develops at up to 2560&nbsp;px, about half as many
-        pixels, and it decodes and develops both neighbours in the
-        background and keeps them ready. So the arrow key costs only a GPU
-        pass of about 35&nbsp;ms. My script waits a few seconds on each
-        photo, which gives LightCraft time to get ahead. That is about the
-        pace of a person who looks at each photo. If
-        you hold the arrow key down, you could move faster than LightCraft
-        can prepare. I did not measure that.
+        <strong>It prepares the photos on either side.</strong> When the
+        photo on screen is done, LightPhotos develops its two neighbours in
+        the background, at the window's size, and keeps them. The arrow key
+        then only has to put an image on screen that is already there. The
+        next photo finished in 0.55&nbsp;s, half the 1.10&nbsp;s of the
+        October 7 build, and the screen changed only once, with no soft
+        JPEG first. LightCraft took 0.60&nbsp;s. Both are at the floor of
+        the measurement, so I would call them equal.
       </p>
       <p>
-        I do not think either is the wrong choice. LightCraft spends CPU
-        time and battery on develops that you never look at. LightPhotos has
-        something on screen just as fast, and the camera's JPEG is plenty to
-        judge framing and expression, which is most of culling. In the half
-        second after that, the photo sharpens to full Retina detail while
-        you already look at it.
+        <strong>It decodes full-size RAW files with
+        <code>CIRAWFilter</code>.</strong> This is CoreImage's RAW API, one
+        level below ImageIO. It runs the same Apple RAW engine, so the
+        pixels agree to within 8-bit rounding, but it renders on the GPU
+        and demosaics at the size you ask for. On the same twenty files,
+        one at a time, a full-size 24-megapixel decode took a median of
+        185&nbsp;ms, against 590&nbsp;ms through ImageIO. That does not show
+        in the table. At this window size, ImageIO's develop at 4096&nbsp;px
+        already has every pixel that the screen shows, so the app never asks
+        for the full size. You get the faster decode when you zoom in to
+        100% and when you export.
       </p>
       <p>
-        LightPhotos could prepare its neighbours too, and it would cost less
-        memory than for LightCraft, because LightPhotos keeps finished 8-bit
-        images: about 34&nbsp;MB each at this size, so about 70&nbsp;MB for
-        two. Whether that is worth
-        the wasted develops depends on how people move through a folder. I
-        want to measure that first.
+        Both changes cost something. The first photo now finishes later,
+        1.46&nbsp;s against 1.12&nbsp;s. At this size the embedded JPEG, 1616&nbsp;px wide, is smaller
+        than the window, so LightPhotos skips it, shows the grid thumbnail
+        and develops the RAW data straight away. It also develops both
+        neighbours at the same time. Memory went from 1.0 to 1.2&nbsp;GB,
+        because two developed neighbours stay in memory, about 45&nbsp;MB each at
+        4096&nbsp;px. And LightPhotos now makes the same trade as LightCraft:
+        it spends CPU time and battery on develops that you might never
+        look at.
+      </p>
+      <p>
+        LightCraft develops at up to 2560&nbsp;px, and it also decodes and
+        develops both neighbours in the background. My script waits a few
+        seconds on each photo, which gives both apps time to get ahead.
+        That is about the pace of a person who looks at each photo. If you
+        hold the arrow key down, you could move faster than either app can
+        prepare. I did not measure that.
       </p>
 
       <h2>Why the grid and the memory go the other way</h2>
@@ -361,10 +425,9 @@ import Base from "../../layouts/Base.astro";
         a pixel. That is about 52&nbsp;MB per photo at 2560&nbsp;px. This
         data lets its sliders use the full range of the sensor: highlights
         above white, and exposure changes without banding. LightPhotos gets
-        finished 8-bit images from ImageIO, at 4 bytes a pixel, and keeps
-        only small embedded JPEGs for the neighbours. On screen, the two look
-        the same. Those sources explain only about 150&nbsp;MB of the
-        0.8&nbsp;GB difference. I did not break down the rest.
+        finished 8-bit images from ImageIO, at 4 bytes a pixel, but at
+        4096&nbsp;px, so it now keeps about the same amount of image data
+        for the same three photos. On screen, the two look the same.
       </p>
       <p>
         The app size is ImageIO again. LightCraft ships its own decoders for
@@ -379,7 +442,8 @@ import Base from "../../layouts/Base.astro";
         develops them, which is not the same as LightPhotos on Linux, on
         Windows or in the browser. LightPhotos supports only the cameras
         that Apple supports, when Apple supports them. When ImageIO decodes
-        a file incorrectly, I cannot fix it.
+        a file incorrectly, I cannot fix it. <code>CIRAWFilter</code> runs
+        the same RAW engine, so it changes none of this.
       </p>
       <p>
         LightCraft gets the opposite trade. One decoder and one develop
@@ -394,11 +458,11 @@ import Base from "../../layouts/Base.astro";
       <p>
         On the Mac, LightPhotos relies on the operating system, and
         LightCraft relies on itself. LightPhotos is smaller, starts faster,
-        fills its grid faster and uses less memory, because Apple already
-        did that work, and because a much smaller feature set fits in a
-        smaller app. LightCraft is faster where it chose to do more work ahead of time, looks
-        the same everywhere and does far more when you start to edit. Both
-        feel fast when you step through a shoot, for different reasons.
+        fills its grid faster and uses a little less memory, because Apple
+        already did that work, and because a much smaller feature set fits
+        in a smaller app. Now that it prepares the photos on either side,
+        stepping through a shoot is as quick as in LightCraft. LightCraft
+        looks the same everywhere and does far more when you start to edit.
       </p>
 
       <nav class="lp-article-nav" aria-label="More posts">
@@ -414,17 +478,20 @@ import Base from "../../layouts/Base.astro";
     </article>
   </main>
   <script>
-    // Steps through a row of nine photos. LightCraft develops both neighbours
-    // of the photo on screen; LightPhotos develops only the photo on screen.
+    // Steps through a row of nine photos. LightPhotos now and LightCraft
+    // develop both neighbours of the photo on screen; the October 7 build of
+    // LightPhotos developed only the photo on screen.
     const fig = document.getElementById("step-demo");
     if (fig) {
       const N = 9;
       const START = 1;
       // Seconds for one step, from the table: [reacts, finished].
-      const TIMES = { lp: [0.35, 1.11], lc: [0.37, 0.38] } as const;
+      const TIMES = { lp: [0.55, 0.55], old: [0.54, 1.1], lc: [0.6, 0.6] } as const;
       const PX_PER_S = 516 / 1.2;
-      const NEAR = { lp: "JPEG", lc: "ready" } as const;
+      const NEAR = { lp: "ready", old: "JPEG", lc: "ready" } as const;
+      const PREPARES = { lp: true, old: false, lc: true } as const;
       type App = keyof typeof TIMES;
+      const APPS = Object.keys(TIMES) as App[];
 
       const q = (sel: string) => fig.querySelector(sel) as SVGElement;
       const el = (name: string) => q(`[data-el="${name}"]`);
@@ -432,7 +499,9 @@ import Base from "../../layouts/Base.astro";
       const nextBtn = fig.querySelector('[data-act="next"]') as HTMLButtonElement;
       const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
 
-      let cur: number, dropped: number[], lcDev: number, lcUnused: number, lpDev: number, frame = 0;
+      let cur: number, dropped: number[], frame = 0;
+      const dev = { lp: 0, old: 0, lc: 0 };
+      const unused = { lp: 0, old: 0, lc: 0 };
 
       const neighbours = (i: number) => [i - 1, i + 1].filter((n) => n >= 0 && n < N);
       const plural = (n: number, word: string) => `${n} ${word}${n === 1 ? "" : "s"}`;
@@ -441,7 +510,7 @@ import Base from "../../layouts/Base.astro";
         let cls = "lp-fig-panel", text = "", textCls = "lp-fig-s";
         if (i === cur) { cls = "lp-fig-box-accent"; text = "now"; textCls = "lp-fig-t"; }
         else if (neighbours(cur).includes(i)) { cls = "lp-fig-box"; text = NEAR[app]; }
-        else if (app === "lc" && dropped.includes(i)) { cls = "lp-fig-bad-stroke"; text = "unused"; }
+        else if (PREPARES[app] && dropped.includes(i)) { cls = "lp-fig-bad-stroke"; text = "unused"; }
         q(`[data-cell="${app}${i}"]`).setAttribute("class", cls);
         const label = q(`[data-label="${app}${i}"]`);
         label.setAttribute("class", textCls);
@@ -460,43 +529,44 @@ import Base from "../../layouts/Base.astro";
       }
 
       function render() {
-        for (let i = 0; i < N; i++) { cell("lp", i); cell("lc", i); }
-        el("lp-dev").textContent = plural(lpDev, "develop");
-        el("lp-unused").textContent = "0 unused";
-        el("lc-dev").textContent = plural(lcDev, "develop");
-        el("lc-unused").textContent = `${lcUnused} unused`;
+        for (const app of APPS) {
+          for (let i = 0; i < N; i++) cell(app, i);
+          el(`${app}-dev`).textContent = plural(dev[app], "develop");
+          el(`${app}-unused`).textContent = `${unused[app]} unused`;
+        }
         nextBtn.disabled = cur === N - 1;
       }
 
       const counts = () =>
-        `LightCraft: ${plural(lcDev, "develop")}, ${lcUnused} unused. LightPhotos: ${plural(lpDev, "develop")}, 0 unused.`;
+        `LightPhotos now: ${plural(dev.lp, "develop")}, ${unused.lp} unused. LightCraft: ${plural(dev.lc, "develop")}, ${unused.lc} unused. October 7 build: ${plural(dev.old, "develop")}, 0 unused.`;
 
       function moveTo(target: number) {
         cancelAnimationFrame(frame);
         const ready = neighbours(cur);
         const wasReady = ready.includes(target);
         dropped = ready.filter((n) => n !== target);
-        lcUnused += dropped.length;
-        lcDev += (wasReady ? 0 : 1) + neighbours(target).filter((n) => n !== cur).length;
-        lpDev += 1;
+        const fresh = (wasReady ? 0 : 1) + neighbours(target).filter((n) => n !== cur).length;
+        for (const app of APPS) {
+          if (PREPARES[app]) { unused[app] += dropped.length; dev[app] += fresh; }
+          else dev[app] += 1;
+        }
         cur = target;
         render();
-        return wasReady;
       }
 
       function step() {
         if (cur >= N - 1) return;
         moveTo(cur + 1);
         const done = () => {
-          bars("lp", 9); bars("lc", 9);
-          readout.textContent = `Photo ${cur + 1}: both react in about 0.35 s. LightCraft is finished at 0.38 s, LightPhotos at 1.11 s. ${counts()}`;
+          for (const app of APPS) bars(app, 9);
+          readout.textContent = `Photo ${cur + 1}: LightPhotos is finished at 0.55 s and LightCraft at 0.60 s. The October 7 build reacted at 0.54 s and finished at 1.10 s. ${counts()}`;
         };
         if (reduce.matches) return done();
         const start = performance.now();
         const tick = (now: number) => {
           const t = Math.max(0, now - start) / 1000;
-          bars("lp", t); bars("lc", t);
-          if (t < TIMES.lp[1]) frame = requestAnimationFrame(tick);
+          for (const app of APPS) bars(app, t);
+          if (t < TIMES.old[1]) frame = requestAnimationFrame(tick);
           else done();
         };
         frame = requestAnimationFrame(tick);
@@ -504,15 +574,17 @@ import Base from "../../layouts/Base.astro";
 
       function jump() {
         moveTo((cur + 4) % N);
-        bars("lp", null); bars("lc", null);
-        readout.textContent = `Jump to photo ${cur + 1}: neither app had developed it. I did not time this case. ${counts()}`;
+        for (const app of APPS) bars(app, null);
+        readout.textContent = `Jump to photo ${cur + 1}: no app had developed it. I did not time this case. ${counts()}`;
       }
 
       function reset() {
         cancelAnimationFrame(frame);
-        cur = START; dropped = []; lcDev = 3; lcUnused = 0; lpDev = 1;
+        cur = START; dropped = [];
+        dev.lp = 3; dev.lc = 3; dev.old = 1;
+        unused.lp = 0; unused.lc = 0; unused.old = 0;
         render();
-        bars("lp", 9); bars("lc", 9);
+        for (const app of APPS) bars(app, 9);
         readout.textContent = "Photo 2 of 9. Press Next photo to step, or Jump in the grid to skip ahead.";
       }
 

@@ -9,7 +9,7 @@ import Base from "../../layouts/Base.astro";
   <main class="lp-page">
     <article class="lp-article">
       <header class="lp-article-head">
-        <p class="lp-article-meta"><a href="/blogs.html">Blogs</a> &middot; <time datetime="2026-10-07">October 7, 2026</time></p>
+        <p class="lp-article-meta"><a href="/blogs.html">Blogs</a> &middot; <time datetime="2026-10-07">October 7, 2026</time> &middot; updated <time datetime="2026-10-09">October 9</time></p>
         <h1>Two Rust photo apps in the browser</h1>
         <p class="lp-article-dek">
           <a href="https://github.com/storytold/lightcraft">LightCraft</a>
@@ -18,68 +18,67 @@ import Base from "../../layouts/Base.astro";
           LightPhotos. I include some measurements, but they are not a fully
           equal comparison.
         </p>
-        <p class="lp-article-byline">Andrew Yao &middot; 8 min read</p>
+        <p class="lp-article-byline">Andrew Yao &middot; 9 min read</p>
       </header>
 
       <aside class="lp-tldr">
         <p class="lp-tldr-label">TL;DR</p>
         <p>
           Both apps are Rust and egui compiled to WebAssembly, with downloads
-          of 3.5&nbsp;MB and 3.8&nbsp;MB compressed. On twenty Sony RAW
-          files, LightPhotos filled its grid in 1.4&nbsp;s and showed each
-          photo in 0.53&nbsp;s. LightCraft took 2.3&nbsp;s and 1.88&nbsp;s,
-          and used nearly twice the memory. Most of the gap is the starting
-          point. LightPhotos first shows the small preview it already has,
-          then swaps in a version sized to the window. It decodes the full
-          RAW only when you zoom in. LightCraft develops the RAW data itself
-          every time.
+          of 3.6&nbsp;MB and 3.8&nbsp;MB compressed. Updated October 9. On
+          twenty Sony RAW files, LightPhotos filled its grid in 1.2&nbsp;s
+          and showed each next photo in 0.10&nbsp;s. LightCraft took
+          2.5&nbsp;s and 0.97&nbsp;s, and used about 40% more memory. Both
+          apps develop the RAW data at fit-to-window. The difference is when:
+          LightPhotos now develops the photos on either side while you look
+          at the current one, so the arrow key finds the work already done.
+          LightCraft develops each photo when you arrive.
         </p>
       </aside>
 
       <figure class="lp-figure lp-try" id="start-demo">
         <div class="lp-try-controls">
-          <button type="button" class="lp-try-btn" data-view="fit" aria-pressed="true">Fit to window</button>
-          <button type="button" class="lp-try-btn" data-view="zoom" aria-pressed="false">Zoomed in</button>
-          <button type="button" class="lp-try-btn" data-act="next">Next photo</button>
+          <button type="button" class="lp-try-btn" data-act="next" aria-pressed="true">Next photo</button>
+          <button type="button" class="lp-try-btn" data-act="jump" aria-pressed="false">Jump in the grid</button>
         </div>
-        <svg viewBox="0 0 640 232" role="img" aria-label="What each app starts from. A RAW file holds a full-size JPEG that the camera made, and the sensor data. At fit-to-window, LightPhotos applies your edits to the embedded JPEG and shows the next photo in 0.53 seconds. When you zoom in, it decodes the RAW data. LightCraft develops the sensor data for every view and shows the next photo in 1.88 seconds.">
+        <svg viewBox="0 0 640 232" role="img" aria-label="What each app starts from. A RAW file holds a JPEG that the camera made, and the sensor data. For the next photo, LightPhotos already developed the sensor data at the window's size while you looked at the photo before, and shows it in 0.10 seconds. LightCraft develops the sensor data when you arrive and shows the photo in 0.97 seconds. After a jump, LightPhotos first shows the camera's JPEG, then its develop.">
           <text class="lp-fig-label" x="0" y="12">ONE RAW FILE</text>
           <text class="lp-fig-label" x="250" y="12">WORK FOR THE NEXT PHOTO</text>
 
           <rect class="lp-fig-panel" x="0" y="26" width="200" height="180" rx="8"></rect>
-          <rect class="lp-fig-box-accent" data-el="jpeg" x="16" y="40" width="168" height="64" rx="6"></rect>
+          <rect class="lp-fig-box" data-el="jpeg" x="16" y="40" width="168" height="64" rx="6"></rect>
           <text class="lp-fig-t" x="32" y="66">Embedded JPEG</text>
           <text class="lp-fig-s" x="32" y="86">made by the camera</text>
-          <rect class="lp-fig-box" x="16" y="128" width="168" height="64" rx="6"></rect>
+          <rect class="lp-fig-box-accent" x="16" y="128" width="168" height="64" rx="6"></rect>
           <text class="lp-fig-t" x="32" y="154">Sensor data</text>
-          <text class="lp-fig-s" x="32" y="174">needs a full develop</text>
+          <text class="lp-fig-s" x="32" y="174">needs a develop</text>
 
-          <path class="lp-fig-line" data-el="from-jpeg" d="M184 72 H240"></path>
-          <path class="lp-fig-line" data-el="from-raw" d="M184 150 C214 150 212 72 240 72" opacity="0"></path>
+          <path class="lp-fig-line" data-el="from-jpeg" d="M184 72 H240" opacity="0"></path>
+          <path class="lp-fig-line" d="M184 150 C214 150 212 72 240 72"></path>
           <path class="lp-fig-arrow" d="M240 67 L250 72 L240 77 Z"></path>
           <path class="lp-fig-line" d="M184 160 H240"></path>
           <path class="lp-fig-arrow" d="M240 155 L250 160 L240 165 Z"></path>
 
-          <rect class="lp-fig-box-accent" data-el="lp-box" x="250" y="34" width="390" height="76" rx="6"></rect>
+          <rect class="lp-fig-box-accent" x="250" y="34" width="390" height="76" rx="6"></rect>
           <text class="lp-fig-t" x="266" y="58">LightPhotos</text>
-          <text class="lp-fig-s" data-el="lp-work" x="266" y="78">Your edits on the camera's JPEG</text>
+          <text class="lp-fig-s" data-el="lp-work" x="266" y="78">Developed before you press the key</text>
           <rect class="lp-fig-panel" x="266" y="90" width="270" height="8" rx="4"></rect>
-          <rect class="lp-fig-bar" data-el="lp-bar" x="266" y="90" width="76" height="8" rx="4"></rect>
-          <text class="lp-fig-t" data-el="lp-time" x="556" y="78">0.53 s</text>
+          <rect class="lp-fig-bar" data-el="lp-bar" x="266" y="90" width="28" height="8" rx="4"></rect>
+          <text class="lp-fig-t" data-el="lp-time" x="556" y="78">0.10 s</text>
 
           <rect class="lp-fig-box" x="250" y="122" width="390" height="76" rx="6"></rect>
           <text class="lp-fig-t" x="266" y="146">LightCraft</text>
-          <text class="lp-fig-s" x="266" y="166">Develops the RAW data, then your edits</text>
+          <text class="lp-fig-s" x="266" y="166">Develops the RAW data when you arrive</text>
           <rect class="lp-fig-panel" x="266" y="178" width="270" height="8" rx="4"></rect>
           <rect class="lp-fig-bar-dim" data-el="lc-bar" x="266" y="178" width="270" height="8" rx="4"></rect>
-          <text class="lp-fig-t" data-el="lc-time" x="556" y="166">1.88 s</text>
+          <text class="lp-fig-t" data-el="lc-time" x="556" y="166">0.97 s</text>
 
-          <text class="lp-fig-s" x="0" y="226">Bars run in real time. Median of 8 steps, Chromium, 24-megapixel Sony RAW files.</text>
+          <text class="lp-fig-s" x="0" y="226">Bars run in real time. Median of 8 steps, Chrome, 24-megapixel Sony RAW files.</text>
         </svg>
-        <p class="lp-try-readout" aria-live="polite">Fit to window: LightPhotos shows the next photo in 0.53 s. LightCraft takes 1.88 s.</p>
+        <p class="lp-try-readout" aria-live="polite">Next photo: LightPhotos shows it in 0.10 s, because it developed it in advance. LightCraft takes 0.97 s.</p>
         <figcaption>
-          Press Next photo to replay one step in real time. Zoomed in,
-          LightPhotos decodes the RAW data too.
+          Press Next photo to replay one step in real time. After a jump,
+          neither app has the photo ready.
         </figcaption>
       </figure>
 
@@ -135,8 +134,13 @@ import Base from "../../layouts/Base.astro";
             </tr>
             <tr>
               <th scope="row">What a RAW shows at fit</th>
-              <td class="lp-compare-pick">The camera's embedded JPEG, with your edits</td>
+              <td class="lp-compare-pick">The RAW data, developed at the window's size, with your edits. The camera's JPEG while that develop runs</td>
               <td>The RAW data, developed, with your edits</td>
+            </tr>
+            <tr>
+              <th scope="row">The photos on either side</th>
+              <td class="lp-compare-pick">Developed ahead of time</td>
+              <td>Developed when you arrive</td>
             </tr>
             <tr>
               <th scope="row">RAW decoder</th>
@@ -223,7 +227,7 @@ import Base from "../../layouts/Base.astro";
           <circle class="lp-fig-good" data-el="lc-ok" cx="122" cy="226" r="4"></circle>
           <path class="lp-fig-bad-stroke" data-el="lc-bad" d="M118 222 L126 230 M126 222 L118 230" display="none"></path>
           <text class="lp-fig-s" data-el="lc-1" x="136" y="230">Copies all 498 MB into browser storage.</text>
-          <text class="lp-fig-s" data-el="lc-2" x="136" y="246">The copy is part of its 2.3 s to fill the grid.</text>
+          <text class="lp-fig-s" data-el="lc-2" x="136" y="246">The copy is part of its 2.5 s to fill the grid.</text>
         </svg>
         <p class="lp-try-readout" aria-live="polite">LightPhotos reads the photos where they are. LightCraft copies 498 MB first.</p>
         <figcaption>
@@ -273,19 +277,31 @@ import Base from "../../layouts/Base.astro";
 
       <h2>How I measured</h2>
       <p>
-        I built both apps from their current code and served each from its
-        own local address. Playwright drove them in Chromium 154 on an M4 Pro
-        Mac with 48&nbsp;GB of memory. The photos were twenty RAW files
-        from a Sony A7 II, 24 megapixels and about 25&nbsp;MB each. Neither
-        app had seen them before.
+        I built the apps from their current code and served each from its
+        own local address. Playwright drove them in Chrome 154 on an M4 Pro
+        Mac with 48&nbsp;GB of memory, in a 1600 by 1000 window on a 4K
+        display at its native size. The photos were twenty RAW files from a
+        Sony A7 II, 24 megapixels and about 25&nbsp;MB each. Each run used a
+        new browser profile, so neither app had seen them before.
+      </p>
+      <p>
+        For the October 9 update I measured three builds in the same setup:
+        LightPhotos now, LightPhotos as of October 7, and LightCraft, which
+        has not changed since then. Most numbers came out close to the
+        first version of this post. The exception is LightCraft's next
+        photo: 0.97&nbsp;s now, against 1.88&nbsp;s on October 7, with the
+        same build. In one trial run the photo opened zoomed to 1:1, where
+        LightCraft does more work and uses more memory, and I think the
+        October 7 run did the same. These numbers are from runs where every
+        app stayed at fit-to-window.
       </p>
       <p>
         A timer starts at the key press and stops when the screen stops
         changing: every 150&nbsp;ms the script takes a screenshot, and a step
         is done when three screenshots in a row match. <code>tools/web-bench</code> measures LightPhotos the same
-        way, and it works for any app. It is coarse: each number includes
-        about 140&nbsp;ms of screenshot overhead. So compare the two apps
-        with each other, not with a stopwatch.
+        way, and it works for any app. It is coarse, so compare the apps
+        with each other, not with a stopwatch. Each number is the median of
+        at least five runs.
       </p>
 
       <h2>The numbers</h2>
@@ -295,34 +311,40 @@ import Base from "../../layouts/Base.astro";
             <tr>
               <th scope="col"></th>
               <th scope="col" class="lp-compare-pick">LightPhotos</th>
+              <th scope="col">LightPhotos, October 7</th>
               <th scope="col">LightCraft</th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <th scope="row">Download, compressed (brotli)</th>
-              <td class="lp-compare-pick">3.5&nbsp;MB</td>
+              <td class="lp-compare-pick">3.6&nbsp;MB</td>
+              <td>3.5&nbsp;MB</td>
               <td>3.8&nbsp;MB</td>
             </tr>
             <tr>
               <th scope="row">WebAssembly file, uncompressed</th>
-              <td class="lp-compare-pick">14.1&nbsp;MB</td>
+              <td class="lp-compare-pick">14.4&nbsp;MB</td>
+              <td>14.1&nbsp;MB</td>
               <td>17.1&nbsp;MB</td>
             </tr>
             <tr>
               <th scope="row">Fill the grid with 20 RAW thumbnails, total</th>
-              <td class="lp-compare-pick">1.4&nbsp;s</td>
-              <td>2.3&nbsp;s</td>
+              <td class="lp-compare-pick">1.2&nbsp;s</td>
+              <td>1.4&nbsp;s</td>
+              <td>2.5&nbsp;s</td>
             </tr>
             <tr>
-              <th scope="row">Show the next photo full size, each (median of 8)</th>
-              <td class="lp-compare-pick">0.53&nbsp;s</td>
-              <td>1.88&nbsp;s</td>
+              <th scope="row">Show the next photo, each (median of 8)</th>
+              <td class="lp-compare-pick">0.10&nbsp;s</td>
+              <td>0.45&nbsp;s</td>
+              <td>0.97&nbsp;s</td>
             </tr>
             <tr>
-              <th scope="row">Memory afterwards, all threads and workers</th>
+              <th scope="row">Memory afterwards, the page's process</th>
               <td class="lp-compare-pick">1.9&nbsp;GB</td>
-              <td>3.4&nbsp;GB</td>
+              <td>2.0&nbsp;GB</td>
+              <td>2.8&nbsp;GB</td>
             </tr>
           </tbody>
         </table>
@@ -330,20 +352,35 @@ import Base from "../../layouts/Base.astro";
 
       <p>
         LightCraft includes a whole editing pipeline and its own RAW decoder,
-        and it is still only 0.3&nbsp;MB bigger compressed. Its release
-        builds also embed a Japanese font, which I left out.
+        and it is still only 0.2&nbsp;MB bigger compressed. Its release
+        builds also embed a Japanese font, which I left out. The memory is
+        the page's own process, which holds the main thread, the workers and
+        the LightPhotos decode threads. When LightCraft's grid settles, it has
+        scrolled to follow the import and shows only a few of the RAW
+        thumbnails. LightPhotos shows all 20.
       </p>
 
       <h2>Why the numbers differ</h2>
       <p>
-        At fit-to-window, the camera's embedded JPEG has more pixels than
-        the screen can show. So LightPhotos decodes that JPEG and applies
-        your sliders to it. Only when you zoom in does it load the full
-        decode, which demosaics the sensor data (turns it into a full colour
-        image) at full resolution. LightCraft develops the RAW data for every
-        view. That is more work, but the colours at fit come from the same
-        place as the colours at 100%. It does all that in under two seconds,
-        in a browser, on a 24-megapixel file. That is a good result.
+        At this window size, the camera's embedded JPEG, 1616&nbsp;px wide,
+        has fewer pixels than LightPhotos wants for a sharp photo at fit. So
+        LightPhotos shows that JPEG first and then develops the sensor data
+        at the window's size. LightCraft develops the sensor data too. So at
+        fit, both apps now show a develop of the RAW data, and the colours
+        come from the same place as the colours at 100%.
+      </p>
+      <p>
+        The difference is when that work happens. Since October 7,
+        LightPhotos develops the photos on either side while you look at the
+        current one. The browser build did not do that before. When you
+        press the arrow key, the next photo is already done, and it is on
+        screen in 0.10&nbsp;s, against 0.45&nbsp;s for the October 7 build.
+        LightCraft changes the screen at once, then shows the developed photo
+        about 0.9&nbsp;s later. Its first step took about 1.25&nbsp;s, and
+        the others about 0.96&nbsp;s. That is a full develop of a
+        24-megapixel file, in a browser, in under a second, which is a good
+        result. The cost for LightPhotos is develops that you might never
+        look at, when you jump instead of stepping.
       </p>
       <p>
         The grid is closer. The LightPhotos decode threads pull thumbnails
@@ -351,7 +388,7 @@ import Base from "../../layouts/Base.astro";
         moved to shared memory, the number of thumbnails that decode at once
         went from 1 to 9, because the RAW library had silently run every
         decode on a single fallback thread. LightCraft copies all 498&nbsp;MB into the browser's storage
-        while it imports. That copy is part of its 2.3&nbsp;s, and it lets
+        while it imports. That copy is part of its 2.5&nbsp;s, and it lets
         the library survive a reload.
       </p>
 
@@ -360,14 +397,16 @@ import Base from "../../layouts/Base.astro";
         Each LightCraft worker is a separate copy of the program with its
         own memory, and WebAssembly memory never shrinks after it grows. The
         main thread also keeps recently used originals, the 498&nbsp;MB of
-        RAW files. Four workers plus that come to 3.4&nbsp;GB.
+        RAW files. Four workers plus that come to 2.8&nbsp;GB. In the trial
+        run that zoomed to 1:1, it reached 3.4&nbsp;GB.
       </p>
       <p>
         Shared memory has a cost too. Each LightPhotos decode thread needs
         about 300&nbsp;MB of scratch space for a RAW file, all from one heap
         with a limit of 4&nbsp;GB. With ten threads, memory peaked at
         3.4&nbsp;GB. So I limited the browser build to six threads, which
-        gives the 1.9&nbsp;GB.
+        keeps the page at 1.9&nbsp;GB. The two prepared neighbours did not
+        add to that.
       </p>
 
       <h2>The same bug, again</h2>
@@ -397,8 +436,8 @@ import Base from "../../layouts/Base.astro";
 
       <h2>Wrapping up</h2>
       <p>
-        LightPhotos relies on the camera's JPEG, your own folders and shared
-        memory, so it feels quick when you go through a shoot. LightCraft
+        LightPhotos relies on work done ahead of time, your own folders and
+        shared memory, so it feels quick when you go through a shoot. LightCraft
         takes on the whole RAW pipeline and a full Lightroom-style feature
         set, keeps its library in the browser and needs no special server
         configuration. It got all of that working in about a week. I look
@@ -419,61 +458,49 @@ import Base from "../../layouts/Base.astro";
     </article>
   </main>
   <script>
-    // Replays one "next photo" step in real time, at fit or zoomed in.
+    // Replays one "next photo" step in real time, or shows a jump to a photo
+    // neither app prepared.
     const fig = document.getElementById("start-demo");
     if (fig) {
       const el = (name: string) => fig.querySelector(`[data-el="${name}"]`) as SVGElement;
       const readout = fig.querySelector(".lp-try-readout") as HTMLElement;
-      const viewBtns = fig.querySelectorAll<HTMLButtonElement>("[data-view]");
-      const nextBtn = fig.querySelector('[data-act="next"]') as HTMLButtonElement;
+      const btns = fig.querySelectorAll<HTMLButtonElement>("[data-act]");
       const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
 
-      const LP = 0.53; // s, LightPhotos at fit (median of 8)
-      const LC = 1.88; // s, LightCraft (median of 8)
+      const LP = 0.1; // s, LightPhotos, next photo (median of 8)
+      const LC = 0.97; // s, LightCraft, next photo (median of 8)
       const PX_PER_S = 270 / LC;
-      let zoom = false;
       let frame = 0;
 
       const setBar = (name: string, t: number) => el(name).setAttribute("width", String(Math.max(0, t * PX_PER_S)));
       const fmt = (t: number) => `${t.toFixed(2)} s`;
 
       function draw(t: number) {
-        const lc = Math.min(t, LC);
-        setBar("lc-bar", lc);
-        el("lc-time").textContent = fmt(lc);
-        if (zoom) {
+        setBar("lc-bar", Math.min(t, LC));
+        el("lc-time").textContent = fmt(Math.min(t, LC));
+        setBar("lp-bar", Math.min(t, LP));
+        el("lp-time").textContent = fmt(Math.min(t, LP));
+      }
+
+      function show(act: string) {
+        cancelAnimationFrame(frame);
+        const jump = act === "jump";
+        btns.forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.act === act)));
+        el("jpeg").setAttribute("class", jump ? "lp-fig-box-accent" : "lp-fig-box");
+        el("from-jpeg").setAttribute("opacity", jump ? "1" : "0");
+        el("lp-work").textContent = jump ? "The camera's JPEG at once, then the develop" : "Developed before you press the key";
+        if (jump) {
           setBar("lp-bar", 0);
+          setBar("lc-bar", 0);
           el("lp-time").textContent = "not timed";
-        } else {
-          const lp = Math.min(t, LP);
-          setBar("lp-bar", lp);
-          el("lp-time").textContent = fmt(lp);
+          el("lc-time").textContent = "not timed";
+          readout.textContent = "Jump in the grid: neither app has the photo ready. LightPhotos shows the camera's JPEG at once, then develops the RAW data at the window's size. LightCraft develops the RAW data. I did not time this case.";
+          return;
         }
-      }
-
-      function summary() {
-        readout.textContent = zoom
-          ? "Zoomed in: LightPhotos now decodes the RAW data too. I did not time this case. LightCraft does the same work at every zoom level."
-          : "Fit to window: LightPhotos shows the next photo in 0.53 s. LightCraft takes 1.88 s, 1.35 s more.";
-      }
-
-      function setView(isZoom: boolean) {
-        cancelAnimationFrame(frame);
-        zoom = isZoom;
-        viewBtns.forEach((b) => b.setAttribute("aria-pressed", String((b.dataset.view === "zoom") === zoom)));
-        el("jpeg").setAttribute("class", zoom ? "lp-fig-box" : "lp-fig-box-accent");
-        el("from-jpeg").setAttribute("opacity", zoom ? "0" : "1");
-        el("from-raw").setAttribute("opacity", zoom ? "1" : "0");
-        el("lp-work").textContent = zoom ? "Decodes the RAW data at full size" : "Your edits on the camera's JPEG";
-        draw(LC);
-        summary();
-      }
-
-      function run() {
-        cancelAnimationFrame(frame);
+        const summary = "Next photo: LightPhotos shows it in 0.10 s, because it developed it in advance. LightCraft takes 0.97 s.";
         if (reduce.matches) {
           draw(LC);
-          summary();
+          readout.textContent = summary;
           return;
         }
         readout.textContent = "Next photo…";
@@ -482,13 +509,12 @@ import Base from "../../layouts/Base.astro";
           const t = Math.max(0, now - start) / 1000;
           draw(t);
           if (t < LC) frame = requestAnimationFrame(tick);
-          else summary();
+          else readout.textContent = summary;
         };
         frame = requestAnimationFrame(tick);
       }
 
-      viewBtns.forEach((b) => b.addEventListener("click", () => setView(b.dataset.view === "zoom")));
-      nextBtn.addEventListener("click", run);
+      btns.forEach((b) => b.addEventListener("click", () => show(b.dataset.act!)));
     }
   </script>
   <script>
@@ -500,7 +526,7 @@ import Base from "../../layouts/Base.astro";
     const STEPS: Record<string, Step> = {
       open: {
         lp: { ok: true, a: "Reads the folder in place. 0 MB copied.", b: "The browser asks once for access to it." },
-        lc: { ok: true, a: "Copies all 498 MB into browser storage.", b: "The copy is part of its 2.3 s to fill the grid." },
+        lc: { ok: true, a: "Copies all 498 MB into browser storage.", b: "The copy is part of its 2.5 s to fill the grid." },
         copied: true,
         say: "LightPhotos reads the photos where they are. LightCraft copies 498 MB first.",
       },

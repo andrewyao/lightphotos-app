@@ -48,3 +48,12 @@ the mouse and keyboard alone while it runs.
 The first thumbnail's position (`FIRST_X`, `FIRST_Y` in `bench.sh`) was read
 off each app's default layout at 1600×1000 points. Check it again after either
 app's layout changes.
+
+`WIN_W` and `WIN_H` override the window size, and `FIRST_X`/`FIRST_Y` the
+click point. On a display at 1× scale, a 1600×1000 window shows a 24 MP RAW
+smaller than its 1616 px embedded JPEG, so no RAW develop happens. The October 9
+numbers used the whole 4K screen:
+
+```sh
+WIN_W=3840 WIN_H=2000 tools/desktop-bench/bench.sh lightphotos /path/LightPhotos.app 5
+```
