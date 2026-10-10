@@ -38,7 +38,18 @@ const SHOW_DISCORD = false;
     }
   } catch (e) {}
 })();
+// The web app is WebAssembly and opens folders through the File System Access
+// API, so the nav's "Open in browser" tab goes where either is missing. Set
+// before the nav is parsed so the tab never flashes in and out.
+if (typeof WebAssembly !== 'object' || typeof window.showDirectoryPicker !== 'function') {
+  document.documentElement.setAttribute('data-lp-webapp', '0');
+}
 </script>
+<style is:inline>
+  :root[data-lp-webapp="0"] [data-needs-webapp] {
+    display: none;
+  }
+</style>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="description" content={desc} />
 <title>{title}</title>
@@ -53,7 +64,7 @@ const SHOW_DISCORD = false;
     <div class="lp-header-right">
     <nav aria-label="Main">
       <a href="/downloads.html" class={active === "downloads" ? "lp-active" : undefined}><i class="ph ph-download-simple lp-nav-icon" aria-hidden="true"></i><span class="lp-nav-label">Downloads</span></a>
-      <a href="/app.html" target="_blank" rel="noopener"><i class="ph ph-app-window lp-nav-icon" aria-hidden="true"></i><span class="lp-nav-label">Open in browser<i class="ph ph-arrow-square-out lp-ext-icon" aria-hidden="true"></i></span></a>
+      <a href="/app.html" target="_blank" rel="noopener" data-needs-webapp><i class="ph ph-app-window lp-nav-icon" aria-hidden="true"></i><span class="lp-nav-label">Open in browser<i class="ph ph-arrow-square-out lp-ext-icon" aria-hidden="true"></i></span></a>
       <a href="/blogs.html" class={active === "blogs" ? "lp-active" : undefined}><i class="ph ph-article lp-nav-icon" aria-hidden="true"></i><span class="lp-nav-label">Blogs</span></a>
       <a href="/docs.html" class={active === "docs" ? "lp-active" : undefined}><i class="ph ph-question lp-nav-icon" aria-hidden="true"></i><span class="lp-nav-label">Help</span></a>
       {SHOW_DISCORD && <a class="lp-nav-glyph" href={DISCORD_INVITE} target="_blank" rel="noopener" aria-label="Join the LightPhotos Discord" title="Discord"><i class="ph ph-discord-logo" aria-hidden="true"></i></a>}
