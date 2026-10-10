@@ -1,0 +1,207 @@
+---
+import type { TimingScenario } from "./comparison-data";
+interface Props {
+  id: string;
+  title: string;
+  scale: number;
+  milestones: string[];
+  scenarios: TimingScenario[];
+  note: string;
+}
+const { id, title, scale, milestones, scenarios, note } = Astro.props;
+const fmt = (time: number) => `${time.toFixed(2)} s`;
+---
+<figure class="timing-comparison" id={id} data-timing data-scale={scale} data-scenarios={JSON.stringify(scenarios)} aria-labelledby={`${id}-title`}>
+  <header class="comparison-heading">
+    <span class="comparison-eyebrow">Explore the timing</span>
+    <h3 id={`${id}-title`}>{title}</h3>
+  </header>
+  <div class="scenario-controls" data-enhanced hidden role="group" aria-label="Photo action">
+    {scenarios.map((scenario, i) => <button type="button" data-scenario={scenario.id} aria-pressed={String(i === 0)}>{scenario.label}</button>)}
+  </div>
+  {scenarios.map((scenario) => (
+    <section data-panel={scenario.id} aria-labelledby={`${id}-${scenario.id}`}>
+      <h4 id={`${id}-${scenario.id}`}>{scenario.label}</h4>
+      <p class="explanation">{scenario.explanation}</p>
+      <div class="timing-rows">
+        {scenario.rows.map((row) => (
+          <div class="timing-row">
+            <div class="row-heading"><strong>{row.app}</strong><span data-state>Whole screen settled</span></div>
+            <div class="track" aria-hidden="true">
+              <div class="elapsed" data-elapsed>
+                {row.times.slice(0, -1).map((time, i) => <span class={`interval interval-${i}`} style={`left:${time / scale * 100}%;width:${(row.times[i + 1] - time) / scale * 100}%`}></span>)}
+                {row.times.map((time, i) => <span class={`marker marker-${i}`} style={`left:${time / scale * 100}%`}></span>)}
+              </div>
+              <span class="playhead" data-playhead style="left:100%" hidden></span>
+            </div>
+            <div class="axis" aria-hidden="true">{Array.from({ length: 5 }, (_, i) => <span>{i * scale / 4}{i === 4 ? " s" : ""}</span>)}</div>
+            <dl class="milestones" data-count={milestones.length}>
+              {row.times.map((time, i) => <div data-milestone data-time={time}><dt><span class={`key key-${i}`} aria-hidden="true"></span>{milestones[i]}</dt><dd>{fmt(time)}</dd></div>)}
+            </dl>
+          </div>
+        ))}
+      </div>
+    </section>
+  ))}
+  <div class="playback" data-enhanced hidden>
+    <div class="playback-buttons">
+      <button type="button" data-replay>Replay</button>
+      <button type="button" data-play>Play</button>
+    </div>
+    <label for={`${id}-time`}>Explore time <output data-time-output for={`${id}-time`}>{fmt(scale)}</output></label>
+    <input id={`${id}-time`} data-scrub type="range" min="0" max={scale} step="0.01" value={scale} aria-valuetext={fmt(scale)} />
+    <p class="playback-hint">Replay runs in real time. Drag the slider to inspect a moment.</p>
+  </div>
+  <p class="announcement" data-announcement aria-live="polite" aria-atomic="true"></p>
+  <figcaption>{note}</figcaption>
+</figure>
+
+<script>
+  import type { TimingScenario } from "./comparison-data";
+  document.querySelectorAll<HTMLElement>("[data-timing]").forEach((figure) => {
+    const scenarios: TimingScenario[] = JSON.parse(figure.dataset.scenarios!);
+    const scale = Number(figure.dataset.scale);
+    const buttons = figure.querySelectorAll<HTMLButtonElement>("[data-scenario]");
+    const panels = figure.querySelectorAll<HTMLElement>("[data-panel]");
+    const slider = figure.querySelector<HTMLInputElement>("[data-scrub]")!;
+    const output = figure.querySelector<HTMLOutputElement>("[data-time-output]")!;
+    const play = figure.querySelector<HTMLButtonElement>("[data-play]")!;
+    const replay = figure.querySelector<HTMLButtonElement>("[data-replay]")!;
+    const announcement = figure.querySelector<HTMLElement>("[data-announcement]")!;
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let scenario = scenarios[0];
+    let time = scale;
+    let frame = 0;
+    let playing = false;
+    const fmt = (value: number) => `${value.toFixed(2)} s`;
+    const currentPanel = () => Array.from(panels).find((panel) => panel.dataset.panel === scenario.id)!;
+
+    function draw(value: number) {
+      time = Math.min(scale, Math.max(0, value));
+      slider.value = String(time);
+      slider.setAttribute("aria-valuetext", fmt(time));
+      output.value = fmt(time);
+      currentPanel().querySelectorAll<HTMLElement>(".timing-row").forEach((row, i) => {
+        const times = scenario.rows[i].times;
+        row.querySelector<HTMLElement>("[data-elapsed]")!.style.clipPath = `inset(0 ${100 - time / scale * 100}% 0 0)`;
+        const head = row.querySelector<HTMLElement>("[data-playhead]")!;
+        head.hidden = time === scale;
+        head.style.left = `${time / scale * 100}%`;
+        let state = times.length === 3 ? "Waiting for first image" : "No visible change recorded yet";
+        if (time >= times[times.length - 1]) state = "Whole screen settled";
+        else if (times.length === 3 && time >= times[1]) state = "Sharp photo; panels still changing";
+        else if (time >= times[0]) state = times.length === 3 ? "Preview visible" : "First visible change recorded";
+        row.querySelector<HTMLElement>("[data-state]")!.textContent = state;
+        row.querySelectorAll<HTMLElement>("[data-milestone]").forEach((milestone) => {
+          milestone.dataset.pending = String(time < Number(milestone.dataset.time));
+        });
+      });
+    }
+
+    function pause() {
+      cancelAnimationFrame(frame);
+      playing = false;
+      play.textContent = "Play";
+    }
+
+    function start() {
+      if (reduce.matches) return;
+      pause();
+      if (time >= scale) draw(0);
+      playing = true;
+      play.textContent = "Pause";
+      announcement.textContent = `Playing ${scenario.label.toLowerCase()}.`;
+      const offset = time;
+      const began = performance.now();
+      const tick = (now: number) => {
+        draw(offset + (now - began) / 1000);
+        if (time < scale) frame = requestAnimationFrame(tick);
+        else {
+          pause();
+          announcement.textContent = `Replay complete. ${scenario.explanation}`;
+        }
+      };
+      frame = requestAnimationFrame(tick);
+    }
+
+    function select(id: string, announce = true) {
+      pause();
+      scenario = scenarios.find((item) => item.id === id)!;
+      panels.forEach((panel) => { panel.hidden = panel.dataset.panel !== id; });
+      buttons.forEach((button) => button.setAttribute("aria-pressed", String(button.dataset.scenario === id)));
+      draw(scale);
+      if (announce) announcement.textContent = `${scenario.label}. ${scenario.explanation}`;
+    }
+
+    buttons.forEach((button) => button.addEventListener("click", () => select(button.dataset.scenario!)));
+    replay.addEventListener("click", () => { draw(0); start(); });
+    play.addEventListener("click", () => {
+      if (playing) {
+        pause();
+        announcement.textContent = `Paused at ${fmt(time)}.`;
+      } else start();
+    });
+    slider.addEventListener("input", () => { pause(); draw(Number(slider.value)); });
+    slider.addEventListener("change", () => {
+      const states = Array.from(currentPanel().querySelectorAll<HTMLElement>(".timing-row")).map((row, i) => `${scenario.rows[i].app}: ${row.querySelector("[data-state]")!.textContent}`);
+      announcement.textContent = `${fmt(time)}. ${states.join(". ")}.`;
+    });
+    function motionPreference() {
+      pause();
+      play.hidden = reduce.matches;
+      replay.hidden = reduce.matches;
+      figure.querySelector<HTMLElement>(".playback-hint")!.textContent = reduce.matches
+        ? "Drag the slider to inspect a moment. Animated playback is disabled for reduced motion."
+        : "Replay runs in real time. Drag the slider to inspect a moment.";
+      if (reduce.matches) draw(scale);
+    }
+    reduce.addEventListener("change", motionPreference);
+    select(scenario.id, false);
+    figure.querySelectorAll<HTMLElement>("[data-enhanced]").forEach((element) => { element.hidden = false; });
+    motionPreference();
+  });
+</script>
+
+<style>
+  .timing-comparison { margin: 1.9rem 0; scroll-margin-top: 6rem; padding: clamp(1rem, 3vw, 1.5rem); border: 1px solid var(--border-subtle); border-radius: 14px; background: var(--surface-card); font-size: .9rem; line-height: 1.5; }
+  [hidden] { display: none !important; }
+  .comparison-eyebrow { font-size: .7rem; font-weight: 650; letter-spacing: .08em; text-transform: uppercase; color: var(--text-secondary); }
+  h3 { margin: .35rem 0 1rem; font-size: 1.25rem; font-weight: 600; line-height: 1.3; }
+  h4 { margin-top: 1rem; font-size: 1rem; }
+  .scenario-controls, .playback-buttons { display: flex; flex-wrap: wrap; gap: .5rem; }
+  button { min-height: 44px; padding: .55rem .85rem; border: 1px solid var(--border-strong); border-radius: 8px; background: var(--surface-input); color: var(--text-primary); font: inherit; cursor: pointer; }
+  button:hover { background: var(--surface-hover); }
+  button[aria-pressed="true"] { background: var(--lp-glow-soft); border-color: var(--border-accent); color: var(--text-link); }
+  button:focus-visible, input:focus-visible { outline: 2px solid var(--lp-accent); outline-offset: 3px; }
+  .timing-comparison p.explanation { margin-top: .5rem; color: var(--text-secondary); }
+  .timing-rows { display: grid; gap: 1.25rem; margin-top: 1.25rem; }
+  .row-heading { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .25rem .75rem; margin-bottom: .6rem; }
+  [data-state] { color: var(--text-secondary); font-size: .8rem; }
+  .track { position: relative; height: 22px; background: var(--surface-input); border-radius: 4px; }
+  .elapsed { position: absolute; inset: 0; }
+  .interval { position: absolute; height: 100%; }
+  .interval-0 { background: var(--lp-glow-soft); }
+  .interval-1 { background: var(--lp-accent); }
+  .marker { position: absolute; top: -3px; bottom: -3px; width: 2px; background: var(--text-secondary); transform: translateX(-1px); }
+  .marker-1 { background: var(--lp-accent); }
+  .marker:last-child { background: var(--text-primary); width: 3px; }
+  .playhead { position: absolute; top: -5px; bottom: -5px; width: 2px; background: var(--text-primary); transform: translateX(-1px); }
+  .axis { display: flex; justify-content: space-between; margin-top: .3rem; color: var(--text-secondary); font: .75rem var(--font-mono); }
+  .milestones { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .6rem; margin-top: .8rem; }
+  .milestones[data-count="2"] { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .milestones div { border-top: 1px solid var(--border-subtle); padding-top: .55rem; }
+  dt { color: var(--text-secondary); font-size: .78rem; }
+  dd { margin-top: .25rem; font: 600 .95rem var(--font-mono); }
+  .key { display: inline-block; width: 8px; height: 8px; margin-right: .35rem; background: var(--lp-glow-soft); border: 1px solid var(--border-accent); }
+  .key-1 { background: var(--lp-accent); }
+  .milestones div:last-child .key { background: var(--text-primary); border-color: var(--text-primary); }
+  [data-pending="true"] dd::after { content: " · pending"; font: .7rem var(--font-ui); color: var(--text-secondary); }
+  .playback { margin-top: 1.25rem; padding-top: 1rem; border-top: 1px solid var(--border-subtle); }
+  .playback label { display: flex; justify-content: space-between; gap: .5rem; margin-top: .85rem; }
+  output { font-family: var(--font-mono); }
+  input { width: 100%; height: 44px; accent-color: var(--lp-accent); cursor: pointer; }
+  .timing-comparison p.playback-hint { margin-top: 0; color: var(--text-secondary); font-size: .8rem; }
+  figcaption { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border-subtle); color: var(--text-secondary); font-size: .85rem; }
+  .announcement { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  @media (max-width: 480px) { .milestones, .milestones[data-count="2"] { grid-template-columns: 1fr; gap: .35rem; } .milestones div { display: flex; justify-content: space-between; align-items: baseline; gap: .5rem; } dd { flex-shrink: 0; } }
+</style>

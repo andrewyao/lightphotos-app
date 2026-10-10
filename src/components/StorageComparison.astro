@@ -1,0 +1,84 @@
+---
+import { storageScenarios } from "./comparison-data";
+interface Props { id: string; }
+const { id } = Astro.props;
+---
+<figure class="storage-comparison" id={id} data-storage aria-labelledby={`${id}-title`}>
+  <span class="eyebrow">Explore the storage</span>
+  <h3 id={`${id}-title`}>Where do your photos and edits live?</h3>
+  <p class="intro">Choose a scenario to compare the results. Reload and clear start from an opened library; Firefox or Safari shows a new import. These are illustrations, not actions on your files.</p>
+  <div class="scenario-controls" data-enhanced hidden role="group" aria-label="Storage scenario">
+    {storageScenarios.map((scenario, i) => <button type="button" data-scenario={scenario.id} aria-pressed={String(i === 0)}>{scenario.label}</button>)}
+  </div>
+  <div class="originals"><strong>Originals on your disk</strong><span>20 Sony RAW files · 498 MB</span><p>These files remain on disk in every scenario, for both apps.</p></div>
+  {storageScenarios.map((scenario) => (
+    <section data-panel={scenario.id} aria-labelledby={`${id}-${scenario.id}`}>
+      <h4 id={`${id}-${scenario.id}`}>{scenario.label}</h4>
+      <div class="locations">
+        <div class="location">
+          <div class="location-heading"><strong>LightPhotos</strong><span>Alongside your originals</span></div>
+          <div class="contents"><code>.lightphotos/</code><p>Ratings, edits and thumbnails on disk.<br />No second copy of the originals.</p></div>
+          <p class="status">{scenario.lp.status}</p>
+          <p class="detail">{scenario.lp.detail}</p>
+        </div>
+        <div class="location">
+          <div class="location-heading"><strong>LightCraft</strong><span>Inside this browser</span></div>
+          <div class="contents"><strong>{scenario.copied ? "498 MB of copied originals" : "Browser library cleared"}</strong><p>{scenario.copied ? "Copies, catalog and saved edits in browser storage." : "Copied originals, catalog and saved edits removed."}</p></div>
+          <p class="status">{scenario.lc.status}</p>
+          <p class="detail">{scenario.lc.detail}</p>
+        </div>
+      </div>
+      <p class="summary">{scenario.summary}</p>
+    </section>
+  ))}
+  <p class="announcement" data-announcement aria-live="polite" aria-atomic="true"></p>
+  <figcaption>The browser library is separate from your original files. Saved LightPhotos data moves with its folder; LightCraft's browser library stays in that browser.</figcaption>
+</figure>
+
+<script>
+  import { storageScenarios } from "./comparison-data";
+  document.querySelectorAll<HTMLElement>("[data-storage]").forEach((figure) => {
+    const buttons = figure.querySelectorAll<HTMLButtonElement>("[data-scenario]");
+    const panels = figure.querySelectorAll<HTMLElement>("[data-panel]");
+    const announcement = figure.querySelector<HTMLElement>("[data-announcement]")!;
+    function select(id: string, announce = true) {
+      panels.forEach((panel) => { panel.hidden = panel.dataset.panel !== id; });
+      buttons.forEach((button) => button.setAttribute("aria-pressed", String(button.dataset.scenario === id)));
+      const scenario = storageScenarios.find((item) => item.id === id)!;
+      if (announce) announcement.textContent = `${scenario.label}. ${scenario.summary}`;
+    }
+    buttons.forEach((button) => button.addEventListener("click", () => select(button.dataset.scenario!)));
+    select(storageScenarios[0].id, false);
+    figure.querySelector<HTMLElement>("[data-enhanced]")!.hidden = false;
+  });
+</script>
+
+<style>
+  .storage-comparison { margin: 1.9rem 0; scroll-margin-top: 6rem; padding: clamp(1rem, 3vw, 1.5rem); border: 1px solid var(--border-subtle); border-radius: 14px; background: var(--surface-card); font-size: .9rem; line-height: 1.5; }
+  [hidden] { display: none !important; }
+  .eyebrow { font-size: .7rem; font-weight: 650; letter-spacing: .08em; text-transform: uppercase; color: var(--text-secondary); }
+  h3 { margin-top: .35rem; font-size: 1.25rem; font-weight: 600; line-height: 1.3; }
+  .storage-comparison p.intro { margin-top: .65rem; color: var(--text-secondary); }
+  .scenario-controls { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1rem; }
+  button { min-height: 44px; padding: .55rem .85rem; border: 1px solid var(--border-strong); border-radius: 8px; background: var(--surface-input); color: var(--text-primary); font: inherit; cursor: pointer; }
+  button:hover { background: var(--surface-hover); }
+  button[aria-pressed="true"] { background: var(--lp-glow-soft); border-color: var(--border-accent); color: var(--text-link); }
+  button:focus-visible { outline: 2px solid var(--lp-accent); outline-offset: 3px; }
+  .originals { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .25rem .5rem; padding: 1rem; margin-top: 1.25rem; border: 1px solid var(--border-subtle); border-radius: 8px; }
+  .originals span { color: var(--text-secondary); font-size: .8rem; }
+  .storage-comparison .originals p { margin: .25rem 0 0; width: 100%; font-size: .8rem; color: var(--text-secondary); }
+  h4 { margin: 1rem 0 .65rem; font-size: 1rem; }
+  .locations { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .75rem; }
+  .location { padding: 1rem; background: var(--surface-input); border-radius: 8px; overflow-wrap: anywhere; }
+  .location-heading { display: flex; flex-direction: column; gap: .25rem; }
+  .location-heading span { font-size: .75rem; color: var(--text-secondary); }
+  .contents { margin-top: .85rem; padding-bottom: .85rem; border-bottom: 1px solid var(--border-strong); font-size: .85rem; }
+  .storage-comparison .contents p { margin: .4rem 0 0; color: var(--text-secondary); font-size: .8rem; }
+  code { font-family: var(--font-mono); }
+  .storage-comparison p.status { margin-top: .85rem; font-weight: 600; }
+  .storage-comparison p.detail { margin-top: .4rem; font-size: .85rem; }
+  .storage-comparison p.summary { margin-top: .85rem; }
+  figcaption { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border-subtle); color: var(--text-secondary); font-size: .85rem; }
+  .announcement { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  @media (max-width: 540px) { .locations { grid-template-columns: 1fr; } }
+</style>

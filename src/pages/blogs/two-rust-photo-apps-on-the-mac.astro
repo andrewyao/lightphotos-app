@@ -1,5 +1,7 @@
 ---
 import Base from "../../layouts/Base.astro";
+import TimingComparison from "../../components/TimingComparison.astro";
+import { macTimings } from "../../components/comparison-data";
 ---
 <Base
   title="Two Rust photo apps on the Mac — LightPhotos Blog"
@@ -17,10 +19,9 @@ import Base from "../../layouts/Base.astro";
           time</a>, on the desktop. On the Mac, LightPhotos hands its decodes
           to Apple, while
           <a href="https://github.com/storytold/lightcraft">LightCraft</a>
-          does every decode in its own Rust. That changes which app is faster,
-          and where.
+          does every decode in its own Rust.
         </p>
-        <p class="lp-article-byline">Andrew Yao &middot; 9 min read</p>
+        <p class="lp-article-byline">Andrew Yao &middot; 8 min read</p>
       </header>
 
       <aside class="lp-tldr">
@@ -30,12 +31,9 @@ import Base from "../../layouts/Base.astro";
           display, LightPhotos filled its grid in 0.85&nbsp;s to
           LightCraft's 1.37&nbsp;s, with 1.2&nbsp;GB of memory to
           1.4&nbsp;GB. The next photo was a tie: 0.55&nbsp;s against
-          0.60&nbsp;s, both at the floor of what my script can measure. Both
-          apps develop the photos on either side ahead of time, so the arrow
-          key finds the work already done.
+          0.60&nbsp;s, both at the floor of what my script can measure.
         </p>
       </aside>
-
 
       <h2>What changes on the desktop</h2>
       <p>
@@ -66,9 +64,9 @@ import Base from "../../layouts/Base.astro";
           <strong>LightCraft has far more finished features.</strong>
           LightPhotos is for going through a folder fast, keeping the good
           photos and giving them quick edits. LightCraft is already a full
-          Lightroom-style editor, with masks, tone curves, colour grading,
+          Lightroom-style editor, with masks, colour grading,
           healing, lens corrections, presets, versions, history, HDR and
-          panorama merges, albums, stacks and export to six formats. Keep
+          panorama merges, albums, and export to six formats. Keep
           that in mind with every number below.
         </li>
       </ul>
@@ -90,13 +88,8 @@ import Base from "../../layouts/Base.astro";
             </tr>
             <tr>
               <th scope="row">A RAW at fit-to-window</th>
-              <td class="lp-compare-pick">The embedded JPEG if it is big enough for the window, otherwise ImageIO's develop at the window's size, up to 4096&nbsp;px</td>
+              <td class="lp-compare-pick">ImageIO's develop at the window's size, up to 4096&nbsp;px</td>
               <td>Its own develop, up to 2560&nbsp;px</td>
-            </tr>
-            <tr>
-              <th scope="row">The photos on either side</th>
-              <td class="lp-compare-pick">Developed at the window's size</td>
-              <td>Fully developed</td>
             </tr>
             <tr>
               <th scope="row">HEIC</th>
@@ -142,22 +135,9 @@ import Base from "../../layouts/Base.astro";
         them.
       </p>
       <p>
-        LightPhotos deliberately has no catalog. There is no list of your
-        folders and no import step. You open a folder, and everything the app
-        knows about it is in the <code>.lightphotos</code> folder inside it.
-        I tried a central catalog first, and it lost track of ratings every
-        time someone moved a folder to another drive (see <a
-        href="/blogs/where-your-data-lives.html">where your data lives</a>).
-        With nothing central, there is nothing to get out of step with the
-        disk. You can move, copy, rename or delete a folder in Finder, and
-        the app does not need to know.
-      </p>
-      <p>
-        The cost is that LightPhotos sees one folder at a time. It cannot
-        search across a year of shoots or put photos from two folders in one
-        album. The next step is to let you open several folders at once,
-        not to add a catalog. Each folder will still own its own data, and
-        the app will only remember which folders you have open.
+        LightPhotos deliberately has no catalog. It just operates on your folders.
+        You open a folder, and everything the app knows about it is in the <code>.lightphotos</code> folder inside it.
+        You can move, copy, rename or delete a folder in Finder, and the app does not need to know.
       </p>
 
       <h2>How I measured</h2>
@@ -185,6 +165,16 @@ import Base from "../../layouts/Base.astro";
         0.5&nbsp;s. The script, <code>tools/desktop-bench</code>, only looks
         at the window, so it works on any Mac app.
       </p>
+
+      <h2>Opening a photo and moving to the next</h2>
+      <TimingComparison
+        id="mac-timing-demo"
+        title="What the measurement actually sees"
+        scale={2}
+        milestones={["First visible change", "Whole screen settled"]}
+        scenarios={macTimings}
+        note="Fixed 0–2 s scale. Medians of five runs, full screen on a 4K display. The capture method has an approximately 0.5 s floor. The next-photo difference is below its resolving power. These are whole-window measurements, not sharp-photo timings, and cannot be compared directly with the browser test."
+      />
 
       <h2>The numbers</h2>
       <div class="lp-compare-wrap">
@@ -218,12 +208,12 @@ import Base from "../../layouts/Base.astro";
               <td>1.37&nbsp;s</td>
             </tr>
             <tr>
-              <th scope="row">Open the first photo: reacts / finished</th>
+              <th scope="row">Open the first photo: first change / screen settled</th>
               <td class="lp-compare-pick">0.57 / 1.46&nbsp;s</td>
               <td>0.67 / 0.67&nbsp;s</td>
             </tr>
             <tr>
-              <th scope="row">Next photo, each (median of 8): reacts / finished</th>
+              <th scope="row">Next photo, each (median of 8): first change / screen settled</th>
               <td class="lp-compare-pick">0.55 / 0.55&nbsp;s</td>
               <td>0.60 / 0.60&nbsp;s</td>
             </tr>
@@ -310,10 +300,15 @@ import Base from "../../layouts/Base.astro";
       <p>
         ImageIO is not free in every sense. The photos look the way Apple
         develops them, which is not the same as LightPhotos on Linux, on
-        Windows or in the browser. LightPhotos supports only the cameras
-        that Apple supports, when Apple supports them. When ImageIO decodes
-        a file incorrectly, I cannot fix it. <code>CIRAWFilter</code> runs
+        Windows or in the browser. I calibrated LightPhotos to match ImageIO's output,
+        so that the photos on the different platforms look the same.
+
+        LightPhotos on Mac supports only the cameras that Apple supports, when Apple supports them.
+        When ImageIO decodes a file incorrectly, I cannot fix it. <code>CIRAWFilter</code> runs
         the same RAW engine, so it changes none of this.
+
+        LightPhotos on Windows, Linux, and in the browser supports all cameras that rawler supports,
+        when rawler supports them.
       </p>
       <p>
         LightCraft gets the opposite trade. One decoder and one develop

@@ -1,5 +1,8 @@
 ---
 import Base from "../../layouts/Base.astro";
+import TimingComparison from "../../components/TimingComparison.astro";
+import StorageComparison from "../../components/StorageComparison.astro";
+import { browserTimings } from "../../components/comparison-data";
 ---
 <Base
   title="Two Rust photo apps in the browser — LightPhotos Blog"
@@ -14,75 +17,33 @@ import Base from "../../layouts/Base.astro";
         <p class="lp-article-dek">
           <a href="https://github.com/storytold/lightcraft">LightCraft</a>
           is another wonderful Lightroom replacement, written in Rust, that
-          runs in a browser tab. Here is what I learned when I put it next to
-          LightPhotos. I include some measurements, but they are not a fully
-          equal comparison.
+          runs in a browser tab. LightPhotos does the same but with some major differences.
+          Here are some comparisons I made.
         </p>
-        <p class="lp-article-byline">Andrew Yao &middot; 9 min read</p>
+        <p class="lp-article-byline">Andrew Yao &middot; 8 min read</p>
       </header>
 
       <aside class="lp-tldr">
         <p class="lp-tldr-label">TL;DR</p>
         <p>
           Both apps are Rust and egui compiled to WebAssembly. The compressed
-          downloads are 3.6&nbsp;MB and 3.8&nbsp;MB. I tested them full
-          screen on a 4K display with twenty Sony RAW files. Both apps
-          prepare the next photo before you press the arrow key, so both are
-          fast: the sharp photo was on screen in 0.07&nbsp;s in LightPhotos
-          and in 0.12&nbsp;s in LightCraft. A photo that you open from the
-          grid is not prepared. There, the sharp photo took 1.4&nbsp;s in
-          LightPhotos and 3.6&nbsp;s in LightCraft. LightPhotos filled its
-          grid in 1.4&nbsp;s and LightCraft in 2.3&nbsp;s. LightCraft used
-          about 40% more memory.
+          downloads are 3.6&nbsp;MB and 3.8&nbsp;MB. Performance-wise, they are very similar,
+          where LightPhotos is slightly faster. The major difference is how they handle your photos:
         </p>
+        <ul class="lp-article-list">
+          <li>LightPhotos reads the photos from your disk in place and saves its data in a <code>.lightphotos</code> folder inside it. This only works in Chrome and Edge.</li>
+          <li>LightCraft copies the photos into the browser's own storage. This works in every modern browser, but it means a second copy of every photo in your browser's storage.</li>
+        </ul>
       </aside>
 
-      <figure class="lp-figure lp-try" id="start-demo">
-        <div class="lp-try-controls">
-          <button type="button" class="lp-try-btn" data-act="next" aria-pressed="true">Next photo</button>
-          <button type="button" class="lp-try-btn" data-act="open" aria-pressed="false">Open from the grid</button>
-        </div>
-        <svg viewBox="0 0 640 220" role="img" aria-label="What is on screen after the key press, full screen on a 4K display. Next photo: LightPhotos shows the sharp photo at 0.07 seconds and the screen settles at 0.13 seconds. LightCraft shows a preview at 0.05 seconds, the sharp photo at 0.12 seconds, and the screen settles at 1.70 seconds, when the histogram stops changing. Open from the grid: LightPhotos shows the camera's JPEG at 0.15 seconds and the sharp photo at 1.37 seconds. LightCraft shows a preview at 0.06 seconds and the sharp photo at 3.6 seconds.">
-          <text class="lp-fig-label" x="0" y="12">WHAT IS ON SCREEN AFTER THE KEY PRESS</text>
-
-          <text class="lp-fig-t" x="0" y="57">LightPhotos</text>
-          <rect class="lp-fig-panel" x="120" y="42" width="380" height="20" rx="3"></rect>
-          <rect class="lp-fig-box-accent" data-el="lp-pre" x="133.3" y="42" width="0" height="20"></rect>
-          <rect class="lp-fig-bar" data-el="lp-sharp" x="133.3" y="42" width="366.7" height="20"></rect>
-          <path class="lp-fig-line" data-el="lp-mark" d="M144.7 36 V68" stroke-width="2"></path>
-          <text class="lp-fig-t" data-el="lp-sharp-t" x="512" y="52">Sharp 0.07 s</text>
-          <text class="lp-fig-s" data-el="lp-mark-t" x="512" y="68">Settled 0.13 s</text>
-
-          <text class="lp-fig-t" x="0" y="113">LightCraft</text>
-          <rect class="lp-fig-panel" x="120" y="98" width="380" height="20" rx="3"></rect>
-          <rect class="lp-fig-box-accent" data-el="lc-pre" x="129.5" y="98" width="13.3" height="20"></rect>
-          <rect class="lp-fig-bar" data-el="lc-sharp" x="142.8" y="98" width="357.2" height="20"></rect>
-          <path class="lp-fig-line" data-el="lc-mark" d="M443 92 V124" stroke-width="2"></path>
-          <text class="lp-fig-t" data-el="lc-sharp-t" x="512" y="108">Sharp 0.12 s</text>
-          <text class="lp-fig-s" data-el="lc-mark-t" x="512" y="124">Settled 1.70 s</text>
-
-          <path class="lp-fig-line-soft" d="M120 140 H500 M120 136 V144 M215 136 V144 M310 136 V144 M405 136 V144 M500 136 V144"></path>
-          <text class="lp-fig-s" x="120" y="158" text-anchor="middle">0</text>
-          <text class="lp-fig-s" data-el="tick1" x="215" y="158" text-anchor="middle">0.5</text>
-          <text class="lp-fig-s" data-el="tick2" x="310" y="158" text-anchor="middle">1.0</text>
-          <text class="lp-fig-s" data-el="tick3" x="405" y="158" text-anchor="middle">1.5</text>
-          <text class="lp-fig-s" data-el="tick4" x="500" y="158" text-anchor="middle">2.0 s</text>
-
-          <rect class="lp-fig-box-accent" x="0" y="178" width="14" height="10"></rect>
-          <text class="lp-fig-s" x="20" y="187">Preview or camera JPEG</text>
-          <rect class="lp-fig-bar" x="170" y="178" width="14" height="10"></rect>
-          <text class="lp-fig-s" x="190" y="187">Sharp photo</text>
-          <path class="lp-fig-line" d="M290 176 V190" stroke-width="2"></path>
-          <text class="lp-fig-s" x="298" y="187">The whole screen stops changing</text>
-          <text class="lp-fig-s" x="0" y="214">Bars run in real time. Medians of 5 runs, Chrome, full screen on a 4K display.</text>
-        </svg>
-        <p class="lp-try-readout" aria-live="polite">Next photo: both apps show the sharp photo almost at once. LightCraft's histogram changes until 1.70 s.</p>
-        <figcaption>
-          Both apps prepare the next photo before you press the arrow key. A
-          photo that you open from the grid is not prepared, so both apps
-          show a quick image first and the sharp photo later.
-        </figcaption>
-      </figure>
+      <TimingComparison
+        id="start-demo"
+        title="When the photo is sharp and when the screen settles"
+        scale={4}
+        milestones={["First image", "Sharp photo", "Whole screen settled"]}
+        scenarios={browserTimings}
+        note="Fixed 0–4 s scale for both actions. Medians of five runs in Chrome, full screen on a 4K display. Screenshots were taken about every 70 ms; 0.07 s is the first frame after the key press."
+      />
 
       <h2>Same language, different answers</h2>
       <p>
@@ -168,75 +129,13 @@ import Base from "../../layouts/Base.astro";
         </table>
       </div>
 
-      <p>
-        The Mac app decodes with Apple's ImageIO, so it does not include
-        rawler. LightCraft also has many more features. LightPhotos is for
-        going through a folder fast, keeping the good photos and giving them
-        quick edits. LightCraft is a full Lightroom-style editor, with masks,
-        tone curves, colour grading, healing, lens corrections, presets,
-        versions, history, HDR and panorama merges, export to six formats,
-        and albums, smart albums and stacks.
-      </p>
-
       <h2>Import is the biggest difference</h2>
       <p>
         The row in the table that you feel first is the one about your
         photos. The two apps answer "where are my photos?" in opposite ways.
       </p>
 
-      <figure class="lp-figure lp-try" id="import-demo">
-        <div class="lp-try-controls" role="group" aria-label="What you do">
-          <button type="button" class="lp-try-btn" data-act="open" aria-pressed="true">Open 20 photos</button>
-          <button type="button" class="lp-try-btn" data-act="reload" aria-pressed="false">Reload the page</button>
-          <button type="button" class="lp-try-btn" data-act="clear" aria-pressed="false">Clear site data</button>
-          <button type="button" class="lp-try-btn" data-act="other" aria-pressed="false">Use Firefox or Safari</button>
-        </div>
-        <svg viewBox="0 0 640 252" role="img" aria-label="Where each app keeps your photos. LightPhotos reads the folder on your disk in place and saves its data in a .lightphotos folder inside it. LightCraft copies the 498 megabytes of photos into the browser's own storage. The result for each app changes with the selected action.">
-          <text class="lp-fig-label" x="0" y="12">YOUR DISK</text>
-          <text class="lp-fig-label" x="340" y="12">BROWSER STORAGE (OPFS)</text>
-
-          <rect class="lp-fig-panel" x="0" y="24" width="300" height="108" rx="8"></rect>
-          <text class="lp-fig-mono lp-fig-t" x="14" y="46">~/Pictures/Iceland/</text>
-          <text class="lp-fig-s" x="14" y="66">20 Sony RAW files, 498 MB</text>
-          <g data-el="side">
-            <rect class="lp-fig-box-accent" x="14" y="78" width="272" height="42" rx="5"></rect>
-            <text class="lp-fig-mono lp-fig-s" x="24" y="95">.lightphotos/</text>
-            <text class="lp-fig-s" x="24" y="111">LightPhotos: ratings, edits, thumbnails</text>
-          </g>
-
-          <g data-el="copy">
-            <text class="lp-fig-s" x="304" y="54">copy</text>
-            <path class="lp-fig-line" d="M300 64 H330"></path>
-            <path class="lp-fig-arrow" d="M330 59 L340 64 L330 69 Z"></path>
-          </g>
-
-          <rect class="lp-fig-box" data-el="opfs" x="340" y="24" width="300" height="108" rx="8"></rect>
-          <text class="lp-fig-t" x="354" y="46">LightCraft library</text>
-          <text class="lp-fig-s" x="354" y="66">Catalog, presets, settings</text>
-          <rect class="lp-fig-panel" x="354" y="82" width="272" height="10" rx="5"></rect>
-          <rect class="lp-fig-bar" data-el="bar" x="354" y="82" width="272" height="10" rx="5"></rect>
-          <text class="lp-fig-s" data-el="size" x="354" y="116">Originals by content hash: 498 MB</text>
-          <path class="lp-fig-bad-stroke" data-el="opfs-x" d="M604 36 L624 56 M624 36 L604 56" display="none"></path>
-
-          <text class="lp-fig-label" x="0" y="160">RESULT</text>
-          <text class="lp-fig-t" x="0" y="186">LightPhotos</text>
-          <circle class="lp-fig-good" data-el="lp-ok" cx="122" cy="182" r="4"></circle>
-          <path class="lp-fig-bad-stroke" data-el="lp-bad" d="M118 178 L126 186 M126 178 L118 186" display="none"></path>
-          <text class="lp-fig-s" data-el="lp-1" x="136" y="186">Reads the folder in place. 0 MB copied.</text>
-          <text class="lp-fig-s" data-el="lp-2" x="136" y="202">The browser asks once for access to it.</text>
-
-          <text class="lp-fig-t" x="0" y="230">LightCraft</text>
-          <circle class="lp-fig-good" data-el="lc-ok" cx="122" cy="226" r="4"></circle>
-          <path class="lp-fig-bad-stroke" data-el="lc-bad" d="M118 222 L126 230 M126 222 L118 230" display="none"></path>
-          <text class="lp-fig-s" data-el="lc-1" x="136" y="230">Copies all 498 MB into browser storage.</text>
-          <text class="lp-fig-s" data-el="lc-2" x="136" y="246">The copy is part of its 2.3 s to fill the grid.</text>
-        </svg>
-        <p class="lp-try-readout" aria-live="polite">LightPhotos reads the photos where they are. LightCraft copies 498 MB first.</p>
-        <figcaption>
-          Pick what you do. The original files on your disk are never
-          changed by either app.
-        </figcaption>
-      </figure>
+      <StorageComparison id="import-demo" />
       <p>
         LightPhotos does not import. <strong>Open Folder</strong> calls the
         browser's <code>showDirectoryPicker</code>, you grant access to one
@@ -245,7 +144,10 @@ import Base from "../../layouts/Base.astro";
         <code>.lightphotos</code> folder inside the folder you picked (see <a
         href="/blogs/where-your-data-lives.html">where your data lives</a>),
         so you can see them in Finder or Explorer and they move with the
-        folder. The cost is that this API exists only in Chrome and Edge,
+        folder.
+      </p>
+      <p>
+        The cost is that this API exists only in Chrome and Edge,
         and after a reload the browser asks you to grant access again,
         unless you chose to allow it on every visit.
       </p>
@@ -260,9 +162,9 @@ import Base from "../../layouts/Base.astro";
         is stored once.
       </p>
       <p>
-        The cost is a second copy of every photo. Twenty Sony RAW files are
-        498&nbsp;MB, and each import puts another 498&nbsp;MB into browser
-        storage. That storage has a quota, it is invisible in Finder or
+        The cost is a second copy of every photo. The twenty Sony RAW files in this test are
+        498&nbsp;MB, so importing this set into an empty library stores a
+        second 498&nbsp;MB in browser storage. That storage has a quota, it is invisible in Finder or
         Explorer, and the browser can evict it under storage pressure, so
         LightCraft asks for persistent storage and warns you when it does
         not get it. If you clear the site's data, the library goes with it.
@@ -270,11 +172,13 @@ import Base from "../../layouts/Base.astro";
         export them.
       </p>
       <p>
-        Neither answer is wrong. A web page cannot simply open a path on
-        your disk. It can read a file you hand it once, or keep a folder you
-        granted, with the browser's permission. So an app must either ask
-        for the folder or keep its own copy. LightPhotos asks. LightCraft
-        keeps a copy.
+        LightPhotos reads the folder you choose and saves ratings and edits
+        alongside the originals. It avoids duplicating the photos, but
+        requires Chrome or Edge. LightCraft keeps a separate library in
+        browser storage, which supports file import across more browsers
+        and retains the library after a reload. Clearing site data removes
+        that library and edits you have not exported; the originals on disk
+        remain.
       </p>
 
       <h2>How I measured</h2>
@@ -389,8 +293,7 @@ import Base from "../../layouts/Base.astro";
         data and shows the sharp photo at 1.37&nbsp;s. LightCraft shows a
         preview at 0.06&nbsp;s and the sharp photo at 3.6&nbsp;s. In two of
         five runs, LightCraft was faster, at 1.25&nbsp;s. I did not find the
-        cause. Preparing ahead also has a cost: both apps develop photos
-        that you possibly never look at.
+        cause.
       </p>
       <p>
         The grid is closer. The LightPhotos decode threads take thumbnails
@@ -416,39 +319,14 @@ import Base from "../../layouts/Base.astro";
         keeps the page at 2.0&nbsp;GB.
       </p>
 
-      <h2>The same bug, again</h2>
-      <p>
-        The first time I imported the RAW files into LightCraft, all four
-        workers crashed, and then the page crashed. The console said
-        <code>time not implemented on this platform</code>. That is the bug
-        from my last post: Rust's standard <code>Instant::now()</code>
-        crashes in the browser instead of returning an error.
-      </p>
-      <p>
-        LightCraft already uses a small library that asks the browser's
-        clock everywhere else, but one timer in its RAW loader still called
-        the standard one. Tests run on the desktop, where that call works,
-        and the demo photos are not RAW files, so only a real RAW file
-        showed the bug. Swapping in the browser-safe clock is a one-line
-        fix. I made it in my local copy, so the LightCraft numbers include
-        it.
-      </p>
-      <p>
-        Both apps hit this bug in the same way, so I do not think care is
-        the answer. A compiler will not catch it, and a test only catches it
-        if it runs in a browser. The better fix is a lint that rejects
-        <code>std::time::Instant::now</code> outright, so the mistake cannot
-        get in at all.
-      </p>
-
       <h2>Wrapping up</h2>
       <p>
-        LightPhotos relies on work done ahead of time, your own folders and
-        shared memory, so it feels quick when you go through a shoot. LightCraft
-        takes on the whole RAW pipeline and a full Lightroom-style feature
-        set, keeps its library in the browser and needs no special server
-        configuration. It got all of that working in about a week. I look
-        forward to seeing where it goes. Both also run on Mac, Windows and
+        LightPhotos relies on your own folders and shared memory, so it feels
+        quick when you go through a shoot. LightCraft takes on the whole RAW
+        pipeline and a full Lightroom-style feature set, keeps its library
+        in the browser and needs no special server configuration.
+
+        I look forward to seeing where it goes. Both also run on Mac, Windows and
         Linux, and that comparison is next.
       </p>
 
@@ -464,143 +342,4 @@ import Base from "../../layouts/Base.astro";
       </nav>
     </article>
   </main>
-  <script>
-    // Replays one key press in real time: what each app has on screen, and
-    // when the whole screen stops changing.
-    type Row = { first: number; sharp: number; settled: number };
-    type Mode = { lp: Row; lc: Row; scale: number; say: string };
-
-    // Medians from the full-screen runs, in seconds. scale is the right end of the axis.
-    const MODES: Record<string, Mode> = {
-      next: {
-        lp: { first: 0.07, sharp: 0.07, settled: 0.13 },
-        lc: { first: 0.05, sharp: 0.12, settled: 1.7 },
-        scale: 2,
-        say: "Next photo: both apps show the sharp photo almost at once. LightCraft's histogram changes until 1.70 s.",
-      },
-      open: {
-        lp: { first: 0.15, sharp: 1.37, settled: 1.37 },
-        lc: { first: 0.06, sharp: 3.6, settled: 3.6 },
-        scale: 4,
-        say: "Open from the grid: LightPhotos shows the camera's JPEG at 0.15 s and the sharp photo at 1.37 s. LightCraft shows a preview at 0.06 s and the sharp photo at 3.6 s.",
-      },
-    };
-
-    const fig = document.getElementById("start-demo");
-    if (fig) {
-      const el = (name: string) => fig.querySelector(`[data-el="${name}"]`) as SVGElement;
-      const readout = fig.querySelector(".lp-try-readout") as HTMLElement;
-      const btns = fig.querySelectorAll<HTMLButtonElement>("[data-act]");
-      const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
-      const fmt = (t: number) => `${t.toFixed(2)} s`;
-      let frame = 0;
-
-      function drawRow(key: string, r: Row, scale: number, t: number) {
-        const px = 380 / scale;
-        const x = (s: number) => String(120 + s * px);
-        el(`${key}-pre`).setAttribute("x", x(r.first));
-        el(`${key}-pre`).setAttribute("width", String(Math.max(0, Math.min(t, r.sharp) - r.first) * px));
-        el(`${key}-sharp`).setAttribute("x", x(r.sharp));
-        el(`${key}-sharp`).setAttribute("width", String(Math.max(0, t - r.sharp) * px));
-        const y = key === "lp" ? 36 : 92;
-        el(`${key}-mark`).setAttribute("d", `M${x(r.settled)} ${y} V${y + 32}`);
-        el(`${key}-mark`).setAttribute("opacity", t >= r.settled ? "1" : "0");
-        el(`${key}-sharp-t`).textContent = t >= r.sharp ? `Sharp ${fmt(r.sharp)}` : `Sharp …`;
-        el(`${key}-mark-t`).textContent = t >= r.settled ? `Settled ${fmt(r.settled)}` : `Settled …`;
-      }
-
-      function show(act: string) {
-        cancelAnimationFrame(frame);
-        const m = MODES[act];
-        btns.forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.act === act)));
-        for (let i = 1; i <= 4; i++) {
-          const v = ((m.scale * i) / 4).toFixed(1);
-          el(`tick${i}`).textContent = i === 4 ? `${v} s` : v;
-        }
-        const draw = (t: number) => {
-          drawRow("lp", m.lp, m.scale, t);
-          drawRow("lc", m.lc, m.scale, t);
-        };
-        if (reduce.matches) {
-          draw(m.scale);
-          readout.textContent = m.say;
-          return;
-        }
-        readout.textContent = "…";
-        const start = performance.now();
-        const tick = (now: number) => {
-          const t = Math.min(m.scale, Math.max(0, now - start) / 1000);
-          draw(t);
-          if (t < m.scale) frame = requestAnimationFrame(tick);
-          else readout.textContent = m.say;
-        };
-        frame = requestAnimationFrame(tick);
-      }
-
-      btns.forEach((b) => b.addEventListener("click", () => show(b.dataset.act!)));
-    }
-  </script>
-  <script>
-    // Shows where each app keeps the photos, and what one action does to each.
-    type Line = { ok: boolean; a: string; b: string };
-    type Step = { lp: Line; lc: Line; copied: boolean; say: string };
-
-    // Each line restates a fact from the post.
-    const STEPS: Record<string, Step> = {
-      open: {
-        lp: { ok: true, a: "Reads the folder in place. 0 MB copied.", b: "The browser asks once for access to it." },
-        lc: { ok: true, a: "Copies all 498 MB into browser storage.", b: "The copy is part of its 2.3 s to fill the grid." },
-        copied: true,
-        say: "LightPhotos reads the photos where they are. LightCraft copies 498 MB first.",
-      },
-      reload: {
-        lp: { ok: false, a: "Asks for access to the folder again,", b: "unless you allowed it on every visit." },
-        lc: { ok: true, a: "The library is still there.", b: "No prompt." },
-        copied: true,
-        say: "After a reload, LightCraft's library is waiting. LightPhotos must ask for the folder.",
-      },
-      clear: {
-        lp: { ok: true, a: "Nothing lost. Ratings and edits are in", b: ".lightphotos, on your disk." },
-        lc: { ok: false, a: "The library and its copies are gone.", b: "Edits you did not export are lost." },
-        copied: false,
-        say: "Clearing the site's data empties browser storage. Your disk is not touched.",
-      },
-      other: {
-        lp: { ok: false, a: "No folder access in these browsers,", b: "so it cannot open the folder." },
-        lc: { ok: true, a: "Works. It needs only the file dialog", b: "and browser storage." },
-        copied: true,
-        say: "LightPhotos needs Chrome or Edge. LightCraft runs in every modern browser.",
-      },
-    };
-
-    const fig = document.getElementById("import-demo");
-    if (fig) {
-      const el = (name: string) => fig.querySelector(`[data-el="${name}"]`) as SVGElement;
-      const show = (name: string, on: boolean) => el(name).setAttribute("display", on ? "inline" : "none");
-      const readout = fig.querySelector(".lp-try-readout") as HTMLElement;
-      const btns = fig.querySelectorAll<HTMLButtonElement>("[data-act]");
-
-      const line = (key: string, l: Line) => {
-        show(`${key}-ok`, l.ok);
-        show(`${key}-bad`, !l.ok);
-        el(`${key}-1`).textContent = l.a;
-        el(`${key}-2`).textContent = l.b;
-      };
-
-      const render = (act: string) => {
-        const s = STEPS[act];
-        btns.forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.act === act)));
-        el("side").setAttribute("opacity", act === "other" ? "0.3" : "1");
-        el("copy").setAttribute("opacity", s.copied ? "1" : "0");
-        el("bar").setAttribute("width", s.copied ? "272" : "0");
-        el("size").textContent = s.copied ? "Originals by content hash: 498 MB" : "Empty. Cleared with the site's data.";
-        show("opfs-x", !s.copied);
-        line("lp", s.lp);
-        line("lc", s.lc);
-        readout.textContent = s.say;
-      };
-
-      btns.forEach((b) => b.addEventListener("click", () => render(b.dataset.act!)));
-    }
-  </script>
 </Base>
