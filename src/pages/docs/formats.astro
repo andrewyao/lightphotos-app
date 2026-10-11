@@ -12,13 +12,14 @@ import Docs from "../../layouts/Docs.astro";
   <ul class="lp-article-list">
     <li>
       <strong>RAW</strong> &mdash; Sony ARW, Canon CR2 / CR3, Nikon NEF,
-      Fujifilm RAF, Panasonic RW2, Olympus / OM System ORF, Pentax PEF and
-      DNG (Leica, Pentax, iPhone ProRAW, Pixel), rendered non-destructively
+      Fujifilm RAF, Panasonic RW2, Olympus / OM System ORF, Pentax PEF,
+      Samsung SRW and DNG (Leica, Pentax, iPhone ProRAW, Pixel), rendered non-destructively
       like everything else.
     </li>
     <li>
-      <strong>Ordinary images</strong> &mdash; JPEG and TIFF on every
-      platform, and <strong>HEIC in the macOS build only</strong>.
+      <strong>Ordinary images</strong> &mdash; JPEG, PNG and TIFF on every
+      platform. HEIC / HEIF, GIF and BMP open <strong>in the macOS build
+      only</strong>.
     </li>
   </ul>
 
@@ -27,8 +28,7 @@ import Docs from "../../layouts/Docs.astro";
     iPhones shoot, and on macOS it decodes through Apple's own ImageIO
     framework. The Windows, Linux and browser builds have no decoder for it
     &mdash; no pure-Rust HEIC decoder exists to build them on &mdash; so
-    there, HEIC files are left out of the grid rather than opened
-    half-working. Shooting or converting to JPEG keeps a folder readable on
+    there, HEIC files appear in the grid but do not open. Shooting or converting to JPEG keeps a folder readable on
     every platform.
   </p>
   <h2>Tested cameras</h2>

@@ -19,8 +19,7 @@ import Base from "../../layouts/Base.astro";
         <p class="lp-article-dek">
           LightPhotos is for photographers who want to get through a shoot fast,
           make good edits, and export, without a subscription or a cloud
-          account. It is not a full Lightroom replacement yet. This post says
-          where it wins and where it falls short.
+          account. It is not a full Lightroom replacement yet.
         </p>
         <p class="lp-article-byline">Andrew Yao &middot; 3 min read</p>
       </header>
@@ -31,8 +30,8 @@ import Base from "../../layouts/Base.astro";
           <thead>
             <tr>
               <th scope="col"></th>
-              <th scope="col" class="lp-compare-pick">LightPhotos</th>
-              <th scope="col">Adobe Lightroom</th>
+              <th scope="col" class="lp-compare-pick" style="width: 33%;">LightPhotos</th>
+              <th scope="col" style="width: 33%;">Adobe Lightroom</th>
             </tr>
           </thead>
           <tbody>
@@ -58,7 +57,7 @@ import Base from "../../layouts/Base.astro";
             </tr>
             <tr>
               <th scope="row">Download size</th>
-              <td class="lp-compare-pick">Under 12MB on macOS, 20MB on Windows, 28MB on Linux</td>
+              <td class="lp-compare-pick">Under 12MB on macOS, under 30MB on Windows and Linux</td>
               <td>Gigabytes</td>
             </tr>
             <tr>
@@ -68,13 +67,8 @@ import Base from "../../layouts/Base.astro";
             </tr>
             <tr>
               <th scope="row">Culling</th>
-              <td class="lp-compare-pick">Keyboard-first: 0&ndash;5 stars, pick and reject flags, colour labels, instant 100% zoom, stacks with side-by-side compare</td>
+              <td class="lp-compare-pick">Stars, flags, colour labels, stacks</td>
               <td>Stars, flags, colour labels, stacks</td>
-            </tr>
-            <tr>
-              <th scope="row">Global edits</th>
-              <td class="lp-compare-pick">Exposure, contrast, highlights, shadows, whites, blacks, white balance, vibrance, saturation, denoise, black &amp; white, Auto Adjust, and a point tone curve with RGB and per-channel curves</td>
-              <td>All of these and many more</td>
             </tr>
             <tr>
               <th scope="row">Crop and rotate</th>
@@ -83,7 +77,7 @@ import Base from "../../layouts/Base.astro";
             </tr>
             <tr>
               <th scope="row">Lens corrections</th>
-              <td class="lp-compare-pick">Chromatic aberration removal, measured from the photo</td>
+              <td class="lp-compare-pick">Chromatic aberration. Lens distortion correction coming soon.</td>
               <td>Lens profiles for distortion and vignetting, chromatic aberration, defringe</td>
             </tr>
             <tr>
@@ -93,7 +87,7 @@ import Base from "../../layouts/Base.astro";
             </tr>
             <tr>
               <th scope="row">Export</th>
-              <td class="lp-compare-pick">JPEG at the size you choose, or straight to Immich</td>
+              <td class="lp-compare-pick">Various formats at the size you choose, or straight to Immich</td>
               <td>JPEG, TIFF, PNG, DNG and more, plus print and web publishing</td>
             </tr>
           </tbody>
@@ -102,28 +96,22 @@ import Base from "../../layouts/Base.astro";
 
       <h2>Where LightPhotos wins</h2>
       <ul class="lp-article-list">
-        <li><strong>Speed through a shoot.</strong> Number keys rate, arrows move, Space checks focus at 100%. Previews render on the GPU, and folders open without an import step.</li>
-        <li><strong>Picking the best of a burst.</strong> Stack the frames and click <strong>Compare Photos in Stack</strong>. Every frame zooms into the same spot, so a closed eye or missed focus shows at a glance. Promote the winner and reject the rest without leaving the view. See <a href="/docs/compare-a-stack.html">Compare a stack</a>.</li>
-        <li><strong>A fast start on every edit.</strong> <strong>Auto Adjust</strong> sets the tone sliders from each photo&rsquo;s own histogram, for one photo or a whole selection. <strong>Black &amp; White</strong> turns a selection black and white, or back to colour, in one click.</li>
-        <li><strong>Your files stay yours.</strong> There is no catalog to migrate and no cloud to sync. Edits sit in a small <code>.lightphotos</code> folder beside the photos, and the originals are never modified.</li>
-        <li><strong>Nothing to pay, nothing to sign up for.</strong> Download it, or open the <a href="/app.html">web app</a> in Chrome and point it at a folder.</li>
-        <li><strong>It runs on Linux.</strong> Native ARM and x86 builds. See <a href="/blogs/linux-raw-photo-editor.html">LightPhotos on Linux</a>.</li>
+        <li><strong>Lightweight and fast.</strong> Opens instantly, with GPU-accelerated previews and no import step. Folder browsing is smooth and immediate.</li>
+        <li><strong>No accounts, no registration, fully local.</strong> There’s nothing to sign up for. Your photos and edits stay on your computer unless you export them to your own Immich server.</li>
+        <li><strong>Free to use.</strong> Download and go, or use the <a href="/app.html">web app</a> in Chrome. No cost, no nags, no subscriptions.</li>
+        <li><strong>Streamlined culling and rating.</strong> Use number keys and arrow keys for fast selection. Instantly compare frames in a burst to pick the best shot. See <a href="/docs/compare-a-stack.html">Compare a stack</a>.</li>
+        <li><strong>Quick edits for every photo.</strong> <strong>Auto Adjust</strong> analyzes each photo’s histogram, and <strong>Black &amp; White</strong> or color toggles are one-click for batches or singles.</li>
+        <li><strong>Native Linux support.</strong> Runs on macOS, Windows and Linux, on ARM and x86. See <a href="/blogs/linux-raw-photo-editor.html">LightPhotos on Linux</a>.</li>
       </ul>
 
       <h2>What LightPhotos does not do yet</h2>
       <ul class="lp-article-list">
         <li>No masks, brushes, gradients or AI selections. Spot removal is the only local tool.</li>
-        <li>No HSL panel, colour grading or presets. The tone curve is a point curve only, with no parametric sliders.</li>
+        <li>No presets. The tone curve is a point curve only, with no parametric sliders.</li>
         <li>Chromatic aberration is the only lens correction. No lens profiles, distortion or vignetting correction, and no perspective correction.</li>
         <li>No keywords, collections, maps, face recognition or print module.</li>
-        <li>JPEG is the only export format.</li>
         <li>Some cameras are limited outside macOS. See <a href="/docs/formats.html">tested cameras</a>.</li>
       </ul>
-      <p>
-        If you rely on masks or a large preset library every day, keep Lightroom
-        for those edits. LightPhotos can still be the fast first pass: cull the
-        shoot here, then take the keepers elsewhere.
-      </p>
 
       <h2>Try it</h2>
       <p>

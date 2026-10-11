@@ -15,10 +15,9 @@ import { browserTimings } from "../../components/comparison-data";
         <p class="lp-article-meta"><a href="/blogs.html">Blogs</a> &middot; <time datetime="2026-10-07">October 7, 2026</time></p>
         <h1>Two Rust photo apps in the browser</h1>
         <p class="lp-article-dek">
-          <a href="https://github.com/storytold/lightcraft">LightCraft</a>
+          <a href="https://github.com/storytold/lightcraft" target="_blank">LightCraft</a>
           is another wonderful Lightroom replacement, written in Rust, that
           runs in a browser tab. LightPhotos does the same but with some major differences.
-          Here are some comparisons I made.
         </p>
         <p class="lp-article-byline">Andrew Yao &middot; 8 min read</p>
       </header>
@@ -28,7 +27,7 @@ import { browserTimings } from "../../components/comparison-data";
         <p>
           Both apps are Rust and egui compiled to WebAssembly. The compressed
           downloads are 3.6&nbsp;MB and 3.8&nbsp;MB. Performance-wise, they are very similar,
-          where LightPhotos is slightly faster. The major difference is how they handle your photos:
+          where LightPhotos is faster. The major difference is how they handle your photos:
         </p>
         <ul class="lp-article-list">
           <li>LightPhotos reads the photos from your disk in place and saves its data in a <code>.lightphotos</code> folder inside it. This only works in Chrome and Edge.</li>
@@ -60,8 +59,8 @@ import { browserTimings } from "../../components/comparison-data";
           <thead>
             <tr>
               <th scope="col"></th>
-              <th scope="col" class="lp-compare-pick">LightPhotos</th>
-              <th scope="col">LightCraft</th>
+              <th scope="col" class="lp-compare-pick" style="width: 45%;">LightPhotos</th>
+              <th scope="col" style="width: 45%;">LightCraft</th>
             </tr>
           </thead>
           <tbody>
@@ -117,7 +116,7 @@ import { browserTimings } from "../../components/comparison-data";
             </tr>
             <tr>
               <th scope="row">After a reload</th>
-              <td class="lp-compare-pick">Reopen Session continues from where you stopped</td>
+              <td class="lp-compare-pick">Your folders are listed again. Click one and allow access to continue</td>
               <td>Library is still there</td>
             </tr>
             <tr>

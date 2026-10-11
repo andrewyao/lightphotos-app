@@ -40,18 +40,18 @@ export const docGroups: DocGroup[] = [
       },
       {
         slug: "compare-a-stack",
-        title: "Compare a stack",
-        dek: "Group a burst into one stack, compare every frame at the same spot, and keep the best one on top.",
+        title: "Compare photos",
+        dek: "Group a burst into one stack, or select up to six photos, and compare every frame at the same spot.",
       },
       {
         slug: "adjust",
         title: "Adjust the settings",
-        dek: "White balance, tone, presence, detail, touch-ups and crop — every one of them reversible.",
+        dek: "Tone, color mixing and grading, detail, effects, touch-ups and crop — every one of them reversible.",
       },
       {
         slug: "export",
         title: "Export",
-        dek: "Bake your edits into brand-new JPEGs and leave the originals exactly as they were.",
+        dek: "Bake your edits into new JPEG, PNG, TIFF, WebP or AVIF files, and leave the originals exactly as they were.",
       },
       {
         slug: "immich",

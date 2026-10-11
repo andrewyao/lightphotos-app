@@ -32,7 +32,7 @@ export const browserTimings: TimingScenario[] = [
 export const macTimings: TimingScenario[] = [
   {
     id: "open", label: "Open first photo",
-    explanation: "The first photo has not been prepared. These measurements record the first visible change and when the whole window stops changing; they do not identify when the photo becomes sharp.",
+    explanation: "Nothing prepared the first photo. The script records the first change and the time when the whole window stops changing. It cannot see when the photo becomes sharp.",
     rows: [
       { app: "LightPhotos", times: [0.57, 1.46] },
       { app: "LightCraft", times: [0.67, 0.67] },
@@ -40,7 +40,7 @@ export const macTimings: TimingScenario[] = [
   },
   {
     id: "next", label: "Next photo",
-    explanation: "Both apps prepare neighbouring photos. The 0.55 s and 0.60 s results are at the measurement floor: this method cannot resolve a meaningful difference between them.",
+    explanation: "Both apps prepare the photos on each side. The 0.55 s and 0.60 s results are at the lowest value that the script can measure. The difference is too small to see.",
     rows: [
       { app: "LightPhotos", times: [0.55, 0.55] },
       { app: "LightCraft", times: [0.60, 0.60] },
