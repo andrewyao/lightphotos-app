@@ -38,15 +38,17 @@ const SHOW_DISCORD = false;
     }
   } catch (e) {}
 })();
-// The web app is WebAssembly and opens folders through the File System Access
-// API, so the nav's "Open in browser" tab goes where either is missing. Set
-// before the nav is parsed so the tab never flashes in and out.
-if (typeof WebAssembly !== 'object' || typeof window.showDirectoryPicker !== 'function') {
+// The web app is WebAssembly, renders with WebGPU and opens folders through
+// the File System Access API, so links to it (the nav's "Open in browser" tab,
+// WebAppLink) give way where any is missing. Set before the nav is parsed so
+// nothing flashes in and out.
+if (typeof WebAssembly !== 'object' || !navigator.gpu || typeof window.showDirectoryPicker !== 'function') {
   document.documentElement.setAttribute('data-lp-webapp', '0');
 }
 </script>
 <style is:inline>
-  :root[data-lp-webapp="0"] [data-needs-webapp] {
+  :root[data-lp-webapp="0"] [data-needs-webapp],
+  :root:not([data-lp-webapp="0"]) [data-lacks-webapp] {
     display: none;
   }
 </style>

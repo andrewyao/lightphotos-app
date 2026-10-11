@@ -1,5 +1,6 @@
 ---
 import Docs from "../../layouts/Docs.astro";
+import WebAppLink from "../../components/WebAppLink.astro";
 ---
 <Docs slug="open-the-app">
   <p>
@@ -16,9 +17,14 @@ import Docs from "../../layouts/Docs.astro";
   <ul class="lp-article-list">
     <li>
       <strong>In a browser.</strong>
-      <a href="/app.html">Open the web app</a> &mdash; nothing to install and
-      nothing to update. It renders on the GPU, so Chrome or any browser with
-      WebGPU enabled will run it.
+      <WebAppLink>
+        <a href="/app.html">Open the web app</a> &mdash; nothing to install and
+        nothing to update.
+        <span slot="fallback">The web app is not available in your current
+        browser. Use Chrome instead.</span>
+      </WebAppLink>
+      It renders on the GPU, so Chrome or any browser with WebGPU enabled will
+      run it.
     </li>
     <li>
       <strong>As a desktop app.</strong>

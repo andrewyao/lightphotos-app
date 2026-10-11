@@ -1,0 +1,6 @@
+---
+// Links to the web app where this browser can run it; elsewhere shows the
+// fallback slot instead, which should point the reader to Chrome. Base.astro
+// decides which before first paint.
+---
+<span data-needs-webapp><slot /></span><span data-lacks-webapp><slot name="fallback" /></span>

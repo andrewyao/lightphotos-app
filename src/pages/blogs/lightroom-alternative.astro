@@ -1,5 +1,6 @@
 ---
 import Base from "../../layouts/Base.astro";
+import WebAppLink from "../../components/WebAppLink.astro";
 
 // Post aimed at people searching for a Lightroom alternative. The
 // "What LightPhotos does not do yet" section is the point: overclaiming here
@@ -121,7 +122,13 @@ import Base from "../../layouts/Base.astro";
       <h2>Try it</h2>
       <p>
         <a href="/downloads.html">Download LightPhotos</a> for macOS, Windows or
-        Linux, or <a href="/app.html">open the web app</a>. The
+        Linux.
+        <WebAppLink>
+          Or <a href="/app.html">open the web app</a>.
+          <span slot="fallback">The web app is not available in your current
+          browser. Use Chrome instead.</span>
+        </WebAppLink>
+        The
         <a href="/docs.html">help pages</a> walk through a whole shoot in five
         short steps.
       </p>
