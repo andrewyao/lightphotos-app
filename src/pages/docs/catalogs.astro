@@ -1,0 +1,101 @@
+---
+import Docs from "../../layouts/Docs.astro";
+---
+<Docs slug="catalogs">
+  <p>
+    A catalog is a named list of folders: the folders in the Folders panel on
+    the left. Keep one for family photos and another for client work, and
+    switch between them. LightPhotos opens the catalog you used last, or one
+    called <strong>default</strong> the first time.
+  </p>
+
+  <p>
+    The open catalog's name sits in the header, after the LightPhotos
+    wordmark. Click it for the catalog menu.
+  </p>
+
+  <ul class="lp-article-list">
+    <li>
+      <strong>Make a catalog.</strong> Choose <strong>New Catalog&hellip;</strong>
+      from the catalog menu and give it a name. The desktop app asks where to
+      save it, starting in <code>~/Pictures/LightPhotos/</code>. A new
+      catalog has no folders; click
+      <strong>Add Folder</strong> above the Folders list to fill it. The
+      desktop app also has <strong>New Catalog&hellip;</strong> in the macOS
+      File menu.
+    </li>
+    <li>
+      <strong>Switch catalogs.</strong> The catalog menu lists your recent
+      catalogs, newest first. Click one to open it, and the Folders panel
+      shows that catalog's folders.
+    </li>
+    <li>
+      <strong>Open a catalog from disk.</strong> In the desktop app, choose
+      <strong>Open Catalog&hellip;</strong> and pick a
+      <code>.lightphotos</code> folder. Use this for a catalog you copied
+      from another computer or keep somewhere other than the usual place.
+    </li>
+    <li>
+      <strong>Add and remove folders.</strong> Adding or removing a folder
+      changes only the open catalog. The same folder can be in several
+      catalogs. Removing it from one never touches its photos or edits.
+    </li>
+  </ul>
+
+  <h2>What a catalog holds</h2>
+  <p>
+    Two things: the list of folders, and a copy of the star ratings, flags
+    and color labels of the photos in them. Develop edits, presets and
+    thumbnails are not in the catalog. They stay in the
+    <code>.lightphotos</code> folder next to your photos, as before.
+  </p>
+  <p>
+    Your folders are still the real record. LightPhotos writes every rating
+    and edit next to the photo first, and the catalog's copy follows. If you
+    delete a catalog, you lose its list of folders, not your work. Add the
+    folders to another catalog and everything is there.
+  </p>
+  <h2>What it is for: search</h2>
+  <p>
+    LightPhotos will use what the catalog stores to search and filter across
+    every folder in it at once, for example every five-star photo or every
+    pick, without opening each folder. Today the Grid still shows one folder
+    at a time and nothing reads the copy yet; search comes in a later
+    release.
+  </p>
+
+  <h2>Where catalogs are stored</h2>
+  <div class="lp-compare-wrap">
+    <table class="lp-compare">
+      <thead>
+        <tr>
+          <th scope="col">App</th>
+          <th scope="col">Where it goes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Desktop</strong></td>
+          <td>A folder named <code>&lt;name&gt;.lightphotos</code>, by default in <code>~/Pictures/LightPhotos/</code></td>
+        </tr>
+        <tr>
+          <td><strong>Web</strong></td>
+          <td>Your browser's storage for this site. Each browser has its own catalogs.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>
+    The web app has no <strong>Open Catalog&hellip;</strong>, because a
+    browser cannot keep a catalog in a folder on disk. Its catalog menu lists
+    every catalog made in that browser. If you clear the site's data, the
+    browser forgets its catalogs and its access to your folders. Your photos
+    and edits stay in the folders.
+  </p>
+
+  <p>
+    If the last catalog cannot be read at launch, LightPhotos opens
+    <strong>default</strong> instead and says so. It tries the last one again at the next launch.
+  </p>
+</Docs>

@@ -29,6 +29,11 @@ export const docGroups: DocGroup[] = [
         dek: "Point LightPhotos at a folder that is already on your disk. There is no import step to sit through.",
       },
       {
+        slug: "catalogs",
+        title: "Catalogs",
+        dek: "Keep separate lists of folders, such as family photos and client work, and switch between them from the header.",
+      },
+      {
         slug: "browse",
         title: "Browse the folder",
         dek: "A grid of thumbnails you can rate, filter and select, decoded as they scroll into view.",
@@ -71,7 +76,7 @@ export const docGroups: DocGroup[] = [
       {
         slug: "formats",
         title: "Supported formats",
-        dek: "The files LightPhotos opens on each platform — including the one macOS gets on its own — and the three kinds of file it writes next to them.",
+        dek: "The files LightPhotos opens on each platform — including the one macOS gets on its own — the three kinds of file it writes next to them, and the catalog that lists your folders.",
       },
     ],
   },

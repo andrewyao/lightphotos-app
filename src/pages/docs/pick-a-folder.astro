@@ -3,10 +3,12 @@ import Docs from "../../layouts/Docs.astro";
 ---
 <Docs slug="pick-a-folder">
   <p>
-    The home page has one main button: <strong>Open Folder</strong>. Pick the folder holding the shoot you want to work on. LightPhotos scans it and
-    fills the grid right away &mdash; and there is no import step, nothing to
-    copy into a library, no central catalog to wait for. The files stay exactly where
-    they are.
+    The first time you open LightPhotos, the home page has one main button:
+    <strong>Open Folder</strong>. Pick the folder holding the shoot you want
+    to work on. LightPhotos scans it and fills the grid right away &mdash;
+    and there is no import step, nothing to copy into a library. The files
+    stay exactly where they are. Once you have added a folder, the home page
+    lists your folders on the left instead; click one to open it.
   </p>
 
   <ul class="lp-article-list">
@@ -18,11 +20,17 @@ import Docs from "../../layouts/Docs.astro";
     </li>
     <li>
       <strong>Keep several folders at hand.</strong> Click
-      <strong>Add Folder</strong> under the Folders list on the left, or
+      <strong>Add Folder</strong> above the Folders list on the left, or
       press <kbd>Cmd+O</kbd>. Each folder stays in the list; click one to
       show its photos. To take a folder off the list, right-click it and
       choose <strong>Remove Folder from LightPhotos</strong>. Its photos and
       edits stay on disk.
+    </li>
+    <li>
+      <strong>Keep separate lists.</strong> The Folders list belongs to the
+      open catalog, named in the header. Make another catalog to keep, say,
+      client work apart from family photos &mdash; see
+      <a href="/docs/catalogs.html">catalogs</a>.
     </li>
     <li>
       <strong>Pick up where you left off.</strong> The desktop app reopens
@@ -34,8 +42,9 @@ import Docs from "../../layouts/Docs.astro";
       <strong>Your settings live next to your photos.</strong> Ratings, labels
       and edits are written into a <code>.lightphotos</code> folder inside the
       folder you opened. Move the folder and the edits travel with it; delete
-      that folder and you lose the edits, never the photos. There is no
-      database somewhere else holding your work hostage.
+      that folder and you lose the edits, never the photos. The catalog
+      keeps only a copy of the ratings, flags and labels, so nothing
+      somewhere else holds your work hostage.
     </li>
     <li>
       <strong>Only some files show up.</strong> The grid lists the formats
