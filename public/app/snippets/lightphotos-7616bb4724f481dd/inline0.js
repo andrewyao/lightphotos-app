@@ -1,11 +1,13 @@
 
-const STORE = "handles";
-const PREFIX = "folder:";
-const LEGACY = "root";
-function openDb() {
+const DB = "lightphotos-catalogs";
+const CATALOGS = "catalogs";
+const MARKS = "marks";
+function open(name, stores) {
   return new Promise((resolve, reject) => {
-    const req = indexedDB.open("lightphotos-folders", 1);
-    req.onupgradeneeded = () => req.result.createObjectStore(STORE);
+    const req = indexedDB.open(name, 1);
+    req.onupgradeneeded = () => {
+      for (const store of stores) req.result.createObjectStore(store);
+    };
     req.onsuccess = () => resolve(req.result);
     req.onerror = () => reject(req.error);
   });
@@ -16,78 +18,57 @@ function request(req) {
     req.onerror = () => reject(req.error);
   });
 }
-// One transaction. `body` must issue its requests without awaiting anything
-// else, or the transaction commits under it.
-async function run(mode, body) {
-  const db = await openDb();
+// One transaction on `store` of the open `db`. `body` must issue its
+// requests without awaiting anything else, or the transaction commits
+// under it.
+async function txn(db, store, mode, body) {
+  const tx = db.transaction(store, mode);
+  const done = new Promise((resolve, reject) => {
+    tx.oncomplete = () => resolve();
+    tx.onerror = () => reject(tx.error);
+    tx.onabort = () => reject(tx.error);
+  });
+  const [out] = await Promise.all([body(tx.objectStore(store)), done]);
+  return out;
+}
+async function run(store, mode, body) {
+  const db = await open(DB, [CATALOGS, MARKS]);
   try {
-    const tx = db.transaction(STORE, mode);
-    const done = new Promise((resolve, reject) => {
-      tx.oncomplete = () => resolve();
-      tx.onerror = () => reject(tx.error);
-      tx.onabort = () => reject(tx.error);
-    });
-    const out = await body(tx.objectStore(STORE));
-    await done;
-    return out;
+    return await txn(db, store, mode, body);
   } finally {
     db.close();
   }
 }
-function uniqueName(base, taken) {
-  if (!taken.includes(base)) return base;
-  for (let n = 2; ; n++) {
-    const name = `${base} (${n})`;
-    if (!taken.includes(name)) return name;
-  }
+export async function catalogNames() {
+  const keys = await run(CATALOGS, "readonly", (s) => request(s.getAllKeys()));
+  return keys.filter((k) => typeof k === "string");
 }
-// Every kept folder as [name, handle], after moving the legacy entry.
-async function keptFolders() {
-  const [keys, handles] = await run("readonly", (s) =>
+// The stored record as JSON, or null when there is none.
+export async function getCatalog(name) {
+  const value = await run(CATALOGS, "readonly", (s) => request(s.get(name)));
+  return value === undefined ? null : String(JSON.stringify(value));
+}
+export async function putValue(store, key, json) {
+  const value = JSON.parse(json);
+  await run(store, "readwrite", (s) => request(s.put(value, key)));
+}
+export async function deleteValue(store, key) {
+  await run(store, "readwrite", (s) => request(s.delete(key)));
+}
+// Forget the kept handle of `folder` unless a catalog other than `name`
+// lists it. True when it was forgotten. The check and the forget run here
+// together, so nothing on the Rust side can come between them.
+export async function forgetFolderIfUnlisted(name, folder) {
+  const [keys, values] = await run(CATALOGS, "readonly", (s) =>
     Promise.all([request(s.getAllKeys()), request(s.getAll())]));
-  const kept = [];
-  let legacy = null;
-  keys.forEach((key, i) => {
-    if (key === LEGACY) legacy = handles[i];
-    else if (typeof key === "string" && key.startsWith(PREFIX)) {
-      kept.push([key.slice(PREFIX.length), handles[i]]);
-    }
-  });
-  if (legacy) {
-    const name = uniqueName(legacy.name, kept.map(([n]) => n));
-    await run("readwrite", (s) => {
-      s.put(legacy, PREFIX + name);
-      s.delete(LEGACY);
-    });
-    kept.push([name, legacy]);
+  const lists = (v) => Array.isArray(v?.folders) && v.folders.some((f) =>
+    typeof f === "string" && (f === folder || f.startsWith(folder + "/")));
+  if (keys.some((k, i) => k !== name && lists(values[i]))) return false;
+  const db = await open("lightphotos-folders", ["handles"]);
+  try {
+    await txn(db, "handles", "readwrite", (s) => request(s.delete("folder:" + folder)));
+  } finally {
+    db.close();
   }
-  return kept;
-}
-export async function savedFolderNames() {
-  return (await keptFolders()).map(([name]) => name);
-}
-// The kept name of `handle`'s folder, keeping it under a new unique name
-// if it isn't kept yet.
-export async function keepFolder(handle) {
-  const kept = await keptFolders();
-  for (const [name, other] of kept) {
-    if (await other.isSameEntry(handle)) return name;
-  }
-  const name = uniqueName(handle.name, kept.map(([n]) => n));
-  await run("readwrite", (s) => { s.put(handle, PREFIX + name); });
-  return name;
-}
-export async function grantedFolder(name, ask) {
-  await keptFolders();
-  const handle = await run("readonly", (s) => request(s.get(PREFIX + name)));
-  if (!handle) throw new Error("no saved folder");
-  const mode = { mode: "readwrite" };
-  if ((await handle.queryPermission(mode)) !== "granted"
-      && (!ask || (await handle.requestPermission(mode)) !== "granted")) {
-    throw new Error("folder access denied");
-  }
-  return handle;
-}
-export async function forgetFolder(name) {
-  await run("readwrite", (s) => { s.delete(PREFIX + name); });
+  return true;
 }
