@@ -133,3 +133,77 @@ warm-up RGBA buffers in the ignored `rasters/` directory for visual inspection.
 The fair shared-set total is the sum of per-file medians for only files all
 three decoded successfully in every round. An all-files total is incomplete
 when any file fails; missing work must not be scored as zero milliseconds.
+
+## Full-resolution rendering
+
+Use the same persistent-worker benchmark at each file's original developed
+dimensions:
+
+```sh
+python3 tools/raw-bench/display.py --trials 5 --full-resolution
+```
+
+This writes `results/display-full.json` and leaves the 2560-pixel results alone.
+The native output dimensions come from the pinned original compatibility report.
+Apple's RAW scale factor is fixed at 1. LightCraft's loader receives an unlimited
+maximum edge, so its bin-factor selection returns no preview binning. Rawler
+develops at full size as before; an unnecessary resize is skipped when its
+developed dimensions already match the target. Final dimension normalization
+still handles any differences in crop or rounding between the engines.
+
+Both tests end at CPU-readable sRGB RGBA8, with the same five-round protocol,
+default processing and GPU access. Full-resolution does not mean a 16-bit export:
+it changes spatial resolution only. Warm-up rasters are not saved at full size
+unless `--save-rasters` is added, to avoid several gigabytes of inspection files.
+The report records adapter source hashes and whether preview reduction was used.
+
+## Matched sharpening and color noise reduction
+
+Use `--matched-detail` for the controlled processing comparison used by the blog:
+
+```sh
+python3 tools/raw-bench/check-detail.py
+python3 tools/raw-bench/display.py --trials 5 --matched-detail
+python3 tools/raw-bench/display.py --trials 5 --full-resolution --matched-detail
+```
+
+These runs write `display-2560-detail.json` and `display-full-detail.json`.
+They supersede the mixed-processing timings in the article. The older files
+remain diagnostic records and must not be combined with the new results.
+
+Every successful base conversion goes through the **same shared Metal detail
+worker**, using LightCraft's filter implementation: sharpening amount 40,
+radius 1, detail 25, masking 0; color noise reduction 25 with default detail and
+smoothness; luminance noise reduction 0. The pixel radii use the same original
+file dimensions for each engine. The shared pass adds no profile look (profile
+amount 0), white-balance edit, exposure or tone edit. It converts each sRGB input
+to linear Rec.2020, applies the detail filters, and returns sRGB RGBA8.
+
+LightCraft's native sharpening/color NR are disabled in its base conversion.
+Apple's configurable sharpness, detail enhancement, luminance NR and color NR
+are set to zero when each control is supported; the per-file flags are saved.
+An ImageIO fallback is refused because those controls cannot be disabled through
+that API. Rawler's default development has no sharpening edit or NR stage.
+Processing already baked into a camera file, and differences within each RAW
+engine's color/tone reconstruction, cannot be made identical by these controls.
+
+The Python runner uses an ignored RGBA bridge file so Swift and Rust can share
+one filter worker. All three engines use this bridge, including LightCraft.
+The base interval ends at its completed sRGB buffer; the detail interval starts
+after reading the bridge and includes color-space conversion, allocations,
+upload, filtering, display encoding and GPU readback. The reported processing
+time is the sum of these two intervals. Bridge-file I/O, IPC, validation and
+saving inspection rasters are excluded equally. The report keeps both stage
+times, both backends and both output checksums.
+
+`check-detail.py` uses a deterministic noisy edge image to check that disabling
+both filters preserves the input within 3 levels, each filter changes pixels,
+and the combined output differs from either filter alone. It also checks that
+the common worker uses Metal rather than a CPU fallback.
+
+This is a **controlled conversion plus identical detail filters** benchmark,
+not each app's native/default editing path. It does not establish equal final
+quality or application browsing speed. It deliberately includes an intermediate
+display buffer and another GPU upload/readback for every engine; a real app
+could fuse some of that work. The named settings are the common implementation's
+parameters, not equivalences between the native apps' sliders.

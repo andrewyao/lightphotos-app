@@ -14,6 +14,8 @@ lightcraft-engine = { path = "../../../../lightcraft/crates/engine" }
 lightcraft-develop = { path = "../../../../lightcraft/crates/develop" }
 lightcraft-pipeline = { path = "../../../../lightcraft/crates/pipeline" }
 lightcraft-gpu = { path = "../../../../lightcraft/crates/gpu" }
+lightcraft-raster = { path = "../../../../lightcraft/crates/raster" }
+lightcraft-color = { path = "../../../../lightcraft/crates/color" }
 
 [[bin]]
 name = "display-bench"

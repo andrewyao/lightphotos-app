@@ -10,13 +10,25 @@ func render(_ request: [String: Any]) -> [String: Any] {
     let path = request["path"] as! String
     let width = request["width"] as! Int
     let height = request["height"] as! Int
+    let fullResolution = request["full_resolution"] as? Bool ?? false
+    let matchedDetail = request["matched_detail"] as? Bool ?? false
     let url = URL(fileURLWithPath: path)
     let start = DispatchTime.now().uptimeNanoseconds
     var output = [UInt8](repeating: 0, count: width * height * 4)
     var route = "Core Image"
+    var disabled: [String: Bool] = [:]
     if let filter = CIRAWFilter(imageURL: url) {
+        if matchedDetail {
+            disabled = ["sharpness": filter.isSharpnessSupported, "detail": filter.isDetailSupported,
+                "color_noise_reduction": filter.isColorNoiseReductionSupported,
+                "luminance_noise_reduction": filter.isLuminanceNoiseReductionSupported]
+            if filter.isSharpnessSupported { filter.sharpnessAmount = 0 }
+            if filter.isDetailSupported { filter.detailAmount = 0 }
+            if filter.isColorNoiseReductionSupported { filter.colorNoiseReductionAmount = 0 }
+            if filter.isLuminanceNoiseReductionSupported { filter.luminanceNoiseReductionAmount = 0 }
+        }
         let size = filter.nativeSize
-        filter.scaleFactor = min(1, Float(max(width, height)) / Float(max(size.width, size.height)))
+        filter.scaleFactor = fullResolution ? 1 : min(1, Float(max(width, height)) / Float(max(size.width, size.height)))
         guard let image = filter.outputImage else { return ["status": "error", "error": "no RAW output"] }
         let extent = image.extent
         let aligned = image.transformed(by: CGAffineTransform(translationX: -extent.minX, y: -extent.minY))
@@ -26,6 +38,9 @@ func render(_ request: [String: Any]) -> [String: Any] {
                 bounds: CGRect(x: 0, y: 0, width: width, height: height), format: .RGBA8, colorSpace: space)
         }
     } else {
+        if matchedDetail {
+            return ["status": "error", "error": "ImageIO fallback cannot disable native detail controls"]
+        }
         route = "ImageIO fallback"
         guard let source = CGImageSourceCreateWithURL(url as CFURL, nil),
               let image = CGImageSourceCreateImageAtIndex(source, 0, nil) else {
@@ -45,7 +60,7 @@ func render(_ request: [String: Any]) -> [String: Any] {
     let checksum = output.reduce(UInt64(0)) { $0 &+ UInt64($1) }
     if let save = request["save"] as? String { try! Data(output).write(to: URL(fileURLWithPath: save)) }
     return ["status": "ok", "total_ms": elapsed, "width": width, "height": height,
-        "bytes": output.count, "checksum": checksum, "backend": route]
+        "bytes": output.count, "checksum": checksum, "backend": route, "native_detail_disabled": disabled]
 }
 print("{\"ready\":true}")
 fflush(stdout)

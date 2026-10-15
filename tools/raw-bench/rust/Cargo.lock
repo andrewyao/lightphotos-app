@@ -2486,10 +2486,12 @@ name = "raw-engine-bench"
 version = "0.1.0"
 dependencies = [
  "image",
+ "lightcraft-color",
  "lightcraft-develop",
  "lightcraft-engine",
  "lightcraft-gpu",
  "lightcraft-pipeline",
+ "lightcraft-raster",
  "lightcraft-raw",
  "rawler",
  "rayon",

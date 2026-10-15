@@ -1,0 +1,5866 @@
+{
+  "date": "2026-10-15T23:46:16.040817+00:00",
+  "hardware": "Mac mini, Apple M4, 10 CPU cores, 16 GB RAM",
+  "platform": "macOS-26.5.2-arm64-arm-64bit-Mach-O",
+  "method": "persistent workers; discarded warmup per file; randomized sequential rounds; warm-file open to completed sRGB RGBA8, full resolution; no developed-image cache",
+  "full_resolution": true,
+  "preview_reduction": false,
+  "matched_detail": true,
+  "rayon_num_threads": "default",
+  "common_files": [
+    "arw-sony-a7m4-14bit.arw",
+    "arw-sony-a7m4-lossless-l.arw",
+    "cr2-canon-5d3.cr2",
+    "cr3-canon-r5m2-raw.cr3",
+    "cr3-canon-r5m2-craw.cr3",
+    "nef-nikon-zf-lossless.nef",
+    "raf-fuji-xa5-14bit-bayer.raf",
+    "raf-fuji-xt5-6122.raf",
+    "raf-fuji-xt5-6123.raf",
+    "rw2-panasonic-s5m2.rw2",
+    "orf-olympus-e1.orf",
+    "pef-pentax-k-r.pef",
+    "srw-samsung-nx200.srw",
+    "dng-ricoh-gr3.dng",
+    "dng-apple-iphone12pro-proraw.dng",
+    "dng-adobe-canon-5d3-linear-lj92.dng"
+  ],
+  "common_sum_of_medians_ms": {
+    "apple": 12564.423833,
+    "rawler": 13524.776582999999,
+    "lightcraft": 18008.700083
+  },
+  "warmups": [
+    {
+      "file": "arw-sony-a7m4-14bit.arw",
+      "engine": "apple",
+      "result": {
+        "backend": "Apple M4 (Metal)",
+        "bytes": 56623104,
+        "checksum": 8044124517,
+        "height": 3072,
+        "status": "ok",
+        "total_ms": 460.152958,
+        "width": 4608,
+        "detail_ms": 163.333625,
+        "base_ms": 296.819333,
+        "base_backend": "Core Image",
+        "base_checksum": 7973338755,
+        "native_detail_disabled": {
+          "color_noise_reduction": true,
+          "detail": true,
+          "luminance_noise_reduction": true,
+          "sharpness": true
+        }
+      }
+    },
+    {
+      "file": "arw-sony-a7m4-14bit.arw",
+      "engine": "rawler",
+      "result": {
+        "backend": "Apple M4 (Metal)",
+        "bytes": 56623104,
+        "checksum": 6910467425,
+        "height": 3072,
+        "status": "ok",
+        "total_ms": 355.135416,
+        "width": 4608,
+        "detail_ms": 179.785208,
+        "base_ms": 175.350208,
+        "base_backend": "CPU",
+        "base_checksum": 6876465575,
+        "native_detail_disabled": {}
+      }
+    },
+    {
+      "file": "arw-sony-a7m4-14bit.arw",
+      "engine": "lightcraft",
+      "result": {
+        "backend": "Apple M4 (Metal)",
+        "bytes": 56623104,
+        "checksum": 7777736837,
+        "height": 3072,
+        "status": "ok",
+        "total_ms": 501.09629300000006,
+        "width": 4608,
+        "detail_ms": 159.73795900000002,
+        "base_ms": 341.358334,
+        "base_backend": "Apple M4 (Metal)",
+        "base_checksum": 7679470788,
+        "native_detail_disabled": {}
+      }
+    },
+    {
+      "file": "arw-sony-a7m4-lossless-l.arw",
+      "engine": "apple",
+      "result": {
+        "backend": "Apple M4 (Metal)",
+        "bytes": 130965504,
+        "checksum": 19050806569,
+        "height": 4672,
+        "status": "ok",
+        "total_ms": 1434.36125,
+        "width": 7008,
+        "detail_ms": 805.8115,
+        "base_ms": 628.54975,
+        "base_backend": "Core Image",
+        "base_checksum": 18918974906,
+        "native_detail_disabled": {
+          "color_noise_reduction": true,
+          "detail": true,
+          "luminance_noise_reduction": true,
+          "sharpness": true
+        }
+      }
+    },
+    {
+      "file": "arw-sony-a7m4-lossless-l.arw",
+      "engine": "rawler",
+      "result": {
+        "backend": "Apple M4 (Metal)",
+        "bytes": 130965504,
+        "checksum": 16240533389,
+        "height": 4672,
+        "status": "ok",
+        "total_ms": 1004.9473330000001,
+        "width": 7008,
+        "detail_ms": 593.1626660000001,
+        "base_ms": 411.784667,
+        "base_backend": "CPU",
+        "base_checksum": 16176502978,
+        "native_detail_disabled": {}
+      }
+    },
+    {
+      "file": "arw-sony-a7m4-lossless-l.arw",
+      "engine": "lightcraft",
+      "result": {
+        "backend": "Apple M4 (Metal)",
+        "bytes": 130965504,
+        "checksum": 18411458427,
+        "height": 4672,
+        "status": "ok",
+        "total_ms": 1571.561917,
+        "width": 7008,
+        "detail_ms": 619.95425,
+        "base_ms": 951.607667,
+        "base_backend": "Apple M4 (Metal)",
+        "base_checksum": 18228458979,
+        "native_detail_disabled": {}
+      }
+    },
+    {
+      "file": "cr2-canon-5d3.cr2",
+      "engine": "apple",
+      "result": {
+        "backend": "Apple M4 (Metal)",
+        "bytes": 88473600,
+        "checksum": 12722000380,
+        "height": 3840,
+        "status": "ok",
+        "total_ms": 571.9663760000001,
+        "width": 5760,
+        "detail_ms": 281.329792,
+        "base_ms": 290.636584,
+        "base_backend": "Core Image",
+        "base_checksum": 12697230386,
+        "native_detail_disabled": {
+          "color_noise_reduction": true,
+          "detail": true,
+          "luminance_noise_reduction": true,
+          "sharpness": true
+        }
+      }
+    },
+    {
+      "file": "cr2-canon-5d3.cr2",
+      "engine": "rawler",
+      "result": {
+        "backend": "Apple M4 (Metal)",
+        "bytes": 88473600,
+        "checksum": 10815315947,
+        "height": 3840,
+        "status": "ok",
+        "total_ms": 721.418959,
+        "width": 5760,
+        "detail_ms": 240.439667,
+        "base_ms": 480.979292,
+        "base_backend": "CPU",
+        "base_checksum": 10803077327,
+        "native_detail_disabled": {}
+      }
+    },
+    {
+      "file": "cr2-canon-5d3.cr2",
+      "engine": "lightcraft",
+      "result": {
+        "backend": "Apple M4 (Metal)",
+        "bytes": 88473600,
+        "checksum": 12882525547,
+        "height": 3840,
+        "status": "ok",
+        "total_ms": 992.172333,
+        "width": 5760,
+        "detail_ms": 222.4425,
+        "base_ms": 769.729833,
+        "base_backend": "Apple M4 (Metal)",
+        "base_checksum": 12857003863,
+        "native_detail_disabled": {}
+      }
+    },
+    {
+      "file": "cr3-canon-r5m2-raw.cr3",
+      "engine": "apple",
+      "result": {
+        "backend": "Apple M4 (Metal)",
+        "bytes": 179044352,
+        "checksum": 21225464497,
+        "height": 5464,
+        "status": "ok",
+        "total_ms": 2224.7437090000003,
+        "width": 8192,
+        "detail_ms": 1565.441667,
+        "base_ms": 659.302042,
+        "base_backend": "Core Image",
+        "base_checksum": 21198873119,
+        "native_detail_disabled": {
+          "color_noise_reduction": true,
+          "detail": true,
+          "luminance_noise_reduction": true,
+          "sharpness": true
+        }
+      }
+    },
+    {
+      "file": "cr3-canon-r5m2-raw.cr3",
+      "engine": "rawler",
+      "result": {
+        "backend": "Apple M4 (Metal)",
+        "bytes": 179044352,
+        "checksum": 17405993848,
+        "height": 5464,
+        "status": "ok",
+        "total_ms": 1615.968375,
+        "width": 8192,
+        "detail_ms": 886.6147920000001,
+        "base_ms": 729.353583,
+        "base_backend": "CPU",
+        "base_checksum": 17392544274,
+        "native_detail_disabled": {}
+      }
+    },
+    {
+      "file": "cr3-canon-r5m2-raw.cr3",
+      "engine": "lightcraft",
+      "result": {
+        "backend": "Apple M4 (Metal)",
+        "bytes": 179044352,
+        "checksum": 17668568000,
+        "height": 5464,
+        "status": "ok",
+        "total_ms": 1588.062876,
+        "width": 8192,
+        "detail_ms": 677.251167,
+        "base_ms": 910.811709,
+        "base_backend": "Apple M4 (Metal)",
+        "base_checksum": 17651800140,
+        "native_detail_disabled": {}
+      }
+    },
+    {
+      "file": "cr3-canon-r5m2-craw.cr3",
+      "engine": "apple",
+      "result": {
+        "backend": "Apple M4 (Metal)",
+        "bytes": 179044352,
+        "checksum": 21244063288,
+        "height": 5464,
+        "status": "ok",
+        "total_ms": 1768.688,
+        "width": 8192,
+        "detail_ms": 977.571666,
+        "base_ms": 791.116334,
+        "base_backend": "Core Image",
+        "base_checksum": 21216418933,
+        "native_detail_disabled": {
+          "color_noise_reduction": true,
+          "detail": true,
+          "luminance_noise_reduction": true,
+          "sharpness": true
+        }
+      }
+    },
+    {
+      "file": "cr3-canon-r5m2-craw.cr3",
+      "engine": "rawler",
+      "result": {
+        "backend": "Apple M4 (Metal)",
+        "bytes": 179044352,
+        "checksum": 17419112160,
+        "height": 5464,
+        "status": "ok",
+        "total_ms": 1586.079666,
+        "width": 8192,
+        "detail_ms": 903.657458,
+        "base_ms": 682.422208,
+        "base_backend": "CPU",
+        "base_checksum": 17405209863,
+        "native_detail_disabled": {}
+      }
+    },
+    {
+      "file": "cr3-canon-r5m2-craw.cr3",
+      "engine": "lightcraft",
+      "result": {
+        "backend": "Apple M4 (Metal)",
+        "bytes": 179044352,
+        "checksum": 17681753411,
+        "height": 5464,
+        "status": "ok",
+        "total_ms": 2249.443709,
+        "width": 8192,
+        "detail_ms": 912.8457920000001,
+        "base_ms": 1336.597917,
+        "base_backend": "Apple M4 (Metal)",
+        "base_checksum": 17664472847,
+        "native_detail_disabled": {}
+      }
+    },
+    {
+      "file": "nef-nikon-zf-lossless.nef",
+      "engine": "apple",
+      "result": {
+        "backend": "Apple M4 (Metal)",
+        "bytes": 97542144,
+        "checksum": 16047982286,
+        "height": 4032,
+        "status": "ok",
+        "total_ms": 563.660959,
+        "width": 6048,
+        "detail_ms": 271.93225,
+        "base_ms": 291.728709,
+        "base_backend": "Core Image",
+        "base_checksum": 16010508255,
+        "native_detail_disabled": {
+          "color_noise_reduction": true,
+          "detail": true,
+          "luminance_noise_reduction": true,
+          "sharpness": true
+        }
+      }
+    },
+    {
+      "file": "nef-nikon-zf-lossless.nef",
+      "engine": "rawler",
+      "result": {
+        "backend": "Apple M4 (Metal)",
+        "bytes": 97542144,
+        "checksum": 13256671632,
+        "height": 4032,
+        "status": "ok",
+        "total_ms": 766.255584,
+        "width": 6048,
+        "detail_ms": 287.026334,
+        "base_ms": 479.22925,
+        "base_backend": "CPU",
+        "base_checksum": 13240000045,
+        "native_detail_disabled": {}
+      }
+    },
+    {
+      "file": "nef-nikon-zf-lossless.nef",
+      "engine": "lightcraft",
+      "result": {
+        "backend": "Apple M4 (Metal)",
+        "bytes": 97542144,
+        "checksum": 15879823080,
+        "height": 4032,
+        "status": "ok",
+        "total_ms": 934.2702079999999,
+        "width": 6048,
+        "detail_ms": 259.074458,
+        "base_ms": 675.19575,
+        "base_backend": "Apple M4 (Metal)",
+        "base_checksum": 15841872492,
+        "native_detail_disabled": {}
+      }
+    },
+    {
+      "file": "nef-nikon-zf-he.nef",
+      "engine": "apple",
+      "result": {
+        "backend": "Apple M4 (Metal)",
+        "bytes": 97542144,
+        "checksum": 16317070633,
+        "height": 4032,
+        "status": "ok",
+        "total_ms": 524.0696660000001,
+        "width": 6048,
+        "detail_ms": 272.54366600000003,
+        "base_ms": 251.526,
+        "base_backend": "Core Image",
+        "base_checksum": 16278982413,
+        "native_detail_disabled": {
+          "color_noise_reduction": true,
+          "detail": true,
+          "luminance_noise_reduction": true,
+          "sharpness": true
+        }
+      }
+    },
+    {
+      "file": "nef-nikon-zf-he.nef",
+      "engine": "rawler",
+      "result": {
+        "error": "Failed to decode image, possibly corrupt image: NEF compression Some(HighEfficency) is not supported",
+        "status": "error"
+      }
+    },
+    {
+      "file": "nef-nikon-zf-he.nef",
+      "engine": "lightcraft",
+      "result": {
+        "error": "preview-only: sensor data was not decoded",
+        "status": "error"
+      }
+    },
+    {
+      "file": "raf-fuji-xa5-14bit-bayer.raf",
+      "engine": "apple",
+      "result": {
+        "backend": "Apple M4 (Metal)",
+        "bytes": 96000000,
+        "checksum": 17278058203,
+        "height": 4000,
+        "status": "ok",
+        "total_ms": 613.293917,
+        "width": 6000,
+        "detail_ms": 419.665167,
+        "base_ms": 193.62875,
+        "base_backend": "Core Image",
+        "base_checksum": 17237257559,
+        "native_detail_disabled": {
+          "color_noise_reduction": true,
+          "detail": true,
+          "luminance_noise_reduction": true,
+          "sharpness": true
+        }
+      }
+    },
+    {
+      "file": "raf-fuji-xa5-14bit-bayer.raf",
+      "engine": "rawler",
+      "result": {
+        "backend": "Apple M4 (Metal)",
+        "bytes": 96000000,
+        "checksum": 15359112356,
+        "height": 4000,
+        "status": "ok",
+        "total_ms": 724.502209,
+        "width": 6000,
+        "detail_ms": 368.905125,
+        "base_ms": 355.597084,
+        "base_backend": "CPU",
+        "base_checksum": 15336041617,
+        "native_detail_disabled": {}
+      }
+    },
+    {
+      "file": "raf-fuji-xa5-14bit-bayer.raf",
+      "engine": "lightcraft",
+      "result": {
+        "backend": "Apple M4 (Metal)",
+        "bytes": 96000000,
+        "checksum": 17628440407,
+        "height": 4000,
+        "status": "ok",
+        "total_ms": 878.41725,
+        "width": 6000,
+        "detail_ms": 278.59387499999997,
+        "base_ms": 599.823375,
+        "base_backend": "Apple M4 (Metal)",
+        "base_checksum": 17578643753,
+        "native_detail_disabled": {}
+      }
+    },
+    {
+      "file": "raf-fuji-xt5-6122.raf",
+      "engine": "apple",
+      "result": {
+        "backend": "Apple M4 (Metal)",
+        "bytes": 159258624,
+        "checksum": 23088563461,
+        "height": 5152,
+        "status": "ok",
+        "total_ms": 1224.559917,
+        "width": 7728,
+        "detail_ms": 771.886667,
+        "base_ms": 452.67325,
+        "base_backend": "Core Image",
+        "base_checksum": 23015040702,
+        "native_detail_disabled": {
+          "color_noise_reduction": true,
+          "detail": true,
+          "luminance_noise_reduction": true,
+          "sharpness": true
+        }
+      }
+    },
+    {
+      "file": "raf-fuji-xt5-6122.raf",
+      "engine": "rawler",
+      "result": {
+        "backend": "Apple M4 (Metal)",
+        "bytes": 159258624,
+        "checksum": 20517088829,
+        "height": 5152,
+        "status": "ok",
+        "total_ms": 1327.695541,
+        "width": 7728,
+        "detail_ms": 572.340791,
+        "base_ms": 755.35475,
+        "base_backend": "CPU",
+        "base_checksum": 20481337588,
+        "native_detail_disabled": {}
+      }
+    },
+    {
+      "file": "raf-fuji-xt5-6122.raf",
+      "engine": "lightcraft",
+      "result": {
+        "backend": "Apple M4 (Metal)",
+        "bytes": 159258624,
+        "checksum": 24028065418,
+        "height": 5152,
+        "status": "ok",
+        "total_ms": 1678.1264159999998,
+        "width": 7728,
+        "detail_ms": 605.742041,
+        "base_ms": 1072.3843749999999,
+        "base_backend": "Apple M4 (Metal)",
+        "base_checksum": 23949564555,
+        "native_detail_disabled": {}
+      }
+    },
+    {
+      "file": "raf-fuji-xt5-6123.raf",
+      "engine": "apple",
+      "result": {
+        "backend": "Apple M4 (Metal)",
+        "bytes": 159258624,
+        "checksum": 23239583559,
+        "height": 5152,
+        "status": "ok",
+        "total_ms": 1278.108125,
+        "width": 7728,
+        "detail_ms": 807.1771669999999,
+        "base_ms": 470.930958,
+        "base_backend": "Core Image",
+        "base_checksum": 23168068199,
+        "native_detail_disabled": {
+          "color_noise_reduction": true,
+          "detail": true,
+          "luminance_noise_reduction": true,
+          "sharpness": true
+        }
+      }
+    },
+    {
+      "file": "raf-fuji-xt5-6123.raf",
+      "engine": "rawler",
+      "result": {
+        "backend": "Apple M4 (Metal)",
+        "bytes": 159258624,
+        "checksum": 20564649739,
+        "height": 5152,
+        "status": "ok",
+        "total_ms": 1184.512375,
+        "width": 7728,
+        "detail_ms": 485.270708,
+        "base_ms": 699.241667,
+        "base_backend": "CPU",
+        "base_checksum": 20531504520,
+        "native_detail_disabled": {}
+      }
+    },
+    {
+      "file": "raf-fuji-xt5-6123.raf",
+      "engine": "lightcraft",
+      "result": {
+        "backend": "Apple M4 (Metal)",
+        "bytes": 159258624,
+        "checksum": 24242406474,
+        "height": 5152,
+        "status": "ok",
+        "total_ms": 1419.040375,
+        "width": 7728,
+        "detail_ms": 444.493375,
+        "base_ms": 974.547,
+        "base_backend": "Apple M4 (Metal)",
+        "base_checksum": 24167024403,
+        "native_detail_disabled": {}
+      }
+    },
+    {
+      "file": "rw2-panasonic-s5m2.rw2",
+      "engine": "apple",
+      "result": {
+        "backend": "Apple M4 (Metal)",
+        "bytes": 96000000,
+        "checksum": 14241174747,
+        "height": 4000,
+        "status": "ok",
+        "total_ms": 633.1259160000001,
+        "width": 6000,
+        "detail_ms": 248.55129100000002,
+        "base_ms": 384.574625,
+        "base_backend": "Core Image",
+        "base_checksum": 14125761049,
+        "native_detail_disabled": {
+          "color_noise_reduction": true,
+          "detail": true,
+          "luminance_noise_reduction": true,
+          "sharpness": true
+        }
+      }
+    },
+    {
+      "file": "rw2-panasonic-s5m2.rw2",
+      "engine": "rawler",
+      "result": {
+        "backend": "Apple M4 (Metal)",
+        "bytes": 96000000,
+        "checksum": 12826113632,
+        "height": 4000,
+        "status": "ok",
+        "total_ms": 572.5205,
+        "width": 6000,
+        "detail_ms": 261.928333,
+        "base_ms": 310.59216699999996,
+        "base_backend": "CPU",
+        "base_checksum": 12761880975,
+        "native_detail_disabled": {}
+      }
+    },
+    {
+      "file": "rw2-panasonic-s5m2.rw2",
+      "engine": "lightcraft",
+      "result": {
+        "backend": "Apple M4 (Metal)",
+        "bytes": 96000000,
+        "checksum": 14249536613,
+        "height": 4000,
+        "status": "ok",
+        "total_ms": 952.5559169999999,
+        "width": 6000,
+        "detail_ms": 249.919542,
+        "base_ms": 702.6363749999999,
+        "base_backend": "Apple M4 (Metal)",
+        "base_checksum": 14143916003,
+        "native_detail_disabled": {}
+      }
+    },
+    {
+      "file": "orf-olympus-e1.orf",
+      "engine": "apple",
+      "result": {
+        "backend": "Apple M4 (Metal)",
+        "bytes": 19660800,
+        "checksum": 3079993187,
+        "height": 1920,
+        "status": "ok",
+        "total_ms": 104.093292,
+        "width": 2560,
+        "detail_ms": 54.623333,
+        "base_ms": 49.469959,
+        "base_backend": "Core Image",
+        "base_checksum": 3071690327,
+        "native_detail_disabled": {
+          "color_noise_reduction": true,
+          "detail": true,
+          "luminance_noise_reduction": true,
+          "sharpness": true
+        }
+      }
+    },
+    {
+      "file": "orf-olympus-e1.orf",
+      "engine": "rawler",
+      "result": {
+        "backend": "Apple M4 (Metal)",
+        "bytes": 19660800,
+        "checksum": 2900497306,
+        "height": 1920,
+        "status": "ok",
+        "total_ms": 88.390375,
+        "width": 2560,
+        "detail_ms": 42.014833,
+        "base_ms": 46.375541999999996,
+        "base_backend": "CPU",
+        "base_checksum": 2895834841,
+        "native_detail_disabled": {}
+      }
+    },
+    {
+      "file": "orf-olympus-e1.orf",
+      "engine": "lightcraft",
+      "result": {
+        "backend": "Apple M4 (Metal)",
+        "bytes": 19660800,
+        "checksum": 3002818589,
+        "height": 1920,
+        "status": "ok",
+        "total_ms": 146.990459,
+        "width": 2560,
+        "detail_ms": 41.170917,
+        "base_ms": 105.819542,
+        "base_backend": "Apple M4 (Metal)",
+        "base_checksum": 2993011102,
+        "native_detail_disabled": {}
+      }
+    },
+    {
+      "file": "orf-olympus-em1.orf",
+      "engine": "apple",
+      "result": {
+        "backend": "Apple M4 (Metal)",
+        "bytes": 63700992,
+        "checksum": 9786655600,
+        "height": 3456,
+        "status": "ok",
+        "total_ms": 395.25579100000004,
+        "width": 4608,
+        "detail_ms": 160.772791,
+        "base_ms": 234.483,
+        "base_backend": "Core Image",
+        "base_checksum": 9745948652,
+        "native_detail_disabled": {
+          "color_noise_reduction": true,
+          "detail": true,
+          "luminance_noise_reduction": true,
+          "sharpness": true
+        }
+      }
+    },
+    {
+      "file": "orf-olympus-em1.orf",
+      "engine": "rawler",
+      "result": {
+        "backend": "Apple M4 (Metal)",
+        "bytes": 63700992,
+        "checksum": 8152214883,
+        "height": 3456,
+        "status": "ok",
+        "total_ms": 426.055208,
+        "width": 4608,
+        "detail_ms": 158.51262499999999,
+        "base_ms": 267.542583,
+        "base_backend": "CPU",
+        "base_checksum": 8134216034,
+        "native_detail_disabled": {}
+      }
+    },
+    {
+      "file": "orf-olympus-em1.orf",
+      "engine": "lightcraft",
+      "result": {
+        "error": "preview-only: sensor data was not decoded",
+        "status": "error"
+      }
+    },
+    {
+      "file": "pef-pentax-k-r.pef",
+      "engine": "apple",
+      "result": {
+        "backend": "Apple M4 (Metal)",
+        "bytes": 48848896,
+        "checksum": 7088786984,
+        "height": 2848,
+        "status": "ok",
+        "total_ms": 257.654833,
+        "width": 4288,
+        "detail_ms": 130.234208,
+        "base_ms": 127.420625,
+        "base_backend": "Core Image",
+        "base_checksum": 7077714638,
+        "native_detail_disabled": {
+          "color_noise_reduction": true,
+          "detail": true,
+          "luminance_noise_reduction": true,
+          "sharpness": true
+        }
+      }
+    },
+    {
+      "file": "pef-pentax-k-r.pef",
+      "engine": "rawler",
+      "result": {
+        "backend": "Apple M4 (Metal)",
+        "bytes": 48848896,
+        "checksum": 6918813398,
+        "height": 2848,
+        "status": "ok",
+        "total_ms": 281.30925,
+        "width": 4288,
+        "detail_ms": 120.864375,
+        "base_ms": 160.444875,
+        "base_backend": "CPU",
+        "base_checksum": 6912510652,
+        "native_detail_disabled": {}
+      }
+    },
+    {
+      "file": "pef-pentax-k-r.pef",
+      "engine": "lightcraft",
+      "result": {
+        "backend": "Apple M4 (Metal)",
+        "bytes": 48848896,
+        "checksum": 6916166404,
+        "height": 2848,
+        "status": "ok",
+        "total_ms": 500.700292,
+        "width": 4288,
+        "detail_ms": 154.877542,
+        "base_ms": 345.82275,
+        "base_backend": "Apple M4 (Metal)",
+        "base_checksum": 6897860130,
+        "native_detail_disabled": {}
+      }
+    },
+    {
+      "file": "srw-samsung-nx200.srw",
+      "engine": "apple",
+      "result": {
+        "backend": "Apple M4 (Metal)",
+        "bytes": 79847424,
+        "checksum": 9201627155,
+        "height": 5472,
+        "status": "ok",
+        "total_ms": 360.42875000000004,
+        "width": 3648,
+        "detail_ms": 278.426375,
+        "base_ms": 82.002375,
+        "base_backend": "Core Image",
+        "base_checksum": 9158874242,
+        "native_detail_disabled": {
+          "color_noise_reduction": true,
+          "detail": true,
+          "luminance_noise_reduction": true,
+          "sharpness": true
+        }
+      }
+    },
+    {
+      "file": "srw-samsung-nx200.srw",
+      "engine": "rawler",
+      "result": {
+        "backend": "Apple M4 (Metal)",
+        "bytes": 79847424,
+        "checksum": 9085883282,
+        "height": 5472,
+        "status": "ok",
+        "total_ms": 553.273917,
+        "width": 3648,
+        "detail_ms": 231.93195799999998,
+        "base_ms": 321.34195900000003,
+        "base_backend": "CPU",
+        "base_checksum": 9059940459,
+        "native_detail_disabled": {}
+      }
+    },
+    {
+      "file": "srw-samsung-nx200.srw",
+      "engine": "lightcraft",
+      "result": {
+        "backend": "Apple M4 (Metal)",
+        "bytes": 79847424,
+        "checksum": 11708127973,
+        "height": 5472,
+        "status": "ok",
+        "total_ms": 772.3667909999999,
+        "width": 3648,
+        "detail_ms": 254.7505,
+        "base_ms": 517.6162909999999,
+        "base_backend": "Apple M4 (Metal)",
+        "base_checksum": 11623504581,
+        "native_detail_disabled": {}
+      }
+    },
+    {
+      "file": "dng-ricoh-gr3.dng",
+      "engine": "apple",
+      "result": {
+        "backend": "Apple M4 (Metal)",
+        "bytes": 96000000,
+        "checksum": 12705001891,
+        "height": 4000,
+        "status": "ok",
+        "total_ms": 1115.848833,
+        "width": 6000,
+        "detail_ms": 657.3518750000001,
+        "base_ms": 458.496958,
+        "base_backend": "Core Image",
+        "base_checksum": 12657844027,
+        "native_detail_disabled": {
+          "color_noise_reduction": true,
+          "detail": true,
+          "luminance_noise_reduction": true,
+          "sharpness": true
+        }
+      }
+    },
+    {
+      "file": "dng-ricoh-gr3.dng",
+      "engine": "rawler",
+      "result": {
+        "backend": "Apple M4 (Metal)",
+        "bytes": 96000000,
+        "checksum": 12139864619,
+        "height": 4000,
+        "status": "ok",
+        "total_ms": 857.3305,
+        "width": 6000,
+        "detail_ms": 391.55537499999997,
+        "base_ms": 465.775125,
+        "base_backend": "CPU",
+        "base_checksum": 12112819045,
+        "native_detail_disabled": {}
+      }
+    },
+    {
+      "file": "dng-ricoh-gr3.dng",
+      "engine": "lightcraft",
+      "result": {
+        "backend": "Apple M4 (Metal)",
+        "bytes": 96000000,
+        "checksum": 13514018137,
+        "height": 4000,
+        "status": "ok",
+        "total_ms": 1073.7423330000001,
+        "width": 6000,
+        "detail_ms": 323.863875,
+        "base_ms": 749.878458,
+        "base_backend": "Apple M4 (Metal)",
+        "base_checksum": 13451448314,
+        "native_detail_disabled": {}
+      }
+    },
+    {
+      "file": "dng-apple-iphone12pro-proraw.dng",
+      "engine": "apple",
+      "result": {
+        "backend": "Apple M4 (Metal)",
+        "bytes": 48771072,
+        "checksum": 7831031832,
+        "height": 4032,
+        "status": "ok",
+        "total_ms": 368.846624,
+        "width": 3024,
+        "detail_ms": 133.827916,
+        "base_ms": 235.018708,
+        "base_backend": "Core Image",
+        "base_checksum": 7778404650,
+        "native_detail_disabled": {
+          "color_noise_reduction": true,
+          "detail": true,
+          "luminance_noise_reduction": true,
+          "sharpness": true
+        }
+      }
+    },
+    {
+      "file": "dng-apple-iphone12pro-proraw.dng",
+      "engine": "rawler",
+      "result": {
+        "backend": "Apple M4 (Metal)",
+        "bytes": 48771072,
+        "checksum": 7091860879,
+        "height": 4032,
+        "status": "ok",
+        "total_ms": 333.351042,
+        "width": 3024,
+        "detail_ms": 119.719917,
+        "base_ms": 213.631125,
+        "base_backend": "CPU",
+        "base_checksum": 7071723264,
+        "native_detail_disabled": {}
+      }
+    },
+    {
+      "file": "dng-apple-iphone12pro-proraw.dng",
+      "engine": "lightcraft",
+      "result": {
+        "backend": "Apple M4 (Metal)",
+        "bytes": 48771072,
+        "checksum": 5838767871,
+        "height": 4032,
+        "status": "ok",
+        "total_ms": 447.019251,
+        "width": 3024,
+        "detail_ms": 131.664292,
+        "base_ms": 315.354959,
+        "base_backend": "Apple M4 (Metal)",
+        "base_checksum": 5806150911,
+        "native_detail_disabled": {}
+      }
+    },
+    {
+      "file": "dng-adobe-canon-5d3-linear-lj92.dng",
+      "engine": "apple",
+      "result": {
+        "backend": "Apple M4 (Metal)",
+        "bytes": 41817600,
+        "checksum": 6098816534,
+        "height": 2640,
+        "status": "ok",
+        "total_ms": 193.252959,
+        "width": 3960,
+        "detail_ms": 113.690792,
+        "base_ms": 79.562167,
+        "base_backend": "Core Image",
+        "base_checksum": 6087829334,
+        "native_detail_disabled": {
+          "color_noise_reduction": false,
+          "detail": false,
+          "luminance_noise_reduction": false,
+          "sharpness": false
+        }
+      }
+    },
+    {
+      "file": "dng-adobe-canon-5d3-linear-lj92.dng",
+      "engine": "rawler",
+      "result": {
+        "backend": "Apple M4 (Metal)",
+        "bytes": 41817600,
+        "checksum": 5212219103,
+        "height": 2640,
+        "status": "ok",
+        "total_ms": 192.418333,
+        "width": 3960,
+        "detail_ms": 101.215125,
+        "base_ms": 91.20320799999999,
+        "base_backend": "CPU",
+        "base_checksum": 5206903943,
+        "native_detail_disabled": {}
+      }
+    },
+    {
+      "file": "dng-adobe-canon-5d3-linear-lj92.dng",
+      "engine": "lightcraft",
+      "result": {
+        "backend": "Apple M4 (Metal)",
+        "bytes": 41817600,
+        "checksum": 5491224042,
+        "height": 2640,
+        "status": "ok",
+        "total_ms": 356.386125,
+        "width": 3960,
+        "detail_ms": 111.49766699999999,
+        "base_ms": 244.888458,
+        "base_backend": "Apple M4 (Metal)",
+        "base_checksum": 5485733069,
+        "native_detail_disabled": {}
+      }
+    }
+  ],
+  "records": [
+    {
+      "file": "arw-sony-a7m4-14bit.arw",
+      "engine": "apple",
+      "trials": [
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 56623104,
+          "checksum": 8044124517,
+          "height": 3072,
+          "status": "ok",
+          "total_ms": 327.442209,
+          "width": 4608,
+          "detail_ms": 164.31425,
+          "base_ms": 163.127959,
+          "base_backend": "Core Image",
+          "base_checksum": 7973338755,
+          "native_detail_disabled": {
+            "color_noise_reduction": true,
+            "detail": true,
+            "luminance_noise_reduction": true,
+            "sharpness": true
+          }
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 56623104,
+          "checksum": 8044124517,
+          "height": 3072,
+          "status": "ok",
+          "total_ms": 290.36575000000005,
+          "width": 4608,
+          "detail_ms": 149.83070800000002,
+          "base_ms": 140.535042,
+          "base_backend": "Core Image",
+          "base_checksum": 7973338755,
+          "native_detail_disabled": {
+            "color_noise_reduction": true,
+            "detail": true,
+            "luminance_noise_reduction": true,
+            "sharpness": true
+          }
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 56623104,
+          "checksum": 8044124517,
+          "height": 3072,
+          "status": "ok",
+          "total_ms": 295.075875,
+          "width": 4608,
+          "detail_ms": 149.65725,
+          "base_ms": 145.418625,
+          "base_backend": "Core Image",
+          "base_checksum": 7973338755,
+          "native_detail_disabled": {
+            "color_noise_reduction": true,
+            "detail": true,
+            "luminance_noise_reduction": true,
+            "sharpness": true
+          }
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 56623104,
+          "checksum": 8044124517,
+          "height": 3072,
+          "status": "ok",
+          "total_ms": 412.730376,
+          "width": 4608,
+          "detail_ms": 164.290459,
+          "base_ms": 248.439917,
+          "base_backend": "Core Image",
+          "base_checksum": 7973338755,
+          "native_detail_disabled": {
+            "color_noise_reduction": true,
+            "detail": true,
+            "luminance_noise_reduction": true,
+            "sharpness": true
+          }
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 56623104,
+          "checksum": 8044124517,
+          "height": 3072,
+          "status": "ok",
+          "total_ms": 416.999542,
+          "width": 4608,
+          "detail_ms": 201.844959,
+          "base_ms": 215.154583,
+          "base_backend": "Core Image",
+          "base_checksum": 7973338755,
+          "native_detail_disabled": {
+            "color_noise_reduction": true,
+            "detail": true,
+            "luminance_noise_reduction": true,
+            "sharpness": true
+          }
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 4608,
+      "height": 3072,
+      "median_ms": 327.442209,
+      "min_ms": 290.36575000000005,
+      "max_ms": 416.999542
+    },
+    {
+      "file": "arw-sony-a7m4-14bit.arw",
+      "engine": "rawler",
+      "trials": [
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 56623104,
+          "checksum": 6910467425,
+          "height": 3072,
+          "status": "ok",
+          "total_ms": 782.453583,
+          "width": 4608,
+          "detail_ms": 196.785708,
+          "base_ms": 585.667875,
+          "base_backend": "CPU",
+          "base_checksum": 6876465575,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 56623104,
+          "checksum": 6910467425,
+          "height": 3072,
+          "status": "ok",
+          "total_ms": 394.93904100000003,
+          "width": 4608,
+          "detail_ms": 161.24450000000002,
+          "base_ms": 233.69454100000002,
+          "base_backend": "CPU",
+          "base_checksum": 6876465575,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 56623104,
+          "checksum": 6910467425,
+          "height": 3072,
+          "status": "ok",
+          "total_ms": 297.113958,
+          "width": 4608,
+          "detail_ms": 150.83225,
+          "base_ms": 146.281708,
+          "base_backend": "CPU",
+          "base_checksum": 6876465575,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 56623104,
+          "checksum": 6910467425,
+          "height": 3072,
+          "status": "ok",
+          "total_ms": 450.455667,
+          "width": 4608,
+          "detail_ms": 167.121083,
+          "base_ms": 283.334584,
+          "base_backend": "CPU",
+          "base_checksum": 6876465575,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 56623104,
+          "checksum": 6910467425,
+          "height": 3072,
+          "status": "ok",
+          "total_ms": 361.512583,
+          "width": 4608,
+          "detail_ms": 162.889792,
+          "base_ms": 198.622791,
+          "base_backend": "CPU",
+          "base_checksum": 6876465575,
+          "native_detail_disabled": {}
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 4608,
+      "height": 3072,
+      "median_ms": 394.93904100000003,
+      "min_ms": 297.113958,
+      "max_ms": 782.453583
+    },
+    {
+      "file": "arw-sony-a7m4-14bit.arw",
+      "engine": "lightcraft",
+      "trials": [
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 56623104,
+          "checksum": 7777736837,
+          "height": 3072,
+          "status": "ok",
+          "total_ms": 480.087542,
+          "width": 4608,
+          "detail_ms": 144.16566699999998,
+          "base_ms": 335.921875,
+          "base_backend": "Apple M4 (Metal)",
+          "base_checksum": 7679470788,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 56623104,
+          "checksum": 7777736837,
+          "height": 3072,
+          "status": "ok",
+          "total_ms": 506.2765830000001,
+          "width": 4608,
+          "detail_ms": 193.79908300000002,
+          "base_ms": 312.4775,
+          "base_backend": "Apple M4 (Metal)",
+          "base_checksum": 7679470788,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 56623104,
+          "checksum": 7777736837,
+          "height": 3072,
+          "status": "ok",
+          "total_ms": 544.143249,
+          "width": 4608,
+          "detail_ms": 148.973583,
+          "base_ms": 395.16966599999995,
+          "base_backend": "Apple M4 (Metal)",
+          "base_checksum": 7679470788,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 56623104,
+          "checksum": 7777736837,
+          "height": 3072,
+          "status": "ok",
+          "total_ms": 676.855583,
+          "width": 4608,
+          "detail_ms": 168.91804199999999,
+          "base_ms": 507.937541,
+          "base_backend": "Apple M4 (Metal)",
+          "base_checksum": 7679470788,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 56623104,
+          "checksum": 7777736837,
+          "height": 3072,
+          "status": "ok",
+          "total_ms": 1347.3662909999998,
+          "width": 4608,
+          "detail_ms": 160.53775000000002,
+          "base_ms": 1186.8285409999999,
+          "base_backend": "Apple M4 (Metal)",
+          "base_checksum": 7679470788,
+          "native_detail_disabled": {}
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 4608,
+      "height": 3072,
+      "median_ms": 544.143249,
+      "min_ms": 480.087542,
+      "max_ms": 1347.3662909999998
+    },
+    {
+      "file": "arw-sony-a7m4-lossless-l.arw",
+      "engine": "apple",
+      "trials": [
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 130965504,
+          "checksum": 19050806569,
+          "height": 4672,
+          "status": "ok",
+          "total_ms": 864.0735,
+          "width": 7008,
+          "detail_ms": 406.518333,
+          "base_ms": 457.555167,
+          "base_backend": "Core Image",
+          "base_checksum": 18918974906,
+          "native_detail_disabled": {
+            "color_noise_reduction": true,
+            "detail": true,
+            "luminance_noise_reduction": true,
+            "sharpness": true
+          }
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 130965504,
+          "checksum": 19050806569,
+          "height": 4672,
+          "status": "ok",
+          "total_ms": 1038.2006660000002,
+          "width": 7008,
+          "detail_ms": 546.5596660000001,
+          "base_ms": 491.641,
+          "base_backend": "Core Image",
+          "base_checksum": 18918974906,
+          "native_detail_disabled": {
+            "color_noise_reduction": true,
+            "detail": true,
+            "luminance_noise_reduction": true,
+            "sharpness": true
+          }
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 130965504,
+          "checksum": 19050806569,
+          "height": 4672,
+          "status": "ok",
+          "total_ms": 1324.654459,
+          "width": 7008,
+          "detail_ms": 861.1320000000001,
+          "base_ms": 463.522459,
+          "base_backend": "Core Image",
+          "base_checksum": 18918974906,
+          "native_detail_disabled": {
+            "color_noise_reduction": true,
+            "detail": true,
+            "luminance_noise_reduction": true,
+            "sharpness": true
+          }
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 130965504,
+          "checksum": 19050806569,
+          "height": 4672,
+          "status": "ok",
+          "total_ms": 1238.974041,
+          "width": 7008,
+          "detail_ms": 796.001375,
+          "base_ms": 442.972666,
+          "base_backend": "Core Image",
+          "base_checksum": 18918974906,
+          "native_detail_disabled": {
+            "color_noise_reduction": true,
+            "detail": true,
+            "luminance_noise_reduction": true,
+            "sharpness": true
+          }
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 130965504,
+          "checksum": 19050806569,
+          "height": 4672,
+          "status": "ok",
+          "total_ms": 1152.52475,
+          "width": 7008,
+          "detail_ms": 609.8919999999999,
+          "base_ms": 542.63275,
+          "base_backend": "Core Image",
+          "base_checksum": 18918974906,
+          "native_detail_disabled": {
+            "color_noise_reduction": true,
+            "detail": true,
+            "luminance_noise_reduction": true,
+            "sharpness": true
+          }
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 7008,
+      "height": 4672,
+      "median_ms": 1152.52475,
+      "min_ms": 864.0735,
+      "max_ms": 1324.654459
+    },
+    {
+      "file": "arw-sony-a7m4-lossless-l.arw",
+      "engine": "rawler",
+      "trials": [
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 130965504,
+          "checksum": 16240533389,
+          "height": 4672,
+          "status": "ok",
+          "total_ms": 1182.971584,
+          "width": 7008,
+          "detail_ms": 870.6675,
+          "base_ms": 312.304084,
+          "base_backend": "CPU",
+          "base_checksum": 16176502978,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 130965504,
+          "checksum": 16240533389,
+          "height": 4672,
+          "status": "ok",
+          "total_ms": 1415.580959,
+          "width": 7008,
+          "detail_ms": 895.7195839999999,
+          "base_ms": 519.861375,
+          "base_backend": "CPU",
+          "base_checksum": 16176502978,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 130965504,
+          "checksum": 16240533389,
+          "height": 4672,
+          "status": "ok",
+          "total_ms": 888.494375,
+          "width": 7008,
+          "detail_ms": 376.08333300000004,
+          "base_ms": 512.411042,
+          "base_backend": "CPU",
+          "base_checksum": 16176502978,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 130965504,
+          "checksum": 16240533389,
+          "height": 4672,
+          "status": "ok",
+          "total_ms": 1446.924874,
+          "width": 7008,
+          "detail_ms": 1123.683958,
+          "base_ms": 323.24091599999997,
+          "base_backend": "CPU",
+          "base_checksum": 16176502978,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 130965504,
+          "checksum": 16240533389,
+          "height": 4672,
+          "status": "ok",
+          "total_ms": 837.191166,
+          "width": 7008,
+          "detail_ms": 436.73670799999996,
+          "base_ms": 400.454458,
+          "base_backend": "CPU",
+          "base_checksum": 16176502978,
+          "native_detail_disabled": {}
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 7008,
+      "height": 4672,
+      "median_ms": 1182.971584,
+      "min_ms": 837.191166,
+      "max_ms": 1446.924874
+    },
+    {
+      "file": "arw-sony-a7m4-lossless-l.arw",
+      "engine": "lightcraft",
+      "trials": [
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 130965504,
+          "checksum": 18411458427,
+          "height": 4672,
+          "status": "ok",
+          "total_ms": 1207.724667,
+          "width": 7008,
+          "detail_ms": 396.469458,
+          "base_ms": 811.255209,
+          "base_backend": "Apple M4 (Metal)",
+          "base_checksum": 18228458979,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 130965504,
+          "checksum": 18411458427,
+          "height": 4672,
+          "status": "ok",
+          "total_ms": 1333.8355000000001,
+          "width": 7008,
+          "detail_ms": 374.189708,
+          "base_ms": 959.645792,
+          "base_backend": "Apple M4 (Metal)",
+          "base_checksum": 18228458979,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 130965504,
+          "checksum": 18411458427,
+          "height": 4672,
+          "status": "ok",
+          "total_ms": 1534.856417,
+          "width": 7008,
+          "detail_ms": 566.5199170000001,
+          "base_ms": 968.3365,
+          "base_backend": "Apple M4 (Metal)",
+          "base_checksum": 18228458979,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 130965504,
+          "checksum": 18411458427,
+          "height": 4672,
+          "status": "ok",
+          "total_ms": 1415.039042,
+          "width": 7008,
+          "detail_ms": 398.795542,
+          "base_ms": 1016.2435,
+          "base_backend": "Apple M4 (Metal)",
+          "base_checksum": 18228458979,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 130965504,
+          "checksum": 18411458427,
+          "height": 4672,
+          "status": "ok",
+          "total_ms": 1865.660334,
+          "width": 7008,
+          "detail_ms": 552.034375,
+          "base_ms": 1313.625959,
+          "base_backend": "Apple M4 (Metal)",
+          "base_checksum": 18228458979,
+          "native_detail_disabled": {}
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 7008,
+      "height": 4672,
+      "median_ms": 1415.039042,
+      "min_ms": 1207.724667,
+      "max_ms": 1865.660334
+    },
+    {
+      "file": "cr2-canon-5d3.cr2",
+      "engine": "apple",
+      "trials": [
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 88473600,
+          "checksum": 12722000380,
+          "height": 3840,
+          "status": "ok",
+          "total_ms": 410.94795799999997,
+          "width": 5760,
+          "detail_ms": 271.150125,
+          "base_ms": 139.797833,
+          "base_backend": "Core Image",
+          "base_checksum": 12697230386,
+          "native_detail_disabled": {
+            "color_noise_reduction": true,
+            "detail": true,
+            "luminance_noise_reduction": true,
+            "sharpness": true
+          }
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 88473600,
+          "checksum": 12722000380,
+          "height": 3840,
+          "status": "ok",
+          "total_ms": 438.589333,
+          "width": 5760,
+          "detail_ms": 296.217667,
+          "base_ms": 142.371666,
+          "base_backend": "Core Image",
+          "base_checksum": 12697230386,
+          "native_detail_disabled": {
+            "color_noise_reduction": true,
+            "detail": true,
+            "luminance_noise_reduction": true,
+            "sharpness": true
+          }
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 88473600,
+          "checksum": 12722000380,
+          "height": 3840,
+          "status": "ok",
+          "total_ms": 397.42437500000005,
+          "width": 5760,
+          "detail_ms": 278.516042,
+          "base_ms": 118.908333,
+          "base_backend": "Core Image",
+          "base_checksum": 12697230386,
+          "native_detail_disabled": {
+            "color_noise_reduction": true,
+            "detail": true,
+            "luminance_noise_reduction": true,
+            "sharpness": true
+          }
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 88473600,
+          "checksum": 12722000380,
+          "height": 3840,
+          "status": "ok",
+          "total_ms": 779.1390839999999,
+          "width": 5760,
+          "detail_ms": 607.162792,
+          "base_ms": 171.976292,
+          "base_backend": "Core Image",
+          "base_checksum": 12697230386,
+          "native_detail_disabled": {
+            "color_noise_reduction": true,
+            "detail": true,
+            "luminance_noise_reduction": true,
+            "sharpness": true
+          }
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 88473600,
+          "checksum": 12722000380,
+          "height": 3840,
+          "status": "ok",
+          "total_ms": 503.441292,
+          "width": 5760,
+          "detail_ms": 338.448167,
+          "base_ms": 164.993125,
+          "base_backend": "Core Image",
+          "base_checksum": 12697230386,
+          "native_detail_disabled": {
+            "color_noise_reduction": true,
+            "detail": true,
+            "luminance_noise_reduction": true,
+            "sharpness": true
+          }
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 5760,
+      "height": 3840,
+      "median_ms": 438.589333,
+      "min_ms": 397.42437500000005,
+      "max_ms": 779.1390839999999
+    },
+    {
+      "file": "cr2-canon-5d3.cr2",
+      "engine": "rawler",
+      "trials": [
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 88473600,
+          "checksum": 10815315947,
+          "height": 3840,
+          "status": "ok",
+          "total_ms": 629.9327920000001,
+          "width": 5760,
+          "detail_ms": 256.87683300000003,
+          "base_ms": 373.055959,
+          "base_backend": "CPU",
+          "base_checksum": 10803077327,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 88473600,
+          "checksum": 10815315947,
+          "height": 3840,
+          "status": "ok",
+          "total_ms": 1923.3146259999999,
+          "width": 5760,
+          "detail_ms": 1544.712834,
+          "base_ms": 378.601792,
+          "base_backend": "CPU",
+          "base_checksum": 10803077327,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 88473600,
+          "checksum": 10815315947,
+          "height": 3840,
+          "status": "ok",
+          "total_ms": 730.276292,
+          "width": 5760,
+          "detail_ms": 315.841792,
+          "base_ms": 414.43449999999996,
+          "base_backend": "CPU",
+          "base_checksum": 10803077327,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 88473600,
+          "checksum": 10815315947,
+          "height": 3840,
+          "status": "ok",
+          "total_ms": 920.3868329999999,
+          "width": 5760,
+          "detail_ms": 391.472,
+          "base_ms": 528.9148329999999,
+          "base_backend": "CPU",
+          "base_checksum": 10803077327,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 88473600,
+          "checksum": 10815315947,
+          "height": 3840,
+          "status": "ok",
+          "total_ms": 596.388042,
+          "width": 5760,
+          "detail_ms": 227.97704199999998,
+          "base_ms": 368.411,
+          "base_backend": "CPU",
+          "base_checksum": 10803077327,
+          "native_detail_disabled": {}
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 5760,
+      "height": 3840,
+      "median_ms": 730.276292,
+      "min_ms": 596.388042,
+      "max_ms": 1923.3146259999999
+    },
+    {
+      "file": "cr2-canon-5d3.cr2",
+      "engine": "lightcraft",
+      "trials": [
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 88473600,
+          "checksum": 12882525547,
+          "height": 3840,
+          "status": "ok",
+          "total_ms": 937.429875,
+          "width": 5760,
+          "detail_ms": 346.21220800000003,
+          "base_ms": 591.217667,
+          "base_backend": "Apple M4 (Metal)",
+          "base_checksum": 12857003863,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 88473600,
+          "checksum": 12882525547,
+          "height": 3840,
+          "status": "ok",
+          "total_ms": 927.277375,
+          "width": 5760,
+          "detail_ms": 242.13175,
+          "base_ms": 685.145625,
+          "base_backend": "Apple M4 (Metal)",
+          "base_checksum": 12857003863,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 88473600,
+          "checksum": 12882525547,
+          "height": 3840,
+          "status": "ok",
+          "total_ms": 1430.3494580000001,
+          "width": 5760,
+          "detail_ms": 551.438792,
+          "base_ms": 878.910666,
+          "base_backend": "Apple M4 (Metal)",
+          "base_checksum": 12857003863,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 88473600,
+          "checksum": 12882525547,
+          "height": 3840,
+          "status": "ok",
+          "total_ms": 1271.299375,
+          "width": 5760,
+          "detail_ms": 510.28091600000005,
+          "base_ms": 761.018459,
+          "base_backend": "Apple M4 (Metal)",
+          "base_checksum": 12857003863,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 88473600,
+          "checksum": 12882525547,
+          "height": 3840,
+          "status": "ok",
+          "total_ms": 963.034459,
+          "width": 5760,
+          "detail_ms": 234.5185,
+          "base_ms": 728.515959,
+          "base_backend": "Apple M4 (Metal)",
+          "base_checksum": 12857003863,
+          "native_detail_disabled": {}
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 5760,
+      "height": 3840,
+      "median_ms": 963.034459,
+      "min_ms": 927.277375,
+      "max_ms": 1430.3494580000001
+    },
+    {
+      "file": "cr3-canon-r5m2-raw.cr3",
+      "engine": "apple",
+      "trials": [
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 179044352,
+          "checksum": 21225464497,
+          "height": 5464,
+          "status": "ok",
+          "total_ms": 1312.3819990000002,
+          "width": 8192,
+          "detail_ms": 670.7057910000001,
+          "base_ms": 641.676208,
+          "base_backend": "Core Image",
+          "base_checksum": 21198873119,
+          "native_detail_disabled": {
+            "color_noise_reduction": true,
+            "detail": true,
+            "luminance_noise_reduction": true,
+            "sharpness": true
+          }
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 179044352,
+          "checksum": 21225464497,
+          "height": 5464,
+          "status": "ok",
+          "total_ms": 2013.951125,
+          "width": 8192,
+          "detail_ms": 1308.868875,
+          "base_ms": 705.08225,
+          "base_backend": "Core Image",
+          "base_checksum": 21198873119,
+          "native_detail_disabled": {
+            "color_noise_reduction": true,
+            "detail": true,
+            "luminance_noise_reduction": true,
+            "sharpness": true
+          }
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 179044352,
+          "checksum": 21225464497,
+          "height": 5464,
+          "status": "ok",
+          "total_ms": 2573.401793,
+          "width": 8192,
+          "detail_ms": 1685.3698339999999,
+          "base_ms": 888.031959,
+          "base_backend": "Core Image",
+          "base_checksum": 21198873119,
+          "native_detail_disabled": {
+            "color_noise_reduction": true,
+            "detail": true,
+            "luminance_noise_reduction": true,
+            "sharpness": true
+          }
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 179044352,
+          "checksum": 21225464497,
+          "height": 5464,
+          "status": "ok",
+          "total_ms": 1627.746042,
+          "width": 8192,
+          "detail_ms": 899.401125,
+          "base_ms": 728.344917,
+          "base_backend": "Core Image",
+          "base_checksum": 21198873119,
+          "native_detail_disabled": {
+            "color_noise_reduction": true,
+            "detail": true,
+            "luminance_noise_reduction": true,
+            "sharpness": true
+          }
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 179044352,
+          "checksum": 21225464497,
+          "height": 5464,
+          "status": "ok",
+          "total_ms": 2252.0198330000003,
+          "width": 8192,
+          "detail_ms": 1528.639541,
+          "base_ms": 723.380292,
+          "base_backend": "Core Image",
+          "base_checksum": 21198873119,
+          "native_detail_disabled": {
+            "color_noise_reduction": true,
+            "detail": true,
+            "luminance_noise_reduction": true,
+            "sharpness": true
+          }
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 8192,
+      "height": 5464,
+      "median_ms": 2013.951125,
+      "min_ms": 1312.3819990000002,
+      "max_ms": 2573.401793
+    },
+    {
+      "file": "cr3-canon-r5m2-raw.cr3",
+      "engine": "rawler",
+      "trials": [
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 179044352,
+          "checksum": 17405993848,
+          "height": 5464,
+          "status": "ok",
+          "total_ms": 2278.856291,
+          "width": 8192,
+          "detail_ms": 1395.428916,
+          "base_ms": 883.427375,
+          "base_backend": "CPU",
+          "base_checksum": 17392544274,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 179044352,
+          "checksum": 17405993848,
+          "height": 5464,
+          "status": "ok",
+          "total_ms": 1818.5432079999998,
+          "width": 8192,
+          "detail_ms": 1185.2375829999999,
+          "base_ms": 633.305625,
+          "base_backend": "CPU",
+          "base_checksum": 17392544274,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 179044352,
+          "checksum": 17405993848,
+          "height": 5464,
+          "status": "ok",
+          "total_ms": 1659.325208,
+          "width": 8192,
+          "detail_ms": 1108.636291,
+          "base_ms": 550.688917,
+          "base_backend": "CPU",
+          "base_checksum": 17392544274,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 179044352,
+          "checksum": 17405993848,
+          "height": 5464,
+          "status": "ok",
+          "total_ms": 1666.5925419999999,
+          "width": 8192,
+          "detail_ms": 1090.172458,
+          "base_ms": 576.420084,
+          "base_backend": "CPU",
+          "base_checksum": 17392544274,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 179044352,
+          "checksum": 17405993848,
+          "height": 5464,
+          "status": "ok",
+          "total_ms": 2432.780166,
+          "width": 8192,
+          "detail_ms": 1481.919458,
+          "base_ms": 950.860708,
+          "base_backend": "CPU",
+          "base_checksum": 17392544274,
+          "native_detail_disabled": {}
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 8192,
+      "height": 5464,
+      "median_ms": 1818.5432079999998,
+      "min_ms": 1659.325208,
+      "max_ms": 2432.780166
+    },
+    {
+      "file": "cr3-canon-r5m2-raw.cr3",
+      "engine": "lightcraft",
+      "trials": [
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 179044352,
+          "checksum": 17668568000,
+          "height": 5464,
+          "status": "ok",
+          "total_ms": 2130.0526250000003,
+          "width": 8192,
+          "detail_ms": 1159.5787500000001,
+          "base_ms": 970.473875,
+          "base_backend": "Apple M4 (Metal)",
+          "base_checksum": 17651800140,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 179044352,
+          "checksum": 17668568000,
+          "height": 5464,
+          "status": "ok",
+          "total_ms": 2148.923208,
+          "width": 8192,
+          "detail_ms": 953.911,
+          "base_ms": 1195.012208,
+          "base_backend": "Apple M4 (Metal)",
+          "base_checksum": 17651800140,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 179044352,
+          "checksum": 17668568000,
+          "height": 5464,
+          "status": "ok",
+          "total_ms": 2331.870167,
+          "width": 8192,
+          "detail_ms": 1023.3121249999999,
+          "base_ms": 1308.5580420000001,
+          "base_backend": "Apple M4 (Metal)",
+          "base_checksum": 17651800140,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 179044352,
+          "checksum": 17668568000,
+          "height": 5464,
+          "status": "ok",
+          "total_ms": 2031.524625,
+          "width": 8192,
+          "detail_ms": 1028.0017500000001,
+          "base_ms": 1003.522875,
+          "base_backend": "Apple M4 (Metal)",
+          "base_checksum": 17651800140,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 179044352,
+          "checksum": 17668568000,
+          "height": 5464,
+          "status": "ok",
+          "total_ms": 2376.1912500000003,
+          "width": 8192,
+          "detail_ms": 1191.1654170000002,
+          "base_ms": 1185.0258330000001,
+          "base_backend": "Apple M4 (Metal)",
+          "base_checksum": 17651800140,
+          "native_detail_disabled": {}
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 8192,
+      "height": 5464,
+      "median_ms": 2148.923208,
+      "min_ms": 2031.524625,
+      "max_ms": 2376.1912500000003
+    },
+    {
+      "file": "cr3-canon-r5m2-craw.cr3",
+      "engine": "apple",
+      "trials": [
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 179044352,
+          "checksum": 21244063288,
+          "height": 5464,
+          "status": "ok",
+          "total_ms": 2225.657209,
+          "width": 8192,
+          "detail_ms": 1361.931584,
+          "base_ms": 863.725625,
+          "base_backend": "Core Image",
+          "base_checksum": 21216418933,
+          "native_detail_disabled": {
+            "color_noise_reduction": true,
+            "detail": true,
+            "luminance_noise_reduction": true,
+            "sharpness": true
+          }
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 179044352,
+          "checksum": 21244063288,
+          "height": 5464,
+          "status": "ok",
+          "total_ms": 2371.5862509999997,
+          "width": 8192,
+          "detail_ms": 1669.5228339999999,
+          "base_ms": 702.063417,
+          "base_backend": "Core Image",
+          "base_checksum": 21216418933,
+          "native_detail_disabled": {
+            "color_noise_reduction": true,
+            "detail": true,
+            "luminance_noise_reduction": true,
+            "sharpness": true
+          }
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 179044352,
+          "checksum": 21244063288,
+          "height": 5464,
+          "status": "ok",
+          "total_ms": 1444.123457,
+          "width": 8192,
+          "detail_ms": 694.328541,
+          "base_ms": 749.794916,
+          "base_backend": "Core Image",
+          "base_checksum": 21216418933,
+          "native_detail_disabled": {
+            "color_noise_reduction": true,
+            "detail": true,
+            "luminance_noise_reduction": true,
+            "sharpness": true
+          }
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 179044352,
+          "checksum": 21244063288,
+          "height": 5464,
+          "status": "ok",
+          "total_ms": 1613.592,
+          "width": 8192,
+          "detail_ms": 869.037875,
+          "base_ms": 744.554125,
+          "base_backend": "Core Image",
+          "base_checksum": 21216418933,
+          "native_detail_disabled": {
+            "color_noise_reduction": true,
+            "detail": true,
+            "luminance_noise_reduction": true,
+            "sharpness": true
+          }
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 179044352,
+          "checksum": 21244063288,
+          "height": 5464,
+          "status": "ok",
+          "total_ms": 2371.7121660000003,
+          "width": 8192,
+          "detail_ms": 1553.05925,
+          "base_ms": 818.652916,
+          "base_backend": "Core Image",
+          "base_checksum": 21216418933,
+          "native_detail_disabled": {
+            "color_noise_reduction": true,
+            "detail": true,
+            "luminance_noise_reduction": true,
+            "sharpness": true
+          }
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 8192,
+      "height": 5464,
+      "median_ms": 2225.657209,
+      "min_ms": 1444.123457,
+      "max_ms": 2371.7121660000003
+    },
+    {
+      "file": "cr3-canon-r5m2-craw.cr3",
+      "engine": "rawler",
+      "trials": [
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 179044352,
+          "checksum": 17419112160,
+          "height": 5464,
+          "status": "ok",
+          "total_ms": 1275.6416250000002,
+          "width": 8192,
+          "detail_ms": 639.1210000000001,
+          "base_ms": 636.520625,
+          "base_backend": "CPU",
+          "base_checksum": 17405209863,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 179044352,
+          "checksum": 17419112160,
+          "height": 5464,
+          "status": "ok",
+          "total_ms": 1310.2195,
+          "width": 8192,
+          "detail_ms": 561.160792,
+          "base_ms": 749.0587079999999,
+          "base_backend": "CPU",
+          "base_checksum": 17405209863,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 179044352,
+          "checksum": 17419112160,
+          "height": 5464,
+          "status": "ok",
+          "total_ms": 1994.217251,
+          "width": 8192,
+          "detail_ms": 1328.537042,
+          "base_ms": 665.680209,
+          "base_backend": "CPU",
+          "base_checksum": 17405209863,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 179044352,
+          "checksum": 17419112160,
+          "height": 5464,
+          "status": "ok",
+          "total_ms": 1911.9270840000001,
+          "width": 8192,
+          "detail_ms": 1274.7726670000002,
+          "base_ms": 637.154417,
+          "base_backend": "CPU",
+          "base_checksum": 17405209863,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 179044352,
+          "checksum": 17419112160,
+          "height": 5464,
+          "status": "ok",
+          "total_ms": 1630.682458,
+          "width": 8192,
+          "detail_ms": 931.3551669999999,
+          "base_ms": 699.3272910000001,
+          "base_backend": "CPU",
+          "base_checksum": 17405209863,
+          "native_detail_disabled": {}
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 8192,
+      "height": 5464,
+      "median_ms": 1630.682458,
+      "min_ms": 1275.6416250000002,
+      "max_ms": 1994.217251
+    },
+    {
+      "file": "cr3-canon-r5m2-craw.cr3",
+      "engine": "lightcraft",
+      "trials": [
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 179044352,
+          "checksum": 17681753411,
+          "height": 5464,
+          "status": "ok",
+          "total_ms": 2253.337125,
+          "width": 8192,
+          "detail_ms": 876.397083,
+          "base_ms": 1376.940042,
+          "base_backend": "Apple M4 (Metal)",
+          "base_checksum": 17664472847,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 179044352,
+          "checksum": 17681753411,
+          "height": 5464,
+          "status": "ok",
+          "total_ms": 2029.279958,
+          "width": 8192,
+          "detail_ms": 804.833833,
+          "base_ms": 1224.446125,
+          "base_backend": "Apple M4 (Metal)",
+          "base_checksum": 17664472847,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 179044352,
+          "checksum": 17681753411,
+          "height": 5464,
+          "status": "ok",
+          "total_ms": 1797.655709,
+          "width": 8192,
+          "detail_ms": 528.273584,
+          "base_ms": 1269.3821249999999,
+          "base_backend": "Apple M4 (Metal)",
+          "base_checksum": 17664472847,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 179044352,
+          "checksum": 17681753411,
+          "height": 5464,
+          "status": "ok",
+          "total_ms": 4872.353792,
+          "width": 8192,
+          "detail_ms": 1693.9345839999999,
+          "base_ms": 3178.4192080000003,
+          "base_backend": "Apple M4 (Metal)",
+          "base_checksum": 17664472847,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 179044352,
+          "checksum": 17681753411,
+          "height": 5464,
+          "status": "ok",
+          "total_ms": 2452.7165830000004,
+          "width": 8192,
+          "detail_ms": 1191.7935420000001,
+          "base_ms": 1260.923041,
+          "base_backend": "Apple M4 (Metal)",
+          "base_checksum": 17664472847,
+          "native_detail_disabled": {}
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 8192,
+      "height": 5464,
+      "median_ms": 2253.337125,
+      "min_ms": 1797.655709,
+      "max_ms": 4872.353792
+    },
+    {
+      "file": "nef-nikon-zf-lossless.nef",
+      "engine": "apple",
+      "trials": [
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 97542144,
+          "checksum": 16047982286,
+          "height": 4032,
+          "status": "ok",
+          "total_ms": 1107.196833,
+          "width": 6048,
+          "detail_ms": 782.636125,
+          "base_ms": 324.560708,
+          "base_backend": "Core Image",
+          "base_checksum": 16010508255,
+          "native_detail_disabled": {
+            "color_noise_reduction": true,
+            "detail": true,
+            "luminance_noise_reduction": true,
+            "sharpness": true
+          }
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 97542144,
+          "checksum": 16047982286,
+          "height": 4032,
+          "status": "ok",
+          "total_ms": 565.909875,
+          "width": 6048,
+          "detail_ms": 318.299041,
+          "base_ms": 247.610834,
+          "base_backend": "Core Image",
+          "base_checksum": 16010508255,
+          "native_detail_disabled": {
+            "color_noise_reduction": true,
+            "detail": true,
+            "luminance_noise_reduction": true,
+            "sharpness": true
+          }
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 97542144,
+          "checksum": 16047982286,
+          "height": 4032,
+          "status": "ok",
+          "total_ms": 581.855541,
+          "width": 6048,
+          "detail_ms": 283.208791,
+          "base_ms": 298.64675,
+          "base_backend": "Core Image",
+          "base_checksum": 16010508255,
+          "native_detail_disabled": {
+            "color_noise_reduction": true,
+            "detail": true,
+            "luminance_noise_reduction": true,
+            "sharpness": true
+          }
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 97542144,
+          "checksum": 16047982286,
+          "height": 4032,
+          "status": "ok",
+          "total_ms": 572.154125,
+          "width": 6048,
+          "detail_ms": 295.924208,
+          "base_ms": 276.229917,
+          "base_backend": "Core Image",
+          "base_checksum": 16010508255,
+          "native_detail_disabled": {
+            "color_noise_reduction": true,
+            "detail": true,
+            "luminance_noise_reduction": true,
+            "sharpness": true
+          }
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 97542144,
+          "checksum": 16047982286,
+          "height": 4032,
+          "status": "ok",
+          "total_ms": 1082.804417,
+          "width": 6048,
+          "detail_ms": 839.2837920000001,
+          "base_ms": 243.520625,
+          "base_backend": "Core Image",
+          "base_checksum": 16010508255,
+          "native_detail_disabled": {
+            "color_noise_reduction": true,
+            "detail": true,
+            "luminance_noise_reduction": true,
+            "sharpness": true
+          }
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 6048,
+      "height": 4032,
+      "median_ms": 581.855541,
+      "min_ms": 565.909875,
+      "max_ms": 1107.196833
+    },
+    {
+      "file": "nef-nikon-zf-lossless.nef",
+      "engine": "rawler",
+      "trials": [
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 97542144,
+          "checksum": 13256671632,
+          "height": 4032,
+          "status": "ok",
+          "total_ms": 766.652292,
+          "width": 6048,
+          "detail_ms": 437.679417,
+          "base_ms": 328.972875,
+          "base_backend": "CPU",
+          "base_checksum": 13240000045,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 97542144,
+          "checksum": 13256671632,
+          "height": 4032,
+          "status": "ok",
+          "total_ms": 931.6632920000001,
+          "width": 6048,
+          "detail_ms": 345.88775,
+          "base_ms": 585.7755420000001,
+          "base_backend": "CPU",
+          "base_checksum": 13240000045,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 97542144,
+          "checksum": 13256671632,
+          "height": 4032,
+          "status": "ok",
+          "total_ms": 663.680709,
+          "width": 6048,
+          "detail_ms": 265.41620900000004,
+          "base_ms": 398.2645,
+          "base_backend": "CPU",
+          "base_checksum": 13240000045,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 97542144,
+          "checksum": 13256671632,
+          "height": 4032,
+          "status": "ok",
+          "total_ms": 619.8329590000001,
+          "width": 6048,
+          "detail_ms": 269.4205,
+          "base_ms": 350.412459,
+          "base_backend": "CPU",
+          "base_checksum": 13240000045,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 97542144,
+          "checksum": 13256671632,
+          "height": 4032,
+          "status": "ok",
+          "total_ms": 775.858,
+          "width": 6048,
+          "detail_ms": 324.250875,
+          "base_ms": 451.607125,
+          "base_backend": "CPU",
+          "base_checksum": 13240000045,
+          "native_detail_disabled": {}
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 6048,
+      "height": 4032,
+      "median_ms": 766.652292,
+      "min_ms": 619.8329590000001,
+      "max_ms": 931.6632920000001
+    },
+    {
+      "file": "nef-nikon-zf-lossless.nef",
+      "engine": "lightcraft",
+      "trials": [
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 97542144,
+          "checksum": 15879823080,
+          "height": 4032,
+          "status": "ok",
+          "total_ms": 976.315292,
+          "width": 6048,
+          "detail_ms": 313.531583,
+          "base_ms": 662.783709,
+          "base_backend": "Apple M4 (Metal)",
+          "base_checksum": 15841872492,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 97542144,
+          "checksum": 15879823080,
+          "height": 4032,
+          "status": "ok",
+          "total_ms": 1417.8323329999998,
+          "width": 6048,
+          "detail_ms": 263.760208,
+          "base_ms": 1154.072125,
+          "base_backend": "Apple M4 (Metal)",
+          "base_checksum": 15841872492,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 97542144,
+          "checksum": 15879823080,
+          "height": 4032,
+          "status": "ok",
+          "total_ms": 1130.13025,
+          "width": 6048,
+          "detail_ms": 313.823375,
+          "base_ms": 816.306875,
+          "base_backend": "Apple M4 (Metal)",
+          "base_checksum": 15841872492,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 97542144,
+          "checksum": 15879823080,
+          "height": 4032,
+          "status": "ok",
+          "total_ms": 917.086166,
+          "width": 6048,
+          "detail_ms": 259.30425,
+          "base_ms": 657.781916,
+          "base_backend": "Apple M4 (Metal)",
+          "base_checksum": 15841872492,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 97542144,
+          "checksum": 15879823080,
+          "height": 4032,
+          "status": "ok",
+          "total_ms": 1139.359083,
+          "width": 6048,
+          "detail_ms": 568.891416,
+          "base_ms": 570.467667,
+          "base_backend": "Apple M4 (Metal)",
+          "base_checksum": 15841872492,
+          "native_detail_disabled": {}
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 6048,
+      "height": 4032,
+      "median_ms": 1130.13025,
+      "min_ms": 917.086166,
+      "max_ms": 1417.8323329999998
+    },
+    {
+      "file": "nef-nikon-zf-he.nef",
+      "engine": "apple",
+      "trials": [
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 97542144,
+          "checksum": 16317070633,
+          "height": 4032,
+          "status": "ok",
+          "total_ms": 637.651667,
+          "width": 6048,
+          "detail_ms": 282.75120799999996,
+          "base_ms": 354.900459,
+          "base_backend": "Core Image",
+          "base_checksum": 16278982413,
+          "native_detail_disabled": {
+            "color_noise_reduction": true,
+            "detail": true,
+            "luminance_noise_reduction": true,
+            "sharpness": true
+          }
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 97542144,
+          "checksum": 16317070633,
+          "height": 4032,
+          "status": "ok",
+          "total_ms": 551.706,
+          "width": 6048,
+          "detail_ms": 282.177292,
+          "base_ms": 269.528708,
+          "base_backend": "Core Image",
+          "base_checksum": 16278982413,
+          "native_detail_disabled": {
+            "color_noise_reduction": true,
+            "detail": true,
+            "luminance_noise_reduction": true,
+            "sharpness": true
+          }
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 97542144,
+          "checksum": 16317070633,
+          "height": 4032,
+          "status": "ok",
+          "total_ms": 978.7936670000001,
+          "width": 6048,
+          "detail_ms": 696.9696250000001,
+          "base_ms": 281.824042,
+          "base_backend": "Core Image",
+          "base_checksum": 16278982413,
+          "native_detail_disabled": {
+            "color_noise_reduction": true,
+            "detail": true,
+            "luminance_noise_reduction": true,
+            "sharpness": true
+          }
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 97542144,
+          "checksum": 16317070633,
+          "height": 4032,
+          "status": "ok",
+          "total_ms": 753.0488339999999,
+          "width": 6048,
+          "detail_ms": 404.287417,
+          "base_ms": 348.761417,
+          "base_backend": "Core Image",
+          "base_checksum": 16278982413,
+          "native_detail_disabled": {
+            "color_noise_reduction": true,
+            "detail": true,
+            "luminance_noise_reduction": true,
+            "sharpness": true
+          }
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 97542144,
+          "checksum": 16317070633,
+          "height": 4032,
+          "status": "ok",
+          "total_ms": 1307.3022090000002,
+          "width": 6048,
+          "detail_ms": 1027.8772920000001,
+          "base_ms": 279.424917,
+          "base_backend": "Core Image",
+          "base_checksum": 16278982413,
+          "native_detail_disabled": {
+            "color_noise_reduction": true,
+            "detail": true,
+            "luminance_noise_reduction": true,
+            "sharpness": true
+          }
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 6048,
+      "height": 4032,
+      "median_ms": 753.0488339999999,
+      "min_ms": 551.706,
+      "max_ms": 1307.3022090000002
+    },
+    {
+      "file": "nef-nikon-zf-he.nef",
+      "engine": "rawler",
+      "trials": [
+        {
+          "error": "Failed to decode image, possibly corrupt image: NEF compression Some(HighEfficency) is not supported",
+          "status": "error"
+        },
+        {
+          "error": "Failed to decode image, possibly corrupt image: NEF compression Some(HighEfficency) is not supported",
+          "status": "error"
+        },
+        {
+          "error": "Failed to decode image, possibly corrupt image: NEF compression Some(HighEfficency) is not supported",
+          "status": "error"
+        },
+        {
+          "error": "Failed to decode image, possibly corrupt image: NEF compression Some(HighEfficency) is not supported",
+          "status": "error"
+        },
+        {
+          "error": "Failed to decode image, possibly corrupt image: NEF compression Some(HighEfficency) is not supported",
+          "status": "error"
+        }
+      ],
+      "successes": 0,
+      "attempts": 5,
+      "width": 6048,
+      "height": 4032
+    },
+    {
+      "file": "nef-nikon-zf-he.nef",
+      "engine": "lightcraft",
+      "trials": [
+        {
+          "error": "preview-only: sensor data was not decoded",
+          "status": "error"
+        },
+        {
+          "error": "preview-only: sensor data was not decoded",
+          "status": "error"
+        },
+        {
+          "error": "preview-only: sensor data was not decoded",
+          "status": "error"
+        },
+        {
+          "error": "preview-only: sensor data was not decoded",
+          "status": "error"
+        },
+        {
+          "error": "preview-only: sensor data was not decoded",
+          "status": "error"
+        }
+      ],
+      "successes": 0,
+      "attempts": 5,
+      "width": 6048,
+      "height": 4032
+    },
+    {
+      "file": "raf-fuji-xa5-14bit-bayer.raf",
+      "engine": "apple",
+      "trials": [
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 96000000,
+          "checksum": 17278058203,
+          "height": 4000,
+          "status": "ok",
+          "total_ms": 584.203291,
+          "width": 6000,
+          "detail_ms": 313.94570799999997,
+          "base_ms": 270.257583,
+          "base_backend": "Core Image",
+          "base_checksum": 17237257559,
+          "native_detail_disabled": {
+            "color_noise_reduction": true,
+            "detail": true,
+            "luminance_noise_reduction": true,
+            "sharpness": true
+          }
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 96000000,
+          "checksum": 17278058203,
+          "height": 4000,
+          "status": "ok",
+          "total_ms": 658.6005,
+          "width": 6000,
+          "detail_ms": 362.950125,
+          "base_ms": 295.650375,
+          "base_backend": "Core Image",
+          "base_checksum": 17237257559,
+          "native_detail_disabled": {
+            "color_noise_reduction": true,
+            "detail": true,
+            "luminance_noise_reduction": true,
+            "sharpness": true
+          }
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 96000000,
+          "checksum": 17278058203,
+          "height": 4000,
+          "status": "ok",
+          "total_ms": 598.016958,
+          "width": 6000,
+          "detail_ms": 393.986125,
+          "base_ms": 204.030833,
+          "base_backend": "Core Image",
+          "base_checksum": 17237257559,
+          "native_detail_disabled": {
+            "color_noise_reduction": true,
+            "detail": true,
+            "luminance_noise_reduction": true,
+            "sharpness": true
+          }
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 96000000,
+          "checksum": 17278058203,
+          "height": 4000,
+          "status": "ok",
+          "total_ms": 553.824624,
+          "width": 6000,
+          "detail_ms": 339.099666,
+          "base_ms": 214.724958,
+          "base_backend": "Core Image",
+          "base_checksum": 17237257559,
+          "native_detail_disabled": {
+            "color_noise_reduction": true,
+            "detail": true,
+            "luminance_noise_reduction": true,
+            "sharpness": true
+          }
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 96000000,
+          "checksum": 17278058203,
+          "height": 4000,
+          "status": "ok",
+          "total_ms": 579.420542,
+          "width": 6000,
+          "detail_ms": 335.586459,
+          "base_ms": 243.834083,
+          "base_backend": "Core Image",
+          "base_checksum": 17237257559,
+          "native_detail_disabled": {
+            "color_noise_reduction": true,
+            "detail": true,
+            "luminance_noise_reduction": true,
+            "sharpness": true
+          }
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 6000,
+      "height": 4000,
+      "median_ms": 584.203291,
+      "min_ms": 553.824624,
+      "max_ms": 658.6005
+    },
+    {
+      "file": "raf-fuji-xa5-14bit-bayer.raf",
+      "engine": "rawler",
+      "trials": [
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 96000000,
+          "checksum": 15359112356,
+          "height": 4000,
+          "status": "ok",
+          "total_ms": 497.789499,
+          "width": 6000,
+          "detail_ms": 282.322833,
+          "base_ms": 215.466666,
+          "base_backend": "CPU",
+          "base_checksum": 15336041617,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 96000000,
+          "checksum": 15359112356,
+          "height": 4000,
+          "status": "ok",
+          "total_ms": 684.8545839999999,
+          "width": 6000,
+          "detail_ms": 290.736459,
+          "base_ms": 394.11812499999996,
+          "base_backend": "CPU",
+          "base_checksum": 15336041617,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 96000000,
+          "checksum": 15359112356,
+          "height": 4000,
+          "status": "ok",
+          "total_ms": 621.804167,
+          "width": 6000,
+          "detail_ms": 349.51158300000003,
+          "base_ms": 272.292584,
+          "base_backend": "CPU",
+          "base_checksum": 15336041617,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 96000000,
+          "checksum": 15359112356,
+          "height": 4000,
+          "status": "ok",
+          "total_ms": 517.596,
+          "width": 6000,
+          "detail_ms": 280.919375,
+          "base_ms": 236.676625,
+          "base_backend": "CPU",
+          "base_checksum": 15336041617,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 96000000,
+          "checksum": 15359112356,
+          "height": 4000,
+          "status": "ok",
+          "total_ms": 636.117957,
+          "width": 6000,
+          "detail_ms": 315.843791,
+          "base_ms": 320.27416600000004,
+          "base_backend": "CPU",
+          "base_checksum": 15336041617,
+          "native_detail_disabled": {}
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 6000,
+      "height": 4000,
+      "median_ms": 621.804167,
+      "min_ms": 497.789499,
+      "max_ms": 684.8545839999999
+    },
+    {
+      "file": "raf-fuji-xa5-14bit-bayer.raf",
+      "engine": "lightcraft",
+      "trials": [
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 96000000,
+          "checksum": 17628440407,
+          "height": 4000,
+          "status": "ok",
+          "total_ms": 819.867542,
+          "width": 6000,
+          "detail_ms": 284.65504200000004,
+          "base_ms": 535.2125,
+          "base_backend": "Apple M4 (Metal)",
+          "base_checksum": 17578643753,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 96000000,
+          "checksum": 17628440407,
+          "height": 4000,
+          "status": "ok",
+          "total_ms": 1099.463709,
+          "width": 6000,
+          "detail_ms": 280.56766700000003,
+          "base_ms": 818.896042,
+          "base_backend": "Apple M4 (Metal)",
+          "base_checksum": 17578643753,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 96000000,
+          "checksum": 17628440407,
+          "height": 4000,
+          "status": "ok",
+          "total_ms": 1352.5745000000002,
+          "width": 6000,
+          "detail_ms": 622.304292,
+          "base_ms": 730.270208,
+          "base_backend": "Apple M4 (Metal)",
+          "base_checksum": 17578643753,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 96000000,
+          "checksum": 17628440407,
+          "height": 4000,
+          "status": "ok",
+          "total_ms": 1552.499042,
+          "width": 6000,
+          "detail_ms": 489.80741700000004,
+          "base_ms": 1062.691625,
+          "base_backend": "Apple M4 (Metal)",
+          "base_checksum": 17578643753,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 96000000,
+          "checksum": 17628440407,
+          "height": 4000,
+          "status": "ok",
+          "total_ms": 883.292917,
+          "width": 6000,
+          "detail_ms": 295.54125,
+          "base_ms": 587.751667,
+          "base_backend": "Apple M4 (Metal)",
+          "base_checksum": 17578643753,
+          "native_detail_disabled": {}
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 6000,
+      "height": 4000,
+      "median_ms": 1099.463709,
+      "min_ms": 819.867542,
+      "max_ms": 1552.499042
+    },
+    {
+      "file": "raf-fuji-xt5-6122.raf",
+      "engine": "apple",
+      "trials": [
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 159258624,
+          "checksum": 23088563461,
+          "height": 5152,
+          "status": "ok",
+          "total_ms": 1046.523917,
+          "width": 7728,
+          "detail_ms": 598.262584,
+          "base_ms": 448.261333,
+          "base_backend": "Core Image",
+          "base_checksum": 23015040702,
+          "native_detail_disabled": {
+            "color_noise_reduction": true,
+            "detail": true,
+            "luminance_noise_reduction": true,
+            "sharpness": true
+          }
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 159258624,
+          "checksum": 23088563461,
+          "height": 5152,
+          "status": "ok",
+          "total_ms": 1853.666126,
+          "width": 7728,
+          "detail_ms": 1412.709042,
+          "base_ms": 440.957084,
+          "base_backend": "Core Image",
+          "base_checksum": 23015040702,
+          "native_detail_disabled": {
+            "color_noise_reduction": true,
+            "detail": true,
+            "luminance_noise_reduction": true,
+            "sharpness": true
+          }
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 159258624,
+          "checksum": 23088563461,
+          "height": 5152,
+          "status": "ok",
+          "total_ms": 1106.330291,
+          "width": 7728,
+          "detail_ms": 617.265041,
+          "base_ms": 489.06525,
+          "base_backend": "Core Image",
+          "base_checksum": 23015040702,
+          "native_detail_disabled": {
+            "color_noise_reduction": true,
+            "detail": true,
+            "luminance_noise_reduction": true,
+            "sharpness": true
+          }
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 159258624,
+          "checksum": 23088563461,
+          "height": 5152,
+          "status": "ok",
+          "total_ms": 1053.709333,
+          "width": 7728,
+          "detail_ms": 611.087583,
+          "base_ms": 442.62175,
+          "base_backend": "Core Image",
+          "base_checksum": 23015040702,
+          "native_detail_disabled": {
+            "color_noise_reduction": true,
+            "detail": true,
+            "luminance_noise_reduction": true,
+            "sharpness": true
+          }
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 159258624,
+          "checksum": 23088563461,
+          "height": 5152,
+          "status": "ok",
+          "total_ms": 1311.2349179999999,
+          "width": 7728,
+          "detail_ms": 805.8869589999999,
+          "base_ms": 505.347959,
+          "base_backend": "Core Image",
+          "base_checksum": 23015040702,
+          "native_detail_disabled": {
+            "color_noise_reduction": true,
+            "detail": true,
+            "luminance_noise_reduction": true,
+            "sharpness": true
+          }
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 7728,
+      "height": 5152,
+      "median_ms": 1106.330291,
+      "min_ms": 1046.523917,
+      "max_ms": 1853.666126
+    },
+    {
+      "file": "raf-fuji-xt5-6122.raf",
+      "engine": "rawler",
+      "trials": [
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 159258624,
+          "checksum": 20517088829,
+          "height": 5152,
+          "status": "ok",
+          "total_ms": 1799.6024590000002,
+          "width": 7728,
+          "detail_ms": 1221.710667,
+          "base_ms": 577.891792,
+          "base_backend": "CPU",
+          "base_checksum": 20481337588,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 159258624,
+          "checksum": 20517088829,
+          "height": 5152,
+          "status": "ok",
+          "total_ms": 1176.0092089999998,
+          "width": 7728,
+          "detail_ms": 551.2785839999999,
+          "base_ms": 624.730625,
+          "base_backend": "CPU",
+          "base_checksum": 20481337588,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 159258624,
+          "checksum": 20517088829,
+          "height": 5152,
+          "status": "ok",
+          "total_ms": 1711.325249,
+          "width": 7728,
+          "detail_ms": 1004.3350829999999,
+          "base_ms": 706.9901659999999,
+          "base_backend": "CPU",
+          "base_checksum": 20481337588,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 159258624,
+          "checksum": 20517088829,
+          "height": 5152,
+          "status": "ok",
+          "total_ms": 2377.159625,
+          "width": 7728,
+          "detail_ms": 1697.971208,
+          "base_ms": 679.188417,
+          "base_backend": "CPU",
+          "base_checksum": 20481337588,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 159258624,
+          "checksum": 20517088829,
+          "height": 5152,
+          "status": "ok",
+          "total_ms": 1293.164792,
+          "width": 7728,
+          "detail_ms": 517.494417,
+          "base_ms": 775.670375,
+          "base_backend": "CPU",
+          "base_checksum": 20481337588,
+          "native_detail_disabled": {}
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 7728,
+      "height": 5152,
+      "median_ms": 1711.325249,
+      "min_ms": 1176.0092089999998,
+      "max_ms": 2377.159625
+    },
+    {
+      "file": "raf-fuji-xt5-6122.raf",
+      "engine": "lightcraft",
+      "trials": [
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 159258624,
+          "checksum": 24028065418,
+          "height": 5152,
+          "status": "ok",
+          "total_ms": 2240.2134570000003,
+          "width": 7728,
+          "detail_ms": 818.105291,
+          "base_ms": 1422.1081660000002,
+          "base_backend": "Apple M4 (Metal)",
+          "base_checksum": 23949564555,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 159258624,
+          "checksum": 24028065418,
+          "height": 5152,
+          "status": "ok",
+          "total_ms": 1620.614458,
+          "width": 7728,
+          "detail_ms": 573.640875,
+          "base_ms": 1046.973583,
+          "base_backend": "Apple M4 (Metal)",
+          "base_checksum": 23949564555,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 159258624,
+          "checksum": 24028065418,
+          "height": 5152,
+          "status": "ok",
+          "total_ms": 1570.5,
+          "width": 7728,
+          "detail_ms": 583.11275,
+          "base_ms": 987.38725,
+          "base_backend": "Apple M4 (Metal)",
+          "base_checksum": 23949564555,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 159258624,
+          "checksum": 24028065418,
+          "height": 5152,
+          "status": "ok",
+          "total_ms": 1487.1585,
+          "width": 7728,
+          "detail_ms": 553.256584,
+          "base_ms": 933.901916,
+          "base_backend": "Apple M4 (Metal)",
+          "base_checksum": 23949564555,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 159258624,
+          "checksum": 24028065418,
+          "height": 5152,
+          "status": "ok",
+          "total_ms": 1923.1936660000001,
+          "width": 7728,
+          "detail_ms": 883.618333,
+          "base_ms": 1039.575333,
+          "base_backend": "Apple M4 (Metal)",
+          "base_checksum": 23949564555,
+          "native_detail_disabled": {}
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 7728,
+      "height": 5152,
+      "median_ms": 1620.614458,
+      "min_ms": 1487.1585,
+      "max_ms": 2240.2134570000003
+    },
+    {
+      "file": "raf-fuji-xt5-6123.raf",
+      "engine": "apple",
+      "trials": [
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 159258624,
+          "checksum": 23239583559,
+          "height": 5152,
+          "status": "ok",
+          "total_ms": 1194.979709,
+          "width": 7728,
+          "detail_ms": 758.375459,
+          "base_ms": 436.60425,
+          "base_backend": "Core Image",
+          "base_checksum": 23168068199,
+          "native_detail_disabled": {
+            "color_noise_reduction": true,
+            "detail": true,
+            "luminance_noise_reduction": true,
+            "sharpness": true
+          }
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 159258624,
+          "checksum": 23239583559,
+          "height": 5152,
+          "status": "ok",
+          "total_ms": 1097.449501,
+          "width": 7728,
+          "detail_ms": 684.503834,
+          "base_ms": 412.945667,
+          "base_backend": "Core Image",
+          "base_checksum": 23168068199,
+          "native_detail_disabled": {
+            "color_noise_reduction": true,
+            "detail": true,
+            "luminance_noise_reduction": true,
+            "sharpness": true
+          }
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 159258624,
+          "checksum": 23239583559,
+          "height": 5152,
+          "status": "ok",
+          "total_ms": 1295.6765839999998,
+          "width": 7728,
+          "detail_ms": 868.9399589999999,
+          "base_ms": 426.736625,
+          "base_backend": "Core Image",
+          "base_checksum": 23168068199,
+          "native_detail_disabled": {
+            "color_noise_reduction": true,
+            "detail": true,
+            "luminance_noise_reduction": true,
+            "sharpness": true
+          }
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 159258624,
+          "checksum": 23239583559,
+          "height": 5152,
+          "status": "ok",
+          "total_ms": 1529.461876,
+          "width": 7728,
+          "detail_ms": 1079.697292,
+          "base_ms": 449.764584,
+          "base_backend": "Core Image",
+          "base_checksum": 23168068199,
+          "native_detail_disabled": {
+            "color_noise_reduction": true,
+            "detail": true,
+            "luminance_noise_reduction": true,
+            "sharpness": true
+          }
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 159258624,
+          "checksum": 23239583559,
+          "height": 5152,
+          "status": "ok",
+          "total_ms": 1574.080875,
+          "width": 7728,
+          "detail_ms": 1052.9506660000002,
+          "base_ms": 521.130209,
+          "base_backend": "Core Image",
+          "base_checksum": 23168068199,
+          "native_detail_disabled": {
+            "color_noise_reduction": true,
+            "detail": true,
+            "luminance_noise_reduction": true,
+            "sharpness": true
+          }
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 7728,
+      "height": 5152,
+      "median_ms": 1295.6765839999998,
+      "min_ms": 1097.449501,
+      "max_ms": 1574.080875
+    },
+    {
+      "file": "raf-fuji-xt5-6123.raf",
+      "engine": "rawler",
+      "trials": [
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 159258624,
+          "checksum": 20564649739,
+          "height": 5152,
+          "status": "ok",
+          "total_ms": 1439.622709,
+          "width": 7728,
+          "detail_ms": 713.0957500000001,
+          "base_ms": 726.5269589999999,
+          "base_backend": "CPU",
+          "base_checksum": 20531504520,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 159258624,
+          "checksum": 20564649739,
+          "height": 5152,
+          "status": "ok",
+          "total_ms": 1632.689417,
+          "width": 7728,
+          "detail_ms": 958.562625,
+          "base_ms": 674.126792,
+          "base_backend": "CPU",
+          "base_checksum": 20531504520,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 159258624,
+          "checksum": 20564649739,
+          "height": 5152,
+          "status": "ok",
+          "total_ms": 1761.309292,
+          "width": 7728,
+          "detail_ms": 1024.204917,
+          "base_ms": 737.104375,
+          "base_backend": "CPU",
+          "base_checksum": 20531504520,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 159258624,
+          "checksum": 20564649739,
+          "height": 5152,
+          "status": "ok",
+          "total_ms": 1344.507417,
+          "width": 7728,
+          "detail_ms": 667.527875,
+          "base_ms": 676.979542,
+          "base_backend": "CPU",
+          "base_checksum": 20531504520,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 159258624,
+          "checksum": 20564649739,
+          "height": 5152,
+          "status": "ok",
+          "total_ms": 1218.6706669999999,
+          "width": 7728,
+          "detail_ms": 518.486125,
+          "base_ms": 700.184542,
+          "base_backend": "CPU",
+          "base_checksum": 20531504520,
+          "native_detail_disabled": {}
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 7728,
+      "height": 5152,
+      "median_ms": 1439.622709,
+      "min_ms": 1218.6706669999999,
+      "max_ms": 1761.309292
+    },
+    {
+      "file": "raf-fuji-xt5-6123.raf",
+      "engine": "lightcraft",
+      "trials": [
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 159258624,
+          "checksum": 24242406474,
+          "height": 5152,
+          "status": "ok",
+          "total_ms": 1588.5065,
+          "width": 7728,
+          "detail_ms": 496.64075,
+          "base_ms": 1091.86575,
+          "base_backend": "Apple M4 (Metal)",
+          "base_checksum": 24167024403,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 159258624,
+          "checksum": 24242406474,
+          "height": 5152,
+          "status": "ok",
+          "total_ms": 1991.0714580000001,
+          "width": 7728,
+          "detail_ms": 743.448083,
+          "base_ms": 1247.6233750000001,
+          "base_backend": "Apple M4 (Metal)",
+          "base_checksum": 24167024403,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 159258624,
+          "checksum": 24242406474,
+          "height": 5152,
+          "status": "ok",
+          "total_ms": 1532.5395010000002,
+          "width": 7728,
+          "detail_ms": 644.074459,
+          "base_ms": 888.465042,
+          "base_backend": "Apple M4 (Metal)",
+          "base_checksum": 24167024403,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 159258624,
+          "checksum": 24242406474,
+          "height": 5152,
+          "status": "ok",
+          "total_ms": 1381.170208,
+          "width": 7728,
+          "detail_ms": 490.635042,
+          "base_ms": 890.535166,
+          "base_backend": "Apple M4 (Metal)",
+          "base_checksum": 24167024403,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 159258624,
+          "checksum": 24242406474,
+          "height": 5152,
+          "status": "ok",
+          "total_ms": 1859.862125,
+          "width": 7728,
+          "detail_ms": 798.931292,
+          "base_ms": 1060.9308330000001,
+          "base_backend": "Apple M4 (Metal)",
+          "base_checksum": 24167024403,
+          "native_detail_disabled": {}
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 7728,
+      "height": 5152,
+      "median_ms": 1588.5065,
+      "min_ms": 1381.170208,
+      "max_ms": 1991.0714580000001
+    },
+    {
+      "file": "rw2-panasonic-s5m2.rw2",
+      "engine": "apple",
+      "trials": [
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 96000000,
+          "checksum": 14241174747,
+          "height": 4000,
+          "status": "ok",
+          "total_ms": 752.56375,
+          "width": 6000,
+          "detail_ms": 372.914625,
+          "base_ms": 379.649125,
+          "base_backend": "Core Image",
+          "base_checksum": 14125761049,
+          "native_detail_disabled": {
+            "color_noise_reduction": true,
+            "detail": true,
+            "luminance_noise_reduction": true,
+            "sharpness": true
+          }
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 96000000,
+          "checksum": 14241174747,
+          "height": 4000,
+          "status": "ok",
+          "total_ms": 753.655833,
+          "width": 6000,
+          "detail_ms": 322.986916,
+          "base_ms": 430.668917,
+          "base_backend": "Core Image",
+          "base_checksum": 14125761049,
+          "native_detail_disabled": {
+            "color_noise_reduction": true,
+            "detail": true,
+            "luminance_noise_reduction": true,
+            "sharpness": true
+          }
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 96000000,
+          "checksum": 14241174747,
+          "height": 4000,
+          "status": "ok",
+          "total_ms": 668.0796660000001,
+          "width": 6000,
+          "detail_ms": 288.67266600000005,
+          "base_ms": 379.407,
+          "base_backend": "Core Image",
+          "base_checksum": 14125761049,
+          "native_detail_disabled": {
+            "color_noise_reduction": true,
+            "detail": true,
+            "luminance_noise_reduction": true,
+            "sharpness": true
+          }
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 96000000,
+          "checksum": 14241174747,
+          "height": 4000,
+          "status": "ok",
+          "total_ms": 674.227417,
+          "width": 6000,
+          "detail_ms": 284.67837499999996,
+          "base_ms": 389.549042,
+          "base_backend": "Core Image",
+          "base_checksum": 14125761049,
+          "native_detail_disabled": {
+            "color_noise_reduction": true,
+            "detail": true,
+            "luminance_noise_reduction": true,
+            "sharpness": true
+          }
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 96000000,
+          "checksum": 14241174747,
+          "height": 4000,
+          "status": "ok",
+          "total_ms": 855.879458,
+          "width": 6000,
+          "detail_ms": 365.554333,
+          "base_ms": 490.325125,
+          "base_backend": "Core Image",
+          "base_checksum": 14125761049,
+          "native_detail_disabled": {
+            "color_noise_reduction": true,
+            "detail": true,
+            "luminance_noise_reduction": true,
+            "sharpness": true
+          }
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 6000,
+      "height": 4000,
+      "median_ms": 752.56375,
+      "min_ms": 668.0796660000001,
+      "max_ms": 855.879458
+    },
+    {
+      "file": "rw2-panasonic-s5m2.rw2",
+      "engine": "rawler",
+      "trials": [
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 96000000,
+          "checksum": 12826113632,
+          "height": 4000,
+          "status": "ok",
+          "total_ms": 597.2926239999999,
+          "width": 6000,
+          "detail_ms": 284.354166,
+          "base_ms": 312.93845799999997,
+          "base_backend": "CPU",
+          "base_checksum": 12761880975,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 96000000,
+          "checksum": 12826113632,
+          "height": 4000,
+          "status": "ok",
+          "total_ms": 871.6556249999999,
+          "width": 6000,
+          "detail_ms": 337.16249999999997,
+          "base_ms": 534.493125,
+          "base_backend": "CPU",
+          "base_checksum": 12761880975,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 96000000,
+          "checksum": 12826113632,
+          "height": 4000,
+          "status": "ok",
+          "total_ms": 566.267334,
+          "width": 6000,
+          "detail_ms": 273.256,
+          "base_ms": 293.01133400000003,
+          "base_backend": "CPU",
+          "base_checksum": 12761880975,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 96000000,
+          "checksum": 12826113632,
+          "height": 4000,
+          "status": "ok",
+          "total_ms": 1181.31575,
+          "width": 6000,
+          "detail_ms": 355.714166,
+          "base_ms": 825.601584,
+          "base_backend": "CPU",
+          "base_checksum": 12761880975,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 96000000,
+          "checksum": 12826113632,
+          "height": 4000,
+          "status": "ok",
+          "total_ms": 783.531083,
+          "width": 6000,
+          "detail_ms": 366.567458,
+          "base_ms": 416.963625,
+          "base_backend": "CPU",
+          "base_checksum": 12761880975,
+          "native_detail_disabled": {}
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 6000,
+      "height": 4000,
+      "median_ms": 783.531083,
+      "min_ms": 566.267334,
+      "max_ms": 1181.31575
+    },
+    {
+      "file": "rw2-panasonic-s5m2.rw2",
+      "engine": "lightcraft",
+      "trials": [
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 96000000,
+          "checksum": 14249536613,
+          "height": 4000,
+          "status": "ok",
+          "total_ms": 973.062083,
+          "width": 6000,
+          "detail_ms": 262.838833,
+          "base_ms": 710.22325,
+          "base_backend": "Apple M4 (Metal)",
+          "base_checksum": 14143916003,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 96000000,
+          "checksum": 14249536613,
+          "height": 4000,
+          "status": "ok",
+          "total_ms": 1360.805917,
+          "width": 6000,
+          "detail_ms": 267.095625,
+          "base_ms": 1093.710292,
+          "base_backend": "Apple M4 (Metal)",
+          "base_checksum": 14143916003,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 96000000,
+          "checksum": 14249536613,
+          "height": 4000,
+          "status": "ok",
+          "total_ms": 1298.498208,
+          "width": 6000,
+          "detail_ms": 527.382458,
+          "base_ms": 771.1157499999999,
+          "base_backend": "Apple M4 (Metal)",
+          "base_checksum": 14143916003,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 96000000,
+          "checksum": 14249536613,
+          "height": 4000,
+          "status": "ok",
+          "total_ms": 896.495292,
+          "width": 6000,
+          "detail_ms": 295.27275,
+          "base_ms": 601.222542,
+          "base_backend": "Apple M4 (Metal)",
+          "base_checksum": 14143916003,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 96000000,
+          "checksum": 14249536613,
+          "height": 4000,
+          "status": "ok",
+          "total_ms": 1553.153416,
+          "width": 6000,
+          "detail_ms": 392.171708,
+          "base_ms": 1160.981708,
+          "base_backend": "Apple M4 (Metal)",
+          "base_checksum": 14143916003,
+          "native_detail_disabled": {}
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 6000,
+      "height": 4000,
+      "median_ms": 1298.498208,
+      "min_ms": 896.495292,
+      "max_ms": 1553.153416
+    },
+    {
+      "file": "orf-olympus-e1.orf",
+      "engine": "apple",
+      "trials": [
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 19660800,
+          "checksum": 3079993187,
+          "height": 1920,
+          "status": "ok",
+          "total_ms": 360.871793,
+          "width": 2560,
+          "detail_ms": 281.372334,
+          "base_ms": 79.499459,
+          "base_backend": "Core Image",
+          "base_checksum": 3071690327,
+          "native_detail_disabled": {
+            "color_noise_reduction": true,
+            "detail": true,
+            "luminance_noise_reduction": true,
+            "sharpness": true
+          }
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 19660800,
+          "checksum": 3079993187,
+          "height": 1920,
+          "status": "ok",
+          "total_ms": 176.099334,
+          "width": 2560,
+          "detail_ms": 76.77754200000001,
+          "base_ms": 99.321792,
+          "base_backend": "Core Image",
+          "base_checksum": 3071690327,
+          "native_detail_disabled": {
+            "color_noise_reduction": true,
+            "detail": true,
+            "luminance_noise_reduction": true,
+            "sharpness": true
+          }
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 19660800,
+          "checksum": 3079993187,
+          "height": 1920,
+          "status": "ok",
+          "total_ms": 227.294251,
+          "width": 2560,
+          "detail_ms": 173.792542,
+          "base_ms": 53.501709,
+          "base_backend": "Core Image",
+          "base_checksum": 3071690327,
+          "native_detail_disabled": {
+            "color_noise_reduction": true,
+            "detail": true,
+            "luminance_noise_reduction": true,
+            "sharpness": true
+          }
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 19660800,
+          "checksum": 3079993187,
+          "height": 1920,
+          "status": "ok",
+          "total_ms": 113.28079199999999,
+          "width": 2560,
+          "detail_ms": 56.971667,
+          "base_ms": 56.309125,
+          "base_backend": "Core Image",
+          "base_checksum": 3071690327,
+          "native_detail_disabled": {
+            "color_noise_reduction": true,
+            "detail": true,
+            "luminance_noise_reduction": true,
+            "sharpness": true
+          }
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 19660800,
+          "checksum": 3079993187,
+          "height": 1920,
+          "status": "ok",
+          "total_ms": 207.75125000000003,
+          "width": 2560,
+          "detail_ms": 153.31162500000002,
+          "base_ms": 54.439625,
+          "base_backend": "Core Image",
+          "base_checksum": 3071690327,
+          "native_detail_disabled": {
+            "color_noise_reduction": true,
+            "detail": true,
+            "luminance_noise_reduction": true,
+            "sharpness": true
+          }
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 2560,
+      "height": 1920,
+      "median_ms": 207.75125000000003,
+      "min_ms": 113.28079199999999,
+      "max_ms": 360.871793
+    },
+    {
+      "file": "orf-olympus-e1.orf",
+      "engine": "rawler",
+      "trials": [
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 19660800,
+          "checksum": 2900497306,
+          "height": 1920,
+          "status": "ok",
+          "total_ms": 126.19525000000002,
+          "width": 2560,
+          "detail_ms": 75.69425000000001,
+          "base_ms": 50.501,
+          "base_backend": "CPU",
+          "base_checksum": 2895834841,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 19660800,
+          "checksum": 2900497306,
+          "height": 1920,
+          "status": "ok",
+          "total_ms": 216.803375,
+          "width": 2560,
+          "detail_ms": 175.253875,
+          "base_ms": 41.5495,
+          "base_backend": "CPU",
+          "base_checksum": 2895834841,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 19660800,
+          "checksum": 2900497306,
+          "height": 1920,
+          "status": "ok",
+          "total_ms": 116.745042,
+          "width": 2560,
+          "detail_ms": 46.713333000000006,
+          "base_ms": 70.03170899999999,
+          "base_backend": "CPU",
+          "base_checksum": 2895834841,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 19660800,
+          "checksum": 2900497306,
+          "height": 1920,
+          "status": "ok",
+          "total_ms": 99.545542,
+          "width": 2560,
+          "detail_ms": 54.123333,
+          "base_ms": 45.422208999999995,
+          "base_backend": "CPU",
+          "base_checksum": 2895834841,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 19660800,
+          "checksum": 2900497306,
+          "height": 1920,
+          "status": "ok",
+          "total_ms": 365.688043,
+          "width": 2560,
+          "detail_ms": 267.486209,
+          "base_ms": 98.201834,
+          "base_backend": "CPU",
+          "base_checksum": 2895834841,
+          "native_detail_disabled": {}
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 2560,
+      "height": 1920,
+      "median_ms": 126.19525000000002,
+      "min_ms": 99.545542,
+      "max_ms": 365.688043
+    },
+    {
+      "file": "orf-olympus-e1.orf",
+      "engine": "lightcraft",
+      "trials": [
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 19660800,
+          "checksum": 3002818589,
+          "height": 1920,
+          "status": "ok",
+          "total_ms": 363.49070800000004,
+          "width": 2560,
+          "detail_ms": 114.124666,
+          "base_ms": 249.36604200000002,
+          "base_backend": "Apple M4 (Metal)",
+          "base_checksum": 2993011102,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 19660800,
+          "checksum": 3002818589,
+          "height": 1920,
+          "status": "ok",
+          "total_ms": 223.534833,
+          "width": 2560,
+          "detail_ms": 57.399832999999994,
+          "base_ms": 166.135,
+          "base_backend": "Apple M4 (Metal)",
+          "base_checksum": 2993011102,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 19660800,
+          "checksum": 3002818589,
+          "height": 1920,
+          "status": "ok",
+          "total_ms": 185.563042,
+          "width": 2560,
+          "detail_ms": 52.937791999999995,
+          "base_ms": 132.62525,
+          "base_backend": "Apple M4 (Metal)",
+          "base_checksum": 2993011102,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 19660800,
+          "checksum": 3002818589,
+          "height": 1920,
+          "status": "ok",
+          "total_ms": 338.094209,
+          "width": 2560,
+          "detail_ms": 160.511917,
+          "base_ms": 177.582292,
+          "base_backend": "Apple M4 (Metal)",
+          "base_checksum": 2993011102,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 19660800,
+          "checksum": 3002818589,
+          "height": 1920,
+          "status": "ok",
+          "total_ms": 311.772084,
+          "width": 2560,
+          "detail_ms": 84.060625,
+          "base_ms": 227.711459,
+          "base_backend": "Apple M4 (Metal)",
+          "base_checksum": 2993011102,
+          "native_detail_disabled": {}
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 2560,
+      "height": 1920,
+      "median_ms": 311.772084,
+      "min_ms": 185.563042,
+      "max_ms": 363.49070800000004
+    },
+    {
+      "file": "orf-olympus-em1.orf",
+      "engine": "apple",
+      "trials": [
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 63700992,
+          "checksum": 9786655600,
+          "height": 3456,
+          "status": "ok",
+          "total_ms": 1149.516876,
+          "width": 4608,
+          "detail_ms": 907.984917,
+          "base_ms": 241.531959,
+          "base_backend": "Core Image",
+          "base_checksum": 9745948652,
+          "native_detail_disabled": {
+            "color_noise_reduction": true,
+            "detail": true,
+            "luminance_noise_reduction": true,
+            "sharpness": true
+          }
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 63700992,
+          "checksum": 9786655600,
+          "height": 3456,
+          "status": "ok",
+          "total_ms": 1291.254792,
+          "width": 4608,
+          "detail_ms": 1035.1405419999999,
+          "base_ms": 256.11425,
+          "base_backend": "Core Image",
+          "base_checksum": 9745948652,
+          "native_detail_disabled": {
+            "color_noise_reduction": true,
+            "detail": true,
+            "luminance_noise_reduction": true,
+            "sharpness": true
+          }
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 63700992,
+          "checksum": 9786655600,
+          "height": 3456,
+          "status": "ok",
+          "total_ms": 544.152333,
+          "width": 4608,
+          "detail_ms": 191.73100000000002,
+          "base_ms": 352.421333,
+          "base_backend": "Core Image",
+          "base_checksum": 9745948652,
+          "native_detail_disabled": {
+            "color_noise_reduction": true,
+            "detail": true,
+            "luminance_noise_reduction": true,
+            "sharpness": true
+          }
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 63700992,
+          "checksum": 9786655600,
+          "height": 3456,
+          "status": "ok",
+          "total_ms": 430.744916,
+          "width": 4608,
+          "detail_ms": 177.80458299999998,
+          "base_ms": 252.940333,
+          "base_backend": "Core Image",
+          "base_checksum": 9745948652,
+          "native_detail_disabled": {
+            "color_noise_reduction": true,
+            "detail": true,
+            "luminance_noise_reduction": true,
+            "sharpness": true
+          }
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 63700992,
+          "checksum": 9786655600,
+          "height": 3456,
+          "status": "ok",
+          "total_ms": 481.604459,
+          "width": 4608,
+          "detail_ms": 176.17920900000001,
+          "base_ms": 305.42525,
+          "base_backend": "Core Image",
+          "base_checksum": 9745948652,
+          "native_detail_disabled": {
+            "color_noise_reduction": true,
+            "detail": true,
+            "luminance_noise_reduction": true,
+            "sharpness": true
+          }
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 4608,
+      "height": 3456,
+      "median_ms": 544.152333,
+      "min_ms": 430.744916,
+      "max_ms": 1291.254792
+    },
+    {
+      "file": "orf-olympus-em1.orf",
+      "engine": "rawler",
+      "trials": [
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 63700992,
+          "checksum": 8152214883,
+          "height": 3456,
+          "status": "ok",
+          "total_ms": 1201.595624,
+          "width": 4608,
+          "detail_ms": 874.223333,
+          "base_ms": 327.37229099999996,
+          "base_backend": "CPU",
+          "base_checksum": 8134216034,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 63700992,
+          "checksum": 8152214883,
+          "height": 3456,
+          "status": "ok",
+          "total_ms": 563.102208,
+          "width": 4608,
+          "detail_ms": 234.15125,
+          "base_ms": 328.950958,
+          "base_backend": "CPU",
+          "base_checksum": 8134216034,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 63700992,
+          "checksum": 8152214883,
+          "height": 3456,
+          "status": "ok",
+          "total_ms": 680.842166,
+          "width": 4608,
+          "detail_ms": 216.312791,
+          "base_ms": 464.529375,
+          "base_backend": "CPU",
+          "base_checksum": 8134216034,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 63700992,
+          "checksum": 8152214883,
+          "height": 3456,
+          "status": "ok",
+          "total_ms": 601.38925,
+          "width": 4608,
+          "detail_ms": 267.102416,
+          "base_ms": 334.286834,
+          "base_backend": "CPU",
+          "base_checksum": 8134216034,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 63700992,
+          "checksum": 8152214883,
+          "height": 3456,
+          "status": "ok",
+          "total_ms": 442.221625,
+          "width": 4608,
+          "detail_ms": 165.511,
+          "base_ms": 276.710625,
+          "base_backend": "CPU",
+          "base_checksum": 8134216034,
+          "native_detail_disabled": {}
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 4608,
+      "height": 3456,
+      "median_ms": 601.38925,
+      "min_ms": 442.221625,
+      "max_ms": 1201.595624
+    },
+    {
+      "file": "orf-olympus-em1.orf",
+      "engine": "lightcraft",
+      "trials": [
+        {
+          "error": "preview-only: sensor data was not decoded",
+          "status": "error"
+        },
+        {
+          "error": "preview-only: sensor data was not decoded",
+          "status": "error"
+        },
+        {
+          "error": "preview-only: sensor data was not decoded",
+          "status": "error"
+        },
+        {
+          "error": "preview-only: sensor data was not decoded",
+          "status": "error"
+        },
+        {
+          "error": "preview-only: sensor data was not decoded",
+          "status": "error"
+        }
+      ],
+      "successes": 0,
+      "attempts": 5,
+      "width": 4608,
+      "height": 3456
+    },
+    {
+      "file": "pef-pentax-k-r.pef",
+      "engine": "apple",
+      "trials": [
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 48848896,
+          "checksum": 7088786984,
+          "height": 2848,
+          "status": "ok",
+          "total_ms": 274.495667,
+          "width": 4288,
+          "detail_ms": 166.180125,
+          "base_ms": 108.315542,
+          "base_backend": "Core Image",
+          "base_checksum": 7077714638,
+          "native_detail_disabled": {
+            "color_noise_reduction": true,
+            "detail": true,
+            "luminance_noise_reduction": true,
+            "sharpness": true
+          }
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 48848896,
+          "checksum": 7088786984,
+          "height": 2848,
+          "status": "ok",
+          "total_ms": 308.82041699999996,
+          "width": 4288,
+          "detail_ms": 168.89399999999998,
+          "base_ms": 139.926417,
+          "base_backend": "Core Image",
+          "base_checksum": 7077714638,
+          "native_detail_disabled": {
+            "color_noise_reduction": true,
+            "detail": true,
+            "luminance_noise_reduction": true,
+            "sharpness": true
+          }
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 48848896,
+          "checksum": 7088786984,
+          "height": 2848,
+          "status": "ok",
+          "total_ms": 324.509958,
+          "width": 4288,
+          "detail_ms": 153.35816699999998,
+          "base_ms": 171.151791,
+          "base_backend": "Core Image",
+          "base_checksum": 7077714638,
+          "native_detail_disabled": {
+            "color_noise_reduction": true,
+            "detail": true,
+            "luminance_noise_reduction": true,
+            "sharpness": true
+          }
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 48848896,
+          "checksum": 7088786984,
+          "height": 2848,
+          "status": "ok",
+          "total_ms": 265.976249,
+          "width": 4288,
+          "detail_ms": 126.567083,
+          "base_ms": 139.409166,
+          "base_backend": "Core Image",
+          "base_checksum": 7077714638,
+          "native_detail_disabled": {
+            "color_noise_reduction": true,
+            "detail": true,
+            "luminance_noise_reduction": true,
+            "sharpness": true
+          }
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 48848896,
+          "checksum": 7088786984,
+          "height": 2848,
+          "status": "ok",
+          "total_ms": 269.58570899999995,
+          "width": 4288,
+          "detail_ms": 160.749375,
+          "base_ms": 108.836334,
+          "base_backend": "Core Image",
+          "base_checksum": 7077714638,
+          "native_detail_disabled": {
+            "color_noise_reduction": true,
+            "detail": true,
+            "luminance_noise_reduction": true,
+            "sharpness": true
+          }
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 4288,
+      "height": 2848,
+      "median_ms": 274.495667,
+      "min_ms": 265.976249,
+      "max_ms": 324.509958
+    },
+    {
+      "file": "pef-pentax-k-r.pef",
+      "engine": "rawler",
+      "trials": [
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 48848896,
+          "checksum": 6918813398,
+          "height": 2848,
+          "status": "ok",
+          "total_ms": 380.68775,
+          "width": 4288,
+          "detail_ms": 129.02366700000002,
+          "base_ms": 251.66408299999998,
+          "base_backend": "CPU",
+          "base_checksum": 6912510652,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 48848896,
+          "checksum": 6918813398,
+          "height": 2848,
+          "status": "ok",
+          "total_ms": 404.503208,
+          "width": 4288,
+          "detail_ms": 138.594875,
+          "base_ms": 265.90833299999997,
+          "base_backend": "CPU",
+          "base_checksum": 6912510652,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 48848896,
+          "checksum": 6918813398,
+          "height": 2848,
+          "status": "ok",
+          "total_ms": 355.174876,
+          "width": 4288,
+          "detail_ms": 134.517459,
+          "base_ms": 220.65741699999998,
+          "base_backend": "CPU",
+          "base_checksum": 6912510652,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 48848896,
+          "checksum": 6918813398,
+          "height": 2848,
+          "status": "ok",
+          "total_ms": 363.184083,
+          "width": 4288,
+          "detail_ms": 156.14333299999998,
+          "base_ms": 207.04075,
+          "base_backend": "CPU",
+          "base_checksum": 6912510652,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 48848896,
+          "checksum": 6918813398,
+          "height": 2848,
+          "status": "ok",
+          "total_ms": 451.93491700000004,
+          "width": 4288,
+          "detail_ms": 268.45275000000004,
+          "base_ms": 183.482167,
+          "base_backend": "CPU",
+          "base_checksum": 6912510652,
+          "native_detail_disabled": {}
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 4288,
+      "height": 2848,
+      "median_ms": 380.68775,
+      "min_ms": 355.174876,
+      "max_ms": 451.93491700000004
+    },
+    {
+      "file": "pef-pentax-k-r.pef",
+      "engine": "lightcraft",
+      "trials": [
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 48848896,
+          "checksum": 6916166404,
+          "height": 2848,
+          "status": "ok",
+          "total_ms": 557.786458,
+          "width": 4288,
+          "detail_ms": 136.37925,
+          "base_ms": 421.40720799999997,
+          "base_backend": "Apple M4 (Metal)",
+          "base_checksum": 6897860130,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 48848896,
+          "checksum": 6916166404,
+          "height": 2848,
+          "status": "ok",
+          "total_ms": 589.490667,
+          "width": 4288,
+          "detail_ms": 134.58283400000002,
+          "base_ms": 454.907833,
+          "base_backend": "Apple M4 (Metal)",
+          "base_checksum": 6897860130,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 48848896,
+          "checksum": 6916166404,
+          "height": 2848,
+          "status": "ok",
+          "total_ms": 625.9165419999999,
+          "width": 4288,
+          "detail_ms": 144.663,
+          "base_ms": 481.253542,
+          "base_backend": "Apple M4 (Metal)",
+          "base_checksum": 6897860130,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 48848896,
+          "checksum": 6916166404,
+          "height": 2848,
+          "status": "ok",
+          "total_ms": 653.570083,
+          "width": 4288,
+          "detail_ms": 165.85454199999998,
+          "base_ms": 487.715541,
+          "base_backend": "Apple M4 (Metal)",
+          "base_checksum": 6897860130,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 48848896,
+          "checksum": 6916166404,
+          "height": 2848,
+          "status": "ok",
+          "total_ms": 829.7925839999999,
+          "width": 4288,
+          "detail_ms": 130.045042,
+          "base_ms": 699.747542,
+          "base_backend": "Apple M4 (Metal)",
+          "base_checksum": 6897860130,
+          "native_detail_disabled": {}
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 4288,
+      "height": 2848,
+      "median_ms": 625.9165419999999,
+      "min_ms": 557.786458,
+      "max_ms": 829.7925839999999
+    },
+    {
+      "file": "srw-samsung-nx200.srw",
+      "engine": "apple",
+      "trials": [
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 79847424,
+          "checksum": 9201627155,
+          "height": 5472,
+          "status": "ok",
+          "total_ms": 1142.303749,
+          "width": 3648,
+          "detail_ms": 1004.172208,
+          "base_ms": 138.131541,
+          "base_backend": "Core Image",
+          "base_checksum": 9158874242,
+          "native_detail_disabled": {
+            "color_noise_reduction": true,
+            "detail": true,
+            "luminance_noise_reduction": true,
+            "sharpness": true
+          }
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 79847424,
+          "checksum": 9201627155,
+          "height": 5472,
+          "status": "ok",
+          "total_ms": 718.742583,
+          "width": 3648,
+          "detail_ms": 646.035291,
+          "base_ms": 72.707292,
+          "base_backend": "Core Image",
+          "base_checksum": 9158874242,
+          "native_detail_disabled": {
+            "color_noise_reduction": true,
+            "detail": true,
+            "luminance_noise_reduction": true,
+            "sharpness": true
+          }
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 79847424,
+          "checksum": 9201627155,
+          "height": 5472,
+          "status": "ok",
+          "total_ms": 350.98924999999997,
+          "width": 3648,
+          "detail_ms": 221.247917,
+          "base_ms": 129.741333,
+          "base_backend": "Core Image",
+          "base_checksum": 9158874242,
+          "native_detail_disabled": {
+            "color_noise_reduction": true,
+            "detail": true,
+            "luminance_noise_reduction": true,
+            "sharpness": true
+          }
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 79847424,
+          "checksum": 9201627155,
+          "height": 5472,
+          "status": "ok",
+          "total_ms": 342.759417,
+          "width": 3648,
+          "detail_ms": 237.761042,
+          "base_ms": 104.998375,
+          "base_backend": "Core Image",
+          "base_checksum": 9158874242,
+          "native_detail_disabled": {
+            "color_noise_reduction": true,
+            "detail": true,
+            "luminance_noise_reduction": true,
+            "sharpness": true
+          }
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 79847424,
+          "checksum": 9201627155,
+          "height": 5472,
+          "status": "ok",
+          "total_ms": 378.475376,
+          "width": 3648,
+          "detail_ms": 251.51891700000002,
+          "base_ms": 126.956459,
+          "base_backend": "Core Image",
+          "base_checksum": 9158874242,
+          "native_detail_disabled": {
+            "color_noise_reduction": true,
+            "detail": true,
+            "luminance_noise_reduction": true,
+            "sharpness": true
+          }
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 3648,
+      "height": 5472,
+      "median_ms": 378.475376,
+      "min_ms": 342.759417,
+      "max_ms": 1142.303749
+    },
+    {
+      "file": "srw-samsung-nx200.srw",
+      "engine": "rawler",
+      "trials": [
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 79847424,
+          "checksum": 9085883282,
+          "height": 5472,
+          "status": "ok",
+          "total_ms": 581.266125,
+          "width": 3648,
+          "detail_ms": 277.694667,
+          "base_ms": 303.571458,
+          "base_backend": "CPU",
+          "base_checksum": 9059940459,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 79847424,
+          "checksum": 9085883282,
+          "height": 5472,
+          "status": "ok",
+          "total_ms": 1229.847957,
+          "width": 3648,
+          "detail_ms": 923.549916,
+          "base_ms": 306.298041,
+          "base_backend": "CPU",
+          "base_checksum": 9059940459,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 79847424,
+          "checksum": 9085883282,
+          "height": 5472,
+          "status": "ok",
+          "total_ms": 661.9100000000001,
+          "width": 3648,
+          "detail_ms": 376.265458,
+          "base_ms": 285.644542,
+          "base_backend": "CPU",
+          "base_checksum": 9059940459,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 79847424,
+          "checksum": 9085883282,
+          "height": 5472,
+          "status": "ok",
+          "total_ms": 519.4608330000001,
+          "width": 3648,
+          "detail_ms": 237.347333,
+          "base_ms": 282.11350000000004,
+          "base_backend": "CPU",
+          "base_checksum": 9059940459,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 79847424,
+          "checksum": 9085883282,
+          "height": 5472,
+          "status": "ok",
+          "total_ms": 518.4512090000001,
+          "width": 3648,
+          "detail_ms": 252.115417,
+          "base_ms": 266.335792,
+          "base_backend": "CPU",
+          "base_checksum": 9059940459,
+          "native_detail_disabled": {}
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 3648,
+      "height": 5472,
+      "median_ms": 581.266125,
+      "min_ms": 518.4512090000001,
+      "max_ms": 1229.847957
+    },
+    {
+      "file": "srw-samsung-nx200.srw",
+      "engine": "lightcraft",
+      "trials": [
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 79847424,
+          "checksum": 11708127973,
+          "height": 5472,
+          "status": "ok",
+          "total_ms": 1000.917792,
+          "width": 3648,
+          "detail_ms": 231.32787499999998,
+          "base_ms": 769.589917,
+          "base_backend": "Apple M4 (Metal)",
+          "base_checksum": 11623504581,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 79847424,
+          "checksum": 11708127973,
+          "height": 5472,
+          "status": "ok",
+          "total_ms": 783.136624,
+          "width": 3648,
+          "detail_ms": 259.953583,
+          "base_ms": 523.183041,
+          "base_backend": "Apple M4 (Metal)",
+          "base_checksum": 11623504581,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 79847424,
+          "checksum": 11708127973,
+          "height": 5472,
+          "status": "ok",
+          "total_ms": 1116.156916,
+          "width": 3648,
+          "detail_ms": 241.92975,
+          "base_ms": 874.227166,
+          "base_backend": "Apple M4 (Metal)",
+          "base_checksum": 11623504581,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 79847424,
+          "checksum": 11708127973,
+          "height": 5472,
+          "status": "ok",
+          "total_ms": 1185.188708,
+          "width": 3648,
+          "detail_ms": 312.89162500000003,
+          "base_ms": 872.2970829999999,
+          "base_backend": "Apple M4 (Metal)",
+          "base_checksum": 11623504581,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 79847424,
+          "checksum": 11708127973,
+          "height": 5472,
+          "status": "ok",
+          "total_ms": 1654.8293760000001,
+          "width": 3648,
+          "detail_ms": 920.588459,
+          "base_ms": 734.2409170000001,
+          "base_backend": "Apple M4 (Metal)",
+          "base_checksum": 11623504581,
+          "native_detail_disabled": {}
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 3648,
+      "height": 5472,
+      "median_ms": 1116.156916,
+      "min_ms": 783.136624,
+      "max_ms": 1654.8293760000001
+    },
+    {
+      "file": "dng-ricoh-gr3.dng",
+      "engine": "apple",
+      "trials": [
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 96000000,
+          "checksum": 12705001891,
+          "height": 4000,
+          "status": "ok",
+          "total_ms": 688.9024999999999,
+          "width": 6000,
+          "detail_ms": 275.682958,
+          "base_ms": 413.219542,
+          "base_backend": "Core Image",
+          "base_checksum": 12657844027,
+          "native_detail_disabled": {
+            "color_noise_reduction": true,
+            "detail": true,
+            "luminance_noise_reduction": true,
+            "sharpness": true
+          }
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 96000000,
+          "checksum": 12705001891,
+          "height": 4000,
+          "status": "ok",
+          "total_ms": 666.5069169999999,
+          "width": 6000,
+          "detail_ms": 268.26404199999996,
+          "base_ms": 398.242875,
+          "base_backend": "Core Image",
+          "base_checksum": 12657844027,
+          "native_detail_disabled": {
+            "color_noise_reduction": true,
+            "detail": true,
+            "luminance_noise_reduction": true,
+            "sharpness": true
+          }
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 96000000,
+          "checksum": 12705001891,
+          "height": 4000,
+          "status": "ok",
+          "total_ms": 1112.7455,
+          "width": 6000,
+          "detail_ms": 562.3905,
+          "base_ms": 550.355,
+          "base_backend": "Core Image",
+          "base_checksum": 12657844027,
+          "native_detail_disabled": {
+            "color_noise_reduction": true,
+            "detail": true,
+            "luminance_noise_reduction": true,
+            "sharpness": true
+          }
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 96000000,
+          "checksum": 12705001891,
+          "height": 4000,
+          "status": "ok",
+          "total_ms": 751.439374,
+          "width": 6000,
+          "detail_ms": 326.05141599999996,
+          "base_ms": 425.387958,
+          "base_backend": "Core Image",
+          "base_checksum": 12657844027,
+          "native_detail_disabled": {
+            "color_noise_reduction": true,
+            "detail": true,
+            "luminance_noise_reduction": true,
+            "sharpness": true
+          }
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 96000000,
+          "checksum": 12705001891,
+          "height": 4000,
+          "status": "ok",
+          "total_ms": 1046.5690829999999,
+          "width": 6000,
+          "detail_ms": 585.635958,
+          "base_ms": 460.933125,
+          "base_backend": "Core Image",
+          "base_checksum": 12657844027,
+          "native_detail_disabled": {
+            "color_noise_reduction": true,
+            "detail": true,
+            "luminance_noise_reduction": true,
+            "sharpness": true
+          }
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 6000,
+      "height": 4000,
+      "median_ms": 751.439374,
+      "min_ms": 666.5069169999999,
+      "max_ms": 1112.7455
+    },
+    {
+      "file": "dng-ricoh-gr3.dng",
+      "engine": "rawler",
+      "trials": [
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 96000000,
+          "checksum": 12139864619,
+          "height": 4000,
+          "status": "ok",
+          "total_ms": 737.853166,
+          "width": 6000,
+          "detail_ms": 288.916208,
+          "base_ms": 448.936958,
+          "base_backend": "CPU",
+          "base_checksum": 12112819045,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 96000000,
+          "checksum": 12139864619,
+          "height": 4000,
+          "status": "ok",
+          "total_ms": 675.143834,
+          "width": 6000,
+          "detail_ms": 303.792542,
+          "base_ms": 371.351292,
+          "base_backend": "CPU",
+          "base_checksum": 12112819045,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 96000000,
+          "checksum": 12139864619,
+          "height": 4000,
+          "status": "ok",
+          "total_ms": 705.092709,
+          "width": 6000,
+          "detail_ms": 331.84454200000005,
+          "base_ms": 373.248167,
+          "base_backend": "CPU",
+          "base_checksum": 12112819045,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 96000000,
+          "checksum": 12139864619,
+          "height": 4000,
+          "status": "ok",
+          "total_ms": 673.548125,
+          "width": 6000,
+          "detail_ms": 290.471625,
+          "base_ms": 383.0765,
+          "base_backend": "CPU",
+          "base_checksum": 12112819045,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 96000000,
+          "checksum": 12139864619,
+          "height": 4000,
+          "status": "ok",
+          "total_ms": 1093.466791,
+          "width": 6000,
+          "detail_ms": 343.966208,
+          "base_ms": 749.500583,
+          "base_backend": "CPU",
+          "base_checksum": 12112819045,
+          "native_detail_disabled": {}
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 6000,
+      "height": 4000,
+      "median_ms": 705.092709,
+      "min_ms": 673.548125,
+      "max_ms": 1093.466791
+    },
+    {
+      "file": "dng-ricoh-gr3.dng",
+      "engine": "lightcraft",
+      "trials": [
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 96000000,
+          "checksum": 13514018137,
+          "height": 4000,
+          "status": "ok",
+          "total_ms": 973.3211660000001,
+          "width": 6000,
+          "detail_ms": 282.005708,
+          "base_ms": 691.315458,
+          "base_backend": "Apple M4 (Metal)",
+          "base_checksum": 13451448314,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 96000000,
+          "checksum": 13514018137,
+          "height": 4000,
+          "status": "ok",
+          "total_ms": 922.986375,
+          "width": 6000,
+          "detail_ms": 287.15024999999997,
+          "base_ms": 635.8361249999999,
+          "base_backend": "Apple M4 (Metal)",
+          "base_checksum": 13451448314,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 96000000,
+          "checksum": 13514018137,
+          "height": 4000,
+          "status": "ok",
+          "total_ms": 861.671292,
+          "width": 6000,
+          "detail_ms": 272.708417,
+          "base_ms": 588.9628749999999,
+          "base_backend": "Apple M4 (Metal)",
+          "base_checksum": 13451448314,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 96000000,
+          "checksum": 13514018137,
+          "height": 4000,
+          "status": "ok",
+          "total_ms": 988.733459,
+          "width": 6000,
+          "detail_ms": 320.657292,
+          "base_ms": 668.076167,
+          "base_backend": "Apple M4 (Metal)",
+          "base_checksum": 13451448314,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 96000000,
+          "checksum": 13514018137,
+          "height": 4000,
+          "status": "ok",
+          "total_ms": 1251.503792,
+          "width": 6000,
+          "detail_ms": 312.18075,
+          "base_ms": 939.3230420000001,
+          "base_backend": "Apple M4 (Metal)",
+          "base_checksum": 13451448314,
+          "native_detail_disabled": {}
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 6000,
+      "height": 4000,
+      "median_ms": 973.3211660000001,
+      "min_ms": 861.671292,
+      "max_ms": 1251.503792
+    },
+    {
+      "file": "dng-apple-iphone12pro-proraw.dng",
+      "engine": "apple",
+      "trials": [
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 48771072,
+          "checksum": 7831031832,
+          "height": 4032,
+          "status": "ok",
+          "total_ms": 274.94945800000005,
+          "width": 3024,
+          "detail_ms": 130.839208,
+          "base_ms": 144.11025,
+          "base_backend": "Core Image",
+          "base_checksum": 7778404650,
+          "native_detail_disabled": {
+            "color_noise_reduction": true,
+            "detail": true,
+            "luminance_noise_reduction": true,
+            "sharpness": true
+          }
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 48771072,
+          "checksum": 7831031832,
+          "height": 4032,
+          "status": "ok",
+          "total_ms": 306.743333,
+          "width": 3024,
+          "detail_ms": 143.952291,
+          "base_ms": 162.791042,
+          "base_backend": "Core Image",
+          "base_checksum": 7778404650,
+          "native_detail_disabled": {
+            "color_noise_reduction": true,
+            "detail": true,
+            "luminance_noise_reduction": true,
+            "sharpness": true
+          }
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 48771072,
+          "checksum": 7831031832,
+          "height": 4032,
+          "status": "ok",
+          "total_ms": 275.45520799999997,
+          "width": 3024,
+          "detail_ms": 139.02820799999998,
+          "base_ms": 136.427,
+          "base_backend": "Core Image",
+          "base_checksum": 7778404650,
+          "native_detail_disabled": {
+            "color_noise_reduction": true,
+            "detail": true,
+            "luminance_noise_reduction": true,
+            "sharpness": true
+          }
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 48771072,
+          "checksum": 7831031832,
+          "height": 4032,
+          "status": "ok",
+          "total_ms": 361.674541,
+          "width": 3024,
+          "detail_ms": 128.88074999999998,
+          "base_ms": 232.793791,
+          "base_backend": "Core Image",
+          "base_checksum": 7778404650,
+          "native_detail_disabled": {
+            "color_noise_reduction": true,
+            "detail": true,
+            "luminance_noise_reduction": true,
+            "sharpness": true
+          }
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 48771072,
+          "checksum": 7831031832,
+          "height": 4032,
+          "status": "ok",
+          "total_ms": 265.586459,
+          "width": 3024,
+          "detail_ms": 121.52704200000001,
+          "base_ms": 144.059417,
+          "base_backend": "Core Image",
+          "base_checksum": 7778404650,
+          "native_detail_disabled": {
+            "color_noise_reduction": true,
+            "detail": true,
+            "luminance_noise_reduction": true,
+            "sharpness": true
+          }
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 3024,
+      "height": 4032,
+      "median_ms": 275.45520799999997,
+      "min_ms": 265.586459,
+      "max_ms": 361.674541
+    },
+    {
+      "file": "dng-apple-iphone12pro-proraw.dng",
+      "engine": "rawler",
+      "trials": [
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 48771072,
+          "checksum": 7091860879,
+          "height": 4032,
+          "status": "ok",
+          "total_ms": 521.951417,
+          "width": 3024,
+          "detail_ms": 158.61187500000003,
+          "base_ms": 363.339542,
+          "base_backend": "CPU",
+          "base_checksum": 7071723264,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 48771072,
+          "checksum": 7091860879,
+          "height": 4032,
+          "status": "ok",
+          "total_ms": 327.671917,
+          "width": 3024,
+          "detail_ms": 132.056542,
+          "base_ms": 195.615375,
+          "base_backend": "CPU",
+          "base_checksum": 7071723264,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 48771072,
+          "checksum": 7091860879,
+          "height": 4032,
+          "status": "ok",
+          "total_ms": 322.794708,
+          "width": 3024,
+          "detail_ms": 131.17904099999998,
+          "base_ms": 191.615667,
+          "base_backend": "CPU",
+          "base_checksum": 7071723264,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 48771072,
+          "checksum": 7091860879,
+          "height": 4032,
+          "status": "ok",
+          "total_ms": 418.48320799999993,
+          "width": 3024,
+          "detail_ms": 126.39049999999999,
+          "base_ms": 292.09270799999996,
+          "base_backend": "CPU",
+          "base_checksum": 7071723264,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 48771072,
+          "checksum": 7091860879,
+          "height": 4032,
+          "status": "ok",
+          "total_ms": 437.226125,
+          "width": 3024,
+          "detail_ms": 142.52854200000002,
+          "base_ms": 294.697583,
+          "base_backend": "CPU",
+          "base_checksum": 7071723264,
+          "native_detail_disabled": {}
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 3024,
+      "height": 4032,
+      "median_ms": 418.48320799999993,
+      "min_ms": 322.794708,
+      "max_ms": 521.951417
+    },
+    {
+      "file": "dng-apple-iphone12pro-proraw.dng",
+      "engine": "lightcraft",
+      "trials": [
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 48771072,
+          "checksum": 5838767871,
+          "height": 4032,
+          "status": "ok",
+          "total_ms": 400.1989990000001,
+          "width": 3024,
+          "detail_ms": 132.445958,
+          "base_ms": 267.75304100000005,
+          "base_backend": "Apple M4 (Metal)",
+          "base_checksum": 5806150911,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 48771072,
+          "checksum": 5838767871,
+          "height": 4032,
+          "status": "ok",
+          "total_ms": 677.8562079999999,
+          "width": 3024,
+          "detail_ms": 159.830583,
+          "base_ms": 518.025625,
+          "base_backend": "Apple M4 (Metal)",
+          "base_checksum": 5806150911,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 48771072,
+          "checksum": 5838767871,
+          "height": 4032,
+          "status": "ok",
+          "total_ms": 399.62795900000003,
+          "width": 3024,
+          "detail_ms": 150.610209,
+          "base_ms": 249.01775,
+          "base_backend": "Apple M4 (Metal)",
+          "base_checksum": 5806150911,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 48771072,
+          "checksum": 5838767871,
+          "height": 4032,
+          "status": "ok",
+          "total_ms": 466.31375,
+          "width": 3024,
+          "detail_ms": 153.641542,
+          "base_ms": 312.672208,
+          "base_backend": "Apple M4 (Metal)",
+          "base_checksum": 5806150911,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 48771072,
+          "checksum": 5838767871,
+          "height": 4032,
+          "status": "ok",
+          "total_ms": 408.280917,
+          "width": 3024,
+          "detail_ms": 143.476292,
+          "base_ms": 264.804625,
+          "base_backend": "Apple M4 (Metal)",
+          "base_checksum": 5806150911,
+          "native_detail_disabled": {}
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 3024,
+      "height": 4032,
+      "median_ms": 408.280917,
+      "min_ms": 399.62795900000003,
+      "max_ms": 677.8562079999999
+    },
+    {
+      "file": "dng-adobe-canon-5d3-linear-lj92.dng",
+      "engine": "apple",
+      "trials": [
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 41817600,
+          "checksum": 6098816534,
+          "height": 2640,
+          "status": "ok",
+          "total_ms": 198.012875,
+          "width": 3960,
+          "detail_ms": 113.169292,
+          "base_ms": 84.843583,
+          "base_backend": "Core Image",
+          "base_checksum": 6087829334,
+          "native_detail_disabled": {
+            "color_noise_reduction": false,
+            "detail": false,
+            "luminance_noise_reduction": false,
+            "sharpness": false
+          }
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 41817600,
+          "checksum": 6098816534,
+          "height": 2640,
+          "status": "ok",
+          "total_ms": 177.836916,
+          "width": 3960,
+          "detail_ms": 105.500208,
+          "base_ms": 72.336708,
+          "base_backend": "Core Image",
+          "base_checksum": 6087829334,
+          "native_detail_disabled": {
+            "color_noise_reduction": false,
+            "detail": false,
+            "luminance_noise_reduction": false,
+            "sharpness": false
+          }
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 41817600,
+          "checksum": 6098816534,
+          "height": 2640,
+          "status": "ok",
+          "total_ms": 257.274625,
+          "width": 3960,
+          "detail_ms": 118.087791,
+          "base_ms": 139.186834,
+          "base_backend": "Core Image",
+          "base_checksum": 6087829334,
+          "native_detail_disabled": {
+            "color_noise_reduction": false,
+            "detail": false,
+            "luminance_noise_reduction": false,
+            "sharpness": false
+          }
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 41817600,
+          "checksum": 6098816534,
+          "height": 2640,
+          "status": "ok",
+          "total_ms": 195.424709,
+          "width": 3960,
+          "detail_ms": 115.866875,
+          "base_ms": 79.557834,
+          "base_backend": "Core Image",
+          "base_checksum": 6087829334,
+          "native_detail_disabled": {
+            "color_noise_reduction": false,
+            "detail": false,
+            "luminance_noise_reduction": false,
+            "sharpness": false
+          }
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 41817600,
+          "checksum": 6098816534,
+          "height": 2640,
+          "status": "ok",
+          "total_ms": 232.53995899999998,
+          "width": 3960,
+          "detail_ms": 126.87737499999999,
+          "base_ms": 105.662584,
+          "base_backend": "Core Image",
+          "base_checksum": 6087829334,
+          "native_detail_disabled": {
+            "color_noise_reduction": false,
+            "detail": false,
+            "luminance_noise_reduction": false,
+            "sharpness": false
+          }
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 3960,
+      "height": 2640,
+      "median_ms": 198.012875,
+      "min_ms": 177.836916,
+      "max_ms": 257.274625
+    },
+    {
+      "file": "dng-adobe-canon-5d3-linear-lj92.dng",
+      "engine": "rawler",
+      "trials": [
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 41817600,
+          "checksum": 5212219103,
+          "height": 2640,
+          "status": "ok",
+          "total_ms": 879.29375,
+          "width": 3960,
+          "detail_ms": 264.635125,
+          "base_ms": 614.658625,
+          "base_backend": "CPU",
+          "base_checksum": 5206903943,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 41817600,
+          "checksum": 5212219103,
+          "height": 2640,
+          "status": "ok",
+          "total_ms": 197.245666,
+          "width": 3960,
+          "detail_ms": 101.890333,
+          "base_ms": 95.355333,
+          "base_backend": "CPU",
+          "base_checksum": 5206903943,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 41817600,
+          "checksum": 5212219103,
+          "height": 2640,
+          "status": "ok",
+          "total_ms": 245.449083,
+          "width": 3960,
+          "detail_ms": 103.323667,
+          "base_ms": 142.125416,
+          "base_backend": "CPU",
+          "base_checksum": 5206903943,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 41817600,
+          "checksum": 5212219103,
+          "height": 2640,
+          "status": "ok",
+          "total_ms": 232.703458,
+          "width": 3960,
+          "detail_ms": 119.022291,
+          "base_ms": 113.681167,
+          "base_backend": "CPU",
+          "base_checksum": 5206903943,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 41817600,
+          "checksum": 5212219103,
+          "height": 2640,
+          "status": "ok",
+          "total_ms": 215.286,
+          "width": 3960,
+          "detail_ms": 111.162875,
+          "base_ms": 104.123125,
+          "base_backend": "CPU",
+          "base_checksum": 5206903943,
+          "native_detail_disabled": {}
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 3960,
+      "height": 2640,
+      "median_ms": 232.703458,
+      "min_ms": 197.245666,
+      "max_ms": 879.29375
+    },
+    {
+      "file": "dng-adobe-canon-5d3-linear-lj92.dng",
+      "engine": "lightcraft",
+      "trials": [
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 41817600,
+          "checksum": 5491224042,
+          "height": 2640,
+          "status": "ok",
+          "total_ms": 511.56225,
+          "width": 3960,
+          "detail_ms": 139.019792,
+          "base_ms": 372.542458,
+          "base_backend": "Apple M4 (Metal)",
+          "base_checksum": 5485733069,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 41817600,
+          "checksum": 5491224042,
+          "height": 2640,
+          "status": "ok",
+          "total_ms": 571.962333,
+          "width": 3960,
+          "detail_ms": 117.69954200000001,
+          "base_ms": 454.262791,
+          "base_backend": "Apple M4 (Metal)",
+          "base_checksum": 5485733069,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 41817600,
+          "checksum": 5491224042,
+          "height": 2640,
+          "status": "ok",
+          "total_ms": 407.97674900000004,
+          "width": 3960,
+          "detail_ms": 110.19333300000001,
+          "base_ms": 297.78341600000005,
+          "base_backend": "Apple M4 (Metal)",
+          "base_checksum": 5485733069,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 41817600,
+          "checksum": 5491224042,
+          "height": 2640,
+          "status": "ok",
+          "total_ms": 421.913375,
+          "width": 3960,
+          "detail_ms": 108.73970800000001,
+          "base_ms": 313.17366699999997,
+          "base_backend": "Apple M4 (Metal)",
+          "base_checksum": 5485733069,
+          "native_detail_disabled": {}
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 41817600,
+          "checksum": 5491224042,
+          "height": 2640,
+          "status": "ok",
+          "total_ms": 517.1665,
+          "width": 3960,
+          "detail_ms": 190.263083,
+          "base_ms": 326.903417,
+          "base_backend": "Apple M4 (Metal)",
+          "base_checksum": 5485733069,
+          "native_detail_disabled": {}
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 3960,
+      "height": 2640,
+      "median_ms": 511.56225,
+      "min_ms": 407.97674900000004,
+      "max_ms": 571.962333
+    }
+  ],
+  "lightphotos_commit": "035969f34717373b3720b9360c292c4b16378ec9",
+  "lightcraft_commit": "0da998f24dfc03069d49867f8877af2bf7c51f94",
+  "adapter_sha256": {
+    "display.py": "827214b0d26196cdd7e79a6acc5367b6f8d8839b9c31153f5b5351c9cdad6ef5",
+    "display.swift": "519d5f5d0b8a2b5d5e991985d06d9c8a96956693572d554330eac99a6345b91f",
+    "rust/src/display.rs": "8450bb476b962b28afd4b42eb7c4847f917731d9d54ec02a850c55604b98c051",
+    "rust/Cargo.lock": "a440cda0b650cf572ee09e6609c14a666bb59114155ff0546e5573362aa366af"
+  },
+  "detail_processing": {
+    "implementation": "LightCraft GPU detail pipeline, same shared worker for all engines",
+    "sharpen_amount": 40,
+    "sharpen_radius": 1,
+    "sharpen_detail": 25,
+    "sharpen_masking": 0,
+    "nr_color": 25,
+    "nr_luminance": 0,
+    "profile_amount": 0,
+    "native_filters": "Apple adjustable sharpness/detail/luminance NR/color NR set to zero where supported; LightCraft native sharpening/NR off; rawler has no default NR or sharpening edit",
+    "timing": "sum of base-conversion and common-detail intervals; bridge file transport, IPC and checksums excluded for all three",
+    "working_space": "sRGB RGBA8 decoded to linear Rec.2020 before common GPU filters; final sRGB RGBA8 readback",
+    "limitations": "Controlled test, not native app defaults or an equal-quality claim. RAW color/tone rendering and baked-in camera processing can differ."
+  },
+  "execution": "All three base workers and the shared detail worker ran unrestricted with GPU access. Requests were sequential.",
+  "validation_script_sha256": "80a36b09a9684a5357cfd83fef4f48c698388a508c3c818671986f7eb873f521"
+}

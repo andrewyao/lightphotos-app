@@ -29,6 +29,8 @@ fn render(
     bytes: Vec<u8>,
     width: u32,
     height: u32,
+    full_resolution: bool,
+    matched_detail: bool,
 ) -> Result<(RgbaImage, String), String> {
     if engine == "rawler" {
         let source = rawler::rawsource::RawSource::new_from_shared_vec(Arc::new(bytes));
@@ -45,18 +47,31 @@ fn render(
             .to_dynamic_image()
             .ok_or("no developed image")?;
         let rgba = orient(image, orientation).into_rgba8();
-        Ok((
-            imageops::resize(&rgba, width, height, FilterType::Lanczos3),
-            "CPU".into(),
-        ))
+        let rgba = if rgba.dimensions() == (width, height) {
+            rgba
+        } else {
+            imageops::resize(&rgba, width, height, FilterType::Lanczos3)
+        };
+        Ok((rgba, "CPU".into()))
     } else {
-        let (source, info) = lightcraft_engine::files::load_vec(bytes, width.max(height) as usize)?;
+        // A full-resolution request must never select the loader's binned preview path.
+        let max_edge = if full_resolution {
+            usize::MAX
+        } else {
+            width.max(height) as usize
+        };
+        let (source, info) = lightcraft_engine::files::load_vec(bytes, max_edge)?;
         if !info.raw {
             return Err("preview-only: sensor data was not decoded".into());
         }
         let source = Arc::new(source);
-        let settings =
+        let mut settings =
             lightcraft_develop::DevelopSettings::for_raw(info.as_shot_temp, info.as_shot_tint);
+        if matched_detail {
+            settings.detail.sharpen_amount = 0.0;
+            settings.detail.nr_color = 0.0;
+            settings.detail.nr_luminance = 0.0;
+        }
         let request = lightcraft_pipeline::RenderRequest::fit(width as usize, height as usize);
         let (rendered, backend) =
             match lightcraft_gpu::try_render(&source, &info, &settings, &request, None) {
@@ -85,13 +100,54 @@ fn render(
     }
 }
 
+/// The same detail implementation, settings and working space for every engine.
+/// Input is a completed sRGB buffer; no camera look or white-balance edit is added.
+fn detail(
+    bytes: Vec<u8>,
+    width: u32,
+    height: u32,
+    request: &Value,
+) -> Result<(RgbaImage, String), String> {
+    let rgba = lightcraft_raster::Rgba8::from_bytes(width as usize, height as usize, &bytes)
+        .ok_or("invalid detail input")?;
+    let mut linear = rgba.to_linear();
+    drop(rgba);
+    drop(bytes);
+    let matrix = lightcraft_color::REC2020
+        .from_xyz()
+        .mul(&lightcraft_color::SRGB.to_xyz())
+        .to_f32();
+    linear.map_in_place(|p| {
+        std::array::from_fn(|i| matrix[i][0] * p[0] + matrix[i][1] * p[1] + matrix[i][2] * p[2])
+    });
+    let source = Arc::new(linear);
+    let mut settings = lightcraft_develop::DevelopSettings::default();
+    settings.profile.amount = 0.0;
+    settings.detail.sharpen_amount = request["sharpen_amount"].as_f64().unwrap_or(40.0);
+    settings.detail.nr_color = request["nr_color"].as_f64().unwrap_or(25.0);
+    let mut info = lightcraft_pipeline::SourceInfo::default();
+    info.native_long = request["native_long"].as_u64().map(|n| n as usize);
+    let render_request = lightcraft_pipeline::RenderRequest::fit(width as usize, height as usize);
+    // Refuse a fallback here: all three must use the same GPU detail backend.
+    let rendered = lightcraft_gpu::try_render(&source, &info, &settings, &render_request, None)
+        .map_err(|reason| format!("shared GPU detail unavailable: {reason:?}"))?;
+    let image = rendered.image;
+    let rgba = RgbaImage::from_raw(
+        image.width as u32,
+        image.height as u32,
+        image.data.into_iter().flatten().collect(),
+    )
+    .ok_or("invalid detail output")?;
+    Ok((rgba, lightcraft_gpu::adapter_name().unwrap_or("GPU".into())))
+}
+
 fn main() {
     let engine = std::env::args().nth(1).expect("engine");
     // Initialize persistent infrastructure outside every measured interval.
     rayon::ThreadPoolBuilder::new()
         .build_global()
         .expect("rayon pool");
-    if engine == "lightcraft" {
+    if engine == "lightcraft" || engine == "detail" {
         black_box(lightcraft_gpu::available());
     }
     println!("{}", json!({"ready": true}));
@@ -101,10 +157,27 @@ fn main() {
         let path = request["path"].as_str().expect("path");
         let width = request["width"].as_u64().expect("width") as u32;
         let height = request["height"].as_u64().expect("height") as u32;
+        let full_resolution = request["full_resolution"].as_bool().unwrap_or(false);
+        let matched_detail = request["matched_detail"].as_bool().unwrap_or(false);
+        // The bridge file is transport between languages, not part of the algorithm.
+        // Its I/O is outside detail timing for all three engines, including LightCraft.
+        let detail_bytes =
+            (engine == "detail").then(|| std::fs::read(path).expect("read detail input"));
         let start = Instant::now();
         let output = std::panic::catch_unwind(|| {
-            let bytes = std::fs::read(path).map_err(|e| e.to_string())?;
-            render(&engine, bytes, width, height)
+            if let Some(bytes) = detail_bytes {
+                detail(bytes, width, height, &request)
+            } else {
+                let bytes = std::fs::read(path).map_err(|e| e.to_string())?;
+                render(
+                    &engine,
+                    bytes,
+                    width,
+                    height,
+                    full_resolution,
+                    matched_detail,
+                )
+            }
         });
         let elapsed = start.elapsed().as_secs_f64() * 1000.0;
         let result = match output {
