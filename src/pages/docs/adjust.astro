@@ -3,9 +3,12 @@ import Docs from "../../layouts/Docs.astro";
 ---
 <Docs slug="adjust">
   <p>
-    The panel on the right has three pages, picked from the icons on its
-    edge &mdash; Adjustments, Crop &amp; Transform and Cleanup &mdash; and
-    almost everything happens under <strong>Adjustments</strong>. Two
+    The panel on the right has four pages, picked from the icons on its
+    edge &mdash; <a href="/docs/presets.html">Presets</a>, Adjustments,
+    Crop &amp; Transform and <a href="/docs/masks.html">Masks &amp;
+    Cleanup</a> &mdash; and most of the work happens under
+    <strong>Adjustments</strong>. Each section's heading has an arrow
+    that folds it away. Two
     buttons sit at the top: <strong>Auto Adjust</strong> and
     <strong>B&amp;W</strong>, which turns the photo black and white or back
     to color. The sections below them run in this order:
@@ -101,18 +104,25 @@ import Docs from "../../layouts/Docs.astro";
       becomes the look for the shoot.
     </li>
     <li>
-      <strong>Heal the small stuff.</strong> Turn on <strong>Touch
-      Up</strong> on the Cleanup page and click a blemish to remove it, up to
-      64 spots per photo. It works from the full-resolution image, so give it
-      a moment if you have just arrived from the grid.
+      <strong>Save a look you reuse.</strong> When an edit is worth keeping
+      across shoots, press <kbd>Cmd+Shift+N</kbd> to save it as a
+      <a href="/docs/presets.html">preset</a>.
     </li>
   </ul>
+
+  <p>
+    <kbd>Cmd+Z</kbd> undoes the last change: a slider drag, a reset, a crop,
+    a preset, Auto Adjust or a pasted adjustment. A change made to a whole
+    selection undoes in one step. Ratings, flags, labels and rotation are not
+    undone.
+  </p>
 
   <p>
     None of this touches the original file. Every slider is an instruction
     stored in the <code>.lightphotos</code> folder beside your photo, so you
     can close the app mid-edit, come back next week, or reset the whole photo
-    without any harm done. When it looks right, the last step is
-    <a href="/docs/export.html">export</a>.
+    without any harm done. To change only part of the photo, add a
+    <a href="/docs/masks.html">mask</a>. When it looks right, the last step
+    is <a href="/docs/export.html">export</a>.
   </p>
 </Docs>

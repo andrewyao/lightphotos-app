@@ -51,7 +51,17 @@ export const docGroups: DocGroup[] = [
       {
         slug: "adjust",
         title: "Adjust the settings",
-        dek: "Tone, color mixing and grading, detail, effects, touch-ups and crop — every one of them reversible.",
+        dek: "Tone, color mixing and grading, detail, effects and crop — every one of them reversible.",
+      },
+      {
+        slug: "masks",
+        title: "Masks",
+        dek: "Adjust part of a photo: a gradient, an ellipse, or a subject or sky found for you, plus Touch Up for spots.",
+      },
+      {
+        slug: "presets",
+        title: "Presets",
+        dek: "Put a saved look on many photos in one click, and use your Lightroom presets straight from their folders.",
       },
       {
         slug: "export",

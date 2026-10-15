@@ -77,6 +77,11 @@ import WebAppLink from "../../components/WebAppLink.astro";
               <td>All of these, plus camera profiles, a parametric curve, point colour and calibration</td>
             </tr>
             <tr>
+              <th scope="row">Presets</th>
+              <td class="lp-compare-pick">Your own presets, plus Lightroom <code>.xmp</code> presets imported or read from their folders</td>
+              <td>Presets, profiles and premium presets</td>
+            </tr>
+            <tr>
               <th scope="row">Crop and rotate</th>
               <td class="lp-compare-pick">Crop to an aspect ratio, straighten up to 45&deg; or by drawing a level line, rotate in 90&deg; steps</td>
               <td>All of these, plus Upright perspective correction</td>
@@ -88,8 +93,8 @@ import WebAppLink from "../../components/WebAppLink.astro";
             </tr>
             <tr>
               <th scope="row">Masks and local edits</th>
-              <td class="lp-compare-pick">Spot removal only</td>
-              <td>Brushes, gradients, AI subject and sky masks</td>
+              <td class="lp-compare-pick">Linear and radial gradients, subject and sky masks, spot removal</td>
+              <td>All of these, plus brushes, range masks and more AI selections</td>
             </tr>
             <tr>
               <th scope="row">Export</th>
@@ -106,14 +111,15 @@ import WebAppLink from "../../components/WebAppLink.astro";
         <li><strong>No accounts, no registration, fully local.</strong> There’s nothing to sign up for. Your photos and edits stay on your computer unless you export them to your own Immich server.</li>
         <li><strong>Free to use.</strong> Download and go, or use the <a href="/app.html">web app</a> in Chrome. No cost, no nags, no subscriptions.</li>
         <li><strong>Streamlined culling and rating.</strong> Use number keys and arrow keys for fast selection. Instantly compare frames in a burst to pick the best shot. See <a href="/docs/compare-a-stack.html">Compare a stack</a>.</li>
+        <li><strong>Your Lightroom presets.</strong> Point LightPhotos at a folder of Lightroom <code>.xmp</code> presets and apply them in one click, with no copying. See <a href="/docs/presets.html">Presets</a>.</li>
         <li><strong>Quick edits for every photo.</strong> <strong>Auto Adjust</strong> analyzes each photo’s histogram, and <strong>Black &amp; White</strong> or color toggles are one-click for batches or singles.</li>
         <li><strong>Native Linux support.</strong> Runs on macOS, Windows and Linux, on ARM and x86. See <a href="/blogs/linux-raw-photo-editor.html">LightPhotos on Linux</a>.</li>
       </ul>
 
       <h2>What LightPhotos does not do yet</h2>
       <ul class="lp-article-list">
-        <li>No masks, brushes, gradients or AI selections. Spot removal is the only local tool.</li>
-        <li>No presets. The tone curve is a point curve only, with no parametric sliders.</li>
+        <li>No brushes or range masks. Masks are linear and radial gradients, plus subject and sky, with nine sliders each. Subject masks only work in the Mac app.</li>
+        <li>The tone curve is a point curve only, with no parametric sliders.</li>
         <li>Chromatic aberration is the only lens correction. No lens profiles, distortion or vignetting correction, and no perspective correction.</li>
         <li>No keywords, collections, maps, face recognition or print module.</li>
         <li>Some cameras are limited outside macOS. See <a href="/docs/formats.html">tested cameras</a>.</li>
