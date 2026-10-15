@@ -1,6 +1,7 @@
 
 const STORE = "handles";
 const PREFIX = "folder:";
+const PRESET = "preset:";
 const LEGACY = "root";
 function openDb() {
   return new Promise((resolve, reject) => {
@@ -87,4 +88,28 @@ export async function grantedFolder(name, ask) {
     throw new Error("folder access denied");
   }
   return handle;
+}
+export async function keepPresetFolder(handle) {
+  const [keys, handles] = await run("readonly", (s) =>
+    Promise.all([request(s.getAllKeys()), request(s.getAll())]));
+  const kept = [];
+  keys.forEach((key, i) => {
+    if (typeof key === "string" && key.startsWith(PRESET)) {
+      kept.push([key.slice(PRESET.length), handles[i]]);
+    }
+  });
+  for (const [name, other] of kept) {
+    if (await other.isSameEntry(handle)) return name;
+  }
+  const name = uniqueName(handle.name, kept.map(([n]) => n));
+  await run("readwrite", (s) => { s.put(handle, PRESET + name); });
+  return name;
+}
+export async function grantedPresetFolder(name, ask) {
+  const handle = await run("readonly", (s) => request(s.get(PRESET + name)));
+  if (!handle) throw new Error("no saved preset folder");
+  const mode = { mode: "read" };
+  if ((await handle.queryPermission(mode)) === "granted") return handle;
+  if (ask && (await handle.requestPermission(mode)) === "granted") return handle;
+  return null;
 }

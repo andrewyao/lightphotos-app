@@ -63,10 +63,25 @@ export async function forgetFolderIfUnlisted(name, folder) {
     Promise.all([request(s.getAllKeys()), request(s.getAll())]));
   const lists = (v) => Array.isArray(v?.folders) && v.folders.some((f) =>
     typeof f === "string" && (f === folder || f.startsWith(folder + "/")));
-  if (keys.some((k, i) => k !== name && lists(values[i]))) return false;
+  if (keys.some((k, i) => k !== name && !k.includes("\0") && lists(values[i]))) return false;
   const db = await open("lightphotos-folders", ["handles"]);
   try {
     await txn(db, "handles", "readwrite", (s) => request(s.delete("folder:" + folder)));
+  } finally {
+    db.close();
+  }
+  return true;
+}
+export async function forgetPresetFolderIfUnlisted(name, folder) {
+  const [keys, values] = await run(CATALOGS, "readonly", (s) =>
+    Promise.all([request(s.getAllKeys()), request(s.getAll())]));
+  const mine = "presets\0" + name;
+  const lists = (v) => Array.isArray(v?.folders) && v.folders.includes(folder);
+  if (keys.some((k, i) => typeof k === "string" && k.startsWith("presets\0")
+      && k !== mine && lists(values[i]))) return false;
+  const db = await open("lightphotos-folders", ["handles"]);
+  try {
+    await txn(db, "handles", "readwrite", (s) => request(s.delete("preset:" + folder)));
   } finally {
     db.close();
   }
