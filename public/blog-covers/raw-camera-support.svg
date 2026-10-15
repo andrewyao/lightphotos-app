@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675">
+  <rect width="1200" height="675" fill="#141a22"/>
+  <g font-family="system-ui,sans-serif">
+    <text x="85" y="108" fill="#8eb5e0" font-size="20" letter-spacing="4">LIGHTPHOTOS · RAW CAMERA SUPPORT</text>
+    <text x="80" y="200" fill="#f0f3f7" font-size="58" font-weight="600">Which cameras</text>
+    <text x="80" y="272" fill="#f0f3f7" font-size="58" font-weight="600">actually open?</text>
+    <text x="85" y="330" fill="#aab6c6" font-size="25">Apple RAW · rawler · LightCraft</text>
+    <rect x="80" y="383" width="1040" height="210" rx="16" fill="#202c3a"/>
+    <g fill="#b6c3d3" font-size="22">
+      <text x="112" y="432">Camera model</text><text x="450" y="432">Compression</text><text x="850" y="432">Sensor decode</text>
+    </g>
+    <path d="M110 453H1090 M110 514H1090" stroke="#354559"/>
+    <g fill="#ecf1f7" font-size="24">
+      <text x="112" y="492">Same camera</text><text x="450" y="492">Lossless</text>
+      <text x="112" y="555">Same camera</text><text x="450" y="555">High Efficiency</text>
+    </g>
+    <text x="850" y="492" fill="#9cdbb4" font-size="24">Test separately</text>
+    <text x="850" y="555" fill="#edc185" font-size="24">Test separately</text>
+  </g>
+</svg>

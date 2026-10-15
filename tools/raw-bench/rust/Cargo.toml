@@ -1,0 +1,22 @@
+[package]
+name = "raw-engine-bench"
+version = "0.1.0"
+edition = "2024"
+publish = false
+
+[dependencies]
+rawler = { path = "../../../../lightphotos/vendor/rawler-0.8.0" }
+lightcraft-raw = { path = "../../../../lightcraft/crates/raw" }
+serde_json = "1"
+image = { version = "0.25", default-features = false }
+rayon = "1"
+lightcraft-engine = { path = "../../../../lightcraft/crates/engine" }
+lightcraft-develop = { path = "../../../../lightcraft/crates/develop" }
+lightcraft-pipeline = { path = "../../../../lightcraft/crates/pipeline" }
+lightcraft-gpu = { path = "../../../../lightcraft/crates/gpu" }
+
+[[bin]]
+name = "display-bench"
+path = "src/display.rs"
+
+[workspace]

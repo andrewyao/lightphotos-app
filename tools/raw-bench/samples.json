@@ -1,0 +1,146 @@
+[
+  {
+    "file": "arw-sony-a7m4-14bit.arw",
+    "url": "https://raw.pixls.us/getfile.php/6936/nice/Sony%20-%20ILCE-7M4%20-%2014bit%20%283:2%29.ARW",
+    "sha256": "639a6d4db881f1359e3ea7e1137b314e59417d24e6d4d862b7202111a2c823b2",
+    "license": "CC0-1.0",
+    "camera": "Sony A7 IV",
+    "mode": "14-bit, 4608 \u00d7 3072"
+  },
+  {
+    "file": "arw-sony-a7m4-lossless-l.arw",
+    "url": "https://raw.pixls.us/data/Sony/ILCE-7M4/ILCE-7M4_DSC06674_FullFrame-LossLess-Compressed-Large.ARW",
+    "sha256": "851b43c2116c4139104a5036f83ac3b6a148789b2142214dd7192c13972b25b6",
+    "license": "CC0-1.0",
+    "camera": "Sony A7 IV",
+    "mode": "Lossless compressed, Large"
+  },
+  {
+    "file": "cr2-canon-5d3.cr2",
+    "url": "https://raw.pixls.us/getfile.php/771/nice/Canon%20-%20EOS%205D%20Mark%20III.CR2",
+    "sha256": "ec069b178b9383d80c72f8cdc1b79bd54ca451e7c20793b109d8ad73bef6bdf6",
+    "license": "CC0-1.0",
+    "camera": "Canon EOS 5D Mark III",
+    "mode": "CR2"
+  },
+  {
+    "file": "cr3-canon-r5m2-raw.cr3",
+    "url": "https://raw.pixls.us/getfile.php/7881/nice/Canon%20-%20EOS%20R5%20Mark%20II%20-%20RAW%20%283:2%29.CR3",
+    "sha256": "d6e6aa3b493ea8936dff0efb0cc17c87471437e7317bce37c8c82ba08b9cab7b",
+    "license": "CC0-1.0",
+    "camera": "Canon EOS R5 Mark II",
+    "mode": "CR3 RAW"
+  },
+  {
+    "file": "cr3-canon-r5m2-craw.cr3",
+    "url": "https://raw.pixls.us/getfile.php/7882/nice/Canon%20-%20EOS%20R5%20Mark%20II%20-%20CRAW%20%283:2%29.CR3",
+    "sha256": "b3c08a5c7a97299dfd58896a12b939e7b43ec78682761812524825e6e5d087be",
+    "license": "CC0-1.0",
+    "camera": "Canon EOS R5 Mark II",
+    "mode": "CR3 C-RAW"
+  },
+  {
+    "file": "nef-nikon-zf-lossless.nef",
+    "url": "https://raw.pixls.us/download/data/Nikon/Z%20f/DSC_0040.NEF",
+    "sha256": "83c82be0be8865d796096dfbcc8ef2abf5af1bd37db44dfad6715070b0c99d15",
+    "license": "CC0-1.0",
+    "camera": "Nikon Z f",
+    "mode": "Lossless compressed NEF"
+  },
+  {
+    "file": "nef-nikon-zf-he.nef",
+    "url": "https://raw.pixls.us/download/data/Nikon/Z%20f/DSC_0043.NEF",
+    "sha256": "98d6ca8e6c98048ca7ffed68ccaeda7b2b9f03807f0d320d97d5678db21748c2",
+    "license": "CC0-1.0",
+    "camera": "Nikon Z f",
+    "mode": "High Efficiency NEF"
+  },
+  {
+    "file": "raf-fuji-xa5-14bit-bayer.raf",
+    "url": "https://raw.pixls.us/getfile.php/2526/nice/Fujifilm%20-%20X-A5%20-%2014bit%2014bit%20uncompressed%20%283:2%29.RAF",
+    "sha256": "46daaf8c2b07f40bd01f737181d048a497bb0a87615a1fde65809fdd5de86bf1",
+    "license": "CC0-1.0",
+    "camera": "Fujifilm X-A5",
+    "mode": "14-bit Bayer, uncompressed RAF"
+  },
+  {
+    "file": "raf-fuji-xt5-6122.raf",
+    "url": "https://raw.pixls.us/getfile.php/6122/nice/Fujifilm%20-%20X-T5%20-%2014bit%2014bit%20compressed%20%283:2%29.RAF",
+    "sha256": "b2a067e7fda16338f15c2532caa12b238b2415dc1c75a96a6d24d3445cfd0ae3",
+    "license": "CC0-1.0",
+    "camera": "Fujifilm X-T5",
+    "mode": "Compressed X-Trans RAF, sample 6122"
+  },
+  {
+    "file": "raf-fuji-xt5-6123.raf",
+    "url": "https://raw.pixls.us/getfile.php/6123/nice/Fujifilm%20-%20X-T5%20-%2014bit%2014bit%20compressed%20%283:2%29.RAF",
+    "sha256": "cddd7ae0c43f9280876e5fdcbdf8878718972ebd3d034d8affc8cfc6752d33dc",
+    "license": "CC0-1.0",
+    "camera": "Fujifilm X-T5",
+    "mode": "Compressed X-Trans RAF, sample 6123"
+  },
+  {
+    "file": "rw2-panasonic-s5m2.rw2",
+    "url": "https://raw.pixls.us/getfile.php/7790/nice/Panasonic%20-%20DC-S5M2%20-%2014bit%20%283:2%29.RW2",
+    "sha256": "53a171521a7f9af6910b4ab61c5a4a42de0cceb24166e15b07eee1e00675028f",
+    "license": "CC0-1.0",
+    "camera": "Panasonic Lumix S5 II",
+    "mode": "RW2"
+  },
+  {
+    "file": "orf-olympus-e1.orf",
+    "url": "https://raw.pixls.us/getfile.php/1800/nice/Olympus%20-%20E-1%20-%2016bit%20%284:3%29.ORF",
+    "sha256": "042286653fbae5b085bef4a4e626145385ea6e82e817f166b4904abcef64457c",
+    "license": "CC0-1.0",
+    "camera": "Olympus E-1",
+    "mode": "ORF"
+  },
+  {
+    "file": "orf-olympus-em1.orf",
+    "url": "https://raw.pixls.us/getfile.php/1051/nice/Olympus%20-%20E-M1%20-%2016bit%20%284:3%29.orf",
+    "sha256": "19ba17e778ae802d4039f0e88bb1cd68825780788b8058c479067e32b9a63eda",
+    "license": "CC0-1.0",
+    "camera": "Olympus OM-D E-M1",
+    "mode": "Compressed ORF"
+  },
+  {
+    "file": "pef-pentax-k-r.pef",
+    "url": "https://raw.pixls.us/getfile.php/8171/nice/Pentax%20-%20K-r%20-%2012bit%20compressed%20%283:2%29.PEF",
+    "sha256": "dd0d7b76d89039995d253adddcfb44d131414fad2179610d9ea4d8d4bb876b7b",
+    "license": "CC0-1.0",
+    "camera": "Pentax K-r",
+    "mode": "PEF"
+  },
+  {
+    "file": "srw-samsung-nx200.srw",
+    "url": "https://raw.pixls.us/getfile.php/839/nice/Samsung%20-%20NX200%20-%2012bit%20%283:2%29.srw",
+    "sha256": "03563eadfe4ef32b5bf2a2850abb40b29fcc1f8d56b3b2ed92ef307b90d7d9dc",
+    "license": "CC0-1.0",
+    "camera": "Samsung NX200",
+    "mode": "SRW"
+  },
+  {
+    "file": "dng-ricoh-gr3.dng",
+    "url": "https://raw.pixls.us/getfile.php/3115/nice/Ricoh%20-%20GR%20III%20-%2014bit%20%283:2%29.DNG",
+    "sha256": "05513ee72f7cac4165534c9f64995412084f414a033c80c473c79fd94154292e",
+    "license": "CC0-1.0",
+    "camera": "Ricoh GR III",
+    "mode": "Camera-native DNG"
+  },
+  {
+    "file": "dng-apple-iphone12pro-proraw.dng",
+    "url": "https://raw.pixls.us/data/Apple/iPhone%2012%20Pro/IMG_1361.DNG",
+    "sha256": "e91e77a4533ed7cce551d83330676ea5c47dd5e55fb38adda7819366afdbdfc2",
+    "license": "CC0-1.0",
+    "camera": "iPhone 12 Pro",
+    "mode": "ProRAW DNG"
+  },
+  {
+    "file": "dng-adobe-canon-5d3-linear-lj92.dng",
+    "url": "https://raw.pixls.us/getfile.php/1032/nice/Adobe%20DNG%20Converter%20-%20Canon%20EOS%205D%20Mark%20III%20-%20Lossless%20JPEG%20compression%2C%20rgb%20%283:2%29.DNG",
+    "sha256": "0608c9f277307b745530e61b589c465540611df22f9a1fe2d01237c5b2b4c13b",
+    "license": "CC0-1.0",
+    "camera": "Canon EOS 5D Mark III via Adobe DNG Converter",
+    "mode": "Linear DNG, lossless JPEG"
+  }
+]

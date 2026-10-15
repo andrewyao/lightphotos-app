@@ -1,0 +1,3780 @@
+{
+  "date": "2026-10-15T22:03:53.055273+00:00",
+  "hardware": "Mac mini, Apple M4, 10 CPU cores, 16 GB RAM",
+  "platform": "macOS-26.5.2-arm64-arm-64bit-Mach-O",
+  "method": "persistent workers; discarded warmup per file; randomized sequential rounds; warm-file open to completed sRGB RGBA8, 2560 px long edge; no developed-image cache",
+  "rayon_num_threads": "default",
+  "common_files": [
+    "arw-sony-a7m4-14bit.arw",
+    "arw-sony-a7m4-lossless-l.arw",
+    "cr2-canon-5d3.cr2",
+    "cr3-canon-r5m2-raw.cr3",
+    "cr3-canon-r5m2-craw.cr3",
+    "nef-nikon-zf-lossless.nef",
+    "raf-fuji-xa5-14bit-bayer.raf",
+    "raf-fuji-xt5-6122.raf",
+    "raf-fuji-xt5-6123.raf",
+    "rw2-panasonic-s5m2.rw2",
+    "orf-olympus-e1.orf",
+    "pef-pentax-k-r.pef",
+    "srw-samsung-nx200.srw",
+    "dng-ricoh-gr3.dng",
+    "dng-apple-iphone12pro-proraw.dng",
+    "dng-adobe-canon-5d3-linear-lj92.dng"
+  ],
+  "common_sum_of_medians_ms": {
+    "apple": 3542.904959,
+    "rawler": 8074.269751,
+    "lightcraft": 4991.152748
+  },
+  "warmups": [
+    {
+      "file": "arw-sony-a7m4-14bit.arw",
+      "engine": "apple",
+      "result": {
+        "backend": "Core Image",
+        "bytes": 17469440,
+        "checksum": 2464313369,
+        "height": 1706,
+        "status": "ok",
+        "total_ms": 326.760291,
+        "width": 2560
+      }
+    },
+    {
+      "file": "arw-sony-a7m4-14bit.arw",
+      "engine": "rawler",
+      "result": {
+        "backend": "CPU",
+        "bytes": 17469440,
+        "checksum": 2121519240,
+        "height": 1706,
+        "status": "ok",
+        "total_ms": 313.768958,
+        "width": 2560
+      }
+    },
+    {
+      "file": "arw-sony-a7m4-14bit.arw",
+      "engine": "lightcraft",
+      "result": {
+        "backend": "Apple M4 (Metal)",
+        "bytes": 17469440,
+        "checksum": 2405561840,
+        "height": 1706,
+        "status": "ok",
+        "total_ms": 193.139792,
+        "width": 2560
+      }
+    },
+    {
+      "file": "arw-sony-a7m4-lossless-l.arw",
+      "engine": "apple",
+      "result": {
+        "backend": "Core Image",
+        "bytes": 17469440,
+        "checksum": 2536443129,
+        "height": 1706,
+        "status": "ok",
+        "total_ms": 319.195541,
+        "width": 2560
+      }
+    },
+    {
+      "file": "arw-sony-a7m4-lossless-l.arw",
+      "engine": "rawler",
+      "result": {
+        "backend": "CPU",
+        "bytes": 17469440,
+        "checksum": 2157684916,
+        "height": 1706,
+        "status": "ok",
+        "total_ms": 673.195583,
+        "width": 2560
+      }
+    },
+    {
+      "file": "arw-sony-a7m4-lossless-l.arw",
+      "engine": "lightcraft",
+      "result": {
+        "backend": "Apple M4 (Metal)",
+        "bytes": 17469440,
+        "checksum": 2459248419,
+        "height": 1706,
+        "status": "ok",
+        "total_ms": 568.8976660000001,
+        "width": 2560
+      }
+    },
+    {
+      "file": "cr2-canon-5d3.cr2",
+      "engine": "apple",
+      "result": {
+        "backend": "Core Image",
+        "bytes": 17469440,
+        "checksum": 2506155750,
+        "height": 1706,
+        "status": "ok",
+        "total_ms": 199.0185,
+        "width": 2560
+      }
+    },
+    {
+      "file": "cr2-canon-5d3.cr2",
+      "engine": "rawler",
+      "result": {
+        "backend": "CPU",
+        "bytes": 17469440,
+        "checksum": 2133106657,
+        "height": 1706,
+        "status": "ok",
+        "total_ms": 500.480666,
+        "width": 2560
+      }
+    },
+    {
+      "file": "cr2-canon-5d3.cr2",
+      "engine": "lightcraft",
+      "result": {
+        "backend": "Apple M4 (Metal)",
+        "bytes": 17469440,
+        "checksum": 2542968904,
+        "height": 1706,
+        "status": "ok",
+        "total_ms": 363.888291,
+        "width": 2560
+      }
+    },
+    {
+      "file": "cr3-canon-r5m2-raw.cr3",
+      "engine": "apple",
+      "result": {
+        "backend": "Core Image",
+        "bytes": 17479680,
+        "checksum": 2068878480,
+        "height": 1707,
+        "status": "ok",
+        "total_ms": 781.777791,
+        "width": 2560
+      }
+    },
+    {
+      "file": "cr3-canon-r5m2-raw.cr3",
+      "engine": "rawler",
+      "result": {
+        "backend": "CPU",
+        "bytes": 17479680,
+        "checksum": 1697993850,
+        "height": 1707,
+        "status": "ok",
+        "total_ms": 956.352625,
+        "width": 2560
+      }
+    },
+    {
+      "file": "cr3-canon-r5m2-raw.cr3",
+      "engine": "lightcraft",
+      "result": {
+        "backend": "Apple M4 (Metal)",
+        "bytes": 17479680,
+        "checksum": 1725847155,
+        "height": 1707,
+        "status": "ok",
+        "total_ms": 478.044375,
+        "width": 2560
+      }
+    },
+    {
+      "file": "cr3-canon-r5m2-craw.cr3",
+      "engine": "apple",
+      "result": {
+        "backend": "Core Image",
+        "bytes": 17479680,
+        "checksum": 2070409264,
+        "height": 1707,
+        "status": "ok",
+        "total_ms": 904.093833,
+        "width": 2560
+      }
+    },
+    {
+      "file": "cr3-canon-r5m2-craw.cr3",
+      "engine": "rawler",
+      "result": {
+        "backend": "CPU",
+        "bytes": 17479680,
+        "checksum": 1699231473,
+        "height": 1707,
+        "status": "ok",
+        "total_ms": 1041.2521669999999,
+        "width": 2560
+      }
+    },
+    {
+      "file": "cr3-canon-r5m2-craw.cr3",
+      "engine": "lightcraft",
+      "result": {
+        "backend": "Apple M4 (Metal)",
+        "bytes": 17479680,
+        "checksum": 1727117690,
+        "height": 1707,
+        "status": "ok",
+        "total_ms": 654.363292,
+        "width": 2560
+      }
+    },
+    {
+      "file": "nef-nikon-zf-lossless.nef",
+      "engine": "apple",
+      "result": {
+        "backend": "Core Image",
+        "bytes": 17469440,
+        "checksum": 2871014282,
+        "height": 1706,
+        "status": "ok",
+        "total_ms": 167.40025,
+        "width": 2560
+      }
+    },
+    {
+      "file": "nef-nikon-zf-lossless.nef",
+      "engine": "rawler",
+      "result": {
+        "backend": "CPU",
+        "bytes": 17469440,
+        "checksum": 2371235784,
+        "height": 1706,
+        "status": "ok",
+        "total_ms": 508.70704200000006,
+        "width": 2560
+      }
+    },
+    {
+      "file": "nef-nikon-zf-lossless.nef",
+      "engine": "lightcraft",
+      "result": {
+        "backend": "Apple M4 (Metal)",
+        "bytes": 17469440,
+        "checksum": 2844458105,
+        "height": 1706,
+        "status": "ok",
+        "total_ms": 272.323084,
+        "width": 2560
+      }
+    },
+    {
+      "file": "nef-nikon-zf-he.nef",
+      "engine": "apple",
+      "result": {
+        "backend": "Core Image",
+        "bytes": 17469440,
+        "checksum": 2919335174,
+        "height": 1706,
+        "status": "ok",
+        "total_ms": 147.199291,
+        "width": 2560
+      }
+    },
+    {
+      "file": "nef-nikon-zf-he.nef",
+      "engine": "rawler",
+      "result": {
+        "error": "Failed to decode image, possibly corrupt image: NEF compression Some(HighEfficency) is not supported",
+        "status": "error"
+      }
+    },
+    {
+      "file": "nef-nikon-zf-he.nef",
+      "engine": "lightcraft",
+      "result": {
+        "error": "preview-only: sensor data was not decoded",
+        "status": "error"
+      }
+    },
+    {
+      "file": "raf-fuji-xa5-14bit-bayer.raf",
+      "engine": "apple",
+      "result": {
+        "backend": "Core Image",
+        "bytes": 17469440,
+        "checksum": 3140630397,
+        "height": 1706,
+        "status": "ok",
+        "total_ms": 261.086166,
+        "width": 2560
+      }
+    },
+    {
+      "file": "raf-fuji-xa5-14bit-bayer.raf",
+      "engine": "rawler",
+      "result": {
+        "backend": "CPU",
+        "bytes": 17469440,
+        "checksum": 2790747806,
+        "height": 1706,
+        "status": "ok",
+        "total_ms": 448.051917,
+        "width": 2560
+      }
+    },
+    {
+      "file": "raf-fuji-xa5-14bit-bayer.raf",
+      "engine": "lightcraft",
+      "result": {
+        "backend": "Apple M4 (Metal)",
+        "bytes": 17469440,
+        "checksum": 3209301179,
+        "height": 1706,
+        "status": "ok",
+        "total_ms": 284.406958,
+        "width": 2560
+      }
+    },
+    {
+      "file": "raf-fuji-xt5-6122.raf",
+      "engine": "apple",
+      "result": {
+        "backend": "Core Image",
+        "bytes": 17469440,
+        "checksum": 2526976586,
+        "height": 1706,
+        "status": "ok",
+        "total_ms": 258.843042,
+        "width": 2560
+      }
+    },
+    {
+      "file": "raf-fuji-xt5-6122.raf",
+      "engine": "rawler",
+      "result": {
+        "backend": "CPU",
+        "bytes": 17469440,
+        "checksum": 2246644775,
+        "height": 1706,
+        "status": "ok",
+        "total_ms": 791.876792,
+        "width": 2560
+      }
+    },
+    {
+      "file": "raf-fuji-xt5-6122.raf",
+      "engine": "lightcraft",
+      "result": {
+        "backend": "Apple M4 (Metal)",
+        "bytes": 17469440,
+        "checksum": 2635638513,
+        "height": 1706,
+        "status": "ok",
+        "total_ms": 401.15104099999996,
+        "width": 2560
+      }
+    },
+    {
+      "file": "raf-fuji-xt5-6123.raf",
+      "engine": "apple",
+      "result": {
+        "backend": "Core Image",
+        "bytes": 17469440,
+        "checksum": 2543391315,
+        "height": 1706,
+        "status": "ok",
+        "total_ms": 285.192042,
+        "width": 2560
+      }
+    },
+    {
+      "file": "raf-fuji-xt5-6123.raf",
+      "engine": "rawler",
+      "result": {
+        "backend": "CPU",
+        "bytes": 17469440,
+        "checksum": 2252147576,
+        "height": 1706,
+        "status": "ok",
+        "total_ms": 776.854833,
+        "width": 2560
+      }
+    },
+    {
+      "file": "raf-fuji-xt5-6123.raf",
+      "engine": "lightcraft",
+      "result": {
+        "backend": "Apple M4 (Metal)",
+        "bytes": 17469440,
+        "checksum": 2658772173,
+        "height": 1706,
+        "status": "ok",
+        "total_ms": 382.336291,
+        "width": 2560
+      }
+    },
+    {
+      "file": "rw2-panasonic-s5m2.rw2",
+      "engine": "apple",
+      "result": {
+        "backend": "Core Image",
+        "bytes": 17469440,
+        "checksum": 2583579454,
+        "height": 1706,
+        "status": "ok",
+        "total_ms": 360.51125,
+        "width": 2560
+      }
+    },
+    {
+      "file": "rw2-panasonic-s5m2.rw2",
+      "engine": "rawler",
+      "result": {
+        "backend": "CPU",
+        "bytes": 17469440,
+        "checksum": 2322301065,
+        "height": 1706,
+        "status": "ok",
+        "total_ms": 394.459458,
+        "width": 2560
+      }
+    },
+    {
+      "file": "rw2-panasonic-s5m2.rw2",
+      "engine": "lightcraft",
+      "result": {
+        "backend": "Apple M4 (Metal)",
+        "bytes": 17469440,
+        "checksum": 2598575106,
+        "height": 1706,
+        "status": "ok",
+        "total_ms": 273.74616699999996,
+        "width": 2560
+      }
+    },
+    {
+      "file": "orf-olympus-e1.orf",
+      "engine": "apple",
+      "result": {
+        "backend": "Core Image",
+        "bytes": 19660800,
+        "checksum": 3070407944,
+        "height": 1920,
+        "status": "ok",
+        "total_ms": 556.262042,
+        "width": 2560
+      }
+    },
+    {
+      "file": "orf-olympus-e1.orf",
+      "engine": "rawler",
+      "result": {
+        "backend": "CPU",
+        "bytes": 19660800,
+        "checksum": 2895834841,
+        "height": 1920,
+        "status": "ok",
+        "total_ms": 49.130541,
+        "width": 2560
+      }
+    },
+    {
+      "file": "orf-olympus-e1.orf",
+      "engine": "lightcraft",
+      "result": {
+        "backend": "Apple M4 (Metal)",
+        "bytes": 19660800,
+        "checksum": 3000128282,
+        "height": 1920,
+        "status": "ok",
+        "total_ms": 137.849583,
+        "width": 2560
+      }
+    },
+    {
+      "file": "orf-olympus-em1.orf",
+      "engine": "apple",
+      "result": {
+        "backend": "Core Image",
+        "bytes": 19660800,
+        "checksum": 3009429983,
+        "height": 1920,
+        "status": "ok",
+        "total_ms": 236.972792,
+        "width": 2560
+      }
+    },
+    {
+      "file": "orf-olympus-em1.orf",
+      "engine": "rawler",
+      "result": {
+        "backend": "CPU",
+        "bytes": 19660800,
+        "checksum": 2510558290,
+        "height": 1920,
+        "status": "ok",
+        "total_ms": 426.043917,
+        "width": 2560
+      }
+    },
+    {
+      "file": "orf-olympus-em1.orf",
+      "engine": "lightcraft",
+      "result": {
+        "error": "preview-only: sensor data was not decoded",
+        "status": "error"
+      }
+    },
+    {
+      "file": "pef-pentax-k-r.pef",
+      "engine": "apple",
+      "result": {
+        "backend": "Core Image",
+        "bytes": 17408000,
+        "checksum": 2522735839,
+        "height": 1700,
+        "status": "ok",
+        "total_ms": 136.258375,
+        "width": 2560
+      }
+    },
+    {
+      "file": "pef-pentax-k-r.pef",
+      "engine": "rawler",
+      "result": {
+        "backend": "CPU",
+        "bytes": 17408000,
+        "checksum": 2463369072,
+        "height": 1700,
+        "status": "ok",
+        "total_ms": 259.751125,
+        "width": 2560
+      }
+    },
+    {
+      "file": "pef-pentax-k-r.pef",
+      "engine": "lightcraft",
+      "result": {
+        "backend": "Apple M4 (Metal)",
+        "bytes": 17408000,
+        "checksum": 2462163963,
+        "height": 1700,
+        "status": "ok",
+        "total_ms": 311.11958400000003,
+        "width": 2560
+      }
+    },
+    {
+      "file": "srw-samsung-nx200.srw",
+      "engine": "apple",
+      "result": {
+        "backend": "Core Image",
+        "bytes": 17469440,
+        "checksum": 2006380995,
+        "height": 2560,
+        "status": "ok",
+        "total_ms": 89.188375,
+        "width": 1706
+      }
+    },
+    {
+      "file": "srw-samsung-nx200.srw",
+      "engine": "rawler",
+      "result": {
+        "backend": "CPU",
+        "bytes": 17469440,
+        "checksum": 1982184147,
+        "height": 2560,
+        "status": "ok",
+        "total_ms": 443.513417,
+        "width": 1706
+      }
+    },
+    {
+      "file": "srw-samsung-nx200.srw",
+      "engine": "lightcraft",
+      "result": {
+        "backend": "Apple M4 (Metal)",
+        "bytes": 17469440,
+        "checksum": 2572727242,
+        "height": 2560,
+        "status": "ok",
+        "total_ms": 272.14875,
+        "width": 1706
+      }
+    },
+    {
+      "file": "dng-ricoh-gr3.dng",
+      "engine": "apple",
+      "result": {
+        "backend": "Core Image",
+        "bytes": 17469440,
+        "checksum": 2308583233,
+        "height": 1706,
+        "status": "ok",
+        "total_ms": 370.092,
+        "width": 2560
+      }
+    },
+    {
+      "file": "dng-ricoh-gr3.dng",
+      "engine": "rawler",
+      "result": {
+        "backend": "CPU",
+        "bytes": 17469440,
+        "checksum": 2204210350,
+        "height": 1706,
+        "status": "ok",
+        "total_ms": 539.708708,
+        "width": 2560
+      }
+    },
+    {
+      "file": "dng-ricoh-gr3.dng",
+      "engine": "lightcraft",
+      "result": {
+        "backend": "Apple M4 (Metal)",
+        "bytes": 17469440,
+        "checksum": 2467653060,
+        "height": 1706,
+        "status": "ok",
+        "total_ms": 386.345875,
+        "width": 2560
+      }
+    },
+    {
+      "file": "dng-apple-iphone12pro-proraw.dng",
+      "engine": "apple",
+      "result": {
+        "backend": "Core Image",
+        "bytes": 19660800,
+        "checksum": 3139976526,
+        "height": 2560,
+        "status": "ok",
+        "total_ms": 470.53075,
+        "width": 1920
+      }
+    },
+    {
+      "file": "dng-apple-iphone12pro-proraw.dng",
+      "engine": "rawler",
+      "result": {
+        "backend": "CPU",
+        "bytes": 19660800,
+        "checksum": 2850783338,
+        "height": 2560,
+        "status": "ok",
+        "total_ms": 282.770625,
+        "width": 1920
+      }
+    },
+    {
+      "file": "dng-apple-iphone12pro-proraw.dng",
+      "engine": "lightcraft",
+      "result": {
+        "backend": "Apple M4 (Metal)",
+        "bytes": 19660800,
+        "checksum": 2356667731,
+        "height": 2560,
+        "status": "ok",
+        "total_ms": 216.86808399999998,
+        "width": 1920
+      }
+    },
+    {
+      "file": "dng-adobe-canon-5d3-linear-lj92.dng",
+      "engine": "apple",
+      "result": {
+        "backend": "Core Image",
+        "bytes": 17469440,
+        "checksum": 2543094231,
+        "height": 1706,
+        "status": "ok",
+        "total_ms": 89.44425,
+        "width": 2560
+      }
+    },
+    {
+      "file": "dng-adobe-canon-5d3-linear-lj92.dng",
+      "engine": "rawler",
+      "result": {
+        "backend": "CPU",
+        "bytes": 17469440,
+        "checksum": 2175203260,
+        "height": 1706,
+        "status": "ok",
+        "total_ms": 191.085875,
+        "width": 2560
+      }
+    },
+    {
+      "file": "dng-adobe-canon-5d3-linear-lj92.dng",
+      "engine": "lightcraft",
+      "result": {
+        "backend": "Apple M4 (Metal)",
+        "bytes": 17469440,
+        "checksum": 2294071165,
+        "height": 1706,
+        "status": "ok",
+        "total_ms": 288.584291,
+        "width": 2560
+      }
+    }
+  ],
+  "records": [
+    {
+      "file": "arw-sony-a7m4-14bit.arw",
+      "engine": "apple",
+      "trials": [
+        {
+          "backend": "Core Image",
+          "bytes": 17469440,
+          "checksum": 2464313369,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 130.500375,
+          "width": 2560
+        },
+        {
+          "backend": "Core Image",
+          "bytes": 17469440,
+          "checksum": 2464313369,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 125.35025,
+          "width": 2560
+        },
+        {
+          "backend": "Core Image",
+          "bytes": 17469440,
+          "checksum": 2464313369,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 140.646958,
+          "width": 2560
+        },
+        {
+          "backend": "Core Image",
+          "bytes": 17469440,
+          "checksum": 2464313369,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 131.240542,
+          "width": 2560
+        },
+        {
+          "backend": "Core Image",
+          "bytes": 17469440,
+          "checksum": 2464313369,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 179.50325,
+          "width": 2560
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 2560,
+      "height": 1706,
+      "median_ms": 131.240542,
+      "min_ms": 125.35025,
+      "max_ms": 179.50325
+    },
+    {
+      "file": "arw-sony-a7m4-14bit.arw",
+      "engine": "rawler",
+      "trials": [
+        {
+          "backend": "CPU",
+          "bytes": 17469440,
+          "checksum": 2121519240,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 247.06270899999998,
+          "width": 2560
+        },
+        {
+          "backend": "CPU",
+          "bytes": 17469440,
+          "checksum": 2121519240,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 261.347625,
+          "width": 2560
+        },
+        {
+          "backend": "CPU",
+          "bytes": 17469440,
+          "checksum": 2121519240,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 261.920084,
+          "width": 2560
+        },
+        {
+          "backend": "CPU",
+          "bytes": 17469440,
+          "checksum": 2121519240,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 245.911334,
+          "width": 2560
+        },
+        {
+          "backend": "CPU",
+          "bytes": 17469440,
+          "checksum": 2121519240,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 258.538541,
+          "width": 2560
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 2560,
+      "height": 1706,
+      "median_ms": 258.538541,
+      "min_ms": 245.911334,
+      "max_ms": 261.920084
+    },
+    {
+      "file": "arw-sony-a7m4-14bit.arw",
+      "engine": "lightcraft",
+      "trials": [
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 17469440,
+          "checksum": 2405561840,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 194.346,
+          "width": 2560
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 17469440,
+          "checksum": 2405561840,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 141.21758400000002,
+          "width": 2560
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 17469440,
+          "checksum": 2405561840,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 118.815083,
+          "width": 2560
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 17469440,
+          "checksum": 2405561840,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 187.038792,
+          "width": 2560
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 17469440,
+          "checksum": 2405561840,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 207.838708,
+          "width": 2560
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 2560,
+      "height": 1706,
+      "median_ms": 187.038792,
+      "min_ms": 118.815083,
+      "max_ms": 207.838708
+    },
+    {
+      "file": "arw-sony-a7m4-lossless-l.arw",
+      "engine": "apple",
+      "trials": [
+        {
+          "backend": "Core Image",
+          "bytes": 17469440,
+          "checksum": 2536443129,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 377.265041,
+          "width": 2560
+        },
+        {
+          "backend": "Core Image",
+          "bytes": 17469440,
+          "checksum": 2536443129,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 286.713166,
+          "width": 2560
+        },
+        {
+          "backend": "Core Image",
+          "bytes": 17469440,
+          "checksum": 2536443129,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 305.825542,
+          "width": 2560
+        },
+        {
+          "backend": "Core Image",
+          "bytes": 17469440,
+          "checksum": 2536443129,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 286.333875,
+          "width": 2560
+        },
+        {
+          "backend": "Core Image",
+          "bytes": 17469440,
+          "checksum": 2536443129,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 350.072375,
+          "width": 2560
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 2560,
+      "height": 1706,
+      "median_ms": 305.825542,
+      "min_ms": 286.333875,
+      "max_ms": 377.265041
+    },
+    {
+      "file": "arw-sony-a7m4-lossless-l.arw",
+      "engine": "rawler",
+      "trials": [
+        {
+          "backend": "CPU",
+          "bytes": 17469440,
+          "checksum": 2157684916,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 790.6754999999999,
+          "width": 2560
+        },
+        {
+          "backend": "CPU",
+          "bytes": 17469440,
+          "checksum": 2157684916,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 692.170834,
+          "width": 2560
+        },
+        {
+          "backend": "CPU",
+          "bytes": 17469440,
+          "checksum": 2157684916,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 507.81470900000005,
+          "width": 2560
+        },
+        {
+          "backend": "CPU",
+          "bytes": 17469440,
+          "checksum": 2157684916,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 541.1783340000001,
+          "width": 2560
+        },
+        {
+          "backend": "CPU",
+          "bytes": 17469440,
+          "checksum": 2157684916,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 497.662917,
+          "width": 2560
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 2560,
+      "height": 1706,
+      "median_ms": 541.1783340000001,
+      "min_ms": 497.662917,
+      "max_ms": 790.6754999999999
+    },
+    {
+      "file": "arw-sony-a7m4-lossless-l.arw",
+      "engine": "lightcraft",
+      "trials": [
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 17469440,
+          "checksum": 2459248419,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 304.22187499999995,
+          "width": 2560
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 17469440,
+          "checksum": 2459248419,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 362.503959,
+          "width": 2560
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 17469440,
+          "checksum": 2459248419,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 313.378,
+          "width": 2560
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 17469440,
+          "checksum": 2459248419,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 374.87870899999996,
+          "width": 2560
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 17469440,
+          "checksum": 2459248419,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 314.25970800000005,
+          "width": 2560
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 2560,
+      "height": 1706,
+      "median_ms": 314.25970800000005,
+      "min_ms": 304.22187499999995,
+      "max_ms": 374.87870899999996
+    },
+    {
+      "file": "cr2-canon-5d3.cr2",
+      "engine": "apple",
+      "trials": [
+        {
+          "backend": "Core Image",
+          "bytes": 17469440,
+          "checksum": 2506155750,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 223.740458,
+          "width": 2560
+        },
+        {
+          "backend": "Core Image",
+          "bytes": 17469440,
+          "checksum": 2506155750,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 120.350208,
+          "width": 2560
+        },
+        {
+          "backend": "Core Image",
+          "bytes": 17469440,
+          "checksum": 2506155750,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 114.185958,
+          "width": 2560
+        },
+        {
+          "backend": "Core Image",
+          "bytes": 17469440,
+          "checksum": 2506155750,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 107.421,
+          "width": 2560
+        },
+        {
+          "backend": "Core Image",
+          "bytes": 17469440,
+          "checksum": 2506155750,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 212.676583,
+          "width": 2560
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 2560,
+      "height": 1706,
+      "median_ms": 120.350208,
+      "min_ms": 107.421,
+      "max_ms": 223.740458
+    },
+    {
+      "file": "cr2-canon-5d3.cr2",
+      "engine": "rawler",
+      "trials": [
+        {
+          "backend": "CPU",
+          "bytes": 17469440,
+          "checksum": 2133106657,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 590.4784159999999,
+          "width": 2560
+        },
+        {
+          "backend": "CPU",
+          "bytes": 17469440,
+          "checksum": 2133106657,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 566.596583,
+          "width": 2560
+        },
+        {
+          "backend": "CPU",
+          "bytes": 17469440,
+          "checksum": 2133106657,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 484.19025,
+          "width": 2560
+        },
+        {
+          "backend": "CPU",
+          "bytes": 17469440,
+          "checksum": 2133106657,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 494.095917,
+          "width": 2560
+        },
+        {
+          "backend": "CPU",
+          "bytes": 17469440,
+          "checksum": 2133106657,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 460.68825000000004,
+          "width": 2560
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 2560,
+      "height": 1706,
+      "median_ms": 494.095917,
+      "min_ms": 460.68825000000004,
+      "max_ms": 590.4784159999999
+    },
+    {
+      "file": "cr2-canon-5d3.cr2",
+      "engine": "lightcraft",
+      "trials": [
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 17469440,
+          "checksum": 2542968904,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 346.861916,
+          "width": 2560
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 17469440,
+          "checksum": 2542968904,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 375.861,
+          "width": 2560
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 17469440,
+          "checksum": 2542968904,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 398.590667,
+          "width": 2560
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 17469440,
+          "checksum": 2542968904,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 385.87908300000004,
+          "width": 2560
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 17469440,
+          "checksum": 2542968904,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 378.678666,
+          "width": 2560
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 2560,
+      "height": 1706,
+      "median_ms": 378.678666,
+      "min_ms": 346.861916,
+      "max_ms": 398.590667
+    },
+    {
+      "file": "cr3-canon-r5m2-raw.cr3",
+      "engine": "apple",
+      "trials": [
+        {
+          "backend": "Core Image",
+          "bytes": 17479680,
+          "checksum": 2068878480,
+          "height": 1707,
+          "status": "ok",
+          "total_ms": 409.058875,
+          "width": 2560
+        },
+        {
+          "backend": "Core Image",
+          "bytes": 17479680,
+          "checksum": 2068878480,
+          "height": 1707,
+          "status": "ok",
+          "total_ms": 470.387333,
+          "width": 2560
+        },
+        {
+          "backend": "Core Image",
+          "bytes": 17479680,
+          "checksum": 2068878480,
+          "height": 1707,
+          "status": "ok",
+          "total_ms": 454.930708,
+          "width": 2560
+        },
+        {
+          "backend": "Core Image",
+          "bytes": 17479680,
+          "checksum": 2068878480,
+          "height": 1707,
+          "status": "ok",
+          "total_ms": 1296.43675,
+          "width": 2560
+        },
+        {
+          "backend": "Core Image",
+          "bytes": 17479680,
+          "checksum": 2068878480,
+          "height": 1707,
+          "status": "ok",
+          "total_ms": 414.779083,
+          "width": 2560
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 2560,
+      "height": 1707,
+      "median_ms": 454.930708,
+      "min_ms": 409.058875,
+      "max_ms": 1296.43675
+    },
+    {
+      "file": "cr3-canon-r5m2-raw.cr3",
+      "engine": "rawler",
+      "trials": [
+        {
+          "backend": "CPU",
+          "bytes": 17479680,
+          "checksum": 1697993850,
+          "height": 1707,
+          "status": "ok",
+          "total_ms": 1288.491416,
+          "width": 2560
+        },
+        {
+          "backend": "CPU",
+          "bytes": 17479680,
+          "checksum": 1697993850,
+          "height": 1707,
+          "status": "ok",
+          "total_ms": 943.720291,
+          "width": 2560
+        },
+        {
+          "backend": "CPU",
+          "bytes": 17479680,
+          "checksum": 1697993850,
+          "height": 1707,
+          "status": "ok",
+          "total_ms": 849.298667,
+          "width": 2560
+        },
+        {
+          "backend": "CPU",
+          "bytes": 17479680,
+          "checksum": 1697993850,
+          "height": 1707,
+          "status": "ok",
+          "total_ms": 884.913417,
+          "width": 2560
+        },
+        {
+          "backend": "CPU",
+          "bytes": 17479680,
+          "checksum": 1697993850,
+          "height": 1707,
+          "status": "ok",
+          "total_ms": 886.679917,
+          "width": 2560
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 2560,
+      "height": 1707,
+      "median_ms": 886.679917,
+      "min_ms": 849.298667,
+      "max_ms": 1288.491416
+    },
+    {
+      "file": "cr3-canon-r5m2-raw.cr3",
+      "engine": "lightcraft",
+      "trials": [
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 17479680,
+          "checksum": 1725847155,
+          "height": 1707,
+          "status": "ok",
+          "total_ms": 418.867209,
+          "width": 2560
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 17479680,
+          "checksum": 1725847155,
+          "height": 1707,
+          "status": "ok",
+          "total_ms": 395.160125,
+          "width": 2560
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 17479680,
+          "checksum": 1725847155,
+          "height": 1707,
+          "status": "ok",
+          "total_ms": 415.80541700000003,
+          "width": 2560
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 17479680,
+          "checksum": 1725847155,
+          "height": 1707,
+          "status": "ok",
+          "total_ms": 368.706209,
+          "width": 2560
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 17479680,
+          "checksum": 1725847155,
+          "height": 1707,
+          "status": "ok",
+          "total_ms": 368.62987499999997,
+          "width": 2560
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 2560,
+      "height": 1707,
+      "median_ms": 395.160125,
+      "min_ms": 368.62987499999997,
+      "max_ms": 418.867209
+    },
+    {
+      "file": "cr3-canon-r5m2-craw.cr3",
+      "engine": "apple",
+      "trials": [
+        {
+          "backend": "Core Image",
+          "bytes": 17479680,
+          "checksum": 2070409264,
+          "height": 1707,
+          "status": "ok",
+          "total_ms": 515.543416,
+          "width": 2560
+        },
+        {
+          "backend": "Core Image",
+          "bytes": 17479680,
+          "checksum": 2070409264,
+          "height": 1707,
+          "status": "ok",
+          "total_ms": 559.124708,
+          "width": 2560
+        },
+        {
+          "backend": "Core Image",
+          "bytes": 17479680,
+          "checksum": 2070409264,
+          "height": 1707,
+          "status": "ok",
+          "total_ms": 516.954917,
+          "width": 2560
+        },
+        {
+          "backend": "Core Image",
+          "bytes": 17479680,
+          "checksum": 2070409264,
+          "height": 1707,
+          "status": "ok",
+          "total_ms": 500.528041,
+          "width": 2560
+        },
+        {
+          "backend": "Core Image",
+          "bytes": 17479680,
+          "checksum": 2070409264,
+          "height": 1707,
+          "status": "ok",
+          "total_ms": 1063.791042,
+          "width": 2560
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 2560,
+      "height": 1707,
+      "median_ms": 516.954917,
+      "min_ms": 500.528041,
+      "max_ms": 1063.791042
+    },
+    {
+      "file": "cr3-canon-r5m2-craw.cr3",
+      "engine": "rawler",
+      "trials": [
+        {
+          "backend": "CPU",
+          "bytes": 17479680,
+          "checksum": 1699231473,
+          "height": 1707,
+          "status": "ok",
+          "total_ms": 1442.2300420000001,
+          "width": 2560
+        },
+        {
+          "backend": "CPU",
+          "bytes": 17479680,
+          "checksum": 1699231473,
+          "height": 1707,
+          "status": "ok",
+          "total_ms": 885.08075,
+          "width": 2560
+        },
+        {
+          "backend": "CPU",
+          "bytes": 17479680,
+          "checksum": 1699231473,
+          "height": 1707,
+          "status": "ok",
+          "total_ms": 1362.186792,
+          "width": 2560
+        },
+        {
+          "backend": "CPU",
+          "bytes": 17479680,
+          "checksum": 1699231473,
+          "height": 1707,
+          "status": "ok",
+          "total_ms": 975.8747920000001,
+          "width": 2560
+        },
+        {
+          "backend": "CPU",
+          "bytes": 17479680,
+          "checksum": 1699231473,
+          "height": 1707,
+          "status": "ok",
+          "total_ms": 1098.140792,
+          "width": 2560
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 2560,
+      "height": 1707,
+      "median_ms": 1098.140792,
+      "min_ms": 885.08075,
+      "max_ms": 1442.2300420000001
+    },
+    {
+      "file": "cr3-canon-r5m2-craw.cr3",
+      "engine": "lightcraft",
+      "trials": [
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 17479680,
+          "checksum": 1727117690,
+          "height": 1707,
+          "status": "ok",
+          "total_ms": 568.779209,
+          "width": 2560
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 17479680,
+          "checksum": 1727117690,
+          "height": 1707,
+          "status": "ok",
+          "total_ms": 630.4045,
+          "width": 2560
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 17479680,
+          "checksum": 1727117690,
+          "height": 1707,
+          "status": "ok",
+          "total_ms": 546.632792,
+          "width": 2560
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 17479680,
+          "checksum": 1727117690,
+          "height": 1707,
+          "status": "ok",
+          "total_ms": 580.5175,
+          "width": 2560
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 17479680,
+          "checksum": 1727117690,
+          "height": 1707,
+          "status": "ok",
+          "total_ms": 546.881041,
+          "width": 2560
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 2560,
+      "height": 1707,
+      "median_ms": 568.779209,
+      "min_ms": 546.632792,
+      "max_ms": 630.4045
+    },
+    {
+      "file": "nef-nikon-zf-lossless.nef",
+      "engine": "apple",
+      "trials": [
+        {
+          "backend": "Core Image",
+          "bytes": 17469440,
+          "checksum": 2871014282,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 210.677208,
+          "width": 2560
+        },
+        {
+          "backend": "Core Image",
+          "bytes": 17469440,
+          "checksum": 2871014282,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 255.55075,
+          "width": 2560
+        },
+        {
+          "backend": "Core Image",
+          "bytes": 17469440,
+          "checksum": 2871014282,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 173.286417,
+          "width": 2560
+        },
+        {
+          "backend": "Core Image",
+          "bytes": 17469440,
+          "checksum": 2871014282,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 119.133375,
+          "width": 2560
+        },
+        {
+          "backend": "Core Image",
+          "bytes": 17469440,
+          "checksum": 2871014282,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 309.100542,
+          "width": 2560
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 2560,
+      "height": 1706,
+      "median_ms": 210.677208,
+      "min_ms": 119.133375,
+      "max_ms": 309.100542
+    },
+    {
+      "file": "nef-nikon-zf-lossless.nef",
+      "engine": "rawler",
+      "trials": [
+        {
+          "backend": "CPU",
+          "bytes": 17469440,
+          "checksum": 2371235784,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 484.261541,
+          "width": 2560
+        },
+        {
+          "backend": "CPU",
+          "bytes": 17469440,
+          "checksum": 2371235784,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 562.346083,
+          "width": 2560
+        },
+        {
+          "backend": "CPU",
+          "bytes": 17469440,
+          "checksum": 2371235784,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 480.197041,
+          "width": 2560
+        },
+        {
+          "backend": "CPU",
+          "bytes": 17469440,
+          "checksum": 2371235784,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 488.76025,
+          "width": 2560
+        },
+        {
+          "backend": "CPU",
+          "bytes": 17469440,
+          "checksum": 2371235784,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 475.6895,
+          "width": 2560
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 2560,
+      "height": 1706,
+      "median_ms": 484.261541,
+      "min_ms": 475.6895,
+      "max_ms": 562.346083
+    },
+    {
+      "file": "nef-nikon-zf-lossless.nef",
+      "engine": "lightcraft",
+      "trials": [
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 17469440,
+          "checksum": 2844458105,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 307.345667,
+          "width": 2560
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 17469440,
+          "checksum": 2844458105,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 287.821125,
+          "width": 2560
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 17469440,
+          "checksum": 2844458105,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 278.51941600000004,
+          "width": 2560
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 17469440,
+          "checksum": 2844458105,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 330.850833,
+          "width": 2560
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 17469440,
+          "checksum": 2844458105,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 274.49670799999996,
+          "width": 2560
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 2560,
+      "height": 1706,
+      "median_ms": 287.821125,
+      "min_ms": 274.49670799999996,
+      "max_ms": 330.850833
+    },
+    {
+      "file": "nef-nikon-zf-he.nef",
+      "engine": "apple",
+      "trials": [
+        {
+          "backend": "Core Image",
+          "bytes": 17469440,
+          "checksum": 2919335174,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 134.615208,
+          "width": 2560
+        },
+        {
+          "backend": "Core Image",
+          "bytes": 17469440,
+          "checksum": 2919335174,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 142.860167,
+          "width": 2560
+        },
+        {
+          "backend": "Core Image",
+          "bytes": 17469440,
+          "checksum": 2919335174,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 301.720834,
+          "width": 2560
+        },
+        {
+          "backend": "Core Image",
+          "bytes": 17469440,
+          "checksum": 2919335174,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 454.572666,
+          "width": 2560
+        },
+        {
+          "backend": "Core Image",
+          "bytes": 17469440,
+          "checksum": 2919335174,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 185.468208,
+          "width": 2560
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 2560,
+      "height": 1706,
+      "median_ms": 185.468208,
+      "min_ms": 134.615208,
+      "max_ms": 454.572666
+    },
+    {
+      "file": "nef-nikon-zf-he.nef",
+      "engine": "rawler",
+      "trials": [
+        {
+          "error": "Failed to decode image, possibly corrupt image: NEF compression Some(HighEfficency) is not supported",
+          "status": "error"
+        },
+        {
+          "error": "Failed to decode image, possibly corrupt image: NEF compression Some(HighEfficency) is not supported",
+          "status": "error"
+        },
+        {
+          "error": "Failed to decode image, possibly corrupt image: NEF compression Some(HighEfficency) is not supported",
+          "status": "error"
+        },
+        {
+          "error": "Failed to decode image, possibly corrupt image: NEF compression Some(HighEfficency) is not supported",
+          "status": "error"
+        },
+        {
+          "error": "Failed to decode image, possibly corrupt image: NEF compression Some(HighEfficency) is not supported",
+          "status": "error"
+        }
+      ],
+      "successes": 0,
+      "attempts": 5,
+      "width": 2560,
+      "height": 1706
+    },
+    {
+      "file": "nef-nikon-zf-he.nef",
+      "engine": "lightcraft",
+      "trials": [
+        {
+          "error": "preview-only: sensor data was not decoded",
+          "status": "error"
+        },
+        {
+          "error": "preview-only: sensor data was not decoded",
+          "status": "error"
+        },
+        {
+          "error": "preview-only: sensor data was not decoded",
+          "status": "error"
+        },
+        {
+          "error": "preview-only: sensor data was not decoded",
+          "status": "error"
+        },
+        {
+          "error": "preview-only: sensor data was not decoded",
+          "status": "error"
+        }
+      ],
+      "successes": 0,
+      "attempts": 5,
+      "width": 2560,
+      "height": 1706
+    },
+    {
+      "file": "raf-fuji-xa5-14bit-bayer.raf",
+      "engine": "apple",
+      "trials": [
+        {
+          "backend": "Core Image",
+          "bytes": 17469440,
+          "checksum": 3140630397,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 113.308583,
+          "width": 2560
+        },
+        {
+          "backend": "Core Image",
+          "bytes": 17469440,
+          "checksum": 3140630397,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 116.29625,
+          "width": 2560
+        },
+        {
+          "backend": "Core Image",
+          "bytes": 17469440,
+          "checksum": 3140630397,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 129.761792,
+          "width": 2560
+        },
+        {
+          "backend": "Core Image",
+          "bytes": 17469440,
+          "checksum": 3140630397,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 109.812667,
+          "width": 2560
+        },
+        {
+          "backend": "Core Image",
+          "bytes": 17469440,
+          "checksum": 3140630397,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 393.260959,
+          "width": 2560
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 2560,
+      "height": 1706,
+      "median_ms": 116.29625,
+      "min_ms": 109.812667,
+      "max_ms": 393.260959
+    },
+    {
+      "file": "raf-fuji-xa5-14bit-bayer.raf",
+      "engine": "rawler",
+      "trials": [
+        {
+          "backend": "CPU",
+          "bytes": 17469440,
+          "checksum": 2790747806,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 358.181334,
+          "width": 2560
+        },
+        {
+          "backend": "CPU",
+          "bytes": 17469440,
+          "checksum": 2790747806,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 371.583375,
+          "width": 2560
+        },
+        {
+          "backend": "CPU",
+          "bytes": 17469440,
+          "checksum": 2790747806,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 358.44387500000005,
+          "width": 2560
+        },
+        {
+          "backend": "CPU",
+          "bytes": 17469440,
+          "checksum": 2790747806,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 377.85595900000004,
+          "width": 2560
+        },
+        {
+          "backend": "CPU",
+          "bytes": 17469440,
+          "checksum": 2790747806,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 362.949792,
+          "width": 2560
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 2560,
+      "height": 1706,
+      "median_ms": 362.949792,
+      "min_ms": 358.181334,
+      "max_ms": 377.85595900000004
+    },
+    {
+      "file": "raf-fuji-xa5-14bit-bayer.raf",
+      "engine": "lightcraft",
+      "trials": [
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 17469440,
+          "checksum": 3209301179,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 190.070375,
+          "width": 2560
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 17469440,
+          "checksum": 3209301179,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 241.169375,
+          "width": 2560
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 17469440,
+          "checksum": 3209301179,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 186.98654100000002,
+          "width": 2560
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 17469440,
+          "checksum": 3209301179,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 185.567084,
+          "width": 2560
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 17469440,
+          "checksum": 3209301179,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 187.405084,
+          "width": 2560
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 2560,
+      "height": 1706,
+      "median_ms": 187.405084,
+      "min_ms": 185.567084,
+      "max_ms": 241.169375
+    },
+    {
+      "file": "raf-fuji-xt5-6122.raf",
+      "engine": "apple",
+      "trials": [
+        {
+          "backend": "Core Image",
+          "bytes": 17469440,
+          "checksum": 2526976586,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 261.431334,
+          "width": 2560
+        },
+        {
+          "backend": "Core Image",
+          "bytes": 17469440,
+          "checksum": 2526976586,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 281.684916,
+          "width": 2560
+        },
+        {
+          "backend": "Core Image",
+          "bytes": 17469440,
+          "checksum": 2526976586,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 252.289041,
+          "width": 2560
+        },
+        {
+          "backend": "Core Image",
+          "bytes": 17469440,
+          "checksum": 2526976586,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 289.272834,
+          "width": 2560
+        },
+        {
+          "backend": "Core Image",
+          "bytes": 17469440,
+          "checksum": 2526976586,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 547.922292,
+          "width": 2560
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 2560,
+      "height": 1706,
+      "median_ms": 281.684916,
+      "min_ms": 252.289041,
+      "max_ms": 547.922292
+    },
+    {
+      "file": "raf-fuji-xt5-6122.raf",
+      "engine": "rawler",
+      "trials": [
+        {
+          "backend": "CPU",
+          "bytes": 17469440,
+          "checksum": 2246644775,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 895.232084,
+          "width": 2560
+        },
+        {
+          "backend": "CPU",
+          "bytes": 17469440,
+          "checksum": 2246644775,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 800.481625,
+          "width": 2560
+        },
+        {
+          "backend": "CPU",
+          "bytes": 17469440,
+          "checksum": 2246644775,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 855.043417,
+          "width": 2560
+        },
+        {
+          "backend": "CPU",
+          "bytes": 17469440,
+          "checksum": 2246644775,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 810.2201249999999,
+          "width": 2560
+        },
+        {
+          "backend": "CPU",
+          "bytes": 17469440,
+          "checksum": 2246644775,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 830.0925420000001,
+          "width": 2560
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 2560,
+      "height": 1706,
+      "median_ms": 830.0925420000001,
+      "min_ms": 800.481625,
+      "max_ms": 895.232084
+    },
+    {
+      "file": "raf-fuji-xt5-6122.raf",
+      "engine": "lightcraft",
+      "trials": [
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 17469440,
+          "checksum": 2635638513,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 392.685583,
+          "width": 2560
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 17469440,
+          "checksum": 2635638513,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 378.63741699999997,
+          "width": 2560
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 17469440,
+          "checksum": 2635638513,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 404.85525,
+          "width": 2560
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 17469440,
+          "checksum": 2635638513,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 386.155875,
+          "width": 2560
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 17469440,
+          "checksum": 2635638513,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 398.693541,
+          "width": 2560
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 2560,
+      "height": 1706,
+      "median_ms": 392.685583,
+      "min_ms": 378.63741699999997,
+      "max_ms": 404.85525
+    },
+    {
+      "file": "raf-fuji-xt5-6123.raf",
+      "engine": "apple",
+      "trials": [
+        {
+          "backend": "Core Image",
+          "bytes": 17469440,
+          "checksum": 2543391315,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 372.862792,
+          "width": 2560
+        },
+        {
+          "backend": "Core Image",
+          "bytes": 17469440,
+          "checksum": 2543391315,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 280.174417,
+          "width": 2560
+        },
+        {
+          "backend": "Core Image",
+          "bytes": 17469440,
+          "checksum": 2543391315,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 280.879416,
+          "width": 2560
+        },
+        {
+          "backend": "Core Image",
+          "bytes": 17469440,
+          "checksum": 2543391315,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 298.933375,
+          "width": 2560
+        },
+        {
+          "backend": "Core Image",
+          "bytes": 17469440,
+          "checksum": 2543391315,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 294.835833,
+          "width": 2560
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 2560,
+      "height": 1706,
+      "median_ms": 294.835833,
+      "min_ms": 280.174417,
+      "max_ms": 372.862792
+    },
+    {
+      "file": "raf-fuji-xt5-6123.raf",
+      "engine": "rawler",
+      "trials": [
+        {
+          "backend": "CPU",
+          "bytes": 17469440,
+          "checksum": 2252147576,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 883.4667499999999,
+          "width": 2560
+        },
+        {
+          "backend": "CPU",
+          "bytes": 17469440,
+          "checksum": 2252147576,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 817.0545420000001,
+          "width": 2560
+        },
+        {
+          "backend": "CPU",
+          "bytes": 17469440,
+          "checksum": 2252147576,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 868.0673330000001,
+          "width": 2560
+        },
+        {
+          "backend": "CPU",
+          "bytes": 17469440,
+          "checksum": 2252147576,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 845.838542,
+          "width": 2560
+        },
+        {
+          "backend": "CPU",
+          "bytes": 17469440,
+          "checksum": 2252147576,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 1067.200334,
+          "width": 2560
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 2560,
+      "height": 1706,
+      "median_ms": 868.0673330000001,
+      "min_ms": 817.0545420000001,
+      "max_ms": 1067.200334
+    },
+    {
+      "file": "raf-fuji-xt5-6123.raf",
+      "engine": "lightcraft",
+      "trials": [
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 17469440,
+          "checksum": 2658772173,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 353.309416,
+          "width": 2560
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 17469440,
+          "checksum": 2658772173,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 444.3195,
+          "width": 2560
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 17469440,
+          "checksum": 2658772173,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 419.734,
+          "width": 2560
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 17469440,
+          "checksum": 2658772173,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 376.511916,
+          "width": 2560
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 17469440,
+          "checksum": 2658772173,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 375.120417,
+          "width": 2560
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 2560,
+      "height": 1706,
+      "median_ms": 376.511916,
+      "min_ms": 353.309416,
+      "max_ms": 444.3195
+    },
+    {
+      "file": "rw2-panasonic-s5m2.rw2",
+      "engine": "apple",
+      "trials": [
+        {
+          "backend": "Core Image",
+          "bytes": 17469440,
+          "checksum": 2583579454,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 364.533875,
+          "width": 2560
+        },
+        {
+          "backend": "Core Image",
+          "bytes": 17469440,
+          "checksum": 2583579454,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 345.828,
+          "width": 2560
+        },
+        {
+          "backend": "Core Image",
+          "bytes": 17469440,
+          "checksum": 2583579454,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 404.322709,
+          "width": 2560
+        },
+        {
+          "backend": "Core Image",
+          "bytes": 17469440,
+          "checksum": 2583579454,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 338.118583,
+          "width": 2560
+        },
+        {
+          "backend": "Core Image",
+          "bytes": 17469440,
+          "checksum": 2583579454,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 349.128458,
+          "width": 2560
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 2560,
+      "height": 1706,
+      "median_ms": 349.128458,
+      "min_ms": 338.118583,
+      "max_ms": 404.322709
+    },
+    {
+      "file": "rw2-panasonic-s5m2.rw2",
+      "engine": "rawler",
+      "trials": [
+        {
+          "backend": "CPU",
+          "bytes": 17469440,
+          "checksum": 2322301065,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 509.982542,
+          "width": 2560
+        },
+        {
+          "backend": "CPU",
+          "bytes": 17469440,
+          "checksum": 2322301065,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 434.880125,
+          "width": 2560
+        },
+        {
+          "backend": "CPU",
+          "bytes": 17469440,
+          "checksum": 2322301065,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 432.132291,
+          "width": 2560
+        },
+        {
+          "backend": "CPU",
+          "bytes": 17469440,
+          "checksum": 2322301065,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 423.40670800000004,
+          "width": 2560
+        },
+        {
+          "backend": "CPU",
+          "bytes": 17469440,
+          "checksum": 2322301065,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 512.449625,
+          "width": 2560
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 2560,
+      "height": 1706,
+      "median_ms": 434.880125,
+      "min_ms": 423.40670800000004,
+      "max_ms": 512.449625
+    },
+    {
+      "file": "rw2-panasonic-s5m2.rw2",
+      "engine": "lightcraft",
+      "trials": [
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 17469440,
+          "checksum": 2598575106,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 284.28566700000005,
+          "width": 2560
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 17469440,
+          "checksum": 2598575106,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 335.131417,
+          "width": 2560
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 17469440,
+          "checksum": 2598575106,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 290.539333,
+          "width": 2560
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 17469440,
+          "checksum": 2598575106,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 297.736292,
+          "width": 2560
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 17469440,
+          "checksum": 2598575106,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 273.143333,
+          "width": 2560
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 2560,
+      "height": 1706,
+      "median_ms": 290.539333,
+      "min_ms": 273.143333,
+      "max_ms": 335.131417
+    },
+    {
+      "file": "orf-olympus-e1.orf",
+      "engine": "apple",
+      "trials": [
+        {
+          "backend": "Core Image",
+          "bytes": 19660800,
+          "checksum": 3070407944,
+          "height": 1920,
+          "status": "ok",
+          "total_ms": 48.382417,
+          "width": 2560
+        },
+        {
+          "backend": "Core Image",
+          "bytes": 19660800,
+          "checksum": 3070407944,
+          "height": 1920,
+          "status": "ok",
+          "total_ms": 48.4235,
+          "width": 2560
+        },
+        {
+          "backend": "Core Image",
+          "bytes": 19660800,
+          "checksum": 3070407944,
+          "height": 1920,
+          "status": "ok",
+          "total_ms": 45.1415,
+          "width": 2560
+        },
+        {
+          "backend": "Core Image",
+          "bytes": 19660800,
+          "checksum": 3070407944,
+          "height": 1920,
+          "status": "ok",
+          "total_ms": 48.521875,
+          "width": 2560
+        },
+        {
+          "backend": "Core Image",
+          "bytes": 19660800,
+          "checksum": 3070407944,
+          "height": 1920,
+          "status": "ok",
+          "total_ms": 49.925458,
+          "width": 2560
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 2560,
+      "height": 1920,
+      "median_ms": 48.4235,
+      "min_ms": 45.1415,
+      "max_ms": 49.925458
+    },
+    {
+      "file": "orf-olympus-e1.orf",
+      "engine": "rawler",
+      "trials": [
+        {
+          "backend": "CPU",
+          "bytes": 19660800,
+          "checksum": 2895834841,
+          "height": 1920,
+          "status": "ok",
+          "total_ms": 45.116208,
+          "width": 2560
+        },
+        {
+          "backend": "CPU",
+          "bytes": 19660800,
+          "checksum": 2895834841,
+          "height": 1920,
+          "status": "ok",
+          "total_ms": 50.568667,
+          "width": 2560
+        },
+        {
+          "backend": "CPU",
+          "bytes": 19660800,
+          "checksum": 2895834841,
+          "height": 1920,
+          "status": "ok",
+          "total_ms": 57.824458,
+          "width": 2560
+        },
+        {
+          "backend": "CPU",
+          "bytes": 19660800,
+          "checksum": 2895834841,
+          "height": 1920,
+          "status": "ok",
+          "total_ms": 50.710832999999994,
+          "width": 2560
+        },
+        {
+          "backend": "CPU",
+          "bytes": 19660800,
+          "checksum": 2895834841,
+          "height": 1920,
+          "status": "ok",
+          "total_ms": 43.076457999999995,
+          "width": 2560
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 2560,
+      "height": 1920,
+      "median_ms": 50.568667,
+      "min_ms": 43.076457999999995,
+      "max_ms": 57.824458
+    },
+    {
+      "file": "orf-olympus-e1.orf",
+      "engine": "lightcraft",
+      "trials": [
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 19660800,
+          "checksum": 3000128282,
+          "height": 1920,
+          "status": "ok",
+          "total_ms": 133.662375,
+          "width": 2560
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 19660800,
+          "checksum": 3000128282,
+          "height": 1920,
+          "status": "ok",
+          "total_ms": 146.08354100000003,
+          "width": 2560
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 19660800,
+          "checksum": 3000128282,
+          "height": 1920,
+          "status": "ok",
+          "total_ms": 141.490833,
+          "width": 2560
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 19660800,
+          "checksum": 3000128282,
+          "height": 1920,
+          "status": "ok",
+          "total_ms": 189.029042,
+          "width": 2560
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 19660800,
+          "checksum": 3000128282,
+          "height": 1920,
+          "status": "ok",
+          "total_ms": 139.966583,
+          "width": 2560
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 2560,
+      "height": 1920,
+      "median_ms": 141.490833,
+      "min_ms": 133.662375,
+      "max_ms": 189.029042
+    },
+    {
+      "file": "orf-olympus-em1.orf",
+      "engine": "apple",
+      "trials": [
+        {
+          "backend": "Core Image",
+          "bytes": 19660800,
+          "checksum": 3009429983,
+          "height": 1920,
+          "status": "ok",
+          "total_ms": 231.697875,
+          "width": 2560
+        },
+        {
+          "backend": "Core Image",
+          "bytes": 19660800,
+          "checksum": 3009429983,
+          "height": 1920,
+          "status": "ok",
+          "total_ms": 294.019208,
+          "width": 2560
+        },
+        {
+          "backend": "Core Image",
+          "bytes": 19660800,
+          "checksum": 3009429983,
+          "height": 1920,
+          "status": "ok",
+          "total_ms": 225.388458,
+          "width": 2560
+        },
+        {
+          "backend": "Core Image",
+          "bytes": 19660800,
+          "checksum": 3009429983,
+          "height": 1920,
+          "status": "ok",
+          "total_ms": 242.14975,
+          "width": 2560
+        },
+        {
+          "backend": "Core Image",
+          "bytes": 19660800,
+          "checksum": 3009429983,
+          "height": 1920,
+          "status": "ok",
+          "total_ms": 259.351917,
+          "width": 2560
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 2560,
+      "height": 1920,
+      "median_ms": 242.14975,
+      "min_ms": 225.388458,
+      "max_ms": 294.019208
+    },
+    {
+      "file": "orf-olympus-em1.orf",
+      "engine": "rawler",
+      "trials": [
+        {
+          "backend": "CPU",
+          "bytes": 19660800,
+          "checksum": 2510558290,
+          "height": 1920,
+          "status": "ok",
+          "total_ms": 437.92537500000003,
+          "width": 2560
+        },
+        {
+          "backend": "CPU",
+          "bytes": 19660800,
+          "checksum": 2510558290,
+          "height": 1920,
+          "status": "ok",
+          "total_ms": 465.23958300000004,
+          "width": 2560
+        },
+        {
+          "backend": "CPU",
+          "bytes": 19660800,
+          "checksum": 2510558290,
+          "height": 1920,
+          "status": "ok",
+          "total_ms": 426.19174999999996,
+          "width": 2560
+        },
+        {
+          "backend": "CPU",
+          "bytes": 19660800,
+          "checksum": 2510558290,
+          "height": 1920,
+          "status": "ok",
+          "total_ms": 436.152458,
+          "width": 2560
+        },
+        {
+          "backend": "CPU",
+          "bytes": 19660800,
+          "checksum": 2510558290,
+          "height": 1920,
+          "status": "ok",
+          "total_ms": 514.19925,
+          "width": 2560
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 2560,
+      "height": 1920,
+      "median_ms": 437.92537500000003,
+      "min_ms": 426.19174999999996,
+      "max_ms": 514.19925
+    },
+    {
+      "file": "orf-olympus-em1.orf",
+      "engine": "lightcraft",
+      "trials": [
+        {
+          "error": "preview-only: sensor data was not decoded",
+          "status": "error"
+        },
+        {
+          "error": "preview-only: sensor data was not decoded",
+          "status": "error"
+        },
+        {
+          "error": "preview-only: sensor data was not decoded",
+          "status": "error"
+        },
+        {
+          "error": "preview-only: sensor data was not decoded",
+          "status": "error"
+        },
+        {
+          "error": "preview-only: sensor data was not decoded",
+          "status": "error"
+        }
+      ],
+      "successes": 0,
+      "attempts": 5,
+      "width": 2560,
+      "height": 1920
+    },
+    {
+      "file": "pef-pentax-k-r.pef",
+      "engine": "apple",
+      "trials": [
+        {
+          "backend": "Core Image",
+          "bytes": 17408000,
+          "checksum": 2522735839,
+          "height": 1700,
+          "status": "ok",
+          "total_ms": 120.154083,
+          "width": 2560
+        },
+        {
+          "backend": "Core Image",
+          "bytes": 17408000,
+          "checksum": 2522735839,
+          "height": 1700,
+          "status": "ok",
+          "total_ms": 109.817875,
+          "width": 2560
+        },
+        {
+          "backend": "Core Image",
+          "bytes": 17408000,
+          "checksum": 2522735839,
+          "height": 1700,
+          "status": "ok",
+          "total_ms": 119.045417,
+          "width": 2560
+        },
+        {
+          "backend": "Core Image",
+          "bytes": 17408000,
+          "checksum": 2522735839,
+          "height": 1700,
+          "status": "ok",
+          "total_ms": 120.521,
+          "width": 2560
+        },
+        {
+          "backend": "Core Image",
+          "bytes": 17408000,
+          "checksum": 2522735839,
+          "height": 1700,
+          "status": "ok",
+          "total_ms": 108.425083,
+          "width": 2560
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 2560,
+      "height": 1700,
+      "median_ms": 119.045417,
+      "min_ms": 108.425083,
+      "max_ms": 120.521
+    },
+    {
+      "file": "pef-pentax-k-r.pef",
+      "engine": "rawler",
+      "trials": [
+        {
+          "backend": "CPU",
+          "bytes": 17408000,
+          "checksum": 2463369072,
+          "height": 1700,
+          "status": "ok",
+          "total_ms": 302.04325,
+          "width": 2560
+        },
+        {
+          "backend": "CPU",
+          "bytes": 17408000,
+          "checksum": 2463369072,
+          "height": 1700,
+          "status": "ok",
+          "total_ms": 285.25925,
+          "width": 2560
+        },
+        {
+          "backend": "CPU",
+          "bytes": 17408000,
+          "checksum": 2463369072,
+          "height": 1700,
+          "status": "ok",
+          "total_ms": 266.46625,
+          "width": 2560
+        },
+        {
+          "backend": "CPU",
+          "bytes": 17408000,
+          "checksum": 2463369072,
+          "height": 1700,
+          "status": "ok",
+          "total_ms": 270.60754199999997,
+          "width": 2560
+        },
+        {
+          "backend": "CPU",
+          "bytes": 17408000,
+          "checksum": 2463369072,
+          "height": 1700,
+          "status": "ok",
+          "total_ms": 263.552542,
+          "width": 2560
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 2560,
+      "height": 1700,
+      "median_ms": 270.60754199999997,
+      "min_ms": 263.552542,
+      "max_ms": 302.04325
+    },
+    {
+      "file": "pef-pentax-k-r.pef",
+      "engine": "lightcraft",
+      "trials": [
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 17408000,
+          "checksum": 2462163963,
+          "height": 1700,
+          "status": "ok",
+          "total_ms": 486.41137499999996,
+          "width": 2560
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 17408000,
+          "checksum": 2462163963,
+          "height": 1700,
+          "status": "ok",
+          "total_ms": 331.67591600000003,
+          "width": 2560
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 17408000,
+          "checksum": 2462163963,
+          "height": 1700,
+          "status": "ok",
+          "total_ms": 306.132417,
+          "width": 2560
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 17408000,
+          "checksum": 2462163963,
+          "height": 1700,
+          "status": "ok",
+          "total_ms": 314.117542,
+          "width": 2560
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 17408000,
+          "checksum": 2462163963,
+          "height": 1700,
+          "status": "ok",
+          "total_ms": 331.977833,
+          "width": 2560
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 2560,
+      "height": 1700,
+      "median_ms": 331.67591600000003,
+      "min_ms": 306.132417,
+      "max_ms": 486.41137499999996
+    },
+    {
+      "file": "srw-samsung-nx200.srw",
+      "engine": "apple",
+      "trials": [
+        {
+          "backend": "Core Image",
+          "bytes": 17469440,
+          "checksum": 2006380995,
+          "height": 2560,
+          "status": "ok",
+          "total_ms": 92.670875,
+          "width": 1706
+        },
+        {
+          "backend": "Core Image",
+          "bytes": 17469440,
+          "checksum": 2006380995,
+          "height": 2560,
+          "status": "ok",
+          "total_ms": 81.522792,
+          "width": 1706
+        },
+        {
+          "backend": "Core Image",
+          "bytes": 17469440,
+          "checksum": 2006380995,
+          "height": 2560,
+          "status": "ok",
+          "total_ms": 111.934209,
+          "width": 1706
+        },
+        {
+          "backend": "Core Image",
+          "bytes": 17469440,
+          "checksum": 2006380995,
+          "height": 2560,
+          "status": "ok",
+          "total_ms": 67.464792,
+          "width": 1706
+        },
+        {
+          "backend": "Core Image",
+          "bytes": 17469440,
+          "checksum": 2006380995,
+          "height": 2560,
+          "status": "ok",
+          "total_ms": 90.461959,
+          "width": 1706
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 1706,
+      "height": 2560,
+      "median_ms": 90.461959,
+      "min_ms": 67.464792,
+      "max_ms": 111.934209
+    },
+    {
+      "file": "srw-samsung-nx200.srw",
+      "engine": "rawler",
+      "trials": [
+        {
+          "backend": "CPU",
+          "bytes": 17469440,
+          "checksum": 1982184147,
+          "height": 2560,
+          "status": "ok",
+          "total_ms": 401.823708,
+          "width": 1706
+        },
+        {
+          "backend": "CPU",
+          "bytes": 17469440,
+          "checksum": 1982184147,
+          "height": 2560,
+          "status": "ok",
+          "total_ms": 399.658875,
+          "width": 1706
+        },
+        {
+          "backend": "CPU",
+          "bytes": 17469440,
+          "checksum": 1982184147,
+          "height": 2560,
+          "status": "ok",
+          "total_ms": 378.093792,
+          "width": 1706
+        },
+        {
+          "backend": "CPU",
+          "bytes": 17469440,
+          "checksum": 1982184147,
+          "height": 2560,
+          "status": "ok",
+          "total_ms": 369.744917,
+          "width": 1706
+        },
+        {
+          "backend": "CPU",
+          "bytes": 17469440,
+          "checksum": 1982184147,
+          "height": 2560,
+          "status": "ok",
+          "total_ms": 389.17337499999996,
+          "width": 1706
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 1706,
+      "height": 2560,
+      "median_ms": 389.17337499999996,
+      "min_ms": 369.744917,
+      "max_ms": 401.823708
+    },
+    {
+      "file": "srw-samsung-nx200.srw",
+      "engine": "lightcraft",
+      "trials": [
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 17469440,
+          "checksum": 2572727242,
+          "height": 2560,
+          "status": "ok",
+          "total_ms": 279.925625,
+          "width": 1706
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 17469440,
+          "checksum": 2572727242,
+          "height": 2560,
+          "status": "ok",
+          "total_ms": 232.815084,
+          "width": 1706
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 17469440,
+          "checksum": 2572727242,
+          "height": 2560,
+          "status": "ok",
+          "total_ms": 237.420208,
+          "width": 1706
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 17469440,
+          "checksum": 2572727242,
+          "height": 2560,
+          "status": "ok",
+          "total_ms": 269.699834,
+          "width": 1706
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 17469440,
+          "checksum": 2572727242,
+          "height": 2560,
+          "status": "ok",
+          "total_ms": 223.084667,
+          "width": 1706
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 1706,
+      "height": 2560,
+      "median_ms": 237.420208,
+      "min_ms": 223.084667,
+      "max_ms": 279.925625
+    },
+    {
+      "file": "dng-ricoh-gr3.dng",
+      "engine": "apple",
+      "trials": [
+        {
+          "backend": "Core Image",
+          "bytes": 17469440,
+          "checksum": 2308583233,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 438.586459,
+          "width": 2560
+        },
+        {
+          "backend": "Core Image",
+          "bytes": 17469440,
+          "checksum": 2308583233,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 554.657458,
+          "width": 2560
+        },
+        {
+          "backend": "Core Image",
+          "bytes": 17469440,
+          "checksum": 2308583233,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 333.739709,
+          "width": 2560
+        },
+        {
+          "backend": "Core Image",
+          "bytes": 17469440,
+          "checksum": 2308583233,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 308.652917,
+          "width": 2560
+        },
+        {
+          "backend": "Core Image",
+          "bytes": 17469440,
+          "checksum": 2308583233,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 333.311625,
+          "width": 2560
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 2560,
+      "height": 1706,
+      "median_ms": 333.739709,
+      "min_ms": 308.652917,
+      "max_ms": 554.657458
+    },
+    {
+      "file": "dng-ricoh-gr3.dng",
+      "engine": "rawler",
+      "trials": [
+        {
+          "backend": "CPU",
+          "bytes": 17469440,
+          "checksum": 2204210350,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 520.838334,
+          "width": 2560
+        },
+        {
+          "backend": "CPU",
+          "bytes": 17469440,
+          "checksum": 2204210350,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 667.3485000000001,
+          "width": 2560
+        },
+        {
+          "backend": "CPU",
+          "bytes": 17469440,
+          "checksum": 2204210350,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 569.586333,
+          "width": 2560
+        },
+        {
+          "backend": "CPU",
+          "bytes": 17469440,
+          "checksum": 2204210350,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 577.305833,
+          "width": 2560
+        },
+        {
+          "backend": "CPU",
+          "bytes": 17469440,
+          "checksum": 2204210350,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 599.552958,
+          "width": 2560
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 2560,
+      "height": 1706,
+      "median_ms": 577.305833,
+      "min_ms": 520.838334,
+      "max_ms": 667.3485000000001
+    },
+    {
+      "file": "dng-ricoh-gr3.dng",
+      "engine": "lightcraft",
+      "trials": [
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 17469440,
+          "checksum": 2467653060,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 364.169417,
+          "width": 2560
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 17469440,
+          "checksum": 2467653060,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 376.631958,
+          "width": 2560
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 17469440,
+          "checksum": 2467653060,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 387.903625,
+          "width": 2560
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 17469440,
+          "checksum": 2467653060,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 381.94795799999997,
+          "width": 2560
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 17469440,
+          "checksum": 2467653060,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 364.131458,
+          "width": 2560
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 2560,
+      "height": 1706,
+      "median_ms": 376.631958,
+      "min_ms": 364.131458,
+      "max_ms": 387.903625
+    },
+    {
+      "file": "dng-apple-iphone12pro-proraw.dng",
+      "engine": "apple",
+      "trials": [
+        {
+          "backend": "Core Image",
+          "bytes": 19660800,
+          "checksum": 3139976526,
+          "height": 2560,
+          "status": "ok",
+          "total_ms": 110.360541,
+          "width": 1920
+        },
+        {
+          "backend": "Core Image",
+          "bytes": 19660800,
+          "checksum": 3139976526,
+          "height": 2560,
+          "status": "ok",
+          "total_ms": 110.160875,
+          "width": 1920
+        },
+        {
+          "backend": "Core Image",
+          "bytes": 19660800,
+          "checksum": 3139976526,
+          "height": 2560,
+          "status": "ok",
+          "total_ms": 107.825459,
+          "width": 1920
+        },
+        {
+          "backend": "Core Image",
+          "bytes": 19660800,
+          "checksum": 3139976526,
+          "height": 2560,
+          "status": "ok",
+          "total_ms": 103.42625,
+          "width": 1920
+        },
+        {
+          "backend": "Core Image",
+          "bytes": 19660800,
+          "checksum": 3139976526,
+          "height": 2560,
+          "status": "ok",
+          "total_ms": 104.970875,
+          "width": 1920
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 1920,
+      "height": 2560,
+      "median_ms": 107.825459,
+      "min_ms": 103.42625,
+      "max_ms": 110.360541
+    },
+    {
+      "file": "dng-apple-iphone12pro-proraw.dng",
+      "engine": "rawler",
+      "trials": [
+        {
+          "backend": "CPU",
+          "bytes": 19660800,
+          "checksum": 2850783338,
+          "height": 2560,
+          "status": "ok",
+          "total_ms": 273.804875,
+          "width": 1920
+        },
+        {
+          "backend": "CPU",
+          "bytes": 19660800,
+          "checksum": 2850783338,
+          "height": 2560,
+          "status": "ok",
+          "total_ms": 425.285875,
+          "width": 1920
+        },
+        {
+          "backend": "CPU",
+          "bytes": 19660800,
+          "checksum": 2850783338,
+          "height": 2560,
+          "status": "ok",
+          "total_ms": 330.948875,
+          "width": 1920
+        },
+        {
+          "backend": "CPU",
+          "bytes": 19660800,
+          "checksum": 2850783338,
+          "height": 2560,
+          "status": "ok",
+          "total_ms": 326.034292,
+          "width": 1920
+        },
+        {
+          "backend": "CPU",
+          "bytes": 19660800,
+          "checksum": 2850783338,
+          "height": 2560,
+          "status": "ok",
+          "total_ms": 319.208416,
+          "width": 1920
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 1920,
+      "height": 2560,
+      "median_ms": 326.034292,
+      "min_ms": 273.804875,
+      "max_ms": 425.285875
+    },
+    {
+      "file": "dng-apple-iphone12pro-proraw.dng",
+      "engine": "lightcraft",
+      "trials": [
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 19660800,
+          "checksum": 2356667731,
+          "height": 2560,
+          "status": "ok",
+          "total_ms": 207.7335,
+          "width": 1920
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 19660800,
+          "checksum": 2356667731,
+          "height": 2560,
+          "status": "ok",
+          "total_ms": 280.272625,
+          "width": 1920
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 19660800,
+          "checksum": 2356667731,
+          "height": 2560,
+          "status": "ok",
+          "total_ms": 220.13625000000002,
+          "width": 1920
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 19660800,
+          "checksum": 2356667731,
+          "height": 2560,
+          "status": "ok",
+          "total_ms": 227.36724999999998,
+          "width": 1920
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 19660800,
+          "checksum": 2356667731,
+          "height": 2560,
+          "status": "ok",
+          "total_ms": 220.43775,
+          "width": 1920
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 1920,
+      "height": 2560,
+      "median_ms": 220.43775,
+      "min_ms": 207.7335,
+      "max_ms": 280.272625
+    },
+    {
+      "file": "dng-adobe-canon-5d3-linear-lj92.dng",
+      "engine": "apple",
+      "trials": [
+        {
+          "backend": "Core Image",
+          "bytes": 17469440,
+          "checksum": 2543094231,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 97.711542,
+          "width": 2560
+        },
+        {
+          "backend": "Core Image",
+          "bytes": 17469440,
+          "checksum": 2543094231,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 62.039541,
+          "width": 2560
+        },
+        {
+          "backend": "Core Image",
+          "bytes": 17469440,
+          "checksum": 2543094231,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 59.605042,
+          "width": 2560
+        },
+        {
+          "backend": "Core Image",
+          "bytes": 17469440,
+          "checksum": 2543094231,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 60.486709,
+          "width": 2560
+        },
+        {
+          "backend": "Core Image",
+          "bytes": 17469440,
+          "checksum": 2543094231,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 61.484333,
+          "width": 2560
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 2560,
+      "height": 1706,
+      "median_ms": 61.484333,
+      "min_ms": 59.605042,
+      "max_ms": 97.711542
+    },
+    {
+      "file": "dng-adobe-canon-5d3-linear-lj92.dng",
+      "engine": "rawler",
+      "trials": [
+        {
+          "backend": "CPU",
+          "bytes": 17469440,
+          "checksum": 2175203260,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 197.522208,
+          "width": 2560
+        },
+        {
+          "backend": "CPU",
+          "bytes": 17469440,
+          "checksum": 2175203260,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 202.11445799999998,
+          "width": 2560
+        },
+        {
+          "backend": "CPU",
+          "bytes": 17469440,
+          "checksum": 2175203260,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 201.69520799999998,
+          "width": 2560
+        },
+        {
+          "backend": "CPU",
+          "bytes": 17469440,
+          "checksum": 2175203260,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 192.53725,
+          "width": 2560
+        },
+        {
+          "backend": "CPU",
+          "bytes": 17469440,
+          "checksum": 2175203260,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 220.07058400000003,
+          "width": 2560
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 2560,
+      "height": 1706,
+      "median_ms": 201.69520799999998,
+      "min_ms": 192.53725,
+      "max_ms": 220.07058400000003
+    },
+    {
+      "file": "dng-adobe-canon-5d3-linear-lj92.dng",
+      "engine": "lightcraft",
+      "trials": [
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 17469440,
+          "checksum": 2294071165,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 300.062,
+          "width": 2560
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 17469440,
+          "checksum": 2294071165,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 304.25620799999996,
+          "width": 2560
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 17469440,
+          "checksum": 2294071165,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 349.81225,
+          "width": 2560
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 17469440,
+          "checksum": 2294071165,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 307.772875,
+          "width": 2560
+        },
+        {
+          "backend": "Apple M4 (Metal)",
+          "bytes": 17469440,
+          "checksum": 2294071165,
+          "height": 1706,
+          "status": "ok",
+          "total_ms": 304.616542,
+          "width": 2560
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "width": 2560,
+      "height": 1706,
+      "median_ms": 304.616542,
+      "min_ms": 300.062,
+      "max_ms": 349.81225
+    }
+  ],
+  "lightphotos_commit": "ecd3471e64a824d628ae6c1bd5fe53b4b6fa3deb",
+  "lightcraft_commit": "0da998f24dfc03069d49867f8877af2bf7c51f94",
+  "execution": "All three workers unrestricted with macOS GPU access; sequential requests.",
+  "output": "sRGB RGBA8, exact shared per-file dimensions, 2560-pixel long edge, original aspect ratio",
+  "adapter_sha256": {
+    "display.py": "f83e687ffb5bf95abd0a4fd58ba418c2675bd239037daf2c4cb93b5c8f2b512f",
+    "display.swift": "74d0763352735ccc4de101f5147ca0a8fa37b033ad1468c7da23763921570a0b",
+    "rust/src/display.rs": "fb225ac5ea8fc7edcec07a3f3d8488cfdd7cf614a73f3e19f0cafc81efe836b8",
+    "rust/Cargo.lock": "fcca1986d4cde98a875ee71b52c2a5efb3b7e72bad60a1a0d01888ba3720be41"
+  },
+  "visual_inspection": "Warm-up rasters inspected as a three-column contact sheet: expected photographs, matching orientation, visibly different default color/tone. No pixel-accuracy or quality equivalence claim."
+}

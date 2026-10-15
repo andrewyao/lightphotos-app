@@ -1,0 +1,4324 @@
+{
+  "date": "2026-10-15T21:40:31.466002+00:00",
+  "platform": "macOS-26.5.2-arm64-arm-64bit-Mach-O",
+  "hardware": "Mac mini, Apple M4, 10 CPU cores, 16 GB RAM",
+  "rayon_num_threads": "default",
+  "method": "fresh process; warm file URL for ImageIO, in-memory input for Rust; full-size output at different RGB stages",
+  "records": [
+    {
+      "file": "arw-sony-a7m4-14bit.arw",
+      "engine": "imageio",
+      "trials": [
+        {
+          "measurement": {
+            "first_byte": 0,
+            "height": 3072,
+            "output": "sRGB RGBA8",
+            "total_ms": 146.536709,
+            "width": 4608
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 0,
+            "height": 3072,
+            "output": "sRGB RGBA8",
+            "total_ms": 118.256959,
+            "width": 4608
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 0,
+            "height": 3072,
+            "output": "sRGB RGBA8",
+            "total_ms": 113.858166,
+            "width": 4608
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 0,
+            "height": 3072,
+            "output": "sRGB RGBA8",
+            "total_ms": 114.336417,
+            "width": 4608
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 0,
+            "height": 3072,
+            "output": "sRGB RGBA8",
+            "total_ms": 113.212417,
+            "width": 4608
+          },
+          "status": "ok"
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "median_total_ms": 114.336417,
+      "width": 4608,
+      "height": 3072
+    },
+    {
+      "file": "arw-sony-a7m4-14bit.arw",
+      "engine": "rawler",
+      "trials": [
+        {
+          "measurement": {
+            "decode_ms": 29.423375,
+            "height": 3072,
+            "output": "default developed RGB",
+            "total_ms": 173.87925,
+            "width": 4608
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 23.011375,
+            "height": 3072,
+            "output": "default developed RGB",
+            "total_ms": 151.377334,
+            "width": 4608
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 23.708709000000002,
+            "height": 3072,
+            "output": "default developed RGB",
+            "total_ms": 152.251209,
+            "width": 4608
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 23.294209,
+            "height": 3072,
+            "output": "default developed RGB",
+            "total_ms": 162.80349999999999,
+            "width": 4608
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 24.230416,
+            "height": 3072,
+            "output": "default developed RGB",
+            "total_ms": 151.905958,
+            "width": 4608
+          },
+          "status": "ok"
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "median_total_ms": 152.251209,
+      "width": 4608,
+      "height": 3072,
+      "median_decode_ms": 23.708709000000002
+    },
+    {
+      "file": "arw-sony-a7m4-14bit.arw",
+      "engine": "lightcraft",
+      "trials": [
+        {
+          "measurement": {
+            "decode_ms": 5.742167,
+            "height": 3072,
+            "output": "camera RGB, no white balance or display transform",
+            "total_ms": 132.892333,
+            "width": 4608
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 5.227958,
+            "height": 3072,
+            "output": "camera RGB, no white balance or display transform",
+            "total_ms": 125.840208,
+            "width": 4608
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 5.0890830000000005,
+            "height": 3072,
+            "output": "camera RGB, no white balance or display transform",
+            "total_ms": 128.367333,
+            "width": 4608
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 5.495917,
+            "height": 3072,
+            "output": "camera RGB, no white balance or display transform",
+            "total_ms": 133.83025,
+            "width": 4608
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 5.057583,
+            "height": 3072,
+            "output": "camera RGB, no white balance or display transform",
+            "total_ms": 142.96487499999998,
+            "width": 4608
+          },
+          "status": "ok"
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "median_total_ms": 132.892333,
+      "width": 4608,
+      "height": 3072,
+      "median_decode_ms": 5.227958
+    },
+    {
+      "file": "arw-sony-a7m4-lossless-l.arw",
+      "engine": "imageio",
+      "trials": [
+        {
+          "measurement": {
+            "first_byte": 0,
+            "height": 4672,
+            "output": "sRGB RGBA8",
+            "total_ms": 217.400333,
+            "width": 7008
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 0,
+            "height": 4672,
+            "output": "sRGB RGBA8",
+            "total_ms": 217.506125,
+            "width": 7008
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 0,
+            "height": 4672,
+            "output": "sRGB RGBA8",
+            "total_ms": 268.713375,
+            "width": 7008
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 0,
+            "height": 4672,
+            "output": "sRGB RGBA8",
+            "total_ms": 205.652667,
+            "width": 7008
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 0,
+            "height": 4672,
+            "output": "sRGB RGBA8",
+            "total_ms": 203.282375,
+            "width": 7008
+          },
+          "status": "ok"
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "median_total_ms": 217.400333,
+      "width": 7008,
+      "height": 4672
+    },
+    {
+      "file": "arw-sony-a7m4-lossless-l.arw",
+      "engine": "rawler",
+      "trials": [
+        {
+          "measurement": {
+            "decode_ms": 60.567333,
+            "height": 4672,
+            "output": "default developed RGB",
+            "total_ms": 433.26037499999995,
+            "width": 7008
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 68.037083,
+            "height": 4672,
+            "output": "default developed RGB",
+            "total_ms": 378.832,
+            "width": 7008
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 84.410416,
+            "height": 4672,
+            "output": "default developed RGB",
+            "total_ms": 361.237916,
+            "width": 7008
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 67.507959,
+            "height": 4672,
+            "output": "default developed RGB",
+            "total_ms": 361.755,
+            "width": 7008
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 67.8285,
+            "height": 4672,
+            "output": "default developed RGB",
+            "total_ms": 347.742,
+            "width": 7008
+          },
+          "status": "ok"
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "median_total_ms": 361.755,
+      "width": 7008,
+      "height": 4672,
+      "median_decode_ms": 67.8285
+    },
+    {
+      "file": "arw-sony-a7m4-lossless-l.arw",
+      "engine": "lightcraft",
+      "trials": [
+        {
+          "measurement": {
+            "decode_ms": 60.681708,
+            "height": 4672,
+            "output": "camera RGB, no white balance or display transform",
+            "total_ms": 346.30233300000003,
+            "width": 7008
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 58.648084000000004,
+            "height": 4672,
+            "output": "camera RGB, no white balance or display transform",
+            "total_ms": 364.22549999999995,
+            "width": 7008
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 61.696292,
+            "height": 4672,
+            "output": "camera RGB, no white balance or display transform",
+            "total_ms": 345.494792,
+            "width": 7008
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 59.8895,
+            "height": 4672,
+            "output": "camera RGB, no white balance or display transform",
+            "total_ms": 347.70945800000004,
+            "width": 7008
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 58.048209,
+            "height": 4672,
+            "output": "camera RGB, no white balance or display transform",
+            "total_ms": 345.342709,
+            "width": 7008
+          },
+          "status": "ok"
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "median_total_ms": 346.30233300000003,
+      "width": 7008,
+      "height": 4672,
+      "median_decode_ms": 59.8895
+    },
+    {
+      "file": "cr2-canon-5d3.cr2",
+      "engine": "imageio",
+      "trials": [
+        {
+          "measurement": {
+            "first_byte": 0,
+            "height": 3840,
+            "output": "sRGB RGBA8",
+            "total_ms": 151.739458,
+            "width": 5760
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 0,
+            "height": 3840,
+            "output": "sRGB RGBA8",
+            "total_ms": 154.977125,
+            "width": 5760
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 0,
+            "height": 3840,
+            "output": "sRGB RGBA8",
+            "total_ms": 149.963125,
+            "width": 5760
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 0,
+            "height": 3840,
+            "output": "sRGB RGBA8",
+            "total_ms": 148.425,
+            "width": 5760
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 0,
+            "height": 3840,
+            "output": "sRGB RGBA8",
+            "total_ms": 150.218291,
+            "width": 5760
+          },
+          "status": "ok"
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "median_total_ms": 150.218291,
+      "width": 5760,
+      "height": 3840
+    },
+    {
+      "file": "cr2-canon-5d3.cr2",
+      "engine": "rawler",
+      "trials": [
+        {
+          "measurement": {
+            "decode_ms": 165.547459,
+            "height": 3840,
+            "output": "default developed RGB",
+            "total_ms": 368.002292,
+            "width": 5760
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 177.79287499999998,
+            "height": 3840,
+            "output": "default developed RGB",
+            "total_ms": 368.83808400000004,
+            "width": 5760
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 179.499708,
+            "height": 3840,
+            "output": "default developed RGB",
+            "total_ms": 364.60637499999996,
+            "width": 5760
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 180.26933400000001,
+            "height": 3840,
+            "output": "default developed RGB",
+            "total_ms": 362.13675,
+            "width": 5760
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 180.164166,
+            "height": 3840,
+            "output": "default developed RGB",
+            "total_ms": 365.07604100000003,
+            "width": 5760
+          },
+          "status": "ok"
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "median_total_ms": 365.07604100000003,
+      "width": 5760,
+      "height": 3840,
+      "median_decode_ms": 179.499708
+    },
+    {
+      "file": "cr2-canon-5d3.cr2",
+      "engine": "lightcraft",
+      "trials": [
+        {
+          "measurement": {
+            "decode_ms": 161.359375,
+            "height": 3840,
+            "output": "camera RGB, no white balance or display transform",
+            "total_ms": 328.547792,
+            "width": 5760
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 155.49420899999998,
+            "height": 3840,
+            "output": "camera RGB, no white balance or display transform",
+            "total_ms": 325.503209,
+            "width": 5760
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 154.182125,
+            "height": 3840,
+            "output": "camera RGB, no white balance or display transform",
+            "total_ms": 322.749083,
+            "width": 5760
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 155.72287500000002,
+            "height": 3840,
+            "output": "camera RGB, no white balance or display transform",
+            "total_ms": 326.303458,
+            "width": 5760
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 158.898459,
+            "height": 3840,
+            "output": "camera RGB, no white balance or display transform",
+            "total_ms": 330.980167,
+            "width": 5760
+          },
+          "status": "ok"
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "median_total_ms": 326.303458,
+      "width": 5760,
+      "height": 3840,
+      "median_decode_ms": 155.72287500000002
+    },
+    {
+      "file": "cr3-canon-r5m2-raw.cr3",
+      "engine": "imageio",
+      "trials": [
+        {
+          "measurement": {
+            "first_byte": 0,
+            "height": 5464,
+            "output": "sRGB RGBA8",
+            "total_ms": 268.630666,
+            "width": 8192
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 0,
+            "height": 5464,
+            "output": "sRGB RGBA8",
+            "total_ms": 269.824916,
+            "width": 8192
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 0,
+            "height": 5464,
+            "output": "sRGB RGBA8",
+            "total_ms": 261.533459,
+            "width": 8192
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 0,
+            "height": 5464,
+            "output": "sRGB RGBA8",
+            "total_ms": 262.679625,
+            "width": 8192
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 0,
+            "height": 5464,
+            "output": "sRGB RGBA8",
+            "total_ms": 260.0275,
+            "width": 8192
+          },
+          "status": "ok"
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "median_total_ms": 262.679625,
+      "width": 8192,
+      "height": 5464
+    },
+    {
+      "file": "cr3-canon-r5m2-raw.cr3",
+      "engine": "rawler",
+      "trials": [
+        {
+          "measurement": {
+            "decode_ms": 223.913667,
+            "height": 5464,
+            "output": "default developed RGB",
+            "total_ms": 817.670208,
+            "width": 8192
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 290.646083,
+            "height": 5464,
+            "output": "default developed RGB",
+            "total_ms": 951.179166,
+            "width": 8192
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 205.13679100000002,
+            "height": 5464,
+            "output": "default developed RGB",
+            "total_ms": 616.701708,
+            "width": 8192
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 181.71220799999998,
+            "height": 5464,
+            "output": "default developed RGB",
+            "total_ms": 553.091875,
+            "width": 8192
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 186.086708,
+            "height": 5464,
+            "output": "default developed RGB",
+            "total_ms": 562.0934579999999,
+            "width": 8192
+          },
+          "status": "ok"
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "median_total_ms": 616.701708,
+      "width": 8192,
+      "height": 5464,
+      "median_decode_ms": 205.13679100000002
+    },
+    {
+      "file": "cr3-canon-r5m2-raw.cr3",
+      "engine": "lightcraft",
+      "trials": [
+        {
+          "measurement": {
+            "decode_ms": 185.058,
+            "height": 5464,
+            "output": "camera RGB, no white balance or display transform",
+            "total_ms": 531.3779159999999,
+            "width": 8192
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 178.42929199999998,
+            "height": 5464,
+            "output": "camera RGB, no white balance or display transform",
+            "total_ms": 527.292959,
+            "width": 8192
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 179.940791,
+            "height": 5464,
+            "output": "camera RGB, no white balance or display transform",
+            "total_ms": 546.1737909999999,
+            "width": 8192
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 182.602875,
+            "height": 5464,
+            "output": "camera RGB, no white balance or display transform",
+            "total_ms": 522.972625,
+            "width": 8192
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 177.720459,
+            "height": 5464,
+            "output": "camera RGB, no white balance or display transform",
+            "total_ms": 542.8426669999999,
+            "width": 8192
+          },
+          "status": "ok"
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "median_total_ms": 531.3779159999999,
+      "width": 8192,
+      "height": 5464,
+      "median_decode_ms": 179.940791
+    },
+    {
+      "file": "cr3-canon-r5m2-craw.cr3",
+      "engine": "imageio",
+      "trials": [
+        {
+          "measurement": {
+            "first_byte": 0,
+            "height": 5464,
+            "output": "sRGB RGBA8",
+            "total_ms": 265.321959,
+            "width": 8192
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 0,
+            "height": 5464,
+            "output": "sRGB RGBA8",
+            "total_ms": 258.641667,
+            "width": 8192
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 0,
+            "height": 5464,
+            "output": "sRGB RGBA8",
+            "total_ms": 262.809959,
+            "width": 8192
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 0,
+            "height": 5464,
+            "output": "sRGB RGBA8",
+            "total_ms": 256.275084,
+            "width": 8192
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 0,
+            "height": 5464,
+            "output": "sRGB RGBA8",
+            "total_ms": 261.791083,
+            "width": 8192
+          },
+          "status": "ok"
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "median_total_ms": 261.791083,
+      "width": 8192,
+      "height": 5464
+    },
+    {
+      "file": "cr3-canon-r5m2-craw.cr3",
+      "engine": "rawler",
+      "trials": [
+        {
+          "measurement": {
+            "decode_ms": 210.784083,
+            "height": 5464,
+            "output": "default developed RGB",
+            "total_ms": 566.1945000000001,
+            "width": 8192
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 215.809459,
+            "height": 5464,
+            "output": "default developed RGB",
+            "total_ms": 576.5445420000001,
+            "width": 8192
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 218.857541,
+            "height": 5464,
+            "output": "default developed RGB",
+            "total_ms": 578.526958,
+            "width": 8192
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 214.24475,
+            "height": 5464,
+            "output": "default developed RGB",
+            "total_ms": 613.651167,
+            "width": 8192
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 218.691959,
+            "height": 5464,
+            "output": "default developed RGB",
+            "total_ms": 581.602125,
+            "width": 8192
+          },
+          "status": "ok"
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "median_total_ms": 578.526958,
+      "width": 8192,
+      "height": 5464,
+      "median_decode_ms": 215.809459
+    },
+    {
+      "file": "cr3-canon-r5m2-craw.cr3",
+      "engine": "lightcraft",
+      "trials": [
+        {
+          "measurement": {
+            "decode_ms": 384.243833,
+            "height": 5464,
+            "output": "camera RGB, no white balance or display transform",
+            "total_ms": 754.146292,
+            "width": 8192
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 375.459625,
+            "height": 5464,
+            "output": "camera RGB, no white balance or display transform",
+            "total_ms": 743.0175,
+            "width": 8192
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 377.76516599999997,
+            "height": 5464,
+            "output": "camera RGB, no white balance or display transform",
+            "total_ms": 727.709958,
+            "width": 8192
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 381.949125,
+            "height": 5464,
+            "output": "camera RGB, no white balance or display transform",
+            "total_ms": 769.6625419999999,
+            "width": 8192
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 374.696625,
+            "height": 5464,
+            "output": "camera RGB, no white balance or display transform",
+            "total_ms": 736.351834,
+            "width": 8192
+          },
+          "status": "ok"
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "median_total_ms": 743.0175,
+      "width": 8192,
+      "height": 5464,
+      "median_decode_ms": 377.76516599999997
+    },
+    {
+      "file": "nef-nikon-zf-lossless.nef",
+      "engine": "imageio",
+      "trials": [
+        {
+          "measurement": {
+            "first_byte": 0,
+            "height": 4032,
+            "output": "sRGB RGBA8",
+            "total_ms": 164.261,
+            "width": 6048
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 0,
+            "height": 4032,
+            "output": "sRGB RGBA8",
+            "total_ms": 182.896584,
+            "width": 6048
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 0,
+            "height": 4032,
+            "output": "sRGB RGBA8",
+            "total_ms": 176.967792,
+            "width": 6048
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 0,
+            "height": 4032,
+            "output": "sRGB RGBA8",
+            "total_ms": 180.512791,
+            "width": 6048
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 0,
+            "height": 4032,
+            "output": "sRGB RGBA8",
+            "total_ms": 167.746792,
+            "width": 6048
+          },
+          "status": "ok"
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "median_total_ms": 176.967792,
+      "width": 6048,
+      "height": 4032
+    },
+    {
+      "file": "nef-nikon-zf-lossless.nef",
+      "engine": "rawler",
+      "trials": [
+        {
+          "measurement": {
+            "decode_ms": 154.733333,
+            "height": 4032,
+            "output": "default developed RGB",
+            "total_ms": 369.981291,
+            "width": 6048
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 171.47475,
+            "height": 4032,
+            "output": "default developed RGB",
+            "total_ms": 389.564,
+            "width": 6048
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 172.5095,
+            "height": 4032,
+            "output": "default developed RGB",
+            "total_ms": 401.950417,
+            "width": 6048
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 165.908375,
+            "height": 4032,
+            "output": "default developed RGB",
+            "total_ms": 377.800708,
+            "width": 6048
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 163.483084,
+            "height": 4032,
+            "output": "default developed RGB",
+            "total_ms": 391.8505,
+            "width": 6048
+          },
+          "status": "ok"
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "median_total_ms": 389.564,
+      "width": 6048,
+      "height": 4032,
+      "median_decode_ms": 165.908375
+    },
+    {
+      "file": "nef-nikon-zf-lossless.nef",
+      "engine": "lightcraft",
+      "trials": [
+        {
+          "measurement": {
+            "decode_ms": 92.69275,
+            "height": 4032,
+            "output": "camera RGB, no white balance or display transform",
+            "total_ms": 410.349459,
+            "width": 6048
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 85.44937499999999,
+            "height": 4032,
+            "output": "camera RGB, no white balance or display transform",
+            "total_ms": 409.246667,
+            "width": 6048
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 85.04329200000001,
+            "height": 4032,
+            "output": "camera RGB, no white balance or display transform",
+            "total_ms": 413.78220799999997,
+            "width": 6048
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 84.720834,
+            "height": 4032,
+            "output": "camera RGB, no white balance or display transform",
+            "total_ms": 412.902667,
+            "width": 6048
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 84.73849999999999,
+            "height": 4032,
+            "output": "camera RGB, no white balance or display transform",
+            "total_ms": 515.5196669999999,
+            "width": 6048
+          },
+          "status": "ok"
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "median_total_ms": 412.902667,
+      "width": 6048,
+      "height": 4032,
+      "median_decode_ms": 85.04329200000001
+    },
+    {
+      "file": "nef-nikon-zf-he.nef",
+      "engine": "imageio",
+      "trials": [
+        {
+          "measurement": {
+            "first_byte": 0,
+            "height": 4032,
+            "output": "sRGB RGBA8",
+            "total_ms": 163.127292,
+            "width": 6048
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 0,
+            "height": 4032,
+            "output": "sRGB RGBA8",
+            "total_ms": 161.429,
+            "width": 6048
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 0,
+            "height": 4032,
+            "output": "sRGB RGBA8",
+            "total_ms": 161.608084,
+            "width": 6048
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 0,
+            "height": 4032,
+            "output": "sRGB RGBA8",
+            "total_ms": 161.976792,
+            "width": 6048
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 0,
+            "height": 4032,
+            "output": "sRGB RGBA8",
+            "total_ms": 166.883959,
+            "width": 6048
+          },
+          "status": "ok"
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "median_total_ms": 161.976792,
+      "width": 6048,
+      "height": 4032
+    },
+    {
+      "file": "nef-nikon-zf-he.nef",
+      "engine": "rawler",
+      "trials": [
+        {
+          "embedded_preview_available": false,
+          "error": "sensor decode: Failed to decode image, possibly corrupt image: NEF compression Some(HighEfficency) is not supported",
+          "status": "error"
+        },
+        {
+          "embedded_preview_available": false,
+          "error": "sensor decode: Failed to decode image, possibly corrupt image: NEF compression Some(HighEfficency) is not supported",
+          "status": "error"
+        },
+        {
+          "embedded_preview_available": false,
+          "error": "sensor decode: Failed to decode image, possibly corrupt image: NEF compression Some(HighEfficency) is not supported",
+          "status": "error"
+        },
+        {
+          "embedded_preview_available": false,
+          "error": "sensor decode: Failed to decode image, possibly corrupt image: NEF compression Some(HighEfficency) is not supported",
+          "status": "error"
+        },
+        {
+          "embedded_preview_available": false,
+          "error": "sensor decode: Failed to decode image, possibly corrupt image: NEF compression Some(HighEfficency) is not supported",
+          "status": "error"
+        }
+      ],
+      "successes": 0,
+      "attempts": 5
+    },
+    {
+      "file": "nef-nikon-zf-he.nef",
+      "engine": "lightcraft",
+      "trials": [
+        {
+          "embedded_preview_available": true,
+          "error": "sensor decode: unsupported raw variant: Nikon High Efficiency NEF (HE / HE\u2605, a JPEG XS-based codec with no public specification; shoot RAW Lossless compressed to edit the raw data)",
+          "status": "error"
+        },
+        {
+          "embedded_preview_available": true,
+          "error": "sensor decode: unsupported raw variant: Nikon High Efficiency NEF (HE / HE\u2605, a JPEG XS-based codec with no public specification; shoot RAW Lossless compressed to edit the raw data)",
+          "status": "error"
+        },
+        {
+          "embedded_preview_available": true,
+          "error": "sensor decode: unsupported raw variant: Nikon High Efficiency NEF (HE / HE\u2605, a JPEG XS-based codec with no public specification; shoot RAW Lossless compressed to edit the raw data)",
+          "status": "error"
+        },
+        {
+          "embedded_preview_available": true,
+          "error": "sensor decode: unsupported raw variant: Nikon High Efficiency NEF (HE / HE\u2605, a JPEG XS-based codec with no public specification; shoot RAW Lossless compressed to edit the raw data)",
+          "status": "error"
+        },
+        {
+          "embedded_preview_available": true,
+          "error": "sensor decode: unsupported raw variant: Nikon High Efficiency NEF (HE / HE\u2605, a JPEG XS-based codec with no public specification; shoot RAW Lossless compressed to edit the raw data)",
+          "status": "error"
+        }
+      ],
+      "successes": 0,
+      "attempts": 5
+    },
+    {
+      "file": "raf-fuji-xa5-14bit-bayer.raf",
+      "engine": "imageio",
+      "trials": [
+        {
+          "measurement": {
+            "first_byte": 0,
+            "height": 4000,
+            "output": "sRGB RGBA8",
+            "total_ms": 160.232042,
+            "width": 6000
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 0,
+            "height": 4000,
+            "output": "sRGB RGBA8",
+            "total_ms": 158.07575,
+            "width": 6000
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 0,
+            "height": 4000,
+            "output": "sRGB RGBA8",
+            "total_ms": 159.917292,
+            "width": 6000
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 0,
+            "height": 4000,
+            "output": "sRGB RGBA8",
+            "total_ms": 161.731833,
+            "width": 6000
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 0,
+            "height": 4000,
+            "output": "sRGB RGBA8",
+            "total_ms": 159.578167,
+            "width": 6000
+          },
+          "status": "ok"
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "median_total_ms": 159.917292,
+      "width": 6000,
+      "height": 4000
+    },
+    {
+      "file": "raf-fuji-xa5-14bit-bayer.raf",
+      "engine": "rawler",
+      "trials": [
+        {
+          "measurement": {
+            "decode_ms": 27.53475,
+            "height": 4000,
+            "output": "default developed RGB",
+            "total_ms": 227.391541,
+            "width": 6000
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 27.722792,
+            "height": 4000,
+            "output": "default developed RGB",
+            "total_ms": 240.343667,
+            "width": 6000
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 28.230667,
+            "height": 4000,
+            "output": "default developed RGB",
+            "total_ms": 233.301167,
+            "width": 6000
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 28.379458,
+            "height": 4000,
+            "output": "default developed RGB",
+            "total_ms": 233.708208,
+            "width": 6000
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 27.756375,
+            "height": 4000,
+            "output": "default developed RGB",
+            "total_ms": 239.44125,
+            "width": 6000
+          },
+          "status": "ok"
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "median_total_ms": 233.708208,
+      "width": 6000,
+      "height": 4000,
+      "median_decode_ms": 27.756375
+    },
+    {
+      "file": "raf-fuji-xa5-14bit-bayer.raf",
+      "engine": "lightcraft",
+      "trials": [
+        {
+          "measurement": {
+            "decode_ms": 10.679583,
+            "height": 4000,
+            "output": "camera RGB, no white balance or display transform",
+            "total_ms": 362.036958,
+            "width": 6000
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 10.011666,
+            "height": 4000,
+            "output": "camera RGB, no white balance or display transform",
+            "total_ms": 367.721125,
+            "width": 6000
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 10.374833,
+            "height": 4000,
+            "output": "camera RGB, no white balance or display transform",
+            "total_ms": 364.27579199999997,
+            "width": 6000
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 10.6395,
+            "height": 4000,
+            "output": "camera RGB, no white balance or display transform",
+            "total_ms": 371.406709,
+            "width": 6000
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 11.602292,
+            "height": 4000,
+            "output": "camera RGB, no white balance or display transform",
+            "total_ms": 364.31795900000003,
+            "width": 6000
+          },
+          "status": "ok"
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "median_total_ms": 364.31795900000003,
+      "width": 6000,
+      "height": 4000,
+      "median_decode_ms": 10.6395
+    },
+    {
+      "file": "raf-fuji-xt5-6122.raf",
+      "engine": "imageio",
+      "trials": [
+        {
+          "measurement": {
+            "first_byte": 0,
+            "height": 5152,
+            "output": "sRGB RGBA8",
+            "total_ms": 242.160625,
+            "width": 7728
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 0,
+            "height": 5152,
+            "output": "sRGB RGBA8",
+            "total_ms": 235.066,
+            "width": 7728
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 0,
+            "height": 5152,
+            "output": "sRGB RGBA8",
+            "total_ms": 232.027084,
+            "width": 7728
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 0,
+            "height": 5152,
+            "output": "sRGB RGBA8",
+            "total_ms": 239.217292,
+            "width": 7728
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 0,
+            "height": 5152,
+            "output": "sRGB RGBA8",
+            "total_ms": 234.088708,
+            "width": 7728
+          },
+          "status": "ok"
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "median_total_ms": 235.066,
+      "width": 7728,
+      "height": 5152
+    },
+    {
+      "file": "raf-fuji-xt5-6122.raf",
+      "engine": "rawler",
+      "trials": [
+        {
+          "measurement": {
+            "decode_ms": 152.099916,
+            "height": 5152,
+            "output": "default developed RGB",
+            "total_ms": 621.77675,
+            "width": 7728
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 133.986917,
+            "height": 5152,
+            "output": "default developed RGB",
+            "total_ms": 588.496,
+            "width": 7728
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 159.718334,
+            "height": 5152,
+            "output": "default developed RGB",
+            "total_ms": 613.614375,
+            "width": 7728
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 155.61029100000002,
+            "height": 5152,
+            "output": "default developed RGB",
+            "total_ms": 636.405041,
+            "width": 7728
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 139.467542,
+            "height": 5152,
+            "output": "default developed RGB",
+            "total_ms": 653.9707080000001,
+            "width": 7728
+          },
+          "status": "ok"
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "median_total_ms": 621.77675,
+      "width": 7728,
+      "height": 5152,
+      "median_decode_ms": 152.099916
+    },
+    {
+      "file": "raf-fuji-xt5-6122.raf",
+      "engine": "lightcraft",
+      "trials": [
+        {
+          "measurement": {
+            "decode_ms": 337.77770899999996,
+            "height": 5152,
+            "output": "camera RGB, no white balance or display transform",
+            "total_ms": 1030.051667,
+            "width": 7728
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 251.53770800000004,
+            "height": 5152,
+            "output": "camera RGB, no white balance or display transform",
+            "total_ms": 741.78875,
+            "width": 7728
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 237.074959,
+            "height": 5152,
+            "output": "camera RGB, no white balance or display transform",
+            "total_ms": 709.885459,
+            "width": 7728
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 230.723084,
+            "height": 5152,
+            "output": "camera RGB, no white balance or display transform",
+            "total_ms": 713.288209,
+            "width": 7728
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 263.659584,
+            "height": 5152,
+            "output": "camera RGB, no white balance or display transform",
+            "total_ms": 732.783459,
+            "width": 7728
+          },
+          "status": "ok"
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "median_total_ms": 732.783459,
+      "width": 7728,
+      "height": 5152,
+      "median_decode_ms": 251.53770800000004
+    },
+    {
+      "file": "raf-fuji-xt5-6123.raf",
+      "engine": "imageio",
+      "trials": [
+        {
+          "measurement": {
+            "first_byte": 0,
+            "height": 5152,
+            "output": "sRGB RGBA8",
+            "total_ms": 236.834958,
+            "width": 7728
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 0,
+            "height": 5152,
+            "output": "sRGB RGBA8",
+            "total_ms": 236.2575,
+            "width": 7728
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 0,
+            "height": 5152,
+            "output": "sRGB RGBA8",
+            "total_ms": 240.050542,
+            "width": 7728
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 0,
+            "height": 5152,
+            "output": "sRGB RGBA8",
+            "total_ms": 235.8515,
+            "width": 7728
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 0,
+            "height": 5152,
+            "output": "sRGB RGBA8",
+            "total_ms": 235.546875,
+            "width": 7728
+          },
+          "status": "ok"
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "median_total_ms": 236.2575,
+      "width": 7728,
+      "height": 5152
+    },
+    {
+      "file": "raf-fuji-xt5-6123.raf",
+      "engine": "rawler",
+      "trials": [
+        {
+          "measurement": {
+            "decode_ms": 171.44220800000002,
+            "height": 5152,
+            "output": "default developed RGB",
+            "total_ms": 647.55175,
+            "width": 7728
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 165.687,
+            "height": 5152,
+            "output": "default developed RGB",
+            "total_ms": 633.8338329999999,
+            "width": 7728
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 165.92816699999997,
+            "height": 5152,
+            "output": "default developed RGB",
+            "total_ms": 648.9245,
+            "width": 7728
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 182.43875,
+            "height": 5152,
+            "output": "default developed RGB",
+            "total_ms": 638.418083,
+            "width": 7728
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 193.985583,
+            "height": 5152,
+            "output": "default developed RGB",
+            "total_ms": 659.868791,
+            "width": 7728
+          },
+          "status": "ok"
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "median_total_ms": 647.55175,
+      "width": 7728,
+      "height": 5152,
+      "median_decode_ms": 171.44220800000002
+    },
+    {
+      "file": "raf-fuji-xt5-6123.raf",
+      "engine": "lightcraft",
+      "trials": [
+        {
+          "measurement": {
+            "decode_ms": 264.028125,
+            "height": 5152,
+            "output": "camera RGB, no white balance or display transform",
+            "total_ms": 737.504375,
+            "width": 7728
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 224.912792,
+            "height": 5152,
+            "output": "camera RGB, no white balance or display transform",
+            "total_ms": 707.60725,
+            "width": 7728
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 248.833084,
+            "height": 5152,
+            "output": "camera RGB, no white balance or display transform",
+            "total_ms": 724.658084,
+            "width": 7728
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 232.339875,
+            "height": 5152,
+            "output": "camera RGB, no white balance or display transform",
+            "total_ms": 715.9980419999999,
+            "width": 7728
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 248.553917,
+            "height": 5152,
+            "output": "camera RGB, no white balance or display transform",
+            "total_ms": 724.920708,
+            "width": 7728
+          },
+          "status": "ok"
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "median_total_ms": 724.658084,
+      "width": 7728,
+      "height": 5152,
+      "median_decode_ms": 248.553917
+    },
+    {
+      "file": "rw2-panasonic-s5m2.rw2",
+      "engine": "imageio",
+      "trials": [
+        {
+          "error": "ImageIO could not decode primary image",
+          "source_status": 0,
+          "status": "error"
+        },
+        {
+          "error": "ImageIO could not decode primary image",
+          "source_status": 0,
+          "status": "error"
+        },
+        {
+          "error": "ImageIO could not decode primary image",
+          "source_status": 0,
+          "status": "error"
+        },
+        {
+          "error": "ImageIO could not decode primary image",
+          "source_status": 0,
+          "status": "error"
+        },
+        {
+          "error": "ImageIO could not decode primary image",
+          "source_status": 0,
+          "status": "error"
+        }
+      ],
+      "successes": 0,
+      "attempts": 5
+    },
+    {
+      "file": "rw2-panasonic-s5m2.rw2",
+      "engine": "rawler",
+      "trials": [
+        {
+          "measurement": {
+            "decode_ms": 107.41612500000001,
+            "height": 4000,
+            "output": "default developed RGB",
+            "total_ms": 286.66375,
+            "width": 6000
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 116.642,
+            "height": 4000,
+            "output": "default developed RGB",
+            "total_ms": 284.82216700000004,
+            "width": 6000
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 116.720583,
+            "height": 4000,
+            "output": "default developed RGB",
+            "total_ms": 287.678916,
+            "width": 6000
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 116.617208,
+            "height": 4000,
+            "output": "default developed RGB",
+            "total_ms": 285.345417,
+            "width": 6000
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 119.17533399999999,
+            "height": 4000,
+            "output": "default developed RGB",
+            "total_ms": 286.51349999999996,
+            "width": 6000
+          },
+          "status": "ok"
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "median_total_ms": 286.51349999999996,
+      "width": 6000,
+      "height": 4000,
+      "median_decode_ms": 116.642
+    },
+    {
+      "file": "rw2-panasonic-s5m2.rw2",
+      "engine": "lightcraft",
+      "trials": [
+        {
+          "measurement": {
+            "decode_ms": 55.852917000000005,
+            "height": 4000,
+            "output": "camera RGB, no white balance or display transform",
+            "total_ms": 341.568334,
+            "width": 6000
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 55.469333000000006,
+            "height": 4000,
+            "output": "camera RGB, no white balance or display transform",
+            "total_ms": 337.709542,
+            "width": 6000
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 54.839417000000005,
+            "height": 4000,
+            "output": "camera RGB, no white balance or display transform",
+            "total_ms": 345.358667,
+            "width": 6000
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 54.515792,
+            "height": 4000,
+            "output": "camera RGB, no white balance or display transform",
+            "total_ms": 335.803458,
+            "width": 6000
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 53.401875000000004,
+            "height": 4000,
+            "output": "camera RGB, no white balance or display transform",
+            "total_ms": 340.53875,
+            "width": 6000
+          },
+          "status": "ok"
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "median_total_ms": 340.53875,
+      "width": 6000,
+      "height": 4000,
+      "median_decode_ms": 54.839417000000005
+    },
+    {
+      "file": "orf-olympus-e1.orf",
+      "engine": "imageio",
+      "trials": [
+        {
+          "measurement": {
+            "first_byte": 0,
+            "height": 1920,
+            "output": "sRGB RGBA8",
+            "total_ms": 66.684542,
+            "width": 2560
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 0,
+            "height": 1920,
+            "output": "sRGB RGBA8",
+            "total_ms": 62.860958,
+            "width": 2560
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 0,
+            "height": 1920,
+            "output": "sRGB RGBA8",
+            "total_ms": 73.901875,
+            "width": 2560
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 0,
+            "height": 1920,
+            "output": "sRGB RGBA8",
+            "total_ms": 62.193,
+            "width": 2560
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 0,
+            "height": 1920,
+            "output": "sRGB RGBA8",
+            "total_ms": 62.400291,
+            "width": 2560
+          },
+          "status": "ok"
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "median_total_ms": 62.860958,
+      "width": 2560,
+      "height": 1920
+    },
+    {
+      "file": "orf-olympus-e1.orf",
+      "engine": "rawler",
+      "trials": [
+        {
+          "measurement": {
+            "decode_ms": 15.669125,
+            "height": 1920,
+            "output": "default developed RGB",
+            "total_ms": 61.788500000000006,
+            "width": 2560
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 16.693125,
+            "height": 1920,
+            "output": "default developed RGB",
+            "total_ms": 62.770375,
+            "width": 2560
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 17.132166,
+            "height": 1920,
+            "output": "default developed RGB",
+            "total_ms": 62.77091599999999,
+            "width": 2560
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 17.748625,
+            "height": 1920,
+            "output": "default developed RGB",
+            "total_ms": 64.0025,
+            "width": 2560
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 18.065333,
+            "height": 1920,
+            "output": "default developed RGB",
+            "total_ms": 63.737916000000006,
+            "width": 2560
+          },
+          "status": "ok"
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "median_total_ms": 62.77091599999999,
+      "width": 2560,
+      "height": 1920,
+      "median_decode_ms": 17.132166
+    },
+    {
+      "file": "orf-olympus-e1.orf",
+      "engine": "lightcraft",
+      "trials": [
+        {
+          "measurement": {
+            "decode_ms": 6.766667,
+            "height": 1920,
+            "output": "camera RGB, no white balance or display transform",
+            "total_ms": 48.534542,
+            "width": 2560
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 6.736,
+            "height": 1920,
+            "output": "camera RGB, no white balance or display transform",
+            "total_ms": 47.175041,
+            "width": 2560
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 7.116167,
+            "height": 1920,
+            "output": "camera RGB, no white balance or display transform",
+            "total_ms": 45.977709,
+            "width": 2560
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 6.82075,
+            "height": 1920,
+            "output": "camera RGB, no white balance or display transform",
+            "total_ms": 46.905792000000005,
+            "width": 2560
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 6.694625,
+            "height": 1920,
+            "output": "camera RGB, no white balance or display transform",
+            "total_ms": 45.303625,
+            "width": 2560
+          },
+          "status": "ok"
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "median_total_ms": 46.905792000000005,
+      "width": 2560,
+      "height": 1920,
+      "median_decode_ms": 6.766667
+    },
+    {
+      "file": "orf-olympus-em1.orf",
+      "engine": "imageio",
+      "trials": [
+        {
+          "measurement": {
+            "first_byte": 0,
+            "height": 3456,
+            "output": "sRGB RGBA8",
+            "total_ms": 132.856208,
+            "width": 4608
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 0,
+            "height": 3456,
+            "output": "sRGB RGBA8",
+            "total_ms": 126.177875,
+            "width": 4608
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 0,
+            "height": 3456,
+            "output": "sRGB RGBA8",
+            "total_ms": 124.227667,
+            "width": 4608
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 0,
+            "height": 3456,
+            "output": "sRGB RGBA8",
+            "total_ms": 125.202416,
+            "width": 4608
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 0,
+            "height": 3456,
+            "output": "sRGB RGBA8",
+            "total_ms": 124.4225,
+            "width": 4608
+          },
+          "status": "ok"
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "median_total_ms": 125.202416,
+      "width": 4608,
+      "height": 3456
+    },
+    {
+      "file": "orf-olympus-em1.orf",
+      "engine": "rawler",
+      "trials": [
+        {
+          "measurement": {
+            "decode_ms": 154.680542,
+            "height": 3456,
+            "output": "default developed RGB",
+            "total_ms": 291.704209,
+            "width": 4608
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 169.653458,
+            "height": 3456,
+            "output": "default developed RGB",
+            "total_ms": 302.850166,
+            "width": 4608
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 168.920333,
+            "height": 3456,
+            "output": "default developed RGB",
+            "total_ms": 301.858,
+            "width": 4608
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 170.335667,
+            "height": 3456,
+            "output": "default developed RGB",
+            "total_ms": 304.24975,
+            "width": 4608
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 167.820958,
+            "height": 3456,
+            "output": "default developed RGB",
+            "total_ms": 302.579,
+            "width": 4608
+          },
+          "status": "ok"
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "median_total_ms": 302.579,
+      "width": 4608,
+      "height": 3456,
+      "median_decode_ms": 168.920333
+    },
+    {
+      "file": "orf-olympus-em1.orf",
+      "engine": "lightcraft",
+      "trials": [
+        {
+          "embedded_preview_available": true,
+          "error": "sensor decode: unsupported raw variant: Olympus compressed ORF",
+          "status": "error"
+        },
+        {
+          "embedded_preview_available": true,
+          "error": "sensor decode: unsupported raw variant: Olympus compressed ORF",
+          "status": "error"
+        },
+        {
+          "embedded_preview_available": true,
+          "error": "sensor decode: unsupported raw variant: Olympus compressed ORF",
+          "status": "error"
+        },
+        {
+          "embedded_preview_available": true,
+          "error": "sensor decode: unsupported raw variant: Olympus compressed ORF",
+          "status": "error"
+        },
+        {
+          "embedded_preview_available": true,
+          "error": "sensor decode: unsupported raw variant: Olympus compressed ORF",
+          "status": "error"
+        }
+      ],
+      "successes": 0,
+      "attempts": 5
+    },
+    {
+      "file": "pef-pentax-k-r.pef",
+      "engine": "imageio",
+      "trials": [
+        {
+          "measurement": {
+            "first_byte": 0,
+            "height": 2848,
+            "output": "sRGB RGBA8",
+            "total_ms": 103.762375,
+            "width": 4288
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 0,
+            "height": 2848,
+            "output": "sRGB RGBA8",
+            "total_ms": 96.189166,
+            "width": 4288
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 0,
+            "height": 2848,
+            "output": "sRGB RGBA8",
+            "total_ms": 96.300291,
+            "width": 4288
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 0,
+            "height": 2848,
+            "output": "sRGB RGBA8",
+            "total_ms": 96.92725,
+            "width": 4288
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 0,
+            "height": 2848,
+            "output": "sRGB RGBA8",
+            "total_ms": 94.508584,
+            "width": 4288
+          },
+          "status": "ok"
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "median_total_ms": 96.300291,
+      "width": 4288,
+      "height": 2848
+    },
+    {
+      "file": "pef-pentax-k-r.pef",
+      "engine": "rawler",
+      "trials": [
+        {
+          "measurement": {
+            "decode_ms": 84.15291699999999,
+            "height": 2848,
+            "output": "default developed RGB",
+            "total_ms": 191.31879199999997,
+            "width": 4288
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 93.24808399999999,
+            "height": 2848,
+            "output": "default developed RGB",
+            "total_ms": 199.399834,
+            "width": 4288
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 92.84425,
+            "height": 2848,
+            "output": "default developed RGB",
+            "total_ms": 204.959875,
+            "width": 4288
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 93.576208,
+            "height": 2848,
+            "output": "default developed RGB",
+            "total_ms": 202.842166,
+            "width": 4288
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 93.46591699999999,
+            "height": 2848,
+            "output": "default developed RGB",
+            "total_ms": 203.1465,
+            "width": 4288
+          },
+          "status": "ok"
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "median_total_ms": 202.842166,
+      "width": 4288,
+      "height": 2848,
+      "median_decode_ms": 93.24808399999999
+    },
+    {
+      "file": "pef-pentax-k-r.pef",
+      "engine": "lightcraft",
+      "trials": [
+        {
+          "measurement": {
+            "decode_ms": 47.908333,
+            "height": 2848,
+            "output": "camera RGB, no white balance or display transform",
+            "total_ms": 143.05024999999998,
+            "width": 4288
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 48.000208,
+            "height": 2848,
+            "output": "camera RGB, no white balance or display transform",
+            "total_ms": 141.737542,
+            "width": 4288
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 47.743958000000006,
+            "height": 2848,
+            "output": "camera RGB, no white balance or display transform",
+            "total_ms": 147.260583,
+            "width": 4288
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 48.011041999999996,
+            "height": 2848,
+            "output": "camera RGB, no white balance or display transform",
+            "total_ms": 142.97383399999998,
+            "width": 4288
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 47.601833000000006,
+            "height": 2848,
+            "output": "camera RGB, no white balance or display transform",
+            "total_ms": 140.79625000000001,
+            "width": 4288
+          },
+          "status": "ok"
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "median_total_ms": 142.97383399999998,
+      "width": 4288,
+      "height": 2848,
+      "median_decode_ms": 47.908333
+    },
+    {
+      "file": "srw-samsung-nx200.srw",
+      "engine": "imageio",
+      "trials": [
+        {
+          "measurement": {
+            "first_byte": 0,
+            "height": 3648,
+            "output": "sRGB RGBA8",
+            "total_ms": 140.190834,
+            "width": 5472
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 0,
+            "height": 3648,
+            "output": "sRGB RGBA8",
+            "total_ms": 132.189208,
+            "width": 5472
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 0,
+            "height": 3648,
+            "output": "sRGB RGBA8",
+            "total_ms": 131.900417,
+            "width": 5472
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 0,
+            "height": 3648,
+            "output": "sRGB RGBA8",
+            "total_ms": 130.600333,
+            "width": 5472
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 0,
+            "height": 3648,
+            "output": "sRGB RGBA8",
+            "total_ms": 130.576375,
+            "width": 5472
+          },
+          "status": "ok"
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "median_total_ms": 131.900417,
+      "width": 5472,
+      "height": 3648
+    },
+    {
+      "file": "srw-samsung-nx200.srw",
+      "engine": "rawler",
+      "trials": [
+        {
+          "measurement": {
+            "decode_ms": 20.767042,
+            "height": 3648,
+            "output": "default developed RGB",
+            "total_ms": 188.29537499999998,
+            "width": 5472
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 22.642667,
+            "height": 3648,
+            "output": "default developed RGB",
+            "total_ms": 191.123334,
+            "width": 5472
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 23.261875,
+            "height": 3648,
+            "output": "default developed RGB",
+            "total_ms": 196.081334,
+            "width": 5472
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 22.882666999999998,
+            "height": 3648,
+            "output": "default developed RGB",
+            "total_ms": 196.480875,
+            "width": 5472
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 22.917582999999997,
+            "height": 3648,
+            "output": "default developed RGB",
+            "total_ms": 193.924458,
+            "width": 5472
+          },
+          "status": "ok"
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "median_total_ms": 193.924458,
+      "width": 5472,
+      "height": 3648,
+      "median_decode_ms": 22.882666999999998
+    },
+    {
+      "file": "srw-samsung-nx200.srw",
+      "engine": "lightcraft",
+      "trials": [
+        {
+          "measurement": {
+            "decode_ms": 11.109917000000001,
+            "height": 3648,
+            "output": "camera RGB, no white balance or display transform",
+            "total_ms": 166.428334,
+            "width": 5472
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 10.275958,
+            "height": 3648,
+            "output": "camera RGB, no white balance or display transform",
+            "total_ms": 164.987375,
+            "width": 5472
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 9.923417,
+            "height": 3648,
+            "output": "camera RGB, no white balance or display transform",
+            "total_ms": 163.398708,
+            "width": 5472
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 10.95725,
+            "height": 3648,
+            "output": "camera RGB, no white balance or display transform",
+            "total_ms": 167.34125,
+            "width": 5472
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 10.411375,
+            "height": 3648,
+            "output": "camera RGB, no white balance or display transform",
+            "total_ms": 163.78562499999998,
+            "width": 5472
+          },
+          "status": "ok"
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "median_total_ms": 164.987375,
+      "width": 5472,
+      "height": 3648,
+      "median_decode_ms": 10.411375
+    },
+    {
+      "file": "dng-ricoh-gr3.dng",
+      "engine": "imageio",
+      "trials": [
+        {
+          "measurement": {
+            "first_byte": 0,
+            "height": 4000,
+            "output": "sRGB RGBA8",
+            "total_ms": 156.40225,
+            "width": 6000
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 0,
+            "height": 4000,
+            "output": "sRGB RGBA8",
+            "total_ms": 155.239917,
+            "width": 6000
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 0,
+            "height": 4000,
+            "output": "sRGB RGBA8",
+            "total_ms": 154.623167,
+            "width": 6000
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 0,
+            "height": 4000,
+            "output": "sRGB RGBA8",
+            "total_ms": 154.901291,
+            "width": 6000
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 0,
+            "height": 4000,
+            "output": "sRGB RGBA8",
+            "total_ms": 156.2545,
+            "width": 6000
+          },
+          "status": "ok"
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "median_total_ms": 155.239917,
+      "width": 6000,
+      "height": 4000
+    },
+    {
+      "file": "dng-ricoh-gr3.dng",
+      "engine": "rawler",
+      "trials": [
+        {
+          "measurement": {
+            "decode_ms": 182.101875,
+            "height": 4000,
+            "output": "default developed RGB",
+            "total_ms": 374.21133299999997,
+            "width": 6000
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 194.950292,
+            "height": 4000,
+            "output": "default developed RGB",
+            "total_ms": 388.168917,
+            "width": 6000
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 196.56379199999998,
+            "height": 4000,
+            "output": "default developed RGB",
+            "total_ms": 395.05179200000003,
+            "width": 6000
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 196.565292,
+            "height": 4000,
+            "output": "default developed RGB",
+            "total_ms": 389.49845799999997,
+            "width": 6000
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 197.317916,
+            "height": 4000,
+            "output": "default developed RGB",
+            "total_ms": 396.788916,
+            "width": 6000
+          },
+          "status": "ok"
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "median_total_ms": 389.49845799999997,
+      "width": 6000,
+      "height": 4000,
+      "median_decode_ms": 196.56379199999998
+    },
+    {
+      "file": "dng-ricoh-gr3.dng",
+      "engine": "lightcraft",
+      "trials": [
+        {
+          "measurement": {
+            "decode_ms": 205.46308299999998,
+            "height": 4000,
+            "output": "camera RGB, no white balance or display transform",
+            "total_ms": 417.952167,
+            "width": 6000
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 206.99858300000002,
+            "height": 4000,
+            "output": "camera RGB, no white balance or display transform",
+            "total_ms": 420.333083,
+            "width": 6000
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 207.178958,
+            "height": 4000,
+            "output": "camera RGB, no white balance or display transform",
+            "total_ms": 416.208666,
+            "width": 6000
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 206.72275000000002,
+            "height": 4000,
+            "output": "camera RGB, no white balance or display transform",
+            "total_ms": 407.040208,
+            "width": 6000
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 207.744333,
+            "height": 4000,
+            "output": "camera RGB, no white balance or display transform",
+            "total_ms": 413.186667,
+            "width": 6000
+          },
+          "status": "ok"
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "median_total_ms": 416.208666,
+      "width": 6000,
+      "height": 4000,
+      "median_decode_ms": 206.99858300000002
+    },
+    {
+      "file": "dng-apple-iphone12pro-proraw.dng",
+      "engine": "imageio",
+      "trials": [
+        {
+          "measurement": {
+            "first_byte": 0,
+            "height": 3024,
+            "output": "sRGB RGBA8",
+            "total_ms": 96.885958,
+            "width": 4032
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 0,
+            "height": 3024,
+            "output": "sRGB RGBA8",
+            "total_ms": 88.5275,
+            "width": 4032
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 0,
+            "height": 3024,
+            "output": "sRGB RGBA8",
+            "total_ms": 88.192,
+            "width": 4032
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 0,
+            "height": 3024,
+            "output": "sRGB RGBA8",
+            "total_ms": 88.030041,
+            "width": 4032
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 0,
+            "height": 3024,
+            "output": "sRGB RGBA8",
+            "total_ms": 88.3975,
+            "width": 4032
+          },
+          "status": "ok"
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "median_total_ms": 88.3975,
+      "width": 4032,
+      "height": 3024
+    },
+    {
+      "file": "dng-apple-iphone12pro-proraw.dng",
+      "engine": "rawler",
+      "trials": [
+        {
+          "measurement": {
+            "decode_ms": 59.965458999999996,
+            "height": 3024,
+            "output": "default developed RGB",
+            "total_ms": 143.632542,
+            "width": 4032
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 61.989791000000004,
+            "height": 3024,
+            "output": "default developed RGB",
+            "total_ms": 135.652,
+            "width": 4032
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 65.421042,
+            "height": 3024,
+            "output": "default developed RGB",
+            "total_ms": 142.882958,
+            "width": 4032
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 65.372625,
+            "height": 3024,
+            "output": "default developed RGB",
+            "total_ms": 143.854417,
+            "width": 4032
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 63.2645,
+            "height": 3024,
+            "output": "default developed RGB",
+            "total_ms": 139.57575,
+            "width": 4032
+          },
+          "status": "ok"
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "median_total_ms": 142.882958,
+      "width": 4032,
+      "height": 3024,
+      "median_decode_ms": 63.2645
+    },
+    {
+      "file": "dng-apple-iphone12pro-proraw.dng",
+      "engine": "lightcraft",
+      "trials": [
+        {
+          "measurement": {
+            "decode_ms": 78.228625,
+            "height": 3024,
+            "output": "camera RGB, no white balance or display transform",
+            "total_ms": 109.59225,
+            "width": 4032
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 75.359291,
+            "height": 3024,
+            "output": "camera RGB, no white balance or display transform",
+            "total_ms": 103.438208,
+            "width": 4032
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 78.81875000000001,
+            "height": 3024,
+            "output": "camera RGB, no white balance or display transform",
+            "total_ms": 106.545584,
+            "width": 4032
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 74.410916,
+            "height": 3024,
+            "output": "camera RGB, no white balance or display transform",
+            "total_ms": 103.19229100000001,
+            "width": 4032
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 75.229458,
+            "height": 3024,
+            "output": "camera RGB, no white balance or display transform",
+            "total_ms": 103.365208,
+            "width": 4032
+          },
+          "status": "ok"
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "median_total_ms": 103.438208,
+      "width": 4032,
+      "height": 3024,
+      "median_decode_ms": 75.359291
+    },
+    {
+      "file": "dng-adobe-canon-5d3-linear-lj92.dng",
+      "engine": "imageio",
+      "trials": [
+        {
+          "measurement": {
+            "first_byte": 0,
+            "height": 2640,
+            "output": "sRGB RGBA8",
+            "total_ms": 72.591375,
+            "width": 3960
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 0,
+            "height": 2640,
+            "output": "sRGB RGBA8",
+            "total_ms": 71.630541,
+            "width": 3960
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 0,
+            "height": 2640,
+            "output": "sRGB RGBA8",
+            "total_ms": 72.645291,
+            "width": 3960
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 0,
+            "height": 2640,
+            "output": "sRGB RGBA8",
+            "total_ms": 71.669041,
+            "width": 3960
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 0,
+            "height": 2640,
+            "output": "sRGB RGBA8",
+            "total_ms": 71.582333,
+            "width": 3960
+          },
+          "status": "ok"
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "median_total_ms": 71.669041,
+      "width": 3960,
+      "height": 2640
+    },
+    {
+      "file": "dng-adobe-canon-5d3-linear-lj92.dng",
+      "engine": "rawler",
+      "trials": [
+        {
+          "measurement": {
+            "decode_ms": 55.174541,
+            "height": 2640,
+            "output": "default developed RGB",
+            "total_ms": 117.613041,
+            "width": 3960
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 59.121459,
+            "height": 2640,
+            "output": "default developed RGB",
+            "total_ms": 122.80166700000001,
+            "width": 3960
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 59.829042,
+            "height": 2640,
+            "output": "default developed RGB",
+            "total_ms": 123.5525,
+            "width": 3960
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 58.01125,
+            "height": 2640,
+            "output": "default developed RGB",
+            "total_ms": 119.740917,
+            "width": 3960
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 59.424333000000004,
+            "height": 2640,
+            "output": "default developed RGB",
+            "total_ms": 126.46379099999999,
+            "width": 3960
+          },
+          "status": "ok"
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "median_total_ms": 122.80166700000001,
+      "width": 3960,
+      "height": 2640,
+      "median_decode_ms": 59.121459
+    },
+    {
+      "file": "dng-adobe-canon-5d3-linear-lj92.dng",
+      "engine": "lightcraft",
+      "trials": [
+        {
+          "measurement": {
+            "decode_ms": 54.549833,
+            "height": 2640,
+            "output": "camera RGB, no white balance or display transform",
+            "total_ms": 80.229875,
+            "width": 3960
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 52.67375,
+            "height": 2640,
+            "output": "camera RGB, no white balance or display transform",
+            "total_ms": 76.85591699999999,
+            "width": 3960
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 54.109333,
+            "height": 2640,
+            "output": "camera RGB, no white balance or display transform",
+            "total_ms": 78.638125,
+            "width": 3960
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 55.941083000000006,
+            "height": 2640,
+            "output": "camera RGB, no white balance or display transform",
+            "total_ms": 80.679541,
+            "width": 3960
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "decode_ms": 53.631291999999995,
+            "height": 2640,
+            "output": "camera RGB, no white balance or display transform",
+            "total_ms": 78.30675,
+            "width": 3960
+          },
+          "status": "ok"
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "median_total_ms": 78.638125,
+      "width": 3960,
+      "height": 2640,
+      "median_decode_ms": 54.109333
+    },
+    {
+      "file": "arw-sony-a7m4-14bit.arw",
+      "engine": "coreimage",
+      "trials": [
+        {
+          "measurement": {
+            "first_byte": 87,
+            "height": 3072,
+            "output": "sRGB RGBA8",
+            "total_ms": 1961.193083,
+            "width": 4608
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 87,
+            "height": 3072,
+            "output": "sRGB RGBA8",
+            "total_ms": 346.443292,
+            "width": 4608
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 87,
+            "height": 3072,
+            "output": "sRGB RGBA8",
+            "total_ms": 338.182958,
+            "width": 4608
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 87,
+            "height": 3072,
+            "output": "sRGB RGBA8",
+            "total_ms": 345.864666,
+            "width": 4608
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 87,
+            "height": 3072,
+            "output": "sRGB RGBA8",
+            "total_ms": 355.024666,
+            "width": 4608
+          },
+          "status": "ok"
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "median_total_ms": 346.443292,
+      "width": 4608,
+      "height": 3072
+    },
+    {
+      "file": "arw-sony-a7m4-lossless-l.arw",
+      "engine": "coreimage",
+      "trials": [
+        {
+          "measurement": {
+            "first_byte": 233,
+            "height": 4672,
+            "output": "sRGB RGBA8",
+            "total_ms": 614.173917,
+            "width": 7008
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 233,
+            "height": 4672,
+            "output": "sRGB RGBA8",
+            "total_ms": 584.398625,
+            "width": 7008
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 233,
+            "height": 4672,
+            "output": "sRGB RGBA8",
+            "total_ms": 573.601042,
+            "width": 7008
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 233,
+            "height": 4672,
+            "output": "sRGB RGBA8",
+            "total_ms": 600.043542,
+            "width": 7008
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 233,
+            "height": 4672,
+            "output": "sRGB RGBA8",
+            "total_ms": 599.840416,
+            "width": 7008
+          },
+          "status": "ok"
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "median_total_ms": 599.840416,
+      "width": 7008,
+      "height": 4672
+    },
+    {
+      "file": "cr2-canon-5d3.cr2",
+      "engine": "coreimage",
+      "trials": [
+        {
+          "measurement": {
+            "first_byte": 77,
+            "height": 3840,
+            "output": "sRGB RGBA8",
+            "total_ms": 1900.322125,
+            "width": 5760
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 77,
+            "height": 3840,
+            "output": "sRGB RGBA8",
+            "total_ms": 358.615334,
+            "width": 5760
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 77,
+            "height": 3840,
+            "output": "sRGB RGBA8",
+            "total_ms": 359.89375,
+            "width": 5760
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 77,
+            "height": 3840,
+            "output": "sRGB RGBA8",
+            "total_ms": 352.109625,
+            "width": 5760
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 77,
+            "height": 3840,
+            "output": "sRGB RGBA8",
+            "total_ms": 375.150917,
+            "width": 5760
+          },
+          "status": "ok"
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "median_total_ms": 359.89375,
+      "width": 5760,
+      "height": 3840
+    },
+    {
+      "file": "cr3-canon-r5m2-raw.cr3",
+      "engine": "coreimage",
+      "trials": [
+        {
+          "measurement": {
+            "first_byte": 192,
+            "height": 5464,
+            "output": "sRGB RGBA8",
+            "total_ms": 1161.443,
+            "width": 8192
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 192,
+            "height": 5464,
+            "output": "sRGB RGBA8",
+            "total_ms": 791.202042,
+            "width": 8192
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 192,
+            "height": 5464,
+            "output": "sRGB RGBA8",
+            "total_ms": 800.888459,
+            "width": 8192
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 192,
+            "height": 5464,
+            "output": "sRGB RGBA8",
+            "total_ms": 802.63425,
+            "width": 8192
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 192,
+            "height": 5464,
+            "output": "sRGB RGBA8",
+            "total_ms": 795.711917,
+            "width": 8192
+          },
+          "status": "ok"
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "median_total_ms": 800.888459,
+      "width": 8192,
+      "height": 5464
+    },
+    {
+      "file": "cr3-canon-r5m2-craw.cr3",
+      "engine": "coreimage",
+      "trials": [
+        {
+          "measurement": {
+            "first_byte": 190,
+            "height": 5464,
+            "output": "sRGB RGBA8",
+            "total_ms": 862.236208,
+            "width": 8192
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 190,
+            "height": 5464,
+            "output": "sRGB RGBA8",
+            "total_ms": 833.103584,
+            "width": 8192
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 190,
+            "height": 5464,
+            "output": "sRGB RGBA8",
+            "total_ms": 848.484292,
+            "width": 8192
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 190,
+            "height": 5464,
+            "output": "sRGB RGBA8",
+            "total_ms": 849.914708,
+            "width": 8192
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 190,
+            "height": 5464,
+            "output": "sRGB RGBA8",
+            "total_ms": 837.377375,
+            "width": 8192
+          },
+          "status": "ok"
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "median_total_ms": 848.484292,
+      "width": 8192,
+      "height": 5464
+    },
+    {
+      "file": "nef-nikon-zf-lossless.nef",
+      "engine": "coreimage",
+      "trials": [
+        {
+          "measurement": {
+            "first_byte": 228,
+            "height": 4032,
+            "output": "sRGB RGBA8",
+            "total_ms": 393.4765,
+            "width": 6048
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 228,
+            "height": 4032,
+            "output": "sRGB RGBA8",
+            "total_ms": 370.7485,
+            "width": 6048
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 228,
+            "height": 4032,
+            "output": "sRGB RGBA8",
+            "total_ms": 374.033125,
+            "width": 6048
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 228,
+            "height": 4032,
+            "output": "sRGB RGBA8",
+            "total_ms": 382.782375,
+            "width": 6048
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 228,
+            "height": 4032,
+            "output": "sRGB RGBA8",
+            "total_ms": 373.531333,
+            "width": 6048
+          },
+          "status": "ok"
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "median_total_ms": 374.033125,
+      "width": 6048,
+      "height": 4032
+    },
+    {
+      "file": "nef-nikon-zf-he.nef",
+      "engine": "coreimage",
+      "trials": [
+        {
+          "measurement": {
+            "first_byte": 218,
+            "height": 4032,
+            "output": "sRGB RGBA8",
+            "total_ms": 395.988667,
+            "width": 6048
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 218,
+            "height": 4032,
+            "output": "sRGB RGBA8",
+            "total_ms": 384.359958,
+            "width": 6048
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 218,
+            "height": 4032,
+            "output": "sRGB RGBA8",
+            "total_ms": 392.80275,
+            "width": 6048
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 218,
+            "height": 4032,
+            "output": "sRGB RGBA8",
+            "total_ms": 390.1405,
+            "width": 6048
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 218,
+            "height": 4032,
+            "output": "sRGB RGBA8",
+            "total_ms": 387.868125,
+            "width": 6048
+          },
+          "status": "ok"
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "median_total_ms": 390.1405,
+      "width": 6048,
+      "height": 4032
+    },
+    {
+      "file": "raf-fuji-xa5-14bit-bayer.raf",
+      "engine": "coreimage",
+      "trials": [
+        {
+          "measurement": {
+            "first_byte": 194,
+            "height": 4000,
+            "output": "sRGB RGBA8",
+            "total_ms": 346.587583,
+            "width": 6000
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 194,
+            "height": 4000,
+            "output": "sRGB RGBA8",
+            "total_ms": 350.714541,
+            "width": 6000
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 194,
+            "height": 4000,
+            "output": "sRGB RGBA8",
+            "total_ms": 344.775125,
+            "width": 6000
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 194,
+            "height": 4000,
+            "output": "sRGB RGBA8",
+            "total_ms": 348.446667,
+            "width": 6000
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 194,
+            "height": 4000,
+            "output": "sRGB RGBA8",
+            "total_ms": 347.614958,
+            "width": 6000
+          },
+          "status": "ok"
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "median_total_ms": 347.614958,
+      "width": 6000,
+      "height": 4000
+    },
+    {
+      "file": "raf-fuji-xt5-6122.raf",
+      "engine": "coreimage",
+      "trials": [
+        {
+          "measurement": {
+            "first_byte": 152,
+            "height": 5152,
+            "output": "sRGB RGBA8",
+            "total_ms": 1966.27075,
+            "width": 7728
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 152,
+            "height": 5152,
+            "output": "sRGB RGBA8",
+            "total_ms": 570.606584,
+            "width": 7728
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 152,
+            "height": 5152,
+            "output": "sRGB RGBA8",
+            "total_ms": 603.676125,
+            "width": 7728
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 152,
+            "height": 5152,
+            "output": "sRGB RGBA8",
+            "total_ms": 602.55125,
+            "width": 7728
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 152,
+            "height": 5152,
+            "output": "sRGB RGBA8",
+            "total_ms": 568.0945,
+            "width": 7728
+          },
+          "status": "ok"
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "median_total_ms": 602.55125,
+      "width": 7728,
+      "height": 5152
+    },
+    {
+      "file": "raf-fuji-xt5-6123.raf",
+      "engine": "coreimage",
+      "trials": [
+        {
+          "measurement": {
+            "first_byte": 142,
+            "height": 5152,
+            "output": "sRGB RGBA8",
+            "total_ms": 605.361291,
+            "width": 7728
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 142,
+            "height": 5152,
+            "output": "sRGB RGBA8",
+            "total_ms": 619.317167,
+            "width": 7728
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 142,
+            "height": 5152,
+            "output": "sRGB RGBA8",
+            "total_ms": 622.047667,
+            "width": 7728
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 142,
+            "height": 5152,
+            "output": "sRGB RGBA8",
+            "total_ms": 606.743333,
+            "width": 7728
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 142,
+            "height": 5152,
+            "output": "sRGB RGBA8",
+            "total_ms": 610.852042,
+            "width": 7728
+          },
+          "status": "ok"
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "median_total_ms": 610.852042,
+      "width": 7728,
+      "height": 5152
+    },
+    {
+      "file": "rw2-panasonic-s5m2.rw2",
+      "engine": "coreimage",
+      "trials": [
+        {
+          "measurement": {
+            "first_byte": 245,
+            "height": 4000,
+            "output": "sRGB RGBA8",
+            "total_ms": 576.555417,
+            "width": 6000
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 245,
+            "height": 4000,
+            "output": "sRGB RGBA8",
+            "total_ms": 585.503833,
+            "width": 6000
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 245,
+            "height": 4000,
+            "output": "sRGB RGBA8",
+            "total_ms": 596.170125,
+            "width": 6000
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 245,
+            "height": 4000,
+            "output": "sRGB RGBA8",
+            "total_ms": 579.199291,
+            "width": 6000
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 245,
+            "height": 4000,
+            "output": "sRGB RGBA8",
+            "total_ms": 597.876875,
+            "width": 6000
+          },
+          "status": "ok"
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "median_total_ms": 585.503833,
+      "width": 6000,
+      "height": 4000
+    },
+    {
+      "file": "orf-olympus-e1.orf",
+      "engine": "coreimage",
+      "trials": [
+        {
+          "measurement": {
+            "first_byte": 128,
+            "height": 1920,
+            "output": "sRGB RGBA8",
+            "total_ms": 743.998208,
+            "width": 2560
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 128,
+            "height": 1920,
+            "output": "sRGB RGBA8",
+            "total_ms": 212.152125,
+            "width": 2560
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 128,
+            "height": 1920,
+            "output": "sRGB RGBA8",
+            "total_ms": 203.129125,
+            "width": 2560
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 128,
+            "height": 1920,
+            "output": "sRGB RGBA8",
+            "total_ms": 203.437917,
+            "width": 2560
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 128,
+            "height": 1920,
+            "output": "sRGB RGBA8",
+            "total_ms": 206.147666,
+            "width": 2560
+          },
+          "status": "ok"
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "median_total_ms": 206.147666,
+      "width": 2560,
+      "height": 1920
+    },
+    {
+      "file": "orf-olympus-em1.orf",
+      "engine": "coreimage",
+      "trials": [
+        {
+          "measurement": {
+            "first_byte": 217,
+            "height": 3456,
+            "output": "sRGB RGBA8",
+            "total_ms": 448.414833,
+            "width": 4608
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 217,
+            "height": 3456,
+            "output": "sRGB RGBA8",
+            "total_ms": 437.667833,
+            "width": 4608
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 217,
+            "height": 3456,
+            "output": "sRGB RGBA8",
+            "total_ms": 450.230709,
+            "width": 4608
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 217,
+            "height": 3456,
+            "output": "sRGB RGBA8",
+            "total_ms": 449.58225,
+            "width": 4608
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 217,
+            "height": 3456,
+            "output": "sRGB RGBA8",
+            "total_ms": 439.494917,
+            "width": 4608
+          },
+          "status": "ok"
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "median_total_ms": 448.414833,
+      "width": 4608,
+      "height": 3456
+    },
+    {
+      "file": "pef-pentax-k-r.pef",
+      "engine": "coreimage",
+      "trials": [
+        {
+          "measurement": {
+            "first_byte": 255,
+            "height": 2848,
+            "output": "sRGB RGBA8",
+            "total_ms": 340.631375,
+            "width": 4288
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 255,
+            "height": 2848,
+            "output": "sRGB RGBA8",
+            "total_ms": 293.225917,
+            "width": 4288
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 255,
+            "height": 2848,
+            "output": "sRGB RGBA8",
+            "total_ms": 281.259917,
+            "width": 4288
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 255,
+            "height": 2848,
+            "output": "sRGB RGBA8",
+            "total_ms": 286.337625,
+            "width": 4288
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 255,
+            "height": 2848,
+            "output": "sRGB RGBA8",
+            "total_ms": 279.986041,
+            "width": 4288
+          },
+          "status": "ok"
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "median_total_ms": 286.337625,
+      "width": 4288,
+      "height": 2848
+    },
+    {
+      "file": "srw-samsung-nx200.srw",
+      "engine": "coreimage",
+      "trials": [
+        {
+          "measurement": {
+            "first_byte": 32,
+            "height": 5472,
+            "output": "sRGB RGBA8",
+            "total_ms": 281.525958,
+            "width": 3648
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 32,
+            "height": 5472,
+            "output": "sRGB RGBA8",
+            "total_ms": 271.317792,
+            "width": 3648
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 32,
+            "height": 5472,
+            "output": "sRGB RGBA8",
+            "total_ms": 271.830459,
+            "width": 3648
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 32,
+            "height": 5472,
+            "output": "sRGB RGBA8",
+            "total_ms": 271.582833,
+            "width": 3648
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 32,
+            "height": 5472,
+            "output": "sRGB RGBA8",
+            "total_ms": 272.546958,
+            "width": 3648
+          },
+          "status": "ok"
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "median_total_ms": 271.830459,
+      "width": 3648,
+      "height": 5472
+    },
+    {
+      "file": "dng-ricoh-gr3.dng",
+      "engine": "coreimage",
+      "trials": [
+        {
+          "measurement": {
+            "first_byte": 70,
+            "height": 4000,
+            "output": "sRGB RGBA8",
+            "total_ms": 564.92725,
+            "width": 6000
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 70,
+            "height": 4000,
+            "output": "sRGB RGBA8",
+            "total_ms": 569.603834,
+            "width": 6000
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 70,
+            "height": 4000,
+            "output": "sRGB RGBA8",
+            "total_ms": 573.53025,
+            "width": 6000
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 70,
+            "height": 4000,
+            "output": "sRGB RGBA8",
+            "total_ms": 572.693208,
+            "width": 6000
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 70,
+            "height": 4000,
+            "output": "sRGB RGBA8",
+            "total_ms": 576.119916,
+            "width": 6000
+          },
+          "status": "ok"
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "median_total_ms": 572.693208,
+      "width": 6000,
+      "height": 4000
+    },
+    {
+      "file": "dng-apple-iphone12pro-proraw.dng",
+      "engine": "coreimage",
+      "trials": [
+        {
+          "measurement": {
+            "first_byte": 154,
+            "height": 4032,
+            "output": "sRGB RGBA8",
+            "total_ms": 650.10375,
+            "width": 3024
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 154,
+            "height": 4032,
+            "output": "sRGB RGBA8",
+            "total_ms": 289.173542,
+            "width": 3024
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 154,
+            "height": 4032,
+            "output": "sRGB RGBA8",
+            "total_ms": 291.846208,
+            "width": 3024
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 154,
+            "height": 4032,
+            "output": "sRGB RGBA8",
+            "total_ms": 287.397333,
+            "width": 3024
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 154,
+            "height": 4032,
+            "output": "sRGB RGBA8",
+            "total_ms": 288.896416,
+            "width": 3024
+          },
+          "status": "ok"
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "median_total_ms": 289.173542,
+      "width": 3024,
+      "height": 4032
+    },
+    {
+      "file": "dng-adobe-canon-5d3-linear-lj92.dng",
+      "engine": "coreimage",
+      "trials": [
+        {
+          "measurement": {
+            "first_byte": 71,
+            "height": 2640,
+            "output": "sRGB RGBA8",
+            "total_ms": 255.090459,
+            "width": 3960
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 71,
+            "height": 2640,
+            "output": "sRGB RGBA8",
+            "total_ms": 213.35775,
+            "width": 3960
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 71,
+            "height": 2640,
+            "output": "sRGB RGBA8",
+            "total_ms": 208.7235,
+            "width": 3960
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 71,
+            "height": 2640,
+            "output": "sRGB RGBA8",
+            "total_ms": 212.773084,
+            "width": 3960
+          },
+          "status": "ok"
+        },
+        {
+          "measurement": {
+            "first_byte": 71,
+            "height": 2640,
+            "output": "sRGB RGBA8",
+            "total_ms": 206.191041,
+            "width": 3960
+          },
+          "status": "ok"
+        }
+      ],
+      "successes": 5,
+      "attempts": 5,
+      "median_total_ms": 212.773084,
+      "width": 3960,
+      "height": 2640
+    }
+  ],
+  "lightphotos_commit": "ecd3471e64a824d628ae6c1bd5fe53b4b6fa3deb",
+  "lightcraft_commit": "0da998f24dfc03069d49867f8877af2bf7c51f94"
+}

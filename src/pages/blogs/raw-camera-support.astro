@@ -1,0 +1,240 @@
+---
+import Base from "../../layouts/Base.astro";
+import samples from "../../../public/raw-bench/samples-2026-10-15.json";
+import report from "../../../public/raw-bench/2026-10-15-display-2560.json";
+
+const engines = [
+  {
+    id: "apple", name: "Apple RAW",
+    steps: [["Open RAW file", "Input"], ["Develop at preview size", "Apple RAW"], ["Render preview", "GPU"], ["2560 px RGBA8", "Output"]],
+    reason: "Apple accepts a preview size. Its integrated RAW path renders the result with Metal.",
+  },
+  {
+    id: "rawler", name: "rawler 0.8.0",
+    steps: [["Unpack sensor data", "CPU"], ["Develop at full size", "CPU"], ["Shrink + convert", "CPU"], ["2560 px RGBA8", "Output"]],
+    reason: "The tested default path develops the full sensor image on the CPU. It then shrinks the result.",
+  },
+  {
+    id: "lightcraft", name: "LightCraft RAW",
+    steps: [["Unpack sensor data", "CPU"], ["Reduce + develop", "CPU"], ["Render preview", "GPU"], ["2560 px RGBA8", "Output"]],
+    reason: "LightCraft can reduce sensor data before it builds a full-color image. Metal handles the final display render.",
+  },
+];
+const result = (file, engine) => report.records.find(r => r.file === file && r.engine === engine);
+const passed = (engine) => report.records.filter(r => r.engine === engine && r.successes === r.attempts).length;
+const seconds = (value) => `${(value / 1000).toFixed(2)} s`;
+const milliseconds = (value) => `${value.toFixed(1)} ms`;
+const longest = Math.max(...Object.values(report.common_sum_of_medians_ms));
+---
+<Base
+  title="Which cameras do Apple RAW, rawler and LightCraft support? — LightPhotos Blog"
+  desc="18 RAW files, three engines, and one output size. Camera support, render times, and an interactive view of why the processing paths differ."
+  active="blogs"
+>
+  <main class="lp-page">
+    <article class="lp-article">
+      <header class="lp-article-head">
+        <p class="lp-article-meta"><a href="/blogs.html">Blogs</a> &middot; <time datetime="2026-10-15">October 15, 2026</time></p>
+        <h1>Which cameras do Apple RAW, rawler and LightCraft support?</h1>
+        <p class="lp-article-dek">
+          I tested 18 RAW files. Apple opened all of them and had the lowest
+          total render time. The camera setting matters. So does the path from
+          sensor data to screen pixels.
+        </p>
+        <p class="lp-article-byline">Andrew Yao &middot; 4 min read</p>
+      </header>
+
+      <aside class="lp-tldr">
+        <p class="lp-tldr-label">TL;DR</p>
+        <p>
+          Apple decoded all 18 files, rawler decoded 17, and LightCraft decoded
+          16. For the same 16 files, Apple took 3.54 s, LightCraft 4.99 s, and
+          rawler 8.07 s. The tested rawler path develops the full image on the
+          CPU. Apple and LightCraft can do less work for a preview and use the
+          GPU for rendering. Camera compression settings also affect support.
+        </p>
+      </aside>
+
+      <figure class="lp-figure lp-try raw-architecture" id="raw-architecture">
+        <div class="lp-try-controls" role="group" aria-label="Choose a RAW engine">
+          {engines.map((engine, index) => <button type="button" class="lp-try-btn" data-engine={engine.id}
+            aria-pressed={index === 0 ? "true" : "false"} aria-controls={`route-${engine.id}`}>
+            {engine.name}
+          </button>)}
+        </div>
+        <div class="route-panels" aria-live="polite" aria-atomic="true">
+          {engines.map((engine, index) => <div id={`route-${engine.id}`} data-route={engine.id} hidden={index !== 0}>
+            <ol class="route-steps" aria-label={`${engine.name} processing path`}>
+              {engine.steps.map(([label, device]) => <li class:list={["route-step", { "route-gpu": device === "GPU", "route-output": device === "Output" }]}>
+                <span class="route-device">{device}</span>
+                <strong>{label}</strong>
+              </li>)}
+            </ol>
+            <p class="route-reason">{engine.reason}</p>
+            <div class="route-time">
+              <span>Same 16 files</span>
+              <strong>{seconds(report.common_sum_of_medians_ms[engine.id])}</strong>
+            </div>
+            <div class="route-track" aria-hidden="true"><div class="route-fill" style={`width: ${100 * report.common_sum_of_medians_ms[engine.id] / longest}%`}></div></div>
+          </div>)}
+        </div>
+        <figcaption>Select an engine to follow its tested path. A shorter time bar means less total time.</figcaption>
+      </figure>
+
+      <p>
+        LightPhotos uses Apple RAW on the Mac and rawler on Windows, Linux and
+        the web. LightCraft has its own RAW engine. I gave each engine the same
+        files and asked for the same output: a 2560-pixel sRGB image.
+      </p>
+
+      <h2>The result</h2>
+      <div class="lp-compare-wrap raw-table">
+        <table class="lp-compare">
+          <caption>Mac mini, Apple M4, 16 GB RAM, macOS 26.5.2</caption>
+          <thead><tr><th scope="col">Engine</th><th scope="col">Files decoded</th><th scope="col">Time for the same 16 files</th></tr></thead>
+          <tbody>{engines.map(engine => <tr>
+            <th scope="row">{engine.name}</th>
+            <td>{passed(engine.id)} / {samples.length}</td>
+            <td><strong>{seconds(report.common_sum_of_medians_ms[engine.id])}</strong></td>
+          </tr>)}</tbody>
+        </table>
+      </div>
+      <p>
+        The time is the sum of the median times for the 16 files all three
+        engines decoded. Each file had five timed runs. Failed files do not
+        count as zero time.
+      </p>
+
+      <h2>Why the times differ</h2>
+      <p>
+        Rawler's tested path builds a full-size image before it makes a preview.
+        Apple can develop at the requested size. LightCraft can reduce the sensor
+        data first. Apple and LightCraft also use the GPU for rendering.
+      </p>
+
+      <p>
+        Rawler 0.8.0 has no built-in GPU mode. An app can use rawler to unpack
+        a file, then do more work on the GPU. LightPhotos already uses some
+        faster preview paths in the browser. This test uses rawler's default
+        development path, so the result is not its speed limit.
+      </p>
+      <p>
+        The processing paths help explain the result. We did not measure how
+        much time each step took. Apple was fastest over the shared set;
+        LightCraft was faster on the Canon R5 Mark II RAW and Panasonic S5 II
+        samples.
+      </p>
+
+      <h2>Check the camera and the setting</h2>
+      <ul class="lp-article-list">
+        <li><strong>Nikon Z f:</strong> lossless NEF worked in all three. High Efficiency NEF worked only in Apple RAW.</li>
+        <li><strong>Olympus:</strong> the E-1 file worked in all three. The E-M1's compressed ORF failed in LightCraft.</li>
+        <li><strong>Fujifilm:</strong> both compressed X-T5 files worked in all three engines. LightPhotos still has separate X-Trans preview limits. A decoder pass does not prove that every app feature works.</li>
+      </ul>
+      <p>
+        A JPEG preview inside a RAW file does not count as a sensor decode.
+        These results apply to the files tested, not every mode from each camera.
+        Apple's column uses Core Image first, as LightPhotos does. All files
+        passed that path, so its ImageIO fallback was not needed.
+      </p>
+
+      <details class="raw-details">
+        <summary>See all 18 files and their render times</summary>
+        <div class="lp-compare-wrap raw-table">
+          <table class="lp-compare">
+            <caption>2560 px sRGB RGBA8 output; median of five runs</caption>
+            <thead><tr><th scope="col">Camera and mode</th>{engines.map(engine => <th scope="col">{engine.name}</th>)}</tr></thead>
+            <tbody>{samples.map(sample => <tr>
+              <th scope="row"><a href={sample.url}>{sample.camera}</a><small>{sample.mode}</small></th>
+              {engines.map(engine => {
+                const r = result(sample.file, engine.id);
+                return <td>{r.successes === r.attempts ? milliseconds(r.median_ms) : "Failed"}</td>;
+              })}
+            </tr>)}</tbody>
+          </table>
+        </div>
+      </details>
+
+      <h2>A fair endpoint, different processing</h2>
+      <p>
+        All engines returned the same image size and pixel format. Workers stayed
+        open. Apple reused its render context. Each engine had a warm-up pass.
+        We then ran five rounds in a mixed order, with warm file caches and no
+        saved image results. Time includes reading the file, RAW processing,
+        resizing and the transfer of GPU results to memory.
+      </p>
+      <p>
+        The default processing differs. LightCraft includes its camera look,
+        sharpening and color noise reduction. Rawler does not include LightPhotos'
+        extra tone curve or denoise. The output images have different color and
+        brightness. This test compares conversion time, not equal image quality
+        or app browsing speed.
+      </p>
+      <p class="raw-sources">
+        Check the <a href="/raw-bench/2026-10-15-display-2560.json">timing data</a>,
+        <a href="/raw-bench/samples-2026-10-15.json">sample files and hashes</a>,
+        and <a href="https://github.com/andrewyao/lightphotos-app/tree/main/tools/raw-bench">test code</a>.
+        For more cameras, see the support lists from
+        <a href="https://support.apple.com/en-us/122870">Apple for macOS 26</a>,
+        <a href="https://github.com/dnglab/dnglab/tree/v0.8.0/rawler/data/cameras">rawler</a>
+        and <a href="https://github.com/storytold/lightcraft/blob/main/docs/raw/coverage.tsv">LightCraft</a>.
+        The source photos are public CC0 files from <a href="https://raw.pixls.us/">raw.pixls.us</a>.
+      </p>
+
+      <nav class="lp-article-nav" aria-label="More posts">
+        <a class="lp-article-nav-prev" href="/blogs/catalogs.html">
+          <span class="lp-article-nav-dir">Back</span>
+          <span class="lp-article-nav-title">Catalogs, a first version</span>
+        </a>
+      </nav>
+    </article>
+  </main>
+  <script>
+    const diagram = document.getElementById("raw-architecture");
+    if (diagram) {
+      const buttons = diagram.querySelectorAll("button[data-engine]");
+      const routes = diagram.querySelectorAll("[data-route]");
+      buttons.forEach(button => {
+        button.addEventListener("click", () => {
+          const selected = button.getAttribute("data-engine");
+          buttons.forEach(item => item.setAttribute("aria-pressed", String(item === button)));
+          routes.forEach(route => {
+            route.toggleAttribute("hidden", route.getAttribute("data-route") !== selected);
+          });
+        });
+      });
+    }
+  </script>
+</Base>
+
+<style>
+  .raw-table { overflow-x: auto; }
+  .raw-table table { width: 100%; }
+  .raw-table th, .raw-table td { vertical-align: top; }
+  .raw-table small { display: block; font-weight: 400; color: var(--text-secondary); margin-top: .25rem; }
+  .raw-table caption { text-align: left; padding: .8rem 0; font-size: .85rem; }
+  .raw-table td { white-space: nowrap; }
+  .route-steps { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem; list-style: none; padding: 0; margin: 0; }
+  .route-step { position: relative; display: flex; flex-direction: column; gap: .65rem; padding: .85rem .65rem; border: 1px solid var(--border-strong); border-radius: 8px; min-width: 0; }
+  .route-step:not(:last-child)::after { content: "→"; position: absolute; right: -.9rem; top: 50%; transform: translateY(-50%); color: var(--text-secondary); }
+  .route-step strong { font-size: .85rem; line-height: 1.4; }
+  .route-device { font-family: var(--font-mono); font-size: .7rem; color: var(--text-secondary); }
+  .route-gpu { background: var(--lp-glow-soft); border-color: var(--border-accent); }
+  .route-gpu .route-device { color: var(--text-link); }
+  .route-output { border-style: dashed; }
+  .route-reason { min-height: 4.5em; font-size: .9rem; line-height: 1.5; margin: 1rem 0; }
+  .route-time { display: flex; justify-content: space-between; gap: 1rem; font-size: .85rem; }
+  .route-time strong { font-family: var(--font-mono); }
+  .route-track { height: 8px; background: var(--surface-input); border-radius: 4px; margin-top: .6rem; overflow: hidden; }
+  .route-fill { height: 100%; background: var(--text-link); border-radius: inherit; }
+  .raw-details { margin: 1.5rem 0 2rem; }
+  .raw-details summary { cursor: pointer; font-weight: 600; }
+  .raw-sources { font-size: .9rem; }
+  @media (max-width: 540px) {
+    .route-steps { grid-template-columns: 1fr; gap: 1.1rem; }
+    .route-step { flex-direction: row; align-items: baseline; gap: .8rem; padding: .65rem .8rem; }
+    .route-device { min-width: 5rem; }
+    .route-step:not(:last-child)::after { content: "↓"; top: auto; bottom: -1.15rem; right: 50%; transform: translateX(50%); }
+    .route-reason { min-height: 0; }
+  }
+</style>
