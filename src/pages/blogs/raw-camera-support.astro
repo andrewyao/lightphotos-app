@@ -43,8 +43,8 @@ const passed = (engine) => report.records.filter(r => r.engine === engine && r.s
 const seconds = (value) => `${(value / 1000).toFixed(2)} s`;
 const milliseconds = (value) => `${value.toFixed(1)} ms`;
 const charts = [
-  { id: "decoded", title: "Files decoded", note: `Out of ${samples.length} RAW files · higher is better`, max: samples.length,
-    values: engines.map(engine => ({ ...engine, value: passed(engine.id), label: `${passed(engine.id)} / ${samples.length}` })) },
+  { id: "failed", title: "Decode failures", note: `Out of ${samples.length} RAW files · lower is better`, max: samples.length,
+    values: engines.map(engine => ({ ...engine, value: samples.length - passed(engine.id), label: `${samples.length - passed(engine.id)} / ${samples.length}` })) },
   ...resolutions.map(resolution => ({
     id: resolution.id, title: resolution.id === "preview" ? "Time for preview" : "Time for full resolution",
     note: `${resolution.name} · same ${resolution.report.common_files.length} files · lower is better`,
@@ -121,13 +121,17 @@ const charts = [
       </figure>
 
       <p>
-        LightPhotos uses Apple's Core Image on the Mac and rawler on Windows,
-        Linux and in the browser. LightCraft has its own RAW engine. I tested
+        LightCraft has its own RAW engine. I tested
         each engine with the same files at two sizes: a 2560-pixel preview and
         full resolution. Both tests produce sRGB RGBA8 display pixels with sharpening and color noise reduction.
       </p>
 
       <h2>The result</h2>
+      <p>
+        <strong>LightPhotos uses Apple's Core Image on Mac and rawler on other
+        platforms (Windows, Linux and the browser).</strong>
+        The Apple RAW and rawler bars below show those two engines.
+      </p>
       <div class="raw-charts">
         {charts.map(chart => <figure class="raw-chart" aria-labelledby={`chart-${chart.id}`}>
           <figcaption>
@@ -140,7 +144,7 @@ const charts = [
               <div class="raw-chart-track" aria-hidden="true"><div class="raw-chart-fill" style={`width: ${100 * engine.value / chart.max}%`}></div></div>
             </li>)}
           </ul>
-          <div class="raw-chart-axis" aria-hidden="true"><span>0</span><span>{chart.id === "decoded" ? chart.max : seconds(chart.max)}</span></div>
+          <div class="raw-chart-axis" aria-hidden="true"><span>0</span><span>{chart.id === "failed" ? chart.max : seconds(chart.max)}</span></div>
         </figure>)}
       </div>
       <p class="raw-chart-machine">Mac mini, Apple M4, 16 GB RAM, macOS 26.5.2</p>
