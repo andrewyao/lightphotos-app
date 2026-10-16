@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675">
+  <rect width="1200" height="675" fill="#141a22"/>
+  <g font-family="system-ui,sans-serif">
+    <text x="85" y="108" fill="#8eb5e0" font-size="20" letter-spacing="4">LIGHTPHOTOS · RAW DECODERS</text>
+    <text x="80" y="200" fill="#f0f3f7" font-size="58" font-weight="600">rawler and</text>
+    <text x="80" y="272" fill="#f0f3f7" font-size="58" font-weight="600">LightCraft</text>
+    <text x="85" y="330" fill="#aab6c6" font-size="25">One pipeline vs. five stages · LGPL vs. MIT</text>
+
+    <rect x="80" y="383" width="505" height="210" rx="16" fill="#202c3a"/>
+    <rect x="615" y="383" width="505" height="210" rx="16" fill="#202c3a"/>
+
+    <text x="112" y="432" fill="#b6c3d3" font-size="22">rawler</text>
+    <text x="647" y="432" fill="#b6c3d3" font-size="22">LightCraft's own crate</text>
+
+    <g fill="#ecf1f7" font-size="23">
+      <text x="112" y="488">One call, fixed steps</text>
+      <text x="112" y="536">738-body settings table</text>
+      <text x="112" y="584">Used off the Mac only</text>
+
+      <text x="647" y="488">Five callable stages</text>
+      <text x="647" y="536">DNG colour · 52 matrices</text>
+      <text x="647" y="584">No unsafe, no panics</text>
+    </g>
+  </g>
+</svg>

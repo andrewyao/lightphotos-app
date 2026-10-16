@@ -1,0 +1,318 @@
+---
+import Base from "../../layouts/Base.astro";
+---
+<Base
+  title="Two RAW decoders, side by side — LightPhotos Blog"
+  desc="LightPhotos decodes every RAW with rawler, except on the Mac. LightCraft decodes every RAW with its own Rust crate, everywhere. The two decoders have very different designs, and an interactive diagram shows how each one is put together."
+  active="blogs"
+>
+  <main class="lp-page">
+    <article class="lp-article">
+      <header class="lp-article-head">
+        <p class="lp-article-meta"><a href="/blogs.html">Blogs</a> &middot; <time datetime="2026-10-15">October 15, 2026</time></p>
+        <h1>Two RAW decoders, side by side</h1>
+        <p class="lp-article-dek">
+          <a href="/blogs/raw-camera-support.html">Last time</a> I checked
+          which cameras each app opens. This time, what happens inside. LightPhotos
+          decodes every RAW with the <strong>rawler</strong> library, except on the
+          Mac. <a href="https://github.com/storytold/lightcraft" target="_blank">LightCraft</a>
+          decodes every RAW with its own Rust crate, everywhere. Same files, two
+          very different designs.
+        </p>
+        <p class="lp-article-byline">Andrew Yao &middot; 6 min read</p>
+      </header>
+
+      <aside class="lp-tldr">
+        <p class="lp-tldr-label">TL;DR</p>
+        <p>
+          rawler is one call: <code>decode()</code> hands back an undeveloped
+          image, and <code>RawDevelop</code> runs the same eight steps in the
+          same order for every camera, driven by a database of 738 body files for
+          colour and levels. It is LGPL-2.1, so LightPhotos uses it only off the
+          Mac. LightCraft's own crate is MIT or Apache-2.0, written without
+          <code>unsafe</code> or panicking code, and it splits the same job into
+          stages you can call on their own: probe, normalise, demosaic, develop.
+          It works the colour out from the file. rawler opens more containers,
+          including compressed Olympus ORF. LightCraft goes deeper inside DNG,
+          and can write one.
+        </p>
+      </aside>
+
+      <figure class="lp-figure lp-try raw-arch" id="raw-arch">
+        <div class="lp-try-controls" role="group" aria-label="Which decoder to focus">
+          <button type="button" class="lp-try-btn" data-engine="both" aria-pressed="true">Both</button>
+          <button type="button" class="lp-try-btn" data-engine="rawler" aria-pressed="false">rawler</button>
+          <button type="button" class="lp-try-btn" data-engine="lightcraft" aria-pressed="false">LightCraft</button>
+        </div>
+        <div class="lp-arch">
+          <div class="lp-arch-panel" data-panel="rawler">
+            <p class="lp-arch-label">rawler &middot; what LightPhotos uses off the Mac</p>
+            <div class="lp-arch-process">
+              <span class="lp-arch-process-name">one call, one fixed pipeline</span>
+              <div class="lp-arch-box">RawSource &middot; memory-mapped file</div>
+              <div class="lp-arch-link">&darr;</div>
+              <div class="lp-arch-box">decode() &rarr; undeveloped RawImage</div>
+              <div class="lp-arch-link">&darr;</div>
+              <div class="lp-arch-box lp-arch-box-core">RawDevelop &middot; one fixed pipeline</div>
+              <div class="lp-arch-link">Rescale &middot; Demosaic (PPG) &middot; FujiRotate &middot; CropActiveArea &middot; WhiteBalance &middot; Calibrate &middot; CropDefault &middot; sRGB</div>
+              <div class="lp-arch-box lp-arch-box-core">LightPhotos adds: parallel gamma + boost, denoise, resize</div>
+              <div class="lp-arch-link">&darr;</div>
+              <div class="lp-arch-box">sRGB8 RGBA</div>
+            </div>
+          </div>
+          <div class="lp-arch-panel" data-panel="lightcraft">
+            <p class="lp-arch-label">LightCraft &middot; its own crate</p>
+            <div class="lp-arch-process">
+              <span class="lp-arch-process-name">stages you can call on their own</span>
+              <div class="lp-arch-box">probe() &middot; recognise the container</div>
+              <div class="lp-arch-link">&darr;</div>
+              <div class="lp-arch-box">decode() or probe_info()</div>
+              <div class="lp-arch-link">header-only path reads metadata without the pixels</div>
+              <div class="lp-arch-box lp-arch-box-core">normalized() &middot; black + white + crop + DNG opcodes</div>
+              <div class="lp-arch-link">&darr;</div>
+              <div class="lp-arch-box">demosaic() &middot; AHD, PPG or bilinear</div>
+              <div class="lp-arch-link">&darr;</div>
+              <div class="lp-arch-box">develop() &middot; opcode list 3 + default crop</div>
+              <div class="lp-arch-link">&darr;</div>
+              <div class="lp-arch-box lp-arch-box-core">colour: DNG model, 52 spectral matrices, or a per-file fit</div>
+              <div class="lp-arch-link">&darr;</div>
+              <div class="lp-arch-box">linear Rec.2020</div>
+            </div>
+          </div>
+        </div>
+        <p class="lp-try-readout" aria-live="polite">rawler: one call, one fixed pipeline, a 738-body settings table, LGPL-2.1, used off the Mac. LightCraft: five callable stages, colour from the file, MIT or Apache-2.0, everywhere.</p>
+        <figcaption>
+          Select a decoder to focus it. rawler keeps its shape whatever the
+          camera; LightCraft lets the caller stop between stages. The names in
+          the boxes are the actual functions in each codebase.
+        </figcaption>
+      </figure>
+
+      <h2>One pipeline, or five stages</h2>
+      <p>
+        rawler hands you an image and one way to finish it.
+        <code>decode()</code> reads the file; then <code>RawDevelop</code> runs
+        the same eight steps in the same order every time &mdash; rescale,
+        demosaic, Fuji rotate, crop the active area, white balance, calibrate the
+        colour, crop the default frame, sRGB. There is no header-only read and no
+        hook between the steps.
+      </p>
+      <p>
+        LightCraft's crate breaks that into stages you can call on their own.
+        <code>probe</code> recognises the container. <code>probe_info</code>
+        reads the geometry, orientation, colour filter array, colour data and
+        metadata without decompressing a single pixel &mdash; a compressed Nikon
+        NEF probes in milliseconds from its first 128 rows. Then
+        <code>normalized</code> subtracts black, scales white and crops while
+        applying the DNG opcode lists; <code>demosaic</code> turns the mosaic
+        into camera RGB; <code>develop</code> finishes it.
+      </p>
+      <p>
+        That difference has a cost on our side. rawler's last step is an sRGB
+        gamma applied one pixel at a time on rawler's own thread pool, which is
+        most of a 24-megapixel develop. LightPhotos skips that step entirely and
+        runs the same curve in parallel across the machine, then denoises the
+        finished image, because <code>RawDevelop</code> has nowhere to insert a
+        filter mid-pipeline. When the stages are separate, you do not need any of
+        that.
+      </p>
+
+      <h2>Where the colour comes from</h2>
+      <p>
+        rawler carries a database: 738 TOML files, one per camera body, next to
+        48 lens files. Each body file holds its colour matrices, black and white
+        levels, active and crop areas and filter array. The calibrate step picks a
+        matrix by illuminant and prefers D65. DNG files instead use the matrices
+        recorded in the file itself.
+      </p>
+      <p>
+        LightCraft implements the DNG colour model directly &mdash;
+        dual-illuminant interpolation, forward matrices, camera calibration,
+        analog balance &mdash; and turns camera RGB into linear Rec.2020. A file
+        with no matrix falls back, in order, to 52 spectral matrices fitted to
+        measured sensor sensitivities, a per-file fit against the camera's own
+        JPEG, and finally a documented neutral model, with eight bundled camera
+        profiles for the most common bodies.
+      </p>
+      <p class="lp-pullquote">
+        One is a table of camera bodies. The other is derived from the file.
+      </p>
+
+      <h2>Demosaic and develop</h2>
+      <p>
+        For Bayer sensors rawler uses PPG (patterned pixel grouping). For X-Trans
+        its develop path uses a bilinear pass; a better Markesteijn module ships
+        in the crate but the pipeline does not use it. It also has a quick 2&times;2
+        superpixel mode that LightPhotos leans on for the first preview.
+      </p>
+      <p>
+        LightCraft defaults to AHD (adaptive homogeneity-directed), with PPG and
+        bilinear for drafts and a thumbnails path, and its own edge-weighted
+        directional demosaic for X-Trans. It also develops straight from the
+        mosaic at a fraction of the size, so a preview never has to touch every
+        pixel.
+      </p>
+      <p>
+        rawler's demosaic dispatch is written to panic on a filter array it does
+        not know. Ordinary Bayer and X-Trans files never reach those arms, but it
+        is why LightPhotos wraps rawler in guards and never lets it run a decode
+        without a memory cap. LightCraft's crate is
+        <code>#![forbid(unsafe_code)]</code> and denies the clippy lints for
+        panics, unwraps and <code>todo!</code>, so the same class of file is an
+        error it returns, not a crash.
+      </p>
+
+      <h2>What each one opens</h2>
+      <div class="lp-compare-wrap">
+        <table class="lp-compare">
+          <thead>
+            <tr>
+              <th scope="col">Format</th>
+              <th scope="col" class="lp-compare-pick">rawler</th>
+              <th scope="col">LightCraft</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">DNG</th>
+              <td class="lp-compare-pick">Yes, including JPEG XL and linear</td>
+              <td>Yes, plus floating point, ProRAW gain maps and semantic masks; writes DNG</td>
+            </tr>
+            <tr>
+              <th scope="row">Canon CR2 / CR3</th>
+              <td class="lp-compare-pick">Yes</td>
+              <td>Yes; some CR3 CRX variants refused</td>
+            </tr>
+            <tr>
+              <th scope="row">Sony ARW</th>
+              <td class="lp-compare-pick">Yes</td>
+              <td>Yes</td>
+            </tr>
+            <tr>
+              <th scope="row">Nikon NEF</th>
+              <td class="lp-compare-pick">Yes</td>
+              <td>Yes; not HE / HE&#9733;</td>
+            </tr>
+            <tr>
+              <th scope="row">Fujifilm RAF</th>
+              <td class="lp-compare-pick">Yes</td>
+              <td>Yes; pre-X bodies refused</td>
+            </tr>
+            <tr>
+              <th scope="row">Panasonic RW2, Pentax PEF</th>
+              <td class="lp-compare-pick">Yes</td>
+              <td>Yes</td>
+            </tr>
+            <tr>
+              <th scope="row">Olympus ORF</th>
+              <td class="lp-compare-pick">Yes, including compressed</td>
+              <td>Uncompressed only</td>
+            </tr>
+            <tr>
+              <th scope="row">Medium format, older bodies</th>
+              <td class="lp-compare-pick">IIQ, X3F, MRW, KDC, MOS, DCR, ERF, MEF</td>
+              <td>ERF and MEF only; the rest show their preview</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p>
+        So rawler is the wider one on paper, and the compressed ORF it reads is
+        the single biggest hole in LightCraft's list. LightCraft is the deeper one
+        inside DNG, where phones and drone cameras live.
+      </p>
+
+      <h2>Licence, patches and panics</h2>
+      <p>
+        rawler is licensed under <strong>LGPL-2.1</strong>. That is why the Mac
+        build of LightPhotos never links it: the App Store app must not carry a
+        copyleft library, so on macOS the decode goes through Apple's ImageIO and
+        Core Image instead. Off the Mac, LightPhotos pins rawler 0.8.0 and applies
+        four local patches &mdash; a clock source for the browser, lossless-JPEG
+        restart markers, a guard against a panic on an unusual filter array, and a
+        Canon sRAW black-level fix. On top of the library it adds a 500-million
+        sample cap, a Linear-DNG level normaliser, a Fujifilm dynamic-range
+        reader, and a <code>catch_unwind</code> around metadata and preview
+        reads.
+      </p>
+      <p>
+        LightCraft's own crate is MIT or Apache-2.0 and needs none of that. It is
+        pure Rust, forbids <code>unsafe</code>, and treats a malformed file as an
+        error it returns. Licensing is a design input here, not an afterthought.
+      </p>
+
+      <h2>What this means for LightPhotos</h2>
+      <p>
+        Neither decoder is simply better. rawler buys breadth across older and
+        less common systems, at the price of an LGPL dependency we have to keep
+        off the Mac, a patch set we maintain against an upstream crate, and
+        defensive guards around code that can panic. LightCraft trades some of
+        that breadth for depth inside DNG and a shape that is easy to trust:
+        no unsafe, no panics, colour from the file.
+      </p>
+      <p>
+        If LightPhotos ever replaces rawler off the Mac, LightCraft's crate is the
+        closest thing to a drop-in in spirit &mdash; and its permissive licence
+        would remove the LGPL constraint altogether. It would just have to catch
+        up on compressed ORF and the older containers first. That is a trade for
+        another day.
+      </p>
+
+      <p class="lp-sources">
+        The rawler camera database is at
+        <a href="https://github.com/dnglab/dnglab/tree/v0.8.0/rawler/data/cameras">dnglab/rawler</a>.
+        LightCraft's format coverage is measured in
+        <a href="https://github.com/storytold/lightcraft/blob/main/docs/raw-parity.md">docs/raw-parity.md</a>.
+        LightPhotos' rawler wrapper and its guards live in
+        <code>src/decode/rawler/</code>.
+      </p>
+
+      <nav class="lp-article-nav" aria-label="More posts">
+        <a class="lp-article-nav-prev" href="/blogs/raw-camera-support.html">
+          <span class="lp-article-nav-dir">Back</span>
+          <span class="lp-article-nav-title">Which cameras do LightPhotos and LightCraft support?</span>
+        </a>
+      </nav>
+    </article>
+  </main>
+  <script>
+    const figure = document.getElementById("raw-arch");
+    if (figure) {
+      const buttons = figure.querySelectorAll("button[data-engine]");
+      const readout = figure.querySelector(".lp-try-readout");
+      const notes = {
+        both: "rawler: one call, one fixed pipeline, a 738-body settings table, LGPL-2.1, used off the Mac. LightCraft: five callable stages, colour from the file, MIT or Apache-2.0, everywhere.",
+        rawler: "rawler (LGPL-2.1, off the Mac): decode() then RawDevelop's fixed steps. LightPhotos patches it locally and adds size, level and Fujifilm guards around it.",
+        lightcraft: "LightCraft (MIT or Apache-2.0): probe, decode, normalized, demosaic and develop are separate calls, and the colour comes from the DNG model, one of 52 spectral matrices, or a per-file fit.",
+      };
+      buttons.forEach(button => {
+        button.addEventListener("click", () => {
+          const focus = button.getAttribute("data-engine");
+          figure.setAttribute("data-focus", focus);
+          buttons.forEach(item => item.setAttribute("aria-pressed", String(item === button)));
+          if (readout) readout.textContent = notes[focus] || notes.both;
+        });
+      });
+    }
+  </script>
+</Base>
+
+<style>
+  .raw-arch .lp-arch-panel {
+    transition: opacity 0.25s ease;
+  }
+  .raw-arch[data-focus="rawler"] [data-panel="lightcraft"],
+  .raw-arch[data-focus="lightcraft"] [data-panel="rawler"] {
+    opacity: 0.4;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .raw-arch .lp-arch-panel {
+      transition: none;
+    }
+  }
+  .lp-sources {
+    margin-top: 2rem;
+    font-size: 0.9rem;
+    color: var(--lp-muted);
+  }
+</style>
