@@ -42,6 +42,16 @@ const fullReasons = {
 const passed = (engine) => report.records.filter(r => r.engine === engine && r.successes === r.attempts).length;
 const seconds = (value) => `${(value / 1000).toFixed(2)} s`;
 const milliseconds = (value) => `${value.toFixed(1)} ms`;
+const charts = [
+  { id: "decoded", title: "Files decoded", note: `Out of ${samples.length} RAW files · higher is better`, max: samples.length,
+    values: engines.map(engine => ({ ...engine, value: passed(engine.id), label: `${passed(engine.id)} / ${samples.length}` })) },
+  ...resolutions.map(resolution => ({
+    id: resolution.id, title: resolution.id === "preview" ? "Time for preview" : "Time for full resolution",
+    note: `${resolution.name} · same ${resolution.report.common_files.length} files · lower is better`,
+    max: Math.ceil(Math.max(...Object.values(resolution.report.common_sum_of_medians_ms)) / 1000) * 1000,
+    values: engines.map(engine => ({ ...engine, value: resolution.report.common_sum_of_medians_ms[engine.id], label: seconds(resolution.report.common_sum_of_medians_ms[engine.id]) })),
+  })),
+];
 ---
 <Base
   title="Which cameras do LightPhotos and LightCraft support? — LightPhotos Blog"
@@ -118,19 +128,24 @@ const milliseconds = (value) => `${value.toFixed(1)} ms`;
       </p>
 
       <h2>The result</h2>
-      <div class="lp-compare-wrap raw-table">
-        <table class="lp-compare">
-          <caption>Mac mini, Apple M4, 16 GB RAM, macOS 26.5.2</caption>
-          <thead><tr><th scope="col">Engine</th><th scope="col">Files decoded</th><th scope="col">2560 px preview</th><th scope="col">Full resolution</th></tr></thead>
-          <tbody>{engines.map(engine => <tr>
-            <th scope="row">{engine.name}</th>
-            <td>{passed(engine.id)} / {samples.length}</td>
-            {resolutions.map(resolution => <td><strong>{seconds(resolution.report.common_sum_of_medians_ms[engine.id])}</strong></td>)}
-          </tr>)}</tbody>
-        </table>
+      <div class="raw-charts">
+        {charts.map(chart => <figure class="raw-chart" aria-labelledby={`chart-${chart.id}`}>
+          <figcaption>
+            <h3 id={`chart-${chart.id}`}>{chart.title}</h3>
+            <p>{chart.note}</p>
+          </figcaption>
+          <ul class="raw-chart-bars">
+            {chart.values.map(engine => <li data-chart-engine={engine.id}>
+              <div class="raw-chart-label"><span>{engine.name}</span><strong>{engine.label}</strong></div>
+              <div class="raw-chart-track" aria-hidden="true"><div class="raw-chart-fill" style={`width: ${100 * engine.value / chart.max}%`}></div></div>
+            </li>)}
+          </ul>
+          <div class="raw-chart-axis" aria-hidden="true"><span>0</span><span>{chart.id === "decoded" ? chart.max : seconds(chart.max)}</span></div>
+        </figure>)}
       </div>
+      <p class="raw-chart-machine">Mac mini, Apple M4, 16 GB RAM, macOS 26.5.2</p>
       <p>
-        Both time columns use the same 16 files decoded by all three engines.
+        Both time charts use the same 16 files decoded by all three engines.
         Each total adds the median times from five runs per file. Failed files
         do not count as zero time. Full resolution means the original file's
         developed dimensions; there is no preview reduction.
@@ -257,6 +272,19 @@ const milliseconds = (value) => `${value.toFixed(1)} ms`;
 </Base>
 
 <style>
+  .raw-charts { display: grid; gap: 1.25rem; margin: 1.5rem 0 .75rem; }
+  .raw-chart { margin: 0; padding: 1.25rem; border: 1px solid var(--border-strong); border-radius: 8px; }
+  .raw-chart h3 { margin: 0; font-size: 1.1rem; }
+  .raw-chart figcaption p { margin: .35rem 0 1.25rem; font-size: .8rem; color: var(--text-secondary); }
+  .raw-chart-bars { list-style: none; padding: 0; margin: 0; display: grid; gap: 1rem; }
+  .raw-chart-label { display: flex; justify-content: space-between; gap: .75rem; margin-bottom: .4rem; font-size: .85rem; }
+  .raw-chart-label strong { font-family: var(--font-mono); white-space: nowrap; }
+  .raw-chart-track { background: var(--surface-input); height: 20px; border-left: 1px solid var(--border-strong); }
+  .raw-chart-fill { height: 100%; background: var(--text-link); }
+  [data-chart-engine="rawler"] .raw-chart-fill { background: #b389df; }
+  [data-chart-engine="lightcraft"] .raw-chart-fill { background: #54bfa5; }
+  .raw-chart-axis { display: flex; justify-content: space-between; margin-top: .5rem; font-family: var(--font-mono); font-size: .7rem; color: var(--text-secondary); }
+  .raw-chart-machine { font-size: .8rem; color: var(--text-secondary); }
   .raw-table { overflow-x: auto; }
   .raw-table table { width: 100%; }
   .raw-table th, .raw-table td { vertical-align: top; }
