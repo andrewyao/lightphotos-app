@@ -1,12 +1,15 @@
 # desktop-bench
 
 Black-box timing of a Mac photo app, the numbers behind
-[Two Rust photo apps on the Mac](../../src/pages/blogs/two-rust-photo-apps-on-the-mac.astro).
-It only looks at the window, so it times LightPhotos and LightCraft the same way.
+[Two Rust photo apps on the Mac](../../src/pages/blogs/two-rust-photo-apps-on-the-mac.astro)
+and [LightPhotos and RapidRAW on the Mac](../../src/pages/blogs/lightphotos-and-rapidraw-on-the-mac.astro).
+It only looks at the window, so it times LightPhotos, LightCraft and RapidRAW the
+same way.
 
 ```sh
 tools/desktop-bench/bench.sh lightphotos /path/to/LightPhotos.app 5
 tools/desktop-bench/bench.sh lightcraft  /path/to/LightCraft.app  5
+tools/desktop-bench/bench.sh rapidraw    /path/to/RapidRAW.app    5
 ```
 
 Each run:
@@ -15,14 +18,21 @@ Each run:
    `~/Desktop/Photos/100MSDCF`) into a new temp folder, so no cache has seen
    them. The app gets a new temp `HOME` too, so it starts with default
    settings and doesn't restore a view from the last run. LightCraft also gets
-   a new library (`--library <tmp> --no-demo`).
+   a new library (`--library <tmp> --no-demo`). RapidRAW takes no folder
+   argument, so the script writes a `settings.json` into the temp `HOME` whose
+   `lastRootPath` is the temp folder. `RAPIDRAW_SETTINGS` adds more keys to it,
+   e.g. `RAPIDRAW_SETTINGS='"useAppleRaw9":true'`.
 2. Launches the app on that folder with `open -n`, and records when its window
    appears.
 3. Sizes the window to 1600×1000 points and waits for the grid to settle.
 4. Selects the first thumbnail (untimed), then double-clicks it (timed) to open
    it.
 5. Presses → eight times, waiting for the window to settle after each press.
-6. Reads the app's physical footprint with `footprint`, then quits it.
+6. Reads the app's physical footprint with `footprint`, then quits it. A
+   webview app draws in WebKit helper processes that launchd starts, so the
+   footprint also adds every WebKit process that appeared after launch
+   (`webkit_helpers` in the result counts them). Close Safari and other
+   webview apps first so none of their helpers start during a run.
 
 A step's clock starts just before the click or key is posted. The window is
 captured every 150 ms, and the step is done once the window has stopped

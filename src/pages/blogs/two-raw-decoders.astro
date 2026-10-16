@@ -54,10 +54,10 @@ import Base from "../../layouts/Base.astro";
               <div class="lp-arch-box">decode() &rarr; undeveloped RawImage</div>
               <div class="lp-arch-link">&darr;</div>
               <div class="lp-arch-box lp-arch-box-core">RawDevelop &middot; one fixed pipeline</div>
-              <div class="lp-arch-link">Rescale &middot; Demosaic (PPG) &middot; FujiRotate &middot; CropActiveArea &middot; WhiteBalance &middot; Calibrate &middot; CropDefault &middot; sRGB</div>
+              <div class="lp-arch-link">Rescale &middot; Demosaic (PPG) &middot; FujiRotate &middot; CropActiveArea &middot; WhiteBalance &middot; Calibrate &middot; CropDefault &middot; Gamma</div>
               <div class="lp-arch-box lp-arch-box-core">LightPhotos adds: parallel gamma + boost, denoise, resize</div>
               <div class="lp-arch-link">&darr;</div>
-              <div class="lp-arch-box">sRGB8 RGBA</div>
+              <div class="lp-arch-box">RGBA</div>
             </div>
           </div>
           <div class="lp-arch-panel" data-panel="lightcraft">
@@ -94,7 +94,7 @@ import Base from "../../layouts/Base.astro";
         <code>decode()</code> reads the file; then <code>RawDevelop</code> runs
         the same eight steps in the same order every time &mdash; rescale,
         demosaic, Fuji rotate, crop the active area, white balance, calibrate the
-        colour, crop the default frame, sRGB. There is no header-only read and no
+        colour, crop the default frame, gamma. There is no header-only read and no
         hook between the steps.
       </p>
       <p>
@@ -108,8 +108,8 @@ import Base from "../../layouts/Base.astro";
         into camera RGB; <code>develop</code> finishes it.
       </p>
       <p>
-        That difference has a cost on our side. rawler's last step is an sRGB
-        gamma applied one pixel at a time on rawler's own thread pool, which is
+        That difference has a cost on our side. rawler's last step is a
+        gamma curve applied one pixel at a time on rawler's own thread pool, which is
         most of a 24-megapixel develop. LightPhotos skips that step entirely and
         runs the same curve in parallel across the machine, then denoises the
         finished image, because <code>RawDevelop</code> has nowhere to insert a
@@ -271,6 +271,10 @@ import Base from "../../layouts/Base.astro";
         <a class="lp-article-nav-prev" href="/blogs/raw-camera-support.html">
           <span class="lp-article-nav-dir">Back</span>
           <span class="lp-article-nav-title">Which cameras do LightPhotos and LightCraft support?</span>
+        </a>
+        <a class="lp-article-nav-next" href="/blogs/lightphotos-and-rapidraw-on-the-mac.html">
+          <span class="lp-article-nav-dir">Next</span>
+          <span class="lp-article-nav-title">LightPhotos and RapidRAW on the Mac</span>
         </a>
       </nav>
     </article>

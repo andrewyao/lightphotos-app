@@ -48,6 +48,26 @@ export const macTimings: TimingScenario[] = [
   },
 ];
 
+// Medians of five runs each, tools/desktop-bench/results/2026-10-16T*.jsonl.
+export const rapidrawMacTimings: TimingScenario[] = [
+  {
+    id: "next", label: "Next photo",
+    explanation: "LightPhotos prepared the next photo before the key press, so it shows at once. RapidRAW shows its 1280 px preview at once too, then decodes the full RAW. The window settles at 2.47 s.",
+    rows: [
+      { app: "LightPhotos", times: [0.35, 0.35] },
+      { app: "RapidRAW", times: [0.37, 2.47] },
+    ],
+  },
+  {
+    id: "open", label: "Open first photo",
+    explanation: "Nothing prepared the first photo in either app. Both show a small preview first and then the developed RAW.",
+    rows: [
+      { app: "LightPhotos", times: [0.44, 1.17] },
+      { app: "RapidRAW", times: [0.53, 1.31] },
+    ],
+  },
+];
+
 export const storageScenarios = [
   {
     id: "open", label: "Open 20 photos", copied: true,

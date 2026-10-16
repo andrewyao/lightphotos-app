@@ -7,17 +7,17 @@ import fullReport from "../../../public/raw-bench/2026-10-15-display-full-detail
 const engines = [
   {
     id: "apple", name: "Apple RAW",
-    steps: [["Open RAW file", "Input"], ["Develop at preview size", "Apple RAW"], ["Render base color", "GPU"], ["Sharpen + color NR", "GPU"], ["2560 px RGBA8", "Output"]],
+    steps: [["Open RAW file", "Input"], ["Develop at preview size", "Apple RAW"], ["Render base color", "GPU"], ["Sharpen + color NR", "GPU"], ["2560 px RGBA", "Output"]],
     reason: "Apple renders at the preview size. The same shared GPU detail pass then sharpens the image and reduces color noise.",
   },
   {
     id: "rawler", name: "rawler 0.8.0",
-    steps: [["Unpack sensor data", "CPU"], ["Develop + resize", "CPU"], ["Convert base color", "CPU"], ["Sharpen + color NR", "GPU"], ["2560 px RGBA8", "Output"]],
+    steps: [["Unpack sensor data", "CPU"], ["Develop + resize", "CPU"], ["Convert base color", "CPU"], ["Sharpen + color NR", "GPU"], ["2560 px RGBA", "Output"]],
     reason: "Rawler develops the full image, then shrinks it on the CPU. This test adds the same shared GPU detail pass as the other engines.",
   },
   {
     id: "lightcraft", name: "LightCraft RAW",
-    steps: [["Unpack sensor data", "CPU"], ["Reduce + develop", "CPU"], ["Render base color", "GPU"], ["Sharpen + color NR", "GPU"], ["2560 px RGBA8", "Output"]],
+    steps: [["Unpack sensor data", "CPU"], ["Reduce + develop", "CPU"], ["Render base color", "GPU"], ["Sharpen + color NR", "GPU"], ["2560 px RGBA", "Output"]],
     reason: "LightCraft can reduce sensor data first. Its native detail filters are off; it uses the same shared GPU pass as the other engines.",
   },
 ];
@@ -32,7 +32,7 @@ const stepsFor = (engine, resolution) => resolution === "preview" ? engine.steps
   ["Develop at full size", engine.id === "apple" ? "Apple RAW" : "CPU"],
   engine.steps[2],
   engine.steps[3],
-  ["Full-size RGBA8", "Output"],
+  ["Full-size RGBA", "Output"],
 ];
 const fullReasons = {
   apple: "Apple develops at full size, then uses the shared GPU detail pass. Its adjustable native detail filters are off where supported.",
@@ -123,7 +123,7 @@ const charts = [
       <p>
         LightCraft has its own RAW engine. I tested
         each engine with the same files at two sizes: a 2560-pixel preview and
-        full resolution. Both tests produce sRGB RGBA8 display pixels with sharpening and color noise reduction.
+        full resolution. Both tests produce RGBA display pixels with sharpening and color noise reduction.
       </p>
 
       <h2>The result</h2>
@@ -193,7 +193,7 @@ const charts = [
         {resolutions.map((resolution, index) => <div data-resolution-panel={resolution.id} hidden={index !== 0}>
           <div class="lp-compare-wrap raw-table">
             <table class="lp-compare">
-              <caption>{resolution.name}, sRGB RGBA8 output; median of five runs</caption>
+              <caption>{resolution.name}, RGBA output; median of five runs</caption>
               <thead><tr><th scope="col">Camera and mode</th>{engines.map(engine => <th scope="col">{engine.name}</th>)}</tr></thead>
               <tbody>{samples.map(sample => <tr>
                 <th scope="row">{sample.camera}<small>{sample.mode}</small></th>
@@ -214,8 +214,7 @@ const charts = [
         We then ran five rounds in a mixed order, with warm file caches and no
         saved image results. Time includes reading the file, RAW processing,
         any resize and the transfer of GPU results to memory. Full-resolution
-        runs disable preview scaling and sensor binning. Both sizes use 8-bit
-        output; this is not a 16-bit export test.
+        runs disable preview scaling and sensor binning.
       </p>
       <p>
         Apple's adjustable detail filters are off where supported. LightCraft's

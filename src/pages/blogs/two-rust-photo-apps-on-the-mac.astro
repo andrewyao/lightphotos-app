@@ -288,7 +288,7 @@ import { macTimings } from "../../components/comparison-data";
       <p>
         For 100% zoom and export, LightPhotos uses CoreImage's
         <code>CIRAWFilter</code>. It uses the same Apple RAW engine, so the
-        pixels agree to within 8-bit rounding. But it runs on the GPU and
+        pixels agree to within rounding. But it runs on the GPU and
         demosaics only at the size that you ask for. A full 24-megapixel
         decode took 185&nbsp;ms, against 590&nbsp;ms through ImageIO. (Median
         of the same 20 files, one at a time.)
@@ -333,7 +333,7 @@ import { macTimings } from "../../components/comparison-data";
       <p>
         With 12 bytes for each pixel, LightCraft's sliders can use the full
         range of the sensor: highlights above white, and exposure changes
-        without banding. LightPhotos gets finished 8-bit pixels from ImageIO.
+        without banding. LightPhotos gets finished pixels from ImageIO.
         The totals are almost the same, and on screen the photos look the
         same.
       </p>
@@ -511,7 +511,7 @@ import { macTimings } from "../../components/comparison-data";
       const X = 96, BASE = 190, PX_PER_MP = 400 / 11.19, PX_PER_BYTE = 150 / 12;
       const apps = {
         lc: { mp: 4.37, bytes: 12, mb: 52, dims: "2560 × 1707", name: "LightCraft: 32-bit floating-point RGB", total: 157 },
-        lp: { mp: 11.19, bytes: 4, mb: 45, dims: "4096 × 2731", name: "LightPhotos: finished 8-bit RGBA", total: 134 },
+        lp: { mp: 11.19, bytes: 4, mb: 45, dims: "4096 × 2731", name: "LightPhotos: finished RGBA", total: 134 },
       };
       const area = memory.querySelector("[data-area]");
       const ghost = memory.querySelector("[data-ghost]");

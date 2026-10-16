@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675">
+  <rect width="1200" height="675" fill="#141a22"/>
+  <g font-family="system-ui,sans-serif">
+    <text x="85" y="108" fill="#8eb5e0" font-size="20" letter-spacing="4">LIGHTPHOTOS · ON THE MAC</text>
+    <text x="80" y="200" fill="#f0f3f7" font-size="58" font-weight="600">LightPhotos and</text>
+    <text x="80" y="272" fill="#f0f3f7" font-size="58" font-weight="600">RapidRAW</text>
+    <text x="85" y="330" fill="#aab6c6" font-size="25">20 Sony RAWs · 3840 × 2000 window · median of 5 runs</text>
+
+    <rect x="80" y="383" width="505" height="210" rx="16" fill="#202c3a"/>
+    <rect x="615" y="383" width="505" height="210" rx="16" fill="#202c3a"/>
+
+    <text x="112" y="432" fill="#b6c3d3" font-size="22">LightPhotos</text>
+    <text x="647" y="432" fill="#b6c3d3" font-size="22">RapidRAW</text>
+
+    <g fill="#ecf1f7" font-size="23">
+      <text x="112" y="488">Next photo · 0.35 s</text>
+      <text x="112" y="536">Memory · 1.3 GB</text>
+      <text x="112" y="584">Apple decodes</text>
+
+      <text x="647" y="488">Next photo · 2.47 s</text>
+      <text x="647" y="536">Memory · 6.8 GB</text>
+      <text x="647" y="584">rawler, full-size float</text>
+    </g>
+  </g>
+</svg>
