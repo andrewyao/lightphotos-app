@@ -106,6 +106,14 @@ footprint_mb() {
     END { printf "%.0f\n", t }'
 }
 
+# lc_sort_by_name: send library.sort over LightCraft's control port, retrying
+# until the server is up.
+LC_PORT=${LC_PORT:-7981}
+lc_sort_by_name() {
+  local req='{"id":1,"method":"engine.execute","params":{"command":"library.sort","params":{"key":"fileName","ascending":true}}}'
+  until print -r -- $req | nc -w 2 127.0.0.1 $LC_PORT 2>/dev/null | grep -q '"ok":true'; do sleep 0.05; done
+}
+
 # A webview app (RapidRAW is Tauri on WKWebView) draws its UI in WebKit helper
 # processes that launchd starts, not the app, so they are not its children.
 # Count the ones that appeared since the app launched.
@@ -123,7 +131,7 @@ for run in $(seq 1 $RUNS); do
 
   case $APP_KIND in
     lightphotos) args=($WORK/photos) ;;
-    lightcraft)  args=(--library $WORK/library --no-demo $WORK/photos) ;;
+    lightcraft)  args=(--library $WORK/library --no-demo --control $LC_PORT $WORK/photos) ;;
     rapidraw)    # No folder argument: it reopens the last folder in its settings.
       args=()
       conf=$WORK/home/Library/Application\ Support/io.github.CyberTimon.RapidRAW
@@ -139,6 +147,9 @@ for run in $(seq 1 $RUNS); do
   while [[ -z $pid ]]; do pid=$(pgrep -n -f "^$BIN" || true); done
   while [[ -z $($WINID $pid) ]]; do sleep 0.01; done
   window=$(printf '%.3f' $(( EPOCHREALTIME - t0 )))
+  # LightCraft sorts by capture date; sort it by file name, as the other apps
+  # do, so every app opens the same photo and steps through the same ones.
+  [[ $APP_KIND == lightcraft ]] && lc_sort_by_name
   place $pid
   grid=$(settle $pid $t0 grid); grid=${grid#* }
   id=$($WINID $pid)

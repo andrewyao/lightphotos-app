@@ -27,11 +27,11 @@ import { macTimings } from "../../components/comparison-data";
       <aside class="lp-tldr">
         <p class="lp-tldr-label">TL;DR</p>
         <p>
-          I used the same 20 Sony RAW files in a full-screen window on a 4K
-          display. LightPhotos filled its grid in 0.85&nbsp;s, and LightCraft
-          in 1.37&nbsp;s. LightPhotos used 1.2&nbsp;GB of memory, and
-          LightCraft used 1.4&nbsp;GB. The next photo was a tie: 0.55&nbsp;s
-          against 0.60&nbsp;s. Both times are at the lowest value that my
+          I used 18 RAW files from 13 cameras in a full-screen window on a 4K
+          display. LightPhotos filled its grid in 1.23&nbsp;s, and LightCraft
+          in 2.15&nbsp;s. LightPhotos used 2.2&nbsp;GB of memory, and
+          LightCraft used 1.9&nbsp;GB. The next photo was a tie: 0.45&nbsp;s
+          against 0.49&nbsp;s. Both times are at the lowest value that my
           script can measure.
         </p>
       </aside>
@@ -75,7 +75,7 @@ import { macTimings } from "../../components/comparison-data";
             </circle>
           </g>
         </svg>
-        <p class="lp-try-readout" aria-live="polite">LightPhotos: Apple decodes every JPEG, HEIC and RAW file. The decoders add 0&nbsp;MB to the 15&nbsp;MB app.</p>
+        <p class="lp-try-readout" aria-live="polite">LightPhotos: Apple decodes every JPEG, HEIC and RAW file. The decoders add 0&nbsp;MB to the 17.6&nbsp;MB app.</p>
         <figcaption>
           Select an app. LightPhotos uses the decoders that Preview and Photos
           use (see <a href="/blogs/what-imageio-gives-you-free.html">What
@@ -151,24 +151,35 @@ import { macTimings } from "../../components/comparison-data";
 
       <h2>How I measured</h2>
       <p>
-        I built both apps with their own release scripts. I ran them on one
-        M4 Pro Mac with 48&nbsp;GB of memory and macOS 26.3. For each run, I
-        copied the same 20 Sony A7&nbsp;II RAW files to a new folder, so no
-        cache had seen them. Each app started with a new home folder and
-        default settings.
+        I built both apps with their own release scripts: LightPhotos 0.1.31
+        with its new 16-bit float RAW decode (commit <code>55d74b9</code>)
+        and LightCraft 0.8.0 (commit <code>0da998f2</code>). I ran them on an
+        M4 Mac mini with 16&nbsp;GB of memory and macOS 26.5. For each run, I
+        copied the same 18 RAW files to a new folder, so no cache had seen
+        them. They come from 13 cameras in 10 formats, from 5 to 45
+        megapixels. Each app started with a new home folder and default
+        settings.
+      </p>
+      <p>
+        LightCraft sorts its grid by date, so the script sorts it by file
+        name through LightCraft's control port, as LightPhotos does. Both apps
+        then open the same 14-megapixel Sony A7&nbsp;IV file and go through
+        the same eight photos: another A7&nbsp;IV file, a Canon 5D
+        Mark&nbsp;III CR2, two Canon R5 Mark&nbsp;II CR3s, three DNGs (Adobe,
+        iPhone ProRAW and Ricoh GR&nbsp;III) and a Nikon Z&nbsp;f NEF.
       </p>
       <p>
         Each window was 3840 × 2000&nbsp;px on a 4K display. In a smaller
-        window, the camera's embedded JPEG is large enough. Then neither app
-        must develop the RAW data.
+        window, a camera's embedded JPEG can be large enough. Then neither
+        app must develop the RAW data.
       </p>
       <p>
         A script, <code>tools/desktop-bench</code>, starts the app,
         double-clicks the first photo and pushes the right arrow eight times.
         It captures the window every 150&nbsp;ms. It records the first change,
         and the time when nothing changed for 3&nbsp;s. Each number is the
-        median of five runs. One capture takes about 0.34&nbsp;s, so no
-        result can be less than about 0.5&nbsp;s.
+        median of five runs. One capture takes about 0.26&nbsp;s, so no
+        result can be less than about 0.4&nbsp;s.
       </p>
 
       <h2>The numbers</h2>
@@ -184,46 +195,47 @@ import { macTimings } from "../../components/comparison-data";
           <tbody>
             <tr>
               <th scope="row">Download (.dmg)</th>
-              <td class="lp-compare-pick">7.4&nbsp;MB</td>
-              <td>15.2&nbsp;MB</td>
+              <td class="lp-compare-pick">8.4&nbsp;MB</td>
+              <td>56.0&nbsp;MB</td>
             </tr>
             <tr>
               <th scope="row">App, installed</th>
-              <td class="lp-compare-pick">15&nbsp;MB</td>
-              <td>43&nbsp;MB</td>
+              <td class="lp-compare-pick">17.6&nbsp;MB</td>
+              <td>116&nbsp;MB</td>
             </tr>
             <tr>
               <th scope="row">Launch to window</th>
-              <td class="lp-compare-pick">0.27&nbsp;s</td>
-              <td>0.43&nbsp;s</td>
+              <td class="lp-compare-pick">0.35&nbsp;s</td>
+              <td>0.37&nbsp;s</td>
             </tr>
             <tr>
-              <th scope="row">Launch to finished grid, 20 RAWs</th>
-              <td class="lp-compare-pick">0.85&nbsp;s</td>
-              <td>1.37&nbsp;s</td>
+              <th scope="row">Launch to finished grid, 18 RAWs</th>
+              <td class="lp-compare-pick">1.22&nbsp;s</td>
+              <td>2.15&nbsp;s</td>
             </tr>
             <tr>
               <th scope="row">Open the first photo: first change / screen settled</th>
-              <td class="lp-compare-pick">0.57 / 1.46&nbsp;s</td>
-              <td>0.67 / 0.67&nbsp;s</td>
+              <td class="lp-compare-pick">0.58 / 1.05&nbsp;s</td>
+              <td>0.70 / 1.21&nbsp;s</td>
             </tr>
             <tr>
               <th scope="row">Next photo, each (median of 8): first change / screen settled</th>
-              <td class="lp-compare-pick">0.55 / 0.55&nbsp;s</td>
-              <td>0.60 / 0.60&nbsp;s</td>
+              <td class="lp-compare-pick">0.45 / 0.45&nbsp;s</td>
+              <td>0.49 / 0.49&nbsp;s</td>
             </tr>
             <tr>
               <th scope="row">Memory afterwards</th>
-              <td class="lp-compare-pick">1.2&nbsp;GB</td>
-              <td>1.4&nbsp;GB</td>
+              <td class="lp-compare-pick">2.2&nbsp;GB</td>
+              <td>1.9&nbsp;GB</td>
             </tr>
           </tbody>
         </table>
       </div>
       <p>
-        The runs agreed to within a few percent, with three exceptions. The
-        LightPhotos first photo took 1.0 to 1.5&nbsp;s. One LightCraft grid
-        took 2.3&nbsp;s. LightCraft's memory was 1.3 to 1.7&nbsp;GB.
+        The runs agreed to within a few percent, with three exceptions.
+        LightCraft took 0.35 to 0.50&nbsp;s to show its window, and its
+        memory was 1.4 to 2.1&nbsp;GB. One LightPhotos grid took
+        1.43&nbsp;s. LightPhotos' memory was 2.1 to 2.2&nbsp;GB.
       </p>
 
       <TimingComparison
@@ -232,7 +244,7 @@ import { macTimings } from "../../components/comparison-data";
         scale={2}
         milestones={["First visible change", "Whole screen settled"]}
         scenarios={macTimings}
-        note="Fixed 0–2 s scale. Medians of five runs, full screen on a 4K display. The capture method cannot measure less than about 0.5 s, so the next-photo difference is too small to see. These times are for the whole window, not for a sharp photo. Do not compare them with the browser test."
+        note="Fixed 0–2 s scale. Medians of five runs, full screen on a 4K display. The capture method cannot measure less than about 0.4 s, so the next-photo difference is too small to see. These times are for the whole window, not for a sharp photo. Do not compare them with the browser test."
       />
 
       <h2>Why the next photo is fast</h2>
@@ -276,9 +288,9 @@ import { macTimings } from "../../components/comparison-data";
       </p>
       <p>
         Nothing prepares the first photo. At this window size, the embedded
-        JPEG (1616&nbsp;px wide) is too small. LightPhotos shows the grid
-        thumbnail first, then develops the RAW data in about 0.6&nbsp;s.
-        LightCraft shows the first photo in one step.
+        JPEG is too small. Both apps show a preview first, then develop the
+        RAW data in about 0.5&nbsp;s. LightPhotos settles at 1.05&nbsp;s
+        and LightCraft at 1.21&nbsp;s.
       </p>
       <p>
         My script waits a few seconds on each photo, as a person does who
@@ -291,10 +303,10 @@ import { macTimings } from "../../components/comparison-data";
         pixels agree to within rounding. But it runs on the GPU and
         demosaics only at the size that you ask for. A full 24-megapixel
         decode took 185&nbsp;ms, against 590&nbsp;ms through ImageIO. (Median
-        of the same 20 files, one at a time.)
+        of 20 Sony A7&nbsp;II files, one at a time.)
       </p>
 
-      <h2>Why the grid is faster and memory is lower</h2>
+      <h2>Why the grid is faster and memory is higher</h2>
       <p>
         For a grid thumbnail, LightPhotos asks ImageIO for a small image.
         ImageIO reads the embedded JPEG in 12 to 22&nbsp;ms per file.
@@ -335,7 +347,9 @@ import { macTimings } from "../../components/comparison-data";
         floats and LightPhotos in 16-bit half floats. Either way, the sliders
         can use the full range of the sensor: highlights above white, and
         exposure changes without banding. On screen the photos look the
-        same.
+        same. LightPhotos keeps more pixels for each photo, so its three
+        photos take about 268&nbsp;MB against LightCraft's 157&nbsp;MB. That
+        is part of why it used more memory in this test.
       </p>
       <p>
         The app size also comes from ImageIO. LightCraft includes its own
@@ -365,8 +379,10 @@ import { macTimings } from "../../components/comparison-data";
           looks the same on each platform, and LightCraft can fix any bug in
           its decoder. The cost is a larger app, and formats that it does not
           have yet. HEIC needs an HEVC decoder, and no pure-Rust one with a
-          permissive license exists. CR3 files show only their embedded
-          preview for now.
+          permissive license exists. In this test it developed the Canon R5
+          Mark&nbsp;II CR3s from the sensor data, but it showed only the
+          embedded preview of the Nikon Z&nbsp;f HE NEF and the Olympus
+          E-M1 ORF.
         </li>
       </ul>
 
@@ -374,7 +390,7 @@ import { macTimings } from "../../components/comparison-data";
       <p>
         On the Mac, LightPhotos relies on the operating system, and LightCraft
         relies on itself. LightPhotos is smaller, starts faster, fills its
-        grid faster and uses a little less memory. Apple did that work, and a
+        grid faster, but uses a little more memory. Apple did that work, and a
         smaller feature set fits in a smaller app. Both apps prepare the
         photos on each side, so both are equally fast through a shoot.
         LightCraft looks the same everywhere and does much more when you
@@ -411,7 +427,7 @@ import { macTimings } from "../../components/comparison-data";
     if (decode) {
       const readout = decode.querySelector(".lp-try-readout");
       const text = {
-        lp: "LightPhotos: Apple decodes every JPEG, HEIC and RAW file. The decoders add 0 MB to the 15 MB app.",
+        lp: "LightPhotos: Apple decodes every JPEG, HEIC and RAW file. The decoders add 0 MB to the 17.6 MB app.",
         lc: "LightCraft: its own Rust code decodes and demosaics every file. The decoders are inside the 43 MB app.",
       };
       toggle(decode, (mode) => {

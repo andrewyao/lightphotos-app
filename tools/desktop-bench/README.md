@@ -19,7 +19,9 @@ Each run:
    `tools/raw-bench/samples`, 18 files) into a new temp folder, so no cache has seen
    them. The app gets a new temp `HOME` too, so it starts with default
    settings and doesn't restore a view from the last run. LightCraft also gets
-   a new library (`--library <tmp> --no-demo`). RapidRAW takes no folder
+   a new library (`--library <tmp> --no-demo`), and the script sorts it by
+   file name over its control port (`--control $LC_PORT`, default 7981), so it
+   opens the same photo as the other apps and steps through the same ones. RapidRAW takes no folder
    argument, so the script writes a `settings.json` into the temp `HOME` whose
    `lastRootPath` is the temp folder. `RAPIDRAW_SETTINGS` adds more keys to it,
    e.g. `RAPIDRAW_SETTINGS='"useAppleRaw9":true'`.

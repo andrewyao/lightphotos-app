@@ -27,11 +27,11 @@ import { rapidrawMacTimings } from "../../components/comparison-data";
         <p class="lp-tldr-label">TL;DR</p>
         <p>
           I used 18 RAW files from 13 cameras in a 3840&nbsp;×&nbsp;2000
-          window. The next photo settled in 0.47&nbsp;s in LightPhotos and in
-          2.80&nbsp;s in RapidRAW, because LightPhotos prepares it before you
-          press the key. Opening the first photo took 1.14&nbsp;s against
-          1.63&nbsp;s. LightPhotos used 1.6&nbsp;GB of memory, and RapidRAW
-          used 6.2&nbsp;GB. RapidRAW keeps every photo at full size in 32-bit
+          window. The next photo settled in 0.45&nbsp;s in LightPhotos and in
+          2.82&nbsp;s in RapidRAW, because LightPhotos prepares it before you
+          press the key. Opening the first photo took 1.05&nbsp;s against
+          1.64&nbsp;s. LightPhotos used 2.2&nbsp;GB of memory, and RapidRAW
+          used 6.1&nbsp;GB. RapidRAW keeps every photo at full size in 32-bit
           floating point, ready for its much larger set of editing tools.
         </p>
       </aside>
@@ -169,7 +169,7 @@ import { rapidrawMacTimings } from "../../components/comparison-data";
         arrow eight times. It captures the window every 150&nbsp;ms. It records
         the first change, and the time when nothing changed for 3&nbsp;s. Each
         number is the median of five runs. One capture takes about
-        0.26&nbsp;s, so no result can be less than about 0.4&nbsp;s.
+        0.26 to 0.29&nbsp;s, so no result can be less than about 0.4&nbsp;s.
       </p>
       <p>
         I had to make two changes for RapidRAW. First, RapidRAW opens on a
@@ -203,38 +203,37 @@ import { rapidrawMacTimings } from "../../components/comparison-data";
             </tr>
             <tr>
               <th scope="row">Launch to window</th>
-              <td class="lp-compare-pick">0.39&nbsp;s</td>
-              <td>0.85&nbsp;s</td>
+              <td class="lp-compare-pick">0.35&nbsp;s</td>
+              <td>0.71&nbsp;s</td>
             </tr>
             <tr>
               <th scope="row">Launch to finished grid, 18 RAWs</th>
-              <td class="lp-compare-pick">1.23&nbsp;s</td>
-              <td>5.24&nbsp;s, with the welcome screen</td>
+              <td class="lp-compare-pick">1.22&nbsp;s</td>
+              <td>4.91&nbsp;s, with the welcome screen</td>
             </tr>
             <tr>
               <th scope="row">Open the first photo: first change / screen settled</th>
-              <td class="lp-compare-pick">0.66 / 1.14&nbsp;s</td>
-              <td>0.64 / 1.63&nbsp;s</td>
+              <td class="lp-compare-pick">0.58 / 1.05&nbsp;s</td>
+              <td>0.63 / 1.64&nbsp;s</td>
             </tr>
             <tr>
               <th scope="row">Next photo, each (median of 8): first change / screen settled</th>
-              <td class="lp-compare-pick">0.47 / 0.47&nbsp;s</td>
-              <td>0.44 / 2.80&nbsp;s</td>
+              <td class="lp-compare-pick">0.45 / 0.45&nbsp;s</td>
+              <td>0.47 / 2.82&nbsp;s</td>
             </tr>
             <tr>
               <th scope="row">Memory afterwards</th>
-              <td class="lp-compare-pick">1.6&nbsp;GB</td>
-              <td>6.2&nbsp;GB</td>
+              <td class="lp-compare-pick">2.2&nbsp;GB</td>
+              <td>6.1&nbsp;GB</td>
             </tr>
           </tbody>
         </table>
       </div>
       <p>
         The times agreed to within a few percent, with two exceptions.
-        RapidRAW took 0.68 to 1.16&nbsp;s to show its window. LightPhotos'
-        grid settled in 0.93&nbsp;s in one run. Memory varied more:
-        LightPhotos used 1.3 to 1.7&nbsp;GB, and RapidRAW used 6.1 to
-        6.4&nbsp;GB.
+        RapidRAW took 0.68 to 1.03&nbsp;s to show its window. One
+        LightPhotos grid took 1.43&nbsp;s. Memory varied more: LightPhotos
+        used 2.1 to 2.2&nbsp;GB, and RapidRAW used 5.8 to 6.5&nbsp;GB.
       </p>
 
       <TimingComparison
@@ -295,19 +294,19 @@ import { rapidrawMacTimings } from "../../components/comparison-data";
       </p>
       <p>
         The first photo is closer. Nothing prepared it in either app. Both
-        show a small preview after about 0.65&nbsp;s. LightPhotos then
+        show a small preview after about 0.6&nbsp;s. LightPhotos then
         develops the RAW at the window size with <code>CIRAWFilter</code> and
-        settles at 1.14&nbsp;s. RapidRAW decodes the full RAW and settles at
-        1.63&nbsp;s.
+        settles at 1.05&nbsp;s. RapidRAW decodes the full RAW and settles at
+        1.64&nbsp;s.
       </p>
       <p>
         Each next photo takes RapidRAW longer than the first one did. Size
         explains part of that: the two 45-megapixel Canon R5 Mark&nbsp;II
-        files took 3.5 to 3.9&nbsp;s. But the 12-megapixel iPhone file still
-        took about 2.5&nbsp;s, so I do not know the rest of the reason yet.
+        files took about 3.5&nbsp;s. But the 12-megapixel iPhone file still
+        took about 2.6&nbsp;s, so I do not know the rest of the reason yet.
       </p>
 
-      <h2>Why memory is four times higher</h2>
+      <h2>Why memory is three times higher</h2>
       <p>
         Both apps keep a RAW in floating point, with four numbers for each
         pixel. LightPhotos uses 16-bit half floats at the window size, up to
@@ -342,7 +341,7 @@ import { rapidrawMacTimings } from "../../components/comparison-data";
       <p>
         With the full photo already decoded, RapidRAW can zoom to 100%, run
         an AI mask or recover a highlight without another decode. On my
-        16&nbsp;GB Mac, 6.2&nbsp;GB is a large part of the memory, and a
+        16&nbsp;GB Mac, 6.1&nbsp;GB is a large part of the memory, and a
         camera with more megapixels needs more. One 45-megapixel R5
         Mark&nbsp;II photo is about 716&nbsp;MB in RapidRAW.
       </p>

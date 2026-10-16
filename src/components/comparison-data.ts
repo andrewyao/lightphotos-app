@@ -29,41 +29,44 @@ export const browserTimings: TimingScenario[] = [
   },
 ];
 
+// Medians of five runs each, tools/desktop-bench/results/2026-10-16T153618-lightphotos.jsonl
+// and 2026-10-16T154006-lightcraft.jsonl.
 export const macTimings: TimingScenario[] = [
   {
     id: "open", label: "Open first photo",
     explanation: "Nothing prepared the first photo. The script records the first change and the time when the whole window stops changing. It cannot see when the photo becomes sharp.",
     rows: [
-      { app: "LightPhotos", times: [0.57, 1.46] },
-      { app: "LightCraft", times: [0.67, 0.67] },
+      { app: "LightPhotos", times: [0.58, 1.05] },
+      { app: "LightCraft", times: [0.70, 1.21] },
     ],
   },
   {
     id: "next", label: "Next photo",
-    explanation: "Both apps prepare the photos on each side. The 0.55 s and 0.60 s results are at the lowest value that the script can measure. The difference is too small to see.",
+    explanation: "Both apps prepare the photos on each side. The 0.45 s and 0.49 s results are at the lowest value that the script can measure. The difference is too small to see.",
     rows: [
-      { app: "LightPhotos", times: [0.55, 0.55] },
-      { app: "LightCraft", times: [0.60, 0.60] },
+      { app: "LightPhotos", times: [0.45, 0.45] },
+      { app: "LightCraft", times: [0.49, 0.49] },
     ],
   },
 ];
 
-// Medians of five runs each, tools/desktop-bench/results/2026-10-16T*.jsonl.
+// Medians of five runs each, tools/desktop-bench/results/2026-10-16T153618-lightphotos.jsonl
+// and 2026-10-16T154401-rapidraw.jsonl.
 export const rapidrawMacTimings: TimingScenario[] = [
   {
     id: "next", label: "Next photo",
-    explanation: "LightPhotos prepared the next photo before the key press, so it shows at once. RapidRAW shows its 1280 px preview at once too, then decodes the full RAW. The window settles at 2.80 s.",
+    explanation: "LightPhotos prepared the next photo before the key press, so it shows at once. RapidRAW shows its 1280 px preview at once too, then decodes the full RAW. The window settles at 2.82 s.",
     rows: [
-      { app: "LightPhotos", times: [0.47, 0.47] },
-      { app: "RapidRAW", times: [0.44, 2.80] },
+      { app: "LightPhotos", times: [0.45, 0.45] },
+      { app: "RapidRAW", times: [0.47, 2.82] },
     ],
   },
   {
     id: "open", label: "Open first photo",
     explanation: "Nothing prepared the first photo in either app. Both show a small preview first and then the developed RAW.",
     rows: [
-      { app: "LightPhotos", times: [0.66, 1.14] },
-      { app: "RapidRAW", times: [0.64, 1.63] },
+      { app: "LightPhotos", times: [0.58, 1.05] },
+      { app: "RapidRAW", times: [0.63, 1.64] },
     ],
   },
 ];
