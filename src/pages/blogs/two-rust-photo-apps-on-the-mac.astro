@@ -312,9 +312,9 @@ import { macTimings } from "../../components/comparison-data";
           <button type="button" class="lp-try-btn" data-mode="lc" aria-pressed="true">LightCraft</button>
           <button type="button" class="lp-try-btn" data-mode="lp" aria-pressed="false">LightPhotos</button>
         </div>
-        <svg viewBox="0 0 640 224" role="img" aria-label="Memory for one photo, drawn as a rectangle. The width is the number of pixels and the height is the bytes for each pixel. LightCraft keeps 4.4 million pixels at 12 bytes, about 52 MB. LightPhotos keeps up to 11.2 million pixels at 4 bytes, about 45 MB. The two areas are almost the same.">
+        <svg viewBox="0 0 640 224" role="img" aria-label="Memory for one photo, drawn as a rectangle. The width is the number of pixels and the height is the bytes for each pixel. LightCraft keeps 4.4 million pixels at 12 bytes, about 52 MB. LightPhotos keeps up to 11.2 million pixels at 8 bytes, about 89 MB.">
           <text class="lp-fig-label" x="0" y="12">MEMORY FOR ONE PHOTO = PIXELS × BYTES PER PIXEL</text>
-          <rect class="lp-fig-panel" data-ghost x="96" y="140" width="400" height="50" stroke-dasharray="4 4"></rect>
+          <rect class="lp-fig-panel" data-ghost x="96" y="90" width="400" height="100" stroke-dasharray="4 4"></rect>
           <rect class="lp-fig-bar" data-area x="96" y="40" width="156" height="150" rx="2"></rect>
           <text class="lp-fig-on-bar" data-mb x="174" y="120" text-anchor="middle">52 MB</text>
           <line class="lp-fig-line" x1="96" y1="196" x2="560" y2="196"></line>
@@ -331,10 +331,10 @@ import { macTimings } from "../../components/comparison-data";
       </figure>
 
       <p>
-        With 12 bytes for each pixel, LightCraft's sliders can use the full
-        range of the sensor: highlights above white, and exposure changes
-        without banding. LightPhotos gets finished pixels from ImageIO.
-        The totals are almost the same, and on screen the photos look the
+        Both apps keep RAW pixels in floating point: LightCraft in 32-bit
+        floats and LightPhotos in 16-bit half floats. Either way, the sliders
+        can use the full range of the sensor: highlights above white, and
+        exposure changes without banding. On screen the photos look the
         same.
       </p>
       <p>
@@ -511,7 +511,7 @@ import { macTimings } from "../../components/comparison-data";
       const X = 96, BASE = 190, PX_PER_MP = 400 / 11.19, PX_PER_BYTE = 150 / 12;
       const apps = {
         lc: { mp: 4.37, bytes: 12, mb: 52, dims: "2560 × 1707", name: "LightCraft: 32-bit floating-point RGB", total: 157 },
-        lp: { mp: 11.19, bytes: 4, mb: 45, dims: "4096 × 2731", name: "LightPhotos: finished RGBA", total: 134 },
+        lp: { mp: 11.19, bytes: 8, mb: 89, dims: "4096 × 2731", name: "LightPhotos: 16-bit floating-point RGBA", total: 268 },
       };
       const area = memory.querySelector("[data-area]");
       const ghost = memory.querySelector("[data-ghost]");

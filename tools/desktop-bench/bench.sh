@@ -14,13 +14,13 @@ zmodload zsh/datetime
 APP_KIND=${1:?usage: bench.sh <lightphotos|lightcraft|rapidraw> <App.app> [runs]}
 APP=${2:?usage: bench.sh <lightphotos|lightcraft|rapidraw> <App.app> [runs]}
 RUNS=${3:-5}
-PHOTOS=${PHOTOS:-$HOME/Desktop/Photos/100MSDCF}
 COUNT=${COUNT:-20}
 NEXTS=${NEXTS:-8}
 INTERVAL=${INTERVAL:-0.15}   # pause between captures
 QUIET=${QUIET:-3.0}          # a step is done once the window is unchanged this long
 TIMEOUT=${TIMEOUT:-90}
 HERE=${0:A:h}
+PHOTOS=${PHOTOS:-$HERE/../raw-bench/samples}
 OUT=${OUT:-$HERE/results}
 STAMP=$(date +%Y-%m-%dT%H%M%S)
 
@@ -111,12 +111,15 @@ footprint_mb() {
 # Count the ones that appeared since the app launched.
 webkit_pids() { { pgrep -f '^/System/Library/Frameworks/WebKit.framework/' || true; } | sort; }
 
+setopt extendedglob
+RAW_FILES=($PHOTOS/*.(#i)(arw|cr2|cr3|dng|nef|orf|pef|raf|rw2|srw)(.))
+
 for run in $(seq 1 $RUNS); do
   # Fresh photos (LightPhotos caches thumbnails beside them), a fresh library,
   # and a fresh HOME so neither app restores settings or views from a past run.
   WORK=$(mktemp -d)
   mkdir $WORK/photos $WORK/home
-  ls $PHOTOS/*.ARW | sort | head -n $COUNT | while read -r p; do cp $p $WORK/photos/; done
+  for p in ${${(o)RAW_FILES}[1,$COUNT]}; do cp $p $WORK/photos/; done
 
   case $APP_KIND in
     lightphotos) args=($WORK/photos) ;;

@@ -52,18 +52,18 @@ export const macTimings: TimingScenario[] = [
 export const rapidrawMacTimings: TimingScenario[] = [
   {
     id: "next", label: "Next photo",
-    explanation: "LightPhotos prepared the next photo before the key press, so it shows at once. RapidRAW shows its 1280 px preview at once too, then decodes the full RAW. The window settles at 2.47 s.",
+    explanation: "LightPhotos prepared the next photo before the key press, so it shows at once. RapidRAW shows its 1280 px preview at once too, then decodes the full RAW. The window settles at 2.80 s.",
     rows: [
-      { app: "LightPhotos", times: [0.35, 0.35] },
-      { app: "RapidRAW", times: [0.37, 2.47] },
+      { app: "LightPhotos", times: [0.47, 0.47] },
+      { app: "RapidRAW", times: [0.44, 2.80] },
     ],
   },
   {
     id: "open", label: "Open first photo",
     explanation: "Nothing prepared the first photo in either app. Both show a small preview first and then the developed RAW.",
     rows: [
-      { app: "LightPhotos", times: [0.44, 1.17] },
-      { app: "RapidRAW", times: [0.53, 1.31] },
+      { app: "LightPhotos", times: [0.66, 1.14] },
+      { app: "RapidRAW", times: [0.64, 1.63] },
     ],
   },
 ];

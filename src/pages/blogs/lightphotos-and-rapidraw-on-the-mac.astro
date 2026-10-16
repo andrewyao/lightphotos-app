@@ -5,7 +5,7 @@ import { rapidrawMacTimings } from "../../components/comparison-data";
 ---
 <Base
   title="LightPhotos and RapidRAW on the Mac — LightPhotos Blog"
-  desc="The same desktop test, with RapidRAW. Both are Rust photo apps that read your folders in place. RapidRAW decodes every RAW with rawler and keeps it at full size in floating point. LightPhotos lets Apple decode and prepares the next photo ahead of time."
+  desc="The same desktop test, with RapidRAW. Both are Rust photo apps that read your folders in place. Both keep RAW pixels in floating point. RapidRAW decodes every RAW with rawler and keeps it at full size in 32-bit floats. LightPhotos lets Apple decode at the window size in 16-bit floats and prepares the next photo ahead of time."
   active="blogs"
 >
   <main class="lp-page">
@@ -26,12 +26,12 @@ import { rapidrawMacTimings } from "../../components/comparison-data";
       <aside class="lp-tldr">
         <p class="lp-tldr-label">TL;DR</p>
         <p>
-          I used 20 Sony A7&nbsp;II RAW files in a 3840&nbsp;×&nbsp;2000 window.
-          The next photo settled in 0.35&nbsp;s in LightPhotos and in
-          2.47&nbsp;s in RapidRAW, because LightPhotos prepares it before you
-          press the key. Opening the first photo was close: 1.17&nbsp;s against
-          1.31&nbsp;s. LightPhotos used 1.3&nbsp;GB of memory, and RapidRAW
-          used 6.8&nbsp;GB. RapidRAW keeps every photo at full size in 32-bit
+          I used 18 RAW files from 13 cameras in a 3840&nbsp;×&nbsp;2000
+          window. The next photo settled in 0.47&nbsp;s in LightPhotos and in
+          2.80&nbsp;s in RapidRAW, because LightPhotos prepares it before you
+          press the key. Opening the first photo took 1.14&nbsp;s against
+          1.63&nbsp;s. LightPhotos used 1.6&nbsp;GB of memory, and RapidRAW
+          used 6.2&nbsp;GB. RapidRAW keeps every photo at full size in 32-bit
           floating point, ready for its much larger set of editing tools.
         </p>
       </aside>
@@ -49,7 +49,7 @@ import { rapidrawMacTimings } from "../../components/comparison-data";
           <button type="button" class="lp-try-btn" data-mode="lp" aria-pressed="true">LightPhotos</button>
           <button type="button" class="lp-try-btn" data-mode="rr" aria-pressed="false">RapidRAW</button>
         </div>
-        <svg viewBox="0 0 640 210" role="img" aria-label="Diagram of the decode path. LightPhotos sends a RAW file to Apple's ImageIO, which is part of macOS. RapidRAW sends it to rawler, a Rust library inside the app. Both paths end on the screen.">
+        <svg viewBox="0 0 640 210" role="img" aria-label="Diagram of the decode path. LightPhotos sends a RAW file to Apple's RAW engine, which is part of macOS. RapidRAW sends it to rawler, a Rust library inside the app. Both paths end on the screen.">
           <text class="lp-fig-label" x="0" y="12">WHERE THE PIXELS COME FROM</text>
 
           <rect class="lp-fig-box" x="0" y="86" width="110" height="44" rx="6"></rect>
@@ -60,7 +60,7 @@ import { rapidrawMacTimings } from "../../components/comparison-data";
           <g data-lane="lp">
             <path class="lp-fig-line" d="M110 100 L220 52 M420 52 L530 100"></path>
             <rect class="lp-fig-box-accent" x="220" y="30" width="200" height="44" rx="6"></rect>
-            <text class="lp-fig-t" x="320" y="50" text-anchor="middle">Apple ImageIO</text>
+            <text class="lp-fig-t" x="320" y="50" text-anchor="middle">Apple RAW engine</text>
             <text class="lp-fig-s" x="320" y="66" text-anchor="middle">part of macOS</text>
             <circle class="lp-fig-bar" r="5" data-dot>
               <animateMotion dur="2.4s" repeatCount="indefinite" path="M110 100 L220 52 L420 52 L530 100"></animateMotion>
@@ -105,7 +105,7 @@ import { rapidrawMacTimings } from "../../components/comparison-data";
           <tbody>
             <tr>
               <th scope="row">RAW decoding on the Mac</th>
-              <td class="lp-compare-pick">Apple's ImageIO, and CoreImage's <code>CIRAWFilter</code> for full-size RAW</td>
+              <td class="lp-compare-pick">CoreImage's <code>CIRAWFilter</code>, in 16-bit floats. ImageIO for thumbnails.</td>
               <td>rawler (its own fork), plus colour noise reduction and sharpening. Apple RAW&nbsp;9 is an option.</td>
             </tr>
             <tr>
@@ -152,10 +152,15 @@ import { rapidrawMacTimings } from "../../components/comparison-data";
       <h2>How I measured</h2>
       <p>
         I built both apps from source with their own release scripts:
-        LightPhotos 0.1.31 and RapidRAW 1.6.5. I ran them on an M4 Mac mini
+        LightPhotos 0.1.31 with its new 16-bit float RAW decode (commit
+        <code>55d74b9</code>) and RapidRAW 1.6.5. I ran them on an M4 Mac mini
         with 16&nbsp;GB of memory and macOS 26.5. For each run, I copied the
-        same 20 Sony A7&nbsp;II RAW files to a new folder, so no cache had seen
-        them. Each app started with a new home folder and default settings.
+        same 18 RAW files to a new folder, so no cache had seen them. They
+        come from 13 cameras in 10 formats, from 5 to 45 megapixels. The
+        test opens a 14-megapixel Sony A7&nbsp;IV file, then goes through
+        another A7&nbsp;IV file, a Canon 5D Mark&nbsp;III CR2, two Canon
+        R5 Mark&nbsp;II CR3s, three DNGs (Adobe, iPhone ProRAW and Ricoh
+        GR&nbsp;III) and a Nikon Z&nbsp;f NEF. Each app started with a new home folder and default settings.
         The window was 3840&nbsp;×&nbsp;2000&nbsp;px on a 4K display.
       </p>
       <p>
@@ -164,7 +169,7 @@ import { rapidrawMacTimings } from "../../components/comparison-data";
         arrow eight times. It captures the window every 150&nbsp;ms. It records
         the first change, and the time when nothing changed for 3&nbsp;s. Each
         number is the median of five runs. One capture takes about
-        0.2&nbsp;s, so no result can be less than about 0.35&nbsp;s.
+        0.26&nbsp;s, so no result can be less than about 0.4&nbsp;s.
       </p>
       <p>
         I had to make two changes for RapidRAW. First, RapidRAW opens on a
@@ -199,36 +204,37 @@ import { rapidrawMacTimings } from "../../components/comparison-data";
             <tr>
               <th scope="row">Launch to window</th>
               <td class="lp-compare-pick">0.39&nbsp;s</td>
-              <td>0.66&nbsp;s</td>
+              <td>0.85&nbsp;s</td>
             </tr>
             <tr>
-              <th scope="row">Launch to finished grid, 20 RAWs</th>
-              <td class="lp-compare-pick">0.84&nbsp;s</td>
-              <td>3.15&nbsp;s, with the welcome screen</td>
+              <th scope="row">Launch to finished grid, 18 RAWs</th>
+              <td class="lp-compare-pick">1.23&nbsp;s</td>
+              <td>5.24&nbsp;s, with the welcome screen</td>
             </tr>
             <tr>
               <th scope="row">Open the first photo: first change / screen settled</th>
-              <td class="lp-compare-pick">0.44 / 1.17&nbsp;s</td>
-              <td>0.53 / 1.31&nbsp;s</td>
+              <td class="lp-compare-pick">0.66 / 1.14&nbsp;s</td>
+              <td>0.64 / 1.63&nbsp;s</td>
             </tr>
             <tr>
               <th scope="row">Next photo, each (median of 8): first change / screen settled</th>
-              <td class="lp-compare-pick">0.35 / 0.35&nbsp;s</td>
-              <td>0.37 / 2.47&nbsp;s</td>
+              <td class="lp-compare-pick">0.47 / 0.47&nbsp;s</td>
+              <td>0.44 / 2.80&nbsp;s</td>
             </tr>
             <tr>
               <th scope="row">Memory afterwards</th>
-              <td class="lp-compare-pick">1.3&nbsp;GB</td>
-              <td>6.8&nbsp;GB</td>
+              <td class="lp-compare-pick">1.6&nbsp;GB</td>
+              <td>6.2&nbsp;GB</td>
             </tr>
           </tbody>
         </table>
       </div>
       <p>
-        The runs agreed to within a few percent, with two exceptions. The
-        first LightPhotos launch after the build took 1.4&nbsp;s to show its
-        window, as macOS checked the new app. RapidRAW's memory was 6.4 to
-        7.0&nbsp;GB.
+        The times agreed to within a few percent, with two exceptions.
+        RapidRAW took 0.68 to 1.16&nbsp;s to show its window. LightPhotos'
+        grid settled in 0.93&nbsp;s in one run. Memory varied more:
+        LightPhotos used 1.3 to 1.7&nbsp;GB, and RapidRAW used 6.1 to
+        6.4&nbsp;GB.
       </p>
 
       <TimingComparison
@@ -237,16 +243,16 @@ import { rapidrawMacTimings } from "../../components/comparison-data";
         scale={3}
         milestones={["First visible change", "Whole screen settled"]}
         scenarios={rapidrawMacTimings}
-        note="Fixed 0–3 s scale. Medians of five runs, in a 3840 × 2000 window. The capture method cannot measure less than about 0.35 s. These times are for the whole window, not for a sharp photo."
+        note="Fixed 0–3 s scale. Medians of five runs, in a 3840 × 2000 window. The capture method cannot measure less than about 0.4 s. These times are for the whole window, not for a sharp photo."
       />
 
       <h2>Why the next photo is slower in RapidRAW</h2>
       <p>
         When you push the arrow key, RapidRAW reacts at once. It shows the
         1280&nbsp;px thumbnail that it made for the grid. Then it reads the
-        RAW file and decodes all 24 million pixels with rawler. It removes
-        colour noise and sharpens, renders the photo on the GPU and draws the
-        histogram. The window settles about 2.1&nbsp;s after the first change.
+        RAW file and decodes every pixel with rawler. It removes colour
+        noise and sharpens, renders the photo on the GPU and draws the
+        histogram. The window settles about 2.4&nbsp;s after the first change.
         RapidRAW does not start this work until you arrive on the photo.
       </p>
       <p>
@@ -275,7 +281,7 @@ import { rapidrawMacTimings } from "../../components/comparison-data";
         <p class="lp-try-readout" aria-live="polite">Photo 1 is open. Nothing prepared it, so the app develops it now.</p>
         <figcaption>
           The develop times are drawn at 0.7&nbsp;s for LightPhotos and
-          2.1&nbsp;s for RapidRAW. RapidRAW keeps the last five photos that it
+          2.4&nbsp;s for RapidRAW. RapidRAW keeps the last five photos that it
           decoded, so going back is fast. Going forward through a shoot, each
           photo is new.
         </figcaption>
@@ -289,19 +295,25 @@ import { rapidrawMacTimings } from "../../components/comparison-data";
       </p>
       <p>
         The first photo is closer. Nothing prepared it in either app. Both
-        show a small preview after about half a second. LightPhotos then
-        develops the RAW at the window size in ImageIO and settles at
-        1.17&nbsp;s. RapidRAW decodes the full RAW and settles at
-        1.31&nbsp;s. I do not know yet why each next photo takes RapidRAW
-        longer than the first one did.
+        show a small preview after about 0.65&nbsp;s. LightPhotos then
+        develops the RAW at the window size with <code>CIRAWFilter</code> and
+        settles at 1.14&nbsp;s. RapidRAW decodes the full RAW and settles at
+        1.63&nbsp;s.
+      </p>
+      <p>
+        Each next photo takes RapidRAW longer than the first one did. Size
+        explains part of that: the two 45-megapixel Canon R5 Mark&nbsp;II
+        files took 3.5 to 3.9&nbsp;s. But the 12-megapixel iPhone file still
+        took about 2.5&nbsp;s, so I do not know the rest of the reason yet.
       </p>
 
-      <h2>Why memory is five times higher</h2>
+      <h2>Why memory is four times higher</h2>
       <p>
-        LightPhotos keeps finished pixels at the window size, up to
-        4096&nbsp;px. RapidRAW keeps the whole decoded RAW at full size, with
-        four 32-bit floating-point numbers for each pixel, and it keeps the
-        last five that it decoded.
+        Both apps keep a RAW in floating point, with four numbers for each
+        pixel. LightPhotos uses 16-bit half floats at the window size, up to
+        4096&nbsp;px, and develops the full size only when you zoom in.
+        RapidRAW uses 32-bit floats for the whole decoded RAW at full size,
+        and it keeps the last five that it decoded.
       </p>
 
       <figure class="lp-figure lp-try" id="memory-demo">
@@ -309,9 +321,9 @@ import { rapidrawMacTimings } from "../../components/comparison-data";
           <button type="button" class="lp-try-btn" data-mode="rr" aria-pressed="true">RapidRAW</button>
           <button type="button" class="lp-try-btn" data-mode="lp" aria-pressed="false">LightPhotos</button>
         </div>
-        <svg viewBox="0 0 640 224" role="img" aria-label="Memory for one photo, drawn as a rectangle. The width is the number of pixels and the height is the bytes for each pixel. RapidRAW keeps 24 million pixels at 16 bytes, about 384 MB. LightPhotos keeps up to 11.2 million pixels at 4 bytes, about 45 MB.">
+        <svg viewBox="0 0 640 224" role="img" aria-label="Memory for one photo, drawn as a rectangle. The width is the number of pixels and the height is the bytes for each pixel. RapidRAW keeps 24 million pixels at 16 bytes, about 384 MB. LightPhotos keeps up to 11.2 million pixels at 8 bytes, about 89 MB.">
           <text class="lp-fig-label" x="0" y="12">MEMORY FOR ONE PHOTO = PIXELS × BYTES PER PIXEL</text>
-          <rect class="lp-fig-panel" data-ghost x="96" y="150" width="187" height="40" stroke-dasharray="4 4"></rect>
+          <rect class="lp-fig-panel" data-ghost x="96" y="115" width="187" height="75" stroke-dasharray="4 4"></rect>
           <rect class="lp-fig-bar" data-area x="96" y="40" width="400" height="150" rx="2"></rect>
           <text class="lp-fig-on-bar" data-mb x="296" y="120" text-anchor="middle">384 MB</text>
           <line class="lp-fig-line" x1="96" y1="196" x2="560" y2="196"></line>
@@ -321,16 +333,18 @@ import { rapidrawMacTimings } from "../../components/comparison-data";
         <p class="lp-try-readout" aria-live="polite">RapidRAW: 32-bit floating-point RGBA at full size. 6000 × 4000 × 16 bytes ≈ 384 MB a photo, up to 1.9 GB for five.</p>
         <figcaption>
           Select an app. The dashed outline is the other app. Sizes are for
-          this 24-megapixel camera at each app's largest size. The GPU copies,
+          a 24-megapixel photo, such as the Ricoh GR&nbsp;III file, at each
+          app's largest size. The GPU copies,
           the web view and the thumbnails come on top.
         </figcaption>
       </figure>
 
       <p>
-        With the full photo in floating point, RapidRAW can zoom to 100%, run
+        With the full photo already decoded, RapidRAW can zoom to 100%, run
         an AI mask or recover a highlight without another decode. On my
-        16&nbsp;GB Mac, 6.8&nbsp;GB is a large part of the memory, and a camera
-        with more megapixels needs more.
+        16&nbsp;GB Mac, 6.2&nbsp;GB is a large part of the memory, and a
+        camera with more megapixels needs more. One 45-megapixel R5
+        Mark&nbsp;II photo is about 716&nbsp;MB in RapidRAW.
       </p>
       <p>
         The app size has the same cause. RapidRAW's own program is 42&nbsp;MB,
@@ -349,7 +363,7 @@ import { rapidrawMacTimings } from "../../components/comparison-data";
         </li>
         <li>
           <strong>RapidRAW has the whole photo ready for editing.</strong> Its
-          sliders, masks and AI tools work on full-size floating-point pixels.
+          sliders, masks and AI tools work on full-size 32-bit pixels.
           The cost is memory, and a wait of about two seconds each time you
           move to a new photo.
         </li>
@@ -367,7 +381,7 @@ import { rapidrawMacTimings } from "../../components/comparison-data";
         These two apps show the same folder in two different ways. LightPhotos
         is built to go through a shoot. It is smaller, starts faster, fills its
         grid faster and has the next photo ready before you ask. RapidRAW is
-        built to edit one photo deeply. It keeps the full RAW in floating point
+        built to edit one photo deeply. It keeps the full RAW at full size in 32-bit floats
         and has far more tools to use on it. If you cull first and edit later,
         you can use both on the same folder. Neither app needs to import it.
       </p>
@@ -429,7 +443,7 @@ import { rapidrawMacTimings } from "../../components/comparison-data";
       const N = 7, W = 76, GAP = 14, X0 = 24, Y = 44, H = 52, KEEP = 5;
       const apps = {
         lp: { develop: 700, wanted: (i, cur) => Math.abs(i - cur) <= 1 },
-        rr: { develop: 2100, wanted: (i, cur) => i === cur },
+        rr: { develop: 2400, wanted: (i, cur) => i === cur },
       };
       const NS = "http://www.w3.org/2000/svg";
       const host = prefetch.querySelector("[data-frames]");
@@ -519,7 +533,7 @@ import { rapidrawMacTimings } from "../../components/comparison-data";
       const X = 96, BASE = 190, PX_PER_MP = 400 / 24, PX_PER_BYTE = 150 / 16;
       const apps = {
         rr: { mp: 24, bytes: 16, mb: 384, dims: "6000 × 4000", text: "RapidRAW: 32-bit floating-point RGBA at full size. 6000 × 4000 × 16 bytes ≈ 384 MB a photo, up to 1.9 GB for five." },
-        lp: { mp: 11.19, bytes: 4, mb: 45, dims: "4096 × 2731", text: "LightPhotos: finished RGBA at up to 4096 px. 4096 × 2731 × 4 bytes ≈ 45 MB a photo, 134 MB for three." },
+        lp: { mp: 11.19, bytes: 8, mb: 89, dims: "4096 × 2731", text: "LightPhotos: 16-bit floating-point RGBA at up to 4096 px. 4096 × 2731 × 8 bytes ≈ 89 MB a photo, 268 MB for three." },
       };
       const area = memory.querySelector("[data-area]");
       const ghost = memory.querySelector("[data-ghost]");

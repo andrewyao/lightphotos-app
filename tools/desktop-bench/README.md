@@ -14,8 +14,9 @@ tools/desktop-bench/bench.sh rapidraw    /path/to/RapidRAW.app    5
 
 Each run:
 
-1. Copies the first 20 `.ARW` files (by name) from `$PHOTOS` (default
-   `~/Desktop/Photos/100MSDCF`) into a new temp folder, so no cache has seen
+1. Copies the first `$COUNT` (default 20) RAW files (by name; ARW, CR2, CR3,
+   DNG, NEF, ORF, PEF, RAF, RW2 and SRW) from `$PHOTOS` (default
+   `tools/raw-bench/samples`, 18 files) into a new temp folder, so no cache has seen
    them. The app gets a new temp `HOME` too, so it starts with default
    settings and doesn't restore a view from the last run. LightCraft also gets
    a new library (`--library <tmp> --no-demo`). RapidRAW takes no folder
@@ -43,7 +44,8 @@ changing for 3 s. Two times are recorded:
 - **final**: the first capture of the frame the window settled on, i.e. the
   app finished.
 
-Every capture takes about 0.23 s, so nothing can measure below about 0.35 s.
+Every capture takes 0.2 to 0.3 s (`capture_overhead_s` in each result), so
+nothing can measure below about 0.35 to 0.45 s.
 Compare the two apps with each other, not with a stopwatch.
 
 Results are appended as JSON lines to `results/<time>-<app>.jsonl`. The last
