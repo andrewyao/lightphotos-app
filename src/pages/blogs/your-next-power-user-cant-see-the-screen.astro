@@ -1,0 +1,382 @@
+---
+import Base from "../../layouts/Base.astro";
+---
+<Base
+  title="Your next power user can’t see the screen — LightPhotos Blog"
+  desc="Accessibility lets people with disabilities use an app that was designed for a mouse and a pair of eyes. MCP lets an agent use it for a power user who wants a thousand photos done at once. Both ask the app the same questions."
+  active="blogs"
+>
+  <main class="lp-page">
+    <article class="lp-article">
+      <header class="lp-article-head">
+        <p class="lp-article-meta"><a href="/blogs.html">Blogs</a> &middot; <time datetime="2026-10-17">October 17, 2026</time></p>
+        <h1>Your next power user can&rsquo;t see the screen</h1>
+        <p class="lp-article-dek">
+          Accessibility lets people with disabilities use an app that was
+          designed for a mouse and a pair of eyes. MCP lets an agent use it
+          for a power user who wants a thousand photos done at once. Both
+          ask the app the same questions.
+        </p>
+        <p class="lp-article-byline">Andrew Yao &middot; 6 min read</p>
+      </header>
+
+      <aside class="lp-tldr">
+        <p class="lp-tldr-label">TL;DR</p>
+        <p>
+          User experience design is for the typical user: a person with a
+          mouse, a screen and some time. Accessibility is for the people that
+          design leaves out because of a disability. The agentic experience
+          is for the people at the other end, who want an agent to do the
+          work of a hundred clicks. A screen reader and an agent need the same
+          things from an app: a list of what it can do, a way to do each
+          thing by name, and a description of what is on screen.
+          LightPhotos draws its interface with egui, which gives a screen
+          reader little to read, so reading the app mostly means capturing
+          the screen. The fix for agents is one list of 30 commands, plus
+          the app's state as text. The keyboard, the menu bar, the control
+          channel and the MCP server all use it.
+        </p>
+      </aside>
+
+      <h2>Two users the design leaves out</h2>
+      <p>
+        When I design a screen in LightPhotos, I picture one person. They
+        sit in front of a laptop, they move a mouse, and they look at the
+        photo. Almost every app is designed for that person, and that is
+        correct. Most users are that person.
+      </p>
+      <p>
+        Accessibility is the work for the people who are not. A blind
+        photographer cannot see the grid, so a screen reader must read it
+        to them. A person with a tremor cannot drag a slider to an exact
+        value, so the keyboard must do it. Accessibility removes the
+        requirement for a particular body. The app still does the same
+        things, and more people can tell it to.
+      </p>
+      <p>
+        The agentic experience is for a different person that the design
+        also leaves out: the power user. After a wedding, I have 1,200
+        photos. I want to say &ldquo;reject every photo where the eyes are
+        closed, rate the sharpest of each burst three stars, and give the
+        rest the warm preset,&rdquo; and then go and eat dinner. No screen
+        layout makes that fast, because the limit is my hand. One person
+        cannot click 1,200 times without mistakes. An agent can.
+      </p>
+      <p>
+        So accessibility lets the app do everything for people who cannot
+        use the default input. MCP lets the app do more than one person
+        could do with that input. These two goals look opposite, but they
+        need the same changes to the app. A blind photographer and an agent
+        have one thing in common. Neither of them can see the screen.
+      </p>
+
+      <h2>The same three questions</h2>
+      <p>
+        A screen reader cannot see pixels. It asks the operating system
+        about the app, through the accessibility tree, and it asks three
+        questions:
+      </p>
+      <ul class="lp-article-list">
+        <li>What is on the screen? Each control has a name, a role and a value.</li>
+        <li>What can I do here? Each control lists its actions, such as press or increment.</li>
+        <li>What happened? The app announces a change, so the user knows the action worked.</li>
+      </ul>
+      <p>
+        LightPhotos answers these questions badly. Its interface is drawn
+        with <a href="https://github.com/emilk/egui">egui</a>, which paints
+        every button, slider and thumbnail into one GPU frame, 60 times a
+        second. The operating system sees a window full of pixels. egui can
+        describe some widgets through AccessKit, but a photo grid and a
+        develop panel give it very little to say. For a screen reader,
+        most of LightPhotos is one large image. The only way to read it is
+        to capture the screen and guess what the pixels mean.
+      </p>
+      <p>
+        An agent has the same problem. It can take a screenshot and look at
+        it, and the MCP server has a <code>screenshot</code> tool for that.
+        But a screenshot is a slow, lossy way to learn that photo 412 has
+        three stars. An agent that uses MCP asks the same three questions
+        as a screen reader, and it needs the answers as text. In
+        LightPhotos, they are four tools. <code>list_commands</code> answers &ldquo;what can I
+        do?&rdquo; <code>get_state</code> and <code>list_photos</code> answer
+        &ldquo;what is on the screen?&rdquo; <code>run_command</code> does
+        one thing, and its reply says what happened, or why it failed.
+      </p>
+      <p>
+        An app that answers these questions well for a screen reader is
+        most of the way to an app that answers them for an agent. An app
+        that answers them for neither is a set of pixels that only one kind
+        of person can use.
+      </p>
+
+      <figure class="lp-figure lp-try" id="reader-demo">
+        <div class="lp-try-controls" role="group" aria-label="Who reads the app">
+          <button type="button" class="lp-try-btn" data-reader="sr" aria-pressed="true">Screen reader</button>
+          <button type="button" class="lp-try-btn" data-reader="shot" aria-pressed="false">Agent with a screenshot</button>
+          <button type="button" class="lp-try-btn" data-reader="mcp" aria-pressed="false">Agent with MCP</button>
+        </div>
+        <svg viewBox="0 0 640 236" role="img" aria-label="Interactive: the same LightPhotos window, and what a screen reader, an agent with a screenshot, or an agent with MCP gets from it.">
+          <text class="lp-fig-label" x="0" y="12">THE SAME EGUI WINDOW</text>
+          <rect class="lp-fig-panel" x="0" y="24" width="300" height="208" rx="8"></rect>
+          <text class="lp-fig-s" x="12" y="40">LightPhotos</text>
+          <line class="lp-fig-line-soft" x1="0" y1="48" x2="300" y2="48"></line>
+          <g>
+            <rect class="lp-fig-box" x="12" y="60" width="84" height="56" rx="4"></rect>
+            <rect class="lp-fig-box" x="108" y="60" width="84" height="56" rx="4"></rect>
+            <rect class="lp-fig-box-accent" x="204" y="60" width="84" height="56" rx="4" stroke-width="2"></rect>
+            <rect class="lp-fig-box" x="12" y="146" width="84" height="56" rx="4"></rect>
+            <rect class="lp-fig-box" x="108" y="146" width="84" height="56" rx="4"></rect>
+            <rect class="lp-fig-box" x="204" y="146" width="84" height="56" rx="4"></rect>
+            <text class="lp-fig-s" x="12" y="132">★★☆☆☆</text>
+            <text class="lp-fig-s" x="108" y="132">☆☆☆☆☆</text>
+            <text class="lp-fig-s" x="204" y="132">★★★☆☆</text>
+            <text class="lp-fig-s" x="12" y="218">★★★★★</text>
+            <text class="lp-fig-s" x="108" y="218">★☆☆☆☆</text>
+            <text class="lp-fig-s" x="204" y="218">★★★★☆</text>
+          </g>
+
+          <g data-view="sr">
+            <rect x="1" y="49" width="298" height="182" rx="7" style="fill: var(--surface-card)"></rect>
+            <rect class="lp-fig-box" x="1" y="49" width="298" height="182" rx="7"></rect>
+            <text class="lp-fig-t" x="150" y="134" text-anchor="middle">One image</text>
+            <text class="lp-fig-s" x="150" y="154" text-anchor="middle">No photos. No stars. No buttons.</text>
+          </g>
+          <g data-view="shot" display="none">
+            <circle class="lp-fig-bad-stroke" cx="246" cy="128" r="22" stroke-dasharray="4 3"></circle>
+            <text class="lp-fig-t" x="276" y="104">?</text>
+            <text class="lp-fig-mono lp-fig-s" x="288" y="40" text-anchor="end">click (412, 288)</text>
+          </g>
+          <g data-view="mcp" display="none">
+            <text class="lp-fig-mono lp-fig-s" x="20" y="78">photo 1</text>
+            <text class="lp-fig-mono lp-fig-s" x="116" y="78">photo 2</text>
+            <text class="lp-fig-mono lp-fig-s" x="212" y="78">photo 3</text>
+            <text class="lp-fig-mono lp-fig-s" x="20" y="164">photo 4</text>
+            <text class="lp-fig-mono lp-fig-s" x="116" y="164">photo 5</text>
+            <text class="lp-fig-mono lp-fig-s" x="212" y="164">photo 6</text>
+          </g>
+
+          <path class="lp-fig-line" d="M300 96 H330"></path>
+          <path class="lp-fig-arrow" d="M330 91 L330 101 L338 96 Z"></path>
+
+          <text class="lp-fig-label" x="344" y="12">WHAT IT GETS</text>
+          <rect class="lp-fig-panel" x="344" y="24" width="296" height="128" rx="8"></rect>
+          <g data-view="sr">
+            <text class="lp-fig-mono lp-fig-t" x="358" y="50">window "LightPhotos"</text>
+            <text class="lp-fig-mono lp-fig-s" x="374" y="72">image, no name</text>
+            <text class="lp-fig-s" x="358" y="104">The reader asks for controls.</text>
+            <text class="lp-fig-s" x="358" y="122">egui gives pixels only.</text>
+          </g>
+          <g data-view="shot" display="none">
+            <text class="lp-fig-mono lp-fig-t" x="358" y="50">screenshot.png</text>
+            <text class="lp-fig-mono lp-fig-s" x="374" y="72">1440 × 900 px</text>
+            <text class="lp-fig-s" x="358" y="104">The agent looks at the pixels.</text>
+            <text class="lp-fig-s" x="358" y="122">Photo 3 has 3 stars, or 4?</text>
+          </g>
+          <g data-view="mcp" display="none">
+            <text class="lp-fig-mono lp-fig-t" x="358" y="50">list_photos</text>
+            <text class="lp-fig-mono lp-fig-s" x="374" y="72">&#123;"photo": 3, "rating": 3, …&#125;</text>
+            <text class="lp-fig-mono lp-fig-t" x="358" y="100">run_command</text>
+            <text class="lp-fig-mono lp-fig-s" x="374" y="122">photo.rate &#123;"stars": 3&#125;</text>
+          </g>
+
+          <text class="lp-fig-label" x="344" y="176">CAN IT RATE PHOTO 3?</text>
+          <rect class="lp-fig-panel" x="344" y="188" width="296" height="44" rx="8"></rect>
+          <g data-view="sr">
+            <circle class="lp-fig-bad" cx="364" cy="210" r="6"></circle>
+            <text class="lp-fig-t" x="380" y="215">No. It cannot find photo 3.</text>
+          </g>
+          <g data-view="shot" display="none">
+            <circle class="lp-fig-bad-stroke" cx="364" cy="210" r="6"></circle>
+            <text class="lp-fig-t" x="380" y="215">Maybe. It clicks and hopes.</text>
+          </g>
+          <g data-view="mcp" display="none">
+            <circle class="lp-fig-good" cx="364" cy="210" r="6"></circle>
+            <text class="lp-fig-t" x="380" y="215">Yes. The reply is "ok": true.</text>
+          </g>
+        </svg>
+        <p class="lp-try-readout" aria-live="polite">The screen reader asks the window for its controls. egui gives one image. The reader cannot find photo 3, so it cannot rate it.</p>
+        <figcaption>
+          The window is the same for each reader. Only the agent with MCP
+          gets the photos as text. The screen reader does not get this text
+          yet, because egui does not give it to the operating system.
+        </figcaption>
+      </figure>
+
+      <figure class="lp-figure">
+        <svg viewBox="0 0 640 250" role="img" aria-label="Six inputs on the left: keyboard shortcuts, the menu bar, drive scripts, the control channel, lightphotos-mcp and WebMCP. Each has an arrow into one Command type with 30 ids, which runs the action in the app.">
+          <text class="lp-fig-label" x="0" y="12">WHO ASKS</text>
+
+          <rect class="lp-fig-panel" x="0" y="24" width="220" height="30" rx="6"></rect>
+          <text class="lp-fig-s" x="14" y="44">Keyboard shortcuts</text>
+          <rect class="lp-fig-panel" x="0" y="62" width="220" height="30" rx="6"></rect>
+          <text class="lp-fig-s" x="14" y="82">Menu bar</text>
+          <rect class="lp-fig-panel" x="0" y="100" width="220" height="30" rx="6"></rect>
+          <text class="lp-fig-mono lp-fig-s" x="14" y="120">--drive scripts</text>
+          <rect class="lp-fig-panel" x="0" y="138" width="220" height="30" rx="6"></rect>
+          <text class="lp-fig-mono lp-fig-s" x="14" y="158">--control (TCP)</text>
+          <rect class="lp-fig-panel" x="0" y="176" width="220" height="30" rx="6"></rect>
+          <text class="lp-fig-mono lp-fig-s" x="14" y="196">lightphotos-mcp</text>
+          <rect class="lp-fig-panel" x="0" y="214" width="220" height="30" rx="6"></rect>
+          <text class="lp-fig-s" x="14" y="234">WebMCP in the browser</text>
+
+          <path class="lp-fig-line" d="M220 39 H280 V135 H372"></path>
+          <path class="lp-fig-line" d="M220 77 H280"></path>
+          <path class="lp-fig-line" d="M220 115 H280"></path>
+          <path class="lp-fig-line" d="M220 153 H280"></path>
+          <path class="lp-fig-line" d="M220 191 H280"></path>
+          <path class="lp-fig-line" d="M220 229 H280 V135"></path>
+          <path class="lp-fig-arrow" d="M372 130 L372 140 L380 135 Z"></path>
+
+          <text class="lp-fig-label" x="392" y="12">ONE LIST OF ACTIONS</text>
+          <rect class="lp-fig-box-accent" x="392" y="62" width="248" height="146" rx="8"></rect>
+          <text class="lp-fig-mono lp-fig-t" x="406" y="88">enum Command</text>
+          <text class="lp-fig-s" x="406" y="110">30 ids, each with typed params</text>
+          <text class="lp-fig-mono lp-fig-s" x="422" y="136">photo.rate</text>
+          <text class="lp-fig-mono lp-fig-s" x="422" y="156">develop.set</text>
+          <text class="lp-fig-mono lp-fig-s" x="422" y="176">mask.add</text>
+          <text class="lp-fig-s" x="422" y="196">&hellip;</text>
+        </svg>
+        <figcaption>
+          Every way to tell LightPhotos to do something ends at the same
+          type. A new command is available to all six at once.
+        </figcaption>
+      </figure>
+
+      <h2>What I gave up, and what I got back</h2>
+      <p>
+        In <a href="/blogs/why-rust.html">Why Rust</a>, I wrote that I
+        accepted weaker accessibility. Browsers give screen reader support
+        for free. The Rust UI libraries, egui among them, are far behind. In
+        <a href="/blogs/my-plan.html">my plan</a>, I wrote that keyboard
+        support is the part of that problem that I can fix myself. So every
+        feature will work without the mouse.
+      </p>
+      <p>
+        To make every feature work from the keyboard, I had to give every
+        feature a name. That became <code>src/command.rs</code>: one Rust
+        enum, <code>Command</code>, with a variant for each action. Each
+        variant has a fixed id, such as <code>photo.rate</code>, and a params
+        struct, such as <code>&#123;"stars": 4&#125;</code>. The keyboard and the menu
+        bar do not call the editor directly. They make a
+        <code>Command</code> and dispatch it.
+      </p>
+      <p>
+        When I added the MCP server, most of the work was already done.
+        <code>lightphotos-mcp</code> reads the same enum.
+        <code>list_commands</code> prints each id with an example of its
+        params. <code>run_command</code> parses the JSON into a
+        <code>Command</code> and runs it. I did not write a second API for
+        agents. The agent uses the list of actions that I wrote for the
+        keyboard.
+      </p>
+      <p>
+        The server runs in two modes. With <code>--folder</code>, it needs
+        no app. It writes ratings, flags, labels and edits into the
+        sidecars next to the photos, and <code>render</code> returns a photo
+        with its edits as a JPEG, so the agent can look at its own work.
+        With <code>--attach</code>, it drives a running app, and
+        <code>screenshot</code> returns the window. In the browser, the web
+        app registers the same tools with WebMCP, so an agent in the browser
+        uses the open tab.
+      </p>
+
+      <h2>A feature that only the mouse can do</h2>
+      <p>
+        The rule I follow now is this: if a feature has no command, it does
+        not exist for a keyboard user or for an agent. Brush masks showed
+        me where I had broken the rule. A brush stroke was a drag with the
+        mouse, and nothing else. A screen reader user could not paint one.
+        An agent could not paint one either.
+      </p>
+      <p>
+        To give brush masks to agents, I had to describe a stroke in words:
+        <code>mask.add</code> now takes a list of points. That is also the
+        description an assistive tool needs. When I fixed the feature for
+        the power user, I fixed it for the user with a disability too. The
+        reverse is also true. When you make a feature accessible, you have
+        usually also made it available to agents.
+      </p>
+      <p>
+        The same is true for errors. A sighted user sees a disabled button
+        and understands. A screen reader user needs the reason in words. An
+        agent needs it in words too, and it also needs the next step. When a
+        LightPhotos tool fails, its reply says what to do next. An unknown
+        id gets &ldquo;Call <code>list_commands</code> to see every
+        id.&rdquo; A
+        good error for an agent is a good error for a person.
+      </p>
+
+      <h2>Where the comparison breaks</h2>
+      <p>
+        The two are not equal. Accessibility is about whether a person can
+        use the app at all. In many countries it is the law. MCP is about
+        speed for people who can already use the app. I am not saying that
+        an MCP server is a substitute for screen reader support. It is not.
+        A blind user of LightPhotos today still gets a window of egui
+        pixels, and MCP does not change that.
+      </p>
+      <p>
+        An agent can also do damage at a scale a person cannot. One wrong
+        instruction can change 1,200 sidecars. So the agent path has guards
+        that a screen reader does not need. In headless mode, the server
+        checks every photo in a batch before it writes any of them. It
+        refuses a symlink that leads out of the folder. In attached mode,
+        the app requires a token, and the server reads the token only from
+        the environment, so <code>ps</code> does not show it to other users.
+      </p>
+
+      <h2>What this changes</h2>
+      <p>
+        A feature in LightPhotos is now finished when it has three things:
+        a control on the screen, a <code>Command</code> with a name and
+        params, and state that <code>get_state</code> or
+        <code>list_photos</code> can report. The second and third are what
+        the keyboard, the menu bar and the agent use. They are also the
+        text a screen reader would need. When egui can expose more than
+        pixels, the names and the state will already exist.
+      </p>
+      <p>
+        I used to think of accessibility as work for a small group of
+        users. Now I think of it as the work that makes the app readable by
+        anything other than a pair of eyes. A person with a disability was
+        the first user who needed that. An agent is the second. The README
+        has the steps to
+        <a href="https://github.com/andrewyao/lightphotos#agent-control-mcp">connect
+        an agent</a>. If a feature has no command yet,
+        <a href="https://github.com/andrewyao/lightphotos/issues">open an
+        issue</a>.
+      </p>
+
+      <nav class="lp-article-nav" aria-label="More posts">
+        <a class="lp-article-nav-prev" href="/blogs/lightphotos-and-rapidraw-on-the-mac.html">
+          <span class="lp-article-nav-dir">Back</span>
+          <span class="lp-article-nav-title">LightPhotos and RapidRAW on the Mac</span>
+        </a>
+      </nav>
+    </article>
+  </main>
+  <script>
+    const fig = document.getElementById("reader-demo");
+    if (fig) {
+      const buttons = fig.querySelectorAll("[data-reader]");
+      const views = fig.querySelectorAll("[data-view]");
+      const readout = fig.querySelector(".lp-try-readout");
+      const MESSAGES = {
+        sr: "The screen reader asks the window for its controls. egui gives one image. The reader cannot find photo 3, so it cannot rate it.",
+        shot: "The agent gets a PNG. It guesses the stars from the pixels, then it clicks at a position. If the layout moves, the click goes to the wrong photo.",
+        mcp: "The agent reads each photo and its rating as text. It sends photo.rate with 3 stars. The reply tells the agent that the command worked.",
+      };
+
+      const show = (reader) => {
+        buttons.forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.reader === reader)));
+        views.forEach((v) => {
+          if (v.getAttribute("data-view") === reader) v.removeAttribute("display");
+          else v.setAttribute("display", "none");
+        });
+        readout.textContent = MESSAGES[reader];
+      };
+
+      buttons.forEach((btn) => btn.addEventListener("click", () => show(btn.dataset.reader)));
+    }
+  </script>
+</Base>

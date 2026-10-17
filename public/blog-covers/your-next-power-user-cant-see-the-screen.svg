@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675">
+  <rect width="1200" height="675" fill="#141a22"/>
+  <g font-family="system-ui,sans-serif">
+    <text x="85" y="108" fill="#8eb5e0" font-size="20" letter-spacing="4">LIGHTPHOTOS · AGENTS</text>
+    <text x="80" y="200" fill="#f0f3f7" font-size="58" font-weight="600">Your next power user</text>
+    <text x="80" y="272" fill="#f0f3f7" font-size="58" font-weight="600">can’t see the screen</text>
+    <text x="85" y="330" fill="#aab6c6" font-size="25">Screen readers · keyboards · agents</text>
+    <rect x="80" y="383" width="1040" height="210" rx="16" fill="#202c3a"/>
+    <g fill="#b6c3d3" font-size="22">
+      <text x="112" y="432">Question</text><text x="450" y="432">Screen reader</text><text x="800" y="432">Agent (MCP)</text>
+    </g>
+    <path d="M110 453H1090 M110 514H1090" stroke="#354559"/>
+    <g fill="#ecf1f7" font-size="24">
+      <text x="112" y="492">What can I do?</text><text x="450" y="492">Actions per control</text>
+      <text x="112" y="555">What is there?</text><text x="450" y="555">Accessibility tree</text>
+    </g>
+    <g fill="#9cdbb4" font-size="24" font-family="ui-monospace,monospace">
+      <text x="800" y="492">list_commands</text>
+      <text x="800" y="555">get_state</text>
+    </g>
+  </g>
+</svg>
