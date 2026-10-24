@@ -2261,7 +2261,7 @@ Community Data License Agreement Permissive 2.0 (CDLA-Permissive-2.0)
 ################################################################################
 
 Used by:
-  webpki-roots 1.0.9
+  webpki-roots 1.0.10
 
 # Community Data License Agreement - Permissive - Version 2.0
 
@@ -2876,7 +2876,7 @@ THIS SOFTWARE.
 --------------------------------------------------------------------------------
 
 Used by:
-  rustls-webpki 0.103.15
+  rustls-webpki 0.103.16
 
 Except as otherwise noted, this project is licensed under the following
 (ISC-style) terms:
@@ -3961,7 +3961,7 @@ DEALINGS IN THE SOFTWARE.
 --------------------------------------------------------------------------------
 
 Used by:
-  rustls 0.23.45
+  rustls 0.23.46
 
 Copyright (c) 2016 Joseph Birr-Pixton <jpixton@gmail.com>
 
@@ -5206,7 +5206,7 @@ DEALINGS IN THE SOFTWARE.
 --------------------------------------------------------------------------------
 
 Used by:
-  memmap2 0.9.10
+  memmap2 0.9.11
 
 Copyright (c) 2020 Yevhenii Reizner
 Copyright (c) 2015 Dan Burkert
@@ -7560,7 +7560,7 @@ SOFTWARE.
 --------------------------------------------------------------------------------
 
 Used by:
-  webbrowser 1.2.1
+  webbrowser 1.2.4
 
 The MIT License (MIT)
 
@@ -8336,6 +8336,7 @@ these patches from the patches/ directory:
   patches/rawler-ljpeg-restart.patch
   patches/rawler-sensor-type-fallback.patch
   patches/rawler-cr2-sraw-black.patch
+  patches/rawler-develop-errors.patch
 
 The modified source, the patches and the script are available at
 https://github.com/andrewyao/lightphotos.
