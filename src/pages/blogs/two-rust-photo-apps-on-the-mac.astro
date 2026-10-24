@@ -11,7 +11,7 @@ import { macTimings } from "../../components/comparison-data";
   <main class="lp-page">
     <article class="lp-article">
       <header class="lp-article-head">
-        <p class="lp-article-meta"><a href="/blogs.html">Blogs</a> &middot; <time datetime="2026-10-07">October 7, 2026</time></p>
+        <p class="lp-article-meta"><a href="/blogs.html">Blogs</a> &middot; <time datetime="2026-10-07">October 7, 2026</time> &middot; Updated <time datetime="2026-10-19">October 19, 2026</time></p>
         <h1>Two Rust photo apps on the Mac</h1>
         <p class="lp-article-dek">
           The same test as <a
@@ -85,12 +85,9 @@ import { macTimings } from "../../components/comparison-data";
       </figure>
 
       <p>
-        LightCraft also has many more finished features. It is a full
-        Lightroom-style editor, with masks, healing, lens
-        corrections, presets, history, HDR and panorama merges, and export to
-        six formats. LightPhotos has a smaller job: you go through a folder
-        fast, keep the good photos and make quick edits. Remember this for
-        each number below.
+        Both apps are Lightroom-style editors. LightCraft still has some
+        features that LightPhotos does not: lens corrections, a history
+        panel, HDR and panorama merges, and a sixth export format.
       </p>
 
       <div class="lp-compare-wrap">
@@ -120,7 +117,7 @@ import { macTimings } from "../../components/comparison-data";
             </tr>
             <tr>
               <th scope="row">Your photos</th>
-              <td class="lp-compare-pick">Folders, read in place. Each folder keeps its own part of the catalog.</td>
+              <td class="lp-compare-pick">Folders, read in place. Catalogs list folders; ratings and edits stay in each folder.</td>
               <td>One central catalog. Files stay in place unless you copy them.</td>
             </tr>
             <tr>
@@ -132,7 +129,7 @@ import { macTimings } from "../../components/comparison-data";
         </table>
       </div>
 
-      <h2>One catalog or one in each folder</h2>
+      <h2>Where ratings and edits live</h2>
       <p>
         LightCraft keeps one central library, as Lightroom does. Its catalog records
         every photo, so searches, albums and stacks can include all of them.
@@ -142,11 +139,12 @@ import { macTimings } from "../../components/comparison-data";
         later if you did not change the photos.
       </p>
       <p>
-        LightPhotos does it differently. The app can open many folders, and
-        each folder keeps its own small cache and index in the
-        <code>.lightphotos</code> folder inside it. The catalog for a folder
-        moves with the folder. You can move, copy, rename or delete a folder
-        in Finder, and the app does not need to know, other than opening it again.
+        LightPhotos also has <a href="/blogs/catalogs.html">catalogs</a>,
+        but a catalog is a list of folders. Ratings and edits are stored in
+        the <code>.lightphotos</code> folder inside each photo folder, so
+        they move with the folder. You can move, copy, rename or delete a
+        folder in Finder, and the app does not need to know, other than
+        opening it again.
       </p>
 
       <h2>How I measured</h2>
@@ -390,11 +388,10 @@ import { macTimings } from "../../components/comparison-data";
       <p>
         On the Mac, LightPhotos relies on the operating system, and LightCraft
         relies on itself. LightPhotos is smaller, starts faster, fills its
-        grid faster, but uses a little more memory. Apple did that work, and a
-        smaller feature set fits in a smaller app. Both apps prepare the
-        photos on each side, so both are equally fast through a shoot.
-        LightCraft looks the same everywhere and does much more when you
-        start to edit.
+        grid faster, but uses a little more memory. Apple did most of that
+        work. Both apps prepare the photos on each side, so both are equally
+        fast through a shoot. LightCraft looks the same everywhere, and it
+        still has a few editing tools that LightPhotos does not have yet.
       </p>
 
       <nav class="lp-article-nav" aria-label="More posts">

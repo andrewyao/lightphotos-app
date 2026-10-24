@@ -1267,6 +1267,11 @@ a.lp-split-card:focus-visible {
   overflow-wrap: anywhere;
 }
 
+/* A transcript keeps its lines; it scrolls inside its box on a phone. */
+pre.lp-code {
+  overflow-x: auto;
+}
+
 .lp-shared-list a {
   color: var(--lp-accent);
 }
@@ -1450,6 +1455,12 @@ a.lp-split-card:focus-visible {
   font-size: 1.45rem;
   font-weight: 560;
   letter-spacing: -0.01em;
+}
+
+.lp-article > h3 {
+  margin-top: 1.8rem;
+  font-size: 1.1rem;
+  font-weight: 560;
 }
 
 .lp-article p,

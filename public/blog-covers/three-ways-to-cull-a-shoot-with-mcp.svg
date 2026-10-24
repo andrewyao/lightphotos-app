@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675">
+  <rect width="1200" height="675" fill="#141a22"/>
+  <g font-family="system-ui,sans-serif">
+    <text x="85" y="108" fill="#8eb5e0" font-size="20" letter-spacing="4">LIGHTPHOTOS · AGENTS</text>
+    <text x="80" y="200" fill="#f0f3f7" font-size="58" font-weight="600">Three ways to let AI</text>
+    <text x="80" y="272" fill="#f0f3f7" font-size="58" font-weight="600">cull a shoot</text>
+    <text x="85" y="330" fill="#aab6c6" font-size="25">app score · local model · Claude Code</text>
+    <g font-size="23" font-family="ui-monospace,monospace">
+      <rect x="80" y="390" width="320" height="72" rx="10" fill="#141a22" stroke="#8eb5e0"/>
+      <text x="240" y="434" fill="#ecf1f7" text-anchor="middle">app score · macOS</text>
+      <rect x="80" y="476" width="320" height="72" rx="10" fill="#141a22" stroke="#354559"/>
+      <text x="240" y="520" fill="#ecf1f7" text-anchor="middle">Ollama · local</text>
+      <rect x="80" y="562" width="320" height="72" rx="10" fill="#141a22" stroke="#354559"/>
+      <text x="240" y="606" fill="#ecf1f7" text-anchor="middle">Claude Code</text>
+      <path d="M400 426C520 426 520 512 640 512 M400 512H640 M400 598C520 598 520 512 640 512" stroke="#b6c3d3" stroke-width="2" fill="none"/>
+      <rect x="640" y="430" width="480" height="164" rx="10" fill="#202c3a" stroke="#354559"/>
+      <text x="672" y="474" fill="#9cdbb4">0–100 score</text>
+      <text x="672" y="512" fill="#ecf1f7">&lt; 40   rejected</text>
+      <text x="672" y="546" fill="#ecf1f7">40–59  ★★</text>
+      <text x="672" y="580" fill="#ecf1f7">60+    ★★★</text>
+    </g>
+  </g>
+</svg>
