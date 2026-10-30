@@ -2810,7 +2810,7 @@ function __wbg_get_imports(memory) {
             return ret;
         },
         __wbindgen_cast_000000000000000d: function(arg0, arg1) {
-            // Cast intrinsic for `Closure(Closure { owned: true, function: Function { arguments: [Ref(NamedExternref("MessageEvent"))], shim_idx: 1183, ret: Unit, inner_ret: Some(Unit) }, mutable: true }) -> Externref`.
+            // Cast intrinsic for `Closure(Closure { owned: true, function: Function { arguments: [Ref(NamedExternref("MessageEvent"))], shim_idx: 1190, ret: Unit, inner_ret: Some(Unit) }, mutable: true }) -> Externref`.
             const ret = makeMutClosure(arg0, arg1, wasm_bindgen_9bcd6b9af42eb160___convert__closures________invoke___web_sys_c0f1ad363976bea4___features__gen_MessageEvent__MessageEvent______true_);
             return ret;
         },
@@ -2887,7 +2887,7 @@ function __wbg_get_imports(memory) {
             getDataViewMemory0().setInt32(arg0 + 4 * 1, len1, true);
             getDataViewMemory0().setInt32(arg0 + 4 * 0, ptr1, true);
         },
-        memory: memory || new WebAssembly.Memory({initial:68,maximum:65536,shared:true}),
+        memory: memory || new WebAssembly.Memory({initial:86,maximum:65536,shared:true}),
     };
     return {
         __proto__: null,
