@@ -1,0 +1,141 @@
+---
+// Every row here is a string the app's own help dialog (?) shows, so this
+// page can be checked against the build rather than against memory. Rows are
+// grouped by what you are doing, not by which panel owns the key.
+const groups = [
+  {
+    title: "Navigation",
+    rows: [
+      { key: "Cmd+O", does: "Einen Ordner hinzufügen und öffnen" },
+      { key: "Enter / Space / E", does: "Das ausgewählte Foto öffnen (im Raster)" },
+      { key: "Esc / G", does: "Zurück zum Raster (im Editor)" },
+      { key: "← / →", does: "Vorheriges / nächstes Foto im Editor; im Raster die Hervorhebung bewegen" },
+      { key: "Page Up / Page Down", does: "Vorheriges / nächstes Foto (im Editor)" },
+      { key: "D", does: "Das ausgewählte Foto anpassen" },
+      { key: "C", does: "2 bis 6 ausgewählte Fotos oder den ausgewählten Stapel vergleichen" },
+      { key: "I", does: "Fotoinfo im rechten Bereich zeigen oder ausblenden" },
+      { key: "F6 / Shift+F6", does: "Nächster Bereich oder nächstes Bedienelement im aktiven Bereich" },
+      { key: "Tab / Shift+Tab", does: "Zwischen den Objekten im fokussierten Bereich wechseln" },
+      { key: "Cmd+,", does: "Einstellungen: Design und Sprache" },
+      { key: "Alt+= / Alt+-", does: "Größerer / kleinerer Text" },
+      { key: "?", does: "Die Liste der Tastaturkurzbefehle in der App zeigen oder ausblenden" },
+    ],
+  },
+  {
+    title: "Bewerten, markieren und Farbmarkierung",
+    rows: [
+      { key: "0 – 5", does: "Sternebewertung setzen (0 entfernt sie)" },
+      { key: "Shift+0 – 5", does: "Bewertung setzen und zum nächsten Foto" },
+      { key: "P / X / U", does: "Markieren / Ablehnen / Markierung entfernen" },
+      { key: "`", does: "Markieren oder bei einem markierten Foto die Markierung entfernen" },
+      { key: "6 / 7 / 8 / 9", does: "Rote / gelbe / grüne / blaue Farbmarkierung; dieselbe Taste noch einmal entfernt sie" },
+    ],
+  },
+  {
+    title: "Auswählen und stapeln",
+    rows: [
+      { key: "Cmd+A", does: "Alles im aktuellen Ordner auswählen (im Raster)" },
+      { key: "Cmd+D", does: "Auswahl aufheben" },
+      { key: "Shift+Click", does: "Bereich im Raster auswählen" },
+      { key: "Cmd+Click", does: "Ein Foto zur Auswahl hinzufügen oder daraus entfernen" },
+      { key: "Shift+Arrows", does: "Die Auswahl mit den Pfeiltasten erweitern" },
+      { key: "Cmd+G", does: "Die Auswahl stapeln" },
+      { key: "Cmd+Shift+G", does: "Die ausgewählten Stapel auflösen" },
+      { key: "Shift+Delete", does: "Die ausgewählten Stapel löschen oder auflösen und die Fotos behalten" },
+    ],
+  },
+  {
+    title: "Zoomen und Verschieben",
+    rows: [
+      { key: "Space / Z", does: "Zoom wechseln: einpassen, 2x eingepasst, 100%" },
+      { key: "Cmd++ / Cmd+= / Cmd+-", does: "Vergrößern / verkleinern in 20%-Schritten" },
+      { key: "↑ / ↓", does: "Vergrößern / verkleinern in 10%-Schritten" },
+      { key: "Scroll", does: "Am Zeiger zoomen" },
+      { key: "Drag / Space+Drag", does: "Verschieben" },
+      { key: "Shift+Scroll", does: "Seitlich verschieben" },
+      { key: "Alt+Scroll", does: "Nach oben und unten verschieben" },
+    ],
+  },
+  {
+    title: "Entwickeln und exportieren",
+    rows: [
+      { key: "Cmd+Z", does: "Die letzte Entwicklungsänderung widerrufen" },
+      { key: "Cmd+[ / Cmd+]", does: "Um -90 / +90 Grad drehen" },
+      { key: "R", does: "Zuschneiden; Enter oder R wendet den Zuschnitt an, Esc bricht ab" },
+      { key: "Y", does: "Vorher-nachher-Vergleich (im Editor)" },
+      { key: "M", does: "Maske „Linearer Verlauf“" },
+      { key: "Shift+M", does: "Maske „Radialer Verlauf“" },
+      { key: "Cmd+U", does: "Die Auswahl automatisch anpassen, jedes Foto anhand seines eigenen Histogramms" },
+      { key: "V", does: "Schwarzweiß oder zurück zu Farbe, für die Auswahl" },
+      { key: "Cmd+Shift+C", does: "Die Anpassung dieses Fotos kopieren" },
+      { key: "Cmd+Shift+V", does: "Die Anpassung auf die Auswahl einsetzen" },
+      { key: "Cmd+Shift+N", does: "Die Einstellungen dieses Fotos als neue Vorgabe sichern" },
+      { key: "Cmd+Shift+E", does: "Das Exportformular öffnen oder schließen" },
+      { key: "Double-click a slider", does: "Den Regler zurücksetzen" },
+      { key: "Delete", does: "In den Papierkorb legen (im Browser: endgültig löschen, nicht widerrufbar)" },
+    ],
+  },
+  {
+    title: "Pinselmaske",
+    rows: [
+      { key: "K", does: "Pinsel ein / aus; malt die gewählte Pinselmaske" },
+      { key: "Drag", does: "Malen; jeder Strich ist ein Widerrufsschritt" },
+      { key: "Alt+Drag", does: "Radieren" },
+      { key: "[ / ]", does: "Pinselgröße (oder Scrollen)" },
+      { key: "Shift+[ / ]", does: "Weiche Kante des Pinsels (oder Shift+Scrollen)" },
+      { key: "Esc", does: "Den Pinsel ablegen" },
+    ],
+  },
+  {
+    title: "Retusche",
+    rows: [
+      { key: "Q", does: "Retusche ein / aus" },
+      { key: "[ / ]", does: "Pinselgröße (oder Scrollen)" },
+      { key: "Shift+[ / ]", does: "Weiche Kante des Pinsels (oder Shift+Scrollen)" },
+      { key: "O / Shift+O", does: "Die Flecken zeigen oder ausblenden / den nächsten Fleck auswählen" },
+      { key: "Delete", does: "Den ausgewählten Fleck löschen" },
+      { key: "Cmd+Z", does: "Den letzten Fleck widerrufen" },
+      { key: "Esc", does: "Retusche verlassen" },
+    ],
+  },
+  {
+    title: "Repräsentativfoto wählen",
+    rows: [
+      { key: "Click or drag the photo", does: "Den Fokusbereich verschieben" },
+      { key: "Shift+Scroll on the area", does: "Die Größe des Fokusbereichs ändern" },
+      { key: "Drag a tile", does: "Den Fokusbereich verschieben" },
+      { key: "Cmd+Click / Shift+Click a tile", does: "Weitere Kacheln wählen" },
+    ],
+  },
+];
+---
+<p>
+  LightPhotos ist darauf ausgelegt, per Tastatur bedient zu werden: einen Ordner bewerten, ohne
+  die Maus anzufassen, in voller Größe durch ein Shooting gehen und den Look eines
+  Fotos auf die übrigen übertragen. Die folgende Liste ist alles, worauf die App
+  reagiert, und <kbd>?</kbd> zeigt dieselbe Liste in der App so an, wie sie auf Ihrem Rechner gilt.
+</p>
+
+{groups.map((g) => (
+  <section>
+    <h2>{g.title}</h2>
+    <div class="lp-compare-wrap">
+      <table class="lp-compare">
+        <thead>
+          <tr>
+            <th scope="col">Taste</th>
+            <th scope="col">Wirkung</th>
+          </tr>
+        </thead>
+        <tbody>
+          {g.rows.map((r) => (
+            <tr>
+              <td><kbd>{r.key}</kbd></td>
+              <td>{r.does}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
+))}

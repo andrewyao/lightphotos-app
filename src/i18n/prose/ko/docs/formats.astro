@@ -1,0 +1,165 @@
+<p>
+  LightPhotos는 파일을 디스크에 있는 그대로 바로 열어요. 불러올 때 변환하지
+  않고, 라이브러리 안에 사본을 만들지도 않아요. 폴더에 있는 것이 곧 보이는
+  것이에요.
+</p>
+
+<h2>열 수 있는 파일</h2>
+<ul class="lp-article-list">
+  <li>
+    <strong>RAW</strong>: Sony ARW, Canon CR2 / CR3, Nikon NEF, Fujifilm
+    RAF, Panasonic RW2, Olympus / OM System ORF, Pentax PEF, Samsung SRW,
+    DNG(Leica, Pentax, iPhone ProRAW, Pixel)를 다른 모든 것과 마찬가지로
+    비파괴 방식으로 렌더링해요.
+  </li>
+  <li>
+    <strong>일반 이미지</strong>: JPEG, PNG, TIFF는 모든 플랫폼에서 열려요.
+    HEIC / HEIF, GIF, BMP는 <strong>macOS 빌드에서만</strong> 열려요.
+  </li>
+</ul>
+
+<p>
+  <strong>HEIC는 플랫폼에 따라 달라요.</strong> iPhone이 촬영하는 형식이고,
+  macOS에서는 Apple의 ImageIO 프레임워크로 디코딩해요. Windows, Linux, 브라우저
+  빌드에는 이를 디코딩할 방법이 없어요. 이들을 만들 때 쓸 수 있는 순수 Rust
+  HEIC 디코더가 없기 때문이에요. 그래서 그쪽에서는 HEIC 파일이 그리드에는
+  나타나도 열리지는 않아요. JPEG로 촬영하거나 변환하면 모든 플랫폼에서 폴더를
+  읽을 수 있어요.
+</p>
+<h2>테스트한 카메라</h2>
+<p>
+  RAW 지원은 브랜드뿐 아니라 카메라 모델에 달려 있어요. macOS 빌드는
+  Apple의 ImageIO로 RAW를 디코딩하므로
+  <a href="https://support.apple.com/en-us/122870">Apple의 카메라 목록</a>에
+  있는 것은 무엇이든 열어요. Windows, Linux, 브라우저 빌드는 대신 오픈 소스
+  <a href="https://github.com/dnglab/dnglab">rawler</a> 디코더를 써요.
+  다음은 두 쪽 모두에서 테스트한 파일이에요.
+</p>
+
+<div class="lp-compare-wrap">
+  <table class="lp-compare">
+    <thead>
+      <tr>
+        <th scope="col">카메라</th>
+        <th scope="col">macOS</th>
+        <th scope="col">Windows, Linux, 브라우저</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Sony</strong> A7 IV</td>
+        <td>예</td>
+        <td>예</td>
+      </tr>
+      <tr>
+        <td><strong>Canon</strong> EOS R5</td>
+        <td>예</td>
+        <td>예</td>
+      </tr>
+      <tr>
+        <td><strong>Nikon</strong> D850, Z 6II, Z f, Z 8 (무손실)</td>
+        <td>예</td>
+        <td>예</td>
+      </tr>
+      <tr>
+        <td><strong>Nikon</strong> High Efficiency NEF (Z 8, Z 9)</td>
+        <td>아니요</td>
+        <td>아니요</td>
+      </tr>
+      <tr>
+        <td><strong>Fujifilm</strong> GFX100S, X-A5</td>
+        <td>예</td>
+        <td>예</td>
+      </tr>
+      <tr>
+        <td><strong>Fujifilm</strong> X-Trans: X-T4, X-T5, X-H2S, X100VI</td>
+        <td>예</td>
+        <td>카메라에 내장된 미리보기로 둘러보기만 가능</td>
+      </tr>
+      <tr>
+        <td><strong>Panasonic</strong> S5II, GH6</td>
+        <td>예</td>
+        <td>예</td>
+      </tr>
+      <tr>
+        <td><strong>OM System</strong> OM-5 II</td>
+        <td>예</td>
+        <td>아니요</td>
+      </tr>
+      <tr>
+        <td><strong>Pentax</strong> K-r (PEF와 DNG)</td>
+        <td>예</td>
+        <td>예</td>
+      </tr>
+      <tr>
+        <td><strong>Leica</strong> Q2 DNG</td>
+        <td>예</td>
+        <td>예</td>
+      </tr>
+      <tr>
+        <td><strong>iPhone</strong> 12 Pro ProRAW, <strong>Pixel</strong> 8 Pro DNG</td>
+        <td>예</td>
+        <td>예</td>
+      </tr>
+      <tr>
+        <td><strong>Samsung</strong> Galaxy S23 Ultra DNG</td>
+        <td>예</td>
+        <td>아니요</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p>
+  Nikon의 High Efficiency 압축은 모든 플랫폼에서 지원되지 않아요. 지금은
+  무손실 압축 NEF로 촬영하세요. 이들 브랜드의 테스트하지 않은 카메라도 대체로
+  동작하지만, 쓰고 있는 macOS나 현재 rawler 릴리스보다 나중에 출시된
+  카메라는 열리지 않을 수 있어요.
+</p>
+<p>
+  그 밖의 파일은 오류를 내지 않고 그냥 그리드에서 빠져요. 카메라가 열리지
+  않는다면 요청은
+  <a href="https://github.com/andrewyao/lightphotos/issues">이슈 트래커</a>에
+  남겨 주세요.
+</p>
+
+<h2>기록하는 파일</h2>
+<p>
+  사진 옆에 만드는 파일은 세 종류이고, 폴더 목록을 담는 카탈로그가 하나 있어요.
+</p>
+
+<div class="lp-compare-wrap">
+  <table class="lp-compare">
+    <thead>
+      <tr>
+        <th scope="col">용도</th>
+        <th scope="col">저장 위치</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>별점과 편집 내용</strong></td>
+        <td>열어 둔 폴더 안의 <code>.lightphotos/</code>에 있는 사이드카 파일</td>
+      </tr>
+      <tr>
+        <td><strong>썸네일 캐시</strong></td>
+        <td>이것도 <code>.lightphotos/</code>에 있어서, 폴더를 어디로 옮겨도 자기 썸네일을 함께 가져가요</td>
+      </tr>
+      <tr>
+        <td><strong>내보내기</strong></td>
+        <td>열어 둔 폴더 안의 <code>Exports/</code> 폴더이며, 처음 내보낼 때 만들어져요</td>
+      </tr>
+      <tr>
+        <td><strong><a href="/docs/catalogs.html">카탈로그</a></strong></td>
+        <td>폴더 목록과 사전 설정 폴더 목록, 그리고 사진의 별점, 플래그, 레이블의 사본. 데스크톱: <code>~/Pictures/LightPhotos/&lt;name&gt;.lightphotos</code>. 웹: 브라우저 저장소</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p>
+  사진 자체는 절대 이동하거나, 이름을 바꾸거나, 수정하지 않아요. 원본은
+  LightPhotos에게 읽기 전용이에요. 그래서
+  <a href="/docs/export.html">내보내기</a>는 기존 파일을 덮어쓰지 않고 새
+  파일을 만들고, 폴더를 다른 곳으로 옮겨도 모든 편집 내용이 함께 따라가요.
+</p>

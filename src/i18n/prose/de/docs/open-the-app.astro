@@ -1,0 +1,37 @@
+---
+import WebAppLink from "../../../../components/WebAppLink.astro";
+---
+<p>
+  LightPhotos arbeitet mit einem Ordner, der schon auf Ihrer Festplatte liegt,
+  sodass sich der ganze Ablauf in einem Fenster abspielt: die App öffnen,
+  <a href="/docs/pick-a-folder.html">einen Ordner wählen</a>,
+  <a href="/docs/browse.html">ihn durchsehen</a>,
+  <a href="/docs/select-a-photo.html">ein Foto auswählen</a>,
+  <a href="/docs/adjust.html">es anpassen</a>,
+  <a href="/docs/export.html">es exportieren</a>. Ihre Bewertungen und Bearbeitungen
+  werden laufend gesichert, und Sie können jederzeit aufhören.
+</p>
+
+<ul class="lp-article-list">
+  <li>
+    <strong>Im Browser.</strong>
+    <WebAppLink>
+      <a href="/app.html">Die Web-App öffnen</a> – nichts zu installieren und
+      nichts zu aktualisieren.
+      <span slot="fallback">Die Web-App ist in Ihrem aktuellen Browser nicht
+      verfügbar. Verwenden Sie stattdessen Chrome.</span>
+    </WebAppLink>
+    Sie rendert auf der GPU, daher läuft sie in Chrome und in jedem Browser mit
+    aktiviertem WebGPU.
+  </li>
+  <li>
+    <strong>Als Desktop-App.</strong>
+    <a href="/downloads.html">Laden Sie sie herunter</a> für macOS, Windows oder Linux.
+    Sobald sie auf Ihrem Rechner liegt, läuft sie ganz ohne Internet.
+  </li>
+</ul>
+
+<p>
+  So oder so ist es derselbe Editor über denselben Dateien. Fotos werden
+  direkt von der Festplatte gelesen und nie hochgeladen, und die Desktop-Builds sind klein.
+</p>

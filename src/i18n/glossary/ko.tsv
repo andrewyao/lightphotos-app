@@ -1,0 +1,532 @@
+Settings…	설정…	settings
+Settings	설정	settings_title
+Theme	테마	settings_theme
+Language	언어	settings_language
+Auto Adjust	자동 조정	settings_auto_tone
+RAW Files	RAW 파일	settings_raw
+Apple tone curve	Apple 톤 곡선	apple_tone_curve
+On, RAW files look as they do in Photos and Preview. Off, LightPhotos applies its own curve, as in the browser.	켜면 RAW 파일이 Photos와 Preview에서처럼 보여요. 끄면 LightPhotos가 자체 곡선을 적용하며, 브라우저에서도 같아요.	apple_tone_curve_hint
+Center the range	범위 중앙 맞추기	autotone_center_range
+Put the middle of the histogram's range at 50%. Keeps the photo's shape where it is.	히스토그램 범위의 중간을 50%에 맞춰요. 사진의 분포 모양은 그대로 유지해요.	autotone_center_range_tip
+Center the middle pixel	중간 픽셀 맞추기	autotone_center_median
+Put the pixel half the photo is darker than at 50%. A photo that is mostly shadow comes out brighter.	사진의 절반이 그보다 어두운 픽셀을 50%에 맞춰요. 대부분 그림자인 사진은 더 밝아져요.	autotone_center_median_tip
+General	일반	form_general
+Dark	어두움	theme_dark
+Medium	중간	theme_medium
+Light	밝음	theme_light
+Open Folder…	폴더 열기…	open_folder
+Add a folder of photos to Folders and open it (Cmd+O)	사진 폴더를 폴더 목록에 추가하고 열기 (Cmd+O)	open_folder_tip
+Back to the grid (G)	그리드로 돌아가기 (G)	back_to_grid_tip
+Full screen (F)	전체 화면 (F)	fullscreen_tip
+Slide show options	슬라이드쇼 옵션	slideshow_menu_tip
+Play slide show (Cmd+Enter)	슬라이드쇼 재생 (Cmd+Enter)	slideshow_play
+Display Duration	표시 시간	slideshow_duration
+Random	무작위	slideshow_random
+Zoom to Fill	채우도록 확대	slideshow_fill
+ s	 초	seconds_suffix
+Showing the thumbnail	썸네일 표시 중	shown_thumb_tip
+Showing the JPEG embedded in the file	파일에 내장된 JPEG 표시 중	shown_embedded_tip
+Showing a preview decode, below full resolution	전체 해상도보다 낮은 미리보기 디코딩 표시 중	shown_preview_tip
+Showing full resolution	전체 해상도 표시 중	shown_full_tip
+Keyboard shortcuts (?)	키보드 단축키 (?)	help_tip
+Metadata	메타데이터	metadata_title
+Photo metadata (I)	사진 메타데이터 (I)	info_tab_tip
+No photo selected	선택한 사진 없음	info_no_selection
+File	파일	info_file
+Camera	카메라	info_camera
+Exposure	노출	info_exposure
+Date	날짜	info_date
+Location	위치	info_location
+Name	이름	info_name
+Dimensions	치수	info_dimensions
+Modified	수정일	info_modified
+Make	제조사	info_make
+Model	모델	info_model
+Lens	렌즈	info_lens
+Shutter	셔터	info_shutter
+Aperture	조리개	info_aperture
+ISO	ISO	info_iso
+Focal length	초점 거리	info_focal_length
+Exposure comp.	노출 보정	info_exposure_comp
+Flash	플래시	info_flash
+White balance	화이트 밸런스	info_white_balance
+Captured	촬영일	info_captured
+Latitude	위도	info_latitude
+Longitude	경도	info_longitude
+Altitude	고도	info_altitude
+Open in Maps	지도에서 열기	info_open_in_maps
+Fired	발광	flash_fired
+Did not fire	발광 안 함	flash_did_not_fire
+Auto	자동	wb_auto
+Manual	수동	wb_manual
+Choose a folder of photos to get started	시작하려면 사진 폴더를 선택하세요	landing_prompt
+Cull, rate and develop your raw photos, fast.	RAW 사진을 빠르게 선별하고, 별점을 매기고, 현상하세요.	landing_tagline
+Opening…	여는 중…	opening
+Choose a folder of photos	사진 폴더 선택	picker_title
+Add Folder	폴더 추가	add_folder
+Add a folder of photos (Cmd+O)	사진 폴더 추가 (Cmd+O)	add_folder_tip
+Remove Folder from LightPhotos	LightPhotos에서 폴더 제거	remove_folder
+Select photos to rate, stack and export them here.	사진을 선택하면 여기서 별점을 매기고, 스택으로 묶고, 내보낼 수 있어요.	select_photos_hint
+Tour	둘러보기	tour
+A quick tour of where everything is	각 기능이 어디에 있는지 빠르게 안내해요	tour_tip
+Take the Tour	둘러보기 시작	take_tour
+Skip tour	둘러보기 건너뛰기	skip_tour
+Back	이전	tour_back
+Next	다음	tour_next
+Done	완료	tour_done
+Rating:	별점:	rating_filter
+All	전체	all
+At least N stars	별 N개 이상	at_least_n_stars
+Exactly N stars	별 N개	exactly_n_stars
+At most N stars	별 N개 이하	at_most_n_stars
+Show only photos with no rating	별점이 없는 사진만 보기	unrated_tip
+Flag:	플래그:	flag_filter_label
+Label:	레이블:	label_filter_label
+Picked or Unflagged	채택 또는 플래그 없음	flag_not_rejected
+Picked	채택	flag_picked
+Rejected	제외	flag_rejected
+Unflagged	플래그 없음	flag_unflagged
+Eyes closed	눈 감음	eyes_closed
+Show only photos where someone blinked	누군가 눈을 감은 사진만 보기	eyes_closed_tip
+No photos match the filter	필터와 일치하는 사진이 없어요	no_filter_matches
+Show All Photos	모든 사진 보기	show_all_photos
+Can't read	읽을 수 없음	thumb_unreadable
+Selected photo:	선택한 사진:	selected_photo
+Score All	모두 점수 매기기	score_all
+Rate every photo here from 0 to 100, stack members included	스택 구성원을 포함해 여기 있는 모든 사진에 0~100점을 매겨요	score_all_tip
+Auto Stack by Capture Time	촬영 시간으로 자동 스택	group_all_bursts
+Stack the photos here that were shot within a second of each other	서로 1초 이내에 촬영한 사진을 여기서 스택으로 묶어요	group_all_bursts_tip
+Stack the selected photos that were shot within a second of each other	선택한 사진 중 서로 1초 이내에 촬영한 사진을 스택으로 묶어요	group_selected_bursts_tip
+Expand stack	스택 펼치기	expand_stack
+Collapse stack	스택 접기	collapse_stack
+Auto Adjust All	모두 자동 조정	auto_adjust_all
+Set every photo's tone sliders from its own histogram, stack members included	스택 구성원을 포함해 모든 사진의 톤 슬라이더를 각 사진의 히스토그램으로 설정해요	auto_adjust_all_tip
+Update Score	점수 업데이트	update_score
+Rate ★	별점 ★	rate_menu
+Actions	동작	actions_menu
+Open in Loupe	확대경에서 열기	open_in_loupe
+Group into Stack	스택으로 묶기	group_into_stack
+Reset Adjustments	조정 초기화	reset_adjustments
+Score:	점수:	score_label
+Update Scores	점수 업데이트	update_scores
+Clear rating	별점 지우기	clear_rating
+Auto Adjust	자동 조정	auto_tone
+Set each selected photo's tone sliders from its own histogram	선택한 각 사진의 톤 슬라이더를 해당 사진의 히스토그램으로 설정해요	auto_tone_selection_tip
+Rate each selected photo's quality from 0 to 100	선택한 각 사진의 품질에 0~100점을 매겨요	score_selection_tip
+Score again to see the breakdown	세부 내역을 보려면 점수를 다시 매기세요	score_no_breakdown
+No defects found	결함 없음	no_penalties
+Edited since scoring; score again to update	점수를 매긴 뒤 편집됐어요. 다시 매기면 갱신돼요	score_stale
+Sort:	정렬:	sort_by
+Name	이름	sort_name
+Capture Time	촬영 시간	sort_time
+Fit	맞춤	zoom_fit
+Zoom, from fitting the window to 6400%	확대/축소: 창에 맞춤부터 6400%까지	zoom_tip
+100% (1:1)	100% (1:1)	zoom_actual
+By capture time. Photos without one go last.	촬영 시간순. 촬영 시간이 없는 사진은 맨 뒤에 와요.	sort_time_tip
+Modified Time	수정 시간	sort_modified
+By when the file was last modified.	파일을 마지막으로 수정한 시간순.	sort_modified_tip
+File Size	파일 크기	sort_size
+By file size.	파일 크기순.	sort_size_tip
+Shutter Speed	셔터 속도	sort_shutter
+By shutter speed. Photos without one go last.	셔터 속도순. 셔터 속도가 없는 사진은 맨 뒤에 와요.	sort_shutter_tip
+Score	점수	sort_quality
+By quality score. Unscored photos go last.	품질 점수순. 점수가 없는 사진은 맨 뒤에 와요.	sort_quality_tip
+Rating	별점	sort_rating
+By star rating. Unrated photos count as none.	별점순. 별점이 없는 사진은 0으로 쳐요.	sort_rating_tip
+Edit Time	편집 시간	sort_edited
+By when the photo was last edited here. Unedited photos go last.	여기서 마지막으로 편집한 시간순. 편집하지 않은 사진은 맨 뒤에 와요.	sort_edited_tip
+Ascending. Click to reverse the order.	오름차순. 클릭하면 순서가 바뀌어요.	sort_ascending_tip
+Descending. Click to reverse the order.	내림차순. 클릭하면 순서가 바뀌어요.	sort_descending_tip
+Copy Adjustment…	조정 복사…	copy_settings
+Copy this photo's adjustment, as chosen in Copy Settings	복사 설정에서 선택한 항목대로 이 사진의 조정을 복사해요	copy_settings_tip
+Choose what Copy Adjustment copies (Cmd+Shift+C)	조정 복사로 복사할 항목 선택 (Cmd+Shift+C)	copy_settings_choose_tip
+Choose what Copy Adjustment carries to other photos. Crop, Straighten and Touch Up are chosen afresh for each copy.	조정 복사로 다른 사진에 가져갈 항목을 선택하세요. 자르기, 수평 맞추기, 잡티 제거는 복사할 때마다 새로 선택해요.	copy_settings_prompt
+Copy	복사	copy_button
+Check All	모두 선택	check_all
+Check None	모두 선택 해제	check_none
+Compare takes 2 to 6 photos	비교는 사진 2~6장까지 가능해요	compare_too_many
+Effects	효과	effects
+Crop	자르기	crop_section
+Apply Adjustment	조정 적용	apply_settings
+Copy the adjustment from a photo first	먼저 사진에서 조정을 복사하세요	apply_settings_needs_copy
+Apply the copied adjustment to the selection (Cmd+Shift+V)	복사한 조정을 선택한 사진에 적용 (Cmd+Shift+V)	apply_settings_tip
+Export	내보내기	export_jpg
+Choose where and at what size, then export the selection as JPGs (Cmd+Shift+E)	위치와 크기를 선택한 뒤 선택한 사진을 JPG로 내보내요 (Cmd+Shift+E)	export_jpg_tip
+Reading capture times…	촬영 시간 읽는 중…	bursts_reading
+No bursts found	연사를 찾지 못했어요	bursts_none
+Delete	삭제	delete
+Confirm	확인	confirm
+Cancel	취소	cancel
+Keyboard shortcuts	키보드 단축키	shortcuts_title
+Close	닫기	close
+Touch Up	잡티 제거	title
+Delete Stack	스택 삭제	delete_group_title
+Unstack	스택 해제	remove_group
+Adjustments	조정	develop
+Adjustments	조정	tab_sliders
+Crop & Transform	자르기 및 변형	tab_crop
+Masks & Cleanup	마스크 및 정리	tab_masks
+Rotate	회전	crop_rotate
+Left	왼쪽	crop_left
+Right	오른쪽	crop_right
+Size	크기	crop_size
+Overlay	오버레이	crop_overlay
+Thirds	삼등분	crop_thirds
+Grid	그리드	crop_grid
+Golden	황금비	crop_golden
+Diagonal	대각선	crop_diagonal
+Spiral	나선	crop_spiral
+None	없음	crop_overlay_none
+Aspect	비율	crop_aspect
+Original	원본	crop_original
+Custom	사용자 지정	crop_custom
+Orientation	방향	crop_orientation
+Horizontal	가로	crop_horizontal
+Vertical	세로	crop_vertical
+Straighten	수평 맞추기	crop_straighten
+Straighten Tool	수평 맞추기 도구	crop_straighten_tool
+Draw along a line that should be level or upright, then press Enter.	수평이거나 수직이어야 하는 선을 따라 그린 뒤 Enter를 누르세요.	crop_straighten_hint
+Presets	사전 설정	presets
+Save these settings as a preset	현재 설정을 사전 설정으로 저장	save_preset_tip
+Import from Lightroom…	Lightroom에서 가져오기…	import_lr_presets
+Import Lightroom .xmp preset files	Lightroom .xmp 사전 설정 파일 가져오기	import_lr_presets_tip
+Choose Lightroom presets	Lightroom 사전 설정 선택	xmp_picker_title
+Lightroom preset	Lightroom 사전 설정	xmp_filter_name
+Black and white approximated as Saturation -100	흑백은 채도 -100으로 근사했어요	preset_monochrome_note
+No presets yet	사전 설정이 아직 없어요	no_presets
+Apply to the selected photos	선택한 사진에 적용	apply_preset_tip
+Rename or delete	이름 변경 또는 삭제	preset_actions_tip
+Search presets	사전 설정 검색	search_presets
+My Presets	내 사전 설정	my_presets
+No presets match	일치하는 사전 설정이 없어요	no_matching_presets
+Save current as preset…	현재 설정을 사전 설정으로 저장…	save_current_as_preset
+Add preset folder…	사전 설정 폴더 추가…	add_preset_folder
+List the Lightroom .xmp presets in a folder, read in place	폴더에 있는 Lightroom .xmp 사전 설정을 제자리에서 읽어 목록에 표시해요	add_preset_folder_tip
+Choose a folder of Lightroom presets	Lightroom 사전 설정 폴더 선택	preset_folder_picker_title
+Preset folders	사전 설정 폴더	preset_folders
+Remove	제거	remove
+Profiles, looks, and .xmp files that are not develop presets or would not read	프로필, 룩, 또는 현상 사전 설정이 아니거나 읽을 수 없는 .xmp 파일	presets_skipped_tip
+Save preset	사전 설정 저장	save_preset_title
+Rename preset	사전 설정 이름 변경	rename_preset_title
+Preset name	사전 설정 이름	preset_name_hint
+Name	이름	preset_name_label
+Save	저장	save
+Rename	이름 변경	rename
+Reset	초기화	reset
+Set the tone sliders from each selected photo's own histogram (Cmd+U)	선택한 각 사진의 히스토그램으로 톤 슬라이더 설정 (Cmd+U)	auto_tone_tip
+Black & White	흑백	black_and_white
+Turn the selected photos black and white, or back to color (V)	선택한 사진을 흑백으로 바꾸거나 컬러로 되돌리기 (V)	black_and_white_tip
+Touch Up	잡티 제거	touch_up
+Size	크기	brush_size
+[ / ] or the scroll wheel	[ / ] 또는 스크롤 휠	brush_size_tip
+Feather	페더	feather
+Shift+[ / Shift+] or Shift+scroll	Shift+[ / Shift+] 또는 Shift+스크롤	feather_tip
+Opacity	불투명도	opacity
+How much of the patch covers the photo, for spots added from now on	앞으로 추가하는 잡티에서 패치가 사진을 덮는 정도	opacity_tip
+Spots	잡티	spots
+Pick Gray	회색 선택	pick_gray
+Click a neutral-gray pixel in the image	이미지에서 중성 회색 픽셀을 클릭하세요	pick_gray_tip
+White Balance	화이트 밸런스	white_balance
+Tone	톤	tone
+Presence	프레즌스	presence
+Detail	세부	detail
+Optics	광학	optics
+Vignette	비네팅	vignette
+Grain	그레인	grain
+Curve	곡선	curve
+Point Curve	포인트 곡선	point_curve
+Linear	선형	curve_linear
+Medium Contrast	중간 대비	curve_medium_contrast
+Strong Contrast	강한 대비	curve_strong_contrast
+Custom	사용자 지정	curve_custom
+RGB	RGB	curve_rgb
+Red	빨강	curve_red
+Green	초록	curve_green
+Blue	파랑	curve_blue
+Color Mixer	색상 혼합	color_mixer
+B&W Mix	흑백 혼합	gray_mix
+Color	색상	copy_color
+Color Grading	색상 그레이딩	color_grading
+Midtones	중간 톤	midtones
+Global	전체	global
+Blending	혼합	blending
+Balance	균형	balance
+Hue	색상	mix_hue
+Luminance	광도	mix_luminance
+Remove Chromatic Aberration	색수차 제거	remove_ca
+Measures the red and blue fringes at high-contrast edges and lines them up with green	대비가 높은 가장자리의 적색과 청색 번짐을 측정해 녹색에 맞춰요	remove_ca_tip
+No photo selected	선택한 사진 없음	no_photo_selected
+Multiple photos selected	여러 사진 선택됨	multiple_photos_selected
+Lower each photo's value by a large step	각 사진의 값을 크게 낮춰요	step_big_down
+Lower each photo's value by a small step	각 사진의 값을 조금 낮춰요	step_down
+Reset on every selected photo	선택한 모든 사진에서 초기화	step_reset
+Raise each photo's value by a small step	각 사진의 값을 조금 높여요	step_up
+Raise each photo's value by a large step	각 사진의 값을 크게 높여요	step_big_up
+Temp	색온도	temp
+Tint	색조	tint
+Exposure	노출	exposure
+Contrast	대비	contrast
+Highlights	하이라이트	highlights
+Shadows	그림자	shadows
+Whites	흰색 계열	whites
+Blacks	검정 계열	blacks
+Texture	텍스처	texture
+Clarity	명료도	clarity
+Dehaze	안개 제거	dehaze
+Vibrance	생동감	vibrance
+Saturation	채도	saturation
+Denoise	노이즈 감소	denoise
+Sharpening	선명하게	sharpening
+Radius	반경	sharpen_radius
+Detail	세부	sharpen_detail
+Masking	마스킹	sharpen_masking
+Amount	양	amount
+Midpoint	중간점	midpoint
+Roundness	원형률	roundness
+Size	크기	grain_size
+Roughness	거칠기	roughness
+Before	이전	before
+After	이후	after
+Invert	반전	invert
+Highlight the background instead of the subject	피사체 대신 배경을 강조해요	invert_tip
+Show Selection	선택 영역 표시	show_selection
+Selection…	선택 중…	selection_pending
+No subject	피사체 없음	no_subject
+Outline the subject Vision finds in this photo	Vision이 이 사진에서 찾은 피사체의 윤곽을 표시해요	show_selection_tip
+Another delete is still running…	다른 삭제 작업이 아직 진행 중이에요…	delete_in_progress
+This folder's stacks are still loading. Try again in a moment.	이 폴더의 스택을 아직 불러오는 중이에요. 잠시 후 다시 시도하세요.	group_refused_loading
+A file name here can't be saved in a stack.	여기 있는 파일 이름은 스택에 저장할 수 없어요.	group_name_unsaveable
+Destination	대상	export_destination
+Folder	폴더	export_to_folder
+Immich	Immich	export_to_immich
+Exports subfolder	Exports 하위 폴더	export_exports_subfolder
+Another folder	다른 폴더	export_chosen_folder
+Choose…	선택…	export_choose_folder
+Size	크기	export_size
+Location	위치	export_folder
+Output	출력	export_output
+Account	계정	immich_account
+Full resolution	전체 해상도	export_size_full
+File	파일	export_file
+Format	형식	export_format
+TIFF (16-bit)	TIFF (16비트)	export_format_tiff16
+WebP (lossless)	WebP (무손실)	export_format_webp
+File size	파일 크기	export_limit
+No limit	제한 없음	export_limit_none
+Encoding	인코딩	export_jpeg_preset
+Fastest	가장 빠름	export_jpeg_fastest
+Baseline	베이스라인	export_jpeg_baseline
+Progressive	프로그레시브	export_jpeg_progressive
+Smallest	가장 작음	export_jpeg_smallest
+Fastest encodes several times faster. The others make files 10-20% smaller.	가장 빠름은 몇 배 빨리 인코딩해요. 나머지는 파일이 10~20% 작아져요.	export_jpeg_preset_hint
+File name	파일 이름	export_naming
+{name} is the photo's name and {seq} its number in this export.	{name}은 사진의 이름이고 {seq}는 이번 내보내기에서의 번호예요.	export_naming_hint
+Metadata	메타데이터	export_metadata
+Include	포함	export_metadata_include
+Location (GPS)	위치 (GPS)	export_keep_location
+Camera serial numbers and owner	카메라 일련번호와 소유자	export_keep_identity
+The capture date, camera, lens and exposure always go in. Captions and comments never do.	촬영 날짜, 카메라, 렌즈, 노출 정보는 항상 포함돼요. 캡션과 댓글은 포함되지 않아요.	export_keep_hint
+Copyright	저작권	export_copyright
+Written into every export in place of the photo's own. Leave it empty to keep the photo's.	사진 자체의 저작권 대신 모든 내보내기에 기록돼요. 비워 두면 사진의 저작권을 유지해요.	export_copyright_hint
+Sharpen For	선명화 대상	export_sharpen
+None	없음	export_sharpen_off
+Screen	화면	export_sharpen_screen
+Matte Paper	무광 용지	export_sharpen_matte
+Glossy Paper	광택 용지	export_sharpen_glossy
+Low	낮음	export_sharpen_low
+Standard	표준	export_sharpen_standard
+High	높음	export_sharpen_high
+Export	내보내기	export_run
+Connect to an Immich server first	먼저 Immich 서버에 연결하세요	export_needs_immich
+Server URL	서버 URL	immich_server_url
+Example: https://immich.gumnut.ai	예: https://immich.gumnut.ai	immich_url_example
+http:// is not encrypted: your API key and photos cross the network readable. Use https:// if the server offers it.	http://는 암호화되지 않아요. API 키와 사진이 네트워크에서 그대로 노출돼요. 서버가 지원하면 https://를 사용하세요.	immich_plain_http
+Uploading to Immich is only available in the desktop app. Browsers can't connect to an Immich server.	Immich 업로드는 데스크톱 앱에서만 사용할 수 있어요. 브라우저에서는 Immich 서버에 연결할 수 없어요.	immich_native_only
+API key	API 키	immich_api_key
+Connect	연결	immich_connect
+Connecting…	연결 중…	immich_connecting
+Disconnect	연결 해제	immich_disconnect
+Album	앨범	immich_album
+No album	앨범 없음	album_none
+New album…	새 앨범…	album_new
+Album name	앨범 이름	album_name
+Name the new album first	먼저 새 앨범의 이름을 입력하세요	album_name_needed
+Export: nothing selected	내보내기: 선택한 사진이 없어요	export_nothing_selected
+Export already in progress…	내보내기가 이미 진행 중이에요…	export_in_progress
+Export: this folder's edits are still loading, try again in a moment…	내보내기: 이 폴더의 편집 내용을 아직 불러오는 중이에요. 잠시 후 다시 시도하세요…	export_edits_loading
+Export: no directory handle for the current folder	내보내기: 현재 폴더의 디렉터리 핸들이 없어요	export_no_handle
+Auto Adjust needs the photo to finish loading	자동 조정하려면 사진을 모두 불러와야 해요	auto_tone_needs_load
+Auto Adjust applied	자동 조정을 적용했어요	auto_tone_applied
+Measuring chromatic aberration…	색수차 측정 중…	remove_ca_measuring
+Chromatic aberration removed	색수차를 제거했어요	remove_ca_applied
+Could not decode the photo to measure chromatic aberration	색수차를 측정하려고 사진을 디코딩하지 못했어요	remove_ca_failed
+Auto Adjust will start after this folder's edits load…	이 폴더의 편집 내용을 불러온 뒤 자동 조정을 시작해요…	auto_tone_waits_for_edits
+Touch Up supports up to 64 spots	잡티 제거는 최대 64개까지 지원해요	touch_up_limit
+A photo holds up to 16 masks	사진 한 장에는 마스크를 최대 16개까지 둘 수 있어요	mask_limit
+Masks	마스크	masks
+Linear	선형	linear_gradient
+Radial	방사형	radial_gradient
+Linear Gradient: drag on the photo to draw it (M)	선형 그레이디언트: 사진에서 드래그해 그리기 (M)	linear_gradient_tip
+Radial Gradient: drag out from its center on the photo (Shift+M)	방사형 그레이디언트: 사진에서 중심으로부터 바깥쪽으로 드래그 (Shift+M)	radial_gradient_tip
+Brush	브러시	brush_mask
+Brush: paint the mask on the photo (K). Hold Alt to erase	브러시: 사진에 마스크를 칠해요 (K). Alt를 누르면 지워요	brush_mask_tip
+Paint on the photo. Hold Alt to erase	사진에 칠하세요. Alt를 누르면 지워요	brush_paint_hint
+Flow	흐름	flow
+How much one pass adds. Passes over the same spot build up	한 번 칠할 때 더해지는 양. 같은 곳을 겹쳐 칠하면 쌓여요	flow_tip
+Erase	지우기	brush_erase
+Paint to take away from the mask, as holding Alt does	Alt를 누른 것처럼 칠한 부분을 마스크에서 빼요	brush_erase_tip
+A photo's brush strokes hold up to 8,000 points	사진의 브러시 획은 최대 8,000개의 점까지 담을 수 있어요	brush_point_limit
+A brush mask holds up to 512 strokes; + Brush starts another	브러시 마스크는 획을 최대 512개까지 담아요. + 브러시를 누르면 새로 시작해요	brush_stroke_limit
+Invert	반전	mask_invert
+Drag on the photo to draw the mask	사진에서 드래그해 마스크 그리기	mask_draw_hint
+Subject	피사체	subject_mask
+Sky	하늘	sky_mask
+Subject: a mask over the person or main subject, found for this photo	피사체: 이 사진에서 찾은 사람이나 주요 피사체를 덮는 마스크	subject_mask_tip
+Sky: a mask over the sky, found for this photo	하늘: 이 사진에서 찾은 하늘을 덮는 마스크	sky_mask_tip
+Subject detection needs macOS	피사체 감지는 macOS에서만 사용할 수 있어요	detect_needs_mac
+Not available in this build yet	이 빌드에서는 아직 사용할 수 없어요	detect_unavailable
+This mask's detection file is missing from .lightphotos/masks	이 마스크의 감지 파일이 .lightphotos/masks에 없어요	detect_file_missing
+Detecting…	감지 중…	mask_detecting
+Retry	다시 시도	mask_retry
+Export: masks are still being detected, try again in a moment…	내보내기: 마스크를 아직 감지하는 중이에요. 잠시 후 다시 시도하세요…	export_masks_detecting
+Touch Up needs a full-resolution image	잡티 제거에는 전체 해상도 이미지가 필요해요	touch_up_needs_full
+No image loaded to pick from	선택할 이미지가 불러와져 있지 않아요	wb_no_image
+Pick a brighter, less saturated pixel for white balance	화이트 밸런스에는 더 밝고 채도가 낮은 픽셀을 선택하세요	wb_pick_brighter
+Catalog: the folders listed here, and a copy of their ratings, flags and color labels	카탈로그: 여기에 나열된 폴더와 그 별점, 플래그, 색상 레이블의 사본	catalog_tip
+New Catalog…	새 카탈로그…	new_catalog
+Open Catalog…	카탈로그 열기…	open_catalog
+New Catalog	새 카탈로그	catalog_save_title
+Untitled	제목 없음	catalog_untitled
+LightPhotos catalog	LightPhotos 카탈로그	catalog_filter_name
+Choose a catalog (a .lightphotos folder)	카탈로그 선택 (.lightphotos 폴더)	catalog_picker_title
+Name	이름	catalog_name_label
+Catalog name	카탈로그 이름	catalog_name_hint
+Create	만들기	create
+Load Photos:	사진 불러오기:	tile_load
+Quickly	빠르게	tile_speed
+Fully (Slower)	완전히 (느림)	tile_full
+Set as Representative	대표로 지정	set_as_rep
+Representative	대표	representative
+Compare Photos	사진 비교	view_compare
+Compare Photos: select 2 to 6 photos, or a photo in a stack	사진 비교: 사진 2~6장 또는 스택에 있는 사진을 선택하세요	view_compare_needs_group
+another program	다른 프로그램	held_by_other
+Read-only: this folder can't be locked for saving, so changes here are not saved. It may be read-only or need permission. Open it again to try again.	읽기 전용: 이 폴더를 저장용으로 잠글 수 없어서 여기서 한 변경은 저장되지 않아요. 폴더가 읽기 전용이거나 권한이 필요할 수 있어요. 다시 열어 보세요.	folder_cant_lock
+Read-only: LightPhotos has no access to this folder, so changes here are not saved. Open it again.	읽기 전용: LightPhotos가 이 폴더에 접근할 수 없어서 여기서 한 변경은 저장되지 않아요. 다시 여세요.	folder_no_access
+This folder can't be locked, so don't let a headless lightphotos-mcp change it while it is open here.	이 폴더는 잠글 수 없으니, 여기서 열려 있는 동안 헤드리스 lightphotos-mcp가 변경하지 않게 하세요.	folder_lockless
+This folder is still opening. Try again in a moment.	이 폴더를 아직 여는 중이에요. 잠시 후 다시 시도하세요.	folder_opening
+Presets are locked because the saved file could not be read. Move or fix it, then restart.	저장된 파일을 읽을 수 없어서 사전 설정이 잠겼어요. 파일을 옮기거나 고친 뒤 다시 시작하세요.	presets_locked
+About LightPhotos	LightPhotos에 관하여	about
+Hide LightPhotos	LightPhotos 가리기	hide
+Hide Others	기타 가리기	hide_others
+Show All	모두 보기	show_all
+Quit LightPhotos	LightPhotos 종료	quit
+File	파일	file
+Export…	내보내기…	export
+Edit	편집	edit
+Undo	실행 취소	undo
+Cut	오려두기	cut
+Copy	복사	copy
+Paste	붙여넣기	paste
+Select All	전체 선택	select_all
+Deselect All	전체 선택 해제	deselect_all
+Paste Adjustment	조정 붙여넣기	paste_settings
+Photo	사진	photo
+Rate	별점	rate
+No Rating	별점 없음	no_rating
+Set Flag	플래그 지정	set_flag
+Color Label	색상 레이블	color_label
+Red	빨강	label_red
+Yellow	노랑	label_yellow
+Green	초록	label_green
+Blue	파랑	label_blue
+Purple	보라	label_purple
+Auto Adjust Selection	선택 항목 자동 조정	auto_tone_selection
+Score Quality	품질 점수 매기기	score_photos
+Rotate Left	왼쪽으로 회전	rotate_left
+Rotate Right	오른쪽으로 회전	rotate_right
+Move to Trash	휴지통으로 이동	move_to_trash
+Stack	스택	group_selected
+Auto Stack by Capture Time	촬영 시간으로 자동 스택	group_bursts
+Unstack	스택 해제	ungroup
+Delete Stack…	스택 삭제…	delete_group
+View	보기	view
+Grid	그리드	grid
+Loupe	확대경	loupe
+Crop & Transform	자르기 및 변형	crop
+Compare Photos	사진 비교	compare_stack
+Info Panel	정보 패널	info_panel
+Before / After	이전 / 이후	before_after
+Toggle Zoom	확대/축소 전환	toggle_zoom
+Zoom In	확대	zoom_in
+Zoom Out	축소	zoom_out
+Bigger Text	글자 크게	bigger_text
+Smaller Text	글자 작게	smaller_text
+Window	윈도우	window
+Minimize	최소화	minimize
+Zoom	확대/축소	zoom
+Help	도움말	help
+Keyboard Shortcuts	키보드 단축키	keyboard_shortcuts
+[shortcut Enter or Space] Open selected photo (in library)	선택한 사진 열기 (그리드에서)	pair
+[shortcut E] Open selected photo (in library)	선택한 사진 열기 (그리드에서)	pair
+[shortcut G] Back to the library grid	그리드로 돌아가기	pair
+[shortcut F] Full screen, only the photo; F or Esc leaves (in editor)	전체 화면, 사진만 표시. F나 Esc로 나가기 (편집 화면에서)	pair
+[shortcut Cmd+Enter] Slide show of the grid's photos; F or Esc stops	그리드 사진으로 슬라이드쇼. F나 Esc로 중지	pair
+[shortcut Esc] Back to library (in editor)	그리드로 돌아가기 (편집 화면에서)	pair
+[shortcut ← / →] Previous / next photo (in editor)	이전 / 다음 사진 (편집 화면에서)	pair
+[shortcut Page Up / Page Down] Previous / next photo (in editor)	이전 / 다음 사진 (편집 화면에서)	pair
+[shortcut D] Adjust the selected photo	선택한 사진 조정	pair
+[shortcut C] Compare 2 to 6 selected photos, or the selected stack	선택한 사진 2~6장 또는 선택한 스택 비교	pair
+[shortcut I] Show or hide photo info in the right panel	오른쪽 패널에서 사진 정보 표시 또는 숨기기	pair
+[shortcut F6 / Shift+F6] Next region, or next control inside an entered one	다음 영역으로 이동하거나, 들어간 영역 안에서 다음 컨트롤로 이동	pair
+[shortcut Tab / Shift+Tab] Move between items in the focused region	포커스된 영역 안에서 항목 간 이동	pair
+[shortcut Cmd+O] Open a folder	폴더 열기	pair
+[shortcut ?] Show or hide this help	이 도움말 표시 또는 숨기기	pair
+[shortcut Alt+= / Alt+-] Bigger / smaller text	글자 크게 / 작게	pair
+[shortcut Cmd+A] Select all in current folder (in library)	현재 폴더의 모든 사진 선택 (그리드에서)	pair
+[shortcut Shift+Click] Range-select	범위 선택	pair
+[shortcut Cmd+Click] Toggle individual selection	개별 선택 전환	pair
+[shortcut Shift+arrows] Extend selection (library)	선택 확장 (그리드)	pair
+[shortcut Cmd+D] Deselect all	전체 선택 해제	pair
+[shortcut Cmd+G] Stack the selection	선택한 사진을 스택으로 묶기	pair
+[shortcut Cmd+Shift+G] Unstack the selected stacks	선택한 스택 해제	pair
+[shortcut 0 1 2 3 4 5] Set star rating 0-5	별점 0~5 지정	pair
+[shortcut Shift+0-5] Set the rating and go to the next photo	별점을 지정하고 다음 사진으로 이동	pair
+[shortcut P] Pick	채택	pair
+[shortcut X] Reject	제외	pair
+[shortcut U] Unflag	플래그 해제	pair
+[shortcut `] Pick, or unflag a picked photo	채택하거나, 채택한 사진은 플래그 해제	pair
+[shortcut 6 7 8 9] Red, yellow, green or blue label; again to clear	빨강, 노랑, 초록, 파랑 레이블. 다시 누르면 해제	pair
+[shortcut Space or Z] Cycle zoom: fit, 2x fit, 100%	확대/축소 순환: 맞춤, 2배 맞춤, 100%	pair
+[shortcut Cmd++ or Cmd+=] Zoom in (20% step)	확대 (20% 단위)	pair
+[shortcut Cmd+-] Zoom out (20% step)	축소 (20% 단위)	pair
+[shortcut ↑ / ↓] Zoom in / out (10% step)	확대 / 축소 (10% 단위)	pair
+[shortcut Scroll] Zoom at the pointer	포인터 위치에서 확대/축소	pair
+[shortcut Drag] Pan	이동	pair
+[shortcut Space+Drag] Pan	이동	pair
+[shortcut Shift+Scroll] Pan sideways	좌우로 이동	pair
+[shortcut Alt+Scroll] Pan up and down	상하로 이동	pair
+[shortcut Cmd+Z] Undo the last develop change	마지막 현상 변경 실행 취소	pair
+[shortcut Cmd+[ / Cmd+]] Rotate image -90 / +90 degrees	이미지를 -90 / +90도 회전	pair
+[shortcut R] Crop	자르기	pair
+[shortcut Y] Before / after compare (in editor)	이전 / 이후 비교 (편집 화면에서)	pair
+[shortcut M] Linear Gradient mask	선형 그레이디언트 마스크	pair
+[shortcut Shift+M] Radial Gradient mask	방사형 그레이디언트 마스크	pair
+[shortcut Cmd+Shift+E] Open or close the export form	내보내기 양식 열기 또는 닫기	pair
+[shortcut Cmd+U] Auto Adjust the selection	선택한 사진 자동 조정	pair
+[shortcut V] Black & white, or back to color	흑백으로 전환하거나 컬러로 되돌리기	pair
+[shortcut Cmd+Shift+C] Copy this photo's adjustment	이 사진의 조정 복사	pair
+[shortcut Cmd+Shift+V] Paste the adjustment onto the selection	선택한 사진에 조정 붙여넣기	pair
+[shortcut Double-click slider] Reset the slider	슬라이더 초기화	pair
+[shortcut Enter or R] Apply the crop	자르기 적용	pair
+[shortcut Click or drag the photo] Move the focus area	초점 영역 이동	pair
+[shortcut Shift+scroll on the area] Resize the focus area	초점 영역 크기 조절	pair
+[shortcut Drag a tile] Move the focus area	초점 영역 이동	pair
+[shortcut Cmd+Click / Shift+Click a tile] Pick more tiles	타일 더 선택	pair
+[shortcut O] Show or hide the subject selection	피사체 선택 표시 또는 숨기기	pair
+[shortcut Shift+O] Invert the subject selection	피사체 선택 반전	pair
+[shortcut K] Brush on / off; paints the picked brush mask	브러시 켜기 / 끄기. 선택한 브러시 마스크에 칠해요	pair
+[shortcut Alt+Drag] Erase	지우기	pair
+[shortcut [ / ]] Brush size	브러시 크기	pair
+[shortcut Shift+[ / ]] Brush feather	브러시 페더	pair
+[shortcut Q] Touch Up on / off	잡티 제거 켜기 / 끄기	pair
+[shortcut Delete] Delete the selected spot	선택한 잡티 삭제	pair

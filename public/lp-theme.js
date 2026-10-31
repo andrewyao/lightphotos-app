@@ -73,4 +73,20 @@
       if (!event.target.closest('.lp-theme-toggle')) close(false);
     });
   });
+
+  // The language switcher is a plain <details>; close it the way the theme menu
+  // closes, on Escape or a click elsewhere.
+  document.addEventListener('DOMContentLoaded', function () {
+    var lang = document.querySelector('.lp-lang');
+    if (!lang) return;
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape' && lang.open) {
+        lang.open = false;
+        lang.querySelector('summary').focus();
+      }
+    });
+    document.addEventListener('click', function (event) {
+      if (!event.target.closest('.lp-lang')) lang.open = false;
+    });
+  });
 })();

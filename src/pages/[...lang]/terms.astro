@@ -1,0 +1,20 @@
+---
+import Base from "../../layouts/Base.astro";
+import { languagePaths, type LanguageProps } from "../../i18n/routes";
+import { ui } from "../../i18n/ui";
+
+// Kept short on purpose: there are no accounts, payments or hosted photos to
+// govern. The MIT/Apache licenses cover our code and the LGPL covers rawler;
+// this covers the website and the browser app. No `active` value: the footer
+// links here, the nav doesn't. The text is src/i18n/prose/<lang>/terms.astro.
+export const getStaticPaths = languagePaths;
+const { lang } = Astro.props as LanguageProps;
+const t = ui(lang).pages.terms;
+const prose = import.meta.glob("../../i18n/prose/*/terms.astro", { eager: true }) as Record<string, { default: any }>;
+const Body = prose[`../../i18n/prose/${lang}/terms.astro`].default;
+---
+<Base title={t.title} desc={t.desc} lang={lang} path="/terms.html">
+  <main class="lp-page">
+    <Body />
+  </main>
+</Base>

@@ -1,0 +1,246 @@
+---
+import Base from "../../../layouts/Base.astro";
+import { languagePaths, type LanguageProps } from "../../../i18n/routes";
+
+const getCode = `git clone https://github.com/andrewyao/lightphotos
+cd lightphotos
+cargo build --release --bin lightphotos-mcp`;
+
+const appRun = `python3 tools/cull/cull.py \\
+  --mcp target/release/lightphotos-mcp \\
+  --folder ~/Pictures/my-shoot`;
+
+const modelSetup = `brew install ollama        # Linux and Windows: ollama.com/download
+ollama pull qwen3-vl:32b-instruct
+ollama serve               # skip if the Ollama app is already running`;
+
+const modelRun = `python3 tools/cull/cull.py \\
+  --mcp target/release/lightphotos-mcp \\
+  --folder ~/Pictures/my-shoot \\
+  --use-model                # only needed on a Mac`;
+
+const claudeSetup = `claude mcp add lightphotos -- \\
+  "$PWD/target/release/lightphotos-mcp" --folder ~/Pictures/my-shoot`;
+
+const claudeRun = `claude -p "$(cat tools/cull/claude-prompt.txt)" \\
+  --allowedTools mcp__lightphotos`;
+
+export const getStaticPaths = languagePaths;
+const { lang } = Astro.props as LanguageProps;
+---
+<Base
+  title="Three ways to let AI cull a shoot — LightPhotos Blog"
+  desc="Culling is the boring part of photography. I handed it to AI three ways through the LightPhotos MCP server: the app's own score, a local model, and Claude Code. The pros and cons of each, and how to try them yourself."
+  active="blogs"
+  lang={lang}
+  path="/blogs/three-ways-to-cull-a-shoot-with-mcp.html"
+  translated={false}
+>
+  <main class="lp-page">
+    <article class="lp-article">
+      <header class="lp-article-head">
+        <p class="lp-article-meta"><a href="/blogs.html">Blogs</a> &middot; <time datetime="2026-10-23">October 23, 2026</time></p>
+        <h1>Three ways to let AI cull a shoot</h1>
+        <p class="lp-article-dek">
+          Culling is the boring part of photography. I handed it to AI three
+          ways: the app&rsquo;s own score, a model running on my computer,
+          and Claude Code. The pros and cons of each, and how to try them
+          yourself.
+        </p>
+        <p class="lp-article-byline">Andrew Yao &middot; 5 min read</p>
+      </header>
+
+      <aside class="lp-tldr">
+        <p class="lp-tldr-label">TL;DR</p>
+        <p>
+          On a Mac, use the app score: 85 RAW files in 16 seconds, and nothing
+          leaves your computer. Not on a Mac and want privacy? A local model
+          works, but it is slow and too generous. Claude Code is the easiest
+          to set up, but it uploads every photo it looks at.
+        </p>
+      </aside>
+
+      <h2>The boring part</h2>
+      <p>
+        After a portrait session I have 85 frames, and most of the first pass
+        is mechanical: throw out the soft ones, the blinks, the badly exposed
+        ones. Choosing the best of what is left is the fun part, and I want to
+        keep that.
+      </p>
+      <p>
+        So I gave the mechanical part to AI. LightPhotos has an
+        <a href="/blogs/your-next-power-user-cant-see-the-screen.html">MCP server</a>,
+        so any AI can look at the photos and set ratings without opening the
+        app. All three approaches do the same thing: score every photo from 0
+        to 100, then apply one rule.
+      </p>
+      <div class="lp-compare-wrap">
+        <table class="lp-compare">
+          <thead><tr><th>Score</th><th>What happens</th></tr></thead>
+          <tbody>
+            <tr><th>Below 40</th><td>Rejected</td></tr>
+            <tr><th>40 to 59</th><td>2 stars</td></tr>
+            <tr><th>60 and up</th><td>Left alone</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>
+        The AI only marks the bad and the weak. The good frames stay unrated,
+        so the stars are still mine to give.
+      </p>
+      <p>The only difference is who gives the score.</p>
+
+      <h2>The three approaches</h2>
+
+      <h3>1. The app score</h3>
+      <p>
+        LightPhotos scores the photo itself: focus, clipped highlights,
+        darkness, noise and closed eyes, plus Apple&rsquo;s on-device model of
+        what looks good. It is the same score as the Score All button.
+      </p>
+      <ul class="lp-article-list">
+        <li><strong>Pro:</strong> fast. 85 RAW files in 16 seconds.</li>
+        <li><strong>Pro:</strong> private. Nothing leaves your computer, and there is nothing extra to install.</li>
+        <li><strong>Pro:</strong> consistent. Same photos, same answer, every time. Scores are saved, so running it again takes no time.</li>
+        <li><strong>Con:</strong> macOS only, because it needs Apple&rsquo;s Vision framework.</li>
+        <li><strong>Con:</strong> it measures quality, not taste. It cannot tell which of six similar frames has the best expression.</li>
+      </ul>
+
+      <h3>2. A local model</h3>
+      <p>
+        A vision model, <code>qwen3-vl:32b-instruct</code>, runs on your own
+        computer through Ollama. It looks at four frames at a time and scores
+        each.
+      </p>
+      <ul class="lp-article-list">
+        <li><strong>Pro:</strong> private. The model runs on your computer; no photo is uploaded.</li>
+        <li><strong>Pro:</strong> works on Linux and Windows, where the app score does not exist.</li>
+        <li><strong>Con:</strong> slow. 28 minutes for 85 frames.</li>
+        <li><strong>Con:</strong> heavy. A 21 GB download, and it wants 32 GB of memory.</li>
+        <li><strong>Con:</strong> too generous. It scored 80 of 85 frames 60 or more, even when told to be critical, so it flagged almost nothing.</li>
+      </ul>
+
+      <h3>3. Claude Code</h3>
+      <p>
+        No script. Claude connects to the MCP server, looks at each photo,
+        and sets the ratings itself, following a prompt in plain English.
+      </p>
+      <ul class="lp-article-list">
+        <li><strong>Pro:</strong> easiest to set up: one command and a prompt.</li>
+        <li><strong>Pro:</strong> no big download, and it runs anywhere Claude Code runs.</li>
+        <li><strong>Pro:</strong> easy to change. Edit the prompt to cull differently.</li>
+        <li><strong>Con:</strong> every photo it looks at is uploaded to Anthropic. Not for photos of people who did not agree to that.</li>
+        <li><strong>Con:</strong> it uses your Claude plan.</li>
+        <li><strong>Con:</strong> I did not run it on this shoot, for the reason above.</li>
+      </ul>
+
+      <h3>Which to pick</h3>
+      <div class="lp-compare-wrap">
+        <table class="lp-compare">
+          <thead>
+            <tr><th></th><th class="lp-compare-pick">App score</th><th>Local model</th><th>Claude Code</th></tr>
+          </thead>
+          <tbody>
+            <tr><th>Speed, 85 RAW files</th><td class="lp-compare-pick">16 s</td><td>28 min</td><td>Not run</td></tr>
+            <tr><th>Photos leave your computer</th><td class="lp-compare-pick">No</td><td>No</td><td>Yes</td></tr>
+            <tr><th>Runs on</th><td class="lp-compare-pick">macOS</td><td>Linux, Windows, macOS</td><td>Anywhere</td></tr>
+            <tr><th>Setup</th><td class="lp-compare-pick">Python 3</td><td>Ollama and a 21 GB model</td><td>Claude Code</td></tr>
+            <tr><th>Use it when</th><td class="lp-compare-pick">You are on a Mac</td><td>You are not, and the photos are private</td><td>The photos are fine to upload</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>Try it yourself</h2>
+      <p>
+        Use a copy of a shoot the first time. Close the folder in LightPhotos
+        first, because the MCP server will not write to a folder the app has
+        open. Ratings and rejects go where the app keeps them; your photo
+        files are never changed.
+      </p>
+
+      <h3>Step 1: get the code (all three)</h3>
+      <p>You need <a href="https://rustup.rs">Rust</a> and Python 3.</p>
+      <pre class="lp-code">{getCode}</pre>
+
+      <h3>Step 2a: the app score</h3>
+      <pre class="lp-code">{appRun}</pre>
+
+      <h3>Step 2b: a local model</h3>
+      <p>Install <a href="https://ollama.com/download">Ollama</a> and the model once:</p>
+      <pre class="lp-code">{modelSetup}</pre>
+      <p>Then:</p>
+      <pre class="lp-code">{modelRun}</pre>
+
+      <h3>Step 2c: Claude Code</h3>
+      <p>Connect Claude Code to the folder once:</p>
+      <pre class="lp-code">{claudeSetup}</pre>
+      <p>
+        Then run the prompt from
+        <a href="https://github.com/andrewyao/lightphotos/blob/main/tools/cull/claude-prompt.txt">claude-prompt.txt</a>,
+        or start <code>claude</code> and paste it:
+      </p>
+      <pre class="lp-code">{claudeRun}</pre>
+
+      <h3>Step 3: review</h3>
+      <p>
+        Open the folder in LightPhotos and hide the rejects. Glance at the
+        2-star frames, then pick your favorites from the rest. That is the
+        fun part.
+      </p>
+
+      <h2>What happened on my shoot</h2>
+      <p>
+        85 RAW files from one portrait session, each run on a fresh copy. The
+        photos stay on my Mac, so there are none here.
+      </p>
+      <div class="lp-compare-wrap">
+        <table class="lp-compare">
+          <thead>
+            <tr><th></th><th class="lp-compare-pick">App score</th><th>Local model</th></tr>
+          </thead>
+          <tbody>
+            <tr><th>Rejected</th><td class="lp-compare-pick">3</td><td>2</td></tr>
+            <tr><th>2 stars</th><td class="lp-compare-pick">25</td><td>3</td></tr>
+            <tr><th>Left alone</th><td class="lp-compare-pick">57</td><td>80</td></tr>
+            <tr><th>Time</th><td class="lp-compare-pick">16 s</td><td>28 min</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>
+        The two agreed on 55 of 85 frames, but 54 of those were just
+        &ldquo;left alone&rdquo; by both. The model left alone all 25 frames
+        the app gave 2 stars. Only one frame was rejected by both.
+      </p>
+
+      <h2>What I learned</h2>
+      <p>
+        <strong>The app score is the one I use.</strong> It is a hundred
+        times faster than the local model, and it flagged 28 frames for a
+        second look where the model flagged 5.
+      </p>
+      <p>
+        <strong>Letting AI make the whole call did not work.</strong> My first
+        version let the local model reject and rate every frame on its own
+        judgment. Run twice with small changes, it agreed with itself on only
+        45 of 83 frames. A plain score and a fixed rule are boring, and that
+        is what you want from the boring part.
+      </p>
+      <p>
+        <strong>None of them picks the best moment.</strong> They catch blur,
+        blinks and bad exposure. Choosing between six frames of the same pose
+        is still your job, and the best part of culling anyway.
+      </p>
+      <p>
+        The script and its instructions are in
+        <a href="https://github.com/andrewyao/lightphotos/tree/main/tools/cull">tools/cull</a>.
+      </p>
+
+      <nav class="lp-article-nav" aria-label="More posts">
+        <a class="lp-article-nav-prev" href="/blogs/your-next-power-user-cant-see-the-screen.html">
+          <span class="lp-article-nav-dir">Back</span>
+          <span class="lp-article-nav-title">Your next power user can’t see the screen</span>
+        </a>
+      </nav>
+    </article>
+  </main>
+</Base>

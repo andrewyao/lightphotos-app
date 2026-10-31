@@ -1,0 +1,83 @@
+---
+import Base from "../../layouts/Base.astro";
+import { posts } from "../../blogs";
+import { localeInfo } from "../../i18n/locales";
+import { languagePaths, type LanguageProps } from "../../i18n/routes";
+import { fill, ui } from "../../i18n/ui";
+
+export const getStaticPaths = languagePaths;
+const { lang } = Astro.props as LanguageProps;
+const t = ui(lang).blogs;
+
+// The posts are English in every language; the cards (title, blurb, date,
+// reading time) are translated, and link to the post under this language's
+// prefix so the header stays localized.
+const prefix = lang === "en" ? "" : `/${localeInfo[lang].slug}`;
+const dateFormat = new Intl.DateTimeFormat(localeInfo[lang].htmlLang, { dateStyle: "medium", timeZone: "UTC" });
+---
+<Base title={t.pageTitle} desc={t.desc} active="blogs" lang={lang} path="/blogs.html">
+  <main class="lp-page lp-page--wide">
+    <section class="lp-hero lp-hero-compact">
+      <div class="lp-glow"></div>
+      <h1 class="lp-wordmark">{t.heading}</h1>
+    </section>
+
+    <div class="lp-post-sort" role="group" aria-label={t.sortAria}>
+      <button type="button" data-sort="newest" aria-pressed="true">{t.newest}</button>
+      <button type="button" data-sort="oldest" aria-pressed="false">{t.oldest}</button>
+    </div>
+
+    {lang !== "en" && <p class="lp-post-note">{t.englishOnly}</p>}
+
+    <ul class="lp-post-list">
+      {posts.map((post, i) => (
+        <li>
+          <a class="lp-post-card" href={`${prefix}/blogs/${post.slug}.html`}>
+            <div class="lp-post-cover">
+              <img src={`/blog-covers/${post.cover}`} alt="" width="1200" height="675" loading={i === 0 ? undefined : "lazy"} fetchpriority={i === 0 ? "high" : undefined} decoding="async" />
+            </div>
+            <div class="lp-post-content">
+              <h2>{t.posts[post.slug].title}</h2>
+              <p class="lp-post-meta">
+                <time datetime={post.date}>{dateFormat.format(new Date(post.date))}</time>
+                <span aria-hidden="true">·</span>
+                <span>{fill(t.minRead, { n: String(post.minutes) })}</span>
+              </p>
+              <p class="lp-post-blurb">{t.posts[post.slug].blurb}</p>
+            </div>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </main>
+  <script is:inline>
+    (function () {
+      var STORAGE_KEY = 'lp-post-sort';
+      var list = document.querySelector('.lp-post-list');
+      var buttons = document.querySelectorAll('.lp-post-sort button[data-sort]');
+      if (!list || !buttons.length) return;
+      // The markup lists posts newest first; oldest first is that order reversed.
+      var newest = Array.prototype.slice.call(list.children);
+
+      function apply(order) {
+        var items = order === 'oldest' ? newest.slice().reverse() : newest;
+        items.forEach(function (li) { list.appendChild(li); });
+        buttons.forEach(function (btn) {
+          btn.setAttribute('aria-pressed', btn.getAttribute('data-sort') === order ? 'true' : 'false');
+        });
+      }
+
+      buttons.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var order = btn.getAttribute('data-sort');
+          apply(order);
+          try { localStorage.setItem(STORAGE_KEY, order); } catch (e) {}
+        });
+      });
+
+      try {
+        if (localStorage.getItem(STORAGE_KEY) === 'oldest') apply('oldest');
+      } catch (e) {}
+    })();
+  </script>
+</Base>

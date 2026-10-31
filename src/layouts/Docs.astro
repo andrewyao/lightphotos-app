@@ -1,38 +1,44 @@
 ---
 // The Help section's two-column shell: topic list on the left, prose on the
 // right, Back/Next under it — the shape every /docs/<topic>.html page shares.
-// Pages pass only their slug; title, description, breadcrumb and the
-// prev/next cards all come from src/docs.ts.
+// Pages pass only their slug and language; title, description, breadcrumb and
+// the prev/next cards all come from src/docs.ts and the language's strings.
 import Base from "./Base.astro";
 import { docGroups, docHref, docNeighbors, docTopic } from "../docs";
+import { localePath, type Locale } from "../i18n/locales";
+import { fill, ui } from "../i18n/ui";
 
 interface Props {
   slug: string;
+  lang: Locale;
 }
-const { slug } = Astro.props;
-const { topic, group } = docTopic(slug);
-const { prev, next } = docNeighbors(slug);
+const { slug, lang } = Astro.props;
+const t = ui(lang).docs;
+const { topic, group } = docTopic(lang, slug);
+const { prev, next } = docNeighbors(lang, slug);
 ---
 <Base
-  title={`${topic.title} — LightPhotos Help`}
+  title={fill(t.pageTitle, { title: topic.title })}
   desc={topic.dek}
   active="docs"
+  lang={lang}
+  path={`/docs/${slug}.html`}
 >
   <main class="lp-page">
     <div class="lp-docs-layout">
-      <nav class="lp-docs-nav" aria-label="Documentation">
-        <p class="lp-docs-nav-title">Documentation</p>
-        {docGroups.map((g) => (
+      <nav class="lp-docs-nav" aria-label={t.navTitle}>
+        <p class="lp-docs-nav-title">{t.navTitle}</p>
+        {docGroups(lang).map((g) => (
           <div class="lp-docs-group-wrap">
             <p class="lp-docs-group">{g.name}</p>
             <ul>
-              {g.topics.map((t) => (
+              {g.topics.map((item) => (
                 <li>
                   <a
-                    href={docHref(t.slug)}
-                    aria-current={t.slug === slug ? "page" : undefined}
+                    href={docHref(lang, item.slug)}
+                    aria-current={item.slug === slug ? "page" : undefined}
                   >
-                    {t.title}
+                    {item.title}
                   </a>
                 </li>
               ))}
@@ -44,31 +50,27 @@ const { prev, next } = docNeighbors(slug);
       <article class="lp-article">
         <header class="lp-article-head">
           <p class="lp-article-meta">
-            <a href="/docs.html">Help</a> &rsaquo; {group.name} &rsaquo; {topic.title}
+            <a href={localePath(lang, "/docs.html")}>{t.help}</a> &rsaquo; {group.name} &rsaquo; {topic.title}
           </p>
           <h1>{topic.title}</h1>
           <p class="lp-article-dek">{topic.dek}</p>
           {slug === "shortcuts" && (
-            <p class="lp-docs-note">
-              Shortcuts are written the macOS way &mdash; on Windows and Linux,
-              read <kbd>Cmd</kbd> as <kbd>Ctrl</kbd>. Press <kbd>?</kbd> inside
-              the app for the list as your own machine shows it.
-            </p>
+            <p class="lp-docs-note" set:html={t.shortcutsNote} />
           )}
         </header>
 
         <slot />
 
-        <nav class="lp-article-nav" aria-label="More topics">
+        <nav class="lp-article-nav" aria-label={t.moreTopics}>
           {prev && (
-            <a class="lp-article-nav-prev" href={docHref(prev.slug)}>
-              <span class="lp-article-nav-dir">Back</span>
+            <a class="lp-article-nav-prev" href={docHref(lang, prev.slug)}>
+              <span class="lp-article-nav-dir">{t.back}</span>
               <span class="lp-article-nav-title">{prev.title}</span>
             </a>
           )}
           {next && (
-            <a class="lp-article-nav-next" href={docHref(next.slug)}>
-              <span class="lp-article-nav-dir">Next</span>
+            <a class="lp-article-nav-next" href={docHref(lang, next.slug)}>
+              <span class="lp-article-nav-dir">{t.next}</span>
               <span class="lp-article-nav-title">{next.title}</span>
             </a>
           )}

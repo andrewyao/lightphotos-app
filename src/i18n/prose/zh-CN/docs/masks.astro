@@ -1,0 +1,83 @@
+<p>
+  蒙版只调整照片的一部分，而不是全部：压暗明亮的天空，提亮一张脸，给某个角落增添暖意。
+  在编辑器中打开一张照片，然后从右侧面板边缘的图标中选择<strong>蒙版与修复</strong>。
+  这个页面开头是一排按钮，每种蒙版对应一个：
+</p>
+
+<ul class="lp-article-list">
+  <li>
+    <strong>+ 线性</strong>（<kbd>M</kbd>）：渐变。在照片上拖动，从效果最强的位置拖到逐渐消失的位置。
+    适合天空或前景。
+  </li>
+  <li>
+    <strong>+ 径向</strong>（<kbd>Shift+M</kbd>）：椭圆。
+    从它的中心向外拖动，或者点击一下得到默认大小。按住
+    <kbd>Shift</kbd> 并在它的中心上滚动，可以让边缘变柔或变硬。
+  </li>
+  <li>
+    <strong>+ 主体</strong>：自动找出人物或主要主体，并为它创建蒙版。
+    只在 Mac 版中可用。
+  </li>
+  <li>
+    <strong>+ 天空</strong>：自动找出天空，并为它创建蒙版。
+  </li>
+  <li>
+    <strong>+ 画笔</strong>（<kbd>K</kbd>）：在照片上绘制蒙版。
+    按住 <kbd>Alt</kbd> 擦除，或按<strong>擦除</strong>。
+    <kbd>[</kbd> 和 <kbd>]</kbd> 改变画笔大小，
+    <kbd>Shift+[</kbd> 和 <kbd>Shift+]</kbd> 改变它的<strong>羽化</strong>。
+    <strong>流量</strong>决定每次涂抹增加的量，所以在同一处反复涂抹会叠加。
+    每一笔都是一个撤销步骤，按 <kbd>Esc</kbd> 关闭画笔。
+  </li>
+</ul>
+
+<p>
+  主体和天空没有可拖动的控制点。蒙版在后台找出它的区域，完成之前会显示一个旋转的指示器。
+  选中其中一个时，它覆盖的区域会在照片上以红色着色。如果失败，它的标签上会显示一个
+  <strong>!</strong>；把指针停在上面可以看到原因，然后点击<strong>重试</strong>。
+</p>
+
+<h2>调整蒙版</h2>
+<p>
+  每个蒙版按种类和编号列出，例如<strong>径向 1</strong>。点击其中一个即可选中它，并在照片上拖动它的控制点。
+  每个蒙版都有自己的色温、色调、曝光度、对比度、高光、阴影、白色色阶、黑色色阶和饱和度，
+  叠加在照片自身的滑块之上。<strong>反转</strong>会对调蒙版起作用的区域和不起作用的区域，
+  <strong>删除</strong>则把它去掉。每张照片最多可以有 16 个蒙版。
+</p>
+
+<div class="lp-compare-wrap">
+  <table class="lp-compare">
+    <thead>
+      <tr>
+        <th scope="col">按键</th>
+        <th scope="col">作用</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><kbd>Esc</kbd></td>
+        <td>放下蒙版工具，或松开选中的蒙版</td>
+      </tr>
+      <tr>
+        <td><kbd>Delete</kbd></td>
+        <td>删除选中的蒙版，而不是照片</td>
+      </tr>
+      <tr>
+        <td><kbd>Cmd+Z</kbd></td>
+        <td>撤销上一次蒙版更改；一整次拖动算一步</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<h2>修补</h2>
+<p>
+  同一个页面里还有用来去除斑点的<strong>修补</strong>。打开它（<kbd>Q</kbd>），
+  点击一个瑕疵即可修复，每张照片最多 64 个修补点。<kbd>[</kbd> 和 <kbd>]</kbd> 用来改变画笔大小。
+</p>
+
+<p>
+  蒙版与照片的其他调整一起，保存在它旁边的 <code>.lightphotos</code> 文件夹中，
+  并且会出现在缩略图和每一次<a href="/docs/export.html">导出</a>里。
+  如果主体或天空蒙版仍在查找中，导出会等待它完成。
+</p>

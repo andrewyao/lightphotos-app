@@ -1,0 +1,284 @@
+---
+import Base from "../../../layouts/Base.astro";
+import { languagePaths, type LanguageProps } from "../../../i18n/routes";
+
+export const getStaticPaths = languagePaths;
+const { lang } = Astro.props as LanguageProps;
+---
+<Base
+  title="Why I started LightPhotos — LightPhotos Blog"
+  desc="A Lightroom license stopped working after a macOS upgrade, and a newer Apple Photos did not open years of my photos. One afternoon, I gave up and built the small editor that I actually needed."
+  active="blogs"
+  lang={lang}
+  path="/blogs/why-i-started-lightphotos.html"
+  translated={false}
+>
+  <main class="lp-page">
+    <article class="lp-article">
+      <header class="lp-article-head">
+        <p class="lp-article-meta"><a href="/blogs.html">Blogs</a> &middot; <time datetime="2026-06-23">June 23, 2026</time></p>
+        <h1>Why I started LightPhotos</h1>
+        <p class="lp-article-dek">
+          A Lightroom license stopped working, and I could not open years of
+          photos from Apple Photos. One afternoon, I gave up and built the
+          small editor that I actually needed.
+        </p>
+        <p class="lp-article-byline">Andrew Yao &middot; 4 min read</p>
+      </header>
+
+      <aside class="lp-tldr">
+        <p class="lp-tldr-label">TL;DR</p>
+        <p>
+          I paid for Lightroom 6, and after a macOS upgrade I could not install
+          it again. A few upgrades later, a newer Apple Photos did not open the
+          libraries on my old backups, and I lost years of photos. Free editors
+          such as Darktable wanted me to learn a whole craft, when I only wanted
+          to send some pictures to my friends. So I listed what I needed and
+          built the smallest editor that does it. Coding
+          agents wrote most of the code.
+        </p>
+      </aside>
+
+      <figure class="lp-figure lp-try" id="needs-demo">
+        <div class="lp-try-controls" role="group" aria-label="My needs">
+          <span>My needs:</span>
+          <button type="button" class="lp-try-btn" data-need="0" aria-pressed="true">Runs after an upgrade</button>
+          <button type="button" class="lp-try-btn" data-need="1" aria-pressed="true">Plain files</button>
+          <button type="button" class="lp-try-btn" data-need="2" aria-pressed="true">Speed and feel</button>
+          <button type="button" class="lp-try-btn" data-need="3" aria-pressed="true">Only what I need</button>
+          <button type="button" class="lp-try-btn" data-need="4" aria-pressed="true">No monthly fee</button>
+        </div>
+        <svg viewBox="0 0 640 284" role="img" aria-label="A grid of six options and five needs. Lightroom 6 does not run after a macOS upgrade. Apple Photos does not keep my photos as plain files on my drive. Luminar AI does not have the speed and feel that I want. Darktable and similar editors give much more than I need. A Lightroom subscription costs a fee each month. Only LightPhotos meets all five needs.">
+          <text class="lp-fig-label" x="0" y="12">MY FIVE NEEDS, AND WHERE EACH OPTION FAILED</text>
+          <g data-col="0"><text class="lp-fig-s" x="240" y="34" text-anchor="middle">Runs after</text><text class="lp-fig-s" x="240" y="50" text-anchor="middle">an upgrade</text></g>
+          <g data-col="1"><text class="lp-fig-s" x="328" y="34" text-anchor="middle">Plain files</text><text class="lp-fig-s" x="328" y="50" text-anchor="middle">on my drive</text></g>
+          <g data-col="2"><text class="lp-fig-s" x="416" y="34" text-anchor="middle">Speed and</text><text class="lp-fig-s" x="416" y="50" text-anchor="middle">feel I want</text></g>
+          <g data-col="3"><text class="lp-fig-s" x="504" y="34" text-anchor="middle">Only what</text><text class="lp-fig-s" x="504" y="50" text-anchor="middle">I need</text></g>
+          <g data-col="4"><text class="lp-fig-s" x="592" y="34" text-anchor="middle">No monthly</text><text class="lp-fig-s" x="592" y="50" text-anchor="middle">fee</text></g>
+          <line class="lp-fig-line-soft" x1="0" y1="58" x2="640" y2="58"></line>
+          <g data-row data-fails="0" opacity="0.55">
+            <rect class="lp-fig-box-accent" x="1" y="64" width="638" height="28" rx="5" opacity="0"></rect>
+            <text class="lp-fig-t" x="10" y="83">Lightroom 6</text>
+            <circle class="lp-fig-bad" data-col="0" cx="240" cy="78" r="5"></circle>
+            <circle class="lp-fig-line-soft" data-col="1" cx="328" cy="78" r="4"></circle>
+            <circle class="lp-fig-line-soft" data-col="2" cx="416" cy="78" r="4"></circle>
+            <circle class="lp-fig-line-soft" data-col="3" cx="504" cy="78" r="4"></circle>
+            <circle class="lp-fig-line-soft" data-col="4" cx="592" cy="78" r="4"></circle>
+          </g>
+          <g data-row data-fails="1" opacity="0.55">
+            <rect class="lp-fig-box-accent" x="1" y="96" width="638" height="28" rx="5" opacity="0"></rect>
+            <text class="lp-fig-t" x="10" y="115">Apple Photos</text>
+            <circle class="lp-fig-line-soft" data-col="0" cx="240" cy="110" r="4"></circle>
+            <circle class="lp-fig-bad" data-col="1" cx="328" cy="110" r="5"></circle>
+            <circle class="lp-fig-line-soft" data-col="2" cx="416" cy="110" r="4"></circle>
+            <circle class="lp-fig-line-soft" data-col="3" cx="504" cy="110" r="4"></circle>
+            <circle class="lp-fig-line-soft" data-col="4" cx="592" cy="110" r="4"></circle>
+          </g>
+          <g data-row data-fails="2" opacity="0.55">
+            <rect class="lp-fig-box-accent" x="1" y="128" width="638" height="28" rx="5" opacity="0"></rect>
+            <text class="lp-fig-t" x="10" y="147">Luminar AI</text>
+            <circle class="lp-fig-line-soft" data-col="0" cx="240" cy="142" r="4"></circle>
+            <circle class="lp-fig-line-soft" data-col="1" cx="328" cy="142" r="4"></circle>
+            <circle class="lp-fig-bad" data-col="2" cx="416" cy="142" r="5"></circle>
+            <circle class="lp-fig-line-soft" data-col="3" cx="504" cy="142" r="4"></circle>
+            <circle class="lp-fig-line-soft" data-col="4" cx="592" cy="142" r="4"></circle>
+          </g>
+          <g data-row data-fails="3" opacity="0.55">
+            <rect class="lp-fig-box-accent" x="1" y="160" width="638" height="28" rx="5" opacity="0"></rect>
+            <text class="lp-fig-t" x="10" y="179">Darktable and friends</text>
+            <circle class="lp-fig-line-soft" data-col="0" cx="240" cy="174" r="4"></circle>
+            <circle class="lp-fig-line-soft" data-col="1" cx="328" cy="174" r="4"></circle>
+            <circle class="lp-fig-line-soft" data-col="2" cx="416" cy="174" r="4"></circle>
+            <circle class="lp-fig-bad" data-col="3" cx="504" cy="174" r="5"></circle>
+            <circle class="lp-fig-line-soft" data-col="4" cx="592" cy="174" r="4"></circle>
+          </g>
+          <g data-row data-fails="4" opacity="0.55">
+            <rect class="lp-fig-box-accent" x="1" y="192" width="638" height="28" rx="5" opacity="0"></rect>
+            <text class="lp-fig-t" x="10" y="211">Lightroom subscription</text>
+            <circle class="lp-fig-line-soft" data-col="0" cx="240" cy="206" r="4"></circle>
+            <circle class="lp-fig-line-soft" data-col="1" cx="328" cy="206" r="4"></circle>
+            <circle class="lp-fig-line-soft" data-col="2" cx="416" cy="206" r="4"></circle>
+            <circle class="lp-fig-line-soft" data-col="3" cx="504" cy="206" r="4"></circle>
+            <circle class="lp-fig-bad" data-col="4" cx="592" cy="206" r="5"></circle>
+          </g>
+          <g data-row data-fails="-1">
+            <rect class="lp-fig-box-accent" x="1" y="224" width="638" height="28" rx="5"></rect>
+            <text class="lp-fig-t" x="10" y="243">LightPhotos</text>
+            <circle class="lp-fig-good" data-col="0" cx="240" cy="238" r="5"></circle>
+            <circle class="lp-fig-good" data-col="1" cx="328" cy="238" r="5"></circle>
+            <circle class="lp-fig-good" data-col="2" cx="416" cy="238" r="5"></circle>
+            <circle class="lp-fig-good" data-col="3" cx="504" cy="238" r="5"></circle>
+            <circle class="lp-fig-good" data-col="4" cx="592" cy="238" r="5"></circle>
+          </g>
+          <circle class="lp-fig-bad" cx="6" cy="272" r="5"></circle>
+          <text class="lp-fig-s" x="18" y="276">The need that ruled this option out</text>
+          <circle class="lp-fig-good" cx="406" cy="272" r="5"></circle>
+          <text class="lp-fig-s" x="418" y="276">Meets the need</text>
+
+        </svg>
+        <p class="lp-try-readout" aria-live="polite">5 of 5 needs on. Options that fit: LightPhotos.</p>
+        <figcaption>
+          Each option failed one different need. Turn a need off to see
+          which options then fit.
+        </figcaption>
+      </figure>
+
+      <h2>What I learned</h2>
+      <ul class="lp-article-list">
+        <li>
+          <strong>Keep your photos as plain files.</strong> A backup helps only
+          if an app can open it.
+        </li>
+        <li>
+          <strong>Buying software once does not mean that you can always use it.</strong>
+          A macOS upgrade stopped my Lightroom license, and nothing warned me.
+        </li>
+        <li>
+          <strong>More features made the free editors harder for me.</strong>
+          They could do everything, so I could not get started.
+        </li>
+        <li>
+          <strong>Write the list before the code.</strong> The list helped me
+          say no to everything else.
+        </li>
+      </ul>
+
+      <h2>Nothing fit</h2>
+      <p>
+        I am an amateur photographer. I shoot RAW with my Sony full-frame
+        camera, so the camera saves the unprocessed sensor data, and most
+        shots need a little work before I share them.
+      </p>
+      <p>
+        Luminar AI is good, but its experience and performance are not what I
+        wanted. A Lightroom subscription costs $10 each month for an app that
+        I open only sometimes.
+      </p>
+      <p>
+        I like Apple Photos. It is beautiful and fast. But it keeps the full
+        library in a single file, in a format that only Apple Photos can read.
+        A newer version of macOS did not open the Photos libraries on my older
+        backups, and several years of pictures went with them. I do not
+        control that format, and I will not take that risk again.
+      </p>
+
+      <figure class="lp-figure">
+        <svg viewBox="0 0 640 208" role="img" aria-label="Two paths for the same photos. In a locked library, your photos become one library file, and they are lost after an upgrade. As ordinary files, your photos stay ordinary files, and any app can open them.">
+          <text class="lp-fig-label" x="0" y="12">A BACKUP THAT YOU CANNOT OPEN IS NOT A BACKUP</text>
+
+          <rect class="lp-fig-panel" x="0" y="24" width="640" height="84" rx="8"></rect>
+          <text class="lp-fig-t" x="16" y="46">Locked in a library</text>
+          <rect class="lp-fig-box" x="16" y="58" width="176" height="30" rx="5"></rect>
+          <text class="lp-fig-s" x="104" y="78" text-anchor="middle">Your photos</text>
+          <line class="lp-fig-line" x1="192" y1="73" x2="214" y2="73"></line>
+          <path class="lp-fig-arrow" d="M214 68 L224 73 L214 78 Z"></path>
+          <rect class="lp-fig-box" x="224" y="58" width="176" height="30" rx="5"></rect>
+          <text class="lp-fig-s" x="312" y="78" text-anchor="middle">One library file</text>
+          <line class="lp-fig-line" x1="400" y1="73" x2="422" y2="73"></line>
+          <path class="lp-fig-arrow" d="M422 68 L432 73 L422 78 Z"></path>
+          <rect class="lp-fig-bad-stroke" x="432" y="58" width="176" height="30" rx="5"></rect>
+          <text class="lp-fig-s" x="520" y="78" text-anchor="middle">Lost after an upgrade</text>
+
+          <rect class="lp-fig-panel" x="0" y="116" width="640" height="84" rx="8"></rect>
+          <text class="lp-fig-t" x="16" y="138">Kept as ordinary files</text>
+          <rect class="lp-fig-box" x="16" y="150" width="176" height="30" rx="5"></rect>
+          <text class="lp-fig-s" x="104" y="170" text-anchor="middle">Your photos</text>
+          <line class="lp-fig-line" x1="192" y1="165" x2="214" y2="165"></line>
+          <path class="lp-fig-arrow" d="M214 160 L224 165 L214 170 Z"></path>
+          <rect class="lp-fig-box" x="224" y="150" width="176" height="30" rx="5"></rect>
+          <text class="lp-fig-s" x="312" y="170" text-anchor="middle">Ordinary files</text>
+          <line class="lp-fig-line" x1="400" y1="165" x2="422" y2="165"></line>
+          <path class="lp-fig-arrow" d="M422 160 L432 165 L422 170 Z"></path>
+          <rect class="lp-fig-box-accent" x="432" y="150" width="176" height="30" rx="5"></rect>
+          <text class="lp-fig-s" x="520" y="170" text-anchor="middle">Open them in any app</text>
+        </svg>
+      </figure>
+
+      <p>
+        A single library also does not fit how I keep my files. Recent work
+        is on the main drive of my laptop, and older shoots move to other
+        drives. I do not want hundreds of gigabytes in a library that I might
+        not be able to open in a few years.
+      </p>
+
+      <h2>So I built one</h2>
+      <p>
+        That afternoon, I started a basic version. I did not try to copy
+        Lightroom. I wanted the smallest thing that could get these photos to
+        my friends. This was the list:
+      </p>
+      <ol class="lp-article-list">
+        <li><strong>Open a folder and show the photos in it.</strong></li>
+        <li><strong>Rate photos from 1 to 5,</strong> to go through a shoot quickly and mark the keepers.</li>
+        <li><strong>Filter by rating,</strong> to edit only the photos that I like.</li>
+        <li><strong>Adjust exposure, highlights, shadows, and the other basic settings.</strong></li>
+        <li><strong>Keep all adjustments non-destructive.</strong> The editor never changes the original file, so I can always undo an edit.</li>
+        <li><strong>Export selected photos to JPEG,</strong> ready to send.</li>
+        <li><strong>Run on a Mac.</strong></li>
+      </ol>
+
+      <h2>What else I am trying to learn</h2>
+      <p>
+        Coding agents write most of the code. An
+        agent gives you code that compiles and runs, but that code can give
+        the wrong result some of the time, or crash in a case that nobody
+        tested. A photo editor
+        shows these problems quickly. If a slider lags, or a folder of RAW
+        files uses all your memory, you notice immediately.
+      </p>
+      <p>
+        So LightPhotos is two projects for me. It is the photo editor that I
+        wanted. It is also how I learn what it takes to build software with
+        agents and still care about quality and speed. Most of these posts are
+        about that.
+      </p>
+
+      <h2>What comes next</h2>
+      <p>
+        In the next post, I go through the big design decisions in LightPhotos
+        and what I gave up for each one. If this sounds familiar, I would like
+        to hear how you dealt with it.
+      </p>
+
+      <nav class="lp-article-nav" aria-label="More posts">
+        <a class="lp-article-nav-next" href="/blogs/why-rust.html">
+          <span class="lp-article-nav-dir">Next</span>
+          <span class="lp-article-nav-title">Why Rust</span>
+        </a>
+      </nav>
+    </article>
+  </main>
+  <script>
+    const fig = document.getElementById("needs-demo");
+    if (fig) {
+      const names = ["Lightroom 6", "Apple Photos", "Luminar AI", "Darktable and friends", "Lightroom subscription", "LightPhotos"];
+      const buttons = [...fig.querySelectorAll("[data-need]")];
+      const rows = [...fig.querySelectorAll("[data-row]")];
+      const readout = fig.querySelector(".lp-try-readout");
+
+      function update() {
+        const on = buttons.map((b) => b.getAttribute("aria-pressed") === "true");
+        fig.querySelectorAll("svg [data-col]").forEach((el) => {
+          el.setAttribute("opacity", on[+el.dataset.col] ? "1" : "0.25");
+        });
+        const fits = [];
+        rows.forEach((row, i) => {
+          const fails = +row.dataset.fails;
+          const fit = fails < 0 || !on[fails];
+          row.setAttribute("opacity", fit ? "1" : "0.55");
+          row.querySelector("rect").setAttribute("opacity", fit ? "1" : "0");
+          if (fit) fits.push(names[i]);
+        });
+        const count = on.filter(Boolean).length;
+        readout.textContent = `${count} of 5 needs on. Options that fit: ${fits.join(", ")}.`;
+      }
+
+      buttons.forEach((b) =>
+        b.addEventListener("click", () => {
+          b.setAttribute("aria-pressed", b.getAttribute("aria-pressed") === "true" ? "false" : "true");
+          update();
+        })
+      );
+    }
+  </script>
+</Base>

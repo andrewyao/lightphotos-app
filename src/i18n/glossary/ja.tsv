@@ -1,0 +1,532 @@
+Settings…	設定…	settings
+Settings	設定	settings_title
+Theme	テーマ	settings_theme
+Language	言語	settings_language
+Auto Adjust	自動補正	settings_auto_tone
+RAW Files	RAWファイル	settings_raw
+Apple tone curve	Appleトーンカーブ	apple_tone_curve
+On, RAW files look as they do in Photos and Preview. Off, LightPhotos applies its own curve, as in the browser.	オンにすると、RAWファイルが「写真」や「プレビュー」と同じ見た目になります。オフにすると、ブラウザ版と同様に、LightPhotos独自のカーブが適用されます。	apple_tone_curve_hint
+Center the range	範囲の中央に配置	autotone_center_range
+Put the middle of the histogram's range at 50%. Keeps the photo's shape where it is.	ヒストグラムの範囲の中央を 50% に置きます。写真の形はそのまま保たれます。	autotone_center_range_tip
+Center the middle pixel	中央のピクセルを中央に配置	autotone_center_median
+Put the pixel half the photo is darker than at 50%. A photo that is mostly shadow comes out brighter.	写真の半分がそれより暗くなるピクセルを 50% に置きます。ほとんどがシャドウの写真は明るくなります。	autotone_center_median_tip
+General	一般	form_general
+Dark	ダーク	theme_dark
+Medium	ミディアム	theme_medium
+Light	ライト	theme_light
+Open Folder…	フォルダを開く…	open_folder
+Add a folder of photos to Folders and open it (Cmd+O)	写真のフォルダを「フォルダ」に追加して開く (Cmd+O)	open_folder_tip
+Back to the grid (G)	グリッドに戻る (G)	back_to_grid_tip
+Full screen (F)	全画面表示 (F)	fullscreen_tip
+Slide show options	スライドショーのオプション	slideshow_menu_tip
+Play slide show (Cmd+Enter)	スライドショーを再生 (Cmd+Enter)	slideshow_play
+Display Duration	表示時間	slideshow_duration
+Random	ランダム	slideshow_random
+Zoom to Fill	拡大して全面表示	slideshow_fill
+ s	秒	seconds_suffix
+Showing the thumbnail	サムネールを表示中	shown_thumb_tip
+Showing the JPEG embedded in the file	ファイルに埋め込まれたJPEGを表示中	shown_embedded_tip
+Showing a preview decode, below full resolution	プレビュー用のデコードを表示中（フル解像度より低い解像度）	shown_preview_tip
+Showing full resolution	フル解像度を表示中	shown_full_tip
+Keyboard shortcuts (?)	キーボードショートカット (?)	help_tip
+Metadata	メタデータ	metadata_title
+Photo metadata (I)	写真のメタデータ (I)	info_tab_tip
+No photo selected	写真が選択されていません	info_no_selection
+File	ファイル	info_file
+Camera	カメラ	info_camera
+Exposure	露出	info_exposure
+Date	日付	info_date
+Location	位置情報	info_location
+Name	名前	info_name
+Dimensions	寸法	info_dimensions
+Modified	変更日時	info_modified
+Make	メーカー	info_make
+Model	モデル	info_model
+Lens	レンズ	info_lens
+Shutter	シャッター	info_shutter
+Aperture	絞り	info_aperture
+ISO	ISO	info_iso
+Focal length	焦点距離	info_focal_length
+Exposure comp.	露出補正	info_exposure_comp
+Flash	フラッシュ	info_flash
+White balance	ホワイトバランス	info_white_balance
+Captured	撮影日時	info_captured
+Latitude	緯度	info_latitude
+Longitude	経度	info_longitude
+Altitude	高度	info_altitude
+Open in Maps	マップで開く	info_open_in_maps
+Fired	発光	flash_fired
+Did not fire	非発光	flash_did_not_fire
+Auto	自動	wb_auto
+Manual	マニュアル	wb_manual
+Choose a folder of photos to get started	写真のフォルダを選択して開始します	landing_prompt
+Cull, rate and develop your raw photos, fast.	RAW写真の選別、レーティング、現像をすばやく。	landing_tagline
+Opening…	開いています…	opening
+Choose a folder of photos	写真のフォルダを選択	picker_title
+Add Folder	フォルダを追加	add_folder
+Add a folder of photos (Cmd+O)	写真のフォルダを追加 (Cmd+O)	add_folder_tip
+Remove Folder from LightPhotos	LightPhotosからフォルダを削除	remove_folder
+Select photos to rate, stack and export them here.	写真を選択すると、ここでレーティング、スタック、書き出しができます。	select_photos_hint
+Tour	ツアー	tour
+A quick tour of where everything is	各機能の場所を簡単に紹介します	tour_tip
+Take the Tour	ツアーを見る	take_tour
+Skip tour	ツアーをスキップ	skip_tour
+Back	戻る	tour_back
+Next	次へ	tour_next
+Done	完了	tour_done
+Rating:	レーティング：	rating_filter
+All	すべて	all
+At least N stars	N スター以上	at_least_n_stars
+Exactly N stars	N スター	exactly_n_stars
+At most N stars	N スター以下	at_most_n_stars
+Show only photos with no rating	レーティングのない写真のみ表示	unrated_tip
+Flag:	フラグ：	flag_filter_label
+Label:	ラベル：	label_filter_label
+Picked or Unflagged	採用またはフラグなし	flag_not_rejected
+Picked	採用	flag_picked
+Rejected	除外	flag_rejected
+Unflagged	フラグなし	flag_unflagged
+Eyes closed	目を閉じている	eyes_closed
+Show only photos where someone blinked	まばたきしている人がいる写真のみ表示	eyes_closed_tip
+No photos match the filter	条件に一致する写真がありません	no_filter_matches
+Show All Photos	すべての写真を表示	show_all_photos
+Can't read	読み込めません	thumb_unreadable
+Selected photo:	選択中の写真：	selected_photo
+Score All	すべてスコア付け	score_all
+Rate every photo here from 0 to 100, stack members included	ここにあるすべての写真に 0 から 100 のスコアを付けます（スタック内の写真を含む）	score_all_tip
+Auto Stack by Capture Time	撮影日時で自動スタック	group_all_bursts
+Stack the photos here that were shot within a second of each other	ここにある写真のうち、1 秒以内に撮影されたものをスタックにまとめます	group_all_bursts_tip
+Stack the selected photos that were shot within a second of each other	選択した写真のうち、1 秒以内に撮影されたものをスタックにまとめます	group_selected_bursts_tip
+Expand stack	スタックを展開	expand_stack
+Collapse stack	スタックを折りたたむ	collapse_stack
+Auto Adjust All	すべて自動補正	auto_adjust_all
+Set every photo's tone sliders from its own histogram, stack members included	各写真のヒストグラムからトーンのスライダーを設定します（スタック内の写真を含む）	auto_adjust_all_tip
+Update Score	スコアを更新	update_score
+Rate ★	レーティング ★	rate_menu
+Actions	アクション	actions_menu
+Open in Loupe	ルーペで開く	open_in_loupe
+Group into Stack	スタックにまとめる	group_into_stack
+Reset Adjustments	調整をリセット	reset_adjustments
+Score:	スコア：	score_label
+Update Scores	スコアを更新	update_scores
+Clear rating	レーティングを消去	clear_rating
+Auto Adjust	自動補正	auto_tone
+Set each selected photo's tone sliders from its own histogram	選択した各写真のヒストグラムからトーンのスライダーを設定します	auto_tone_selection_tip
+Rate each selected photo's quality from 0 to 100	選択した各写真の品質に 0 から 100 のスコアを付けます	score_selection_tip
+Score again to see the breakdown	内訳を見るには、もう一度スコア付けしてください	score_no_breakdown
+No defects found	欠点は見つかりませんでした	no_penalties
+Edited since scoring; score again to update	スコア付け後に編集されました。更新するには、もう一度スコア付けしてください	score_stale
+Sort:	並べ替え：	sort_by
+Name	名前	sort_name
+Capture Time	撮影日時	sort_time
+Fit	全体	zoom_fit
+Zoom, from fitting the window to 6400%	ズーム（ウインドウに合わせた表示から 6400% まで）	zoom_tip
+100% (1:1)	100% (1:1)	zoom_actual
+By capture time. Photos without one go last.	撮影日時順。撮影日時のない写真は最後になります。	sort_time_tip
+Modified Time	変更日時	sort_modified
+By when the file was last modified.	ファイルの最終変更日時順。	sort_modified_tip
+File Size	ファイルサイズ	sort_size
+By file size.	ファイルサイズ順。	sort_size_tip
+Shutter Speed	シャッタースピード	sort_shutter
+By shutter speed. Photos without one go last.	シャッタースピード順。シャッタースピードのない写真は最後になります。	sort_shutter_tip
+Score	スコア	sort_quality
+By quality score. Unscored photos go last.	品質スコア順。スコアのない写真は最後になります。	sort_quality_tip
+Rating	レーティング	sort_rating
+By star rating. Unrated photos count as none.	スターのレーティング順。レーティングのない写真は 0 として扱われます。	sort_rating_tip
+Edit Time	編集日時	sort_edited
+By when the photo was last edited here. Unedited photos go last.	ここで最後に編集した日時順。編集していない写真は最後になります。	sort_edited_tip
+Ascending. Click to reverse the order.	昇順。クリックすると順序が逆になります。	sort_ascending_tip
+Descending. Click to reverse the order.	降順。クリックすると順序が逆になります。	sort_descending_tip
+Copy Adjustment…	調整をコピー…	copy_settings
+Copy this photo's adjustment, as chosen in Copy Settings	「コピー設定」で選んだ項目で、この写真の調整をコピーします	copy_settings_tip
+Choose what Copy Adjustment copies (Cmd+Shift+C)	「調整をコピー」でコピーする項目を選択 (Cmd+Shift+C)	copy_settings_choose_tip
+Choose what Copy Adjustment carries to other photos. Crop, Straighten and Touch Up are chosen afresh for each copy.	「調整をコピー」でほかの写真に引き継ぐ項目を選んでください。切り抜き、角度補正、スポット修正は、コピーのたびに選び直します。	copy_settings_prompt
+Copy	コピー	copy_button
+Check All	すべてチェック	check_all
+Check None	すべて解除	check_none
+Compare takes 2 to 6 photos	比較できるのは 2 枚から 6 枚です	compare_too_many
+Effects	効果	effects
+Crop	切り抜き	crop_section
+Apply Adjustment	調整を適用	apply_settings
+Copy the adjustment from a photo first	先に写真から調整をコピーしてください	apply_settings_needs_copy
+Apply the copied adjustment to the selection (Cmd+Shift+V)	コピーした調整を選択した写真に適用 (Cmd+Shift+V)	apply_settings_tip
+Export	書き出し	export_jpg
+Choose where and at what size, then export the selection as JPGs (Cmd+Shift+E)	場所とサイズを選んで、選択した写真をJPGで書き出します (Cmd+Shift+E)	export_jpg_tip
+Reading capture times…	撮影日時を読み込み中…	bursts_reading
+No bursts found	連写は見つかりませんでした	bursts_none
+Delete	削除	delete
+Confirm	確認	confirm
+Cancel	キャンセル	cancel
+Keyboard shortcuts	キーボードショートカット	shortcuts_title
+Close	閉じる	close
+Touch Up	スポット修正	title
+Delete Stack	スタックを削除	delete_group_title
+Unstack	スタックを解除	remove_group
+Adjustments	調整	develop
+Adjustments	調整	tab_sliders
+Crop & Transform	切り抜きと変形	tab_crop
+Masks & Cleanup	マスクと修正	tab_masks
+Rotate	回転	crop_rotate
+Left	左	crop_left
+Right	右	crop_right
+Size	サイズ	crop_size
+Overlay	オーバーレイ	crop_overlay
+Thirds	三分割	crop_thirds
+Grid	グリッド	crop_grid
+Golden	黄金比	crop_golden
+Diagonal	対角線	crop_diagonal
+Spiral	螺旋	crop_spiral
+None	なし	crop_overlay_none
+Aspect	縦横比	crop_aspect
+Original	オリジナル	crop_original
+Custom	カスタム	crop_custom
+Orientation	向き	crop_orientation
+Horizontal	横	crop_horizontal
+Vertical	縦	crop_vertical
+Straighten	角度補正	crop_straighten
+Straighten Tool	角度補正ツール	crop_straighten_tool
+Draw along a line that should be level or upright, then press Enter.	水平または垂直にしたい線に沿ってドラッグし、Enter キーを押します。	crop_straighten_hint
+Presets	プリセット	presets
+Save these settings as a preset	現在の設定をプリセットとして保存	save_preset_tip
+Import from Lightroom…	Lightroomから読み込み…	import_lr_presets
+Import Lightroom .xmp preset files	Lightroomの.xmpプリセットファイルを読み込む	import_lr_presets_tip
+Choose Lightroom presets	Lightroomプリセットを選択	xmp_picker_title
+Lightroom preset	Lightroomプリセット	xmp_filter_name
+Black and white approximated as Saturation -100	白黒は彩度 -100 で近似しています	preset_monochrome_note
+No presets yet	プリセットはまだありません	no_presets
+Apply to the selected photos	選択した写真に適用	apply_preset_tip
+Rename or delete	名前の変更または削除	preset_actions_tip
+Search presets	プリセットを検索	search_presets
+My Presets	マイプリセット	my_presets
+No presets match	一致するプリセットがありません	no_matching_presets
+Save current as preset…	現在の設定をプリセットとして保存…	save_current_as_preset
+Add preset folder…	プリセットフォルダを追加…	add_preset_folder
+List the Lightroom .xmp presets in a folder, read in place	フォルダ内のLightroomの.xmpプリセットを、その場で読み込んで一覧表示します	add_preset_folder_tip
+Choose a folder of Lightroom presets	Lightroomプリセットのフォルダを選択	preset_folder_picker_title
+Preset folders	プリセットフォルダ	preset_folders
+Remove	削除	remove
+Profiles, looks, and .xmp files that are not develop presets or would not read	現像プリセットではない、または読み込めなかったプロファイル、ルック、.xmpファイル	presets_skipped_tip
+Save preset	プリセットを保存	save_preset_title
+Rename preset	プリセット名を変更	rename_preset_title
+Preset name	プリセット名	preset_name_hint
+Name	名前	preset_name_label
+Save	保存	save
+Rename	名前を変更	rename
+Reset	リセット	reset
+Set the tone sliders from each selected photo's own histogram (Cmd+U)	選択した各写真のヒストグラムからトーンのスライダーを設定 (Cmd+U)	auto_tone_tip
+Black & White	白黒	black_and_white
+Turn the selected photos black and white, or back to color (V)	選択した写真を白黒にする、またはカラーに戻す (V)	black_and_white_tip
+Touch Up	スポット修正	touch_up
+Size	サイズ	brush_size
+[ / ] or the scroll wheel	[ / ] またはスクロールホイール	brush_size_tip
+Feather	ぼかし	feather
+Shift+[ / Shift+] or Shift+scroll	Shift+[ / Shift+] または Shift+スクロール	feather_tip
+Opacity	不透明度	opacity
+How much of the patch covers the photo, for spots added from now on	これから追加するスポットについて、パッチが写真をどれだけ覆うか	opacity_tip
+Spots	スポット	spots
+Pick Gray	グレーを指定	pick_gray
+Click a neutral-gray pixel in the image	画像内のニュートラルグレーのピクセルをクリック	pick_gray_tip
+White Balance	ホワイトバランス	white_balance
+Tone	トーン	tone
+Presence	プレゼンス	presence
+Detail	ディテール	detail
+Optics	レンズ補正	optics
+Vignette	周辺光量補正	vignette
+Grain	粒子	grain
+Curve	トーンカーブ	curve
+Point Curve	ポイントカーブ	point_curve
+Linear	リニア	curve_linear
+Medium Contrast	ミディアムコントラスト	curve_medium_contrast
+Strong Contrast	強いコントラスト	curve_strong_contrast
+Custom	カスタム	curve_custom
+RGB	RGB	curve_rgb
+Red	レッド	curve_red
+Green	グリーン	curve_green
+Blue	ブルー	curve_blue
+Color Mixer	カラーミキサー	color_mixer
+B&W Mix	白黒ミックス	gray_mix
+Color	カラー	copy_color
+Color Grading	カラーグレーディング	color_grading
+Midtones	ミッドトーン	midtones
+Global	全体	global
+Blending	ブレンド	blending
+Balance	バランス	balance
+Hue	色相	mix_hue
+Luminance	輝度	mix_luminance
+Remove Chromatic Aberration	色収差を除去	remove_ca
+Measures the red and blue fringes at high-contrast edges and lines them up with green	コントラストの高いエッジの赤と青の色にじみを測定し、緑に合わせます	remove_ca_tip
+No photo selected	写真が選択されていません	no_photo_selected
+Multiple photos selected	複数の写真を選択中	multiple_photos_selected
+Lower each photo's value by a large step	各写真の値を大きく下げる	step_big_down
+Lower each photo's value by a small step	各写真の値を少し下げる	step_down
+Reset on every selected photo	選択したすべての写真でリセット	step_reset
+Raise each photo's value by a small step	各写真の値を少し上げる	step_up
+Raise each photo's value by a large step	各写真の値を大きく上げる	step_big_up
+Temp	色温度	temp
+Tint	色かぶり補正	tint
+Exposure	露光量	exposure
+Contrast	コントラスト	contrast
+Highlights	ハイライト	highlights
+Shadows	シャドウ	shadows
+Whites	白レベル	whites
+Blacks	黒レベル	blacks
+Texture	テクスチャ	texture
+Clarity	明瞭度	clarity
+Dehaze	かすみの除去	dehaze
+Vibrance	自然な彩度	vibrance
+Saturation	彩度	saturation
+Denoise	ノイズ軽減	denoise
+Sharpening	シャープ	sharpening
+Radius	半径	sharpen_radius
+Detail	ディテール	sharpen_detail
+Masking	マスク	sharpen_masking
+Amount	適用量	amount
+Midpoint	中心点	midpoint
+Roundness	丸み	roundness
+Size	サイズ	grain_size
+Roughness	あらさ	roughness
+Before	ビフォー	before
+After	アフター	after
+Invert	反転	invert
+Highlight the background instead of the subject	被写体ではなく背景をハイライト表示	invert_tip
+Show Selection	被写体を表示	show_selection
+Selection…	選択中…	selection_pending
+No subject	被写体なし	no_subject
+Outline the subject Vision finds in this photo	Visionがこの写真で検出した被写体の輪郭を表示	show_selection_tip
+Another delete is still running…	別の削除がまだ実行中です…	delete_in_progress
+This folder's stacks are still loading. Try again in a moment.	このフォルダのスタックを読み込み中です。しばらくしてからもう一度お試しください。	group_refused_loading
+A file name here can't be saved in a stack.	ここにあるファイル名は、スタックに保存できません。	group_name_unsaveable
+Destination	書き出し先	export_destination
+Folder	フォルダ	export_to_folder
+Immich	Immich	export_to_immich
+Exports subfolder	「Exports」サブフォルダ	export_exports_subfolder
+Another folder	別のフォルダ	export_chosen_folder
+Choose…	選択…	export_choose_folder
+Size	サイズ	export_size
+Location	場所	export_folder
+Output	出力	export_output
+Account	アカウント	immich_account
+Full resolution	フル解像度	export_size_full
+File	ファイル	export_file
+Format	フォーマット	export_format
+TIFF (16-bit)	TIFF (16ビット)	export_format_tiff16
+WebP (lossless)	WebP (ロスレス)	export_format_webp
+File size	ファイルサイズ	export_limit
+No limit	制限なし	export_limit_none
+Encoding	エンコード	export_jpeg_preset
+Fastest	最速	export_jpeg_fastest
+Baseline	ベースライン	export_jpeg_baseline
+Progressive	プログレッシブ	export_jpeg_progressive
+Smallest	最小	export_jpeg_smallest
+Fastest encodes several times faster. The others make files 10-20% smaller.	「最速」は数倍速くエンコードできます。ほかの項目は、ファイルが 10-20% 小さくなります。	export_jpeg_preset_hint
+File name	ファイル名	export_naming
+{name} is the photo's name and {seq} its number in this export.	{name} は写真の名前、{seq} はこの書き出しでの番号です。	export_naming_hint
+Metadata	メタデータ	export_metadata
+Include	含める	export_metadata_include
+Location (GPS)	位置情報 (GPS)	export_keep_location
+Camera serial numbers and owner	カメラのシリアル番号と所有者	export_keep_identity
+The capture date, camera, lens and exposure always go in. Captions and comments never do.	撮影日時、カメラ、レンズ、露出は常に含まれます。キャプションとコメントは含まれません。	export_keep_hint
+Copyright	著作権	export_copyright
+Written into every export in place of the photo's own. Leave it empty to keep the photo's.	写真自体の著作権の代わりに、書き出すすべてのファイルに書き込まれます。空欄にすると、写真の著作権がそのまま残ります。	export_copyright_hint
+Sharpen For	出力シャープ	export_sharpen
+None	なし	export_sharpen_off
+Screen	スクリーン	export_sharpen_screen
+Matte Paper	マット紙	export_sharpen_matte
+Glossy Paper	光沢紙	export_sharpen_glossy
+Low	低	export_sharpen_low
+Standard	標準	export_sharpen_standard
+High	高	export_sharpen_high
+Export	書き出し	export_run
+Connect to an Immich server first	先にImmichサーバに接続してください	export_needs_immich
+Server URL	サーバURL	immich_server_url
+Example: https://immich.gumnut.ai	例：https://immich.gumnut.ai	immich_url_example
+http:// is not encrypted: your API key and photos cross the network readable. Use https:// if the server offers it.	http:// は暗号化されません。APIキーと写真が、読み取れる状態でネットワークを流れます。サーバが対応している場合は https:// を使ってください。	immich_plain_http
+Uploading to Immich is only available in the desktop app. Browsers can't connect to an Immich server.	Immichへのアップロードは、デスクトップアプリでのみ利用できます。ブラウザからImmichサーバには接続できません。	immich_native_only
+API key	APIキー	immich_api_key
+Connect	接続	immich_connect
+Connecting…	接続中…	immich_connecting
+Disconnect	接続を解除	immich_disconnect
+Album	アルバム	immich_album
+No album	アルバムなし	album_none
+New album…	新規アルバム…	album_new
+Album name	アルバム名	album_name
+Name the new album first	先に新しいアルバムの名前を入力してください	album_name_needed
+Export: nothing selected	書き出し：写真が選択されていません	export_nothing_selected
+Export already in progress…	書き出しはすでに実行中です…	export_in_progress
+Export: this folder's edits are still loading, try again in a moment…	書き出し：このフォルダの編集内容を読み込み中です。しばらくしてからもう一度お試しください…	export_edits_loading
+Export: no directory handle for the current folder	書き出し：現在のフォルダのディレクトリハンドルがありません	export_no_handle
+Auto Adjust needs the photo to finish loading	自動補正するには、写真の読み込みが完了している必要があります	auto_tone_needs_load
+Auto Adjust applied	自動補正を適用しました	auto_tone_applied
+Measuring chromatic aberration…	色収差を測定中…	remove_ca_measuring
+Chromatic aberration removed	色収差を除去しました	remove_ca_applied
+Could not decode the photo to measure chromatic aberration	写真をデコードできず、色収差を測定できませんでした	remove_ca_failed
+Auto Adjust will start after this folder's edits load…	このフォルダの編集内容の読み込みが終わってから、自動補正を開始します…	auto_tone_waits_for_edits
+Touch Up supports up to 64 spots	スポット修正は最大 64 個までです	touch_up_limit
+A photo holds up to 16 masks	1 枚の写真に設定できるマスクは最大 16 個です	mask_limit
+Masks	マスク	masks
+Linear	リニア	linear_gradient
+Radial	円形	radial_gradient
+Linear Gradient: drag on the photo to draw it (M)	リニアグラデーション：写真上でドラッグして作成 (M)	linear_gradient_tip
+Radial Gradient: drag out from its center on the photo (Shift+M)	円形グラデーション：写真上で中心から外側へドラッグして作成 (Shift+M)	radial_gradient_tip
+Brush	ブラシ	brush_mask
+Brush: paint the mask on the photo (K). Hold Alt to erase	ブラシ：写真上でマスクを描画 (K)。Alt キーを押すと消去	brush_mask_tip
+Paint on the photo. Hold Alt to erase	写真上で描画します。Alt キーを押すと消去	brush_paint_hint
+Flow	流量	flow
+How much one pass adds. Passes over the same spot build up	1 回のなぞりで加わる量。同じ場所を重ねてなぞると濃くなります	flow_tip
+Erase	消去	brush_erase
+Paint to take away from the mask, as holding Alt does	Alt キーを押したときと同様に、なぞった部分をマスクから取り除きます	brush_erase_tip
+A photo's brush strokes hold up to 8,000 points	1 枚の写真のブラシのストロークは、最大 8,000 点までです	brush_point_limit
+A brush mask holds up to 512 strokes; + Brush starts another	1 つのブラシマスクのストロークは最大 512 本です。「+ ブラシ」で別のマスクを始めます	brush_stroke_limit
+Invert	反転	mask_invert
+Drag on the photo to draw the mask	写真上でドラッグしてマスクを作成します	mask_draw_hint
+Subject	被写体	subject_mask
+Sky	空	sky_mask
+Subject: a mask over the person or main subject, found for this photo	被写体：この写真で検出した、人物または主な被写体のマスク	subject_mask_tip
+Sky: a mask over the sky, found for this photo	空：この写真で検出した、空のマスク	sky_mask_tip
+Subject detection needs macOS	被写体の検出には macOS が必要です	detect_needs_mac
+Not available in this build yet	このバージョンではまだ利用できません	detect_unavailable
+This mask's detection file is missing from .lightphotos/masks	このマスクの検出ファイルが .lightphotos/masks にありません	detect_file_missing
+Detecting…	検出中…	mask_detecting
+Retry	再試行	mask_retry
+Export: masks are still being detected, try again in a moment…	書き出し：マスクを検出中です。しばらくしてからもう一度お試しください…	export_masks_detecting
+Touch Up needs a full-resolution image	スポット修正にはフル解像度の画像が必要です	touch_up_needs_full
+No image loaded to pick from	指定できる画像が読み込まれていません	wb_no_image
+Pick a brighter, less saturated pixel for white balance	ホワイトバランスには、より明るく彩度の低いピクセルを指定してください	wb_pick_brighter
+Catalog: the folders listed here, and a copy of their ratings, flags and color labels	カタログ：ここに表示されているフォルダと、そのレーティング、フラグ、カラーラベルのコピー	catalog_tip
+New Catalog…	新規カタログ…	new_catalog
+Open Catalog…	カタログを開く…	open_catalog
+New Catalog	新規カタログ	catalog_save_title
+Untitled	名称未設定	catalog_untitled
+LightPhotos catalog	LightPhotosカタログ	catalog_filter_name
+Choose a catalog (a .lightphotos folder)	カタログ（.lightphotos フォルダ）を選択	catalog_picker_title
+Name	名前	catalog_name_label
+Catalog name	カタログ名	catalog_name_hint
+Create	作成	create
+Load Photos:	写真の読み込み：	tile_load
+Quickly	すばやく	tile_speed
+Fully (Slower)	完全（低速）	tile_full
+Set as Representative	代表写真に設定	set_as_rep
+Representative	代表写真	representative
+Compare Photos	写真を比較	view_compare
+Compare Photos: select 2 to 6 photos, or a photo in a stack	写真を比較：2 枚から 6 枚の写真、またはスタック内の写真を選択してください	view_compare_needs_group
+another program	別のプログラム	held_by_other
+Read-only: this folder can't be locked for saving, so changes here are not saved. It may be read-only or need permission. Open it again to try again.	読み取り専用：このフォルダは保存用にロックできないため、ここでの変更は保存されません。読み取り専用であるか、アクセス許可が必要な可能性があります。もう一度開き直してください。	folder_cant_lock
+Read-only: LightPhotos has no access to this folder, so changes here are not saved. Open it again.	読み取り専用：LightPhotosにこのフォルダへのアクセス権がないため、ここでの変更は保存されません。もう一度開き直してください。	folder_no_access
+This folder can't be locked, so don't let a headless lightphotos-mcp change it while it is open here.	このフォルダはロックできません。ここで開いている間は、ヘッドレスのlightphotos-mcpで変更しないでください。	folder_lockless
+This folder is still opening. Try again in a moment.	このフォルダはまだ開いている途中です。しばらくしてからもう一度お試しください。	folder_opening
+Presets are locked because the saved file could not be read. Move or fix it, then restart.	保存されているファイルを読み込めなかったため、プリセットはロックされています。ファイルを移動または修復してから、再起動してください。	presets_locked
+About LightPhotos	LightPhotosについて	about
+Hide LightPhotos	LightPhotosを隠す	hide
+Hide Others	ほかを隠す	hide_others
+Show All	すべてを表示	show_all
+Quit LightPhotos	LightPhotosを終了	quit
+File	ファイル	file
+Export…	書き出し…	export
+Edit	編集	edit
+Undo	取り消す	undo
+Cut	カット	cut
+Copy	コピー	copy
+Paste	ペースト	paste
+Select All	すべてを選択	select_all
+Deselect All	すべての選択を解除	deselect_all
+Paste Adjustment	調整をペースト	paste_settings
+Photo	写真	photo
+Rate	レーティング	rate
+No Rating	レーティングなし	no_rating
+Set Flag	フラグを設定	set_flag
+Color Label	カラーラベル	color_label
+Red	レッド	label_red
+Yellow	イエロー	label_yellow
+Green	グリーン	label_green
+Blue	ブルー	label_blue
+Purple	パープル	label_purple
+Auto Adjust Selection	選択した写真を自動補正	auto_tone_selection
+Score Quality	品質スコア	score_photos
+Rotate Left	左に回転	rotate_left
+Rotate Right	右に回転	rotate_right
+Move to Trash	ゴミ箱に入れる	move_to_trash
+Stack	スタック	group_selected
+Auto Stack by Capture Time	撮影日時で自動スタック	group_bursts
+Unstack	スタックを解除	ungroup
+Delete Stack…	スタックを削除…	delete_group
+View	表示	view
+Grid	グリッド	grid
+Loupe	ルーペ	loupe
+Crop & Transform	切り抜きと変形	crop
+Compare Photos	写真を比較	compare_stack
+Info Panel	情報パネル	info_panel
+Before / After	ビフォー / アフター	before_after
+Toggle Zoom	ズームを切り替え	toggle_zoom
+Zoom In	拡大	zoom_in
+Zoom Out	縮小	zoom_out
+Bigger Text	文字を大きく	bigger_text
+Smaller Text	文字を小さく	smaller_text
+Window	ウインドウ	window
+Minimize	しまう	minimize
+Zoom	拡大/縮小	zoom
+Help	ヘルプ	help
+Keyboard Shortcuts	キーボードショートカット	keyboard_shortcuts
+[shortcut Enter or Space] Open selected photo (in library)	選択した写真を開く（ライブラリ）	pair
+[shortcut E] Open selected photo (in library)	選択した写真を開く（ライブラリ）	pair
+[shortcut G] Back to the library grid	ライブラリのグリッドに戻る	pair
+[shortcut F] Full screen, only the photo; F or Esc leaves (in editor)	全画面表示（写真のみ）。F または Esc で終了（編集画面）	pair
+[shortcut Cmd+Enter] Slide show of the grid's photos; F or Esc stops	グリッドの写真をスライドショー表示。F または Esc で停止	pair
+[shortcut Esc] Back to library (in editor)	ライブラリに戻る（編集画面）	pair
+[shortcut ← / →] Previous / next photo (in editor)	前 / 次の写真（編集画面）	pair
+[shortcut Page Up / Page Down] Previous / next photo (in editor)	前 / 次の写真（編集画面）	pair
+[shortcut D] Adjust the selected photo	選択した写真を調整	pair
+[shortcut C] Compare 2 to 6 selected photos, or the selected stack	選択した 2 枚から 6 枚の写真、または選択したスタックを比較	pair
+[shortcut I] Show or hide photo info in the right panel	右パネルの写真情報を表示または非表示	pair
+[shortcut F6 / Shift+F6] Next region, or next control inside an entered one	次の領域へ。入った領域では次のコントロールへ	pair
+[shortcut Tab / Shift+Tab] Move between items in the focused region	フォーカスした領域内の項目間を移動	pair
+[shortcut Cmd+O] Open a folder	フォルダを開く	pair
+[shortcut ?] Show or hide this help	このヘルプを表示または非表示	pair
+[shortcut Alt+= / Alt+-] Bigger / smaller text	文字を大きく / 小さく	pair
+[shortcut Cmd+A] Select all in current folder (in library)	現在のフォルダ内をすべて選択（ライブラリ）	pair
+[shortcut Shift+Click] Range-select	範囲を選択	pair
+[shortcut Cmd+Click] Toggle individual selection	1 枚ずつ選択を切り替え	pair
+[shortcut Shift+arrows] Extend selection (library)	選択範囲を拡張（ライブラリ）	pair
+[shortcut Cmd+D] Deselect all	すべての選択を解除	pair
+[shortcut Cmd+G] Stack the selection	選択した写真をスタックにまとめる	pair
+[shortcut Cmd+Shift+G] Unstack the selected stacks	選択したスタックを解除	pair
+[shortcut 0 1 2 3 4 5] Set star rating 0-5	スターのレーティングを 0 から 5 に設定	pair
+[shortcut Shift+0-5] Set the rating and go to the next photo	レーティングを設定して次の写真へ	pair
+[shortcut P] Pick	採用にする	pair
+[shortcut X] Reject	除外にする	pair
+[shortcut U] Unflag	フラグを外す	pair
+[shortcut `] Pick, or unflag a picked photo	採用にする。採用済みの写真ではフラグを外す	pair
+[shortcut 6 7 8 9] Red, yellow, green or blue label; again to clear	レッド、イエロー、グリーン、ブルーのラベル。もう一度押すと解除	pair
+[shortcut Space or Z] Cycle zoom: fit, 2x fit, 100%	ズームを切り替え：全体表示、全体の 2 倍、100%	pair
+[shortcut Cmd++ or Cmd+=] Zoom in (20% step)	拡大（20% ずつ）	pair
+[shortcut Cmd+-] Zoom out (20% step)	縮小（20% ずつ）	pair
+[shortcut ↑ / ↓] Zoom in / out (10% step)	拡大 / 縮小（10% ずつ）	pair
+[shortcut Scroll] Zoom at the pointer	ポインタの位置でズーム	pair
+[shortcut Drag] Pan	パン	pair
+[shortcut Space+Drag] Pan	パン	pair
+[shortcut Shift+Scroll] Pan sideways	左右にパン	pair
+[shortcut Alt+Scroll] Pan up and down	上下にパン	pair
+[shortcut Cmd+Z] Undo the last develop change	直前の現像の変更を取り消す	pair
+[shortcut Cmd+[ / Cmd+]] Rotate image -90 / +90 degrees	画像を左 / 右に 90 度回転	pair
+[shortcut R] Crop	切り抜き	pair
+[shortcut Y] Before / after compare (in editor)	ビフォー / アフターの比較（編集画面）	pair
+[shortcut M] Linear Gradient mask	リニアグラデーションマスク	pair
+[shortcut Shift+M] Radial Gradient mask	円形グラデーションマスク	pair
+[shortcut Cmd+Shift+E] Open or close the export form	書き出しフォームを開く、または閉じる	pair
+[shortcut Cmd+U] Auto Adjust the selection	選択した写真を自動補正	pair
+[shortcut V] Black & white, or back to color	白黒にする、またはカラーに戻す	pair
+[shortcut Cmd+Shift+C] Copy this photo's adjustment	この写真の調整をコピー	pair
+[shortcut Cmd+Shift+V] Paste the adjustment onto the selection	選択した写真に調整をペースト	pair
+[shortcut Double-click slider] Reset the slider	スライダーをリセット	pair
+[shortcut Enter or R] Apply the crop	切り抜きを適用	pair
+[shortcut Click or drag the photo] Move the focus area	フォーカス領域を移動	pair
+[shortcut Shift+scroll on the area] Resize the focus area	フォーカス領域のサイズを変更	pair
+[shortcut Drag a tile] Move the focus area	フォーカス領域を移動	pair
+[shortcut Cmd+Click / Shift+Click a tile] Pick more tiles	さらにタイルを選択	pair
+[shortcut O] Show or hide the subject selection	被写体の選択を表示または非表示	pair
+[shortcut Shift+O] Invert the subject selection	被写体の選択を反転	pair
+[shortcut K] Brush on / off; paints the picked brush mask	ブラシのオン / オフ。選択中のブラシマスクに描画	pair
+[shortcut Alt+Drag] Erase	消去	pair
+[shortcut [ / ]] Brush size	ブラシのサイズ	pair
+[shortcut Shift+[ / ]] Brush feather	ブラシのぼかし	pair
+[shortcut Q] Touch Up on / off	スポット修正のオン / オフ	pair
+[shortcut Delete] Delete the selected spot	選択したスポットを削除	pair

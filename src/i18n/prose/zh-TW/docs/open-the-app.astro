@@ -1,0 +1,31 @@
+---
+import WebAppLink from "../../../../components/WebAppLink.astro";
+---
+<p>
+  LightPhotos 處理的是磁碟上現成的資料夾，所以整個流程都在同一個視窗裡完成：開啟應用程式、
+  <a href="/docs/pick-a-folder.html">選擇資料夾</a>、
+  <a href="/docs/browse.html">瀏覽</a>、
+  <a href="/docs/select-a-photo.html">選取照片</a>、
+  <a href="/docs/adjust.html">調整</a>、
+  <a href="/docs/export.html">匯出</a>。你的評等和編輯會隨時寫入，也可以在任何時候停下來。
+</p>
+
+<ul class="lp-article-list">
+  <li>
+    <strong>在瀏覽器中使用。</strong>
+    <WebAppLink>
+      <a href="/app.html">開啟網頁版</a>——不需要安裝，也不需要更新。
+      <span slot="fallback">你目前的瀏覽器無法使用網頁版。請改用 Chrome。</span>
+    </WebAppLink>
+    它以 GPU 繪製，所以 Chrome 或任何已啟用 WebGPU 的瀏覽器都能執行。
+  </li>
+  <li>
+    <strong>以桌面版使用。</strong>
+    <a href="/downloads.html">下載</a> macOS、Windows 或 Linux 版。
+    裝到你的電腦後，完全不需要網路就能執行。
+  </li>
+</ul>
+
+<p>
+  不論哪一種，都是同一個編輯器處理同一批檔案。照片直接從磁碟讀取，絕不會上傳，桌面版的檔案也很小。
+</p>

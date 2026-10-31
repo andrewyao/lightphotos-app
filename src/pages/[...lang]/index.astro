@@ -1,0 +1,219 @@
+---
+import Base from "../../layouts/Base.astro";
+import { languagePaths, type LanguageProps } from "../../i18n/routes";
+import { ui } from "../../i18n/ui";
+
+export const getStaticPaths = languagePaths;
+const { lang } = Astro.props as LanguageProps;
+const t = ui(lang).home;
+const f = t.features;
+---
+<Base title={t.title} desc={t.desc} lang={lang} path="/">
+  <style is:inline>
+    /* No WebGPU means the web build cannot run, so the browser button goes and
+       only Download is left. Decided by the script below, never by default, so
+       a visitor with JS off still sees both. */
+    :root[data-lp-webgpu="0"] [data-needs-webgpu] {
+      display: none;
+    }
+  </style>
+  <script is:inline>
+  // Runs before the hero is parsed, so the Download button never paints the generic
+  // wording and then blinks over to the visitor's own platform.
+  (function () {
+    var ua = navigator.userAgent || "";
+
+    // First match wins: the mobile bail-out has to come before its broader
+    // neighbours, because Android's user agent string also says "Linux".
+    var RULES = [
+      { id: null, test: /Android|iPhone|iPad|iPod|CrOS/ },
+      { id: "windows", test: /Windows NT/ },
+      { id: "macos", test: /Mac OS X|Macintosh/ },
+      { id: "linux", test: /Linux|X11/ },
+    ];
+
+    var id = null;
+    for (var i = 0; i < RULES.length; i++) {
+      if (RULES[i].test.test(ua)) { id = RULES[i].id; break; }
+    }
+
+    if (id) document.documentElement.setAttribute("data-lp-os", id);
+    else document.documentElement.removeAttribute("data-lp-os");
+
+    // The web build needs WebGPU, so the Web card only stays when the browser
+    // can actually run it. navigator.gpu is the API test; Firefox, Safari and
+    // phones/tablets are also excluded by name, because the web app is only
+    // offered on desktop Chromium browsers today -- see the copy on the Web
+    // card itself. Written before the card is parsed, so nothing flashes first.
+    var isSafari = /Safari/.test(ua) && !/Chrome|Chromium|Edg|OPR/.test(ua);
+    var noWebgpu = !navigator.gpu ||
+                   /Firefox|FxiOS|Android|iPhone|iPad|iPod/.test(ua) ||
+                   isSafari;
+    document.documentElement.setAttribute("data-lp-webgpu", noWebgpu ? "0" : "1");
+  })();
+  </script>
+
+  <main class="lp-page">
+    <section class="lp-hero">
+      <div class="lp-glow"></div>
+      <div class="lp-hero-intro">
+        <div class="lp-hero-copy">
+          <h1 class="lp-tagline">{t.tagline}</h1>
+          <p class="lp-lede">{t.lede}</p>
+          <div class="lp-hero-cta">
+            <a class="lp-btn lp-hero-dl" href="/downloads.html" data-dl-for={t.downloadFor}>{t.download}</a>
+            <a class="lp-btn lp-btn--ghost" href="/app.html" data-needs-webgpu>{t.openInBrowser}</a>
+            <a class="lp-hero-gh" href="https://github.com/andrewyao/lightphotos" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .7a11.5 11.5 0 0 0-3.64 22.4c.58.1.79-.25.79-.56v-2.23c-3.22.7-3.9-1.37-3.9-1.37-.52-1.34-1.28-1.7-1.28-1.7-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.57-.29-5.27-1.28-5.27-5.68 0-1.25.45-2.28 1.19-3.08-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.16 1.18a10.9 10.9 0 0 1 5.76 0c2.2-1.49 3.16-1.18 3.16-1.18.63 1.59.23 2.76.11 3.05.74.8 1.19 1.83 1.19 3.08 0 4.41-2.71 5.38-5.29 5.67.42.36.79 1.07.79 2.16v3.26c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .7Z"/></svg>{t.github}</a>
+          </div>
+          <script is:inline>
+          // Names the visitor's platform on the Download button, before first
+          // paint. Crawlers, phones and no-JS visitors keep the generic label.
+          (function () {
+            var OS = { macos: "macOS", windows: "Windows", linux: "Linux" };
+            var os = OS[document.documentElement.getAttribute("data-lp-os")];
+            var btn = document.querySelector(".lp-hero-dl");
+            if (os) btn.textContent = btn.getAttribute("data-dl-for").replace("{os}", os);
+          })();
+          </script>
+        </div>
+
+        <figure class="lp-demo">
+          <button class="lp-demo-open" type="button" aria-haspopup="dialog" aria-label={t.demoOpen}>
+            <video
+              class="lp-demo-video"
+              src="/demo.mp4"
+              poster="/demo-poster.jpg"
+              width="1920"
+              height="1200"
+              muted
+              loop
+              playsinline
+              aria-hidden="true"
+            ></video>
+            <span class="lp-demo-expand" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M10 20H4v-6M20 4l-7 7M4 20l7-7"/></svg>
+            </span>
+          </button>
+        </figure>
+      </div>
+    </section>
+
+    <dialog class="lp-demo-modal" aria-label={t.demoDialog}>
+      <button class="lp-demo-close" type="button" aria-label={t.demoClose}>
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+      <video
+        class="lp-demo-modal-video"
+        src="/demo.mp4"
+        poster="/demo-poster.jpg"
+        width="1920"
+        height="1200"
+        muted
+        loop
+        playsinline
+        controls
+        preload="none"
+        aria-label={t.demoDescription}
+      ></video>
+    </dialog>
+    <script is:inline>
+    // The inline preview autoplays only for visitors who haven't asked for
+    // less motion; everyone else sees the poster until they open the modal.
+    // The modal copy has controls and plays from the start each time it opens.
+    (function () {
+      var inline = document.querySelector(".lp-demo-video");
+      var open = document.querySelector(".lp-demo-open");
+      var modal = document.querySelector(".lp-demo-modal");
+      if (!inline || !open || !modal) return;
+      var big = modal.querySelector("video");
+      var reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      if (!reduce) inline.play().catch(function () {});
+
+      open.addEventListener("click", function () {
+        inline.pause();
+        modal.showModal();
+        big.currentTime = 0;
+        big.play().catch(function () {});
+      });
+      modal.querySelector(".lp-demo-close").addEventListener("click", function () {
+        modal.close();
+      });
+      // A click that lands on the dialog itself, not its contents, is the backdrop.
+      modal.addEventListener("click", function (e) {
+        if (e.target === modal) modal.close();
+      });
+      modal.addEventListener("close", function () {
+        big.pause();
+        if (!reduce) inline.play().catch(function () {});
+      });
+    })();
+    </script>
+
+    <section class="lp-features" aria-label={t.featuresAria}>
+      <div class="lp-feature">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+        </svg>
+        <h3>{f.noImports.title}</h3>
+        <p>{f.noImports.text} <a href="/blogs/where-your-data-lives.html">{f.noImports.link}</a></p>
+      </div>
+      <div class="lp-feature">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="6" y="6" width="12" height="12" rx="2"/>
+          <path d="M9 3v3M15 3v3M9 18v3M15 18v3M3 9h3M3 15h3M18 9h3M18 15h3"/>
+        </svg>
+        <h3>{f.fast.title}</h3>
+        <p>{f.fast.text} <a href="/blogs/why-rust.html">{f.fast.link}</a></p>
+      </div>
+      <div class="lp-feature">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="3" y="4.5" width="18" height="15" rx="2"/>
+          <circle cx="8.5" cy="10" r="1.8"/>
+          <path d="M4 17l4.5-4.5 3.5 3.5 3-3 5 5"/>
+        </svg>
+        <h3>{f.formats.title}</h3>
+        <p>{f.formats.text} <a href="/docs/formats.html">{f.formats.link}</a></p>
+      </div>
+      <div class="lp-feature">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 3.5l8.5 4.7-8.5 4.7L3.5 8.2z"/>
+          <path d="M3.5 12.6l8.5 4.7 8.5-4.7"/>
+        </svg>
+        <h3>{f.batch.title}</h3>
+        <p>{f.batch.text} <a href="/docs/presets.html">{f.batch.link}</a></p>
+      </div>
+      <div class="lp-feature">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="7" y="7" width="13" height="13" rx="2"/>
+          <path d="M4 16V6a2 2 0 0 1 2-2h10"/>
+        </svg>
+        <h3>{f.compare.title}</h3>
+        <p>{f.compare.text} <a href="/docs/compare-a-stack.html">{f.compare.link}</a></p>
+      </div>
+      <div class="lp-feature">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M7 18a4.5 4.5 0 0 1-.6-8.96A6 6 0 0 1 18 8.5a4 4 0 0 1-.5 9.5"/>
+          <path d="M12 12v8M9 15l3-3 3 3"/>
+        </svg>
+        <h3>{f.export.title}</h3>
+        <p>{f.export.text} <a href="/blogs/exporting-to-your-own-immich-server.html">{f.export.link}</a></p>
+      </div>
+    </section>
+
+    <section class="lp-actions" aria-label={t.actionsAria}>
+      <a class="lp-card" href="/blogs.html">
+        <i class="ph-bold ph-pencil-simple" aria-hidden="true"></i>
+        <h2>{t.blogsCard.title} <span class="lp-go" aria-hidden="true">&rarr;</span></h2>
+        <p>{t.blogsCard.text}</p>
+      </a>
+
+      <a class="lp-card" href="/docs.html">
+        <i class="ph-bold ph-book-open" aria-hidden="true"></i>
+        <h2>{t.helpCard.title} <span class="lp-go" aria-hidden="true">&rarr;</span></h2>
+        <p>{t.helpCard.text}</p>
+      </a>
+
+    </section>
+  </main>
+</Base>

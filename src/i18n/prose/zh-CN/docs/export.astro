@@ -1,0 +1,64 @@
+<p>
+  在网格中选择一张或一百张照片，或者只打开一张单独导出，然后点击<strong>导出</strong>。
+  导出表单分为四个部分，默认设置（全分辨率 JPEG，放在 <code>Exports</code> 文件夹里）不需要改动。
+  准备好之后，点击底部的<strong>导出</strong>，
+  LightPhotos 就会把你的调整写入全新的文件。
+</p>
+
+<h2>导出表单</h2>
+<ul class="lp-article-list">
+  <li>
+    <strong>目标。</strong>选择<strong>文件夹</strong>或
+    <a href="/docs/immich.html">Immich</a>。在<strong>位置</strong>下，
+    <strong>Exports 子文件夹</strong>会写入你打开的文件夹里的
+    <code>Exports</code> 文件夹，它在你第一次导出时创建。在桌面版中，
+    <strong>其他文件夹</strong>可以把文件发送到任何别的地方。
+  </li>
+  <li>
+    <strong>文件。</strong><strong>文件名</strong>是一个模板：
+    <code>{"{name}"}</code> 是照片自己的名称，
+    <code>{"{seq}"}</code> 是它在这次导出中的序号，所以
+    <code>{"trip-{seq}"}</code> 会按顺序给文件编号。你输入时，表单会显示一个示例名称。
+    <strong>格式</strong>可选 JPEG、PNG、TIFF（16 位）或 WebP（无损），
+    此外在 Windows 和 Linux 版以及较新的 macOS 上还有 AVIF。对于 JPEG，
+    <strong>文件大小</strong>可以为每个文件设定上限，适用于限制上传大小的网站。
+  </li>
+  <li>
+    <strong>输出。</strong><strong>尺寸</strong>可选<strong>原始分辨率</strong>，或以像素为单位的长边。
+    <strong>锐化用于</strong>会在缩放之后增加锐化，针对屏幕、雾面纸或光面纸，
+    强度分为低、标准或高。它默认关闭，并叠加在锐化滑块之上。
+  </li>
+  <li>
+    <strong>元数据。</strong>拍摄日期、相机、镜头和曝光参数总会写入文件，说明文字和注释从不写入。
+    <strong>位置（GPS）</strong>和
+    <strong>相机序列号和所有者</strong>除非你勾选，否则是关闭的。输入一行<strong>版权</strong>，
+    就会把它写入每个导出文件；留空则保留每张照片自带的版权。
+  </li>
+</ul>
+
+<h2>导出会做什么，不会做什么</h2>
+<ul class="lp-article-list">
+  <li>
+    <strong>原始文件保持原样。</strong>你的编辑也原封不动地留着，
+    所以你明天可以改动一个滑块再导出一次，导出绝不会消耗或覆盖任何东西。
+  </li>
+  <li>
+    <strong>导出的是普通文件。</strong>可以用任何软件打开，附在邮件里，交给冲印店。
+    它们完全不依赖 LightPhotos 还存在。
+  </li>
+  <li>
+    <strong>不会上传任何东西。</strong>解码、调整和编码都在你自己的电脑上完成，
+    只写入你所选的文件，文件夹里的其余内容不会被动到。
+  </li>
+  <li>
+    <strong>删除则不同。</strong><strong>删除</strong>会移除照片本身：
+    桌面版把它移到废纸篓，浏览器版则直接从磁盘上删除，无法撤销。
+    导出才是制作新文件的安全方式。
+  </li>
+</ul>
+
+<p>
+  整个流程就是这些。如果你还没读过前面的步骤，请从
+  <a href="/docs/open-the-app.html">打开应用</a>开始；
+  <a href="/docs/shortcuts.html">键盘快捷键</a>能让你处理第二组照片的速度比第一组快一倍。
+</p>

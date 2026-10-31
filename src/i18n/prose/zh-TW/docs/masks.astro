@@ -1,0 +1,94 @@
+<p>
+  遮色片可以只調整照片的一部分，而不是整張：把明亮的天空壓暗、
+  提亮臉部、讓某個角落偏暖。在編輯器中開啟照片，然後從右側面板
+  邊緣的圖示中選擇<strong>遮色片與修補</strong>。頁面一開始有一排
+  按鈕，每種遮色片各一個：
+</p>
+
+<ul class="lp-article-list">
+  <li>
+    <strong>+ 線性</strong>（<kbd>M</kbd>）——漸層。在照片上從效果完整的地方
+    拖移到效果淡出的地方。適合用在天空
+    或前景。
+  </li>
+  <li>
+    <strong>+ 放射狀</strong>（<kbd>Shift+M</kbd>）——橢圓。
+    從中心向外拖移，或按一下一次使用預設大小。按住
+    <kbd>Shift</kbd> 並在其中心上捲動，即可柔化或強化
+    邊緣。
+  </li>
+  <li>
+    <strong>+ 主體</strong>——找出人物或主要主體，
+    並自動為它建立遮色片。這只能在 Mac 版應用程式中使用。
+  </li>
+  <li>
+    <strong>+ 天空</strong>——找出天空，並自動為它建立遮色片。
+  </li>
+  <li>
+    <strong>+ 筆刷</strong>（<kbd>K</kbd>）——在照片上繪製遮色片。
+    按住 <kbd>Alt</kbd> 可擦除，或按<strong>擦除</strong>。
+    <kbd>[</kbd> 和 <kbd>]</kbd> 可變更筆刷大小，
+    <kbd>Shift+[</kbd> 和 <kbd>Shift+]</kbd> 可變更
+    <strong>羽化</strong>。<strong>流量</strong>決定每次塗抹增加的量，
+    所以在同一處反覆塗抹會疊加。每一筆都是一個還原步驟，
+    按 <kbd>Esc</kbd> 即可放下筆刷。
+  </li>
+</ul>
+
+<p>
+  主體和天空沒有可拖移的控點。遮色片會在
+  背景找出它的範圍，並在完成前顯示一個轉圈圖示。選取其中一個時，
+  它涵蓋的範圍會在照片上染成紅色。如果失敗，它的標籤
+  會顯示 <strong>!</strong>；將指標停在上面即可看到原因，
+  然後按一下<strong>重試</strong>。
+</p>
+
+<h2>調整遮色片</h2>
+<p>
+  每個遮色片都以種類和編號列出，例如<strong>放射狀
+  1</strong>。按一下即可選取它，並在照片上拖移它的控點。每個
+  遮色片都有自己的色溫、色調、曝光度、對比、亮部、陰影、
+  白色、黑色和飽和度，疊加在照片自己的
+  滑桿之上。<strong>反轉</strong>會交換遮色片作用的位置和
+  不作用的位置，<strong>刪除</strong>則會將它移除。每張照片最多
+  可有 16 個遮色片。
+</p>
+
+<div class="lp-compare-wrap">
+  <table class="lp-compare">
+    <thead>
+      <tr>
+        <th scope="col">按鍵</th>
+        <th scope="col">作用</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><kbd>Esc</kbd></td>
+        <td>放下遮色片工具，或取消選取目前的遮色片</td>
+      </tr>
+      <tr>
+        <td><kbd>Delete</kbd></td>
+        <td>刪除所選的遮色片，而不是照片</td>
+      </tr>
+      <tr>
+        <td><kbd>Cmd+Z</kbd></td>
+        <td>還原上一次遮色片的變更；一整次拖移算一步</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<h2>修補</h2>
+<p>
+  同一個頁面中還有用來移除斑點的<strong>修補</strong>。將它
+  開啟（<kbd>Q</kbd>），再按一下瑕疵即可修復，每張
+  照片最多 64 個修補點。<kbd>[</kbd> 和 <kbd>]</kbd> 可變更筆刷大小。
+</p>
+
+<p>
+  遮色片和照片的其他調整一起儲存在照片旁邊的
+  <code>.lightphotos</code> 資料夾中，並且會顯示在
+  縮圖和每一次<a href="/docs/export.html">匯出</a>中。如果
+  主體或天空遮色片仍在找出範圍，匯出會等它完成。
+</p>

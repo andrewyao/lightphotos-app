@@ -1,0 +1,101 @@
+<p>
+  Un masque ajuste une partie d’une photo au lieu de toute la photo&nbsp;:
+  assombrir un ciel trop clair, éclaircir un visage, réchauffer un coin.
+  Ouvrez une photo dans l’éditeur et choisissez
+  <strong>Masques/retouche</strong> parmi les icônes sur le bord du panneau de
+  droite. La page commence par une rangée de boutons, un pour chaque type de
+  masque&nbsp;:
+</p>
+
+<ul class="lp-article-list">
+  <li>
+    <strong>+ Linéaire</strong> (<kbd>M</kbd>) &mdash; un dégradé. Faites
+    glisser sur la photo depuis l’endroit où l’effet est complet jusqu’à
+    celui où il s’estompe. Idéal pour un ciel ou un premier plan.
+  </li>
+  <li>
+    <strong>+ Radial</strong> (<kbd>Shift+M</kbd>) &mdash; une ellipse.
+    Faites glisser depuis son centre, ou cliquez une fois pour une taille
+    par défaut. Maintenez <kbd>Shift</kbd> et faites défiler sur son centre
+    pour adoucir ou durcir le bord.
+  </li>
+  <li>
+    <strong>+ Sujet</strong> &mdash; trouve la personne ou le sujet principal
+    et le masque pour vous. Cela ne fonctionne que dans l’app Mac.
+  </li>
+  <li>
+    <strong>+ Ciel</strong> &mdash; trouve le ciel et le masque pour vous.
+  </li>
+  <li>
+    <strong>+ Pinceau</strong> (<kbd>K</kbd>) &mdash; peignez le masque sur la
+    photo. Maintenez <kbd>Alt</kbd> pour effacer, ou appuyez sur
+    <strong>Gomme</strong>. <kbd>[</kbd> et <kbd>]</kbd> changent la taille du
+    pinceau, et <kbd>Shift+[</kbd> et <kbd>Shift+]</kbd> changent son
+    <strong>Contour progressif</strong>. <strong>Flux</strong> règle la
+    quantité ajoutée par passage, donc les passages sur un même endroit
+    s’additionnent. Chaque trait est une étape d’annulation, et
+    <kbd>Esc</kbd> pose le pinceau.
+  </li>
+</ul>
+
+<p>
+  Sujet et Ciel n’ont pas de poignées à faire glisser. Le masque trouve sa
+  zone en arrière-plan et affiche un indicateur d’activité jusqu’à ce qu’il
+  ait fini. Tant que l’un d’eux est choisi, la zone qu’il couvre est teintée
+  de rouge sur la photo. S’il échoue, son libellé affiche un
+  <strong>!</strong>&nbsp;; maintenez le pointeur dessus pour voir la raison,
+  puis cliquez sur <strong>Réessayer</strong>.
+</p>
+
+<h2>Ajuster un masque</h2>
+<p>
+  Chaque masque est listé par type et par numéro, par exemple <strong>Radial
+  1</strong>. Cliquez sur l’un d’eux pour le choisir et faites glisser ses
+  poignées sur la photo. Chaque masque a ses propres Température, Teinte,
+  Exposition, Contraste, Hautes lumières, Ombres, Blancs, Noirs et
+  Saturation, ajoutés par-dessus les curseurs de la photo.
+  <strong>Inverser</strong> échange les zones où le masque s’applique et
+  celles où il ne s’applique pas, et <strong>Supprimer</strong> le retire.
+  Une photo accepte jusqu’à 16 masques.
+</p>
+
+<div class="lp-compare-wrap">
+  <table class="lp-compare">
+    <thead>
+      <tr>
+        <th scope="col">Touche</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><kbd>Esc</kbd></td>
+        <td>Poser l’outil de masque, ou lâcher le masque choisi</td>
+      </tr>
+      <tr>
+        <td><kbd>Delete</kbd></td>
+        <td>Supprimer le masque choisi, pas la photo</td>
+      </tr>
+      <tr>
+        <td><kbd>Cmd+Z</kbd></td>
+        <td>Annuler le dernier changement de masque&nbsp;; un glissement complet compte pour une étape</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<h2>Retouche</h2>
+<p>
+  La même page contient la <strong>Retouche</strong> pour supprimer les
+  taches. Activez-la (<kbd>Q</kbd>) et cliquez sur une imperfection pour la
+  corriger, jusqu’à 64 taches par photo. <kbd>[</kbd> et <kbd>]</kbd>
+  changent la taille du pinceau.
+</p>
+
+<p>
+  Les masques sont enregistrés avec les autres ajustements de la photo dans
+  le dossier <code>.lightphotos</code> à côté d’elle, et ils apparaissent
+  dans les vignettes et dans chaque <a href="/docs/export.html">export</a>.
+  Si un masque Sujet ou Ciel est encore en cours de détection, l’export
+  l’attend.
+</p>

@@ -1,0 +1,35 @@
+---
+import WebAppLink from "../../../../components/WebAppLink.astro";
+---
+<p>
+  LightPhotosは、すでにディスク上にあるフォルダに対して動作するので、
+  作業はすべて1つのウインドウで完結します。アプリを開き、
+  <a href="/docs/pick-a-folder.html">フォルダを選び</a>、
+  <a href="/docs/browse.html">閲覧し</a>、
+  <a href="/docs/select-a-photo.html">写真を選び</a>、
+  <a href="/docs/adjust.html">調整し</a>、
+  <a href="/docs/export.html">書き出します</a>。レーティングと編集内容は作業の進行に合わせて書き込まれるので、
+  どの時点でやめても大丈夫です。
+</p>
+
+<ul class="lp-article-list">
+  <li>
+    <strong>ブラウザで使う。</strong>
+    <WebAppLink>
+      <a href="/app.html">Webアプリを開く</a>。インストールもアップデートも不要です。
+      <span slot="fallback">お使いのブラウザではWebアプリを利用できません。
+      代わりにChromeをお使いください。</span>
+    </WebAppLink>
+    GPUでレンダリングするため、ChromeなどWebGPUが有効なブラウザであれば動作します。
+  </li>
+  <li>
+    <strong>デスクトップアプリとして使う。</strong>
+    macOS、Windows、Linux向けに<a href="/downloads.html">ダウンロード</a>できます。
+    マシンに入れてしまえば、インターネットにまったく接続しなくても動作します。
+  </li>
+</ul>
+
+<p>
+  どちらの場合も、同じファイルに対して同じエディタを使います。写真はディスクから直接読み込まれ、
+  アップロードされることはありません。デスクトップ版のビルドも小さく収まっています。
+</p>

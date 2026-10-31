@@ -1,0 +1,514 @@
+Settings…	設定…	settings
+Settings	設定	settings_title
+Theme	主題	settings_theme
+Language	語言	settings_language
+Auto Adjust	自動調整	settings_auto_tone
+RAW Files	RAW 檔案	settings_raw
+Apple tone curve	Apple 色調曲線	apple_tone_curve
+On, RAW files look as they do in Photos and Preview. Off, LightPhotos applies its own curve, as in the browser.	開啟時，RAW 檔案與「Photos」和「Preview」中的樣子一樣。關閉時，LightPhotos 使用自己的曲線，與瀏覽器版一樣。	apple_tone_curve_hint
+Center the range	置中整個範圍	autotone_center_range
+Put the middle of the histogram's range at 50%. Keeps the photo's shape where it is.	把直方圖範圍的中點放在 50%。照片的形狀維持不變。	autotone_center_range_tip
+Center the middle pixel	置中中間像素	autotone_center_median
+Put the pixel half the photo is darker than at 50%. A photo that is mostly shadow comes out brighter.	把有一半照片比它暗的那個像素放在 50%。以陰影為主的照片會變得更亮。	autotone_center_median_tip
+General	一般	form_general
+Dark	深色	theme_dark
+Medium	中灰	theme_medium
+Light	淺色	theme_light
+Open Folder…	開啟資料夾…	open_folder
+Add a folder of photos to Folders and open it (Cmd+O)	將照片資料夾加入「資料夾」並開啟 (Cmd+O)	open_folder_tip
+Back to the grid (G)	回到網格 (G)	back_to_grid_tip
+Full screen (F)	全螢幕 (F)	fullscreen_tip
+Slide show options	幻燈片選項	slideshow_menu_tip
+Play slide show (Cmd+Enter)	播放幻燈片 (Cmd+Enter)	slideshow_play
+Display Duration	顯示時間	slideshow_duration
+Random	隨機	slideshow_random
+Zoom to Fill	縮放填滿	slideshow_fill
+ s	 秒	seconds_suffix
+Showing the thumbnail	正在顯示縮圖	shown_thumb_tip
+Showing the JPEG embedded in the file	正在顯示檔案內嵌的 JPEG	shown_embedded_tip
+Showing a preview decode, below full resolution	正在顯示預覽解碼，解析度低於完整解析度	shown_preview_tip
+Showing full resolution	正在顯示完整解析度	shown_full_tip
+Keyboard shortcuts (?)	鍵盤快速鍵 (?)	help_tip
+Metadata	中繼資料	metadata_title
+Photo metadata (I)	照片中繼資料 (I)	info_tab_tip
+No photo selected	未選取照片	info_no_selection
+File	檔案	info_file
+Camera	相機	info_camera
+Exposure	曝光	info_exposure
+Date	日期	info_date
+Location	位置	info_location
+Name	名稱	info_name
+Dimensions	尺寸	info_dimensions
+Modified	修改時間	info_modified
+Make	製造商	info_make
+Model	型號	info_model
+Lens	鏡頭	info_lens
+Shutter	快門	info_shutter
+Aperture	光圈	info_aperture
+ISO	ISO	info_iso
+Focal length	焦距	info_focal_length
+Exposure comp.	曝光補償	info_exposure_comp
+Flash	閃光燈	info_flash
+White balance	白平衡	info_white_balance
+Captured	拍攝時間	info_captured
+Latitude	緯度	info_latitude
+Longitude	經度	info_longitude
+Altitude	海拔	info_altitude
+Open in Maps	在地圖中開啟	info_open_in_maps
+Fired	已閃光	flash_fired
+Did not fire	未閃光	flash_did_not_fire
+Auto	自動	wb_auto
+Manual	手動	wb_manual
+Choose a folder of photos to get started	選擇一個照片資料夾開始	landing_prompt
+Cull, rate and develop your raw photos, fast.	快速篩選、評等和修改你的 RAW 照片。	landing_tagline
+Opening…	正在開啟…	opening
+Choose a folder of photos	選擇照片資料夾	picker_title
+Add Folder	加入資料夾	add_folder
+Add a folder of photos (Cmd+O)	加入照片資料夾 (Cmd+O)	add_folder_tip
+Remove Folder from LightPhotos	從 LightPhotos 中移除資料夾	remove_folder
+Select photos to rate, stack and export them here.	選取照片後，可以在這裡評等、堆疊和匯出。	select_photos_hint
+Tour	導覽	tour
+A quick tour of where everything is	快速了解各項功能的位置	tour_tip
+Take the Tour	開始導覽	take_tour
+Skip tour	略過導覽	skip_tour
+Back	上一步	tour_back
+Next	下一步	tour_next
+Done	完成	tour_done
+Rating:	評等：	rating_filter
+All	全部	all
+At least N stars	至少 N 星	at_least_n_stars
+Exactly N stars	剛好 N 星	exactly_n_stars
+At most N stars	至多 N 星	at_most_n_stars
+Show only photos with no rating	只顯示沒有評等的照片	unrated_tip
+Flag:	旗標：	flag_filter_label
+Label:	標籤：	label_filter_label
+Picked or Unflagged	留用或未加旗標	flag_not_rejected
+Picked	留用	flag_picked
+Rejected	排除	flag_rejected
+Unflagged	未加旗標	flag_unflagged
+Eyes closed	閉眼	eyes_closed
+Show only photos where someone blinked	只顯示有人眨眼的照片	eyes_closed_tip
+No photos match the filter	沒有符合篩選條件的照片	no_filter_matches
+Show All Photos	顯示全部照片	show_all_photos
+Can't read	無法讀取	thumb_unreadable
+Selected photo:	所選照片：	selected_photo
+Score All	全部計分	score_all
+Rate every photo here from 0 to 100, stack members included	為這裡的每張照片打 0 到 100 分，包括堆疊內的照片	score_all_tip
+Auto Stack by Capture Time	依拍攝時間自動堆疊	group_all_bursts
+Stack the photos here that were shot within a second of each other	將這裡一秒內連續拍攝的照片堆疊	group_all_bursts_tip
+Stack the selected photos that were shot within a second of each other	將所選照片中一秒內連續拍攝的照片堆疊	group_selected_bursts_tip
+Expand stack	展開堆疊	expand_stack
+Collapse stack	收合堆疊	collapse_stack
+Auto Adjust All	全部自動調整	auto_adjust_all
+Set every photo's tone sliders from its own histogram, stack members included	依每張照片自身的直方圖設定色調滑桿，包括堆疊內的照片	auto_adjust_all_tip
+Update Score	更新分數	update_score
+Rate ★	評等 ★	rate_menu
+Actions	動作	actions_menu
+Open in Loupe	以放大鏡檢視開啟	open_in_loupe
+Group into Stack	堆疊所選照片	group_into_stack
+Reset Adjustments	重置調整	reset_adjustments
+Score:	分數：	score_label
+Update Scores	更新分數	update_scores
+Clear rating	清除評等	clear_rating
+Auto Adjust	自動調整	auto_tone
+Set each selected photo's tone sliders from its own histogram	依每張所選照片自身的直方圖設定色調滑桿	auto_tone_selection_tip
+Rate each selected photo's quality from 0 to 100	為每張所選照片的品質打 0 到 100 分	score_selection_tip
+Score again to see the breakdown	重新計分以查看明細	score_no_breakdown
+No defects found	未發現瑕疵	no_penalties
+Edited since scoring; score again to update	計分後已編輯；請重新計分以更新	score_stale
+Sort:	排序：	sort_by
+Name	名稱	sort_name
+Capture Time	拍攝時間	sort_time
+Fit	符合	zoom_fit
+Zoom, from fitting the window to 6400%	縮放，從符合視窗到 6400%	zoom_tip
+100% (1:1)	100% (1:1)	zoom_actual
+By capture time. Photos without one go last.	依拍攝時間。沒有拍攝時間的排在最後。	sort_time_tip
+Modified Time	修改時間	sort_modified
+By when the file was last modified.	依檔案的最後修改時間。	sort_modified_tip
+File Size	檔案大小	sort_size
+By file size.	依檔案大小。	sort_size_tip
+Shutter Speed	快門速度	sort_shutter
+By shutter speed. Photos without one go last.	依快門速度。沒有快門速度的排在最後。	sort_shutter_tip
+Score	分數	sort_quality
+By quality score. Unscored photos go last.	依品質分數。未計分的排在最後。	sort_quality_tip
+Rating	評等	sort_rating
+By star rating. Unrated photos count as none.	依星級評等。未評等的視為零星。	sort_rating_tip
+Edit Time	編輯時間	sort_edited
+By when the photo was last edited here. Unedited photos go last.	依在本應用程式中最後編輯的時間。未編輯的排在最後。	sort_edited_tip
+Ascending. Click to reverse the order.	遞增。按一下以反轉順序。	sort_ascending_tip
+Descending. Click to reverse the order.	遞減。按一下以反轉順序。	sort_descending_tip
+Copy Adjustment…	拷貝調整…	copy_settings
+Copy this photo's adjustment, as chosen in Copy Settings	依「拷貝設定」中的選擇拷貝這張照片的調整	copy_settings_tip
+Choose what Copy Adjustment copies (Cmd+Shift+C)	選擇「拷貝調整」要拷貝的項目 (Cmd+Shift+C)	copy_settings_choose_tip
+Choose what Copy Adjustment carries to other photos. Crop, Straighten and Touch Up are chosen afresh for each copy.	選擇「拷貝調整」要帶到其他照片的項目。裁切、拉直和修補每次拷貝都需要重新選擇。	copy_settings_prompt
+Copy	拷貝	copy_button
+Check All	全部勾選	check_all
+Check None	全部不勾選	check_none
+Compare takes 2 to 6 photos	比較需要 2 到 6 張照片	compare_too_many
+Effects	效果	effects
+Crop	裁切	crop_section
+Apply Adjustment	套用調整	apply_settings
+Copy the adjustment from a photo first	請先從一張照片拷貝調整	apply_settings_needs_copy
+Apply the copied adjustment to the selection (Cmd+Shift+V)	將拷貝的調整套用到所選照片 (Cmd+Shift+V)	apply_settings_tip
+Export	匯出	export_jpg
+Choose where and at what size, then export the selection as JPGs (Cmd+Shift+E)	選擇位置和尺寸，然後將所選照片匯出為 JPG (Cmd+Shift+E)	export_jpg_tip
+Reading capture times…	正在讀取拍攝時間…	bursts_reading
+No bursts found	未找到連拍	bursts_none
+Delete	刪除	delete
+Confirm	確認	confirm
+Cancel	取消	cancel
+Keyboard shortcuts	鍵盤快速鍵	shortcuts_title
+Close	關閉	close
+Touch Up	修補	title
+Delete Stack	刪除堆疊	delete_group_title
+Unstack	取消堆疊	remove_group
+Adjustments	調整	develop
+Adjustments	調整	tab_sliders
+Crop & Transform	裁切與變形	tab_crop
+Masks & Cleanup	遮色片與修補	tab_masks
+Rotate	旋轉	crop_rotate
+Left	向左	crop_left
+Right	向右	crop_right
+Size	尺寸	crop_size
+Overlay	輔助線	crop_overlay
+Thirds	三分法	crop_thirds
+Grid	網格	crop_grid
+Golden	黃金比例	crop_golden
+Diagonal	對角線	crop_diagonal
+Spiral	螺旋	crop_spiral
+None	無	crop_overlay_none
+Aspect	長寬比	crop_aspect
+Original	原始	crop_original
+Custom	自訂	crop_custom
+Orientation	方向	crop_orientation
+Horizontal	橫向	crop_horizontal
+Vertical	直向	crop_vertical
+Straighten	拉直	crop_straighten
+Straighten Tool	拉直工具	crop_straighten_tool
+Draw along a line that should be level or upright, then press Enter.	沿著應該水平或垂直的線條畫一條線，然後按 Enter。	crop_straighten_hint
+Presets	預設集	presets
+Save these settings as a preset	將目前設定儲存為預設集	save_preset_tip
+Import from Lightroom…	從 Lightroom 匯入…	import_lr_presets
+Import Lightroom .xmp preset files	匯入 Lightroom 的 .xmp 預設集檔案	import_lr_presets_tip
+Choose Lightroom presets	選擇 Lightroom 預設集	xmp_picker_title
+Lightroom preset	Lightroom 預設集	xmp_filter_name
+Black and white approximated as Saturation -100	黑白效果以飽和度 -100 近似	preset_monochrome_note
+No presets yet	尚無預設集	no_presets
+Apply to the selected photos	套用到所選照片	apply_preset_tip
+Rename or delete	重新命名或刪除	preset_actions_tip
+Search presets	搜尋預設集	search_presets
+My Presets	我的預設集	my_presets
+No presets match	沒有符合的預設集	no_matching_presets
+Save current as preset…	將目前設定儲存為預設集…	save_current_as_preset
+Add preset folder…	加入預設集資料夾…	add_preset_folder
+List the Lightroom .xmp presets in a folder, read in place	就地讀取並列出資料夾中的 Lightroom .xmp 預設集	add_preset_folder_tip
+Choose a folder of Lightroom presets	選擇 Lightroom 預設集資料夾	preset_folder_picker_title
+Preset folders	預設集資料夾	preset_folders
+Remove	移除	remove
+Profiles, looks, and .xmp files that are not develop presets or would not read	描述檔、外觀，以及不是修改預設集或無法讀取的 .xmp 檔案	presets_skipped_tip
+Save preset	儲存預設集	save_preset_title
+Rename preset	重新命名預設集	rename_preset_title
+Preset name	預設集名稱	preset_name_hint
+Name	名稱	preset_name_label
+Save	儲存	save
+Rename	重新命名	rename
+Reset	重置	reset
+Set the tone sliders from each selected photo's own histogram (Cmd+U)	依每張所選照片自身的直方圖設定色調滑桿 (Cmd+U)	auto_tone_tip
+Black & White	黑白	black_and_white
+Turn the selected photos black and white, or back to color (V)	將所選照片轉為黑白，或恢復彩色 (V)	black_and_white_tip
+Touch Up	修補	touch_up
+Size	大小	brush_size
+[ / ] or the scroll wheel	[ / ] 或滑鼠滾輪	brush_size_tip
+Feather	羽化	feather
+Shift+[ / Shift+] or Shift+scroll	Shift+[ / Shift+] 或 Shift+滾輪	feather_tip
+Opacity	不透明度	opacity
+How much of the patch covers the photo, for spots added from now on	修補覆蓋照片的程度，作用於之後加入的修補點	opacity_tip
+Spots	修補點	spots
+Pick Gray	吸取灰點	pick_gray
+Click a neutral-gray pixel in the image	按一下影像中的一個中性灰像素	pick_gray_tip
+White Balance	白平衡	white_balance
+Tone	影調	tone
+Presence	外觀	presence
+Detail	細部	detail
+Optics	光學	optics
+Vignette	暈映	vignette
+Grain	顆粒	grain
+Curve	曲線	curve
+Point Curve	點曲線	point_curve
+Linear	線性	curve_linear
+Medium Contrast	中對比	curve_medium_contrast
+Strong Contrast	強對比	curve_strong_contrast
+Custom	自訂	curve_custom
+RGB	RGB	curve_rgb
+Red	紅色	curve_red
+Green	綠色	curve_green
+Blue	藍色	curve_blue
+Color Mixer	色彩混合器	color_mixer
+B&W Mix	黑白混合	gray_mix
+Color	色彩	copy_color
+Color Grading	色彩分級	color_grading
+Midtones	中間調	midtones
+Global	全域	global
+Blending	混合	blending
+Balance	平衡	balance
+Hue	色相	mix_hue
+Luminance	明度	mix_luminance
+Remove Chromatic Aberration	移除色差	remove_ca
+Measures the red and blue fringes at high-contrast edges and lines them up with green	測量高對比邊緣的紅色和藍色色邊，並與綠色對齊	remove_ca_tip
+No photo selected	未選取照片	no_photo_selected
+Multiple photos selected	已選取多張照片	multiple_photos_selected
+Lower each photo's value by a large step	將每張照片的數值大幅調低	step_big_down
+Lower each photo's value by a small step	將每張照片的數值小幅調低	step_down
+Reset on every selected photo	在所有所選照片上重置	step_reset
+Raise each photo's value by a small step	將每張照片的數值小幅調高	step_up
+Raise each photo's value by a large step	將每張照片的數值大幅調高	step_big_up
+Temp	色溫	temp
+Tint	色調	tint
+Exposure	曝光度	exposure
+Contrast	對比	contrast
+Highlights	亮部	highlights
+Shadows	陰影	shadows
+Whites	白色	whites
+Blacks	黑色	blacks
+Texture	紋理	texture
+Clarity	清晰度	clarity
+Dehaze	去朦朧	dehaze
+Vibrance	鮮豔度	vibrance
+Saturation	飽和度	saturation
+Denoise	減少雜訊	denoise
+Sharpening	銳利化	sharpening
+Radius	半徑	sharpen_radius
+Detail	細部	sharpen_detail
+Masking	遮色	sharpen_masking
+Amount	總量	amount
+Midpoint	中點	midpoint
+Roundness	圓度	roundness
+Size	大小	grain_size
+Roughness	粗糙度	roughness
+Before	修改前	before
+After	修改後	after
+Invert	反轉	invert
+Highlight the background instead of the subject	強調背景而不是主體	invert_tip
+Show Selection	顯示主體	show_selection
+Selection…	正在辨識…	selection_pending
+No subject	未找到主體	no_subject
+Outline the subject Vision finds in this photo	框出 Vision 在這張照片中找到的主體	show_selection_tip
+Another delete is still running…	已有刪除作業正在進行…	delete_in_progress
+This folder's stacks are still loading. Try again in a moment.	此資料夾的堆疊仍在載入，請稍後再試。	group_refused_loading
+A file name here can't be saved in a stack.	此資料夾中有檔名無法儲存到堆疊中。	group_name_unsaveable
+Destination	目的地	export_destination
+Folder	資料夾	export_to_folder
+Immich	Immich	export_to_immich
+Exports subfolder	Exports 子資料夾	export_exports_subfolder
+Another folder	其他資料夾	export_chosen_folder
+Choose…	選擇…	export_choose_folder
+Size	尺寸	export_size
+Location	位置	export_folder
+Output	輸出	export_output
+Account	帳號	immich_account
+Full resolution	完整解析度	export_size_full
+File	檔案	export_file
+Format	格式	export_format
+TIFF (16-bit)	TIFF（16 位元）	export_format_tiff16
+WebP (lossless)	WebP（無損）	export_format_webp
+File size	檔案大小	export_limit
+No limit	不限	export_limit_none
+Encoding	編碼	export_jpeg_preset
+Fastest	最快	export_jpeg_fastest
+Baseline	基線	export_jpeg_baseline
+Progressive	漸進式	export_jpeg_progressive
+Smallest	最小	export_jpeg_smallest
+Fastest encodes several times faster. The others make files 10-20% smaller.	「最快」的編碼速度快數倍。其他選項的檔案小 10-20%。	export_jpeg_preset_hint
+File name	檔名	export_naming
+{name} is the photo's name and {seq} its number in this export.	{name} 是照片的名稱，{seq} 是它在這次匯出中的序號。	export_naming_hint
+Metadata	中繼資料	export_metadata
+Include	包含	export_metadata_include
+Location (GPS)	位置 (GPS)	export_keep_location
+Camera serial numbers and owner	相機序號和擁有者	export_keep_identity
+The capture date, camera, lens and exposure always go in. Captions and comments never do.	拍攝日期、相機、鏡頭和曝光資訊一律會寫入，說明文字和註解則絕不寫入。	export_keep_hint
+Copyright	版權	export_copyright
+Written into every export in place of the photo's own. Leave it empty to keep the photo's.	寫入每個匯出檔案，取代照片本身的版權資訊。留空則保留照片本身的版權資訊。	export_copyright_hint
+Sharpen For	銳利化用於	export_sharpen
+None	無	export_sharpen_off
+Screen	螢幕	export_sharpen_screen
+Matte Paper	霧面紙	export_sharpen_matte
+Glossy Paper	亮面紙	export_sharpen_glossy
+Low	低	export_sharpen_low
+Standard	標準	export_sharpen_standard
+High	高	export_sharpen_high
+Export	匯出	export_run
+Connect to an Immich server first	請先連接 Immich 伺服器	export_needs_immich
+Server URL	伺服器網址	immich_server_url
+Example: https://immich.gumnut.ai	範例：https://immich.gumnut.ai	immich_url_example
+http:// is not encrypted: your API key and photos cross the network readable. Use https:// if the server offers it.	http:// 未加密：API 金鑰和照片會以明文在網路上傳輸。如果伺服器支援，請改用 https://。	immich_plain_http
+Uploading to Immich is only available in the desktop app. Browsers can't connect to an Immich server.	上傳到 Immich 僅適用於桌面版。瀏覽器無法連接 Immich 伺服器。	immich_native_only
+API key	API 金鑰	immich_api_key
+Connect	連接	immich_connect
+Connecting…	正在連接…	immich_connecting
+Disconnect	中斷連接	immich_disconnect
+Album	相簿	immich_album
+No album	不放入相簿	album_none
+New album…	新增相簿…	album_new
+Album name	相簿名稱	album_name
+Name the new album first	請先為新相簿命名	album_name_needed
+Export: nothing selected	匯出：未選取任何照片	export_nothing_selected
+Export already in progress…	匯出正在進行…	export_in_progress
+Export: this folder's edits are still loading, try again in a moment…	匯出：此資料夾的編輯仍在載入，請稍後再試…	export_edits_loading
+Export: no directory handle for the current folder	匯出：目前的資料夾沒有資料夾控制代碼	export_no_handle
+Auto Adjust needs the photo to finish loading	照片載入完成後才能自動調整	auto_tone_needs_load
+Auto Adjust applied	已套用自動調整	auto_tone_applied
+Measuring chromatic aberration…	正在測量色差…	remove_ca_measuring
+Chromatic aberration removed	已移除色差	remove_ca_applied
+Could not decode the photo to measure chromatic aberration	無法解碼照片以測量色差	remove_ca_failed
+Auto Adjust will start after this folder's edits load…	此資料夾的編輯載入完成後將開始自動調整…	auto_tone_waits_for_edits
+Touch Up supports up to 64 spots	修補最多支援 64 個修補點	touch_up_limit
+A photo holds up to 16 masks	每張照片最多 16 個遮色片	mask_limit
+Masks	遮色片	masks
+Linear	線性	linear_gradient
+Radial	放射狀	radial_gradient
+Linear Gradient: drag on the photo to draw it (M)	線性漸層：在照片上拖移以繪製 (M)	linear_gradient_tip
+Radial Gradient: drag out from its center on the photo (Shift+M)	放射狀漸層：在照片上從中心向外拖移 (Shift+M)	radial_gradient_tip
+Brush	筆刷	brush_mask
+Brush: paint the mask on the photo (K). Hold Alt to erase	筆刷：在照片上繪製遮色片 (K)。按住 Alt 擦除	brush_mask_tip
+Paint on the photo. Hold Alt to erase	在照片上繪製。按住 Alt 擦除	brush_paint_hint
+Flow	流量	flow
+How much one pass adds. Passes over the same spot build up	每次塗抹增加的量。在同一處反覆塗抹會疊加	flow_tip
+Erase	擦除	brush_erase
+Paint to take away from the mask, as holding Alt does	塗抹以從遮色片中移除，與按住 Alt 相同	brush_erase_tip
+A photo's brush strokes hold up to 8,000 points	每張照片的筆刷筆觸最多 8,000 個點	brush_point_limit
+A brush mask holds up to 512 strokes; + Brush starts another	每個筆刷遮色片最多 512 個筆觸；「+ 筆刷」可另外開始一個	brush_stroke_limit
+Invert	反轉	mask_invert
+Drag on the photo to draw the mask	在照片上拖移以繪製遮色片	mask_draw_hint
+Subject	主體	subject_mask
+Sky	天空	sky_mask
+Subject: a mask over the person or main subject, found for this photo	主體：覆蓋此照片中人物或主要主體的遮色片	subject_mask_tip
+Sky: a mask over the sky, found for this photo	天空：覆蓋此照片中天空的遮色片	sky_mask_tip
+Subject detection needs macOS	主體偵測需要 macOS	detect_needs_mac
+Not available in this build yet	此版本暫不提供	detect_unavailable
+This mask's detection file is missing from .lightphotos/masks	此遮色片的偵測檔案已從 .lightphotos/masks 中遺失	detect_file_missing
+Detecting…	正在偵測…	mask_detecting
+Retry	重試	mask_retry
+Export: masks are still being detected, try again in a moment…	匯出：遮色片仍在偵測中，請稍後再試…	export_masks_detecting
+Touch Up needs a full-resolution image	修補需要完整解析度的影像	touch_up_needs_full
+No image loaded to pick from	沒有已載入的影像可供取樣	wb_no_image
+Pick a brighter, less saturated pixel for white balance	請選擇更亮、飽和度更低的像素來設定白平衡	wb_pick_brighter
+Catalog: the folders listed here, and a copy of their ratings, flags and color labels	目錄：這裡列出的資料夾，以及其評等、旗標和色彩標籤的副本	catalog_tip
+New Catalog…	新增目錄…	new_catalog
+Open Catalog…	開啟目錄…	open_catalog
+New Catalog	新增目錄	catalog_save_title
+Untitled	未命名	catalog_untitled
+LightPhotos catalog	LightPhotos 目錄	catalog_filter_name
+Choose a catalog (a .lightphotos folder)	選擇目錄（.lightphotos 資料夾）	catalog_picker_title
+Name	名稱	catalog_name_label
+Catalog name	目錄名稱	catalog_name_hint
+Create	建立	create
+Load Photos:	載入照片：	tile_load
+Quickly	快速	tile_speed
+Fully (Slower)	完整（較慢）	tile_full
+Set as Representative	設為代表照片	set_as_rep
+Representative	代表照片	representative
+Compare Photos	比較照片	view_compare
+Compare Photos: select 2 to 6 photos, or a photo in a stack	比較照片：請選取 2 到 6 張照片，或堆疊內的照片	view_compare_needs_group
+another program	其他程式	held_by_other
+Read-only: this folder can't be locked for saving, so changes here are not saved. It may be read-only or need permission. Open it again to try again.	唯讀：無法鎖定此資料夾以儲存變更，因此在此的變更不會儲存。它可能是唯讀的，或需要權限。請重新開啟此資料夾再試一次。	folder_cant_lock
+Read-only: LightPhotos has no access to this folder, so changes here are not saved. Open it again.	唯讀：LightPhotos 無法存取此資料夾，因此在此的變更不會儲存。請重新開啟此資料夾。	folder_no_access
+This folder can't be locked, so don't let a headless lightphotos-mcp change it while it is open here.	無法鎖定此資料夾。在此開啟期間，請不要讓無介面的 lightphotos-mcp 修改它。	folder_lockless
+This folder is still opening. Try again in a moment.	此資料夾仍在開啟，請稍後再試。	folder_opening
+Presets are locked because the saved file could not be read. Move or fix it, then restart.	預設集已鎖定，因為無法讀取已儲存的檔案。請將其移走或修復，然後重新啟動。	presets_locked
+About LightPhotos	關於 LightPhotos	about
+Hide LightPhotos	隱藏 LightPhotos	hide
+Hide Others	隱藏其他	hide_others
+Show All	全部顯示	show_all
+Quit LightPhotos	結束 LightPhotos	quit
+File	檔案	file
+Export…	匯出…	export
+Edit	編輯	edit
+Undo	還原	undo
+Cut	剪下	cut
+Copy	拷貝	copy
+Paste	貼上	paste
+Select All	全選	select_all
+Deselect All	取消全選	deselect_all
+Paste Adjustment	貼上調整	paste_settings
+Photo	照片	photo
+Rate	評等	rate
+No Rating	無評等	no_rating
+Set Flag	設定旗標	set_flag
+Color Label	色彩標籤	color_label
+Red	紅色	label_red
+Yellow	黃色	label_yellow
+Green	綠色	label_green
+Blue	藍色	label_blue
+Purple	紫色	label_purple
+Auto Adjust Selection	對所選照片自動調整	auto_tone_selection
+Score Quality	品質計分	score_photos
+Rotate Left	向左旋轉	rotate_left
+Rotate Right	向右旋轉	rotate_right
+Move to Trash	移到垃圾桶	move_to_trash
+Stack	堆疊	group_selected
+Auto Stack by Capture Time	依拍攝時間自動堆疊	group_bursts
+Unstack	取消堆疊	ungroup
+Delete Stack…	刪除堆疊…	delete_group
+View	顯示方式	view
+Grid	網格	grid
+Loupe	放大鏡檢視	loupe
+Crop & Transform	裁切與變形	crop
+Compare Photos	比較照片	compare_stack
+Info Panel	資訊面板	info_panel
+Before / After	修改前 / 修改後	before_after
+Toggle Zoom	切換縮放	toggle_zoom
+Zoom In	放大	zoom_in
+Zoom Out	縮小	zoom_out
+Bigger Text	放大文字	bigger_text
+Smaller Text	縮小文字	smaller_text
+Window	視窗	window
+Minimize	最小化	minimize
+Zoom	縮放	zoom
+Help	輔助說明	help
+Keyboard Shortcuts	鍵盤快速鍵	keyboard_shortcuts
+[shortcut E] Open selected photo (in library)	開啟所選照片（圖庫中）	pair
+[shortcut G] Back to the library grid	回到圖庫網格	pair
+[shortcut F] Full screen, only the photo; F or Esc leaves (in editor)	全螢幕，只顯示照片；按 F 或 Esc 離開（編輯器中）	pair
+[shortcut Cmd+Enter] Slide show of the grid's photos; F or Esc stops	播放網格中照片的幻燈片；按 F 或 Esc 停止	pair
+[shortcut Esc] Back to library (in editor)	回到圖庫（編輯器中）	pair
+[shortcut ← / →] Previous / next photo (in editor)	上一張 / 下一張照片（編輯器中）	pair
+[shortcut Page Up / Page Down] Previous / next photo (in editor)	上一張 / 下一張照片（編輯器中）	pair
+[shortcut D] Adjust the selected photo	調整所選照片	pair
+[shortcut C] Compare 2 to 6 selected photos, or the selected stack	比較所選的 2 到 6 張照片，或所選堆疊	pair
+[shortcut I] Show or hide photo info in the right panel	在右側面板顯示或隱藏照片資訊	pair
+[shortcut F6 / Shift+F6] Next region, or next control inside an entered one	下一個區域，或已進入區域內的下一個控制項	pair
+[shortcut Tab / Shift+Tab] Move between items in the focused region	在目前區域內的項目間移動	pair
+[shortcut Cmd+O] Open a folder	開啟資料夾	pair
+[shortcut ?] Show or hide this help	顯示或隱藏此說明	pair
+[shortcut Alt+= / Alt+-] Bigger / smaller text	放大 / 縮小文字	pair
+[shortcut Cmd+A] Select all in current folder (in library)	全選目前資料夾（圖庫中）	pair
+[shortcut Cmd+D] Deselect all	取消全選	pair
+[shortcut Cmd+G] Stack the selection	堆疊所選照片	pair
+[shortcut Cmd+Shift+G] Unstack the selected stacks	取消堆疊所選堆疊	pair
+[shortcut 0 1 2 3 4 5] Set star rating 0-5	設定星級評等 0-5	pair
+[shortcut Shift+0-5] Set the rating and go to the next photo	設定評等並前往下一張照片	pair
+[shortcut P] Pick	留用	pair
+[shortcut X] Reject	排除	pair
+[shortcut U] Unflag	取消旗標	pair
+[shortcut `] Pick, or unflag a picked photo	留用，已留用時取消旗標	pair
+[shortcut 6 7 8 9] Red, yellow, green or blue label; again to clear	紅色、黃色、綠色或藍色標籤；再按一次清除	pair
+[shortcut Cmd+-] Zoom out (20% step)	縮小（每次 20%）	pair
+[shortcut ↑ / ↓] Zoom in / out (10% step)	放大 / 縮小（每次 10%）	pair
+[shortcut Cmd+Z] Undo the last develop change	還原上一次調整	pair
+[shortcut Cmd+[ / Cmd+]] Rotate image -90 / +90 degrees	向左 / 向右旋轉 90 度	pair
+[shortcut R] Crop	裁切	pair
+[shortcut Y] Before / after compare (in editor)	修改前 / 修改後比較（編輯器中）	pair
+[shortcut M] Linear Gradient mask	線性漸層遮色片	pair
+[shortcut Shift+M] Radial Gradient mask	放射狀漸層遮色片	pair
+[shortcut Cmd+Shift+E] Open or close the export form	開啟或關閉匯出表單	pair
+[shortcut Cmd+U] Auto Adjust the selection	對所選照片自動調整	pair
+[shortcut V] Black & white, or back to color	黑白，或恢復彩色	pair
+[shortcut Cmd+Shift+C] Copy this photo's adjustment	拷貝此照片的調整	pair
+[shortcut Cmd+Shift+V] Paste the adjustment onto the selection	將調整貼到所選照片上	pair
+[shortcut O] Show or hide the subject selection	顯示或隱藏主體選取	pair
+[shortcut Shift+O] Invert the subject selection	反轉主體選取	pair
+[shortcut K] Brush on / off; paints the picked brush mask	開啟 / 關閉筆刷；繪製所選的筆刷遮色片	pair
+[shortcut [ / ]] Brush size	筆刷大小	pair
+[shortcut Shift+[ / ]] Brush feather	筆刷羽化	pair
+[shortcut Q] Touch Up on / off	開啟 / 關閉修補	pair
+[shortcut Delete] Delete the selected spot	刪除所選的修補點	pair

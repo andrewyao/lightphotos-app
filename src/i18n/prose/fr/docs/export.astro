@@ -1,0 +1,84 @@
+<p>
+  Sélectionnez une photo ou une centaine dans la grille (ou ouvrez-en une
+  seule et exportez-la seule), puis cliquez sur <strong>Exporter</strong>. Le
+  formulaire d’export a quatre parties, et les valeurs par défaut (JPEG en
+  pleine résolution dans un dossier <code>Exports</code>) n’ont besoin
+  d’aucun changement. Cliquez sur <strong>Exporter</strong> en bas quand vous
+  êtes prêt, et LightPhotos intègre vos ajustements dans de tout nouveaux
+  fichiers.
+</p>
+
+<h2>Le formulaire d’export</h2>
+<ul class="lp-article-list">
+  <li>
+    <strong>Destination.</strong> Choisissez <strong>Dossier</strong> ou
+    <a href="/docs/immich.html">Immich</a>. Sous
+    <strong>Emplacement</strong>, <strong>Sous-dossier Exports</strong> écrit
+    dans un dossier <code>Exports</code> à l’intérieur du dossier que vous
+    avez ouvert, créé au premier export. Dans l’app de bureau,
+    <strong>Autre dossier</strong> envoie les fichiers n’importe où ailleurs.
+  </li>
+  <li>
+    <strong>Fichier.</strong> <strong>Nom du fichier</strong> est un modèle&nbsp;:
+    <code>{"{name}"}</code> est le nom propre de la photo et
+    <code>{"{seq}"}</code> son numéro dans cet export, donc
+    <code>{"trip-{seq}"}</code> numérote les fichiers dans l’ordre. Le
+    formulaire montre un exemple de nom pendant que vous tapez.
+    <strong>Format</strong> est JPEG, PNG, TIFF (16 bits) ou WebP
+    (sans perte), plus AVIF dans les apps Windows et Linux et sur un macOS
+    récent. Pour le JPEG, <strong>Taille du fichier</strong> plafonne chaque
+    fichier, pour les sites qui limitent les envois.
+  </li>
+  <li>
+    <strong>Sortie.</strong> <strong>Taille</strong> est
+    <strong>Pleine résolution</strong> ou un grand côté en pixels.
+    <strong>Netteté pour</strong> ajoute de la netteté après le
+    redimensionnement, adaptée à Écran, Papier mat ou Papier brillant à
+    Faible, Standard ou Élevée. Elle est désactivée par défaut et s’ajoute au
+    curseur Netteté.
+  </li>
+  <li>
+    <strong>Métadonnées.</strong> La date de prise de vue, l’appareil,
+    l’objectif et l’exposition sont toujours inclus dans le fichier, et les
+    légendes et les commentaires ne le sont jamais. <strong>Lieu (GPS)</strong> et
+    <strong>Numéros de série de l’appareil et propriétaire</strong> sont
+    désactivés sauf si vous les cochez. Saisissez une ligne de
+    <strong>Copyright</strong> pour l’écrire dans chaque export&nbsp;;
+    laissez-la vide pour garder celle de chaque photo.
+  </li>
+</ul>
+
+<h2>Ce que l’export fait et ne fait pas</h2>
+<ul class="lp-article-list">
+  <li>
+    <strong>Les originaux restent exactement comme ils étaient.</strong> Vos
+    retouches restent en place aussi, donc vous pouvez changer un curseur
+    demain et exporter de nouveau&nbsp;: l’export ne consomme ni n’écrase
+    jamais rien.
+  </li>
+  <li>
+    <strong>Les exports sont des fichiers ordinaires.</strong> Ouvrez-les avec
+    n’importe quoi, joignez-les à un e-mail, donnez-les à un labo
+    d’impression. Rien en eux n’exige que LightPhotos existe encore.
+  </li>
+  <li>
+    <strong>Rien n’est envoyé.</strong> Le décodage, les ajustements et
+    l’encodage se font tous sur votre propre machine, et seuls les fichiers
+    que vous avez sélectionnés sont écrits&nbsp;: le reste du dossier n’est pas
+    touché.
+  </li>
+  <li>
+    <strong>Supprimer, c’est différent.</strong> <strong>Supprimer</strong>
+    retire la photo elle-même&nbsp;: l’app de bureau la place dans la
+    Corbeille, et la version pour navigateur la supprime du disque sans
+    possibilité d’annuler. L’export est le moyen sûr de créer quelque chose de
+    nouveau.
+  </li>
+</ul>
+
+<p>
+  Voilà toute la boucle. Si vous n’avez pas lu les étapes précédentes,
+  commencez par <a href="/docs/open-the-app.html">l’ouverture de l’app</a>&nbsp;;
+  les <a href="/docs/shortcuts.html">raccourcis clavier</a> sont ce qui rend
+  la deuxième séance deux fois plus rapide que la première.
+</p>

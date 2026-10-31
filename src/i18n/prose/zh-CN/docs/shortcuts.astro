@@ -1,0 +1,141 @@
+---
+// Every row here is a string the app's own help dialog (?) shows, so this
+// page can be checked against the build rather than against memory. Rows are
+// grouped by what you are doing, not by which panel owns the key.
+const groups = [
+  {
+    title: "浏览",
+    rows: [
+      { key: "Cmd+O", does: "添加一个文件夹并打开" },
+      { key: "Enter / Space / E", does: "打开所选照片（图库中）" },
+      { key: "Esc / G", does: "从编辑器返回图库" },
+      { key: "← / →", does: "上一张 / 下一张照片（编辑器中）；在网格中移动高亮" },
+      { key: "Page Up / Page Down", does: "上一张 / 下一张照片（编辑器中）" },
+      { key: "D", does: "调整所选照片" },
+      { key: "C", does: "比较所选的 2 到 6 张照片，或所选堆叠" },
+      { key: "I", does: "在右侧面板显示或隐藏照片信息" },
+      { key: "F6 / Shift+F6", does: "下一个区域，或已进入区域内的下一个控件" },
+      { key: "Tab / Shift+Tab", does: "在当前区域内的项目间移动" },
+      { key: "Cmd+,", does: "设置：主题和语言" },
+      { key: "Alt+= / Alt+-", does: "增大 / 减小文字" },
+      { key: "?", does: "显示或隐藏应用内的快捷键列表" },
+    ],
+  },
+  {
+    title: "评分、旗标和标签",
+    rows: [
+      { key: "0 – 5", does: "设置星级（0 为清除）" },
+      { key: "Shift+0 – 5", does: "设置星级并转到下一张照片" },
+      { key: "P / X / U", does: "标为已选 / 标为已拒绝 / 取消旗标" },
+      { key: "`", does: "标为已选，已选时取消旗标" },
+      { key: "6 / 7 / 8 / 9", does: "红色 / 黄色 / 绿色 / 蓝色标签；再按一次同一个键清除" },
+    ],
+  },
+  {
+    title: "选择与堆叠",
+    rows: [
+      { key: "Cmd+A", does: "全选当前文件夹（图库中）" },
+      { key: "Cmd+D", does: "取消全选" },
+      { key: "Shift+点按", does: "在网格中连续选择" },
+      { key: "Cmd+点按", does: "逐张加选或取消" },
+      { key: "Shift+方向键", does: "用方向键扩展选择" },
+      { key: "Cmd+G", does: "将所选照片堆叠" },
+      { key: "Cmd+Shift+G", does: "取消所选堆叠" },
+      { key: "Shift+Delete", does: "删除所选堆叠，或取消堆叠并保留照片" },
+    ],
+  },
+  {
+    title: "缩放和平移",
+    rows: [
+      { key: "Space / Z", does: "循环缩放：适合、2x 适合、100%" },
+      { key: "Cmd++ / Cmd+= / Cmd+-", does: "放大 / 缩小（每次 20%）" },
+      { key: "↑ / ↓", does: "放大 / 缩小（每次 10%）" },
+      { key: "滚轮", does: "在指针位置缩放" },
+      { key: "拖移 / Space+拖移", does: "平移" },
+      { key: "Shift+滚轮", does: "左右平移" },
+      { key: "Alt+滚轮", does: "上下平移" },
+    ],
+  },
+  {
+    title: "编辑与导出",
+    rows: [
+      { key: "Cmd+Z", does: "撤销上一次调整" },
+      { key: "Cmd+[ / Cmd+]", does: "向左 / 向右旋转 90 度" },
+      { key: "R", does: "裁剪；按 Enter 或 R 应用，按 Esc 取消" },
+      { key: "Y", does: "调整前 / 调整后对比（编辑器中）" },
+      { key: "M", does: "线性渐变蒙版" },
+      { key: "Shift+M", does: "径向渐变蒙版" },
+      { key: "Cmd+U", does: "对所选照片自动调整，每张照片根据自身的直方图" },
+      { key: "V", does: "黑白，或恢复彩色，作用于所选照片" },
+      { key: "Cmd+Shift+C", does: "拷贝此照片的调整" },
+      { key: "Cmd+Shift+V", does: "将调整粘贴到所选照片" },
+      { key: "Cmd+Shift+N", does: "将此照片的设置存储为新预设" },
+      { key: "Cmd+Shift+E", does: "打开或关闭导出表单" },
+      { key: "双击滑块", does: "重置滑块" },
+      { key: "Delete", does: "移到废纸篓（浏览器版中：永久删除，无法撤销）" },
+    ],
+  },
+  {
+    title: "画笔蒙版",
+    rows: [
+      { key: "K", does: "开启 / 关闭画笔；绘制选中的画笔蒙版" },
+      { key: "拖动", does: "绘制；每一笔可单独撤销" },
+      { key: "Alt+拖动", does: "擦除" },
+      { key: "[ / ]", does: "画笔大小（或滚轮）" },
+      { key: "Shift+[ / ]", does: "画笔羽化（或 Shift+滚轮）" },
+      { key: "Esc", does: "关闭画笔" },
+    ],
+  },
+  {
+    title: "修补",
+    rows: [
+      { key: "Q", does: "开启 / 关闭修补" },
+      { key: "[ / ]", does: "画笔大小（或滚轮）" },
+      { key: "Shift+[ / ]", does: "画笔羽化（或 Shift+滚轮）" },
+      { key: "O / Shift+O", does: "显示或隐藏修补点 / 选择下一个修补点" },
+      { key: "Delete", does: "删除选中的修补点" },
+      { key: "Cmd+Z", does: "撤销上一个修补点" },
+      { key: "Esc", does: "退出修补" },
+    ],
+  },
+  {
+    title: "选择代表照片",
+    rows: [
+      { key: "点击或拖动照片", does: "移动对焦区域" },
+      { key: "在区域上按住 Shift 滚动", does: "调整对焦区域大小" },
+      { key: "拖动缩略图", does: "移动对焦区域" },
+      { key: "Cmd+点击 / Shift+点击缩略图", does: "选取更多缩略图" },
+    ],
+  },
+];
+---
+<p>
+  LightPhotos 的设计就是用键盘来驱动：不碰鼠标就能给整个文件夹评分，
+  以完整尺寸浏览一组照片，并把一张照片的风格应用到其余照片上。
+  下面的列表是应用响应的所有按键，而在应用内按 <kbd>?</kbd>，
+  会在你自己的电脑上显示同样的列表。
+</p>
+
+{groups.map((g) => (
+  <section>
+    <h2>{g.title}</h2>
+    <div class="lp-compare-wrap">
+      <table class="lp-compare">
+        <thead>
+          <tr>
+            <th scope="col">按键</th>
+            <th scope="col">作用</th>
+          </tr>
+        </thead>
+        <tbody>
+          {g.rows.map((r) => (
+            <tr>
+              <td><kbd>{r.key}</kbd></td>
+              <td>{r.does}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
+))}

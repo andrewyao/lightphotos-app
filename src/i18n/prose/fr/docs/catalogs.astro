@@ -1,0 +1,105 @@
+<p>
+  Un catalogue est une liste nommée de dossiers&nbsp;: les dossiers du
+  panneau Dossiers à gauche. Gardez-en un pour les photos de famille et un
+  autre pour le travail pour des clients, et passez de l’un à l’autre.
+  LightPhotos ouvre le dernier catalogue utilisé, ou, la première fois, un
+  catalogue appelé <strong>default</strong>.
+</p>
+
+<p>
+  Le nom du catalogue ouvert figure dans l’en-tête, après le logotype
+  LightPhotos. Cliquez dessus pour ouvrir le menu du catalogue.
+</p>
+
+<ul class="lp-article-list">
+  <li>
+    <strong>Créer un catalogue.</strong> Choisissez <strong>Nouveau catalogue&hellip;</strong>
+    dans le menu du catalogue et donnez-lui un nom. L’app de bureau demande
+    où l’enregistrer, en commençant dans <code>~/Pictures/LightPhotos/</code>.
+    Un nouveau catalogue n’a aucun dossier&nbsp;; cliquez sur
+    <strong>Ajouter un dossier</strong> au-dessus de la liste Dossiers pour le
+    remplir. L’app de bureau propose aussi <strong>Nouveau catalogue&hellip;</strong>
+    dans le menu Fichier de macOS.
+  </li>
+  <li>
+    <strong>Changer de catalogue.</strong> Le menu du catalogue liste vos
+    catalogues récents, du plus récent au plus ancien. Cliquez sur l’un d’eux
+    pour l’ouvrir, et le panneau Dossiers affiche les dossiers de ce
+    catalogue.
+  </li>
+  <li>
+    <strong>Ouvrir un catalogue depuis le disque.</strong> Dans l’app de
+    bureau, choisissez <strong>Ouvrir un catalogue&hellip;</strong> et
+    sélectionnez un dossier <code>.lightphotos</code>. Servez-vous-en pour un
+    catalogue copié depuis un autre ordinateur ou rangé ailleurs qu’à
+    l’endroit habituel.
+  </li>
+  <li>
+    <strong>Ajouter et retirer des dossiers.</strong> Ajouter ou retirer un
+    dossier ne modifie que le catalogue ouvert. Un même dossier peut figurer
+    dans plusieurs catalogues. Le retirer de l’un ne touche jamais à ses
+    photos ni à ses retouches.
+  </li>
+</ul>
+
+<h2>Ce que contient un catalogue</h2>
+<p>
+  Trois choses&nbsp;: la liste des dossiers, la liste des
+  <a href="/docs/presets.html">dossiers de préréglages</a>, et une copie des
+  notes en étoiles, des drapeaux et des étiquettes de couleur des photos qui
+  s’y trouvent. Les retouches de développement et les vignettes ne sont pas
+  dans le catalogue. Elles restent dans le dossier
+  <code>.lightphotos</code> à côté de vos photos, comme avant. Vos propres
+  préréglages, sous Mes préréglages, sont partagés par tous les catalogues.
+</p>
+<p>
+  Vos dossiers restent la vraie référence. LightPhotos écrit d’abord chaque
+  note et chaque retouche à côté de la photo, et la copie du catalogue suit.
+  Si vous supprimez un catalogue, vous perdez sa liste de dossiers, pas votre
+  travail. Ajoutez les dossiers à un autre catalogue et tout est là.
+</p>
+<h2>À quoi il sert&nbsp;: la recherche</h2>
+<p>
+  LightPhotos utilisera ce que le catalogue stocke pour chercher et filtrer
+  d’un coup dans tous ses dossiers, par exemple toutes les photos cinq
+  étoiles ou toutes les photos retenues, sans ouvrir chaque dossier.
+  Aujourd’hui, la Grille n’affiche encore qu’un dossier à la fois et rien ne
+  lit encore la copie&nbsp;; la recherche viendra dans une prochaine version.
+</p>
+
+<h2>Où sont stockés les catalogues</h2>
+<div class="lp-compare-wrap">
+  <table class="lp-compare">
+    <thead>
+      <tr>
+        <th scope="col">App</th>
+        <th scope="col">Où il va</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Bureau</strong></td>
+        <td>Un dossier nommé <code>&lt;name&gt;.lightphotos</code>, par défaut dans <code>~/Pictures/LightPhotos/</code></td>
+      </tr>
+      <tr>
+        <td><strong>Web</strong></td>
+        <td>Le stockage de votre navigateur pour ce site. Chaque navigateur a ses propres catalogues.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p>
+  L’app web n’a pas de <strong>Ouvrir un catalogue&hellip;</strong>, car un
+  navigateur ne peut pas garder un catalogue dans un dossier du disque. Son
+  menu du catalogue liste tous les catalogues créés dans ce navigateur. Si
+  vous effacez les données du site, le navigateur oublie ses catalogues et son
+  accès à vos dossiers. Vos photos et vos retouches restent dans les
+  dossiers.
+</p>
+
+<p>
+  Si le dernier catalogue ne peut pas être lu au lancement, LightPhotos
+  ouvre à la place <strong>default</strong> et vous le signale. Il réessaie
+  le dernier catalogue au lancement suivant.
+</p>

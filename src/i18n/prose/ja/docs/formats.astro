@@ -1,0 +1,162 @@
+<p>
+  LightPhotosは、ファイルをディスク上からそのまま開きます。読み込み時の変換も、
+  ライブラリ内へのコピーもありません。フォルダにあるものが、そのまま表示されます。
+</p>
+
+<h2>開けるファイル</h2>
+<ul class="lp-article-list">
+  <li>
+    <strong>RAW</strong>：Sony ARW、Canon CR2 / CR3、Nikon NEF、
+    Fujifilm RAF、Panasonic RW2、Olympus / OM System ORF、Pentax PEF、
+    Samsung SRW、DNG（Leica、Pentax、iPhone ProRAW、Pixel）。ほかの形式と同様に、
+    非破壊でレンダリングされます。
+  </li>
+  <li>
+    <strong>一般的な画像</strong>：JPEG、PNG、TIFFは、すべてのプラットフォームで開けます。
+    HEIC / HEIF、GIF、BMPは<strong>macOS版でのみ</strong>開けます。
+  </li>
+</ul>
+
+<p>
+  <strong>HEICは、プラットフォームによって対応が異なります。</strong>
+  iPhoneで撮影される形式で、macOSではAppleのImageIOフレームワークでデコードします。
+  Windows版、Linux版、ブラウザ版にはデコーダがありません。
+  土台にできる純粋なRust製のHEICデコーダが存在しないためです。
+  そのため、これらではHEICファイルがグリッドには表示されますが、開くことはできません。
+  JPEGで撮影するか、JPEGに変換しておけば、どのプラットフォームでもフォルダを読めます。
+</p>
+<h2>動作確認済みのカメラ</h2>
+<p>
+  RAWへの対応は、ブランドだけでなくカメラのモデルによって決まります。macOS版はAppleのImageIOでRAWをデコードするため、
+  <a href="https://support.apple.com/en-us/122870">Appleのカメラのリスト</a>に載っているものは何でも開けます。
+  Windows版、Linux版、ブラウザ版は、代わりにオープンソースの
+  <a href="https://github.com/dnglab/dnglab">rawler</a>デコーダを使います。
+  次のファイルは、どちらでも動作を確認しています。
+</p>
+
+<div class="lp-compare-wrap">
+  <table class="lp-compare">
+    <thead>
+      <tr>
+        <th scope="col">カメラ</th>
+        <th scope="col">macOS</th>
+        <th scope="col">Windows、Linux、ブラウザ</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Sony</strong> A7 IV</td>
+        <td>対応</td>
+        <td>対応</td>
+      </tr>
+      <tr>
+        <td><strong>Canon</strong> EOS R5</td>
+        <td>対応</td>
+        <td>対応</td>
+      </tr>
+      <tr>
+        <td><strong>Nikon</strong> D850, Z 6II, Z f, Z 8（ロスレス）</td>
+        <td>対応</td>
+        <td>対応</td>
+      </tr>
+      <tr>
+        <td><strong>Nikon</strong> High Efficiency NEF (Z 8, Z 9)</td>
+        <td>非対応</td>
+        <td>非対応</td>
+      </tr>
+      <tr>
+        <td><strong>Fujifilm</strong> GFX100S, X-A5</td>
+        <td>対応</td>
+        <td>対応</td>
+      </tr>
+      <tr>
+        <td><strong>Fujifilm</strong> X-Trans: X-T4, X-T5, X-H2S, X100VI</td>
+        <td>対応</td>
+        <td>閲覧のみ（カメラに埋め込まれたプレビューを表示）</td>
+      </tr>
+      <tr>
+        <td><strong>Panasonic</strong> S5II, GH6</td>
+        <td>対応</td>
+        <td>対応</td>
+      </tr>
+      <tr>
+        <td><strong>OM System</strong> OM-5 II</td>
+        <td>対応</td>
+        <td>非対応</td>
+      </tr>
+      <tr>
+        <td><strong>Pentax</strong> K-r（PEFとDNG）</td>
+        <td>対応</td>
+        <td>対応</td>
+      </tr>
+      <tr>
+        <td><strong>Leica</strong> Q2 DNG</td>
+        <td>対応</td>
+        <td>対応</td>
+      </tr>
+      <tr>
+        <td><strong>iPhone</strong> 12 Pro ProRAW, <strong>Pixel</strong> 8 Pro DNG</td>
+        <td>対応</td>
+        <td>対応</td>
+      </tr>
+      <tr>
+        <td><strong>Samsung</strong> Galaxy S23 Ultra DNG</td>
+        <td>対応</td>
+        <td>非対応</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p>
+  NikonのHigh Efficiency圧縮は、どのプラットフォームでも未対応です。当面は、
+  ロスレス圧縮のNEFで撮影してください。これらのブランドの未検証のカメラも、
+  たいていは動作しますが、お使いのmacOSや現在のrawlerのリリースより後に発売されたカメラは、
+  開けない場合があります。
+</p>
+<p>
+  フォルダ内のそれ以外のファイルは、エラーにならず、グリッドに表示されないだけです。
+  お使いのカメラが開けない場合は、
+  <a href="https://github.com/andrewyao/lightphotos/issues">issueトラッカー</a>でご要望をお寄せください。
+</p>
+
+<h2>書き込まれるファイル</h2>
+<p>
+  写真のそばに書き込まれる3種類のファイルと、フォルダを一覧にする1つのカタログです。
+</p>
+
+<div class="lp-compare-wrap">
+  <table class="lp-compare">
+    <thead>
+      <tr>
+        <th scope="col">用途</th>
+        <th scope="col">保存先</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>レーティングと編集内容</strong></td>
+        <td>開いたフォルダ内の <code>.lightphotos/</code> にあるサイドカーファイル</td>
+      </tr>
+      <tr>
+        <td><strong>サムネールのキャッシュ</strong></td>
+        <td>こちらも <code>.lightphotos/</code> に保存されるため、フォルダをどこへ移動しても、サムネールも一緒に移動します</td>
+      </tr>
+      <tr>
+        <td><strong>書き出し</strong></td>
+        <td>開いたフォルダ内の <code>Exports/</code> フォルダ。最初の書き出し時に作成されます</td>
+      </tr>
+      <tr>
+        <td><strong><a href="/docs/catalogs.html">カタログ</a></strong></td>
+        <td>フォルダとプリセットフォルダのリスト、および写真のレーティング、フラグ、ラベルのコピー。デスクトップ版：<code>~/Pictures/LightPhotos/&lt;name&gt;.lightphotos</code>。Web版：ブラウザのストレージ</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p>
+  写真そのものが移動、名前変更、変更されることはありません。LightPhotosにとって、
+  元のファイルは読み取り専用です。そのため、<a href="/docs/export.html">書き出し</a>では
+  元のファイルを上書きせず、新しいファイルが作られます。また、フォルダをほかの場所へ移動しても、
+  すべての編集内容が一緒に移動します。
+</p>

@@ -1,0 +1,102 @@
+<article class="lp-article">
+  <header class="lp-article-head">
+    <h1>Datenschutz</h1>
+    <p class="lp-article-dek">
+      Diese Website zählt Besuche und die Nutzung der Browser-App. Hier steht
+      genau, wo diese Grenze verläuft, in einfachen Worten.
+    </p>
+  </header>
+
+  <h2>Die Kurzfassung</h2>
+  <p>
+    Auf dieser Website gibt es keine Cookies, keine Konten, keine Werbenetzwerke
+    und keinen Analysedienst von Drittanbietern. Ereignisse gehen an einen eigenen, von Cloudflare gehosteten Endpunkt und werden
+    in unserer Cloudflare-D1-Datenbank gespeichert. Wir senden keine Ereignisse an Werbenetzwerke.
+  </p>
+
+  <h2>Was die Website erfasst</h2>
+  <p>
+    Wenn Sie hier eine Seite laden, werden der Pfad der Seite, die
+    Website, von der Sie einem Link gefolgt sind – nur die Domain, nie die vollständige
+    Adresse –, Ihr Land und eine tägliche pseudonyme Besuchernummer erfasst, die weiter unten beschrieben
+    wird. Außerdem werden einige benannte Ereignisse erfasst: dass ein Download-Button
+    angeklickt wurde und für welche Plattform, und ob die Web-App
+    fertig geladen hat.
+  </p>
+  <p>
+    Die Browser-App erfasst außerdem das Öffnen von Ordnern, Änderungen an Bewertungen, übernommene
+    Bearbeitungen (einschließlich Auto-Anpassung), Änderungen an Filtern, erfolgreiche Exporte und
+    nach Art eingeordnete Fehler beim Dekodieren oder Exportieren. Zeiten für den Start und das erste Foto
+    helfen, Zuverlässigkeitsprobleme zu erkennen. Die Zeit bis zum ersten Foto schließt die Zeit
+    für die Wahl eines Ordners ein; sie ist kein Dekodier-Benchmark. Sitzungsdauer
+    und Fotoanzahl werden nur in groben Bereichen erfasst. Fehlermeldungen werden nie gesendet.
+  </p>
+
+  <h2>Wie Besucher ohne Cookies gezählt werden</h2>
+  <p>
+    Menschen zu zählen bedeutet normalerweise, jedem Browser eine dauerhafte Kennung zu geben
+    und sie zu speichern. Diese Website tut das nicht. Stattdessen nimmt der Server Ihre
+    IP-Adresse, den User-Agent-String Ihres Browsers, das heutige Datum
+    und eine Zufallszahl, die jeden Morgen neu erzeugt wird, und schickt alles
+    durch einen Einweg-Hash. Gespeichert wird das Ergebnis – eine kurze
+    pseudonyme Zeichenfolge statt der ursprünglichen IP-Adresse.
+  </p>
+  <p>
+    Weil das Datum und die Zufallszahl des Tages beide in den Hash einfließen, ändert sich
+    die Nummer, die Sie darstellt, um Mitternacht, und die von morgen lässt sich nicht
+    mit der von heute verbinden. So lässt sich zählen,
+    wie viele verschiedene Personen an einem bestimmten Tag zu Besuch waren, aber niemand
+    von einem Tag zum nächsten verfolgen. Ihre IP-Adresse und der User-Agent werden
+    zur Berechnung des Hashs verwendet und danach verworfen. Beides wird nirgends
+    aufgeschrieben.
+  </p>
+  <p>
+    Die Zufallszahl jedes Tages wird ihrerseits nach zwei Tagen gelöscht. Das
+    ist wichtig: Solange es sie gibt, könnte jemand, der die Datenbank besitzt,
+    im Prinzip eine Vermutung über eine bestimmte IP-Adresse bestätigen, indem er
+    den Hash neu berechnet. Ist sie einmal weg, ist das überhaupt nicht mehr möglich, für
+    niemanden, dauerhaft – auch nicht für mich. Die Ereignisse selbst werden
+    nach einem Jahr gelöscht.
+  </p>
+
+  <h2>Was nie erfasst wird</h2>
+  <ul class="lp-check">
+    <li>Keine Cookies. Ihr Browser merkt sich nur Ihre Design-Wahl und, in der Web-App, Ihre Foto-Stapel, und nichts davon wird irgendwohin gesendet</li>
+    <li>Keine IP-Adressen oder User-Agent-Strings, die nach dem Hashen aufbewahrt werden</li>
+    <li>Kein Tracking über Tage, Websites oder Geräte hinweg</li>
+    <li>Keine Werbe-Tracker; die Ereignisspeicherung wird von Cloudflare gehostet, und Daten werden nicht verkauft</li>
+    <li>Nichts über Ihre Fotos – nie Dateinamen, Ordner, Pfade oder Bilddaten</li>
+  </ul>
+
+  <h2>Die Desktop-App stellt keine Netzwerkanfragen</h2>
+  <p>
+    Diese Seite handelt von der Website. Die herunterladbare App ist eine andere
+    Sache, und die Antwort ist dort einfacher: Sie spricht überhaupt nicht mit dem
+    Netzwerk. Der Code, der irgendetwas meldet, wird nur in den
+    Browser-Build einkompiliert. Im Desktop-Build gibt es ihn nicht – nicht
+    durch eine Einstellung abgeschaltet, der Sie vertrauen müssten, sondern schlicht nicht in der Binärdatei vorhanden.
+  </p>
+  <p>
+    Die Web-App, die unter <a href="/app.html">/app.html</a> läuft, meldet dagegen,
+    welche Funktionen genutzt werden – dass ein Ordner geöffnet, ein Foto
+    bewertet, ein Export ausgeführt wurde. Das sind nur Anzahlen und Kategorien.
+    Die Anzahl der Fotos in einem Ordner wird als grober Bereich erfasst und nicht
+    als genaue Zahl, und nie der Ordner, nie die Dateinamen, nie
+    die Bilder. Ihre Fotos werden vom Browser auf Ihrem eigenen Rechner gelesen und
+    in keiner der beiden Versionen hochgeladen.
+  </p>
+
+  <h2>Widerspruch</h2>
+  <p>
+    Wenn Ihr Browser „Do Not Track“ oder „Global Privacy Control“ sendet, erfasst diese Website
+    überhaupt nichts – nicht einmal einen Seitenaufruf. Kein Banner, keine
+    Einstellung, die Sie hier vornehmen müssten. Jeder Inhaltsblocker, der die Anfrage unterbindet,
+    funktioniert ebenfalls, und nichts auf der Website geht dadurch kaputt.
+  </p>
+
+  <h2>Fragen</h2>
+  <p>
+    Wenn hier etwas unklar ist oder Sie es für falsch halten, eröffnen Sie ein Issue auf
+    <a href="https://github.com/andrewyao/lightphotos-app/issues">GitHub</a>.
+  </p>
+</article>

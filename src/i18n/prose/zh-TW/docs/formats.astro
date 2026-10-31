@@ -1,0 +1,166 @@
+<p>
+  LightPhotos 直接從磁碟就地開啟檔案。載入時沒有
+  轉換，圖庫裡也沒有複本——資料夾裡是什麼，你看到的就是什麼。
+</p>
+
+<h2>能開啟哪些檔案</h2>
+<ul class="lp-article-list">
+  <li>
+    <strong>RAW</strong>——Sony ARW、Canon CR2 / CR3、Nikon NEF、
+    Fujifilm RAF、Panasonic RW2、Olympus / OM System ORF、Pentax PEF、
+    Samsung SRW，以及 DNG（Leica、Pentax、iPhone ProRAW、Pixel），和其他所有內容一樣
+    以非破壞性方式呈現。
+  </li>
+  <li>
+    <strong>一般影像</strong>——所有平台都支援 JPEG、PNG 和 TIFF。HEIC / HEIF、GIF 和 BMP
+    <strong>只有 macOS 版</strong>才能開啟。
+  </li>
+</ul>
+
+<p>
+  <strong>HEIC 是依平台而異的格式。</strong>它是
+  iPhone 拍攝的格式，在 macOS 上會透過 Apple 自己的 ImageIO
+  框架解碼。Windows、Linux 和瀏覽器版沒有它的解碼器
+  ——目前不存在純 Rust 的 HEIC 解碼器可供建置——所以
+  在那些版本中，HEIC 檔案會顯示在網格裡，但無法開啟。改拍或轉換成 JPEG，可以讓資料夾在
+  每個平台上都能讀取。
+</p>
+<h2>已測試的相機</h2>
+<p>
+  RAW 支援取決於相機型號，而不只是品牌。macOS
+  版透過 Apple 的 ImageIO 解碼 RAW，所以
+  <a href="https://support.apple.com/en-us/122870">Apple 的相機清單</a>
+  涵蓋的機型都能開啟。Windows、Linux 和瀏覽器版則改用開源的
+  <a href="https://github.com/dnglab/dnglab">rawler</a> 解碼器。
+  以下是兩邊都測試過的檔案：
+</p>
+
+<div class="lp-compare-wrap">
+  <table class="lp-compare">
+    <thead>
+      <tr>
+        <th scope="col">相機</th>
+        <th scope="col">macOS</th>
+        <th scope="col">Windows、Linux、瀏覽器</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Sony</strong> A7 IV</td>
+        <td>是</td>
+        <td>是</td>
+      </tr>
+      <tr>
+        <td><strong>Canon</strong> EOS R5</td>
+        <td>是</td>
+        <td>是</td>
+      </tr>
+      <tr>
+        <td><strong>Nikon</strong> D850、Z 6II、Z f、Z 8（無損）</td>
+        <td>是</td>
+        <td>是</td>
+      </tr>
+      <tr>
+        <td><strong>Nikon</strong> High Efficiency NEF（Z 8、Z 9）</td>
+        <td>否</td>
+        <td>否</td>
+      </tr>
+      <tr>
+        <td><strong>Fujifilm</strong> GFX100S、X-A5</td>
+        <td>是</td>
+        <td>是</td>
+      </tr>
+      <tr>
+        <td><strong>Fujifilm</strong> X-Trans：X-T4、X-T5、X-H2S、X100VI</td>
+        <td>是</td>
+        <td>僅能瀏覽，使用相機內嵌的預覽圖</td>
+      </tr>
+      <tr>
+        <td><strong>Panasonic</strong> S5II、GH6</td>
+        <td>是</td>
+        <td>是</td>
+      </tr>
+      <tr>
+        <td><strong>OM System</strong> OM-5 II</td>
+        <td>是</td>
+        <td>否</td>
+      </tr>
+      <tr>
+        <td><strong>Pentax</strong> K-r（PEF 和 DNG）</td>
+        <td>是</td>
+        <td>是</td>
+      </tr>
+      <tr>
+        <td><strong>Leica</strong> Q2 DNG</td>
+        <td>是</td>
+        <td>是</td>
+      </tr>
+      <tr>
+        <td><strong>iPhone</strong> 12 Pro ProRAW、<strong>Pixel</strong> 8 Pro DNG</td>
+        <td>是</td>
+        <td>是</td>
+      </tr>
+      <tr>
+        <td><strong>Samsung</strong> Galaxy S23 Ultra DNG</td>
+        <td>是</td>
+        <td>否</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p>
+  Nikon 的 High Efficiency 壓縮是所有平台共同的缺口；目前請改拍
+  無損壓縮的 NEF。這些品牌中未經測試的相機通常
+  也能運作，但如果相機在你的 macOS 版本之後或
+  目前的 rawler 版本之後才推出，可能就無法使用。
+</p>
+<p>
+  資料夾中的其他檔案會直接從網格中省略，而不會
+  顯示錯誤。如果你的相機無法開啟，
+  <a href="https://github.com/andrewyao/lightphotos/issues">問題追蹤頁面</a>
+  就是提出需求的地方。
+</p>
+
+<h2>它會寫入什麼</h2>
+<p>
+  在你的照片旁邊有三種檔案，另外還有一個列出你
+  資料夾的目錄：
+</p>
+
+<div class="lp-compare-wrap">
+  <table class="lp-compare">
+    <thead>
+      <tr>
+        <th scope="col">用途</th>
+        <th scope="col">存放位置</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>評等和編輯</strong></td>
+        <td>你所開啟資料夾內 <code>.lightphotos/</code> 中的附屬檔案</td>
+      </tr>
+      <tr>
+        <td><strong>縮圖快取</strong></td>
+        <td>同樣在 <code>.lightphotos/</code> 中，所以資料夾不論移到哪裡，都帶著自己的縮圖</td>
+      </tr>
+      <tr>
+        <td><strong>匯出</strong></td>
+        <td>你所開啟資料夾內的 <code>Exports/</code> 資料夾，第一次匯出時建立</td>
+      </tr>
+      <tr>
+        <td><strong><a href="/docs/catalogs.html">目錄</a></strong></td>
+        <td>你的資料夾和預設集資料夾清單，以及照片的評等、旗標和標籤的副本。桌面版：<code>~/Pictures/LightPhotos/&lt;name&gt;.lightphotos</code>。網頁版：瀏覽器的儲存空間</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p>
+  你的照片本身絕不會被移動、重新命名或修改——
+  LightPhotos 對原始檔案只有唯讀存取權。這就是為什麼
+  <a href="/docs/export.html">匯出</a>會產生新檔案，而不是
+  覆寫舊檔案，也是為什麼把資料夾搬到別處時，每一項編輯
+  都會跟著它走。
+</p>

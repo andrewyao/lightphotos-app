@@ -1,0 +1,141 @@
+---
+// Every row here is a string the app's own help dialog (?) shows, so this
+// page can be checked against the build rather than against memory. Rows are
+// grouped by what you are doing, not by which panel owns the key.
+const groups = [
+  {
+    title: "탐색",
+    rows: [
+      { key: "Cmd+O", does: "폴더를 추가하고 열기" },
+      { key: "Enter / Space / E", does: "선택한 사진 열기 (그리드에서)" },
+      { key: "Esc / G", does: "편집 화면에서 그리드로 돌아가기" },
+      { key: "← / →", does: "이전 / 다음 사진 (편집 화면에서). 그리드에서는 선택 이동" },
+      { key: "Page Up / Page Down", does: "이전 / 다음 사진 (편집 화면에서)" },
+      { key: "D", does: "선택한 사진 조정" },
+      { key: "C", does: "선택한 사진 2~6장 또는 선택한 스택 비교" },
+      { key: "I", does: "오른쪽 패널에서 사진 정보 표시 또는 숨기기" },
+      { key: "F6 / Shift+F6", does: "다음 영역으로 이동하거나, 들어간 영역 안에서 다음 컨트롤로 이동" },
+      { key: "Tab / Shift+Tab", does: "포커스된 영역 안에서 항목 간 이동" },
+      { key: "Cmd+,", does: "설정: 테마, 언어" },
+      { key: "Alt+= / Alt+-", does: "글자 크게 / 작게" },
+      { key: "?", does: "앱 안의 단축키 목록 표시 또는 숨기기" },
+    ],
+  },
+  {
+    title: "별점, 플래그, 레이블",
+    rows: [
+      { key: "0 – 5", does: "별점 지정 (0은 별점 지우기)" },
+      { key: "Shift+0 – 5", does: "별점을 지정하고 다음 사진으로 이동" },
+      { key: "P / X / U", does: "채택 / 제외 / 플래그 해제" },
+      { key: "`", does: "채택하거나, 채택한 사진은 플래그 해제" },
+      { key: "6 / 7 / 8 / 9", does: "빨강, 노랑, 초록, 파랑 레이블. 같은 키를 다시 누르면 해제" },
+    ],
+  },
+  {
+    title: "선택과 스택",
+    rows: [
+      { key: "Cmd+A", does: "현재 폴더의 모든 사진 선택 (그리드에서)" },
+      { key: "Cmd+D", does: "전체 선택 해제" },
+      { key: "Shift+Click", does: "그리드에서 범위 선택" },
+      { key: "Cmd+Click", does: "사진 하나를 선택에 넣거나 빼기" },
+      { key: "Shift+Arrows", does: "화살표 키로 선택 확장" },
+      { key: "Cmd+G", does: "선택한 사진을 스택으로 묶기" },
+      { key: "Cmd+Shift+G", does: "선택한 스택 해제" },
+      { key: "Shift+Delete", does: "선택한 스택을 삭제하거나, 스택을 해제하고 사진은 유지" },
+    ],
+  },
+  {
+    title: "확대/축소와 이동",
+    rows: [
+      { key: "Space / Z", does: "확대/축소 순환: 맞춤, 2배 맞춤, 100%" },
+      { key: "Cmd++ / Cmd+= / Cmd+-", does: "20% 단위로 확대 / 축소" },
+      { key: "↑ / ↓", does: "10% 단위로 확대 / 축소" },
+      { key: "Scroll", does: "포인터 위치에서 확대/축소" },
+      { key: "Drag / Space+Drag", does: "이동" },
+      { key: "Shift+Scroll", does: "좌우로 이동" },
+      { key: "Alt+Scroll", does: "상하로 이동" },
+    ],
+  },
+  {
+    title: "현상과 내보내기",
+    rows: [
+      { key: "Cmd+Z", does: "마지막 현상 변경 실행 취소" },
+      { key: "Cmd+[ / Cmd+]", does: "-90 / +90도 회전" },
+      { key: "R", does: "자르기. Enter나 R로 적용하고 Esc로 취소" },
+      { key: "Y", does: "이전 / 이후 비교 (편집 화면에서)" },
+      { key: "M", does: "선형 그레이디언트 마스크" },
+      { key: "Shift+M", does: "방사형 그레이디언트 마스크" },
+      { key: "Cmd+U", does: "선택한 사진 자동 조정. 각 사진의 히스토그램을 기준으로 해요" },
+      { key: "V", does: "선택한 사진을 흑백으로 바꾸거나 컬러로 되돌리기" },
+      { key: "Cmd+Shift+C", does: "이 사진의 조정 복사" },
+      { key: "Cmd+Shift+V", does: "선택한 사진에 조정 붙여넣기" },
+      { key: "Cmd+Shift+N", does: "이 사진의 현재 설정을 사전 설정으로 저장" },
+      { key: "Cmd+Shift+E", does: "내보내기 양식 열기 또는 닫기" },
+      { key: "Double-click a slider", does: "슬라이더 초기화" },
+      { key: "Delete", does: "휴지통으로 이동 (브라우저에서는 영구 삭제, 되돌릴 수 없어요)" },
+    ],
+  },
+  {
+    title: "브러시 마스크",
+    rows: [
+      { key: "K", does: "브러시 켜기 / 끄기. 선택한 브러시 마스크에 칠해요" },
+      { key: "Drag", does: "칠하기. 획마다 실행 취소 한 단계" },
+      { key: "Alt+Drag", does: "지우기" },
+      { key: "[ / ]", does: "브러시 크기 (스크롤도 가능)" },
+      { key: "Shift+[ / ]", does: "브러시 페더 (Shift+스크롤도 가능)" },
+      { key: "Esc", does: "브러시 내려놓기" },
+    ],
+  },
+  {
+    title: "잡티 제거",
+    rows: [
+      { key: "Q", does: "잡티 제거 켜기 / 끄기" },
+      { key: "[ / ]", does: "브러시 크기 (스크롤도 가능)" },
+      { key: "Shift+[ / ]", does: "브러시 페더 (Shift+스크롤도 가능)" },
+      { key: "O / Shift+O", does: "잡티 표시 또는 숨기기 / 다음 잡티 선택" },
+      { key: "Delete", does: "선택한 잡티 삭제" },
+      { key: "Cmd+Z", does: "마지막 잡티 실행 취소" },
+      { key: "Esc", does: "잡티 제거 종료" },
+    ],
+  },
+  {
+    title: "대표 사진 선택",
+    rows: [
+      { key: "Click or drag the photo", does: "초점 영역 이동" },
+      { key: "Shift+Scroll on the area", does: "초점 영역 크기 조절" },
+      { key: "Drag a tile", does: "초점 영역 이동" },
+      { key: "Cmd+Click / Shift+Click a tile", does: "타일 더 선택" },
+    ],
+  },
+];
+---
+<p>
+  LightPhotos는 키보드로 조작하도록 만들었어요. 마우스를 건드리지 않고
+  폴더 전체에 별점을 매기고, 촬영분을 원래 크기로 넘겨 보고, 한 사진의 룩을
+  나머지에 적용할 수 있어요. 아래 목록은 앱이 인식하는 모든 키이고,
+  <kbd>?</kbd>를 누르면 내 컴퓨터에 맞는 같은 목록을 앱 안에서 볼 수 있어요.
+</p>
+
+{groups.map((g) => (
+  <section>
+    <h2>{g.title}</h2>
+    <div class="lp-compare-wrap">
+      <table class="lp-compare">
+        <thead>
+          <tr>
+            <th scope="col">키</th>
+            <th scope="col">동작</th>
+          </tr>
+        </thead>
+        <tbody>
+          {g.rows.map((r) => (
+            <tr>
+              <td><kbd>{r.key}</kbd></td>
+              <td>{r.does}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
+))}

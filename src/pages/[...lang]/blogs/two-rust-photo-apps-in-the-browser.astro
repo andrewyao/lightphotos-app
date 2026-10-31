@@ -1,0 +1,351 @@
+---
+import Base from "../../../layouts/Base.astro";
+import { languagePaths, type LanguageProps } from "../../../i18n/routes";
+import TimingComparison from "../../../components/TimingComparison.astro";
+import StorageComparison from "../../../components/StorageComparison.astro";
+import { browserTimings } from "../../../components/comparison-data";
+
+export const getStaticPaths = languagePaths;
+const { lang } = Astro.props as LanguageProps;
+---
+<Base
+  title="Two Rust photo apps in the browser — LightPhotos Blog"
+  desc="LightCraft is another wonderful Lightroom replacement written in Rust that runs in a browser tab. Here is what I learned when I put it next to LightPhotos. I include some measurements, but they are not a fully equal comparison."
+  active="blogs"
+  lang={lang}
+  path="/blogs/two-rust-photo-apps-in-the-browser.html"
+  translated={false}
+>
+  <main class="lp-page">
+    <article class="lp-article">
+      <header class="lp-article-head">
+        <p class="lp-article-meta"><a href="/blogs.html">Blogs</a> &middot; <time datetime="2026-10-07">October 7, 2026</time></p>
+        <h1>Two Rust photo apps in the browser</h1>
+        <p class="lp-article-dek">
+          <a href="https://github.com/storytold/lightcraft" target="_blank">LightCraft</a>
+          is another wonderful Lightroom replacement, written in Rust, that
+          runs in a browser tab. LightPhotos does the same but with some major differences.
+        </p>
+        <p class="lp-article-byline">Andrew Yao &middot; 8 min read</p>
+      </header>
+
+      <aside class="lp-tldr">
+        <p class="lp-tldr-label">TL;DR</p>
+        <p>
+          Both apps are Rust and egui compiled to WebAssembly. The compressed
+          downloads are 3.6&nbsp;MB and 3.8&nbsp;MB. Performance-wise, they are very similar,
+          where LightPhotos is slightly faster. The major difference is how they handle your photos:
+        </p>
+        <ul class="lp-article-list">
+          <li>LightPhotos reads the photos from your disk in place and saves its data in a <code>.lightphotos</code> folder inside it. This only works in Chrome and Edge.</li>
+          <li>LightCraft copies the photos into the browser's own storage. This works in every modern browser, but it means a second copy of every photo in your browser's storage.</li>
+        </ul>
+      </aside>
+
+      <TimingComparison
+        id="start-demo"
+        title="When the photo is sharp and when the screen settles"
+        scale={4}
+        milestones={["First image", "Sharp photo", "Whole screen settled"]}
+        scenarios={browserTimings}
+        note="Fixed 0–4 s scale for both actions. Medians of five runs in Chrome, full screen on a 4K display. Screenshots were taken about every 70 ms; 0.07 s is the first frame after the key press."
+      />
+
+      <h2>Same language, different answers</h2>
+      <p>
+        Both apps are Rust from top to bottom. Both draw their interface
+        with egui on a canvas, and each web version is its desktop app
+        compiled to WebAssembly. So the language does not decide much. The
+        apps still differ on storage, threads, graphics and toolchain, and
+        LightPhotos used LightCraft's layout until late September (see <a
+        href="/blogs/challenges-with-webassembly.html">challenges with
+        WebAssembly</a>).
+      </p>
+      <div class="lp-compare-wrap">
+        <table class="lp-compare">
+          <thead>
+            <tr>
+              <th scope="col"></th>
+              <th scope="col" class="lp-compare-pick" style="width: 45%;">LightPhotos</th>
+              <th scope="col" style="width: 45%;">LightCraft</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Your photos</th>
+              <td class="lp-compare-pick">Read in place from a folder you pick</td>
+              <td>Copied into the browser's own storage on import</td>
+            </tr>
+            <tr>
+              <th scope="row">Parallel work</th>
+              <td class="lp-compare-pick">6 decode threads that share one memory, with the same queues as the desktop app</td>
+              <td>Up to 4 Web Workers, each with its own memory. Jobs go in as JSON, pixels come back</td>
+            </tr>
+            <tr>
+              <th scope="row">Graphics</th>
+              <td class="lp-compare-pick">WebGPU, the newer API</td>
+              <td>WebGL2, which more browsers support</td>
+            </tr>
+            <tr>
+              <th scope="row">Browsers</th>
+              <td class="lp-compare-pick">Chrome, Edge</td>
+              <td>No WebGPU or folder access needed</td>
+            </tr>
+            <tr>
+              <th scope="row">Rust toolchain</th>
+              <td class="lp-compare-pick">Nightly, standard library rebuilt</td>
+              <td>Stable</td>
+            </tr>
+            <tr>
+              <th scope="row">Server headers</th>
+              <td class="lp-compare-pick">Required (cross-origin isolation, COOP/COEP)</td>
+              <td>Optional</td>
+            </tr>
+            <tr>
+              <th scope="row">What a RAW shows at fit</th>
+              <td class="lp-compare-pick">The RAW data, developed at the window's size, with your edits. The camera's JPEG while that develop runs</td>
+              <td>The RAW data, developed, with your edits</td>
+            </tr>
+            <tr>
+              <th scope="row">The photos on either side</th>
+              <td class="lp-compare-pick">Developed ahead of time</td>
+              <td>Prepared ahead of time</td>
+            </tr>
+            <tr>
+              <th scope="row">RAW decoder</th>
+              <td class="lp-compare-pick">rawler (LGPL-2.1), disclosed with its license</td>
+              <td>Its own</td>
+            </tr>
+            <tr>
+              <th scope="row">License</th>
+              <td class="lp-compare-pick">MIT or Apache-2.0, plus rawler under LGPL-2.1</td>
+              <td>MIT or Apache-2.0</td>
+            </tr>
+            <tr>
+              <th scope="row">After a reload</th>
+              <td class="lp-compare-pick">Your folders are listed again. Click one and allow access to continue</td>
+              <td>Library is still there</td>
+            </tr>
+            <tr>
+              <th scope="row">Open in several tabs</th>
+              <td class="lp-compare-pick">Allowed, with no guard against two tabs that overwrite each other's saves</td>
+              <td>One tab at a time</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>Import is the biggest difference</h2>
+      <p>
+        The row in the table that you feel first is the one about your
+        photos. The two apps answer "where are my photos?" in opposite ways.
+      </p>
+
+      <StorageComparison id="import-demo" />
+      <p>
+        LightPhotos does not import. <strong>Open Folder</strong> calls the
+        browser's <code>showDirectoryPicker</code>, you grant access to one
+        folder, and the app reads the files where they are. Nothing is
+        copied. Ratings, edits and thumbnails go into a hidden
+        <code>.lightphotos</code> folder inside the folder you picked (see <a
+        href="/blogs/where-your-data-lives.html">where your data lives</a>),
+        so you can see them in Finder or Explorer and they move with the
+        folder.
+      </p>
+      <p>
+        The cost is that this API exists only in Chrome and Edge,
+        and after a reload the browser asks you to grant access again,
+        unless you chose to allow it on every visit.
+      </p>
+      <p>
+        LightCraft imports. You pick files with the standard file dialog, or
+        drop them on the window. It reads the bytes of each file and writes
+        them into the browser's own file system, the Origin Private File
+        System (OPFS), under a hash of their content. The catalog, presets
+        and settings go there too, or into IndexedDB where OPFS cannot be
+        written. This works in every modern browser, with no permission
+        prompt. A reload opens the same library, and a photo imported twice
+        is stored once.
+      </p>
+      <p>
+        The cost is a second copy of every photo. The twenty Sony RAW files in this test are
+        498&nbsp;MB, so importing this set into an empty library stores a
+        second 498&nbsp;MB in browser storage. That storage has a quota, it is invisible in Finder or
+        Explorer, and the browser can evict it under storage pressure, so
+        LightCraft asks for persistent storage and warns you when it does
+        not get it. If you clear the site's data, the library goes with it.
+        Your original files are safe, but to get edited photos out, you
+        export them.
+      </p>
+      <p>
+        LightPhotos reads the folder you choose and saves ratings and edits
+        alongside the originals. It avoids duplicating the photos, but
+        requires Chrome or Edge. LightCraft keeps a separate library in
+        browser storage, which supports file import across more browsers
+        and retains the library after a reload. Clearing site data removes
+        that library and edits you have not exported; the originals on disk
+        remain.
+      </p>
+
+      <h2>How I measured</h2>
+      <p>
+        I built each app from its current code and served it from a local
+        address. Playwright drove Chrome 154 on an M4 Pro Mac with
+        48&nbsp;GB of memory. The window filled a 4K display at its native
+        size, so the page was 3840 by 2072 pixels. The photos were twenty
+        RAW files from a Sony A7 II, 24 megapixels and about 25&nbsp;MB
+        each. Each run used a new browser profile, so neither app had seen
+        the photos before.
+      </p>
+      <p>
+        The script takes a screenshot about every 70&nbsp;ms and keeps each
+        frame that changes. For each key press, I record two times. The
+        first is when the photo area stops changing. The second is when the
+        whole screen stops changing, side panels included. Each number is
+        the median of five runs. For an open from the grid, the script waits
+        until the screen is still for 4&nbsp;s, because the sharp photo can
+        come late. The method is coarse: 0.07&nbsp;s is the first frame
+        after the key. So compare the apps with each other, not with a
+        stopwatch.
+      </p>
+      <p>
+        An earlier version of this post timed only the whole screen, in a
+        1600 by 1000 window. It gave 0.97&nbsp;s for the next photo in
+        LightCraft. The frames show that the photo was sharp in the first
+        frame. The time came from the histogram.
+      </p>
+
+      <h2>The numbers</h2>
+      <div class="lp-compare-wrap">
+        <table class="lp-compare">
+          <thead>
+            <tr>
+              <th scope="col"></th>
+              <th scope="col" class="lp-compare-pick">LightPhotos</th>
+              <th scope="col">LightCraft</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Download, compressed (brotli)</th>
+              <td class="lp-compare-pick">3.6&nbsp;MB</td>
+              <td>3.8&nbsp;MB</td>
+            </tr>
+            <tr>
+              <th scope="row">WebAssembly file, uncompressed</th>
+              <td class="lp-compare-pick">14.4&nbsp;MB</td>
+              <td>17.1&nbsp;MB</td>
+            </tr>
+            <tr>
+              <th scope="row">Fill the grid with 20 RAW thumbnails, total</th>
+              <td class="lp-compare-pick">1.4&nbsp;s</td>
+              <td>2.3&nbsp;s</td>
+            </tr>
+            <tr>
+              <th scope="row">Next photo: sharp photo on screen (median of 40)</th>
+              <td class="lp-compare-pick">0.07&nbsp;s</td>
+              <td>0.12&nbsp;s</td>
+            </tr>
+            <tr>
+              <th scope="row">Next photo: the whole screen stops changing</th>
+              <td class="lp-compare-pick">0.13&nbsp;s</td>
+              <td>1.70&nbsp;s</td>
+            </tr>
+            <tr>
+              <th scope="row">Open from the grid: sharp photo on screen</th>
+              <td class="lp-compare-pick">1.37&nbsp;s</td>
+              <td>3.6&nbsp;s</td>
+            </tr>
+            <tr>
+              <th scope="row">Memory afterwards, the page's process</th>
+              <td class="lp-compare-pick">2.0&nbsp;GB</td>
+              <td>2.8&nbsp;GB</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>
+        LightCraft includes a full editing pipeline and its own RAW decoder,
+        but its download is only 0.2&nbsp;MB larger. Its release builds also
+        include a Japanese font, which I removed for this test. The memory
+        number is for the page's own process. That process holds the main
+        thread, the workers and the LightPhotos decode threads. When the
+        LightCraft grid stops changing, it shows only a few of the RAW
+        thumbnails, because it scrolls to follow the import. LightPhotos
+        shows all 20.
+      </p>
+
+      <h2>Why the numbers differ</h2>
+      <p>
+        The camera's embedded JPEG is 1616&nbsp;px wide. Full screen, the
+        photo is about 2700&nbsp;px wide in both apps, so the JPEG is too
+        small for a sharp photo. Thus both apps develop the sensor data at
+        fit. The colours at fit then come from the same place as the colours
+        at 100%.
+      </p>
+      <p>
+        Both apps prepare the photos on either side while you look at the
+        current one. LightPhotos develops them on its decode threads.
+        LightCraft decodes them in its Web Workers. So for the next photo,
+        the work is done before you press the key, and both apps show the
+        sharp photo in about 0.1&nbsp;s. LightCraft shows a preview for
+        about 0.07&nbsp;s first. Then its histogram changes until about
+        1.7&nbsp;s after the key. The photo does not change in that time.
+      </p>
+      <p>
+        A photo that you open from the grid is not prepared. LightPhotos
+        shows the camera's JPEG at 0.15&nbsp;s. Then it develops the sensor
+        data and shows the sharp photo at 1.37&nbsp;s. LightCraft shows a
+        preview at 0.06&nbsp;s and the sharp photo at 3.6&nbsp;s. In two of
+        five runs, LightCraft was faster, at 1.25&nbsp;s. I did not find the
+        cause.
+      </p>
+      <p>
+        The grid is closer. The LightPhotos decode threads take thumbnails
+        from one shared queue, and the photo on screen gets priority.
+        LightCraft copies all 498&nbsp;MB into browser storage while it
+        imports. That copy is part of its 2.3&nbsp;s. It also keeps the
+        library after a reload.
+      </p>
+
+      <h2>Why LightCraft uses more memory</h2>
+      <p>
+        Each LightCraft worker is a separate copy of the program with its
+        own memory, and WebAssembly memory never shrinks after it grows. The
+        main thread also keeps recently used originals, the 498&nbsp;MB of
+        RAW files. Four workers plus that come to 2.8&nbsp;GB. With a photo
+        zoomed to 1:1, it reached 3.4&nbsp;GB.
+      </p>
+      <p>
+        Shared memory has a cost too. Each LightPhotos decode thread needs
+        about 300&nbsp;MB of scratch space for a RAW file, all from one heap
+        with a limit of 4&nbsp;GB. With ten threads, memory peaked at
+        3.4&nbsp;GB. So I limited the browser build to six threads, which
+        keeps the page at 2.0&nbsp;GB.
+      </p>
+
+      <h2>Wrapping up</h2>
+      <p>
+        LightPhotos relies on your own folders and shared memory, so it feels
+        quick when you go through a shoot. LightCraft takes on the whole RAW
+        pipeline and a full Lightroom-style feature set, keeps its library
+        in the browser and needs no special server configuration.
+
+        I look forward to seeing where it goes. Both also run on Mac, Windows and
+        Linux, and that comparison is next.
+      </p>
+
+      <nav class="lp-article-nav" aria-label="More posts">
+        <a class="lp-article-nav-prev" href="/blogs/exporting-to-your-own-immich-server.html">
+          <span class="lp-article-nav-dir">Back</span>
+          <span class="lp-article-nav-title">Exporting to your own Immich server</span>
+        </a>
+        <a class="lp-article-nav-next" href="/blogs/two-rust-photo-apps-on-the-mac.html">
+          <span class="lp-article-nav-dir">Next</span>
+          <span class="lp-article-nav-title">Two Rust photo apps on the Mac</span>
+        </a>
+      </nav>
+    </article>
+  </main>
+</Base>

@@ -1,0 +1,94 @@
+<p>
+  A mask adjusts part of a photo instead of all of it: darken a bright sky,
+  lift a face, warm one corner. Open a photo in the editor and choose
+  <strong>Masks &amp; Cleanup</strong> from the icons on the right panel's
+  edge. The page starts with a row of buttons, one for each kind of mask:
+</p>
+
+<ul class="lp-article-list">
+  <li>
+    <strong>+ Linear</strong> (<kbd>M</kbd>) &mdash; a gradient. Drag on
+    the photo from where the effect is full to where it fades out. Good
+    for a sky or a foreground.
+  </li>
+  <li>
+    <strong>+ Radial</strong> (<kbd>Shift+M</kbd>) &mdash; an ellipse.
+    Drag out from its center, or click once for a default size. Hold
+    <kbd>Shift</kbd> and scroll over its center to soften or harden the
+    edge.
+  </li>
+  <li>
+    <strong>+ Subject</strong> &mdash; finds the person or main subject
+    and masks it for you. It only works in the Mac app.
+  </li>
+  <li>
+    <strong>+ Sky</strong> &mdash; finds the sky and masks it for you.
+  </li>
+  <li>
+    <strong>+ Brush</strong> (<kbd>K</kbd>) &mdash; paint the mask on the
+    photo. Hold <kbd>Alt</kbd> to erase, or press <strong>Erase</strong>.
+    <kbd>[</kbd> and <kbd>]</kbd> change the brush size, and
+    <kbd>Shift+[</kbd> and <kbd>Shift+]</kbd> change its
+    <strong>Feather</strong>. <strong>Flow</strong> sets how much one pass
+    adds, so passes over the same spot build up. Each stroke is one undo
+    step, and <kbd>Esc</kbd> puts the brush down.
+  </li>
+</ul>
+
+<p>
+  Subject and Sky have no handles to drag. The mask finds its area in the
+  background and shows a spinner until it is done. While one is picked,
+  the area it covers is tinted red on the photo. If it fails, its label
+  shows a <strong>!</strong>; hold the pointer over it for the reason,
+  then click <strong>Retry</strong>.
+</p>
+
+<h2>Adjust a mask</h2>
+<p>
+  Each mask is listed by kind and number, such as <strong>Radial
+  1</strong>. Click one to pick it and drag its handles on the photo. Each
+  mask has its own Temp, Tint, Exposure, Contrast, Highlights, Shadows,
+  Whites, Blacks and Saturation, added on top of the photo's own
+  sliders. <strong>Invert</strong> swaps where the mask applies and where
+  it doesn't, and <strong>Delete</strong> removes it. A photo holds up to
+  16 masks.
+</p>
+
+<div class="lp-compare-wrap">
+  <table class="lp-compare">
+    <thead>
+      <tr>
+        <th scope="col">Key</th>
+        <th scope="col">Does</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><kbd>Esc</kbd></td>
+        <td>Put the mask tool down, or let go of the picked mask</td>
+      </tr>
+      <tr>
+        <td><kbd>Delete</kbd></td>
+        <td>Delete the picked mask, not the photo</td>
+      </tr>
+      <tr>
+        <td><kbd>Cmd+Z</kbd></td>
+        <td>Undo the last mask change; a whole drag is one step</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<h2>Touch Up</h2>
+<p>
+  The same page holds <strong>Touch Up</strong> for removing spots. Turn it
+  on (<kbd>Q</kbd>) and click a blemish to heal it, up to 64 spots per
+  photo. <kbd>[</kbd> and <kbd>]</kbd> change the brush size.
+</p>
+
+<p>
+  Masks are stored with the photo's other adjustments in the
+  <code>.lightphotos</code> folder beside it, and they appear in
+  thumbnails and in every <a href="/docs/export.html">export</a>. If a
+  Subject or Sky mask is still being found, export waits for it.
+</p>

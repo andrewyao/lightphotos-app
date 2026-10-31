@@ -1,0 +1,36 @@
+---
+import WebAppLink from "../../../../components/WebAppLink.astro";
+---
+<p>
+  LightPhotos는 이미 디스크에 있는 폴더에서 바로 작업하기 때문에, 모든 과정이
+  한 창에서 이뤄져요. 앱을 열고,
+  <a href="/docs/pick-a-folder.html">폴더를 선택</a>하고,
+  <a href="/docs/browse.html">둘러보고</a>,
+  <a href="/docs/select-a-photo.html">사진을 고르고</a>,
+  <a href="/docs/adjust.html">조정한 뒤</a>,
+  <a href="/docs/export.html">내보내면</a> 돼요. 별점과 편집 내용은 작업하는
+  대로 저장되니, 어느 시점에서든 멈춰도 괜찮아요.
+</p>
+
+<ul class="lp-article-list">
+  <li>
+    <strong>브라우저에서.</strong>
+    <WebAppLink>
+      <a href="/app.html">웹 앱 열기</a>: 설치할 것도, 업데이트할 것도
+      없어요.
+      <span slot="fallback">현재 브라우저에서는 웹 앱을 쓸 수 없어요. Chrome을
+      사용하세요.</span>
+    </WebAppLink>
+    GPU로 렌더링하므로 Chrome이나 WebGPU를 켠 브라우저라면 어디서든 실행돼요.
+  </li>
+  <li>
+    <strong>데스크톱 앱으로.</strong>
+    macOS, Windows, Linux용을 <a href="/downloads.html">다운로드</a>하세요.
+    컴퓨터에 설치하고 나면 인터넷 없이도 완전히 동작해요.
+  </li>
+</ul>
+
+<p>
+  어느 쪽이든 같은 파일을 같은 편집기로 다뤄요. 사진은 디스크에서 곧바로
+  읽고 업로드하지 않으며, 데스크톱 빌드는 용량이 작아요.
+</p>

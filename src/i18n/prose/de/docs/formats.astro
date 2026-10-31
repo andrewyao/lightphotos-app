@@ -1,0 +1,167 @@
+<p>
+  LightPhotos öffnet die Dateien direkt von der Festplatte, an Ort und Stelle. Es gibt
+  keine Konvertierung beim Einlesen und keine Kopie in einer Bibliothek – was im
+  Ordner liegt, sehen Sie auch.
+</p>
+
+<h2>Was es öffnet</h2>
+<ul class="lp-article-list">
+  <li>
+    <strong>RAW</strong> – Sony ARW, Canon CR2 / CR3, Nikon NEF,
+    Fujifilm RAF, Panasonic RW2, Olympus / OM System ORF, Pentax PEF,
+    Samsung SRW und DNG (Leica, Pentax, iPhone ProRAW, Pixel), nicht destruktiv gerendert
+    wie alles andere.
+  </li>
+  <li>
+    <strong>Gewöhnliche Bilder</strong> – JPEG, PNG und TIFF auf jeder
+    Plattform. HEIC / HEIF, GIF und BMP öffnen sich <strong>nur im macOS-Build</strong>.
+  </li>
+</ul>
+
+<p>
+  <strong>HEIC ist das plattformspezifische Format.</strong> Es ist das Format,
+  das iPhones aufnehmen, und unter macOS wird es über Apples eigenes ImageIO-Framework
+  dekodiert. Die Windows-, Linux- und Browser-Builds haben keinen Decoder dafür
+  – es gibt keinen reinen Rust-HEIC-Decoder, auf dem man sie aufbauen könnte –, daher
+  erscheinen HEIC-Dateien dort im Raster, lassen sich aber nicht öffnen. Mit JPEG als Aufnahme- oder Konvertierungsformat bleibt ein Ordner auf
+  jeder Plattform lesbar.
+</p>
+<h2>Getestete Kameras</h2>
+<p>
+  Die RAW-Unterstützung hängt vom Kameramodell ab, nicht nur von der Marke. Der macOS-Build
+  dekodiert RAW über Apples ImageIO und öffnet daher alles, was
+  <a href="https://support.apple.com/en-us/122870">Apples Kameraliste</a>
+  abdeckt. Die Windows-, Linux- und Browser-Builds nutzen stattdessen den Open-Source-Decoder
+  <a href="https://github.com/dnglab/dnglab">rawler</a>.
+  Dies sind die Dateien, die auf beiden getestet wurden:
+</p>
+
+<div class="lp-compare-wrap">
+  <table class="lp-compare">
+    <thead>
+      <tr>
+        <th scope="col">Kamera</th>
+        <th scope="col">macOS</th>
+        <th scope="col">Windows, Linux, Browser</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Sony</strong> A7 IV</td>
+        <td>Ja</td>
+        <td>Ja</td>
+      </tr>
+      <tr>
+        <td><strong>Canon</strong> EOS R5</td>
+        <td>Ja</td>
+        <td>Ja</td>
+      </tr>
+      <tr>
+        <td><strong>Nikon</strong> D850, Z 6II, Z f, Z 8 (verlustfrei)</td>
+        <td>Ja</td>
+        <td>Ja</td>
+      </tr>
+      <tr>
+        <td><strong>Nikon</strong> High Efficiency NEF (Z 8, Z 9)</td>
+        <td>Nein</td>
+        <td>Nein</td>
+      </tr>
+      <tr>
+        <td><strong>Fujifilm</strong> GFX100S, X-A5</td>
+        <td>Ja</td>
+        <td>Ja</td>
+      </tr>
+      <tr>
+        <td><strong>Fujifilm</strong> X-Trans: X-T4, X-T5, X-H2S, X100VI</td>
+        <td>Ja</td>
+        <td>Nur Durchsehen, anhand der eingebetteten Vorschau der Kamera</td>
+      </tr>
+      <tr>
+        <td><strong>Panasonic</strong> S5II, GH6</td>
+        <td>Ja</td>
+        <td>Ja</td>
+      </tr>
+      <tr>
+        <td><strong>OM System</strong> OM-5 II</td>
+        <td>Ja</td>
+        <td>Nein</td>
+      </tr>
+      <tr>
+        <td><strong>Pentax</strong> K-r (PEF und DNG)</td>
+        <td>Ja</td>
+        <td>Ja</td>
+      </tr>
+      <tr>
+        <td><strong>Leica</strong> Q2 DNG</td>
+        <td>Ja</td>
+        <td>Ja</td>
+      </tr>
+      <tr>
+        <td><strong>iPhone</strong> 12 Pro ProRAW, <strong>Pixel</strong> 8 Pro DNG</td>
+        <td>Ja</td>
+        <td>Ja</td>
+      </tr>
+      <tr>
+        <td><strong>Samsung</strong> Galaxy S23 Ultra DNG</td>
+        <td>Ja</td>
+        <td>Nein</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p>
+  Nikons High-Efficiency-Komprimierung ist auf jeder Plattform die Lücke; nehmen Sie vorerst
+  NEF mit verlustfreier Komprimierung auf. Ungetestete Kameras dieser Marken
+  funktionieren meist, aber eine Kamera, die nach Ihrer macOS-Version oder nach dem
+  aktuellen rawler-Release erschienen ist, funktioniert möglicherweise nicht.
+</p>
+<p>
+  Alles andere im Ordner wird einfach nicht im Raster aufgeführt, statt
+  einen Fehler auszulösen. Wenn Ihre Kamera sich nicht öffnen lässt, ist
+  <a href="https://github.com/andrewyao/lightphotos/issues">der Issue-Tracker</a>
+  der Ort für Wünsche.
+</p>
+
+<h2>Was es schreibt</h2>
+<p>
+  Drei Arten von Dateien neben Ihren Fotos und ein Katalog, der Ihre
+  Ordner auflistet:
+</p>
+
+<div class="lp-compare-wrap">
+  <table class="lp-compare">
+    <thead>
+      <tr>
+        <th scope="col">Zweck</th>
+        <th scope="col">Wo es liegt</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Bewertungen und Bearbeitungen</strong></td>
+        <td>Sidecar-Dateien in <code>.lightphotos/</code>, innerhalb des geöffneten Ordners</td>
+      </tr>
+      <tr>
+        <td><strong>Miniaturen-Cache</strong></td>
+        <td>Ebenfalls <code>.lightphotos/</code>, sodass ein Ordner seine eigenen Miniaturen überallhin mitnimmt</td>
+      </tr>
+      <tr>
+        <td><strong>Exporte</strong></td>
+        <td>Ein Ordner <code>Exports/</code> innerhalb des geöffneten Ordners, beim ersten Export angelegt</td>
+      </tr>
+      <tr>
+        <td><strong><a href="/docs/catalogs.html">Katalog</a></strong></td>
+        <td>Ihre Liste der Ordner und Vorgabenordner und eine Kopie der Bewertungen, Markierungen und Farbmarkierungen der Fotos. Desktop: <code>~/Pictures/LightPhotos/&lt;name&gt;.lightphotos</code>. Web: der Speicher des Browsers</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p>
+  Ihre Fotos selbst werden nie verschoben, umbenannt oder verändert – die
+  Originale sind für LightPhotos schreibgeschützt. Deshalb erzeugt der
+  <a href="/docs/export.html">Export</a> neue Dateien, statt
+  die alten zu überschreiben, und deshalb behält ein Ordner, den Sie woandershin verschieben,
+  jede Bearbeitung.
+</p>

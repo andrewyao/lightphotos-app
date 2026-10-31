@@ -1,0 +1,327 @@
+---
+import Base from "../../../layouts/Base.astro";
+import { languagePaths, type LanguageProps } from "../../../i18n/routes";
+
+export const getStaticPaths = languagePaths;
+const { lang } = Astro.props as LanguageProps;
+---
+<Base
+  title="Six queues and a reserved worker — LightPhotos Blog"
+  desc="How LightPhotos loads images in the background, told as the problems that caused each part of the design. None of the problems are specific to photos."
+  active="blogs"
+  lang={lang}
+  path="/blogs/six-queues-and-a-reserved-worker.html"
+  translated={false}
+>
+  <main class="lp-page">
+    <article class="lp-article">
+      <header class="lp-article-head">
+        <p class="lp-article-meta"><a href="/blogs.html">Blogs</a> &middot; <time datetime="2026-08-20">August 20, 2026</time></p>
+        <h1>Six queues and a reserved worker</h1>
+        <p class="lp-article-dek">
+          How LightPhotos loads images in the background, told as the problems
+          that shaped it. Six queues and a worker that refuses
+          the most common job can look like too much. But I added each part
+          because something broke visibly without it.
+        </p>
+        <p class="lp-article-byline">Andrew Yao &middot; 4 min read</p>
+      </header>
+
+      <aside class="lp-tldr">
+        <p class="lp-tldr-label">TL;DR</p>
+        <p>
+          A photo that you opened could wait behind a hundred thumbnails. I
+          made separate queues by urgency, and I kept one worker free for the
+          photo that you open. Then I fixed the bugs that these changes caused.
+          None of these problems are about photos.
+        </p>
+      </aside>
+
+      <figure class="lp-figure lp-try" id="sq-demo">
+        <div class="lp-try-controls" role="group" aria-label="Loader design">
+          <button type="button" class="lp-try-btn" data-mode="one" aria-pressed="true">One queue</button>
+          <button type="button" class="lp-try-btn" data-mode="six" aria-pressed="false">Six queues</button>
+          <button type="button" class="lp-try-btn" data-mode="reserved" aria-pressed="false">Six queues + reserved worker</button>
+        </div>
+        <svg viewBox="0 0 640 240" role="img" aria-label="You scrolled the grid, so 100 thumbnails are queued. Then you open a photo. The diagram shows where your photo goes for the selected design.">
+          <defs>
+            <pattern id="sq-thumbs" width="14" height="17" patternUnits="userSpaceOnUse">
+              <rect class="lp-fig-box" x="0.5" y="0.5" width="10" height="13" rx="2"></rect>
+            </pattern>
+          </defs>
+
+          <text class="lp-fig-label" x="0" y="14" data-q-label>ONE QUEUE &middot; FIRST IN, FIRST OUT</text>
+
+          <g data-view="one">
+            <rect class="lp-fig-panel" x="0" y="26" width="320" height="200" rx="8"></rect>
+            <text class="lp-fig-s" x="16" y="48">100 thumbnails that you scrolled past</text>
+            <rect x="16" y="58" width="280" height="85" fill="url(#sq-thumbs)"></rect>
+            <path class="lp-fig-arrow" d="M150 154 L162 154 L156 164 Z"></path>
+            <rect class="lp-fig-box-accent" x="16" y="174" width="288" height="36" rx="6"></rect>
+            <text class="lp-fig-t" x="30" y="197">Your photo &middot; number 101</text>
+          </g>
+
+          <g data-view="six" display="none">
+            <rect class="lp-fig-box-accent" x="0" y="26" width="320" height="28" rx="5"></rect>
+            <text class="lp-fig-s" x="12" y="44">1 &nbsp;First pass of the photo you opened</text>
+            <rect class="lp-fig-box" x="0" y="60" width="320" height="28" rx="5"></rect>
+            <text class="lp-fig-s" x="12" y="78">2 &nbsp;Sharp second pass of that photo</text>
+            <rect class="lp-fig-box" x="0" y="94" width="320" height="28" rx="5"></rect>
+            <text class="lp-fig-s" x="12" y="112">3 &nbsp;Full-resolution decode, on demand</text>
+            <rect class="lp-fig-box" x="0" y="128" width="320" height="28" rx="5"></rect>
+            <text class="lp-fig-s" x="12" y="146">4 &nbsp;Camera and lens metadata</text>
+            <rect class="lp-fig-box" x="0" y="162" width="320" height="28" rx="5"></rect>
+            <text class="lp-fig-s" x="12" y="180">5 &nbsp;Thumbnails for the grid &middot; 100 waiting</text>
+            <rect class="lp-fig-box" x="0" y="196" width="320" height="28" rx="5"></rect>
+            <text class="lp-fig-s" x="12" y="214">6 &nbsp;Capture times for burst groups</text>
+          </g>
+
+          <path class="lp-fig-line" d="M326 126 H366" data-link></path>
+          <path class="lp-fig-arrow" d="M366 120 L366 132 L376 126 Z" data-link-head></path>
+          <path class="lp-fig-bad-stroke" d="M340 118 L352 130 M352 118 L340 130" data-blocked></path>
+
+          <text class="lp-fig-label" x="380" y="14">8 DECODE WORKERS</text>
+          <rect class="lp-fig-box" x="380" y="28" width="256" height="20" rx="4"></rect>
+          <text class="lp-fig-s" x="392" y="42">thumbnail</text>
+          <rect class="lp-fig-box" x="380" y="53" width="256" height="20" rx="4"></rect>
+          <text class="lp-fig-s" x="392" y="67">thumbnail</text>
+          <rect class="lp-fig-box" x="380" y="78" width="256" height="20" rx="4"></rect>
+          <text class="lp-fig-s" x="392" y="92">thumbnail</text>
+          <rect class="lp-fig-box" x="380" y="103" width="256" height="20" rx="4"></rect>
+          <text class="lp-fig-s" x="392" y="117">thumbnail</text>
+          <rect class="lp-fig-box" x="380" y="128" width="256" height="20" rx="4"></rect>
+          <text class="lp-fig-s" x="392" y="142">thumbnail</text>
+          <rect class="lp-fig-box" x="380" y="153" width="256" height="20" rx="4"></rect>
+          <text class="lp-fig-s" x="392" y="167">thumbnail</text>
+          <rect class="lp-fig-box" x="380" y="178" width="256" height="20" rx="4"></rect>
+          <text class="lp-fig-s" x="392" y="192">thumbnail</text>
+          <rect class="lp-fig-box" x="380" y="203" width="256" height="20" rx="4" data-w8></rect>
+          <text class="lp-fig-s" x="392" y="217" data-w8-text>thumbnail</text>
+        </svg>
+        <p class="lp-try-readout" aria-live="polite">Your photo is number 101. It waits behind 100 thumbnails that you scrolled past.</p>
+        <figcaption>
+          You scrolled the grid, so 100 thumbnails are in the queue. Then you
+          open a photo. Pick a design to see where your photo goes.
+        </figcaption>
+      </figure>
+
+      <h2>One queue, several workers</h2>
+      <p>
+        LightPhotos decodes images on a few background threads, which I call
+        workers, so that the app stays responsive while they work. My first
+        version had one queue and a handful of workers, first in, first out.
+      </p>
+      <p>
+        It worked until I scrolled. A scroll queues a hundred thumbnails. A
+        photo that you open then goes to the end of the queue, behind
+        thumbnails that are no longer on screen, and the app looks frozen.
+      </p>
+
+      <h2>Some jobs are more important</h2>
+      <p>
+        So I split the one queue into six. I ordered them by what you look at
+        now, not by how quick a job is. Camera details (metadata) come before
+        thumbnails because the details panel is next to the open photo, so you
+        would notice a delay there. A thumbnail two rows down is not on the
+        screen yet.
+      </p>
+
+      <h2>The first position in the queue is not sufficient</h2>
+      <p>
+        With six queues, the freeze was shorter, but it did not go away.
+        Priority only decides which waiting job <em>starts</em> next. If all
+        eight workers picked up thumbnails one millisecond before you
+        double-clicked, your photo is first in line, but no worker is free to
+        take it.
+      </p>
+      <p>
+        The usual solution is to interrupt a running job and give its worker
+        to the urgent one. I could not, because the decode happens inside
+        someone else's library, which has no way to know that I want it to
+        stop. So I kept one worker aside that never takes thumbnails. That took a few lines, and it is
+        what actually got the photo through. On a computer with one CPU core,
+        I turn this off, because reserving the only worker would leave the
+        grid with nothing.
+      </p>
+
+      <h2>A worker that can refuse jobs broke the wake-up signal</h2>
+      <p>
+        Workers sleep when the queue is empty. When the app adds a job, it
+        wakes one worker. This standard method works only if any sleeping
+        worker can take any job. My reserved worker cannot: it can refuse a
+        job.
+      </p>
+
+      <figure class="lp-figure lp-try" id="sq-wake">
+        <div class="lp-try-controls" role="group" aria-label="Wake-up method">
+          <button type="button" class="lp-try-btn" data-mode="one" aria-pressed="true">Wake one worker</button>
+          <button type="button" class="lp-try-btn" data-mode="all" aria-pressed="false">Wake all workers</button>
+        </div>
+        <svg viewBox="0 0 640 150" role="img" aria-label="The app queues a thumbnail and wakes workers. The result for the selected wake-up method is shown.">
+          <rect class="lp-fig-box" x="0" y="20" width="130" height="44" rx="6"></rect>
+          <text class="lp-fig-s" x="65" y="38" text-anchor="middle">Thumbnail</text>
+          <text class="lp-fig-s" x="65" y="54" text-anchor="middle">queued</text>
+          <path class="lp-fig-arrow" d="M136 36 L136 48 L148 42 Z"></path>
+          <rect class="lp-fig-box" x="156" y="20" width="130" height="44" rx="6"></rect>
+          <text class="lp-fig-s" x="221" y="46" text-anchor="middle" data-wake-label>Wake one worker</text>
+          <path class="lp-fig-arrow" d="M292 36 L292 48 L304 42 Z"></path>
+
+          <rect class="lp-fig-box-accent" x="314" y="22" width="40" height="40" rx="4"></rect>
+          <text class="lp-fig-s" x="334" y="47" text-anchor="middle">R</text>
+          <g data-others opacity="0.35">
+            <rect class="lp-fig-box" x="362" y="22" width="34" height="40" rx="4" data-w1></rect>
+            <text class="lp-fig-s" x="379" y="47" text-anchor="middle" data-w1-text>1</text>
+            <rect class="lp-fig-box" x="401" y="22" width="34" height="40" rx="4"></rect>
+            <text class="lp-fig-s" x="418" y="47" text-anchor="middle">2</text>
+            <rect class="lp-fig-box" x="440" y="22" width="34" height="40" rx="4"></rect>
+            <text class="lp-fig-s" x="457" y="47" text-anchor="middle">3</text>
+            <rect class="lp-fig-box" x="479" y="22" width="34" height="40" rx="4"></rect>
+            <text class="lp-fig-s" x="496" y="47" text-anchor="middle">4</text>
+            <rect class="lp-fig-box" x="518" y="22" width="34" height="40" rx="4"></rect>
+            <text class="lp-fig-s" x="535" y="47" text-anchor="middle">5</text>
+            <rect class="lp-fig-box" x="557" y="22" width="34" height="40" rx="4"></rect>
+            <text class="lp-fig-s" x="574" y="47" text-anchor="middle">6</text>
+            <rect class="lp-fig-box" x="596" y="22" width="34" height="40" rx="4"></rect>
+            <text class="lp-fig-s" x="613" y="47" text-anchor="middle">7</text>
+          </g>
+          <text class="lp-fig-label" x="314" y="12">R = RESERVED WORKER</text>
+
+          <text class="lp-fig-s" x="314" y="88" data-line1>The reserved worker wakes, refuses, and sleeps again.</text>
+          <text class="lp-fig-s" x="314" y="106" data-line2>Nothing wakes the other seven.</text>
+          <text class="lp-fig-s lp-fig-bad" x="314" y="132" data-line3>No error. No crash. The job stays in the queue.</text>
+        </svg>
+        <p class="lp-try-readout" aria-live="polite">Wake one: the job stays in the queue until an unrelated event wakes a worker.</p>
+        <figcaption>
+          The fix is to wake all workers instead of only one.
+        </figcaption>
+      </figure>
+
+      <h2>Markers for work that no worker started</h2>
+      <p>
+        The loader keeps "already requested" markers, so it does not queue the
+        same photo five times. It clears each marker when the job is complete.
+        In the browser version, the worker pool does not start any threads at
+        all, so nothing was ever going to finish those jobs or clear the
+        markers.
+      </p>
+      <p>
+        No error message appeared. Instead, the app woke sixty times a second
+        for the rest of the session to check on work that did not exist, and
+        drained your laptop battery.
+      </p>
+      <p>
+        My fix is a rule: each marker must have an owner that clears it. When
+        the app queues a job, it gets one of three answers: accepted, no
+        workers exist, or the worker pool is broken. The code marks the job as
+        in progress only for the first answer. I now use this rule for each
+        "loading" flag.
+      </p>
+
+      <h2>In a browser, workers can fail</h2>
+      <p>
+        A newly started browser worker (a Web Worker) discards any message sent
+        to it before its script has finished loading. So each worker now says when it is ready.
+        If one stays quiet for ten seconds, I treat it as failed. I replace a
+        failed worker up to three times. Then I mark that slot as permanently
+        gone.
+      </p>
+      <p>
+        "Permanently gone" must stay separate from "not ready yet", because
+        mixing them up caused a real hang. Export waits while the number of
+        running jobs is at or above capacity, and capacity counts only ready
+        workers. A slot stuck halfway through replacement looked not ready, so
+        capacity dropped to zero and the export progress bar waited forever.
+      </p>
+
+      <h2>What made this design easy to test</h2>
+      <p>
+        Parallel code usually has a predictable core: the rules about which
+        worker runs which job, and in which order. The timing around it changes
+        from run to run. I keep the rules in a plain data structure, so I test
+        them without real threads, in microseconds, with the same result every
+        time. One test adds one job of each type in reverse priority order and
+        checks the order that comes out. Another test checks that the reserved
+        worker skips thumbnails.
+      </p>
+
+      <nav class="lp-article-nav" aria-label="More posts">
+        <a class="lp-article-nav-prev" href="/blogs/where-your-data-lives.html">
+          <span class="lp-article-nav-dir">Back</span>
+          <span class="lp-article-nav-title">Your data lives where you are allowed to write</span>
+        </a>
+        <a class="lp-article-nav-next" href="/blogs/never-load-the-whole-folder.html">
+          <span class="lp-article-nav-dir">Next</span>
+          <span class="lp-article-nav-title">Never load the whole folder</span>
+        </a>
+      </nav>
+    </article>
+  </main>
+  <script>
+    function toggleGroup(fig: HTMLElement, render: (mode: string) => void) {
+      const buttons = fig.querySelectorAll<HTMLButtonElement>("[data-mode]");
+      buttons.forEach((btn) =>
+        btn.addEventListener("click", () => {
+          buttons.forEach((b) => b.setAttribute("aria-pressed", String(b === btn)));
+          render(btn.dataset.mode!);
+        }),
+      );
+    }
+
+    const queueFig = document.getElementById("sq-demo");
+    if (queueFig) {
+      const $ = (sel: string) => queueFig.querySelector(sel)!;
+      const readout = $(".lp-try-readout");
+      const text = {
+        one: "Your photo is number 101. It waits behind 100 thumbnails that you scrolled past.",
+        six: "Your photo is first in line. But all 8 workers already decode thumbnails, so it still waits.",
+        reserved: "7 workers decode thumbnails. The reserved worker starts your photo at once.",
+      } as Record<string, string>;
+      toggleGroup(queueFig, (mode) => {
+        const reserved = mode === "reserved";
+        $('[data-view="one"]').setAttribute("display", mode === "one" ? "inline" : "none");
+        $('[data-view="six"]').setAttribute("display", mode === "one" ? "none" : "inline");
+        $("[data-q-label]").textContent =
+          mode === "one" ? "ONE QUEUE · FIRST IN, FIRST OUT" : "SIX QUEUES · TAKEN IN THIS ORDER";
+        // Six queues: the link leaves queue 1. With a reserved worker it reaches worker 8.
+        $("[data-link]").setAttribute(
+          "d",
+          mode === "one" ? "M326 126 H366" : reserved ? "M326 40 H352 V213 H366" : "M326 40 H366",
+        );
+        $("[data-link-head]").setAttribute(
+          "d",
+          reserved ? "M366 207 L366 219 L376 213 Z" : mode === "one" ? "M366 120 L366 132 L376 126 Z" : "M366 34 L366 46 L376 40 Z",
+        );
+        $("[data-blocked]").setAttribute(
+          "d",
+          mode === "one" ? "M340 118 L352 130 M352 118 L340 130" : "M340 32 L352 44 M352 32 L340 44",
+        );
+        $("[data-blocked]").setAttribute("display", reserved ? "none" : "inline");
+        $("[data-w8]").setAttribute("class", reserved ? "lp-fig-box-accent" : "lp-fig-box");
+        $("[data-w8-text]").setAttribute("class", reserved ? "lp-fig-t" : "lp-fig-s");
+        $("[data-w8-text]").textContent = reserved ? "reserved · your photo" : "thumbnail";
+        readout.textContent = text[mode];
+      });
+    }
+
+    const wakeFig = document.getElementById("sq-wake");
+    if (wakeFig) {
+      const $ = (sel: string) => wakeFig.querySelector(sel)!;
+      toggleGroup(wakeFig, (mode) => {
+        const all = mode === "all";
+        $("[data-wake-label]").textContent = all ? "Wake all workers" : "Wake one worker";
+        $("[data-others]").setAttribute("opacity", all ? "1" : "0.35");
+        $("[data-w1]").setAttribute("class", all ? "lp-fig-bar" : "lp-fig-box");
+        $("[data-w1-text]").setAttribute("class", all ? "lp-fig-on-bar" : "lp-fig-s");
+        $("[data-line1]").textContent = all
+          ? "The reserved worker refuses the thumbnail."
+          : "The reserved worker wakes, refuses, and sleeps again.";
+        $("[data-line2]").textContent = all ? "Worker 1 takes it." : "Nothing wakes the other seven.";
+        $("[data-line3]").setAttribute("class", all ? "lp-fig-s lp-fig-good" : "lp-fig-s lp-fig-bad");
+        $("[data-line3]").textContent = all ? "The job runs now." : "No error. No crash. The job stays in the queue.";
+        $(".lp-try-readout").textContent = all
+          ? "Wake all: a worker that can take the job always wakes."
+          : "Wake one: the job stays in the queue until an unrelated event wakes a worker.";
+      });
+    }
+  </script>
+</Base>

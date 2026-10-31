@@ -1,0 +1,19 @@
+---
+import Docs from "../../../layouts/Docs.astro";
+import { docSlugs } from "../../../docs";
+import { langParam, locales, type Locale } from "../../../i18n/locales";
+
+// One page per topic per language. The prose is src/i18n/prose/<lang>/docs/<slug>.astro;
+// titles and descriptions come from the language's strings via src/docs.ts.
+export function getStaticPaths() {
+  return locales.flatMap((lang) =>
+    docSlugs.map((slug) => ({ params: { lang: langParam(lang), slug }, props: { lang, slug } })),
+  );
+}
+const { lang, slug } = Astro.props as { lang: Locale; slug: string };
+const prose = import.meta.glob("../../../i18n/prose/*/docs/*.astro", { eager: true }) as Record<string, { default: any }>;
+const Body = prose[`../../../i18n/prose/${lang}/docs/${slug}.astro`].default;
+---
+<Docs slug={slug} lang={lang}>
+  <Body />
+</Docs>

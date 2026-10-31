@@ -1,0 +1,40 @@
+---
+import WebAppLink from "../../../../components/WebAppLink.astro";
+---
+<p>
+  LightPhotos travaille sur un dossier déjà présent sur votre disque, donc
+  toute la boucle se passe dans une seule fenêtre&nbsp;: ouvrez l’app,
+  <a href="/docs/pick-a-folder.html">choisissez un dossier</a>,
+  <a href="/docs/browse.html">parcourez-le</a>,
+  <a href="/docs/select-a-photo.html">sélectionnez une photo</a>,
+  <a href="/docs/adjust.html">ajustez-la</a>,
+  <a href="/docs/export.html">exportez-la</a>. Vos notes et vos retouches
+  sont enregistrées au fur et à mesure, et vous pouvez vous arrêter à tout
+  moment.
+</p>
+
+<ul class="lp-article-list">
+  <li>
+    <strong>Dans un navigateur.</strong>
+    <WebAppLink>
+      <a href="/app.html">Ouvrez l’app web</a>&nbsp;: rien à installer et
+      rien à mettre à jour.
+      <span slot="fallback">L’app web n’est pas disponible dans votre
+      navigateur actuel. Utilisez plutôt Chrome.</span>
+    </WebAppLink>
+    Elle effectue son rendu sur le GPU, donc Chrome ou tout navigateur dont
+    WebGPU est activé peut l’exécuter.
+  </li>
+  <li>
+    <strong>En app de bureau.</strong>
+    <a href="/downloads.html">Téléchargez-la</a> pour macOS, Windows ou Linux.
+    Une fois sur votre machine, elle fonctionne sans aucune connexion
+    internet.
+  </li>
+</ul>
+
+<p>
+  Dans les deux cas, c’est le même éditeur sur les mêmes fichiers. Les photos
+  sont lues directement depuis le disque et jamais envoyées, et les versions
+  de bureau sont légères.
+</p>

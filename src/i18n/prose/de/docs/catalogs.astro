@@ -1,0 +1,98 @@
+<p>
+  Ein Katalog ist eine benannte Liste von Ordnern: die Ordner im Bereich „Ordner“
+  links. Führen Sie einen für Familienfotos und einen weiteren für Kundenaufträge
+  und wechseln Sie zwischen ihnen. LightPhotos öffnet den Katalog, den Sie zuletzt verwendet haben, oder beim
+  ersten Mal einen namens <strong>default</strong>.
+</p>
+
+<p>
+  Der Name des geöffneten Katalogs steht in der Kopfleiste, hinter dem LightPhotos-Schriftzug.
+  Klicken Sie darauf, um das Katalogmenü zu öffnen.
+</p>
+
+<ul class="lp-article-list">
+  <li>
+    <strong>Einen Katalog anlegen.</strong> Wählen Sie <strong>Neuer Katalog…</strong>
+    im Katalogmenü und geben Sie ihm einen Namen. Die Desktop-App fragt, wo er
+    gesichert werden soll, und beginnt in <code>~/Pictures/LightPhotos/</code>. Ein neuer
+    Katalog hat keine Ordner; klicken Sie auf
+    <strong>Ordner hinzufügen</strong> über der Liste „Ordner“, um ihn zu füllen. Die
+    Desktop-App hat <strong>Neuer Katalog…</strong> auch im macOS-Menü
+    „Ablage“.
+  </li>
+  <li>
+    <strong>Katalog wechseln.</strong> Das Katalogmenü führt Ihre zuletzt verwendeten
+    Kataloge auf, den neuesten zuerst. Klicken Sie auf einen, um ihn zu öffnen, und der Bereich „Ordner“
+    zeigt die Ordner dieses Katalogs.
+  </li>
+  <li>
+    <strong>Einen Katalog von der Festplatte öffnen.</strong> Wählen Sie in der Desktop-App
+    <strong>Katalog öffnen…</strong> und dann einen
+    <code>.lightphotos</code>-Ordner. Nutzen Sie das für einen Katalog, den Sie von
+    einem anderen Computer kopiert haben oder an einem anderen Ort als dem üblichen aufbewahren.
+  </li>
+  <li>
+    <strong>Ordner hinzufügen und entfernen.</strong> Das Hinzufügen oder Entfernen eines Ordners
+    ändert nur den geöffneten Katalog. Derselbe Ordner kann in mehreren
+    Katalogen sein. Ihn aus einem zu entfernen berührt nie seine Fotos oder Bearbeitungen.
+  </li>
+</ul>
+
+<h2>Was ein Katalog enthält</h2>
+<p>
+  Drei Dinge: die Liste der Ordner, die Liste der
+  <a href="/docs/presets.html">Vorgabenordner</a> und eine Kopie der Sternebewertungen,
+  Markierungen und Farbmarkierungen der darin enthaltenen Fotos. Entwicklungsänderungen und
+  Miniaturen gehören nicht zum Katalog. Sie bleiben wie bisher im
+  Ordner <code>.lightphotos</code> neben Ihren Fotos. Ihre
+  eigenen Vorgaben unter „Meine Vorgaben“ werden von allen Katalogen gemeinsam genutzt.
+</p>
+<p>
+  Ihre Ordner bleiben die eigentliche Datengrundlage. LightPhotos schreibt jede Bewertung
+  und jede Bearbeitung zuerst neben das Foto, und die Kopie im Katalog folgt. Wenn Sie
+  einen Katalog löschen, verlieren Sie seine Liste der Ordner, nicht Ihre Arbeit. Fügen Sie die
+  Ordner einem anderen Katalog hinzu, und alles ist wieder da.
+</p>
+<h2>Wofür er gedacht ist: Suche</h2>
+<p>
+  LightPhotos wird die im Katalog gespeicherten Daten nutzen, um in allen darin enthaltenen Ordnern
+  gleichzeitig zu suchen und zu filtern, zum Beispiel alle Fotos mit fünf Sternen oder alle
+  markierten Fotos, ohne jeden Ordner zu öffnen. Heute zeigt das Raster noch immer einen Ordner
+  nach dem anderen, und nichts liest die Kopie bisher; die Suche kommt in einer späteren
+  Version.
+</p>
+
+<h2>Wo Kataloge gespeichert werden</h2>
+<div class="lp-compare-wrap">
+  <table class="lp-compare">
+    <thead>
+      <tr>
+        <th scope="col">App</th>
+        <th scope="col">Wo er liegt</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Desktop</strong></td>
+        <td>Ein Ordner namens <code>&lt;name&gt;.lightphotos</code>, standardmäßig in <code>~/Pictures/LightPhotos/</code></td>
+      </tr>
+      <tr>
+        <td><strong>Web</strong></td>
+        <td>Der Speicher Ihres Browsers für diese Website. Jeder Browser hat seine eigenen Kataloge.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p>
+  Die Web-App hat kein <strong>Katalog öffnen…</strong>, weil ein
+  Browser keinen Katalog in einem Ordner auf der Festplatte ablegen kann. Ihr Katalogmenü führt
+  jeden in diesem Browser angelegten Katalog auf. Wenn Sie die Daten der Website löschen,
+  vergisst der Browser seine Kataloge und seinen Zugriff auf Ihre Ordner. Ihre Fotos
+  und Bearbeitungen bleiben in den Ordnern.
+</p>
+
+<p>
+  Wenn der letzte Katalog beim Start nicht gelesen werden kann, öffnet LightPhotos
+  stattdessen <strong>default</strong> und sagt Ihnen das. Beim nächsten Start versucht es den letzten erneut.
+</p>

@@ -1,0 +1,532 @@
+Settings…	Einstellungen…	settings
+Settings	Einstellungen	settings_title
+Theme	Design	settings_theme
+Language	Sprache	settings_language
+Auto Adjust	Auto-Anpassung	settings_auto_tone
+RAW Files	RAW-Dateien	settings_raw
+Apple tone curve	Apple-Tonwertkurve	apple_tone_curve
+On, RAW files look as they do in Photos and Preview. Off, LightPhotos applies its own curve, as in the browser.	Eingeschaltet sehen RAW-Dateien so aus wie in Fotos und Preview. Ausgeschaltet verwendet LightPhotos eine eigene Kurve, wie im Browser.	apple_tone_curve_hint
+Center the range	Bereich zentrieren	autotone_center_range
+Put the middle of the histogram's range at 50%. Keeps the photo's shape where it is.	Die Mitte des Histogrammbereichs auf 50% legen. Die Form des Fotos bleibt erhalten.	autotone_center_range_tip
+Center the middle pixel	Mittleres Pixel zentrieren	autotone_center_median
+Put the pixel half the photo is darker than at 50%. A photo that is mostly shadow comes out brighter.	Das Pixel, das heller ist als die dunklere Hälfte des Fotos, auf 50% legen. Ein überwiegend dunkles Foto wird heller.	autotone_center_median_tip
+General	Allgemein	form_general
+Dark	Dunkel	theme_dark
+Medium	Mittel	theme_medium
+Light	Hell	theme_light
+Open Folder…	Ordner öffnen…	open_folder
+Add a folder of photos to Folders and open it (Cmd+O)	Einen Ordner mit Fotos zu „Ordner“ hinzufügen und öffnen (Cmd+O)	open_folder_tip
+Back to the grid (G)	Zurück zum Raster (G)	back_to_grid_tip
+Full screen (F)	Vollbild (F)	fullscreen_tip
+Slide show options	Optionen für die Diashow	slideshow_menu_tip
+Play slide show (Cmd+Enter)	Diashow starten (Cmd+Enter)	slideshow_play
+Display Duration	Anzeigedauer	slideshow_duration
+Random	Zufällig	slideshow_random
+Zoom to Fill	Bildfüllend zoomen	slideshow_fill
+ s	 s	seconds_suffix
+Showing the thumbnail	Zeigt die Miniatur	shown_thumb_tip
+Showing the JPEG embedded in the file	Zeigt das in die Datei eingebettete JPEG	shown_embedded_tip
+Showing a preview decode, below full resolution	Zeigt eine Vorschau unterhalb der vollen Auflösung	shown_preview_tip
+Showing full resolution	Zeigt die volle Auflösung	shown_full_tip
+Keyboard shortcuts (?)	Tastaturkurzbefehle (?)	help_tip
+Metadata	Metadaten	metadata_title
+Photo metadata (I)	Metadaten des Fotos (I)	info_tab_tip
+No photo selected	Kein Foto ausgewählt	info_no_selection
+File	Datei	info_file
+Camera	Kamera	info_camera
+Exposure	Belichtung	info_exposure
+Date	Datum	info_date
+Location	Ort	info_location
+Name	Name	info_name
+Dimensions	Abmessungen	info_dimensions
+Modified	Geändert	info_modified
+Make	Hersteller	info_make
+Model	Modell	info_model
+Lens	Objektiv	info_lens
+Shutter	Verschlusszeit	info_shutter
+Aperture	Blende	info_aperture
+ISO	ISO	info_iso
+Focal length	Brennweite	info_focal_length
+Exposure comp.	Belichtungskorr.	info_exposure_comp
+Flash	Blitz	info_flash
+White balance	Weißabgleich	info_white_balance
+Captured	Aufgenommen	info_captured
+Latitude	Breitengrad	info_latitude
+Longitude	Längengrad	info_longitude
+Altitude	Höhe	info_altitude
+Open in Maps	In Karten öffnen	info_open_in_maps
+Fired	Ausgelöst	flash_fired
+Did not fire	Nicht ausgelöst	flash_did_not_fire
+Auto	Auto	wb_auto
+Manual	Manuell	wb_manual
+Choose a folder of photos to get started	Wählen Sie einen Ordner mit Fotos, um zu beginnen	landing_prompt
+Cull, rate and develop your raw photos, fast.	Fotos schnell aussortieren, bewerten und entwickeln.	landing_tagline
+Opening…	Wird geöffnet…	opening
+Choose a folder of photos	Ordner mit Fotos wählen	picker_title
+Add Folder	Ordner hinzufügen	add_folder
+Add a folder of photos (Cmd+O)	Einen Ordner mit Fotos hinzufügen (Cmd+O)	add_folder_tip
+Remove Folder from LightPhotos	Ordner aus LightPhotos entfernen	remove_folder
+Select photos to rate, stack and export them here.	Wählen Sie Fotos aus, um sie hier zu bewerten, zu stapeln und zu exportieren.	select_photos_hint
+Tour	Rundgang	tour
+A quick tour of where everything is	Ein kurzer Rundgang durch die App	tour_tip
+Take the Tour	Rundgang starten	take_tour
+Skip tour	Rundgang überspringen	skip_tour
+Back	Zurück	tour_back
+Next	Weiter	tour_next
+Done	Fertig	tour_done
+Rating:	Bewertung:	rating_filter
+All	Alle	all
+At least N stars	Mindestens N Sterne	at_least_n_stars
+Exactly N stars	Genau N Sterne	exactly_n_stars
+At most N stars	Höchstens N Sterne	at_most_n_stars
+Show only photos with no rating	Nur Fotos ohne Bewertung zeigen	unrated_tip
+Flag:	Markierung:	flag_filter_label
+Label:	Farbe:	label_filter_label
+Picked or Unflagged	Markiert oder unmarkiert	flag_not_rejected
+Picked	Markiert	flag_picked
+Rejected	Abgelehnt	flag_rejected
+Unflagged	Unmarkiert	flag_unflagged
+Eyes closed	Augen geschlossen	eyes_closed
+Show only photos where someone blinked	Nur Fotos zeigen, auf denen jemand geblinzelt hat	eyes_closed_tip
+No photos match the filter	Kein Foto entspricht dem Filter	no_filter_matches
+Show All Photos	Alle Fotos zeigen	show_all_photos
+Can't read	Nicht lesbar	thumb_unreadable
+Selected photo:	Ausgewähltes Foto:	selected_photo
+Score All	Alle auswerten	score_all
+Rate every photo here from 0 to 100, stack members included	Die Qualität jedes Fotos hier von 0 bis 100 auswerten, auch die Fotos in Stapeln	score_all_tip
+Auto Stack by Capture Time	Auto-Stapel nach Aufnahmezeit	group_all_bursts
+Stack the photos here that were shot within a second of each other	Fotos hier stapeln, die innerhalb einer Sekunde nacheinander aufgenommen wurden	group_all_bursts_tip
+Stack the selected photos that were shot within a second of each other	Ausgewählte Fotos stapeln, die innerhalb einer Sekunde nacheinander aufgenommen wurden	group_selected_bursts_tip
+Expand stack	Stapel erweitern	expand_stack
+Collapse stack	Stapel reduzieren	collapse_stack
+Auto Adjust All	Alle automatisch anpassen	auto_adjust_all
+Set every photo's tone sliders from its own histogram, stack members included	Die Tonwertregler jedes Fotos anhand seines eigenen Histogramms setzen, auch bei Fotos in Stapeln	auto_adjust_all_tip
+Update Score	Neu auswerten	update_score
+Rate ★	Bewerten ★	rate_menu
+Actions	Aktionen	actions_menu
+Open in Loupe	In Lupenansicht öffnen	open_in_loupe
+Group into Stack	Stapeln	group_into_stack
+Reset Adjustments	Anpassungen zurücksetzen	reset_adjustments
+Score:	Qualität:	score_label
+Update Scores	Neu auswerten	update_scores
+Clear rating	Bewertung entfernen	clear_rating
+Auto Adjust	Auto-Anpassung	auto_tone
+Set each selected photo's tone sliders from its own histogram	Die Tonwertregler jedes ausgewählten Fotos anhand seines eigenen Histogramms setzen	auto_tone_selection_tip
+Rate each selected photo's quality from 0 to 100	Die Qualität jedes ausgewählten Fotos von 0 bis 100 auswerten	score_selection_tip
+Score again to see the breakdown	Erneut auswerten, um die Aufschlüsselung zu sehen	score_no_breakdown
+No defects found	Keine Mängel gefunden	no_penalties
+Edited since scoring; score again to update	Seit der Auswertung bearbeitet; erneut auswerten zum Aktualisieren	score_stale
+Sort:	Sortieren:	sort_by
+Name	Name	sort_name
+Capture Time	Aufnahmezeit	sort_time
+Fit	Einpassen	zoom_fit
+Zoom, from fitting the window to 6400%	Zoom, vom Einpassen ins Fenster bis 6400%	zoom_tip
+100% (1:1)	100% (1:1)	zoom_actual
+By capture time. Photos without one go last.	Nach Aufnahmezeit. Fotos ohne Aufnahmezeit kommen zuletzt.	sort_time_tip
+Modified Time	Änderungszeit	sort_modified
+By when the file was last modified.	Danach, wann die Datei zuletzt geändert wurde.	sort_modified_tip
+File Size	Dateigröße	sort_size
+By file size.	Nach Dateigröße.	sort_size_tip
+Shutter Speed	Verschlusszeit	sort_shutter
+By shutter speed. Photos without one go last.	Nach Verschlusszeit. Fotos ohne Verschlusszeit kommen zuletzt.	sort_shutter_tip
+Score	Qualität	sort_quality
+By quality score. Unscored photos go last.	Nach Qualitätswert. Nicht ausgewertete Fotos kommen zuletzt.	sort_quality_tip
+Rating	Bewertung	sort_rating
+By star rating. Unrated photos count as none.	Nach Sternebewertung. Nicht bewertete Fotos zählen als ohne Sterne.	sort_rating_tip
+Edit Time	Bearbeitungszeit	sort_edited
+By when the photo was last edited here. Unedited photos go last.	Danach, wann das Foto hier zuletzt bearbeitet wurde. Unbearbeitete Fotos kommen zuletzt.	sort_edited_tip
+Ascending. Click to reverse the order.	Aufsteigend. Klicken, um die Reihenfolge umzukehren.	sort_ascending_tip
+Descending. Click to reverse the order.	Absteigend. Klicken, um die Reihenfolge umzukehren.	sort_descending_tip
+Copy Adjustment…	Anpassung kopieren…	copy_settings
+Copy this photo's adjustment, as chosen in Copy Settings	Die Anpassung dieses Fotos kopieren, wie in den Kopieroptionen gewählt	copy_settings_tip
+Choose what Copy Adjustment copies (Cmd+Shift+C)	Wählen, was „Anpassung kopieren“ kopiert (Cmd+Shift+C)	copy_settings_choose_tip
+Choose what Copy Adjustment carries to other photos. Crop, Straighten and Touch Up are chosen afresh for each copy.	Wählen Sie, was „Anpassung kopieren“ auf andere Fotos überträgt. Zuschneiden, Begradigen und Retusche werden bei jedem Kopieren neu gewählt.	copy_settings_prompt
+Copy	Kopieren	copy_button
+Check All	Alle aktivieren	check_all
+Check None	Keine aktivieren	check_none
+Compare takes 2 to 6 photos	Vergleichen erfordert 2 bis 6 Fotos	compare_too_many
+Effects	Effekte	effects
+Crop	Zuschneiden	crop_section
+Apply Adjustment	Anpassung anwenden	apply_settings
+Copy the adjustment from a photo first	Kopieren Sie zuerst die Anpassung eines Fotos	apply_settings_needs_copy
+Apply the copied adjustment to the selection (Cmd+Shift+V)	Die kopierte Anpassung auf die Auswahl anwenden (Cmd+Shift+V)	apply_settings_tip
+Export	Export	export_jpg
+Choose where and at what size, then export the selection as JPGs (Cmd+Shift+E)	Ziel und Größe wählen, dann die Auswahl als JPGs exportieren (Cmd+Shift+E)	export_jpg_tip
+Reading capture times…	Aufnahmezeiten werden gelesen…	bursts_reading
+No bursts found	Keine Serienbilder gefunden	bursts_none
+Delete	Löschen	delete
+Confirm	Bestätigen	confirm
+Cancel	Abbrechen	cancel
+Keyboard shortcuts	Tastaturkurzbefehle	shortcuts_title
+Close	Schließen	close
+Touch Up	Retusche	title
+Delete Stack	Stapel löschen	delete_group_title
+Unstack	Stapel auflösen	remove_group
+Adjustments	Anpassungen	develop
+Adjustments	Anpassungen	tab_sliders
+Crop & Transform	Zuschneiden & Transformieren	tab_crop
+Masks & Cleanup	Masken & Retusche	tab_masks
+Rotate	Drehen	crop_rotate
+Left	Links	crop_left
+Right	Rechts	crop_right
+Size	Größe	crop_size
+Overlay	Overlay	crop_overlay
+Thirds	Drittel	crop_thirds
+Grid	Raster	crop_grid
+Golden	Goldener Schnitt	crop_golden
+Diagonal	Diagonal	crop_diagonal
+Spiral	Spirale	crop_spiral
+None	Ohne	crop_overlay_none
+Aspect	Format	crop_aspect
+Original	Original	crop_original
+Custom	Benutzerdefiniert	crop_custom
+Orientation	Ausrichtung	crop_orientation
+Horizontal	Querformat	crop_horizontal
+Vertical	Hochformat	crop_vertical
+Straighten	Begradigen	crop_straighten
+Straighten Tool	Begradigen-Werkzeug	crop_straighten_tool
+Draw along a line that should be level or upright, then press Enter.	Ziehen Sie entlang einer Linie, die waagerecht oder senkrecht sein soll, und drücken Sie dann Enter.	crop_straighten_hint
+Presets	Vorgaben	presets
+Save these settings as a preset	Diese Einstellungen als Vorgabe sichern	save_preset_tip
+Import from Lightroom…	Aus Lightroom importieren…	import_lr_presets
+Import Lightroom .xmp preset files	Lightroom-.xmp-Vorgabendateien importieren	import_lr_presets_tip
+Choose Lightroom presets	Lightroom-Vorgaben wählen	xmp_picker_title
+Lightroom preset	Lightroom-Vorgabe	xmp_filter_name
+Black and white approximated as Saturation -100	Schwarzweiß wird als Sättigung -100 angenähert	preset_monochrome_note
+No presets yet	Noch keine Vorgaben	no_presets
+Apply to the selected photos	Auf die ausgewählten Fotos anwenden	apply_preset_tip
+Rename or delete	Umbenennen oder löschen	preset_actions_tip
+Search presets	Vorgaben suchen	search_presets
+My Presets	Meine Vorgaben	my_presets
+No presets match	Keine passenden Vorgaben	no_matching_presets
+Save current as preset…	Aktuelle als Vorgabe sichern…	save_current_as_preset
+Add preset folder…	Vorgabenordner hinzufügen…	add_preset_folder
+List the Lightroom .xmp presets in a folder, read in place	Die Lightroom-.xmp-Vorgaben eines Ordners auflisten, an Ort und Stelle gelesen	add_preset_folder_tip
+Choose a folder of Lightroom presets	Ordner mit Lightroom-Vorgaben wählen	preset_folder_picker_title
+Preset folders	Vorgabenordner	preset_folders
+Remove	Entfernen	remove
+Profiles, looks, and .xmp files that are not develop presets or would not read	Profile, Looks und .xmp-Dateien, die keine Entwicklungsvorgaben sind oder sich nicht lesen ließen	presets_skipped_tip
+Save preset	Vorgabe sichern	save_preset_title
+Rename preset	Vorgabe umbenennen	rename_preset_title
+Preset name	Name der Vorgabe	preset_name_hint
+Name	Name	preset_name_label
+Save	Sichern	save
+Rename	Umbenennen	rename
+Reset	Zurücksetzen	reset
+Set the tone sliders from each selected photo's own histogram (Cmd+U)	Die Tonwertregler anhand des Histogramms jedes ausgewählten Fotos setzen (Cmd+U)	auto_tone_tip
+Black & White	Schwarzweiß	black_and_white
+Turn the selected photos black and white, or back to color (V)	Die ausgewählten Fotos in Schwarzweiß umwandeln oder zurück zu Farbe (V)	black_and_white_tip
+Touch Up	Retusche	touch_up
+Size	Größe	brush_size
+[ / ] or the scroll wheel	[ / ] oder das Scrollrad	brush_size_tip
+Feather	Weiche Kante	feather
+Shift+[ / Shift+] or Shift+scroll	Shift+[ / Shift+] oder Shift+Scrollen	feather_tip
+Opacity	Deckkraft	opacity
+How much of the patch covers the photo, for spots added from now on	Wie stark der Ausschnitt das Foto abdeckt, für Flecken, die ab jetzt hinzukommen	opacity_tip
+Spots	Flecken	spots
+Pick Gray	Grau wählen	pick_gray
+Click a neutral-gray pixel in the image	Auf ein neutralgraues Pixel im Bild klicken	pick_gray_tip
+White Balance	Weißabgleich	white_balance
+Tone	Tonwert	tone
+Presence	Präsenz	presence
+Detail	Details	detail
+Optics	Optik	optics
+Vignette	Vignettierung	vignette
+Grain	Körnung	grain
+Curve	Kurve	curve
+Point Curve	Punktkurve	point_curve
+Linear	Linear	curve_linear
+Medium Contrast	Mittlerer Kontrast	curve_medium_contrast
+Strong Contrast	Starker Kontrast	curve_strong_contrast
+Custom	Benutzerdefiniert	curve_custom
+RGB	RGB	curve_rgb
+Red	Rot	curve_red
+Green	Grün	curve_green
+Blue	Blau	curve_blue
+Color Mixer	Farbmischer	color_mixer
+B&W Mix	S/W-Mischer	gray_mix
+Color	Farbe	copy_color
+Color Grading	Color-Grading	color_grading
+Midtones	Mitteltöne	midtones
+Global	Global	global
+Blending	Mischen	blending
+Balance	Abgleich	balance
+Hue	Farbton	mix_hue
+Luminance	Luminanz	mix_luminance
+Remove Chromatic Aberration	Chromatische Aberration entfernen	remove_ca
+Measures the red and blue fringes at high-contrast edges and lines them up with green	Misst die roten und blauen Säume an kontrastreichen Kanten und gleicht sie an Grün an	remove_ca_tip
+No photo selected	Kein Foto ausgewählt	no_photo_selected
+Multiple photos selected	Mehrere Fotos ausgewählt	multiple_photos_selected
+Lower each photo's value by a large step	Den Wert jedes Fotos um einen großen Schritt senken	step_big_down
+Lower each photo's value by a small step	Den Wert jedes Fotos um einen kleinen Schritt senken	step_down
+Reset on every selected photo	Bei jedem ausgewählten Foto zurücksetzen	step_reset
+Raise each photo's value by a small step	Den Wert jedes Fotos um einen kleinen Schritt erhöhen	step_up
+Raise each photo's value by a large step	Den Wert jedes Fotos um einen großen Schritt erhöhen	step_big_up
+Temp	Temp.	temp
+Tint	Tonung	tint
+Exposure	Belichtung	exposure
+Contrast	Kontrast	contrast
+Highlights	Lichter	highlights
+Shadows	Tiefen	shadows
+Whites	Weiß	whites
+Blacks	Schwarz	blacks
+Texture	Struktur	texture
+Clarity	Klarheit	clarity
+Dehaze	Dunst entfernen	dehaze
+Vibrance	Dynamik	vibrance
+Saturation	Sättigung	saturation
+Denoise	Entrauschen	denoise
+Sharpening	Schärfen	sharpening
+Radius	Radius	sharpen_radius
+Detail	Details	sharpen_detail
+Masking	Maskieren	sharpen_masking
+Amount	Betrag	amount
+Midpoint	Mittelpunkt	midpoint
+Roundness	Rundheit	roundness
+Size	Größe	grain_size
+Roughness	Rauheit	roughness
+Before	Vorher	before
+After	Nachher	after
+Invert	Umkehren	invert
+Highlight the background instead of the subject	Den Hintergrund statt des Motivs hervorheben	invert_tip
+Show Selection	Auswahl zeigen	show_selection
+Selection…	Auswahl…	selection_pending
+No subject	Kein Motiv	no_subject
+Outline the subject Vision finds in this photo	Das Motiv umranden, das Vision in diesem Foto findet	show_selection_tip
+Another delete is still running…	Ein anderer Löschvorgang läuft noch…	delete_in_progress
+This folder's stacks are still loading. Try again in a moment.	Die Stapel dieses Ordners werden noch geladen. Versuchen Sie es gleich noch einmal.	group_refused_loading
+A file name here can't be saved in a stack.	Ein Dateiname hier kann nicht in einem Stapel gesichert werden.	group_name_unsaveable
+Destination	Ziel	export_destination
+Folder	Ordner	export_to_folder
+Immich	Immich	export_to_immich
+Exports subfolder	Unterordner „Exports“	export_exports_subfolder
+Another folder	Anderer Ordner	export_chosen_folder
+Choose…	Wählen…	export_choose_folder
+Size	Größe	export_size
+Location	Ort	export_folder
+Output	Ausgabe	export_output
+Account	Konto	immich_account
+Full resolution	Volle Auflösung	export_size_full
+File	Datei	export_file
+Format	Format	export_format
+TIFF (16-bit)	TIFF (16 Bit)	export_format_tiff16
+WebP (lossless)	WebP (verlustfrei)	export_format_webp
+File size	Dateigröße	export_limit
+No limit	Keine Begrenzung	export_limit_none
+Encoding	Kodierung	export_jpeg_preset
+Fastest	Schnellste	export_jpeg_fastest
+Baseline	Baseline	export_jpeg_baseline
+Progressive	Progressiv	export_jpeg_progressive
+Smallest	Kleinste	export_jpeg_smallest
+Fastest encodes several times faster. The others make files 10-20% smaller.	„Schnellste“ kodiert um ein Vielfaches schneller. Die anderen erzeugen 10-20% kleinere Dateien.	export_jpeg_preset_hint
+File name	Dateiname	export_naming
+{name} is the photo's name and {seq} its number in this export.	{name} ist der Name des Fotos und {seq} seine Nummer in diesem Export.	export_naming_hint
+Metadata	Metadaten	export_metadata
+Include	Einbeziehen	export_metadata_include
+Location (GPS)	Ort (GPS)	export_keep_location
+Camera serial numbers and owner	Seriennummern der Kamera und Eigentümer	export_keep_identity
+The capture date, camera, lens and exposure always go in. Captions and comments never do.	Aufnahmedatum, Kamera, Objektiv und Belichtung werden immer übernommen. Bildunterschriften und Kommentare nie.	export_keep_hint
+Copyright	Copyright	export_copyright
+Written into every export in place of the photo's own. Leave it empty to keep the photo's.	Wird in jeden Export anstelle des Copyrights des Fotos geschrieben. Leer lassen, um das des Fotos zu behalten.	export_copyright_hint
+Sharpen For	Schärfen für	export_sharpen
+None	Keine	export_sharpen_off
+Screen	Bildschirm	export_sharpen_screen
+Matte Paper	Mattes Papier	export_sharpen_matte
+Glossy Paper	Glänzendes Papier	export_sharpen_glossy
+Low	Niedrig	export_sharpen_low
+Standard	Standard	export_sharpen_standard
+High	Hoch	export_sharpen_high
+Export	Exportieren	export_run
+Connect to an Immich server first	Verbinden Sie sich zuerst mit einem Immich-Server	export_needs_immich
+Server URL	Server-URL	immich_server_url
+Example: https://immich.gumnut.ai	Beispiel: https://immich.gumnut.ai	immich_url_example
+http:// is not encrypted: your API key and photos cross the network readable. Use https:// if the server offers it.	http:// ist nicht verschlüsselt: Ihr API-Schlüssel und Ihre Fotos werden lesbar über das Netzwerk übertragen. Verwenden Sie https://, wenn der Server es anbietet.	immich_plain_http
+Uploading to Immich is only available in the desktop app. Browsers can't connect to an Immich server.	Das Hochladen zu Immich ist nur in der Desktop-App möglich. Browser können sich nicht mit einem Immich-Server verbinden.	immich_native_only
+API key	API-Schlüssel	immich_api_key
+Connect	Verbinden	immich_connect
+Connecting…	Verbindung wird hergestellt…	immich_connecting
+Disconnect	Trennen	immich_disconnect
+Album	Album	immich_album
+No album	Kein Album	album_none
+New album…	Neues Album…	album_new
+Album name	Name des Albums	album_name
+Name the new album first	Geben Sie dem neuen Album zuerst einen Namen	album_name_needed
+Export: nothing selected	Export: nichts ausgewählt	export_nothing_selected
+Export already in progress…	Ein Export läuft bereits…	export_in_progress
+Export: this folder's edits are still loading, try again in a moment…	Export: Die Bearbeitungen dieses Ordners werden noch geladen, versuchen Sie es gleich noch einmal…	export_edits_loading
+Export: no directory handle for the current folder	Export: kein Ordner-Handle für den aktuellen Ordner	export_no_handle
+Auto Adjust needs the photo to finish loading	Für die Auto-Anpassung muss das Foto fertig geladen sein	auto_tone_needs_load
+Auto Adjust applied	Auto-Anpassung angewendet	auto_tone_applied
+Measuring chromatic aberration…	Chromatische Aberration wird gemessen…	remove_ca_measuring
+Chromatic aberration removed	Chromatische Aberration entfernt	remove_ca_applied
+Could not decode the photo to measure chromatic aberration	Das Foto ließ sich nicht dekodieren, um die chromatische Aberration zu messen	remove_ca_failed
+Auto Adjust will start after this folder's edits load…	Die Auto-Anpassung startet, sobald die Bearbeitungen dieses Ordners geladen sind…	auto_tone_waits_for_edits
+Touch Up supports up to 64 spots	Die Retusche unterstützt bis zu 64 Flecken	touch_up_limit
+A photo holds up to 16 masks	Ein Foto kann bis zu 16 Masken enthalten	mask_limit
+Masks	Masken	masks
+Linear	Linear	linear_gradient
+Radial	Radial	radial_gradient
+Linear Gradient: drag on the photo to draw it (M)	Linearer Verlauf: auf dem Foto ziehen, um ihn zu zeichnen (M)	linear_gradient_tip
+Radial Gradient: drag out from its center on the photo (Shift+M)	Radialer Verlauf: auf dem Foto von der Mitte aus nach außen ziehen (Shift+M)	radial_gradient_tip
+Brush	Pinsel	brush_mask
+Brush: paint the mask on the photo (K). Hold Alt to erase	Pinsel: die Maske auf das Foto malen (K). Mit Alt radieren	brush_mask_tip
+Paint on the photo. Hold Alt to erase	Auf dem Foto malen. Mit Alt radieren	brush_paint_hint
+Flow	Fluss	flow
+How much one pass adds. Passes over the same spot build up	Wie viel ein Durchgang aufträgt. Durchgänge über derselben Stelle summieren sich	flow_tip
+Erase	Radieren	brush_erase
+Paint to take away from the mask, as holding Alt does	Malen, um von der Maske abzuziehen, wie beim Halten von Alt	brush_erase_tip
+A photo's brush strokes hold up to 8,000 points	Die Pinselstriche eines Fotos umfassen bis zu 8.000 Punkte	brush_point_limit
+A brush mask holds up to 512 strokes; + Brush starts another	Eine Pinselmaske umfasst bis zu 512 Striche; „+ Pinsel“ beginnt eine weitere	brush_stroke_limit
+Invert	Umkehren	mask_invert
+Drag on the photo to draw the mask	Auf dem Foto ziehen, um die Maske zu zeichnen	mask_draw_hint
+Subject	Motiv	subject_mask
+Sky	Himmel	sky_mask
+Subject: a mask over the person or main subject, found for this photo	Motiv: eine Maske über der Person oder dem Hauptmotiv, für dieses Foto erkannt	subject_mask_tip
+Sky: a mask over the sky, found for this photo	Himmel: eine Maske über dem Himmel, für dieses Foto erkannt	sky_mask_tip
+Subject detection needs macOS	Die Motiverkennung benötigt macOS	detect_needs_mac
+Not available in this build yet	In diesem Build noch nicht verfügbar	detect_unavailable
+This mask's detection file is missing from .lightphotos/masks	Die Erkennungsdatei dieser Maske fehlt in .lightphotos/masks	detect_file_missing
+Detecting…	Wird erkannt…	mask_detecting
+Retry	Erneut versuchen	mask_retry
+Export: masks are still being detected, try again in a moment…	Export: Die Masken werden noch erkannt, versuchen Sie es gleich noch einmal…	export_masks_detecting
+Touch Up needs a full-resolution image	Die Retusche benötigt ein Bild in voller Auflösung	touch_up_needs_full
+No image loaded to pick from	Kein Bild geladen, in dem gewählt werden kann	wb_no_image
+Pick a brighter, less saturated pixel for white balance	Wählen Sie für den Weißabgleich ein helleres, weniger gesättigtes Pixel	wb_pick_brighter
+Catalog: the folders listed here, and a copy of their ratings, flags and color labels	Katalog: die hier aufgeführten Ordner und eine Kopie ihrer Bewertungen, Markierungen und Farbmarkierungen	catalog_tip
+New Catalog…	Neuer Katalog…	new_catalog
+Open Catalog…	Katalog öffnen…	open_catalog
+New Catalog	Neuer Katalog	catalog_save_title
+Untitled	Unbenannt	catalog_untitled
+LightPhotos catalog	LightPhotos-Katalog	catalog_filter_name
+Choose a catalog (a .lightphotos folder)	Katalog wählen (ein .lightphotos-Ordner)	catalog_picker_title
+Name	Name	catalog_name_label
+Catalog name	Name des Katalogs	catalog_name_hint
+Create	Anlegen	create
+Load Photos:	Fotos laden:	tile_load
+Quickly	Schnell	tile_speed
+Fully (Slower)	Vollständig (langsamer)	tile_full
+Set as Representative	Als Repräsentativfoto festlegen	set_as_rep
+Representative	Repräsentativfoto	representative
+Compare Photos	Fotos vergleichen	view_compare
+Compare Photos: select 2 to 6 photos, or a photo in a stack	Fotos vergleichen: 2 bis 6 Fotos oder ein Foto in einem Stapel auswählen	view_compare_needs_group
+another program	ein anderes Programm	held_by_other
+Read-only: this folder can't be locked for saving, so changes here are not saved. It may be read-only or need permission. Open it again to try again.	Schreibgeschützt: Dieser Ordner kann zum Sichern nicht gesperrt werden, daher werden Änderungen hier nicht gesichert. Möglicherweise ist er schreibgeschützt oder erfordert eine Berechtigung. Öffnen Sie ihn erneut, um es noch einmal zu versuchen.	folder_cant_lock
+Read-only: LightPhotos has no access to this folder, so changes here are not saved. Open it again.	Schreibgeschützt: LightPhotos hat keinen Zugriff auf diesen Ordner, daher werden Änderungen hier nicht gesichert. Öffnen Sie ihn erneut.	folder_no_access
+This folder can't be locked, so don't let a headless lightphotos-mcp change it while it is open here.	Dieser Ordner kann nicht gesperrt werden. Lassen Sie ihn daher nicht von einem headless lightphotos-mcp ändern, solange er hier geöffnet ist.	folder_lockless
+This folder is still opening. Try again in a moment.	Dieser Ordner wird noch geöffnet. Versuchen Sie es gleich noch einmal.	folder_opening
+Presets are locked because the saved file could not be read. Move or fix it, then restart.	Die Vorgaben sind gesperrt, weil die gesicherte Datei nicht gelesen werden konnte. Verschieben oder reparieren Sie sie und starten Sie dann neu.	presets_locked
+About LightPhotos	Über LightPhotos	about
+Hide LightPhotos	LightPhotos ausblenden	hide
+Hide Others	Andere ausblenden	hide_others
+Show All	Alle einblenden	show_all
+Quit LightPhotos	LightPhotos beenden	quit
+File	Ablage	file
+Export…	Exportieren…	export
+Edit	Bearbeiten	edit
+Undo	Widerrufen	undo
+Cut	Ausschneiden	cut
+Copy	Kopieren	copy
+Paste	Einsetzen	paste
+Select All	Alles auswählen	select_all
+Deselect All	Auswahl aufheben	deselect_all
+Paste Adjustment	Anpassung einsetzen	paste_settings
+Photo	Foto	photo
+Rate	Bewerten	rate
+No Rating	Keine Bewertung	no_rating
+Set Flag	Markierung setzen	set_flag
+Color Label	Farbmarkierung	color_label
+Red	Rot	label_red
+Yellow	Gelb	label_yellow
+Green	Grün	label_green
+Blue	Blau	label_blue
+Purple	Violett	label_purple
+Auto Adjust Selection	Auswahl automatisch anpassen	auto_tone_selection
+Score Quality	Qualität auswerten	score_photos
+Rotate Left	Nach links drehen	rotate_left
+Rotate Right	Nach rechts drehen	rotate_right
+Move to Trash	In den Papierkorb legen	move_to_trash
+Stack	Stapeln	group_selected
+Auto Stack by Capture Time	Auto-Stapel nach Aufnahmezeit	group_bursts
+Unstack	Stapel auflösen	ungroup
+Delete Stack…	Stapel löschen…	delete_group
+View	Darstellung	view
+Grid	Rasteransicht	grid
+Loupe	Lupenansicht	loupe
+Crop & Transform	Zuschneiden & Transformieren	crop
+Compare Photos	Fotos vergleichen	compare_stack
+Info Panel	Infobereich	info_panel
+Before / After	Vorher / Nachher	before_after
+Toggle Zoom	Zoom umschalten	toggle_zoom
+Zoom In	Vergrößern	zoom_in
+Zoom Out	Verkleinern	zoom_out
+Bigger Text	Größerer Text	bigger_text
+Smaller Text	Kleinerer Text	smaller_text
+Window	Fenster	window
+Minimize	Im Dock ablegen	minimize
+Zoom	Zoomen	zoom
+Help	Hilfe	help
+Keyboard Shortcuts	Tastaturkurzbefehle	keyboard_shortcuts
+[shortcut Enter or Space] Open selected photo (in library)	Ausgewähltes Foto öffnen (im Raster)	pair
+[shortcut E] Open selected photo (in library)	Ausgewähltes Foto öffnen (im Raster)	pair
+[shortcut G] Back to the library grid	Zurück zum Raster	pair
+[shortcut F] Full screen, only the photo; F or Esc leaves (in editor)	Vollbild, nur das Foto; F oder Esc beendet (im Editor)	pair
+[shortcut Cmd+Enter] Slide show of the grid's photos; F or Esc stops	Diashow der Fotos im Raster; F oder Esc beendet	pair
+[shortcut Esc] Back to library (in editor)	Zurück zum Raster (im Editor)	pair
+[shortcut ← / →] Previous / next photo (in editor)	Vorheriges / nächstes Foto (im Editor)	pair
+[shortcut Page Up / Page Down] Previous / next photo (in editor)	Vorheriges / nächstes Foto (im Editor)	pair
+[shortcut D] Adjust the selected photo	Das ausgewählte Foto anpassen	pair
+[shortcut C] Compare 2 to 6 selected photos, or the selected stack	2 bis 6 ausgewählte Fotos oder den ausgewählten Stapel vergleichen	pair
+[shortcut I] Show or hide photo info in the right panel	Fotoinfo im rechten Bereich zeigen oder ausblenden	pair
+[shortcut F6 / Shift+F6] Next region, or next control inside an entered one	Nächster Bereich oder nächstes Bedienelement im aktiven Bereich	pair
+[shortcut Tab / Shift+Tab] Move between items in the focused region	Zwischen den Objekten im fokussierten Bereich wechseln	pair
+[shortcut Cmd+O] Open a folder	Einen Ordner öffnen	pair
+[shortcut ?] Show or hide this help	Diese Hilfe zeigen oder ausblenden	pair
+[shortcut Alt+= / Alt+-] Bigger / smaller text	Größerer / kleinerer Text	pair
+[shortcut Cmd+A] Select all in current folder (in library)	Alles im aktuellen Ordner auswählen (im Raster)	pair
+[shortcut Shift+Click] Range-select	Bereich auswählen	pair
+[shortcut Cmd+Click] Toggle individual selection	Einzelne Auswahl umschalten	pair
+[shortcut Shift+arrows] Extend selection (library)	Auswahl erweitern (Raster)	pair
+[shortcut Cmd+D] Deselect all	Auswahl aufheben	pair
+[shortcut Cmd+G] Stack the selection	Die Auswahl stapeln	pair
+[shortcut Cmd+Shift+G] Unstack the selected stacks	Die ausgewählten Stapel auflösen	pair
+[shortcut 0 1 2 3 4 5] Set star rating 0-5	Sternebewertung 0-5 setzen	pair
+[shortcut Shift+0-5] Set the rating and go to the next photo	Bewertung setzen und zum nächsten Foto	pair
+[shortcut P] Pick	Markieren	pair
+[shortcut X] Reject	Ablehnen	pair
+[shortcut U] Unflag	Markierung entfernen	pair
+[shortcut `] Pick, or unflag a picked photo	Markieren oder bei einem markierten Foto die Markierung entfernen	pair
+[shortcut 6 7 8 9] Red, yellow, green or blue label; again to clear	Rote, gelbe, grüne oder blaue Farbmarkierung; erneut zum Entfernen	pair
+[shortcut Space or Z] Cycle zoom: fit, 2x fit, 100%	Zoom wechseln: einpassen, 2x eingepasst, 100%	pair
+[shortcut Cmd++ or Cmd+=] Zoom in (20% step)	Vergrößern (in 20%-Schritten)	pair
+[shortcut Cmd+-] Zoom out (20% step)	Verkleinern (in 20%-Schritten)	pair
+[shortcut ↑ / ↓] Zoom in / out (10% step)	Vergrößern / verkleinern (in 10%-Schritten)	pair
+[shortcut Scroll] Zoom at the pointer	Am Zeiger zoomen	pair
+[shortcut Drag] Pan	Verschieben	pair
+[shortcut Space+Drag] Pan	Verschieben	pair
+[shortcut Shift+Scroll] Pan sideways	Seitlich verschieben	pair
+[shortcut Alt+Scroll] Pan up and down	Nach oben und unten verschieben	pair
+[shortcut Cmd+Z] Undo the last develop change	Die letzte Entwicklungsänderung widerrufen	pair
+[shortcut Cmd+[ / Cmd+]] Rotate image -90 / +90 degrees	Bild um -90 / +90 Grad drehen	pair
+[shortcut R] Crop	Zuschneiden	pair
+[shortcut Y] Before / after compare (in editor)	Vorher-nachher-Vergleich (im Editor)	pair
+[shortcut M] Linear Gradient mask	Maske „Linearer Verlauf“	pair
+[shortcut Shift+M] Radial Gradient mask	Maske „Radialer Verlauf“	pair
+[shortcut Cmd+Shift+E] Open or close the export form	Das Exportformular öffnen oder schließen	pair
+[shortcut Cmd+U] Auto Adjust the selection	Die Auswahl automatisch anpassen	pair
+[shortcut V] Black & white, or back to color	Schwarzweiß oder zurück zu Farbe	pair
+[shortcut Cmd+Shift+C] Copy this photo's adjustment	Die Anpassung dieses Fotos kopieren	pair
+[shortcut Cmd+Shift+V] Paste the adjustment onto the selection	Die Anpassung auf die Auswahl einsetzen	pair
+[shortcut Double-click slider] Reset the slider	Den Regler zurücksetzen	pair
+[shortcut Enter or R] Apply the crop	Zuschnitt anwenden	pair
+[shortcut Click or drag the photo] Move the focus area	Den Fokusbereich verschieben	pair
+[shortcut Shift+scroll on the area] Resize the focus area	Die Größe des Fokusbereichs ändern	pair
+[shortcut Drag a tile] Move the focus area	Den Fokusbereich verschieben	pair
+[shortcut Cmd+Click / Shift+Click a tile] Pick more tiles	Weitere Kacheln wählen	pair
+[shortcut O] Show or hide the subject selection	Die Motivauswahl zeigen oder ausblenden	pair
+[shortcut Shift+O] Invert the subject selection	Die Motivauswahl umkehren	pair
+[shortcut K] Brush on / off; paints the picked brush mask	Pinsel ein / aus; malt die gewählte Pinselmaske	pair
+[shortcut Alt+Drag] Erase	Radieren	pair
+[shortcut [ / ]] Brush size	Pinselgröße	pair
+[shortcut Shift+[ / ]] Brush feather	Weiche Kante des Pinsels	pair
+[shortcut Q] Touch Up on / off	Retusche ein / aus	pair
+[shortcut Delete] Delete the selected spot	Den ausgewählten Fleck löschen	pair

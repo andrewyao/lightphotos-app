@@ -1,0 +1,181 @@
+---
+import Base from "../../../layouts/Base.astro";
+import { languagePaths, type LanguageProps } from "../../../i18n/routes";
+
+export const getStaticPaths = languagePaths;
+const { lang } = Astro.props as LanguageProps;
+---
+<Base
+  title="Catalogs, a first version — LightPhotos Blog"
+  desc="LightPhotos now has catalogs: named lists of folders you switch between from the header. Your edits still live next to your photos. Here is what a catalog holds, what it leaves alone, and what it is for."
+  active="blogs"
+  lang={lang}
+  path="/blogs/catalogs.html"
+  translated={false}
+>
+  <main class="lp-page">
+    <article class="lp-article">
+      <header class="lp-article-head">
+        <p class="lp-article-meta"><a href="/blogs.html">Blogs</a> &middot; <time datetime="2026-10-13">October 13, 2026</time></p>
+        <h1>Catalogs, a first version</h1>
+        <p class="lp-article-dek">
+          LightPhotos now has catalogs: named lists of folders you switch
+          between from the header. Your edits still live next to your
+          photos. Here is what a catalog holds, what it leaves alone, and
+          what it is for.
+        </p>
+        <p class="lp-article-byline">Andrew Yao &middot; 4 min read</p>
+      </header>
+
+      <aside class="lp-tldr">
+        <p class="lp-tldr-label">TL;DR</p>
+        <p>
+          A catalog is a list of the folders in the Folders panel. You can
+          keep several, such as one for family and one for client work, and
+          switch from the menu next to the LightPhotos name in the header.
+          A catalog also keeps a copy of each photo's rating, flag and color
+          label. Edits stay in the <code>.lightphotos</code> folder next to
+          the photo, as before. LightPhotos will use what the catalog stores
+          to search across all your folders at once. This first version only
+          lists folders; search comes next.
+        </p>
+      </aside>
+
+      <figure class="lp-figure">
+        <svg viewBox="0 0 640 220" role="img" aria-label="Two photo folders, each with its own .lightphotos folder holding ratings and edits. Arrows copy only the ratings, flags and labels into a catalog, which also lists both folders.">
+          <text class="lp-fig-label" x="0" y="12">YOUR FOLDERS (THE REAL RECORD)</text>
+
+          <rect class="lp-fig-panel" x="0" y="24" width="300" height="84" rx="8"></rect>
+          <text class="lp-fig-mono lp-fig-t" x="14" y="46">~/Photos/Iceland/</text>
+          <text class="lp-fig-mono lp-fig-s" x="30" y="68">.lightphotos/</text>
+          <text class="lp-fig-s" x="30" y="88">ratings, flags, labels, edits, thumbnails</text>
+
+          <rect class="lp-fig-panel" x="0" y="124" width="300" height="84" rx="8"></rect>
+          <text class="lp-fig-mono lp-fig-t" x="14" y="146">/Volumes/Work/Smith-wedding/</text>
+          <text class="lp-fig-mono lp-fig-s" x="30" y="168">.lightphotos/</text>
+          <text class="lp-fig-s" x="30" y="188">ratings, flags, labels, edits, thumbnails</text>
+
+          <path class="lp-fig-line" d="M300 66 H360 V110 H380"></path>
+          <path class="lp-fig-line" d="M300 166 H360 V122 H380"></path>
+          <path class="lp-fig-arrow" d="M380 111 L380 121 L388 116 Z"></path>
+          <text class="lp-fig-s" x="312" y="56">copy of marks</text>
+
+          <text class="lp-fig-label" x="392" y="12">CATALOG</text>
+          <rect class="lp-fig-box-accent" x="392" y="24" width="248" height="184" rx="8"></rect>
+          <text class="lp-fig-mono lp-fig-t" x="406" y="48">work.lightphotos/</text>
+          <text class="lp-fig-mono lp-fig-s" x="422" y="74">catalog.json</text>
+          <text class="lp-fig-s" x="422" y="92">the list of folders</text>
+          <text class="lp-fig-mono lp-fig-s" x="422" y="122">marks/</text>
+          <text class="lp-fig-s" x="422" y="140">one file per folder: ratings,</text>
+          <text class="lp-fig-s" x="422" y="156">flags and color labels</text>
+          <text class="lp-fig-s" x="406" y="190">No edits. No thumbnails.</text>
+        </svg>
+        <figcaption>
+          The folder is still where your work lives. The catalog lists the
+          folders and keeps a copy of their marks, which it can rebuild at
+          any time.
+        </figcaption>
+      </figure>
+
+      <h2>Why catalogs</h2>
+      <p>
+        Until now, LightPhotos had one Folders list. Add every shoot you
+        care about and it gets long. I keep family photos and other people's
+        photos on different drives, and I want to see one set at a time.
+        Lightroom users expect this too: Lightroom Classic has had separate
+        catalogs for years.
+      </p>
+      <p>
+        So the open catalog's name now sits in the header, after the
+        LightPhotos wordmark. Click it for <strong>New Catalog&hellip;</strong>,
+        <strong>Open Catalog&hellip;</strong> and your recent catalogs. Add
+        Folder moved above the Folders list, so it stays in view however long
+        the list grows. And once a catalog has folders, the home page stops
+        asking you to open one; you pick a folder from the list.
+      </p>
+
+      <h2>What a catalog does not hold</h2>
+      <p>
+        In <a href="/blogs/where-your-data-lives.html">where your data
+        lives</a>, I wrote about my first central catalog. It recorded every
+        photo by its full path, and it lost your ratings as soon as you moved
+        a folder. I did not want to bring that back.
+      </p>
+      <p>
+        So a catalog does not hold your work. Every rating and edit is still
+        written first to the photo's own sidecar, in the
+        <code>.lightphotos</code> folder next to it. Move the folder, copy it
+        to a friend, or open it in the browser, and the work goes with it.
+        Delete a catalog and you lose a list of folders, not an hour of
+        culling.
+      </p>
+
+      <h2>What it does hold, and why</h2>
+      <p>
+        Besides the list of folders, a catalog keeps a copy of each rated,
+        flagged or labelled photo's marks, one small JSON file per folder.
+        That copy follows the sidecars. When the marks in the open folder
+        change, LightPhotos rewrites that folder's file in the catalog with
+        the folder's current marks. If the copy is stale, visiting the
+        folder fixes it. If it is lost, nothing is lost; the next visit
+        writes it again.
+      </p>
+      <p>
+        The copy is for the cost I named in that older post: a search across
+        every folder is slow, because the app has to open each folder's
+        sidecars. With the marks in one place, a later version can answer
+        &ldquo;every five-star photo from this year&rdquo; without walking
+        every drive. Search will read what the catalog stores, not the
+        sidecars. Nothing reads the copy yet. I wanted it written, and
+        correct, before search depends on it.
+      </p>
+
+      <h2>On disk and in the browser</h2>
+      <p>
+        On the desktop, a catalog is a folder named
+        <code>&lt;name&gt;.lightphotos</code>, by default in
+        <code>~/Pictures/LightPhotos/</code>. You can copy it, back it up, or
+        open one from anywhere with <strong>Open Catalog&hellip;</strong>.
+        If the catalog you used last cannot be read at launch, the app opens
+        <code>default</code> with a message, and tries the last one again
+        next time.
+      </p>
+      <p>
+        The browser cannot keep a folder of its own on your disk, so the web
+        app keeps catalogs in the site's storage, in the same JSON format.
+        Its catalog menu lists every catalog made in that browser, and there
+        is no Open Catalog. The browser also loads a catalog a moment after
+        the page starts, so a folder you add or remove in that moment is
+        merged in when it arrives, instead of being overwritten.
+      </p>
+      <p>
+        If you used LightPhotos before this release, your Folders list is now
+        the <code>default</code> catalog. Nothing to do.
+      </p>
+
+      <h2>What is missing</h2>
+      <ul class="lp-article-list">
+        <li>No search or filter across folders yet. That is the next step, and it will run on what the catalog stores.</li>
+        <li>No way to rename or delete a catalog from inside the app.</li>
+        <li>The Grid still shows one folder at a time.</li>
+      </ul>
+      <p>
+        The help page on <a href="/docs/catalogs.html">catalogs</a> has the
+        steps. If you want something from catalogs that is not here,
+        <a href="https://github.com/andrewyao/lightphotos/issues">open an
+        issue</a>.
+      </p>
+
+      <nav class="lp-article-nav" aria-label="More posts">
+        <a class="lp-article-nav-prev" href="/blogs/lightroom-alternative.html">
+          <span class="lp-article-nav-dir">Back</span>
+          <span class="lp-article-nav-title">A free, open-source alternative to Lightroom</span>
+        </a>
+        <a class="lp-article-nav-next" href="/blogs/raw-camera-support.html">
+          <span class="lp-article-nav-dir">Next</span>
+          <span class="lp-article-nav-title">Which cameras do LightPhotos and LightCraft support?</span>
+        </a>
+      </nav>
+    </article>
+  </main>
+</Base>

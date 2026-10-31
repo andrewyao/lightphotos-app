@@ -1,0 +1,20 @@
+---
+import Base from "../../layouts/Base.astro";
+import { languagePaths, type LanguageProps } from "../../i18n/routes";
+import { ui } from "../../i18n/ui";
+
+// Written because the rest of the site tells people to verify the privacy
+// claims rather than trust them (see blogs/my-plan.astro). Counting traffic
+// without saying so plainly would undercut that. No `active` value: the footer
+// links here, the nav doesn't. The text is src/i18n/prose/<lang>/privacy.astro.
+export const getStaticPaths = languagePaths;
+const { lang } = Astro.props as LanguageProps;
+const t = ui(lang).pages.privacy;
+const prose = import.meta.glob("../../i18n/prose/*/privacy.astro", { eager: true }) as Record<string, { default: any }>;
+const Body = prose[`../../i18n/prose/${lang}/privacy.astro`].default;
+---
+<Base title={t.title} desc={t.desc} lang={lang} path="/privacy.html">
+  <main class="lp-page">
+    <Body />
+  </main>
+</Base>

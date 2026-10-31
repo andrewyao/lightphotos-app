@@ -39,6 +39,7 @@
 .ph.ph-article:before { content: "\e0a8"; }
 .ph.ph-question:before { content: "\e3e8"; }
 .ph.ph-discord-logo:before { content: "\e61a"; }
+.ph.ph-translate:before { content: "\e4a2"; }
 .ph-bold.ph-download-simple:before { content: "\e20c"; }
 .ph-bold.ph-pencil-simple:before { content: "\e3b4"; }
 .ph-bold.ph-book-open:before { content: "\e0e6"; }
@@ -1289,6 +1290,14 @@ pre.lp-code {
   border: 1px solid var(--lp-line);
 }
 
+/* Shown on translated indexes: the posts themselves stay in English. */
+.lp-post-note {
+  margin: 0.75rem 0 0;
+  text-align: right;
+  font-size: 0.8rem;
+  color: var(--lp-muted);
+}
+
 .lp-post-sort button {
   padding: 0.3rem 0.8rem;
   border-radius: 999px;
@@ -2094,4 +2103,79 @@ code {
 .lp-lede a:hover,
 .lp-lede a:focus-visible {
   text-decoration-color: currentColor;
+}
+
+/* Language switcher: a globe button beside the theme button, opening a short
+ * list of languages. A native <details>, so it works without JS; lp-theme.js
+ * closes it on Escape or an outside click. Each language is named in itself. */
+.lp-lang {
+  position: relative;
+  display: flex;
+}
+
+.lp-lang-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid var(--lp-line);
+  background: color-mix(in srgb, var(--lp-ink) 6%, transparent);
+  color: var(--lp-muted);
+  font-size: 15px;
+  list-style: none;
+  cursor: pointer;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.lp-lang-btn::-webkit-details-marker {
+  display: none;
+}
+
+.lp-lang-btn:hover,
+.lp-lang[open] .lp-lang-btn {
+  color: var(--lp-ink);
+  border-color: var(--border-strong);
+}
+
+.lp-lang-btn:focus-visible {
+  outline: 2px solid var(--lp-accent);
+  outline-offset: 2px;
+}
+
+.lp-lang-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  z-index: 20;
+  display: grid;
+  min-width: 9rem;
+  padding: 4px;
+  list-style: none;
+  border-radius: 10px;
+  border: 1px solid var(--border-strong);
+  background: var(--lp-card);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+}
+
+.lp-lang-menu a {
+  display: block;
+  padding: 0.45rem 0.6rem;
+  border-radius: 6px;
+  color: var(--lp-muted);
+  font-size: 0.85rem;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.lp-lang-menu a:hover,
+.lp-lang-menu a:focus-visible {
+  background: var(--surface-hover);
+  color: var(--lp-ink);
+  outline: none;
+}
+
+.lp-lang-menu a[aria-current="true"] {
+  color: var(--lp-accent);
 }

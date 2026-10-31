@@ -1,0 +1,158 @@
+<p>
+  LightPhotos 直接从磁盘就地打开文件。导入时没有转换，也没有在图库里再存一份副本，
+  文件夹里是什么，你看到的就是什么。
+</p>
+
+<h2>能打开什么</h2>
+<ul class="lp-article-list">
+  <li>
+    <strong>RAW</strong>：Sony ARW、Canon CR2 / CR3、Nikon NEF、
+    Fujifilm RAF、Panasonic RW2、Olympus / OM System ORF、Pentax PEF、
+    Samsung SRW，以及 DNG（Leica、Pentax、iPhone ProRAW、Pixel），
+    与其他一切一样以非破坏性的方式渲染。
+  </li>
+  <li>
+    <strong>普通图像</strong>：JPEG、PNG 和 TIFF 在所有平台上都支持。
+    HEIC / HEIF、GIF 和 BMP <strong>仅在 macOS 版中</strong>可以打开。
+  </li>
+</ul>
+
+<p>
+  <strong>HEIC 是因平台而异的那一个。</strong>它是 iPhone 拍摄的格式，
+  在 macOS 上通过 Apple 自己的 ImageIO 框架解码。Windows、Linux 和浏览器版没有它的解码器，
+  因为不存在可以用来构建它们的纯 Rust HEIC 解码器，
+  所以在这些平台上，HEIC 文件会出现在网格中，但无法打开。拍摄时直接用 JPEG，或事后转换成 JPEG，
+  可以让文件夹在每个平台上都能读取。
+</p>
+<h2>已测试的相机</h2>
+<p>
+  RAW 支持取决于相机型号，而不仅仅是品牌。macOS 版通过 Apple 的 ImageIO 解码 RAW，
+  所以 <a href="https://support.apple.com/en-us/122870">Apple 的相机列表</a>
+  涵盖的机型它都能打开。Windows、Linux 和浏览器版则使用开源的
+  <a href="https://github.com/dnglab/dnglab">rawler</a> 解码器。
+  下面是在两边都测试过的文件：
+</p>
+
+<div class="lp-compare-wrap">
+  <table class="lp-compare">
+    <thead>
+      <tr>
+        <th scope="col">相机</th>
+        <th scope="col">macOS</th>
+        <th scope="col">Windows、Linux、浏览器</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Sony</strong> A7 IV</td>
+        <td>是</td>
+        <td>是</td>
+      </tr>
+      <tr>
+        <td><strong>Canon</strong> EOS R5</td>
+        <td>是</td>
+        <td>是</td>
+      </tr>
+      <tr>
+        <td><strong>Nikon</strong> D850, Z 6II, Z f, Z 8（无损）</td>
+        <td>是</td>
+        <td>是</td>
+      </tr>
+      <tr>
+        <td><strong>Nikon</strong> High Efficiency NEF (Z 8, Z 9)</td>
+        <td>否</td>
+        <td>否</td>
+      </tr>
+      <tr>
+        <td><strong>Fujifilm</strong> GFX100S, X-A5</td>
+        <td>是</td>
+        <td>是</td>
+      </tr>
+      <tr>
+        <td><strong>Fujifilm</strong> X-Trans: X-T4, X-T5, X-H2S, X100VI</td>
+        <td>是</td>
+        <td>仅可浏览，使用相机内嵌的预览</td>
+      </tr>
+      <tr>
+        <td><strong>Panasonic</strong> S5II, GH6</td>
+        <td>是</td>
+        <td>是</td>
+      </tr>
+      <tr>
+        <td><strong>OM System</strong> OM-5 II</td>
+        <td>是</td>
+        <td>否</td>
+      </tr>
+      <tr>
+        <td><strong>Pentax</strong> K-r（PEF 和 DNG）</td>
+        <td>是</td>
+        <td>是</td>
+      </tr>
+      <tr>
+        <td><strong>Leica</strong> Q2 DNG</td>
+        <td>是</td>
+        <td>是</td>
+      </tr>
+      <tr>
+        <td><strong>iPhone</strong> 12 Pro ProRAW, <strong>Pixel</strong> 8 Pro DNG</td>
+        <td>是</td>
+        <td>是</td>
+      </tr>
+      <tr>
+        <td><strong>Samsung</strong> Galaxy S23 Ultra DNG</td>
+        <td>是</td>
+        <td>否</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p>
+  Nikon 的 High Efficiency 压缩是所有平台上共同的缺口；目前请拍摄无损压缩的 NEF。
+  这些品牌中未测试的相机通常也能用，但在你这份 macOS 或当前 rawler 版本发布之后才推出的相机，
+  可能无法使用。
+</p>
+<p>
+  文件夹里的其他任何文件，都会直接不出现在网格中，而不会报错。如果你的相机打不开，
+  可以到<a href="https://github.com/andrewyao/lightphotos/issues">问题追踪器</a>提出需求。
+</p>
+
+<h2>它会写入什么</h2>
+<p>
+  在你的照片旁边写入三类文件，另外还有一个列出你的文件夹的目录：
+</p>
+
+<div class="lp-compare-wrap">
+  <table class="lp-compare">
+    <thead>
+      <tr>
+        <th scope="col">用途</th>
+        <th scope="col">存放位置</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>评分和编辑</strong></td>
+        <td>你打开的文件夹里 <code>.lightphotos/</code> 中的附属文件</td>
+      </tr>
+      <tr>
+        <td><strong>缩略图缓存</strong></td>
+        <td>同样在 <code>.lightphotos/</code> 中，所以文件夹无论搬到哪里，都带着自己的缩略图</td>
+      </tr>
+      <tr>
+        <td><strong>导出</strong></td>
+        <td>你打开的文件夹里的 <code>Exports/</code> 文件夹，在第一次导出时创建</td>
+      </tr>
+      <tr>
+        <td><strong><a href="/docs/catalogs.html">目录</a></strong></td>
+        <td>你的文件夹列表和预设文件夹列表，以及照片评分、旗标和标签的一份副本。桌面版：<code>~/Pictures/LightPhotos/&lt;name&gt;.lightphotos</code>。网页版：浏览器的存储空间</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p>
+  你的照片本身绝不会被移动、重命名或修改，对 LightPhotos 来说，原始文件是只读的。
+  这就是为什么<a href="/docs/export.html">导出</a>会生成新文件，而不是覆盖旧文件，
+  也是为什么把文件夹搬到别处，每一项编辑都会跟着它走。
+</p>

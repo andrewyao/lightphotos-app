@@ -1,0 +1,141 @@
+---
+// Every row here is a string the app's own help dialog (?) shows, so this
+// page can be checked against the build rather than against memory. Rows are
+// grouped by what you are doing, not by which panel owns the key.
+const groups = [
+  {
+    title: "瀏覽",
+    rows: [
+      { key: "Cmd+O", does: "將資料夾加入並開啟" },
+      { key: "Enter / Space / E", does: "開啟所選照片（圖庫中）" },
+      { key: "Esc / G", does: "從編輯器回到圖庫" },
+      { key: "← / →", does: "上一張 / 下一張照片（編輯器中）；在網格中移動選取範圍" },
+      { key: "Page Up / Page Down", does: "上一張 / 下一張照片（編輯器中）" },
+      { key: "D", does: "調整所選照片" },
+      { key: "C", does: "比較所選的 2 到 6 張照片，或所選堆疊" },
+      { key: "I", does: "在右側面板顯示或隱藏照片資訊" },
+      { key: "F6 / Shift+F6", does: "下一個區域，或已進入區域內的下一個控制項" },
+      { key: "Tab / Shift+Tab", does: "在目前區域內的項目間移動" },
+      { key: "Cmd+,", does: "設定：主題和語言" },
+      { key: "Alt+= / Alt+-", does: "放大 / 縮小文字" },
+      { key: "?", does: "顯示或隱藏應用程式內的快速鍵清單" },
+    ],
+  },
+  {
+    title: "評等、旗標和標籤",
+    rows: [
+      { key: "0 – 5", does: "設定星級評等（按 0 即清除）" },
+      { key: "Shift+0 – 5", does: "設定評等並前往下一張照片" },
+      { key: "P / X / U", does: "留用 / 排除 / 取消旗標" },
+      { key: "`", does: "留用，已留用時取消旗標" },
+      { key: "6 / 7 / 8 / 9", does: "紅色 / 黃色 / 綠色 / 藍色標籤；再按一次同一個鍵即可清除" },
+    ],
+  },
+  {
+    title: "選取與堆疊",
+    rows: [
+      { key: "Cmd+A", does: "全選目前資料夾（圖庫中）" },
+      { key: "Cmd+D", does: "取消全選" },
+      { key: "Shift+按一下", does: "在網格中連續選取" },
+      { key: "Cmd+按一下", does: "逐張加選或取消" },
+      { key: "Shift+方向鍵", does: "以方向鍵擴大選取範圍" },
+      { key: "Cmd+G", does: "堆疊所選照片" },
+      { key: "Cmd+Shift+G", does: "取消堆疊所選堆疊" },
+      { key: "Shift+Delete", does: "刪除所選堆疊，或取消堆疊並保留照片" },
+    ],
+  },
+  {
+    title: "縮放與平移",
+    rows: [
+      { key: "Space / Z", does: "循環縮放：符合、2 倍符合、100%" },
+      { key: "Cmd++ / Cmd+= / Cmd+-", does: "放大 / 縮小（每次 20%）" },
+      { key: "↑ / ↓", does: "放大 / 縮小（每次 10%）" },
+      { key: "捲動", does: "在指標處縮放" },
+      { key: "拖移 / Space+拖移", does: "平移" },
+      { key: "Shift+捲動", does: "左右平移" },
+      { key: "Alt+捲動", does: "上下平移" },
+    ],
+  },
+  {
+    title: "修改與匯出",
+    rows: [
+      { key: "Cmd+Z", does: "還原上一次調整" },
+      { key: "Cmd+[ / Cmd+]", does: "向左 / 向右旋轉 90 度" },
+      { key: "R", does: "裁切；按 Enter 或 R 套用，按 Esc 取消" },
+      { key: "Y", does: "修改前 / 修改後比較（編輯器中）" },
+      { key: "M", does: "線性漸層遮色片" },
+      { key: "Shift+M", does: "放射狀漸層遮色片" },
+      { key: "Cmd+U", does: "對所選照片自動調整，每張照片依自己的直方圖" },
+      { key: "V", does: "黑白，或恢復彩色，作用於所選照片" },
+      { key: "Cmd+Shift+C", does: "拷貝此照片的調整" },
+      { key: "Cmd+Shift+V", does: "將調整貼到所選照片上" },
+      { key: "Cmd+Shift+N", does: "將此照片的設定儲存為新的預設集" },
+      { key: "Cmd+Shift+E", does: "開啟或關閉匯出表單" },
+      { key: "按兩下滑桿", does: "重置滑桿" },
+      { key: "Delete", does: "移到垃圾桶（瀏覽器版：永久刪除，無法還原）" },
+    ],
+  },
+  {
+    title: "筆刷遮色片",
+    rows: [
+      { key: "K", does: "開啟 / 關閉筆刷；繪製所選的筆刷遮色片" },
+      { key: "拖移", does: "繪製；每一筆可單獨還原" },
+      { key: "Alt+拖移", does: "擦除" },
+      { key: "[ / ]", does: "筆刷大小（或捲動）" },
+      { key: "Shift+[ / ]", does: "筆刷羽化（或 Shift+捲動）" },
+      { key: "Esc", does: "放下筆刷" },
+    ],
+  },
+  {
+    title: "修補",
+    rows: [
+      { key: "Q", does: "開啟 / 關閉修補" },
+      { key: "[ / ]", does: "筆刷大小（或捲動）" },
+      { key: "Shift+[ / ]", does: "筆刷羽化（或 Shift+捲動）" },
+      { key: "O / Shift+O", does: "顯示或隱藏修補點 / 選取下一個修補點" },
+      { key: "Delete", does: "刪除所選的修補點" },
+      { key: "Cmd+Z", does: "還原上一個修補點" },
+      { key: "Esc", does: "離開修補" },
+    ],
+  },
+  {
+    title: "選擇代表照片",
+    rows: [
+      { key: "按一下或拖移照片", does: "移動對焦區域" },
+      { key: "在區域上 Shift+捲動", does: "調整對焦區域大小" },
+      { key: "拖移縮圖", does: "移動對焦區域" },
+      { key: "Cmd+按一下 / Shift+按一下縮圖", does: "選取更多縮圖" },
+    ],
+  },
+];
+---
+<p>
+  LightPhotos 的設計讓你可以全程用鍵盤操作：不碰滑鼠就為整個資料夾評等、
+  以完整尺寸逐張檢視一次拍攝，並把一張
+  照片的風格套用到其餘照片。下方清單包含應用程式會回應的所有
+  按鍵，在你自己的電腦上，按 <kbd>?</kbd> 也會在應用程式中顯示同一份清單。
+</p>
+
+{groups.map((g) => (
+  <section>
+    <h2>{g.title}</h2>
+    <div class="lp-compare-wrap">
+      <table class="lp-compare">
+        <thead>
+          <tr>
+            <th scope="col">按鍵</th>
+            <th scope="col">作用</th>
+          </tr>
+        </thead>
+        <tbody>
+          {g.rows.map((r) => (
+            <tr>
+              <td><kbd>{r.key}</kbd></td>
+              <td>{r.does}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
+))}

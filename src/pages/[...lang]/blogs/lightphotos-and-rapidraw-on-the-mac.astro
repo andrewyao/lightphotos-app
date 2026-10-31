@@ -1,0 +1,598 @@
+---
+import Base from "../../../layouts/Base.astro";
+import { languagePaths, type LanguageProps } from "../../../i18n/routes";
+import TimingComparison from "../../../components/TimingComparison.astro";
+import { rapidrawMacTimings } from "../../../components/comparison-data";
+
+export const getStaticPaths = languagePaths;
+const { lang } = Astro.props as LanguageProps;
+---
+<Base
+  title="LightPhotos and RapidRAW on the Mac — LightPhotos Blog"
+  desc="The same desktop test, with RapidRAW. Both are Rust photo apps that read your folders in place. Both keep RAW pixels in floating point. RapidRAW decodes every RAW with rawler and keeps it at full size in 32-bit floats. LightPhotos lets Apple decode at the window size in 16-bit floats and prepares the next photo ahead of time."
+  active="blogs"
+  lang={lang}
+  path="/blogs/lightphotos-and-rapidraw-on-the-mac.html"
+  translated={false}
+>
+  <main class="lp-page">
+    <article class="lp-article">
+      <header class="lp-article-head">
+        <p class="lp-article-meta"><a href="/blogs.html">Blogs</a> &middot; <time datetime="2026-10-16">October 16, 2026</time></p>
+        <h1>LightPhotos and RapidRAW on the Mac</h1>
+        <p class="lp-article-dek">
+          The same test as <a href="/blogs/two-rust-photo-apps-on-the-mac.html">LightPhotos
+          and LightCraft on the Mac</a>, with another Rust app.
+          <a href="https://github.com/CyberTimon/RapidRAW" target="_blank">RapidRAW</a>
+          is a GPU RAW editor built on Tauri. It decodes every RAW with rawler,
+          the library that LightPhotos uses everywhere except the Mac.
+        </p>
+        <p class="lp-article-byline">Andrew Yao &middot; 6 min read</p>
+      </header>
+
+      <aside class="lp-tldr">
+        <p class="lp-tldr-label">TL;DR</p>
+        <p>
+          I used 18 RAW files from 13 cameras in a 3840&nbsp;×&nbsp;2000
+          window. The next photo settled in 0.45&nbsp;s in LightPhotos and in
+          2.82&nbsp;s in RapidRAW, because LightPhotos prepares it before you
+          press the key. Opening the first photo took 1.05&nbsp;s against
+          1.64&nbsp;s. LightPhotos used 2.2&nbsp;GB of memory, and RapidRAW
+          used 6.1&nbsp;GB. RapidRAW keeps every photo at full size in 32-bit
+          floating point, ready for its much larger set of editing tools.
+        </p>
+      </aside>
+
+      <h2>The main difference: who decodes the pixels</h2>
+      <p>
+        Both apps are Rust programs that draw the photo with <code>wgpu</code>
+        on Metal, and both read your folders in place. LightPhotos draws its
+        whole window with its own GPU code. RapidRAW draws its panels with
+        React in a system web view and puts the photo in it from Rust.
+      </p>
+
+      <figure class="lp-figure lp-try" id="decode-demo">
+        <div class="lp-try-controls" role="group" aria-label="App">
+          <button type="button" class="lp-try-btn" data-mode="lp" aria-pressed="true">LightPhotos</button>
+          <button type="button" class="lp-try-btn" data-mode="rr" aria-pressed="false">RapidRAW</button>
+        </div>
+        <svg viewBox="0 0 640 210" role="img" aria-label="Diagram of the decode path. LightPhotos sends a RAW file to Apple's RAW engine, which is part of macOS. RapidRAW sends it to rawler, a Rust library inside the app. Both paths end on the screen.">
+          <text class="lp-fig-label" x="0" y="12">WHERE THE PIXELS COME FROM</text>
+
+          <rect class="lp-fig-box" x="0" y="86" width="110" height="44" rx="6"></rect>
+          <text class="lp-fig-t" x="55" y="113" text-anchor="middle">RAW file</text>
+          <rect class="lp-fig-box" x="530" y="86" width="110" height="44" rx="6"></rect>
+          <text class="lp-fig-t" x="585" y="113" text-anchor="middle">Screen</text>
+
+          <g data-lane="lp">
+            <path class="lp-fig-line" d="M110 100 L220 52 M420 52 L530 100"></path>
+            <rect class="lp-fig-box-accent" x="220" y="30" width="200" height="44" rx="6"></rect>
+            <text class="lp-fig-t" x="320" y="50" text-anchor="middle">Apple RAW engine</text>
+            <text class="lp-fig-s" x="320" y="66" text-anchor="middle">part of macOS</text>
+            <circle class="lp-fig-bar" r="5" data-dot>
+              <animateMotion dur="2.4s" repeatCount="indefinite" path="M110 100 L220 52 L420 52 L530 100"></animateMotion>
+            </circle>
+          </g>
+          <g data-lane="rr" opacity="0.35">
+            <path class="lp-fig-line" d="M110 116 L220 164 M420 164 L530 116"></path>
+            <rect class="lp-fig-box" x="220" y="142" width="200" height="44" rx="6"></rect>
+            <text class="lp-fig-t" x="320" y="162" text-anchor="middle">rawler + GPU pipeline</text>
+            <text class="lp-fig-s" x="320" y="178" text-anchor="middle">inside the app</text>
+            <circle class="lp-fig-bar" r="5" data-dot display="none">
+              <animateMotion dur="2.4s" repeatCount="indefinite" path="M110 116 L220 164 L420 164 L530 116"></animateMotion>
+            </circle>
+          </g>
+        </svg>
+        <p class="lp-try-readout" aria-live="polite">LightPhotos: Apple decodes every JPEG, HEIC and RAW file. The decoders add 0&nbsp;MB to the 17.6&nbsp;MB app.</p>
+        <figcaption>
+          Select an app. RapidRAW can also use Apple's RAW engine, but only
+          when you turn the option on, and only with decoder version&nbsp;9. My
+          Mac offered versions 6, 7 and 8, so RapidRAW used rawler for every
+          file in this test.
+        </figcaption>
+      </figure>
+
+      <p>
+        RapidRAW is a full editor. It has AI masks for the subject, sky and
+        depth, AI denoise and inpainting, panorama, HDR and focus-stack merges,
+        negative conversion, lens corrections and tethering. LightPhotos has a
+        smaller job: you go through a folder fast, keep the good photos and
+        make quick edits. Remember this for each number below.
+      </p>
+
+      <div class="lp-compare-wrap">
+        <table class="lp-compare">
+          <thead>
+            <tr>
+              <th scope="col"></th>
+              <th scope="col" class="lp-compare-pick">LightPhotos</th>
+              <th scope="col">RapidRAW</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">RAW decoding on the Mac</th>
+              <td class="lp-compare-pick">CoreImage's <code>CIRAWFilter</code>, in 16-bit floats. ImageIO for thumbnails.</td>
+              <td>rawler (its own fork), plus colour noise reduction and sharpening. Apple RAW&nbsp;9 is an option.</td>
+            </tr>
+            <tr>
+              <th scope="row">Window</th>
+              <td class="lp-compare-pick">Native, drawn with <code>wgpu</code></td>
+              <td>Tauri: React in a WebKit view, photo drawn with <code>wgpu</code></td>
+            </tr>
+            <tr>
+              <th scope="row">Your photos</th>
+              <td class="lp-compare-pick">Folders, read in place. Each folder keeps its own <code>.lightphotos</code> folder.</td>
+              <td>Folders, read in place. Each photo that you edit gets a <code>.rrdata</code> file beside it.</td>
+            </tr>
+            <tr>
+              <th scope="row">AI features</th>
+              <td class="lp-compare-pick">None</td>
+              <td>Masks, denoise, inpainting and tagging on ONNX Runtime. Models download on first use.</td>
+            </tr>
+            <tr>
+              <th scope="row">Platforms</th>
+              <td class="lp-compare-pick">Mac, Windows, Linux, browser</td>
+              <td>Mac, Windows, Linux, Android</td>
+            </tr>
+            <tr>
+              <th scope="row">License</th>
+              <td class="lp-compare-pick">MIT or Apache-2.0</td>
+              <td>AGPL-3.0</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>Two kinds of sidecar</h2>
+      <p>
+        Neither app has a central catalog. You open a folder, and the app reads
+        the files where they are. The difference is where the edits go.
+        RapidRAW writes one small JSON file next to each photo that you edit,
+        such as <code>DSC01831.ARW.rrdata</code>, and it keeps its thumbnails in
+        <code>~/Library/Caches</code>. LightPhotos puts its ratings, edits and
+        thumbnails in one <code>.lightphotos</code> folder inside the folder.
+        In both apps, the edits move with the photos when you move the folder
+        in Finder.
+      </p>
+
+      <h2>How I measured</h2>
+      <p>
+        I built both apps from source with their own release scripts:
+        LightPhotos 0.1.31 with its new 16-bit float RAW decode (commit
+        <code>55d74b9</code>) and RapidRAW 1.6.5. I ran them on an M4 Mac mini
+        with 16&nbsp;GB of memory and macOS 26.5. For each run, I copied the
+        same 18 RAW files to a new folder, so no cache had seen them. They
+        come from 13 cameras in 10 formats, from 5 to 45 megapixels. The
+        test opens a 14-megapixel Sony A7&nbsp;IV file, then goes through
+        another A7&nbsp;IV file, a Canon 5D Mark&nbsp;III CR2, two Canon
+        R5 Mark&nbsp;II CR3s, three DNGs (Adobe, iPhone ProRAW and Ricoh
+        GR&nbsp;III) and a Nikon Z&nbsp;f NEF. Each app started with a new home folder and default settings.
+        The window was 3840&nbsp;×&nbsp;2000&nbsp;px on a 4K display.
+      </p>
+      <p>
+        The script is the same <code>tools/desktop-bench</code> as last time.
+        It starts the app, double-clicks the first photo and pushes the right
+        arrow eight times. It captures the window every 150&nbsp;ms. It records
+        the first change, and the time when nothing changed for 3&nbsp;s. Each
+        number is the median of five runs. One capture takes about
+        0.26 to 0.29&nbsp;s, so no result can be less than about 0.4&nbsp;s.
+      </p>
+      <p>
+        I had to make two changes for RapidRAW. First, RapidRAW opens on a
+        welcome screen. The script clicks <strong>Continue Session</strong> as
+        soon as that screen is still, and the time to the grid includes both
+        parts. Second, RapidRAW's window is a web view, and macOS runs a web
+        view in three separate WebKit processes. The memory number adds those
+        three to the app.
+      </p>
+
+      <h2>The numbers</h2>
+      <div class="lp-compare-wrap">
+        <table class="lp-compare">
+          <thead>
+            <tr>
+              <th scope="col"></th>
+              <th scope="col" class="lp-compare-pick" style="width: 30%;">LightPhotos</th>
+              <th scope="col" style="width: 30%;">RapidRAW</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Download (.dmg)</th>
+              <td class="lp-compare-pick">8.4&nbsp;MB</td>
+              <td>32.7&nbsp;MB</td>
+            </tr>
+            <tr>
+              <th scope="row">App, installed</th>
+              <td class="lp-compare-pick">17.6&nbsp;MB</td>
+              <td>84.7&nbsp;MB</td>
+            </tr>
+            <tr>
+              <th scope="row">Launch to window</th>
+              <td class="lp-compare-pick">0.35&nbsp;s</td>
+              <td>0.71&nbsp;s</td>
+            </tr>
+            <tr>
+              <th scope="row">Launch to finished grid, 18 RAWs</th>
+              <td class="lp-compare-pick">1.22&nbsp;s</td>
+              <td>4.91&nbsp;s, with the welcome screen</td>
+            </tr>
+            <tr>
+              <th scope="row">Open the first photo: first change / screen settled</th>
+              <td class="lp-compare-pick">0.58 / 1.05&nbsp;s</td>
+              <td>0.63 / 1.64&nbsp;s</td>
+            </tr>
+            <tr>
+              <th scope="row">Next photo, each (median of 8): first change / screen settled</th>
+              <td class="lp-compare-pick">0.45 / 0.45&nbsp;s</td>
+              <td>0.47 / 2.82&nbsp;s</td>
+            </tr>
+            <tr>
+              <th scope="row">Memory afterwards</th>
+              <td class="lp-compare-pick">2.2&nbsp;GB</td>
+              <td>6.1&nbsp;GB</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p>
+        The times agreed to within a few percent, with two exceptions.
+        RapidRAW took 0.68 to 1.03&nbsp;s to show its window. One
+        LightPhotos grid took 1.43&nbsp;s. Memory varied more: LightPhotos
+        used 2.1 to 2.2&nbsp;GB, and RapidRAW used 5.8 to 6.5&nbsp;GB.
+      </p>
+
+      <TimingComparison
+        id="rapidraw-timing-demo"
+        title="What the measurement sees"
+        scale={3}
+        milestones={["First visible change", "Whole screen settled"]}
+        scenarios={rapidrawMacTimings}
+        note="Fixed 0–3 s scale. Medians of five runs, in a 3840 × 2000 window. The capture method cannot measure less than about 0.4 s. These times are for the whole window, not for a sharp photo."
+      />
+
+      <h2>Why the next photo is slower in RapidRAW</h2>
+      <p>
+        When you push the arrow key, RapidRAW reacts at once. It shows the
+        1280&nbsp;px thumbnail that it made for the grid. Then it reads the
+        RAW file and decodes every pixel with rawler. It removes colour
+        noise and sharpens, renders the photo on the GPU and draws the
+        histogram. The window settles about 2.4&nbsp;s after the first change.
+        RapidRAW does not start this work until you arrive on the photo.
+      </p>
+      <p>
+        LightPhotos prepares the photos on each side of the current photo
+        while you look at it. When you push the arrow key, the next photo is
+        already developed. Select an app and push <strong>Next photo</strong>.
+      </p>
+
+      <figure class="lp-figure lp-try" id="prefetch-demo">
+        <div class="lp-try-controls">
+          <button type="button" class="lp-try-btn" data-app="lp" aria-pressed="true">LightPhotos</button>
+          <button type="button" class="lp-try-btn" data-app="rr" aria-pressed="false">RapidRAW</button>
+          <button type="button" class="lp-try-btn" data-next>Next photo →</button>
+        </div>
+        <svg viewBox="0 0 640 128" role="img" aria-label="A strip of seven photos. The open photo has an outline. In LightPhotos, the photos on each side of it are developed in the background, so they are ready before you move to them. In RapidRAW, only the open photo is developed.">
+          <text class="lp-fig-label" x="0" y="12">PHOTOS IN THE FOLDER</text>
+          <text class="lp-fig-s" data-onscreen x="62" y="32" text-anchor="middle">on screen</text>
+          <g data-frames></g>
+          <rect class="lp-fig-bar" x="24" y="108" width="12" height="10" rx="2"></rect>
+          <text class="lp-fig-s" x="42" y="117">Ready</text>
+          <rect class="lp-fig-bar-dim" x="100" y="108" width="12" height="10" rx="2"></rect>
+          <text class="lp-fig-s" x="118" y="117">Developing</text>
+          <rect class="lp-fig-box" x="200" y="108" width="12" height="10" rx="2"></rect>
+          <text class="lp-fig-s" x="218" y="117">Not prepared</text>
+        </svg>
+        <p class="lp-try-readout" aria-live="polite">Photo 1 is open. Nothing prepared it, so the app develops it now.</p>
+        <figcaption>
+          The develop times are drawn at 0.7&nbsp;s for LightPhotos and
+          2.4&nbsp;s for RapidRAW. RapidRAW keeps the last five photos that it
+          decoded, so going back is fast. Going forward through a shoot, each
+          photo is new.
+        </figcaption>
+      </figure>
+
+      <p>
+        Prefetch has a cost: CPU time and battery for photos that you possibly
+        do not look at. RapidRAW's choice also makes sense for an editor. You
+        often stay on one photo for minutes, and a full-size decode is what its
+        masks and AI tools need anyway.
+      </p>
+      <p>
+        The first photo is closer. Nothing prepared it in either app. Both
+        show a small preview after about 0.6&nbsp;s. LightPhotos then
+        develops the RAW at the window size with <code>CIRAWFilter</code> and
+        settles at 1.05&nbsp;s. RapidRAW decodes the full RAW and settles at
+        1.64&nbsp;s.
+      </p>
+      <p>
+        Each next photo takes RapidRAW longer than the first one did. Size
+        explains part of that: the two 45-megapixel Canon R5 Mark&nbsp;II
+        files took about 3.5&nbsp;s. But the 12-megapixel iPhone file still
+        took about 2.6&nbsp;s, so I do not know the rest of the reason yet.
+      </p>
+
+      <h2>Why memory is three times higher</h2>
+      <p>
+        Both apps keep a RAW in floating point, with four numbers for each
+        pixel. LightPhotos uses 16-bit half floats at the window size, up to
+        4096&nbsp;px, and develops the full size only when you zoom in.
+        RapidRAW uses 32-bit floats for the whole decoded RAW at full size,
+        and it keeps the last five that it decoded.
+      </p>
+
+      <figure class="lp-figure lp-try" id="memory-demo">
+        <div class="lp-try-controls" role="group" aria-label="App">
+          <button type="button" class="lp-try-btn" data-mode="rr" aria-pressed="true">RapidRAW</button>
+          <button type="button" class="lp-try-btn" data-mode="lp" aria-pressed="false">LightPhotos</button>
+        </div>
+        <svg viewBox="0 0 640 224" role="img" aria-label="Memory for one photo, drawn as a rectangle. The width is the number of pixels and the height is the bytes for each pixel. RapidRAW keeps 24 million pixels at 16 bytes, about 384 MB. LightPhotos keeps up to 11.2 million pixels at 8 bytes, about 89 MB.">
+          <text class="lp-fig-label" x="0" y="12">MEMORY FOR ONE PHOTO = PIXELS × BYTES PER PIXEL</text>
+          <rect class="lp-fig-panel" data-ghost x="96" y="115" width="187" height="75" stroke-dasharray="4 4"></rect>
+          <rect class="lp-fig-bar" data-area x="96" y="40" width="400" height="150" rx="2"></rect>
+          <text class="lp-fig-on-bar" data-mb x="296" y="120" text-anchor="middle">384 MB</text>
+          <line class="lp-fig-line" x1="96" y1="196" x2="560" y2="196"></line>
+          <text class="lp-fig-s" data-wlabel x="96" y="214">24.0 million pixels (6000 × 4000)</text>
+          <text class="lp-fig-s" data-hlabel x="88" y="119" text-anchor="end">16 bytes</text>
+        </svg>
+        <p class="lp-try-readout" aria-live="polite">RapidRAW: 32-bit floating-point RGBA at full size. 6000 × 4000 × 16 bytes ≈ 384 MB a photo, up to 1.9 GB for five.</p>
+        <figcaption>
+          Select an app. The dashed outline is the other app. Sizes are for
+          a 24-megapixel photo, such as the Ricoh GR&nbsp;III file, at each
+          app's largest size. The GPU copies,
+          the web view and the thumbnails come on top.
+        </figcaption>
+      </figure>
+
+      <p>
+        With the full photo already decoded, RapidRAW can zoom to 100%, run
+        an AI mask or recover a highlight without another decode. On my
+        16&nbsp;GB Mac, 6.1&nbsp;GB is a large part of the memory, and a
+        camera with more megapixels needs more. One 45-megapixel R5
+        Mark&nbsp;II photo is about 716&nbsp;MB in RapidRAW.
+      </p>
+      <p>
+        The app size has the same cause. RapidRAW's own program is 42&nbsp;MB,
+        and it includes ONNX Runtime (33&nbsp;MB) for its AI tools and the
+        lensfun lens database (5&nbsp;MB). LightPhotos uses the decoders in
+        macOS and has no AI models.
+      </p>
+
+      <h2>What each choice costs</h2>
+      <ul class="lp-article-list">
+        <li>
+          <strong>LightPhotos is fast through a shoot.</strong> It prepares
+          the next photo and keeps only what the screen needs. The cost is that
+          it develops photos that you possibly skip, and on the Mac it supports
+          only the cameras that Apple supports.
+        </li>
+        <li>
+          <strong>RapidRAW has the whole photo ready for editing.</strong> Its
+          sliders, masks and AI tools work on full-size 32-bit pixels.
+          The cost is memory, and a wait of about two seconds each time you
+          move to a new photo.
+        </li>
+        <li>
+          <strong>Both decode RAW in Rust off the Mac.</strong> LightPhotos
+          uses rawler on Windows, Linux and the browser. RapidRAW uses its own
+          rawler fork everywhere. Apple's engine is optional in RapidRAW,
+          and the Mac app of LightPhotos does not include rawler, because of its
+          LGPL license.
+        </li>
+      </ul>
+
+      <h2>Wrapping up</h2>
+      <p>
+        These two apps show the same folder in two different ways. LightPhotos
+        is built to go through a shoot. It is smaller, starts faster, fills its
+        grid faster and has the next photo ready before you ask. RapidRAW is
+        built to edit one photo deeply. It keeps the full RAW at full size in 32-bit floats
+        and has far more tools to use on it. If you cull first and edit later,
+        you can use both on the same folder. Neither app needs to import it.
+      </p>
+
+      <p class="lp-sources">
+        The timing script and the raw results are in
+        <code>tools/desktop-bench/</code>. RapidRAW's decode path is in
+        <code>src-tauri/src/image_loader.rs</code> and
+        <code>raw_processing.rs</code>, at commit
+        <a href="https://github.com/CyberTimon/RapidRAW/commit/259d625e">259d625e</a>.
+      </p>
+
+      <nav class="lp-article-nav" aria-label="More posts">
+        <a class="lp-article-nav-prev" href="/blogs/two-raw-decoders.html">
+          <span class="lp-article-nav-dir">Back</span>
+          <span class="lp-article-nav-title">Two RAW decoders, side by side</span>
+        </a>
+        <a class="lp-article-nav-next" href="/blogs/your-next-power-user-cant-see-the-screen.html">
+          <span class="lp-article-nav-dir">Next</span>
+          <span class="lp-article-nav-title">Your next power user can&rsquo;t see the screen</span>
+        </a>
+      </nav>
+    </article>
+  </main>
+
+  <script>
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    // Wire a row of [data-mode] toggle buttons to one render function.
+    function toggle(fig, render) {
+      const btns = fig.querySelectorAll("[data-mode]");
+      btns.forEach((b) => b.addEventListener("click", () => {
+        btns.forEach((o) => o.setAttribute("aria-pressed", String(o === b)));
+        render(b.dataset.mode);
+      }));
+    }
+
+    // Decode path. Sizes from the post: 17.6 MB and 84.7 MB installed.
+    const decode = document.getElementById("decode-demo");
+    if (decode) {
+      const readout = decode.querySelector(".lp-try-readout");
+      const text = {
+        lp: "LightPhotos: Apple decodes every JPEG, HEIC and RAW file. The decoders add 0 MB to the 17.6 MB app.",
+        rr: "RapidRAW: rawler decodes every RAW inside the 84.7 MB app, then the app removes colour noise and sharpens before the GPU renders it.",
+      };
+      toggle(decode, (mode) => {
+        decode.querySelectorAll("[data-lane]").forEach((g) => {
+          const on = g.dataset.lane === mode;
+          g.setAttribute("opacity", on ? "1" : "0.35");
+          g.querySelector("rect").setAttribute("class", on ? "lp-fig-box-accent" : "lp-fig-box");
+          g.querySelector("[data-dot]").setAttribute("display", on && !reduce ? "inline" : "none");
+        });
+        readout.textContent = text[mode];
+      });
+      if (reduce) decode.querySelectorAll("[data-dot]").forEach((d) => d.setAttribute("display", "none"));
+    }
+
+    // Prefetch strip. LightPhotos develops the open photo and its two
+    // neighbours; RapidRAW develops only the open photo and keeps the last
+    // five it decoded.
+    const prefetch = document.getElementById("prefetch-demo");
+    if (prefetch) {
+      const N = 7, W = 76, GAP = 14, X0 = 24, Y = 44, H = 52, KEEP = 5;
+      const apps = {
+        lp: { develop: 700, wanted: (i, cur) => Math.abs(i - cur) <= 1 },
+        rr: { develop: 2400, wanted: (i, cur) => i === cur },
+      };
+      const NS = "http://www.w3.org/2000/svg";
+      const host = prefetch.querySelector("[data-frames]");
+      const onscreen = prefetch.querySelector("[data-onscreen]");
+      const readout = prefetch.querySelector(".lp-try-readout");
+      const appBtns = prefetch.querySelectorAll("[data-app]");
+      const el = (tag, attrs) => {
+        const node = document.createElementNS(NS, tag);
+        for (const k in attrs) node.setAttribute(k, attrs[k]);
+        return node;
+      };
+      const frames = Array.from({ length: N }, (_, i) => {
+        const x = X0 + i * (W + GAP);
+        const g = el("g", {});
+        const box = el("rect", { class: "lp-fig-box", x, y: Y, width: W, height: H, rx: 4 });
+        const fill = el("rect", { class: "lp-fig-bar-dim", x, y: Y, width: 0, height: H, rx: 4 });
+        const label = el("text", { class: "lp-fig-t", x: x + W / 2, y: Y + 31, "text-anchor": "middle" });
+        const ring = el("rect", { x: x - 3, y: Y - 3, width: W + 6, height: H + 6, rx: 6, fill: "none", stroke: "var(--lp-ink)", "stroke-width": 2 });
+        label.textContent = String(i + 1);
+        g.append(box, fill, label, ring);
+        host.append(g);
+        return { x, fill, label, ring, progress: 0 };
+      });
+      let app = "lp", current = 0, last = 0, waiting = false, visited = [];
+
+      const wanted = (i) => apps[app].wanted(i, current);
+      const kept = (i) => wanted(i) || (app === "rr" && visited.includes(i));
+      function paint() {
+        frames.forEach((f, i) => {
+          const ready = f.progress >= 1;
+          f.fill.setAttribute("width", W * Math.min(1, f.progress));
+          f.fill.setAttribute("class", ready ? "lp-fig-bar" : "lp-fig-bar-dim");
+          f.label.setAttribute("class", ready ? "lp-fig-on-bar" : "lp-fig-t");
+          f.ring.setAttribute("display", i === current ? "inline" : "none");
+        });
+        onscreen.setAttribute("x", frames[current].x + W / 2);
+      }
+      function tick(now) {
+        const dt = Math.max(0, now - last);
+        last = now;
+        frames.forEach((f, i) => { if (wanted(i) && f.progress < 1) f.progress = Math.min(1, f.progress + dt / apps[app].develop); });
+        if (waiting && frames[current].progress >= 1) {
+          waiting = false;
+          readout.textContent = app === "lp"
+            ? `Photo ${current + 1} is on screen. LightPhotos now prepares its neighbours.`
+            : `Photo ${current + 1} is on screen. RapidRAW waits for the next key press.`;
+        }
+        paint();
+        if (frames.some((f, i) => wanted(i) && f.progress < 1)) requestAnimationFrame(tick);
+      }
+      function open(i, fresh) {
+        current = i;
+        visited = [i, ...visited.filter((v) => v !== i)].slice(0, KEEP);
+        frames.forEach((f, j) => { if (!kept(j)) f.progress = 0; });
+        const ready = frames[i].progress >= 1;
+        waiting = !ready;
+        readout.textContent = fresh
+          ? "Photo 1 is open. Nothing prepared it, so the app develops it now."
+          : ready
+            ? `Photo ${i + 1} was ready. It shows at once.`
+            : `Photo ${i + 1} is not ready yet. You see the preview while the app develops it.`;
+        paint();
+        last = performance.now();
+        requestAnimationFrame(tick);
+      }
+      function reset() {
+        frames.forEach((f) => { f.progress = 0; });
+        visited = [];
+        open(0, true);
+      }
+      appBtns.forEach((b) => b.addEventListener("click", () => {
+        appBtns.forEach((o) => o.setAttribute("aria-pressed", String(o === b)));
+        app = b.dataset.app;
+        reset();
+      }));
+      prefetch.querySelector("[data-next]").addEventListener("click", () => {
+        if (current < N - 1) open(current + 1, false);
+        else reset();
+      });
+      reset();
+    }
+
+    // Memory area. Width is megapixels, height is bytes per pixel, so the
+    // area is the memory for one photo. 3:2 photos at each app's largest size.
+    const memory = document.getElementById("memory-demo");
+    if (memory) {
+      const X = 96, BASE = 190, PX_PER_MP = 400 / 24, PX_PER_BYTE = 150 / 16;
+      const apps = {
+        rr: { mp: 24, bytes: 16, mb: 384, dims: "6000 × 4000", text: "RapidRAW: 32-bit floating-point RGBA at full size. 6000 × 4000 × 16 bytes ≈ 384 MB a photo, up to 1.9 GB for five." },
+        lp: { mp: 11.19, bytes: 8, mb: 89, dims: "4096 × 2731", text: "LightPhotos: 16-bit floating-point RGBA at up to 4096 px. 4096 × 2731 × 8 bytes ≈ 89 MB a photo, 268 MB for three." },
+      };
+      const area = memory.querySelector("[data-area]");
+      const ghost = memory.querySelector("[data-ghost]");
+      const mb = memory.querySelector("[data-mb]");
+      const wlabel = memory.querySelector("[data-wlabel]");
+      const hlabel = memory.querySelector("[data-hlabel]");
+      const readout = memory.querySelector(".lp-try-readout");
+      const size = (a) => [a.mp * PX_PER_MP, a.bytes * PX_PER_BYTE];
+      let shown = size(apps.rr), frame = 0;
+
+      function draw([w, h]) {
+        area.setAttribute("width", w);
+        area.setAttribute("height", h);
+        area.setAttribute("y", BASE - h);
+        mb.setAttribute("x", X + w / 2);
+        mb.setAttribute("y", BASE - h / 2 + 4);
+        hlabel.setAttribute("y", BASE - h / 2 + 4);
+        shown = [w, h];
+      }
+      toggle(memory, (mode) => {
+        const a = apps[mode], other = apps[mode === "rr" ? "lp" : "rr"];
+        const [gw, gh] = size(other);
+        ghost.setAttribute("width", gw);
+        ghost.setAttribute("height", gh);
+        ghost.setAttribute("y", BASE - gh);
+        mb.textContent = `${a.mb} MB`;
+        hlabel.textContent = `${a.bytes} bytes`;
+        wlabel.textContent = `${a.mp.toFixed(1)} million pixels (${a.dims})`;
+        readout.textContent = a.text;
+        const from = shown, to = size(a);
+        cancelAnimationFrame(frame);
+        if (reduce) return draw(to);
+        const t0 = performance.now();
+        const step = (now) => {
+          const t = Math.min(1, (now - t0) / 500);
+          const e = t < 0.5 ? 2 * t * t : 1 - (-2 * t + 2) ** 2 / 2;
+          draw([from[0] + (to[0] - from[0]) * e, from[1] + (to[1] - from[1]) * e]);
+          if (t < 1) frame = requestAnimationFrame(step);
+        };
+        frame = requestAnimationFrame(step);
+      });
+    }
+  </script>
+</Base>
+
+<style>
+  .lp-sources {
+    margin-top: 2rem;
+    font-size: 0.9rem;
+    color: var(--lp-muted);
+  }
+</style>

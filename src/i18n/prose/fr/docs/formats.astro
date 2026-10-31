@@ -1,0 +1,171 @@
+<p>
+  LightPhotos ouvre les fichiers directement depuis le disque, sur place. Il
+  n’y a aucune conversion à l’entrée et aucune copie dans une photothèque&nbsp;:
+  ce qui est dans le dossier est ce que vous voyez.
+</p>
+
+<h2>Ce qu’il ouvre</h2>
+<ul class="lp-article-list">
+  <li>
+    <strong>RAW</strong> &mdash; Sony ARW, Canon CR2 / CR3, Nikon NEF,
+    Fujifilm RAF, Panasonic RW2, Olympus / OM System ORF, Pentax PEF,
+    Samsung SRW et DNG (Leica, Pentax, iPhone ProRAW, Pixel), rendus de façon
+    non destructive comme tout le reste.
+  </li>
+  <li>
+    <strong>Images ordinaires</strong> &mdash; JPEG, PNG et TIFF sur toutes
+    les plateformes. HEIC / HEIF, GIF et BMP s’ouvrent <strong>uniquement dans
+    la version macOS</strong>.
+  </li>
+</ul>
+
+<p>
+  <strong>Le HEIC dépend de la plateforme.</strong> C’est le format que
+  photographient les iPhone, et sur macOS il est décodé par le framework
+  ImageIO d’Apple. Les versions Windows, Linux et navigateur n’ont aucun
+  décodeur pour lui (il n’existe pas de décodeur HEIC en Rust pur sur lequel
+  les construire), donc là, les fichiers HEIC apparaissent dans la grille
+  mais ne s’ouvrent pas. Photographier ou convertir en JPEG garde un dossier
+  lisible sur toutes les plateformes.
+</p>
+<h2>Appareils testés</h2>
+<p>
+  La prise en charge du RAW dépend du modèle d’appareil, pas seulement de la
+  marque. La version macOS décode le RAW avec ImageIO d’Apple, donc elle
+  ouvre tout ce que couvre la
+  <a href="https://support.apple.com/en-us/122870">liste d’appareils d’Apple</a>.
+  Les versions Windows, Linux et navigateur utilisent à la place le décodeur
+  open source <a href="https://github.com/dnglab/dnglab">rawler</a>. Voici
+  les fichiers testés sur les deux&nbsp;:
+</p>
+
+<div class="lp-compare-wrap">
+  <table class="lp-compare">
+    <thead>
+      <tr>
+        <th scope="col">Appareil</th>
+        <th scope="col">macOS</th>
+        <th scope="col">Windows, Linux, navigateur</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Sony</strong> A7 IV</td>
+        <td>Oui</td>
+        <td>Oui</td>
+      </tr>
+      <tr>
+        <td><strong>Canon</strong> EOS R5</td>
+        <td>Oui</td>
+        <td>Oui</td>
+      </tr>
+      <tr>
+        <td><strong>Nikon</strong> D850, Z 6II, Z f, Z 8 (sans perte)</td>
+        <td>Oui</td>
+        <td>Oui</td>
+      </tr>
+      <tr>
+        <td><strong>Nikon</strong> High Efficiency NEF (Z 8, Z 9)</td>
+        <td>Non</td>
+        <td>Non</td>
+      </tr>
+      <tr>
+        <td><strong>Fujifilm</strong> GFX100S, X-A5</td>
+        <td>Oui</td>
+        <td>Oui</td>
+      </tr>
+      <tr>
+        <td><strong>Fujifilm</strong> X-Trans&nbsp;: X-T4, X-T5, X-H2S, X100VI</td>
+        <td>Oui</td>
+        <td>Parcours seulement, à partir de l’aperçu intégré de l’appareil</td>
+      </tr>
+      <tr>
+        <td><strong>Panasonic</strong> S5II, GH6</td>
+        <td>Oui</td>
+        <td>Oui</td>
+      </tr>
+      <tr>
+        <td><strong>OM System</strong> OM-5 II</td>
+        <td>Oui</td>
+        <td>Non</td>
+      </tr>
+      <tr>
+        <td><strong>Pentax</strong> K-r (PEF et DNG)</td>
+        <td>Oui</td>
+        <td>Oui</td>
+      </tr>
+      <tr>
+        <td><strong>Leica</strong> Q2 DNG</td>
+        <td>Oui</td>
+        <td>Oui</td>
+      </tr>
+      <tr>
+        <td><strong>iPhone</strong> 12 Pro ProRAW, <strong>Pixel</strong> 8 Pro DNG</td>
+        <td>Oui</td>
+        <td>Oui</td>
+      </tr>
+      <tr>
+        <td><strong>Samsung</strong> Galaxy S23 Ultra DNG</td>
+        <td>Oui</td>
+        <td>Non</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p>
+  La compression High Efficiency de Nikon est la lacune sur toutes les
+  plateformes&nbsp;; photographiez en NEF compressé sans perte pour
+  l’instant. Les appareils non testés de ces marques fonctionneront
+  généralement, mais un appareil sorti après votre version de macOS ou après
+  la version actuelle de rawler peut ne pas fonctionner.
+</p>
+<p>
+  Tout le reste du dossier est simplement laissé hors de la grille plutôt que
+  de provoquer une erreur. Si votre appareil ne s’ouvre pas,
+  <a href="https://github.com/andrewyao/lightphotos/issues">le suivi des
+  tickets</a> est l’endroit où atterrissent les demandes.
+</p>
+
+<h2>Ce qu’il écrit</h2>
+<p>
+  Trois sortes de fichiers à côté de vos photos, et un catalogue qui liste
+  vos dossiers&nbsp;:
+</p>
+
+<div class="lp-compare-wrap">
+  <table class="lp-compare">
+    <thead>
+      <tr>
+        <th scope="col">Rôle</th>
+        <th scope="col">Où il va</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Notes et retouches</strong></td>
+        <td>Fichiers annexes dans <code>.lightphotos/</code>, à l’intérieur du dossier que vous avez ouvert</td>
+      </tr>
+      <tr>
+        <td><strong>Cache de vignettes</strong></td>
+        <td><code>.lightphotos/</code> aussi, de sorte qu’un dossier emporte ses propres vignettes où qu’il aille</td>
+      </tr>
+      <tr>
+        <td><strong>Exports</strong></td>
+        <td>Un dossier <code>Exports/</code> à l’intérieur du dossier que vous avez ouvert, créé au premier export</td>
+      </tr>
+      <tr>
+        <td><strong><a href="/docs/catalogs.html">Catalogue</a></strong></td>
+        <td>Votre liste de dossiers et de dossiers de préréglages, et une copie des notes, des drapeaux et des étiquettes des photos. Bureau&nbsp;: <code>~/Pictures/LightPhotos/&lt;name&gt;.lightphotos</code>. Web&nbsp;: le stockage du navigateur</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p>
+  Vos photos elles-mêmes ne sont jamais déplacées, renommées ni modifiées&nbsp;:
+  les originaux sont en lecture seule pour LightPhotos. C’est pourquoi
+  l’<a href="/docs/export.html">export</a> produit de nouveaux fichiers au
+  lieu d’écraser les anciens, et pourquoi déplacer un dossier ailleurs garde
+  toutes les retouches avec lui.
+</p>

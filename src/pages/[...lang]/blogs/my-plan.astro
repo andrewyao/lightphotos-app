@@ -1,0 +1,341 @@
+---
+import Base from "../../../layouts/Base.astro";
+import { languagePaths, type LanguageProps } from "../../../i18n/routes";
+
+export const getStaticPaths = languagePaths;
+const { lang } = Astro.props as LanguageProps;
+---
+<Base
+  title="My plan, and what is not in it — LightPhotos Blog"
+  desc="Where I want LightPhotos to go. Your photos stay on your drive. Any AI runs on your own computer. Only the basic features must work on every platform."
+  active="blogs"
+  lang={lang}
+  path="/blogs/my-plan.html"
+  translated={false}
+>
+  <main class="lp-page">
+    <article class="lp-article">
+      <header class="lp-article-head">
+        <p class="lp-article-meta"><a href="/blogs.html">Blogs</a> &middot; <time datetime="2026-09-20">September 20, 2026</time></p>
+        <h1>My plan, and what is not in it</h1>
+        <p class="lp-article-dek">
+          Where I want LightPhotos to go. Your photos stay on your drive. Any
+          AI runs on your own computer. Only the basic features must work on every platform.
+        </p>
+        <p class="lp-article-byline">Andrew Yao &middot; 5 min read</p>
+      </header>
+
+      <aside class="lp-tldr">
+        <p class="lp-tldr-label">TL;DR</p>
+        <p>
+          This is where I want LightPhotos to go in the next year. Your photos
+          stay as files on your drive, and any AI runs on your own computer.
+          Only the basic features must work on every platform. Every feature
+          will work from the keyboard, with shortcuts that you can change. The
+          full app will be open source. The plan has no dates. Its main job is
+          to help me say no to other features.
+        </p>
+      </aside>
+
+      <figure class="lp-figure lp-try" id="plan-demo">
+        <div class="lp-try-controls" role="group" aria-label="Test a request against the plan">
+          <span>Request:</span>
+          <button type="button" class="lp-try-btn" aria-pressed="true" data-req="0">Cloud library</button>
+          <button type="button" class="lp-try-btn" aria-pressed="false" data-req="1">Google Drive</button>
+          <button type="button" class="lp-try-btn" aria-pressed="false" data-req="2">Cloud AI</button>
+          <button type="button" class="lp-try-btn" aria-pressed="false" data-req="3">Local AI</button>
+          <button type="button" class="lp-try-btn" aria-pressed="false" data-req="4">Mac-only Vision</button>
+          <button type="button" class="lp-try-btn" aria-pressed="false" data-req="5">Send to Immich</button>
+          <button type="button" class="lp-try-btn" aria-pressed="false" data-req="6">No shortcut</button>
+          <button type="button" class="lp-try-btn" aria-pressed="false" data-req="7">Lightroom keys</button>
+        </div>
+        <svg viewBox="0 0 640 276" role="img" aria-label="The plan on one page, with the request Cloud library. It matches the Storage row, in the Not doing column. The verdict is no.">
+          <text class="lp-fig-label" x="0" y="12">TEST A REQUEST AGAINST THE PLAN</text>
+          <text class="lp-fig-t lp-fig-bad" x="639" y="14" text-anchor="end" data-verdict>VERDICT: NO</text>
+          <text class="lp-fig-label" x="88" y="38">NOT DOING</text>
+          <text class="lp-fig-label" x="340" y="38">DOING</text>
+          <g data-row>
+            <text class="lp-fig-t" x="0" y="66">Storage</text>
+            <rect class="lp-fig-bad-stroke" x="88" y="48" width="240" height="26" rx="5"></rect>
+            <text class="lp-fig-s" x="100" y="65">A photo platform of my own</text>
+            <rect class="lp-fig-panel" x="340" y="48" width="299" height="26" rx="5"></rect>
+            <text class="lp-fig-s" x="352" y="65">Your drive, and Google Drive if it is fast</text>
+          </g>
+          <g data-row>
+            <text class="lp-fig-s" x="0" y="98">AI</text>
+            <rect class="lp-fig-panel" x="88" y="80" width="240" height="26" rx="5"></rect>
+            <text class="lp-fig-s" x="100" y="97">Anything that uploads your photos</text>
+            <rect class="lp-fig-panel" x="340" y="80" width="299" height="26" rx="5"></rect>
+            <text class="lp-fig-s" x="352" y="97">Investigate ComfyUI on your own computer</text>
+          </g>
+          <g data-row>
+            <text class="lp-fig-s" x="0" y="130">Platforms</text>
+            <rect class="lp-fig-panel" x="88" y="112" width="240" height="26" rx="5"></rect>
+            <text class="lp-fig-s" x="100" y="129">Every feature on all four</text>
+            <rect class="lp-fig-panel" x="340" y="112" width="299" height="26" rx="5"></rect>
+            <text class="lp-fig-s" x="352" y="129">Basics everywhere, Apple frameworks on Mac</text>
+          </g>
+          <g data-row>
+            <text class="lp-fig-s" x="0" y="162">Sharing</text>
+            <rect class="lp-fig-panel" x="88" y="144" width="240" height="26" rx="5"></rect>
+            <text class="lp-fig-s" x="100" y="161">Becoming your library</text>
+            <rect class="lp-fig-panel" x="340" y="144" width="299" height="26" rx="5"></rect>
+            <text class="lp-fig-s" x="352" y="161">Immich, and export to local or remote servers</text>
+          </g>
+          <g data-row>
+            <text class="lp-fig-s" x="0" y="194">Input</text>
+            <rect class="lp-fig-panel" x="88" y="176" width="240" height="26" rx="5"></rect>
+            <text class="lp-fig-s" x="100" y="193">Mouse-first design</text>
+            <rect class="lp-fig-panel" x="340" y="176" width="299" height="26" rx="5"></rect>
+            <text class="lp-fig-s" x="352" y="193">Every feature reachable from the keyboard</text>
+          </g>
+          <g data-row>
+            <text class="lp-fig-s" x="0" y="226">Shortcuts</text>
+            <rect class="lp-fig-panel" x="88" y="208" width="240" height="26" rx="5"></rect>
+            <text class="lp-fig-s" x="100" y="225">A fixed set of keys to learn</text>
+            <rect class="lp-fig-panel" x="340" y="208" width="299" height="26" rx="5"></rect>
+            <text class="lp-fig-s" x="352" y="225">Shortcuts that you can change</text>
+          </g>
+          <g data-row>
+            <text class="lp-fig-s" x="0" y="258">Code</text>
+            <rect class="lp-fig-panel" x="88" y="240" width="240" height="26" rx="5"></rect>
+            <text class="lp-fig-s" x="100" y="257">A binary that you must trust</text>
+            <rect class="lp-fig-panel" x="340" y="240" width="299" height="26" rx="5"></rect>
+            <text class="lp-fig-s" x="352" y="257">Open source, the full app</text>
+          </g>
+        </svg>
+        <p class="lp-try-readout" aria-live="polite">No. Your photos stay as files on your drive. I will not keep a library for you.</p>
+        <figcaption>
+          Pick a request. The plan finds the row that applies to it. For me,
+          the Not doing column is the most useful part.
+        </figcaption>
+      </figure>
+
+      <p>
+        Until now, I decided the direction one feature at a time. That is how
+        a small tool slowly becomes a large tool. A written list kept the
+        first version small: the seven-item list in
+        <a href="/blogs/why-i-started-lightphotos.html">the first post</a>.
+        This list is for the next year.
+      </p>
+
+      <h2>Your photos stay yours</h2>
+      <p>
+        There is no account, no upload, and no library that I keep for you.
+        Your photos are files on your drive, and LightPhotos opens the folder
+        that already contains them.
+      </p>
+      <p>
+        I learned this when I lost years of photos, because only one app could
+        read their library format. That still controls most of these
+        decisions.
+      </p>
+      <p>
+        I also want LightPhotos to reach drives that are not plugged into your
+        computer, starting with Google Drive. The problem is speed. A photo
+        tool that stalls every time you press the arrow key for the next photo
+        is not good enough to ship. So I will only do this if the performance
+        is good enough, and I do not know yet if it will be.
+      </p>
+
+      <h2>I am not cloning Lightroom</h2>
+      <p>
+        Lightroom has many very good features, and I will not try to match
+        them. Its AI features are the strongest part, and almost all of them
+        send your photo to servers that a different company controls. I will
+        never do that.
+      </p>
+      <p>
+        Instead, I want to try ComfyUI, which runs AI image models on your own
+        computer, next to your photos. I did not build any of this yet, so it
+        is an idea, not a promise.
+      </p>
+
+      <h2>Not every feature on every platform</h2>
+      <p>
+        If every feature had to work the same way on all four platforms, I
+        would ship fewer features, and plainer versions of them. So I use two groups with different
+        rules. The basic features already run everywhere, and similar
+        features that I build next join them.
+      </p>
+
+      <figure class="lp-figure">
+        <svg viewBox="0 0 640 216" role="img" aria-label="Two panels. The left panel, Basic features, shows macOS, Windows, Linux and the browser. It lists browse, rate, filter, adjustments and export, from one Rust codebase that compiles to WASM. The right panel, Mac only, lists Core Image, Vision and VisionKit, Image I/O, AVFoundation and Object Capture. These are Apple frameworks that are difficult to port.">
+          <text class="lp-fig-label" x="0" y="12">WHAT RUNS WHERE</text>
+
+          <rect class="lp-fig-panel" x="0" y="24" width="380" height="180" rx="8"></rect>
+          <text class="lp-fig-t" x="16" y="48">Basic features</text>
+          <text class="lp-fig-s" x="16" y="66">One Rust codebase, compiled to WASM for the browser</text>
+
+          <rect class="lp-fig-box" x="16" y="80" width="78" height="26" rx="5"></rect>
+          <text class="lp-fig-s" x="55" y="97" text-anchor="middle">macOS</text>
+          <rect class="lp-fig-box" x="106" y="80" width="78" height="26" rx="5"></rect>
+          <text class="lp-fig-s" x="145" y="97" text-anchor="middle">Windows</text>
+          <rect class="lp-fig-box" x="196" y="80" width="78" height="26" rx="5"></rect>
+          <text class="lp-fig-s" x="235" y="97" text-anchor="middle">Linux</text>
+          <rect class="lp-fig-box" x="286" y="80" width="78" height="26" rx="5"></rect>
+          <text class="lp-fig-s" x="325" y="97" text-anchor="middle">Browser</text>
+
+          <text class="lp-fig-s" x="16" y="130">Open any folder, no import step</text>
+          <text class="lp-fig-s" x="16" y="148">Rate and filter</text>
+          <text class="lp-fig-s" x="16" y="166">Exposure, highlights, shadows, white balance</text>
+          <text class="lp-fig-s" x="16" y="184">Export to JPEG</text>
+
+          <rect class="lp-fig-panel" x="400" y="24" width="240" height="180" rx="8"></rect>
+          <text class="lp-fig-t" x="416" y="48">Mac only</text>
+          <text class="lp-fig-s" x="416" y="66">Apple frameworks, difficult to port</text>
+
+          <rect class="lp-fig-box-accent" x="416" y="88" width="7" height="7" rx="1"></rect>
+          <text class="lp-fig-s" x="432" y="96">Core Image</text>
+          <rect class="lp-fig-box-accent" x="416" y="110" width="7" height="7" rx="1"></rect>
+          <text class="lp-fig-s" x="432" y="118">Vision and VisionKit</text>
+          <rect class="lp-fig-box-accent" x="416" y="132" width="7" height="7" rx="1"></rect>
+          <text class="lp-fig-s" x="432" y="140">Image I/O</text>
+          <rect class="lp-fig-box-accent" x="416" y="154" width="7" height="7" rx="1"></rect>
+          <text class="lp-fig-s" x="432" y="162">AVFoundation</text>
+          <rect class="lp-fig-box-accent" x="416" y="176" width="7" height="7" rx="1"></rect>
+          <text class="lp-fig-s" x="432" y="184">Object Capture</text>
+        </svg>
+        <figcaption>
+          The left side is already built and runs on all four platforms. The
+          right side is an experiment. Features on the right side can stay
+          Mac-only for a long time.
+        </figcaption>
+      </figure>
+
+      <p>
+        Beyond the basics, I want to find out how much Apple's own frameworks can do
+        for me. Object Capture, for example, makes 3D models from photos. I
+        know the cost from <a href="/blogs/what-imageio-gives-you-free.html">porting
+        away from Image I/O</a>: these frameworks do a lot of work for free,
+        but you cannot take it to other platforms. So these features will
+        probably stay Mac-only, possibly permanently. I would rather have a
+        feature on the Mac than not at all.
+      </p>
+
+      <h2>Getting your photos out</h2>
+      <p>
+        LightPhotos is not your photo library, so it must be easy to send your
+        photos to one. I plan to support Immich, a photo library that you can
+        host yourself, and export to cloud storage in general. Export must
+        work the same for a server on your home network and one on the
+        internet, not as two features with one half complete.
+      </p>
+
+      <h2>Everything from the keyboard</h2>
+      <p>
+        I want every feature, not only the common ones, to work without the
+        mouse. I wanted shortcuts from a photo tool from the start, and they
+        are why Luminar did not fit how I work. Also, when I
+        <a href="/blogs/why-rust.html">chose to build everything in Rust</a>, I
+        gave up the accessibility that browsers give you for free. Keyboard
+        support is the part of that problem that I can correct myself.
+      </p>
+
+      <h2>Shortcuts you can change</h2>
+      <p>
+        What I hate most about photo apps is that each one uses different
+        keys. Luminar AI, RawTherapee and Darktable each want you to learn
+        their own keys, and that is a large part of why I do not use them. So
+        every shortcut in LightPhotos will be customizable. If you already
+        know a set of keys from another app, you can use those keys here.
+      </p>
+
+      <h2>Open source, all of it</h2>
+      <p>
+        I plan to open source the full app. I do not mean a core library
+        without the interesting parts held back, or an old version released
+        later. I ask you to trust that your photos stay on your drive and that
+        nothing gets uploaded.
+        You should be able to check that yourself.
+      </p>
+
+      <h2>The next app works the same way</h2>
+      <p>
+        I want to build other Rust apps the same way. First, a native Mac app,
+        because I use a Mac and know that user well. Then I take the basic
+        features to the browser with WebAssembly, and from there to the other
+        platforms that people use.
+      </p>
+      <p>
+        Three methods came from this codebase, and I expect to use them again
+        without changes:
+      </p>
+      <ul class="lp-article-list">
+        <li>Share the basic features across all platforms, but let the other features be different.</li>
+        <li>Keep the core editing code in a module that is separate from the interface.</li>
+        <li>Weigh the cost of a platform's frameworks before I depend on them.</li>
+      </ul>
+
+      <h2>What the list is actually for</h2>
+      <p>
+        This plan has no dates. I work on LightPhotos at irregular times, so
+        quarterly deadlines would only be guesses. The list gives me a reason
+        to say no. The first version shipped because I wrote down seven things
+        and left everything else out. This list uses the same idea, but it is larger.
+      </p>
+      <p>
+        Please argue with it. If something is wrong or missing, tell me in
+        <a href="https://github.com/andrewyao/lightphotos/issues">the issue
+        tracker</a>. I will read it.
+      </p>
+      <p>
+        The current builds are on the <a href="/downloads.html">downloads
+        page</a>. To try LightPhotos without an installation, use the browser
+        version at <a href="/app.html">the web app</a>.
+      </p>
+
+      <nav class="lp-article-nav" aria-label="More posts">
+        <a class="lp-article-nav-prev" href="/blogs/measuring-a-gui-app.html">
+          <span class="lp-article-nav-dir">Back</span>
+          <span class="lp-article-nav-title">Measuring a GUI app without lying to yourself</span>
+        </a>
+        <a class="lp-article-nav-next" href="/blogs/challenges-with-webassembly.html">
+          <span class="lp-article-nav-dir">Next</span>
+          <span class="lp-article-nav-title">Challenges with WebAssembly</span>
+        </a>
+      </nav>
+    </article>
+  </main>
+  <script>
+    const fig = document.getElementById("plan-demo");
+    if (fig) {
+      const buttons = [...fig.querySelectorAll("[data-req]")];
+      const rows = [...fig.querySelectorAll("[data-row]")];
+      const verdict = fig.querySelector("[data-verdict]");
+      const svg = fig.querySelector("svg");
+      const readout = fig.querySelector(".lp-try-readout");
+      const AREAS = ["Storage", "AI", "Platforms", "Sharing", "Input", "Shortcuts", "Code"];
+      // [row, doing?, verdict, reason], all from the post text.
+      const REQUESTS = [
+        [0, false, "No", "Your photos stay as files on your drive. I will not keep a library for you."],
+        [0, true, "Maybe", "Only if the next photo opens fast enough. I do not know yet if it will."],
+        [1, false, "No", "Cloud AI sends your photo to servers that a different company controls. I will never do that."],
+        [1, true, "Maybe", "ComfyUI runs AI models on your own computer. It is an idea to try, not a promise."],
+        [2, true, "Yes", "On the Mac only. Not every feature must run on all four platforms."],
+        [3, true, "Yes", "Immich is planned. Export works the same for home and internet servers."],
+        [4, false, "No", "Every feature must be reachable from the keyboard."],
+        [5, true, "Yes", "You can change every shortcut to the keys that you already know."],
+      ];
+
+      const pick = (n) => {
+        const [row, doing, word, reason] = REQUESTS[n];
+        rows.forEach((g, i) => {
+          const [area, noCell, , yesCell] = g.children;
+          const on = i === row;
+          area.setAttribute("class", on ? "lp-fig-t" : "lp-fig-s");
+          noCell.setAttribute("class", on && !doing ? "lp-fig-bad-stroke" : "lp-fig-panel");
+          yesCell.setAttribute("class", on && doing ? "lp-fig-box-accent" : "lp-fig-panel");
+        });
+        verdict.textContent = "VERDICT: " + word.toUpperCase();
+        verdict.setAttribute("class", ("lp-fig-t " + (word === "No" ? "lp-fig-bad" : word === "Yes" ? "lp-fig-good" : "")).trim());
+        buttons.forEach((b, i) => b.setAttribute("aria-pressed", String(i === n)));
+        readout.textContent = word + ". " + reason;
+        svg.setAttribute("aria-label", `The plan on one page, with the request ${buttons[n].textContent}. ` +
+          `It matches the ${AREAS[row]} row, in the ${doing ? "Doing" : "Not doing"} column. The verdict is ${word.toLowerCase()}.`);
+      };
+
+      buttons.forEach((b, i) => b.addEventListener("click", () => pick(i)));
+    }
+  </script>
+</Base>

@@ -1,0 +1,112 @@
+<article class="lp-article">
+  <header class="lp-article-head">
+    <h1>Confidentialité</h1>
+    <p class="lp-article-dek">
+      Ce site compte les visites et l’usage de l’app dans le navigateur.
+      Voici exactement où se situe cette limite, en termes simples.
+    </p>
+  </header>
+
+  <h2>En bref</h2>
+  <p>
+    Ce site n’utilise ni cookies, ni comptes, ni réseaux publicitaires, ni
+    service d’analyse tiers. Les événements sont envoyés à un point d’accès
+    propre au site, hébergé par Cloudflare, et stockés dans notre base de
+    données Cloudflare D1. Nous n’envoyons aucun événement à des réseaux
+    publicitaires.
+  </p>
+
+  <h2>Ce que le site web enregistre</h2>
+  <p>
+    Quand vous chargez une page ici, il enregistre le chemin de la page, le
+    site d’où vous avez suivi un lien (le domaine seulement, jamais
+    l’adresse complète), votre pays, et un numéro de visiteur
+    pseudonyme quotidien décrit plus bas. Il enregistre aussi quelques
+    événements nommés&nbsp;: qu’un bouton de téléchargement a été cliqué et
+    pour quelle plateforme, et si l’app web a fini de se charger.
+  </p>
+  <p>
+    L’app dans le navigateur enregistre aussi les ouvertures de dossier, les
+    changements de note, les retouches validées (y compris l’Ajustement
+    auto), les changements de filtre, les exports réussis, et les échecs de
+    décodage ou d’export classés par catégorie. Les temps de démarrage et de
+    première photo aident à repérer les problèmes de fiabilité. Le temps de
+    première photo inclut le temps passé à choisir un dossier&nbsp;; ce n’est
+    pas un test de performance du décodage. La durée de session et le nombre
+    de photos sont donnés par tranches larges. Les messages d’erreur ne sont
+    jamais envoyés.
+  </p>
+
+  <h2>Comment les visiteurs sont comptés sans cookies</h2>
+  <p>
+    Compter les gens suppose normalement de donner à chaque navigateur un
+    identifiant durable et de le stocker. Ce site ne le fait pas. À la place,
+    le serveur prend votre adresse IP, la chaîne user-agent de votre
+    navigateur, la date du jour et un nombre aléatoire généré chaque matin,
+    et passe le tout dans une fonction de hachage à sens unique. Ce qui est
+    stocké, c’est le résultat&nbsp;: une courte chaîne pseudonyme plutôt que
+    l’adresse IP d’origine.
+  </p>
+  <p>
+    Comme la date et le nombre aléatoire du jour font partie du hachage, le
+    numéro qui vous représente change à minuit et celui de demain ne peut pas
+    être relié à celui d’aujourd’hui. Le site peut donc compter combien de
+    personnes distinctes sont venues un jour donné, et ne peut suivre
+    personne d’un jour à l’autre. Votre adresse IP et votre user-agent
+    servent à calculer le hachage, puis sont écartés. Aucun des deux n’est
+    écrit nulle part.
+  </p>
+  <p>
+    Le nombre aléatoire de chaque jour est lui-même supprimé au bout de deux
+    jours. C’est important&nbsp;: tant qu’il existe, quelqu’un qui détiendrait
+    la base de données pourrait en principe confirmer une hypothèse sur une
+    adresse IP précise en recalculant le hachage. Une fois supprimé, cela
+    devient impossible, pour tout le monde, définitivement, y compris pour
+    moi. Les événements eux-mêmes sont supprimés au bout d’un an.
+  </p>
+
+  <h2>Ce qui n’est jamais enregistré</h2>
+  <ul class="lp-check">
+    <li>Pas de cookies. Votre navigateur ne garde que votre choix de thème et, dans l’app web, vos piles de photos, et rien de tout cela n’est envoyé nulle part</li>
+    <li>Aucune adresse IP ni chaîne user-agent conservée après le hachage</li>
+    <li>Aucun suivi d’un jour à l’autre, d’un site à l’autre ou d’un appareil à l’autre</li>
+    <li>Aucun traceur publicitaire&nbsp;; le stockage des événements est hébergé par Cloudflare, et les données ne sont pas vendues</li>
+    <li>Rien sur vos photos&nbsp;: ni noms de fichier, ni dossiers, ni chemins, ni données d’image, jamais</li>
+  </ul>
+
+  <h2>L’app de bureau n’effectue aucune requête réseau</h2>
+  <p>
+    Cette page concerne le site web. L’app à télécharger est une autre
+    affaire, et la réponse y est plus simple&nbsp;: elle ne communique pas du
+    tout avec le réseau. Le code qui signale quoi que ce soit n’est compilé
+    que dans la version pour navigateur. Dans la version de bureau, il
+    n’existe pas&nbsp;: il n’est pas désactivé par un réglage auquel vous
+    devriez faire confiance, il est absent du binaire.
+  </p>
+  <p>
+    L’app web, accessible à <a href="/app.html">/app.html</a>, signale bien
+    les fonctions utilisées&nbsp;: qu’un dossier a été ouvert, qu’une photo a
+    été notée, qu’un export a eu lieu. Ce ne sont que des décomptes et des
+    catégories. Le nombre de photos d’un dossier est enregistré sous forme de
+    tranche approximative plutôt que de chiffre exact, et jamais le dossier,
+    jamais les noms de fichier, jamais les images. Vos photos sont lues par
+    le navigateur sur votre propre machine et ne sont envoyées nulle part,
+    dans l’une comme dans l’autre version.
+  </p>
+
+  <h2>Refuser le suivi</h2>
+  <p>
+    Si votre navigateur envoie Do Not Track ou Global Privacy Control, ce
+    site n’enregistre rien du tout, pas même une consultation de page. Pas de
+    bannière, pas de préférence à régler ici. Tout bloqueur de contenu qui
+    empêche la requête fonctionne aussi, et rien ne se casse sur le site
+    quand il le fait.
+  </p>
+
+  <h2>Questions</h2>
+  <p>
+    Si quelque chose ici n’est pas clair ou vous semble erroné, ouvrez un
+    ticket sur
+    <a href="https://github.com/andrewyao/lightphotos-app/issues">GitHub</a>.
+  </p>
+</article>

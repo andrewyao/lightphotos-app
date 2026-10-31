@@ -1,0 +1,142 @@
+---
+// Every row here is a string the app's own help dialog (?) shows, so this
+// page can be checked against the build rather than against memory. Rows are
+// grouped by what you are doing, not by which panel owns the key.
+const groups = [
+  {
+    title: "Se déplacer",
+    rows: [
+      { key: "Cmd+O", does: "Ajouter un dossier et l’ouvrir" },
+      { key: "Enter / Space / E", does: "Ouvrir la photo sélectionnée (dans la bibliothèque)" },
+      { key: "Esc / G", does: "Retour à la bibliothèque depuis l’éditeur" },
+      { key: "← / →", does: "Photo précédente / suivante dans l’éditeur ; déplacer la sélection dans la grille" },
+      { key: "Page Up / Page Down", does: "Photo précédente / suivante (dans l’éditeur)" },
+      { key: "D", does: "Ajuster la photo sélectionnée" },
+      { key: "C", does: "Comparer de 2 à 6 photos sélectionnées, ou la pile sélectionnée" },
+      { key: "I", does: "Afficher ou masquer les infos de la photo dans le panneau de droite" },
+      { key: "F6 / Shift+F6", does: "Zone suivante, ou commande suivante dans une zone ouverte" },
+      { key: "Tab / Shift+Tab", does: "Passer d’un élément à l’autre dans la zone active" },
+      { key: "Cmd+,", does: "Réglages : thème et langue" },
+      { key: "Alt+= / Alt+-", does: "Texte plus grand / plus petit" },
+      { key: "?", does: "Afficher ou masquer la liste des raccourcis dans l’app" },
+    ],
+  },
+  {
+    title: "Noter, marquer et étiqueter",
+    rows: [
+      { key: "0 – 5", does: "Définir la note en étoiles (0 l’efface)" },
+      { key: "Shift+0 – 5", does: "Définir la note et passer à la photo suivante" },
+      { key: "P / X / U", does: "Retenir / Rejeter / Retirer le drapeau" },
+      { key: "`", does: "Retenir, ou retirer le drapeau d’une photo retenue" },
+      { key: "6 / 7 / 8 / 9", does: "Étiquette rouge / jaune / verte / bleue ; la même touche de nouveau l’efface" },
+    ],
+  },
+  {
+    title: "Sélectionner et mettre en pile",
+    rows: [
+      { key: "Cmd+A", does: "Tout sélectionner dans le dossier actuel (dans la bibliothèque)" },
+      { key: "Cmd+D", does: "Tout désélectionner" },
+      { key: "Shift+Click", does: "Sélectionner une plage dans la grille" },
+      { key: "Cmd+Click", does: "Ajouter ou retirer une photo de la sélection" },
+      { key: "Shift+Arrows", does: "Étendre la sélection avec les touches fléchées" },
+      { key: "Cmd+G", does: "Mettre la sélection en pile" },
+      { key: "Cmd+Shift+G", does: "Dissocier les piles sélectionnées" },
+      { key: "Shift+Delete", does: "Supprimer les piles sélectionnées, ou les dissocier en gardant les photos" },
+    ],
+  },
+  {
+    title: "Zoom et déplacement",
+    rows: [
+      { key: "Space / Z", does: "Changer de zoom : ajusté, 2x ajusté, 100 %" },
+      { key: "Cmd++ / Cmd+= / Cmd+-", does: "Zoom avant / arrière par pas de 20 %" },
+      { key: "↑ / ↓", does: "Zoom avant / arrière par pas de 10 %" },
+      { key: "Scroll", does: "Zoomer sous le pointeur" },
+      { key: "Drag / Space+Drag", does: "Déplacer" },
+      { key: "Shift+Scroll", does: "Déplacer latéralement" },
+      { key: "Alt+Scroll", does: "Déplacer vers le haut et le bas" },
+    ],
+  },
+  {
+    title: "Développer et exporter",
+    rows: [
+      { key: "Cmd+Z", does: "Annuler le dernier changement de développement" },
+      { key: "Cmd+[ / Cmd+]", does: "Faire pivoter de -90 / +90 degrés" },
+      { key: "R", does: "Recadrer ; Enter ou R l’applique, Esc l’annule" },
+      { key: "Y", does: "Comparer avant / après (dans l’éditeur)" },
+      { key: "M", does: "Masque dégradé linéaire" },
+      { key: "Shift+M", does: "Masque dégradé radial" },
+      { key: "Cmd+U", does: "Ajuster automatiquement la sélection, chaque photo d’après son propre histogramme" },
+      { key: "V", does: "Noir et blanc, ou retour à la couleur, pour la sélection" },
+      { key: "Cmd+Shift+C", does: "Copier l’ajustement de cette photo" },
+      { key: "Cmd+Shift+V", does: "Coller l’ajustement sur la sélection" },
+      { key: "Cmd+Shift+N", does: "Enregistrer les réglages de cette photo comme nouveau préréglage" },
+      { key: "Cmd+Shift+E", does: "Ouvrir ou fermer le formulaire d’export" },
+      { key: "Double-click a slider", does: "Réinitialiser le curseur" },
+      { key: "Delete", does: "Placer dans la Corbeille (dans le navigateur : supprimer définitivement, sans annulation possible)" },
+    ],
+  },
+  {
+    title: "Masque au pinceau",
+    rows: [
+      { key: "K", does: "Pinceau activé / désactivé ; peint le masque au pinceau choisi" },
+      { key: "Drag", does: "Peindre ; chaque trait est une étape d’annulation" },
+      { key: "Alt+Drag", does: "Effacer" },
+      { key: "[ / ]", does: "Taille du pinceau (ou molette)" },
+      { key: "Shift+[ / ]", does: "Contour progressif du pinceau (ou Shift+molette)" },
+      { key: "Esc", does: "Poser le pinceau" },
+    ],
+  },
+  {
+    title: "Retouche",
+    rows: [
+      { key: "Q", does: "Retouche activée / désactivée" },
+      { key: "[ / ]", does: "Taille du pinceau (ou molette)" },
+      { key: "Shift+[ / ]", does: "Contour progressif du pinceau (ou Shift+molette)" },
+      { key: "O / Shift+O", does: "Afficher ou masquer les taches / sélectionner la tache suivante" },
+      { key: "Delete", does: "Supprimer la tache sélectionnée" },
+      { key: "Cmd+Z", does: "Annuler la dernière tache" },
+      { key: "Esc", does: "Quitter la retouche" },
+    ],
+  },
+  {
+    title: "Choisir la représentante",
+    rows: [
+      { key: "Click or drag the photo", does: "Déplacer la zone de mise au point" },
+      { key: "Shift+Scroll on the area", does: "Redimensionner la zone de mise au point" },
+      { key: "Drag a tile", does: "Déplacer la zone de mise au point" },
+      { key: "Cmd+Click / Shift+Click a tile", does: "Choisir d’autres vignettes" },
+    ],
+  },
+];
+---
+<p>
+  LightPhotos est conçu pour se piloter au clavier&nbsp;: noter un dossier
+  sans toucher la souris, parcourir une séance en taille réelle, et appliquer
+  le rendu d’une photo à toutes les autres. La liste ci-dessous reprend tout
+  ce que l’app écoute, et <kbd>?</kbd> affiche la même liste dans l’app, sur
+  votre propre machine.
+</p>
+
+{groups.map((g) => (
+  <section>
+    <h2>{g.title}</h2>
+    <div class="lp-compare-wrap">
+      <table class="lp-compare">
+        <thead>
+          <tr>
+            <th scope="col">Touche</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {g.rows.map((r) => (
+            <tr>
+              <td><kbd>{r.key}</kbd></td>
+              <td>{r.does}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
+))}

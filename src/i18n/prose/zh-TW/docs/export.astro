@@ -1,0 +1,76 @@
+<p>
+  在網格中選取一張或一百張照片——或者只開啟一張，單獨
+  匯出——然後按一下<strong>匯出</strong>。匯出表單有四個部分，預設值
+  （完整解析度的 JPEG，存到 <code>Exports</code> 資料夾）不需要任何變更。準備好時，按一下底部的
+  <strong>匯出</strong>，
+  LightPhotos 就會把你的調整烘焙成全新的檔案。
+</p>
+
+<h2>匯出表單</h2>
+<ul class="lp-article-list">
+  <li>
+    <strong>目的地。</strong>選擇<strong>資料夾</strong>或
+    <a href="/docs/immich.html">Immich</a>。在
+    <strong>位置</strong>下，<strong>Exports 子資料夾</strong>會寫入
+    你所開啟資料夾內的 <code>Exports</code> 資料夾，
+    第一次匯出時自動建立。在桌面版中，
+    <strong>其他資料夾</strong>可將檔案送到任何其他地方。
+  </li>
+  <li>
+    <strong>檔案。</strong><strong>檔名</strong>是一個範本：
+    <code>{"{name}"}</code> 是照片自己的名稱，
+    <code>{"{seq}"}</code> 是它在這次匯出中的序號，所以
+    <code>{"trip-{seq}"}</code> 會依序為檔案編號。你輸入時，表單會顯示
+    範例檔名。
+    <strong>格式</strong>可選 JPEG、PNG、TIFF（16 位元）或 WebP
+    （無損），Windows 和 Linux 版以及較新的
+    macOS 還有 AVIF。對 JPEG 而言，<strong>檔案大小</strong>會限制每個檔案的上限，
+    適用於限制上傳大小的網站。
+  </li>
+  <li>
+    <strong>輸出。</strong><strong>尺寸</strong>可選
+    <strong>完整解析度</strong>或以像素指定的長邊。
+    <strong>銳利化用於</strong>會在縮放後加入銳利化，依
+    螢幕、霧面紙或亮面紙調整，強度可選低、標準或高。
+    它預設為關閉，並疊加在銳利化滑桿之上。
+  </li>
+  <li>
+    <strong>中繼資料。</strong>拍攝日期、相機、鏡頭和曝光資訊
+    一律會寫入檔案，說明文字和註解則絕不寫入。<strong>位置 (GPS)</strong> 和
+    <strong>相機序號和擁有者</strong>預設為關閉，除非你
+    勾選它們。輸入一行<strong>版權</strong>資訊，就會寫入每個匯出檔案；
+    留空則保留每張照片自己的版權資訊。
+  </li>
+</ul>
+
+<h2>匯出會做什麼、不會做什麼</h2>
+<ul class="lp-article-list">
+  <li>
+    <strong>原始檔案維持原狀。</strong>你的編輯內容
+    也會留在原處，所以你明天可以調整滑桿再匯出一次
+    ——匯出絕不會消耗或覆寫任何東西。
+  </li>
+  <li>
+    <strong>匯出的是一般檔案。</strong>用任何軟體開啟、
+    附加到電子郵件、交給沖印店都可以。它們完全
+    不需要 LightPhotos 繼續存在。
+  </li>
+  <li>
+    <strong>不會上傳任何東西。</strong>解碼、調整和
+    編碼都在你自己的電腦上完成，而且只會寫入你
+    選取的檔案——資料夾的其餘部分不受影響。
+  </li>
+  <li>
+    <strong>刪除則不同。</strong><strong>刪除</strong>
+    會移除照片本身：桌面版會將它移到垃圾桶，
+    瀏覽器版則直接從磁碟刪除，無法還原。匯出才是
+    安全地產生新檔案的方法。
+  </li>
+</ul>
+
+<p>
+  這就是整個流程。如果你還沒讀過前面的步驟，請從
+  <a href="/docs/open-the-app.html">開啟應用程式</a>開始；
+  <a href="/docs/shortcuts.html">鍵盤快速鍵</a>會讓
+  第二次拍攝的處理速度比第一次快一倍。
+</p>

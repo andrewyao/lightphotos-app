@@ -1,0 +1,141 @@
+---
+// Every row here is a string the app's own help dialog (?) shows, so this
+// page can be checked against the build rather than against memory. Rows are
+// grouped by what you are doing, not by which panel owns the key.
+const groups = [
+  {
+    title: "移動",
+    rows: [
+      { key: "Cmd+O", does: "フォルダを追加して開く" },
+      { key: "Enter / Space / E", does: "選択した写真を開く（ライブラリ）" },
+      { key: "Esc / G", does: "編集画面からライブラリに戻る" },
+      { key: "← / →", does: "前 / 次の写真（編集画面）。グリッドでは選択を移動" },
+      { key: "Page Up / Page Down", does: "前 / 次の写真（編集画面）" },
+      { key: "D", does: "選択した写真を調整" },
+      { key: "C", does: "選択した 2 枚から 6 枚の写真、または選択したスタックを比較" },
+      { key: "I", does: "右パネルの写真情報を表示または非表示" },
+      { key: "F6 / Shift+F6", does: "次の領域へ。入った領域では次のコントロールへ" },
+      { key: "Tab / Shift+Tab", does: "フォーカスした領域内の項目間を移動" },
+      { key: "Cmd+,", does: "設定：テーマと言語" },
+      { key: "Alt+= / Alt+-", does: "文字を大きく / 小さく" },
+      { key: "?", does: "アプリ内のショートカット一覧を表示または非表示" },
+    ],
+  },
+  {
+    title: "レーティング、フラグ、ラベル",
+    rows: [
+      { key: "0 – 5", does: "スターのレーティングを設定（0 で消去）" },
+      { key: "Shift+0 – 5", does: "レーティングを設定して次の写真へ" },
+      { key: "P / X / U", does: "採用 / 除外 / フラグを外す" },
+      { key: "`", does: "採用にする。採用済みの写真ではフラグを外す" },
+      { key: "6 / 7 / 8 / 9", does: "レッド / イエロー / グリーン / ブルーのラベル。もう一度押すと解除" },
+    ],
+  },
+  {
+    title: "選択とスタック",
+    rows: [
+      { key: "Cmd+A", does: "現在のフォルダ内をすべて選択（ライブラリ）" },
+      { key: "Cmd+D", does: "すべての選択を解除" },
+      { key: "Shift+Click", does: "グリッドで範囲を選択" },
+      { key: "Cmd+Click", does: "1 枚ずつ選択に追加または除外" },
+      { key: "Shift+Arrows", does: "矢印キーで選択範囲を拡張" },
+      { key: "Cmd+G", does: "選択した写真をスタックにまとめる" },
+      { key: "Cmd+Shift+G", does: "選択したスタックを解除" },
+      { key: "Shift+Delete", does: "選択したスタックを削除、またはスタックを解除して写真を残す" },
+    ],
+  },
+  {
+    title: "ズームとパン",
+    rows: [
+      { key: "Space / Z", does: "ズームを切り替え：全体表示、全体の 2 倍、100%" },
+      { key: "Cmd++ / Cmd+= / Cmd+-", does: "拡大 / 縮小（20% ずつ）" },
+      { key: "↑ / ↓", does: "拡大 / 縮小（10% ずつ）" },
+      { key: "Scroll", does: "ポインタの位置でズーム" },
+      { key: "Drag / Space+Drag", does: "パン" },
+      { key: "Shift+Scroll", does: "左右にパン" },
+      { key: "Alt+Scroll", does: "上下にパン" },
+    ],
+  },
+  {
+    title: "現像と書き出し",
+    rows: [
+      { key: "Cmd+Z", does: "直前の現像の変更を取り消す" },
+      { key: "Cmd+[ / Cmd+]", does: "画像を左 / 右に 90 度回転" },
+      { key: "R", does: "切り抜き。Enter または R で適用、Esc でキャンセル" },
+      { key: "Y", does: "ビフォー / アフターの比較（編集画面）" },
+      { key: "M", does: "リニアグラデーションマスク" },
+      { key: "Shift+M", does: "円形グラデーションマスク" },
+      { key: "Cmd+U", does: "選択した写真を自動補正（各写真のヒストグラムから）" },
+      { key: "V", does: "選択した写真を白黒にする、またはカラーに戻す" },
+      { key: "Cmd+Shift+C", does: "この写真の調整をコピー" },
+      { key: "Cmd+Shift+V", does: "選択した写真に調整をペースト" },
+      { key: "Cmd+Shift+N", does: "この写真の設定を新しいプリセットとして保存" },
+      { key: "Cmd+Shift+E", does: "書き出しフォームを開く、または閉じる" },
+      { key: "Double-click a slider", does: "スライダーをリセット" },
+      { key: "Delete", does: "ゴミ箱に入れる（ブラウザ版では完全に削除。元に戻せません）" },
+    ],
+  },
+  {
+    title: "ブラシマスク",
+    rows: [
+      { key: "K", does: "ブラシのオン / オフ。選択中のブラシマスクに描画" },
+      { key: "Drag", does: "描画。1 ストロークが 1 回の取り消し単位" },
+      { key: "Alt+Drag", does: "消去" },
+      { key: "[ / ]", does: "ブラシのサイズ（またはスクロール）" },
+      { key: "Shift+[ / ]", does: "ブラシのぼかし（または Shift+スクロール）" },
+      { key: "Esc", does: "ブラシをオフにする" },
+    ],
+  },
+  {
+    title: "スポット修正",
+    rows: [
+      { key: "Q", does: "スポット修正のオン / オフ" },
+      { key: "[ / ]", does: "ブラシのサイズ（またはスクロール）" },
+      { key: "Shift+[ / ]", does: "ブラシのぼかし（または Shift+スクロール）" },
+      { key: "O / Shift+O", does: "スポットを表示または非表示 / 次のスポットを選択" },
+      { key: "Delete", does: "選択したスポットを削除" },
+      { key: "Cmd+Z", does: "直前のスポットを取り消す" },
+      { key: "Esc", does: "スポット修正を終了" },
+    ],
+  },
+  {
+    title: "代表写真の選択",
+    rows: [
+      { key: "Click or drag the photo", does: "フォーカス領域を移動" },
+      { key: "Shift+Scroll on the area", does: "フォーカス領域のサイズを変更" },
+      { key: "Drag a tile", does: "フォーカス領域を移動" },
+      { key: "Cmd+Click / Shift+Click a tile", does: "さらにタイルを選択" },
+    ],
+  },
+];
+---
+<p>
+  LightPhotosは、キーボードで操作できるように作られています。マウスに触れずにフォルダのレーティングを済ませ、
+  撮影したものを等倍で次々に見ていき、1枚の写真のルックをほかの写真に適用できます。
+  下の一覧は、アプリが受け付けるすべてのキーです。アプリ内で<kbd>?</kbd>を押すと、
+  お使いのマシンでの表記で同じ一覧が表示されます。
+</p>
+
+{groups.map((g) => (
+  <section>
+    <h2>{g.title}</h2>
+    <div class="lp-compare-wrap">
+      <table class="lp-compare">
+        <thead>
+          <tr>
+            <th scope="col">キー</th>
+            <th scope="col">操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          {g.rows.map((r) => (
+            <tr>
+              <td><kbd>{r.key}</kbd></td>
+              <td>{r.does}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
+))}

@@ -1,10 +1,24 @@
 # /docs has no index of its own; the sidebar on each topic is the index. A
 # server redirect sends visitors straight to the first topic instead of
-# painting src/pages/docs.astro's meta-refresh page first. 302, not 301, so
+# painting src/pages/[...lang]/docs.astro's meta-refresh page first. 302, not 301, so
 # browsers don't cache it if the first topic changes. Targets are extensionless
 # because Pages 308s /x.html to /x anyway.
 /docs       /docs/open-the-app  302
 /docs.html  /docs/open-the-app  302
+
+# The same, one pair per language (prefixes come from src/i18n/locales.ts).
+/zh-cn/docs       /zh-cn/docs/open-the-app  302
+/zh-cn/docs.html  /zh-cn/docs/open-the-app  302
+/zh-tw/docs       /zh-tw/docs/open-the-app  302
+/zh-tw/docs.html  /zh-tw/docs/open-the-app  302
+/de/docs          /de/docs/open-the-app     302
+/de/docs.html     /de/docs/open-the-app     302
+/fr/docs          /fr/docs/open-the-app     302
+/fr/docs.html     /fr/docs/open-the-app     302
+/ja/docs          /ja/docs/open-the-app     302
+/ja/docs.html     /ja/docs/open-the-app     302
+/ko/docs          /ko/docs/open-the-app     302
+/ko/docs.html     /ko/docs/open-the-app     302
 
 # The Lightroom and Linux comparisons moved under /blogs. 301 so search
 # engines carry the old pages' ranking over to the new URLs.
