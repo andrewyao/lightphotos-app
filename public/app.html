@@ -57,7 +57,7 @@ if (!navigator.gpu && window.lpTrack) {
 
 const bindings = await import('/app/lightphotos-89d809f144d8750a.js');
 const init = bindings.default;
-const wasm = await init({ module_or_path: '/app/lightphotos-92bc325949742617_bg.wasm' });
+const wasm = await init({ module_or_path: '/app/lightphotos-ea42f11ca61891ee_bg.wasm' });
 
 window.wasmBindings = bindings;
 
@@ -78,7 +78,7 @@ dispatchEvent(new CustomEvent("TrunkApplicationStarted", {detail: {wasm}}));
        spawn_worker doc comment), so these two don't need updating on
        redeploy the way the two hashed URLs above do. -->
   <link rel="modulepreload" href="/app/lightphotos-89d809f144d8750a.js" crossorigin="anonymous">
-  <link rel="preload" href="/app/lightphotos-92bc325949742617_bg.wasm" crossorigin="anonymous" as="fetch" type="application/wasm">
+  <link rel="preload" href="/app/lightphotos-ea42f11ca61891ee_bg.wasm" crossorigin="anonymous" as="fetch" type="application/wasm">
 </head>
 <body>
   <!-- winit inserts its own <canvas> here at startup (web_canvas.rs) — the
