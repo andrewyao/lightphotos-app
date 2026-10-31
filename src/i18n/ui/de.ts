@@ -165,7 +165,6 @@ export default {
     // The heading is drawn in two weights; the split can fall anywhere in the word.
     headingLead: "Down",
     headingLight: "loads",
-    note: "Der Windows-Build ist noch nicht codesigniert, daher fragt SmartScreen einmal nach, ob Sie ihn wirklich öffnen wollten. Das dauert etwa zehn Sekunden, und die Schritte unter dem Build führen Sie hindurch.",
     gridAria: "Desktop-Builds",
     builds: {
       "macos-arm64": {

@@ -166,7 +166,6 @@ export default {
     // The heading is drawn in two weights; the split can fall anywhere in the word.
     headingLead: "下",
     headingLight: "载",
-    note: "Windows 版尚未经过代码签名，所以 SmartScreen 会询问一次你是否真的要打开它。大约十秒就能完成，构建下方的步骤会带你走一遍。",
     gridAria: "桌面版构建",
     builds: {
       "macos-arm64": {

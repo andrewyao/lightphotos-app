@@ -1163,20 +1163,11 @@ a.lp-split-card:focus-visible {
 }
 
 /* --- downloads page: build grid, install steps --- */
-.lp-dl-note {
-  max-width: 34rem;
-  margin: 3.5rem auto 0;
-  text-align: center;
-  color: var(--lp-muted);
-  font-size: 0.95rem;
-  line-height: 1.6;
-}
-
 .lp-dl-grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: 1.2rem;
-  margin-top: 1.6rem;
+  margin-top: 3.5rem;
 }
 
 /* Four builds, so hold a 2x2 block rather than letting auto-fit strand one

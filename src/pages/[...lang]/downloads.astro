@@ -146,8 +146,6 @@ const osCss = [...new Set(builds.map((b) => b.os))]
       <h1 class="lp-wordmark">{t.headingLead}<span class="lp-light">{t.headingLight}</span></h1>
     </section>
 
-    <p class="lp-dl-note">{t.note}</p>
-
     <section class="lp-dl-grid" aria-label={t.gridAria}>
       {builds.map((b) => {
         const text = t.builds[b.id as keyof typeof t.builds];

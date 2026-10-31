@@ -164,7 +164,6 @@ export default {
     // The heading is drawn in two weights; the split can fall anywhere in the word.
     headingLead: "다운",
     headingLight: "로드",
-    note: "Windows 빌드는 아직 코드 서명이 되어 있지 않아서, SmartScreen이 정말 열 것인지 한 번 물어봐요. 10초 정도면 끝나고, 빌드 아래 안내를 따라 하면 돼요.",
     gridAria: "데스크톱 빌드",
     builds: {
       "macos-arm64": {

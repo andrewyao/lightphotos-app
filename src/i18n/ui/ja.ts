@@ -165,7 +165,6 @@ export default {
     // The heading is drawn in two weights; the split can fall anywhere in the word.
     headingLead: "ダウン",
     headingLight: "ロード",
-    note: "Windows版はまだコード署名されていないため、SmartScreenが一度だけ、本当に開いてよいか確認します。所要時間は10秒ほどで、手順はビルドの下に記載しています。",
     gridAria: "デスクトップ版のビルド",
     builds: {
       "macos-arm64": {

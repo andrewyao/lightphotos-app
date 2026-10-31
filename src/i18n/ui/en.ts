@@ -168,7 +168,6 @@ export const en = {
     // The heading is drawn in two weights; the split can fall anywhere in the word.
     headingLead: "Down",
     headingLight: "loads",
-    note: "The Windows build is not code-signed yet, so SmartScreen asks once whether you really meant to open it. It takes about ten seconds, and the steps under the build walk you through it.",
     gridAria: "Desktop builds",
     builds: {
       "macos-arm64": {

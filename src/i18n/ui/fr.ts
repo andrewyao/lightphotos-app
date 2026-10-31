@@ -165,7 +165,6 @@ export default {
     // The heading is drawn in two weights; the split can fall anywhere in the word.
     headingLead: "Télé",
     headingLight: "chargements",
-    note: "La version Windows n’est pas encore signée numériquement, donc SmartScreen demande une fois si vous voulez vraiment l’ouvrir. Cela prend une dizaine de secondes, et les étapes sous la version vous guident.",
     gridAria: "Versions de bureau",
     builds: {
       "macos-arm64": {
