@@ -7,6 +7,7 @@ import {
   localePath,
   localizeLinks,
   locales,
+  webAppHref,
   type Locale,
 } from "../i18n/locales";
 import { fill, ui } from "../i18n/ui";
@@ -96,7 +97,7 @@ if (typeof WebAssembly !== 'object' || !navigator.gpu || typeof window.showDirec
     <div class="lp-header-right">
     <nav aria-label={t.nav.main}>
       <a href={href("/downloads.html")} class={active === "downloads" ? "lp-active" : undefined}><i class="ph ph-download-simple lp-nav-icon" aria-hidden="true"></i><span class="lp-nav-label">{t.nav.downloads}</span></a>
-      <a href="/app.html" target="_blank" rel="noopener" data-needs-webapp><i class="ph ph-app-window lp-nav-icon" aria-hidden="true"></i><span class="lp-nav-label">{t.nav.openInBrowser}<i class="ph ph-arrow-square-out lp-ext-icon" aria-hidden="true"></i></span></a>
+      <a href={webAppHref(lang)} target="_blank" rel="noopener" data-needs-webapp><i class="ph ph-app-window lp-nav-icon" aria-hidden="true"></i><span class="lp-nav-label">{t.nav.openInBrowser}<i class="ph ph-arrow-square-out lp-ext-icon" aria-hidden="true"></i></span></a>
       <a href={href("/blogs.html")} class={active === "blogs" ? "lp-active" : undefined}><i class="ph ph-article lp-nav-icon" aria-hidden="true"></i><span class="lp-nav-label">{t.nav.blogs}</span></a>
       <a href={href("/docs.html")} class={active === "docs" ? "lp-active" : undefined}><i class="ph ph-question lp-nav-icon" aria-hidden="true"></i><span class="lp-nav-label">{t.nav.help}</span></a>
       {SHOW_DISCORD && <a class="lp-nav-glyph" href={DISCORD_INVITE} target="_blank" rel="noopener" aria-label="Join the LightPhotos Discord" title="Discord"><i class="ph ph-discord-logo" aria-hidden="true"></i></a>}

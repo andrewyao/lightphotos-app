@@ -44,14 +44,25 @@ export function localePath(locale: Locale, path: string): string {
   return path === "/" ? prefix : `${prefix}${path}`;
 }
 
+// The web app's URL for a page in `locale`. The app reads `?lang=` and opens in
+// that language; English adds nothing, so the app falls back to the browser's
+// own language.
+export function webAppHref(locale: Locale): string {
+  return locale === defaultLocale ? "/app.html" : `/app.html?lang=${localeInfo[locale].htmlLang}`;
+}
+
 // Rewrites site-internal links in rendered prose so translators can write the
 // same hrefs the English pages use. Only pages that exist in every language are
-// touched; the web app and external links stay as written.
+// touched; links to the web app get the page's `?lang=`, and external links stay
+// as written.
 const INTERNAL_LINK = /href="(\/(?:docs\/[a-z0-9-]+|docs|blogs\/[a-z0-9-]+|blogs|privacy|terms|downloads)\.html)"/g;
+const WEB_APP_LINK = /href="\/app\.html"/g;
 
 export function localizeLinks(html: string, locale: Locale): string {
   if (locale === defaultLocale) return html;
-  return html.replace(INTERNAL_LINK, (_m, path: string) => `href="${localePath(locale, path)}"`);
+  return html
+    .replace(INTERNAL_LINK, (_m, path: string) => `href="${localePath(locale, path)}"`)
+    .replace(WEB_APP_LINK, `href="${webAppHref(locale)}"`);
 }
 
 // Absolute URL as the site serves it: Cloudflare Pages 308s /x.html to /x, so
