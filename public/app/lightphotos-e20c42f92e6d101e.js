@@ -2894,7 +2894,7 @@ function __wbg_get_imports(memory) {
             getDataViewMemory0().setInt32(arg0 + 4 * 1, len1, true);
             getDataViewMemory0().setInt32(arg0 + 4 * 0, ptr1, true);
         },
-        memory: memory || new WebAssembly.Memory({initial:92,maximum:65536,shared:true}),
+        memory: memory || new WebAssembly.Memory({initial:93,maximum:65536,shared:true}),
     };
     return {
         __proto__: null,
