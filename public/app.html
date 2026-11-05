@@ -57,11 +57,7 @@ if (!navigator.gpu && window.lpTrack) {
 
 const bindings = await import('/app/lightphotos-e20c42f92e6d101e.js');
 const init = bindings.default;
-<<<<<<< HEAD
 const wasm = await init({ module_or_path: '/app/lightphotos-366a222825d9e78e_bg.wasm' });
-=======
-const wasm = await init({ module_or_path: '/app/lightphotos-366a222825d9e78e_bg.wasm' });
->>>>>>> f308864 (chore: Another release.)
 
 window.wasmBindings = bindings;
 
@@ -81,13 +77,8 @@ dispatchEvent(new CustomEvent("TrunkApplicationStarted", {detail: {wasm}}));
        stable, non-hashed filenames by design (see web_worker_pool.rs's
        spawn_worker doc comment), so these two don't need updating on
        redeploy the way the two hashed URLs above do. -->
-<<<<<<< HEAD
   <link rel="modulepreload" href="/app/lightphotos-e20c42f92e6d101e.js" crossorigin="anonymous">
   <link rel="preload" href="/app/lightphotos-366a222825d9e78e_bg.wasm" crossorigin="anonymous" as="fetch" type="application/wasm">
-=======
-  <link rel="modulepreload" href="/app/lightphotos-e20c42f92e6d101e.js" crossorigin="anonymous">
-  <link rel="preload" href="/app/lightphotos-366a222825d9e78e_bg.wasm" crossorigin="anonymous" as="fetch" type="application/wasm">
->>>>>>> f308864 (chore: Another release.)
 </head>
 <body>
   <!-- winit inserts its own <canvas> here at startup (web_canvas.rs) — the
