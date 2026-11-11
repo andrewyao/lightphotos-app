@@ -216,6 +216,14 @@ export default {
     minRead: "閱讀約需 {n} 分鐘",
     englishOnly: "文章本身以英文撰寫。",
     posts: {
+      "comfyui-for-local-ai": {
+        title: "用 ComfyUI 實現本機 AI",
+        blurb: "不靠雲端的生成式填色。塗抹想去掉的地方，你電腦上的 ComfyUI 就會把它補上。填色仍是一般的編輯，可以復原、調色和匯出。",
+      },
+      "adding-gps-to-my-full-frame-camera": {
+        title: "為我的全片幅相機加上 GPS",
+        blurb: "我的 Sony A7II 沒有 GPS。手機記錄軌跡並測量相機時鐘，LightPhotos 在不更動 RAW 檔的情況下把每張照片放上地圖。",
+      },
       "three-ways-to-cull-a-shoot-with-mcp": {
         title: "讓 AI 幫你篩選一場拍攝的三種方法",
         blurb: "篩選是最無聊的部分，所以我用三種方式交給 AI：應用程式的分數、本機模型和 Claude Code，並說明各自的優缺點與試用方式。",

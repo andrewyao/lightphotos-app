@@ -1,0 +1,210 @@
+---
+import Base from "../../../layouts/Base.astro";
+import { languagePaths, type LanguageProps } from "../../../i18n/routes";
+
+export const getStaticPaths = languagePaths;
+const { lang } = Astro.props as LanguageProps;
+---
+<Base
+  title="ComfyUI for local AI — LightPhotos Blog"
+  desc="LightPhotos now has generative fill: paint over something and a ComfyUI server on your own computer fills it in. No cloud, no account, and no model inside the app."
+  active="blogs"
+  lang={lang}
+  path="/blogs/comfyui-for-local-ai.html"
+  translated={false}
+>
+  <main class="lp-page">
+    <article class="lp-article">
+      <header class="lp-article-head">
+        <p class="lp-article-meta"><a href="/blogs.html">Blogs</a> &middot; <time datetime="2026-11-11">November 11, 2026</time></p>
+        <h1>ComfyUI for local AI</h1>
+        <p class="lp-article-dek">
+          I promised never to send your photos to a cloud AI. Generative fill
+          still sounded useful. ComfyUI lets me have both: the model runs on
+          your own computer, next to your photos.
+        </p>
+        <p class="lp-article-byline">Andrew Yao &middot; 4 min read</p>
+      </header>
+
+      <aside class="lp-tldr">
+        <p class="lp-tldr-label">TL;DR</p>
+        <p>
+          Paint over a power line, a stranger or a sign, and LightPhotos
+          asks ComfyUI on your computer for three ways to fill it. The model
+          is a 6.9 GB download. Nothing leaves your computer, and the fill is
+          an ordinary edit that you can undo, grade and export.
+        </p>
+      </aside>
+
+      <h2>Why ComfyUI</h2>
+      <p>
+        In <a href="/blogs/my-plan.html">my plan</a>, I said no to cloud AI
+        and maybe to ComfyUI. Cloud AI sends your photo to servers that
+        another company controls. I won&rsquo;t do that.
+      </p>
+      <p>
+        Building image generation into LightPhotos would be worse in a
+        different way. The app would grow by gigabytes, I would have to keep
+        GPU code working on four platforms, and you would be stuck with my
+        choice of model.
+      </p>
+      <p>
+        <a href="https://www.comfy.org">ComfyUI</a> already does the hard
+        part. It runs image models on Mac, Windows and Linux, on whatever
+        GPU you have, and it is free and open source. It has an HTTP API on your own computer. So
+        LightPhotos generates nothing itself. It sends the area you painted
+        to ComfyUI and keeps what comes back.
+      </p>
+
+      <h2>Setting it up</h2>
+      <ol class="lp-article-list">
+        <li>
+          Install <a href="https://www.comfy.org/download">ComfyUI
+          Desktop</a> and start it. A ComfyUI that you run from source works
+          too.
+        </li>
+        <li>
+          In LightPhotos, open Settings and turn on <strong>Enable
+          ComfyUI</strong>. It is off by default. While it is off,
+          LightPhotos never contacts a server.
+        </li>
+        <li>
+          Leave <strong>Server</strong> empty. LightPhotos tries ComfyUI
+          Desktop&rsquo;s port, 8000, and then 8188, on
+          <code>127.0.0.1</code>.
+        </li>
+        <li>
+          Check <strong>Models folder</strong>. LightPhotos reads the folder
+          that ComfyUI Desktop is set to, so it is usually filled in already.
+        </li>
+        <li>
+          Under <strong>Generative Fill</strong>, click
+          <strong>Download</strong> for each model file.
+        </li>
+      </ol>
+      <p>
+        LightPhotos ships no model weights. Generative Fill uses SDXL
+        Inpainting 0.1, as four files from Hugging Face: the UNet, two text
+        encoders and the VAE, 6.9 GB together. Each one downloads to a
+        <code>.part</code> file and is renamed into place only when its size
+        and SHA-256 match, so ComfyUI never sees half a model. If the
+        download stops, it continues where it stopped.
+      </p>
+
+      <h2>Using it</h2>
+      <p>
+        Open a photo, go to Touch Up and click <strong>+ Brush</strong>.
+        Paint over what you want gone and let go. That&rsquo;s it.
+      </p>
+      <ul class="lp-article-list">
+        <li>
+          <strong>Prompt</strong> is optional. Leave it empty and the fill
+          continues the area around it. Type &ldquo;grass&rdquo; or
+          &ldquo;blue sky&rdquo; to steer it.
+        </li>
+        <li>
+          Each generation makes <strong>three variations</strong>, from three
+          seeds. Step through them with <code>&lsaquo; 1/3 &rsaquo;</code>,
+          or click <strong>Generate More</strong> for three new ones.
+        </li>
+        <li>
+          A pin marks each fill on the photo. Click it to pick it again
+          later, or to delete it.
+        </li>
+      </ul>
+      <p>
+        When something is missing, the button is greyed out, not hidden,
+        and its hover text names the first thing to fix: turn it on in
+        Settings, choose the models folder, download a file, or start
+        ComfyUI. When ComfyUI starts, the button turns on by itself within
+        five seconds.
+      </p>
+
+      <h2>A fill is just another edit</h2>
+      <p>
+        This is the part that took the most work, and the part I care about
+        most. A generated patch isn&rsquo;t pasted into your photo:
+      </p>
+      <ul class="lp-article-list">
+        <li>
+          <strong>Your photo file is never changed.</strong> Each variation
+          is saved as a small image file beside the photo. The sidecar keeps
+          about 300 bytes saying where the fill goes and which variation you
+          picked.
+        </li>
+        <li>
+          <strong>The sliders still work.</strong> The fill is blended in
+          early, before white balance, exposure and local edits. If you
+          change the exposure afterwards, the fill changes with the rest of
+          the photo.
+        </li>
+        <li>
+          <strong>It&rsquo;s everywhere the photo is.</strong> Thumbnails,
+          the Loupe and every export show the fill, and undo removes it.
+        </li>
+        <li>
+          <strong>It doesn&rsquo;t need ComfyUI anymore.</strong> Once a fill
+          is made, it draws and exports with ComfyUI closed, or on a computer
+          that never had it. The browser version of LightPhotos can&rsquo;t
+          make fills, but it shows them.
+        </li>
+      </ul>
+
+      <h2>What LightPhotos sends</h2>
+      <p>
+        Only a crop. LightPhotos cuts out the painted area with some space
+        around it, scales it to 1024 pixels or less, and sends that, with
+        the painted part made transparent. ComfyUI never gets the whole
+        photo, the file name or the metadata. ComfyUI keeps the crops it
+        receives in its own <code>input</code> folder, so empty that folder
+        if you don&rsquo;t want them kept.
+      </p>
+      <p>
+        LightPhotos asks the server only while Touch Up is open, every five
+        seconds while it is down and every 30 seconds while it is up. If
+        ComfyUI stops halfway, the error says what to do: &ldquo;ComfyUI
+        stopped responding at 127.0.0.1:8000. Start it again, then press
+        Generate.&rdquo; A generation that gets one or two variations keeps
+        them.
+      </p>
+
+      <h2>The limits</h2>
+      <ul class="lp-article-list">
+        <li>
+          <strong>Desktop only.</strong> Generating a fill needs the desktop
+          app, in v0.1.40.
+        </li>
+        <li>
+          <strong>RAW highlights.</strong> A model works on ordinary display
+          images. In a RAW file, very bright highlights inside a filled area
+          clip to white.
+        </li>
+        <li>
+          <strong>One model, for now.</strong> The workflow is built in. It
+          is plain ComfyUI workflow JSON, and LightPhotos only needs three
+          things from it: one image input, one image output, and a text node
+          titled <code>LightPhotos Prompt</code>.
+        </li>
+      </ul>
+
+      <h2>What&rsquo;s next</h2>
+      <p>
+        Generative Fill is the first row in a table of AI features. Each row
+        is a workflow and the model files it needs. Settings, the downloads
+        and the server check all read the table, so the next feature is
+        mostly a new workflow, not new plumbing.
+      </p>
+      <p>
+        The rule stays the same: AI in LightPhotos runs on your computer,
+        or not at all.
+      </p>
+
+      <nav class="lp-article-nav" aria-label="More posts">
+        <a class="lp-article-nav-prev" href="/blogs/adding-gps-to-my-full-frame-camera.html">
+          <span class="lp-article-nav-dir">Back</span>
+          <span class="lp-article-nav-title">Adding GPS to my full-frame camera</span>
+        </a>
+      </nav>
+    </article>
+  </main>
+</Base>

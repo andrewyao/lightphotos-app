@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675">
+  <rect width="1200" height="675" fill="#141a22"/>
+  <g font-family="system-ui,sans-serif">
+    <text x="85" y="108" fill="#8eb5e0" font-size="20" letter-spacing="4">LIGHTPHOTOS · LOCAL AI</text>
+    <text x="80" y="200" fill="#f0f3f7" font-size="58" font-weight="600">ComfyUI for local AI</text>
+    <text x="85" y="258" fill="#aab6c6" font-size="25">generative fill · on your own computer · no cloud</text>
+    <g font-size="23" font-family="ui-monospace,monospace">
+      <rect x="80" y="400" width="320" height="150" rx="10" fill="#141a22" stroke="#8eb5e0"/>
+      <text x="240" y="444" fill="#ecf1f7" text-anchor="middle">LightPhotos</text>
+      <text x="240" y="484" fill="#aab6c6" text-anchor="middle">painted crop</text>
+      <text x="240" y="518" fill="#aab6c6" text-anchor="middle">≤ 1024 px</text>
+      <path d="M400 455H640" stroke="#b6c3d3" stroke-width="2"/>
+      <path d="M640 505H400" stroke="#9cdbb4" stroke-width="2"/>
+      <text x="520" y="440" fill="#aab6c6" text-anchor="middle" font-size="18">127.0.0.1</text>
+      <text x="520" y="530" fill="#9cdbb4" text-anchor="middle" font-size="18">3 variations</text>
+      <rect x="640" y="400" width="480" height="150" rx="10" fill="#202c3a" stroke="#354559"/>
+      <text x="672" y="444" fill="#9cdbb4">ComfyUI</text>
+      <text x="672" y="484" fill="#ecf1f7">SDXL Inpainting 0.1</text>
+      <text x="672" y="518" fill="#aab6c6">6.9 GB, your GPU</text>
+    </g>
+  </g>
+</svg>

@@ -215,6 +215,14 @@ export default {
     minRead: "{n} min de lecture",
     englishOnly: "Les articles eux-mêmes sont rédigés en anglais.",
     posts: {
+      "comfyui-for-local-ai": {
+        title: "ComfyUI pour une IA locale",
+        blurb: "Le remplissage génératif sans le cloud. Peignez sur une zone, et ComfyUI, sur votre propre ordinateur, la remplit. Le remplissage reste une retouche que l’on peut annuler, régler et exporter.",
+      },
+      "adding-gps-to-my-full-frame-camera": {
+        title: "Ajouter le GPS à mon appareil plein format",
+        blurb: "Mon Sony A7II n’a pas de GPS. Mon téléphone enregistre la trace et mesure l’horloge de l’appareil, et LightPhotos place chaque photo sur la carte sans toucher aux fichiers RAW.",
+      },
       "three-ways-to-cull-a-shoot-with-mcp": {
         title: "Trois façons de confier le tri d’une séance à l’IA",
         blurb: "Le tri est la partie ingrate. Je l’ai confié à l’IA de trois façons : le score de l’app, un modèle local et Claude Code, avec les avantages, les limites et la marche à suivre pour chacune.",

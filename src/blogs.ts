@@ -5,6 +5,8 @@
 // src/i18n/ui/<lang>.ts under `blogs.posts`, keyed by slug. The posts themselves
 // (src/pages/[...lang]/blogs/<slug>.astro) are English in every language.
 export const posts = [
+  { slug: "comfyui-for-local-ai", date: "2026-11-11", minutes: 4, cover: "comfyui-for-local-ai.svg" },
+  { slug: "adding-gps-to-my-full-frame-camera", date: "2026-11-11", minutes: 5, cover: "adding-gps-to-my-full-frame-camera.svg" },
   { slug: "three-ways-to-cull-a-shoot-with-mcp", date: "2026-10-23", minutes: 5, cover: "three-ways-to-cull-a-shoot-with-mcp.svg" },
   { slug: "your-next-power-user-cant-see-the-screen", date: "2026-10-17", minutes: 6, cover: "your-next-power-user-cant-see-the-screen.svg" },
   { slug: "lightphotos-and-rapidraw-on-the-mac", date: "2026-10-16", minutes: 6, cover: "lightphotos-and-rapidraw-on-the-mac.svg" },

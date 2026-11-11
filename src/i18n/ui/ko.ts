@@ -214,6 +214,14 @@ export default {
     minRead: "읽는 데 {n}분",
     englishOnly: "글은 영어로 쓰여 있어요.",
     posts: {
+      "comfyui-for-local-ai": {
+        title: "로컬 AI를 위한 ComfyUI",
+        blurb: "클라우드 없는 생성형 채우기. 지우고 싶은 곳을 칠하면 내 컴퓨터의 ComfyUI가 채워 줘요. 채우기는 되돌리고, 보정하고, 내보낼 수 있는 일반 편집으로 남아요.",
+      },
+      "adding-gps-to-my-full-frame-camera": {
+        title: "풀프레임 카메라에 GPS 더하기",
+        blurb: "제 Sony A7II에는 GPS가 없어요. 휴대폰이 경로를 기록하고 카메라 시계를 측정하면, LightPhotos가 RAW 파일을 건드리지 않고 모든 사진을 지도에 올려요.",
+      },
       "three-ways-to-cull-a-shoot-with-mcp": {
         title: "AI에게 촬영분 선별을 맡기는 세 가지 방법",
         blurb: "선별은 지루한 작업이라 AI에게 세 가지 방식으로 맡겨 봤어요. 앱 점수, 로컬 모델, Claude Code의 장단점과 직접 써 보는 방법을 소개해요.",

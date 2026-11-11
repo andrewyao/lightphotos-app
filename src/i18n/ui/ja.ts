@@ -215,6 +215,14 @@ export default {
     minRead: "読了まで約{n}分",
     englishOnly: "記事は英語で書かれています。",
     posts: {
+      "comfyui-for-local-ai": {
+        title: "ローカルAIのためのComfyUI",
+        blurb: "クラウドを使わない生成塗りつぶし。消したい部分をなぞると、自分のパソコンで動くComfyUIが埋めてくれます。塗りつぶしは取り消しも調整も書き出しもできる、普通の編集です。",
+      },
+      "adding-gps-to-my-full-frame-camera": {
+        title: "フルサイズカメラにGPSを追加する",
+        blurb: "私のSony A7IIにはGPSがありません。スマートフォンが軌跡を記録してカメラの時計を測り、LightPhotosがRAWファイルに手を加えずにすべての写真を地図に載せます。",
+      },
       "three-ways-to-cull-a-shoot-with-mcp": {
         title: "AIに撮影分の選別を任せる3つの方法",
         blurb: "選別は地味な作業です。アプリのスコア、ローカルモデル、Claude Codeの3つの方法でAIに任せてみました。それぞれの長所と短所、試し方を紹介します。",

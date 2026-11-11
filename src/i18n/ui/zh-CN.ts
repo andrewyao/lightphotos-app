@@ -216,6 +216,14 @@ export default {
     minRead: "阅读约 {n} 分钟",
     englishOnly: "文章本身以英文撰写。",
     posts: {
+      "comfyui-for-local-ai": {
+        title: "用 ComfyUI 实现本地 AI",
+        blurb: "不依赖云端的生成式填充。涂抹想去掉的地方，你电脑上的 ComfyUI 就会把它填上。填充仍是一项普通编辑，可以撤销、调色和导出。",
+      },
+      "adding-gps-to-my-full-frame-camera": {
+        title: "给我的全画幅相机加上 GPS",
+        blurb: "我的 Sony A7II 没有 GPS。手机记录轨迹并测量相机时钟，LightPhotos 在不改动 RAW 文件的情况下把每张照片放到地图上。",
+      },
       "three-ways-to-cull-a-shoot-with-mcp": {
         title: "让 AI 筛选照片的三种方式",
         blurb: "筛选是最枯燥的环节，我用三种方式把它交给了 AI：应用自带的评分、本地模型和 Claude Code，各有优缺点，也都附上了试用方法。",

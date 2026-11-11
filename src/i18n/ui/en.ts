@@ -218,6 +218,14 @@ export const en = {
     minRead: "{n} min read",
     englishOnly: "Posts are written in English.",
     posts: {
+      "comfyui-for-local-ai": {
+        title: "ComfyUI for local AI",
+        blurb: "Generative fill without the cloud. Paint over something, and ComfyUI on your own computer fills it in. The fill stays an edit you can undo, grade and export.",
+      },
+      "adding-gps-to-my-full-frame-camera": {
+        title: "Adding GPS to my full-frame camera",
+        blurb: "My Sony A7II has no GPS. My phone records the track and measures the camera's clock, and LightPhotos puts every photo on the map without touching the RAW files.",
+      },
       "three-ways-to-cull-a-shoot-with-mcp": {
         title: "Three ways to let AI cull a shoot",
         blurb: "Culling is the boring part. I handed it to AI three ways: the app score, a local model, and Claude Code. Pros, cons, and how to try each.",

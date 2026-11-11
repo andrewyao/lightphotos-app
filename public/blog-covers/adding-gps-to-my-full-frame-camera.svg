@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675">
+  <rect width="1200" height="675" fill="#141a22"/>
+  <g font-family="system-ui,sans-serif">
+    <text x="85" y="108" fill="#8eb5e0" font-size="20" letter-spacing="4">LIGHTPHOTOS · GEOTAGGING</text>
+    <text x="80" y="200" fill="#f0f3f7" font-size="58" font-weight="600">Adding GPS to my</text>
+    <text x="80" y="272" fill="#f0f3f7" font-size="58" font-weight="600">full-frame camera</text>
+    <text x="85" y="330" fill="#aab6c6" font-size="25">phone track · measured camera clock · sidecar</text>
+    <g font-size="23" font-family="ui-monospace,monospace">
+      <rect x="80" y="400" width="320" height="72" rx="10" fill="#141a22" stroke="#354559"/>
+      <text x="240" y="444" fill="#ecf1f7" text-anchor="middle">camera  13:14:05</text>
+      <rect x="80" y="530" width="320" height="72" rx="10" fill="#141a22" stroke="#8eb5e0"/>
+      <text x="240" y="574" fill="#ecf1f7" text-anchor="middle">phone   21:14:48Z</text>
+      <path d="M400 436C520 436 520 501 640 501 M400 566C520 566 520 501 640 501" stroke="#b6c3d3" stroke-width="2" fill="none"/>
+      <rect x="640" y="420" width="480" height="164" rx="10" fill="#202c3a" stroke="#354559"/>
+      <text x="672" y="464" fill="#9cdbb4">camera − UTC</text>
+      <text x="672" y="502" fill="#ecf1f7">−8 h −43 s</text>
+      <path d="M680 548 Q760 520 830 545 T980 535 T1080 548" stroke="#8eb5e0" stroke-width="3" fill="none"/>
+      <circle cx="905" cy="541" r="7" fill="#9cdbb4"/>
+    </g>
+  </g>
+</svg>

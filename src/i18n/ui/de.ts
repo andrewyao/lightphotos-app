@@ -215,6 +215,14 @@ export default {
     minRead: "{n} Min. Lesezeit",
     englishOnly: "Die Beiträge selbst sind auf Englisch verfasst.",
     posts: {
+      "comfyui-for-local-ai": {
+        title: "ComfyUI für lokale KI",
+        blurb: "Generatives Füllen ohne Cloud. Übermalen Sie etwas, und ComfyUI auf Ihrem eigenen Computer füllt die Stelle. Die Füllung bleibt eine Bearbeitung, die Sie rückgängig machen, anpassen und exportieren können.",
+      },
+      "adding-gps-to-my-full-frame-camera": {
+        title: "GPS für meine Vollformatkamera",
+        blurb: "Meine Sony A7II hat kein GPS. Mein Handy zeichnet den Track auf und misst die Kamerauhr, und LightPhotos setzt jedes Foto auf die Karte, ohne die RAW-Dateien anzufassen.",
+      },
       "three-ways-to-cull-a-shoot-with-mcp": {
         title: "Drei Wege, ein Shooting per KI auszusortieren",
         blurb: "Aussortieren ist der langweilige Teil, deshalb habe ich es auf drei Arten an KI abgegeben: mit dem Score der App, einem lokalen Modell und Claude Code, samt Vor- und Nachteilen und einer Anleitung zum Ausprobieren.",
