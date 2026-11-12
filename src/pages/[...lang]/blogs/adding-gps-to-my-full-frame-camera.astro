@@ -15,7 +15,7 @@ const { lang } = Astro.props as LanguageProps;
 ---
 <Base
   title="Adding GPS to my full-frame camera — LightPhotos Blog"
-  desc="My Sony A7II has no GPS. My phone records the track, measures the camera's clock, and LightPhotos puts every photo on the map without touching the RAW files."
+  desc="My Sony A7II has no GPS. My phone records the location, measures the camera's clock, and LightPhotos puts every photo on the map without touching the RAW files."
   active="blogs"
   lang={lang}
   path="/blogs/adding-gps-to-my-full-frame-camera.html"
@@ -27,9 +27,9 @@ const { lang } = Astro.props as LanguageProps;
         <p class="lp-article-meta"><a href="/blogs.html">Blogs</a> &middot; <time datetime="2026-11-11">November 11, 2026</time></p>
         <h1>Adding GPS to my full-frame camera</h1>
         <p class="lp-article-dek">
-          My Sony A7II is a great full-frame camera with no idea where it
-          is. My phone always knows. The trick is getting the two to agree on
-          what time it is.
+          My Sony is a great full-frame camera but it has no GPS.
+          My iPhone has the GPS information but I don't use it to take pictures.
+          I want the two to work together, assuming I have both of them on me at the same time.
         </p>
         <p class="lp-article-byline">Andrew Yao &middot; 5 min read</p>
       </header>
@@ -37,33 +37,31 @@ const { lang } = Astro.props as LanguageProps;
       <aside class="lp-tldr">
         <p class="lp-tldr-label">TL;DR</p>
         <p>
-          My phone records a GPS track while I shoot and measures how far off
+          My phone records GPS track while I shoot and measures how far off
           the camera&rsquo;s clock is. LightPhotos matches each photo to the
-          track by its capture time and keeps the location beside the photo.
+          GPS location by its capture time and keeps the location beside the photo.
           The RAW files are never changed.
         </p>
       </aside>
 
       <h2>The camera doesn&rsquo;t know where it is</h2>
       <p>
-        The A7II came out in 2014. It has no GPS and no Bluetooth, so the
+        My Sony full frame camera came out in 2014. It has no GPS and no Bluetooth, so the
         phone location link that newer Sony bodies have isn&rsquo;t an
-        option. Every photo has a time and an exposure, and no place.
+        option. Every photo has a time and an exposure, but no location.
       </p>
       <p>
         I don&rsquo;t want a GPS box on the hot shoe. I already carry a phone
-        with a good GPS in it. The idea is old and simple: record a track on
-        the phone, then match each photo to the track by time. Most photo
-        apps can do this with a GPX file.
-      </p>
-      <p>
-        It works badly in practice because of the clock.
+        with a good GPS in it. The idea is old and simple: record the GPS track on
+        the phone, then match each photo to the track by time. Lightroom
+        can do this with a GPX file but I don't to manually upload the GPX files
+        one at a time.
       </p>
 
-      <h2>The clock is the hard part</h2>
+      <h2>The clock is the messy part</h2>
       <p>
         The camera writes its own wall time into each photo:
-        <code>2026:11:08 13:14:05</code>, with no time zone. The GPS track is
+        <code>2026:11:08 13:14:05</code>, with no time zone. The GPS from the iPhone is
         in UTC. To match them, you need to know the difference between the
         camera&rsquo;s clock and UTC, to the second.
       </p>
@@ -74,8 +72,7 @@ const { lang } = Astro.props as LanguageProps;
           30 seconds of error puts a photo 40 meters down the road.
         </li>
         <li>
-          <strong>I forget to change the time zone.</strong> I travel, and
-          the camera stays on home time for a week.
+          <strong>No one remembers to change the time zone on the camera manually.</strong>
         </li>
         <li>
           <strong>Daylight saving time repeats an hour.</strong> On the
@@ -90,9 +87,9 @@ const { lang } = Astro.props as LanguageProps;
 
       <h2>The phone measures the camera</h2>
       <p>
-        I wrote LightRemote, an iPhone remote for the A7II, which uses
-        Sony&rsquo;s Camera Remote API over Wi-Fi. It gives me live view,
-        interval shooting and bulb on the phone. When the phone connects to
+        I wrote <a href="https://github.com/andrewyao/lightremote" target="_blank">LightRemote</a>,
+        an iPhone remote for my Sony A7 camera, which uses Sony&rsquo;s Camera Remote API over Wi-Fi.
+        It gives me live view, interval shooting and bulb on the phone. When the phone connects to
         the camera, it also starts recording a precise GPS track. When the
         camera disconnects, it goes back to a low-power track.
       </p>
@@ -103,8 +100,6 @@ const { lang } = Astro.props as LanguageProps;
         in its EXIF. The difference between the two is the camera&rsquo;s
         clock offset, measured instead of guessed. It is measured again on
         every shot that the phone triggers, so drift is corrected as you go.
-        Long exposures are left out, because the camera stamps when the
-        exposure started, and the phone only knows when it ended.
       </p>
       <p>
         The phone can&rsquo;t fix the camera&rsquo;s clock: the A7II
